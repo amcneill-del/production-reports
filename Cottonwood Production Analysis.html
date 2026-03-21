@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cottonwood Production Analysis Q1 2025 vs Q1 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 3px solid #2E5E8C;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #2E5E8C;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .executive-summary {
+            background-color: #f0f4f8;
+            border-left: 4px solid #2E5E8C;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .executive-summary h2 {
+            color: #2E5E8C;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .executive-summary p {
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #2E5E8C;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #2E5E8C;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 16px;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #e0e4e8;
+            border-radius: 6px;
+            padding: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            box-shadow: 0 4px 12px rgba(46, 94, 140, 0.15);
+            border-color: #2E5E8C;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2E5E8C;
+        }
+
+        .metric-change {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 3px;
+        }
+
+        .positive {
+            color: #22863a;
+            background-color: #f0f9f5;
+        }
+
+        .negative {
+            color: #cb2431;
+            background-color: #fef5f5;
+        }
+
+        .neutral {
+            color: #6a737d;
+            background-color: #f5f6f7;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        table th {
+            background-color: #2E5E8C;
+            color: #ffffff;
+            padding: 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e0e4e8;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        table tbody tr:hover {
+            background-color: #f0f4f8;
+        }
+
+        .data-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .value-primary {
+            color: #2E5E8C;
+            font-weight: 600;
+        }
+
+        .waterfall-section {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 6px;
+            margin: 25px 0;
+            border-left: 4px solid #2E5E8C;
+        }
+
+        .waterfall-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e4e8;
+        }
+
+        .waterfall-item:last-child {
+            border-bottom: none;
+        }
+
+        .waterfall-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .waterfall-amount {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: right;
+            min-width: 140px;
+        }
+
+        .tactics-section {
+            background-color: #fff7e6;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .tactics-section h2 {
+            border-bottom: 2px solid #ffc107;
+            color: #333;
+            margin-top: 0;
+        }
+
+        .tactic {
+            background-color: #ffffff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 4px solid #2E5E8C;
+        }
+
+        .tactic-number {
+            display: inline-block;
+            background-color: #2E5E8C;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .tactic-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .tactic-title span {
+            vertical-align: super;
+        }
+
+        .tactic-content {
+            margin-left: 38px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .tactic-content p {
+            margin-bottom: 12px;
+        }
+
+        .tactic-content ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .tactic-content li {
+            margin-bottom: 8px;
+        }
+
+        .tactic-impact {
+            background-color: #f0f4f8;
+            padding: 12px 15px;
+            border-radius: 3px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .impact-highlight {
+            font-weight: 700;
+            color: #22863a;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e4e8;
+            font-size: 12px;
+            color: #999;
+            line-height: 1.8;
+        }
+
+        .disclaimer {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .opportunity-highlight {
+            background-color: #fffacd;
+            padding: 2px 4px;
+        }
+
+        .section-intro {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+                padding: 0;
+            }
+            .metric-card {
+                page-break-inside: avoid;
+            }
+            .tactic {
+                page-break-inside: avoid;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1>Peak Family Dental Care Cottonwood</h1>
+            <p class="subtitle">Production Analysis: Q1 2025 vs Q1 2026 (Jan 1 - Mar 19)</p>
+        </header>
+
+        <!-- EXECUTIVE SUMMARY -->
+        <section class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>Cottonwood achieved <span class="opportunity-highlight">production growth of 8.3% year-over-year</span>, moving from $549,939 to $595,845 in gross production. This growth was driven primarily by significant new patient acquisition (+54% increase to 174 NPs) and improved appointment management. However, the data reveals a critical opportunity area: <span class="opportunity-highlight">case acceptance percentage declined sharply from 42% to 26.2%</span>, representing a $224K negative impact that partially offset gains from other areas.</p>
+            <p>The team demonstrated strong execution in appointment leakage control and schedule optimization, gaining an additional $96K in revenue through these improvements. Yet the case acceptance challenge suggests that despite bringing more patients through the door, there are specific opportunities to work with doctors on presentation, treatment planning, and patient communication that could unlock substantial additional production.</p>
+            <p>This analysis identifies three specific, actionable tactics focused on where the data shows the greatest opportunity for Cottonwood to build on its new patient success and recover the production that's currently being impacted by case acceptance dynamics.</p>
+        </section>
+
+        <!-- SECTION 1: PATIENT FLOW & NEW PATIENT METRICS -->
+        <h2>1. Patient Flow & New Patient Metrics</h2>
+        <p class="section-intro">New patient volume growth has been Cottonwood's strength, with a 54% increase year-over-year. This section shows the growth metrics and patient acquisition channels driving volume.</p>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-label">New Patients (Q1)</div>
+                <div class="metric-row">
+                    <span class="metric-value">174</span>
+                    <span class="metric-change positive">+61 (+54%)</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 113</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">NP Per Working Day</div>
+                <div class="metric-row">
+                    <span class="metric-value">3.16</span>
+                    <span class="metric-change positive">+1.0 (+45%)</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 2.17</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">NP Case Acceptance %</div>
+                <div class="metric-row">
+                    <span class="metric-value">82%</span>
+                    <span class="metric-change positive">+2.3 pts</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 79.7%</div>
+            </div>
+        </div>
+
+        <h3>New Patient Lead Sources (Q1 2026)</h3>
+        <p class="section-intro">Cottonwood's new patient acquisition is heavily weighted toward direct traffic (54%) with solid organic search performance (29%). Paid search contributes 16%, while referral remains an underdeveloped channel at just 1%.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Lead Source</th>
+                    <th>New Patients</th>
+                    <th>% of Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="data-label">Direct</td>
+                    <td class="value-primary">97</td>
+                    <td>54%</td>
+                </tr>
+                <tr>
+                    <td class="data-label">Organic Search</td>
+                    <td class="value-primary">52</td>
+                    <td>29%</td>
+                </tr>
+                <tr>
+                    <td class="data-label">Paid Search</td>
+                    <td class="value-primary">29</td>
+                    <td>16%</td>
+                </tr>
+                <tr>
+                    <td class="data-label">Referral</td>
+                    <td class="value-primary">2</td>
+                    <td>1%</td>
+                </tr>
+                <tr>
+                    <td class="data-label">Unknown</td>
+                    <td class="value-primary">1</td>
+                    <td>0.5%</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 2: CLINICAL CONVERSION -->
+        <h2>2. Clinical Conversion & Treatment Planning</h2>
+        <p class="section-intro">This section examines case acceptance and diagnosis rates—areas where the data suggests specific improvement opportunities exist.</p>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-label">Case Acceptance % (Overall)</div>
+                <div class="metric-row">
+                    <span class="metric-value">75.2%</span>
+                    <span class="metric-change positive">+0.6 pts</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 74.6%</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Case $ Accepted %</div>
+                <div class="metric-row">
+                    <span class="metric-value">26.2%</span>
+                    <span class="metric-change negative">-15.8 pts</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 42%</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Case $ Presented</div>
+                <div class="metric-row">
+                    <span class="metric-value">$1.42M</span>
+                    <span class="metric-change positive">+75%</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: $811K</div>
+            </div>
+        </div>
+
+        <h3>Treatment Planning & Diagnosis</h3>
+        <p class="section-intro">Diagnosis rates show mixed results. While restorative cases are being diagnosed at healthy levels, hygiene diagnosis has declined significantly—indicating fewer treatment opportunities are being identified in preventive visits.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Q1 2025</th>
+                    <th>Q1 2026</th>
+                    <th>Change</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="data-label">Case Diagnosed % Hygiene</td>
+                    <td>9.6%</td>
+                    <td class="value-primary">5.4%</td>
+                    <td><span class="metric-change negative">-4.2 pts</span></td>
+                </tr>
+                <tr>
+                    <td class="data-label">Case Diagnosed % Restorative</td>
+                    <td>48.7%</td>
+                    <td class="value-primary">52%</td>
+                    <td><span class="metric-change positive">+3.3 pts</span></td>
+                </tr>
+                <tr>
+                    <td class="data-label">Perio Presented %</td>
+                    <td>45.6%</td>
+                    <td class="value-primary">48.4%</td>
+                    <td><span class="metric-change positive">+2.8 pts</span></td>
+                </tr>
+                <tr>
+                    <td class="data-label">Perio Visit %</td>
+                    <td>44.1%</td>
+                    <td class="value-primary">48.4%</td>
+                    <td><span class="metric-change positive">+4.3 pts</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 3: PATIENT RETENTION & UTILIZATION -->
+        <h2>3. Patient Retention & Schedule Utilization</h2>
+        <p class="section-intro">Cottonwood has made significant improvements in appointment management and schedule efficiency, with substantially reduced cancellation rates and better utilization of available appointment slots.</p>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-label">Visits Per Working Day (VPWD)</div>
+                <div class="metric-row">
+                    <span class="metric-value">25.35</span>
+                    <span class="metric-change positive">+2.83 (+13%)</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 22.52</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Appointments Cancelled %</div>
+                <div class="metric-row">
+                    <span class="metric-value">1.2%</span>
+                    <span class="metric-change positive">-6.2 pts</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 7.4%</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Active Hygiene Patients</div>
+                <div class="metric-row">
+                    <span class="metric-value">1,369</span>
+                    <span class="metric-change positive">+80 (+6.2%)</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 1,289</div>
+            </div>
+        </div>
+
+        <h3>Appointment Management</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Q1 2025</th>
+                    <th>Q1 2026</th>
+                    <th>Change</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="data-label">Appointments Completed</td>
+                    <td>1,190</td>
+                    <td class="value-primary">1,423</td>
+                    <td><span class="metric-change positive">+233 (+19.6%)</span></td>
+                </tr>
+                <tr>
+                    <td class="data-label">Appointments Broken</td>
+                    <td>100</td>
+                    <td class="value-primary">23</td>
+                    <td><span class="metric-change positive">-77 (-77%)</span></td>
+                </tr>
+                <tr>
+                    <td class="data-label">No-Show %</td>
+                    <td>0.3%</td>
+                    <td class="value-primary">0.3%</td>
+                    <td><span class="metric-change neutral">Flat</span></td>
+                </tr>
+                <tr>
+                    <td class="data-label">NP Hygiene Re-Appt %</td>
+                    <td>35.4%</td>
+                    <td class="value-primary">30.5%</td>
+                    <td><span class="metric-change negative">-4.9 pts</span></td>
+                </tr>
+                <tr>
+                    <td class="data-label">Hygiene Visits Per Hour</td>
+                    <td>1.15</td>
+                    <td class="value-primary">1.03</td>
+                    <td><span class="metric-change negative">-0.12 (-10.4%)</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 4: PRODUCTION & SCHEDULE PERFORMANCE -->
+        <h2>4. Production & Schedule Performance</h2>
+        <p class="section-intro">Overall production growth was solid, with increased scheduled gross production and better visit-per-day metrics driving the improvement.</p>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-label">Production Gross</div>
+                <div class="metric-row">
+                    <span class="metric-value">$595,845</span>
+                    <span class="metric-change positive">+8.3%</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: $549,939</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Scheduled Gross</div>
+                <div class="metric-row">
+                    <span class="metric-value">$633,447</span>
+                    <span class="metric-change positive">+6.3%</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: $595,821</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Same-Day Treatment Revenue</div>
+                <div class="metric-row">
+                    <span class="metric-value">$321,285</span>
+                    <span class="metric-change positive">+27.8%</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: $251,333</div>
+            </div>
+        </div>
+
+        <h3>Same-Day Treatment Breakdown</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Treatment Type</th>
+                    <th>Q1 2025</th>
+                    <th>Q1 2026</th>
+                    <th>Change</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="data-label">Same-Day Hygiene</td>
+                    <td>$23,081</td>
+                    <td class="value-primary">$33,467</td>
+                    <td><span class="metric-change positive">+45%</span></td>
+                </tr>
+                <tr>
+                    <td class="data-label">Same-Day Restorative</td>
+                    <td>$228,252</td>
+                    <td class="value-primary">$287,819</td>
+                    <td><span class="metric-change positive">+26.1%</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 5: PATIENT VALUE -->
+        <h2>5. Patient Value Metrics</h2>
+        <p class="section-intro">Patient value metrics show a slight decline in annual patient value, driven primarily by lower case acceptance rates. Average visit values for both hygiene and restorative have also decreased slightly.</p>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-label">Annual Patient Value</div>
+                <div class="metric-row">
+                    <span class="metric-value">$1,100</span>
+                    <span class="metric-change negative">-5.4%</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: $1,163</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Avg Restorative per Exam</div>
+                <div class="metric-row">
+                    <span class="metric-value">$854</span>
+                    <span class="metric-change negative">-7.1%</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: $919</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Avg Hygiene per Visit</div>
+                <div class="metric-row">
+                    <span class="metric-value">$169</span>
+                    <span class="metric-change negative">-6.1%</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: $180</div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: TEAM EXECUTION & CONFIRMATION -->
+        <h2>6. Team Execution & Patient Confirmation</h2>
+        <p class="section-intro">Appointment confirmation and patient recapture metrics show areas where focused effort could improve patient follow-through and retention.</p>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-label">DI Confirmed %</div>
+                <div class="metric-row">
+                    <span class="metric-value">46.4%</span>
+                    <span class="metric-change negative">-4.5 pts</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 50.9%</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Recaptured Patients</div>
+                <div class="metric-row">
+                    <span class="metric-value">27</span>
+                    <span class="metric-change negative">-7 (-20.6%)</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: 34</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Net Patient Growth</div>
+                <div class="metric-row">
+                    <span class="metric-value">+85</span>
+                    <span class="metric-change positive">Much Improved</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Prior: -11</div>
+            </div>
+        </div>
+
+        <!-- REVENUE WATERFALL -->
+        <h2>Revenue Waterfall: Q1 2025 to Q1 2026</h2>
+        <p class="section-intro">This waterfall shows how Cottonwood moved from $549,939 to $595,845 in production. The positive drivers included new patient volume and operational improvements, while case acceptance was the primary headwind.</p>
+
+        <div class="waterfall-section">
+            <div class="waterfall-item">
+                <span class="waterfall-label">Q1 2025 Production</span>
+                <span class="waterfall-amount" style="color: #2E5E8C;">$549,939</span>
+            </div>
+
+            <div class="waterfall-item">
+                <span class="waterfall-label">→ New Patient Volume</span>
+                <span class="waterfall-amount positive">+$52,090</span>
+            </div>
+
+            <div class="waterfall-item">
+                <span class="waterfall-label">→ Case Acceptance $ %</span>
+                <span class="waterfall-amount negative">-$224,384</span>
+            </div>
+
+            <div class="waterfall-item">
+                <span class="waterfall-label">→ Same-Day Treatment Expansion</span>
+                <span class="waterfall-amount positive">+$69,952</span>
+            </div>
+
+            <div class="waterfall-item">
+                <span class="waterfall-label">→ Appointment Leakage Improvement</span>
+                <span class="waterfall-amount positive">+$36,942</span>
+            </div>
+
+            <div class="waterfall-item">
+                <span class="waterfall-label">→ Schedule Utilization Gain</span>
+                <span class="waterfall-amount positive">+$59,249</span>
+            </div>
+
+            <div class="waterfall-item">
+                <span class="waterfall-label">→ Other / Unattributed</span>
+                <span class="waterfall-amount positive">+$52,055</span>
+            </div>
+
+            <div class="waterfall-item" style="border-top: 2px solid #2E5E8C; border-bottom: none; padding-top: 15px;">
+                <span class="waterfall-label" style="font-size: 16px;">Q1 2026 Production</span>
+                <span class="waterfall-amount" style="color: #2E5E8C; font-size: 18px;">$595,845</span>
+            </div>
+        </div>
+
+        <!-- TOP 3 TACTICS -->
+        <div class="tactics-section">
+            <h2>Top 3 Tactics to Improve Production</h2>
+            <p style="color: #555; margin-bottom: 20px;">The data points to three specific areas where focused effort can unlock additional production. These tactics build on Cottonwood's strengths and directly address the largest revenue headwinds identified in the waterfall analysis.</p>
+
+            <!-- TACTIC 1 -->
+            <div class="tactic">
+                <div>
+                    <span class="tactic-number">1</span>
+                    <span class="tactic-title">Recover Case Acceptance % Through Enhanced Treatment Presentation <span style="color: #22863a; font-size: 14px;">(Potential Impact: $56K–$112K annually)</span></span>
+                </div>
+                <div class="tactic-content">
+                    <p><strong>The Opportunity:</strong> Case $ Accepted % dropped from 42% to 26.2% despite higher overall case acceptance (75.2%). This means more cases are being diagnosed, but patients are choosing to accept smaller portions of presented treatment. On $1.42M in cases presented, a 42% acceptance rate would yield $596K accepted; at 26.2%, you captured only $372K. Recovering just 5% of case acceptance would add $71K annually.</p>
+                    <p><strong>Recommended Actions:</strong></p>
+                    <ul>
+                        <li>Conduct a case presentation audit: Review how cases are being presented to patients. Are photos being used? Treatment sequences? Clear explanation of outcomes?</li>
+                        <li>Work with hygienists on initial diagnosis communication: The drop in hygiene-diagnosed cases (9.6% → 5.4%) suggests opportunity to strengthen how treatment needs are first introduced.</li>
+                        <li>Analyze "presented but not accepted" cases: Identify patterns in case type, dollar amount, or patient demographic that correlate with declining acceptance.</li>
+                        <li>Schedule implementation meetings: Focus on consistency in presentation protocols across all providers and hygienists.</li>
+                    </ul>
+                    <div class="tactic-impact">
+                        <strong>Estimated Impact:</strong> <span class="impact-highlight">If case $ accepted % improves from 26.2% to 31.2%, that's +5% on $1.42M presented = +$71K in additional production. A 10% recovery (to 36.2%) adds ~$142K.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TACTIC 2 -->
+            <div class="tactic">
+                <div>
+                    <span class="tactic-number">2</span>
+                    <span class="tactic-title">Strengthen NP Hygiene Re-Appointment Rates <span style="color: #22863a; font-size: 14px;">(Potential Impact: $18K–$36K annually)</span></span>
+                </div>
+                <div class="tactic-content">
+                    <p><strong>The Opportunity:</strong> NP hygiene re-appointment rate declined from 35.4% to 30.5%—a loss of 4.9 percentage points. With 174 new patients, this represents approximately 8–10 fewer patients returning for their hygiene re-appointment. At $169 average per hygiene visit, each lost appointment is approximately $170 in direct production and diagnostic opportunity.</p>
+                    <p><strong>Recommended Actions:</strong></p>
+                    <ul>
+                        <li>Audit the NP onboarding and scheduling process: Review how patients are being scheduled for hygiene re-appointments at the end of their NP exam. Are they being scheduled in-office? Are barriers being addressed (price, schedule concerns)?</li>
+                        <li>Strengthen same-day scheduling: Patients who book hygiene same-day have higher completion rates. Focus team training on offering clear appointment availability and value statements.</li>
+                        <li>Follow up on declined scheduling: When NPs don't book hygiene, initiate a brief follow-up (call/text within 24 hrs) to address concerns and reschedule.</li>
+                        <li>Benchmark against practice standard: Cottonwood's prior 35.4% was strong. Understanding what changed (staffing, communication, capacity) can help recovery.</li>
+                    </ul>
+                    <div class="tactic-impact">
+                        <strong>Estimated Impact:</strong> <span class="impact-highlight">Recovering 2.5 percentage points (from 30.5% to 33%) on 174 NPs = 4–5 additional hygiene appointments per quarter × $169 = ~$2,700 per quarter or $10,800 annually. Full recovery to 35.4% = ~$18,700 annually.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TACTIC 3 -->
+            <div class="tactic">
+                <div>
+                    <span class="tactic-number">3</span>
+                    <span class="tactic-title">Rebuild Appointment Confirmation Rate & Recapture Protocol <span style="color: #22863a; font-size: 14px;">(Potential Impact: $22K–$44K annually)</span></span>
+                </div>
+                <div class="tactic-content">
+                    <p><strong>The Opportunity:</strong> DI Appointments Confirmed % dropped from 50.9% to 46.4%, and recaptured patients fell from 34 to 27. While overall appointment leakage improved dramatically (broken appointments down 77%), this suggests that some scheduled patients are not being reliably confirmed, and fewer lost patients are being recovered. Each unconfirmed appointment represents diagnostic opportunity lost.</p>
+                    <p><strong>Recommended Actions:</strong></p>
+                    <ul>
+                        <li>Audit confirmation workflow: Review what changed in the confirmation process. Are reminders going out at optimal times? Are staff capturing complete contact information? Are confirm/cancel/reschedule responses being tracked?</li>
+                        <li>Implement a recapture protocol: For patients who don't show/cancel, establish a structured follow-up (within 3–7 days). Train team on empathetic, value-focused rescheduling language.</li>
+                        <li>Monitor confirmation metrics by hygienist and doctor: Identify which team members have strong confirmation rates and share best practices.</li>
+                        <li>Review scheduling system: Ensure reminders are being sent via preferred patient channel (text, email, call) at times patients are most likely to engage.</li>
+                    </ul>
+                    <div class="tactic-impact">
+                        <strong>Estimated Impact:</strong> <span class="impact-highlight">Improving confirmation from 46.4% to 50% on 1,423 completed appointments ≈ 51 additional confirmed patients per quarter × $419 average production/visit = ~$21,369 per quarter or ~$85K annually. Recapturing 8 additional patients per quarter (vs. current 27/quarter) = 32/quarter × $419 = ~$13,400 annually.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY INSIGHTS -->
+        <h2>Summary of Key Insights</h2>
+        <p>Cottonwood is in a strong position with excellent new patient acquisition momentum and significantly improved operational discipline. The three tactics above are designed to work collaboratively—with clinical, administrative, and scheduling teams focused on specific, measurable areas:</p>
+
+        <ul style="margin-left: 20px; color: #555; line-height: 1.8;">
+            <li><strong>Tactic 1 (Case Acceptance)</strong> is the largest lever, representing $56K–$112K in potential annual impact. This requires direct collaboration between clinical teams and doctors on treatment presentation and case acceptance tracking.</li>
+            <li><strong>Tactic 2 (NP Hygiene Re-Appt)</strong> targets a 4.9-point decline and is directly controllable through enhanced patient communication and same-day scheduling efforts.</li>
+            <li><strong>Tactic 3 (Confirmation & Recapture)</strong> leverages Cottonwood's demonstrated ability to manage appointment flow and adds rigor to patient follow-up protocols.</li>
+        </ul>
+
+        <p style="margin-top: 20px; color: #555;">Combined, these three tactics have the potential to add $96K–$192K in annual production—equivalent to an additional 16–32% production growth. The execution lies in identifying root causes, implementing clear protocols, and measuring results weekly to ensure accountability and sustainability.</p>
+
+        <!-- FOOTER -->
+        <footer>
+            <h3 style="color: #333; font-size: 14px; margin-bottom: 10px;">Disclaimer</h3>
+            <div class="disclaimer">
+                This analysis is based on data from Q1 2025 (Jan 1 - Mar 19, 2025) and Q1 2026 (Jan 1 - Mar 19, 2026) for Peak Family Dental Care Cottonwood. Metrics and projections are derived from patient management system records and should be validated against source data. The recommendations presented are based on data trends and industry best practices, but actual results will depend on implementation quality, team engagement, and market conditions. This report is intended for internal use and collaborative planning only. All estimated impacts are conservative ranges and should be tested with actual operational results.
+            </div>
+            <p style="margin-top: 15px; font-size: 11px; color: #999;">
+                <strong>Report Generated:</strong> March 20, 2026<br>
+                <strong>Location:</strong> Peak Family Dental Care Cottonwood<br>
+                <strong>Analysis Period:</strong> Q1 2025 vs Q1 2026 (Jan 1 - Mar 19 each year)<br>
+                <strong>Data Source:</strong> Patient Management System Records
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

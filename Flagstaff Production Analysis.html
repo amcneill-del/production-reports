@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flagstaff Production Analysis - Q1 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px 50px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 3px solid #2E5E8C;
+            padding-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #2E5E8C;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #2E5E8C;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e6f0;
+        }
+
+        h3 {
+            font-size: 16px;
+            color: #2E5E8C;
+            margin: 25px 0 12px 0;
+        }
+
+        .executive-summary {
+            background: #f0f4f9;
+            padding: 25px;
+            border-left: 4px solid #2E5E8C;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+
+        .executive-summary p {
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .metric-box {
+            background: #f9fbfc;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #dfe6f0;
+        }
+
+        .metric-box h4 {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            color: #2E5E8C;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .metric-change {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .metric-change.positive {
+            color: #27ae60;
+        }
+
+        .metric-change.negative {
+            color: #e74c3c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+        }
+
+        table th {
+            background: #2E5E8C;
+            color: white;
+            padding: 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e0e6f0;
+        }
+
+        table tr:hover {
+            background: #f9fbfc;
+        }
+
+        table tr:last-child td {
+            border-bottom: 2px solid #2E5E8C;
+        }
+
+        .waterfall-container {
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .waterfall-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            min-width: 100%;
+            height: 300px;
+            background: #f9fbfc;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #dfe6f0;
+        }
+
+        .waterfall-item {
+            flex: 1;
+            min-width: 70px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .waterfall-bar {
+            width: 100%;
+            background: #2E5E8C;
+            border-radius: 3px 3px 0 0;
+            position: relative;
+        }
+
+        .waterfall-bar.negative {
+            background: #e74c3c;
+        }
+
+        .waterfall-label {
+            font-size: 11px;
+            text-align: center;
+            margin-top: 8px;
+            color: #333;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .waterfall-value {
+            font-size: 10px;
+            position: absolute;
+            bottom: 100%;
+            width: 100%;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+
+        .tactics-section {
+            background: #f0f4f9;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 6px;
+            border-left: 4px solid #2E5E8C;
+        }
+
+        .tactic {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border-left: 3px solid #2E5E8C;
+        }
+
+        .tactic h4 {
+            font-size: 15px;
+            color: #2E5E8C;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .tactic p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .tactic ul {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .tactic li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .disclaimer {
+            background: #f5f5f5;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e6f0;
+            font-size: 12px;
+            color: #999;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+
+        .insight-box {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 3px solid #2E5E8C;
+            margin: 15px 0;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Peak Family Dental Care - Flagstaff</h1>
+            <p>Production Analysis Report</p>
+            <p>Q1 2025 vs. Q1 2026 (Jan 1 - Mar 19)</p>
+            <p style="font-size: 12px; color: #999; margin-top: 10px;">Generated March 20, 2026</p>
+        </div>
+
+        <div class="executive-summary">
+            <h2 style="margin-top: 0; border: none; color: #2E5E8C;">Executive Summary</h2>
+            <p>Flagstaff's production declined 7.7% year-over-year ($1,159,440 to $1,069,579), despite robust new patient growth (+41%) and improved case acceptance rates. The primary production drag is schedule utilization: Visits Per Working Day (VPWD) dropped significantly from 43.42 to 37.44, representing a -$149,511 impact—accounting for the majority of the decline. Appointment confirmation rates deteriorated sharply (59.4% to 45.1%), directly contributing to increased broken appointments and lower patient throughput. Positively, appointment leakage improved substantially (11.6% to 8.7%), and new patient case acceptance rose 3.2 points. The opportunity lies in recovering schedule capacity and rebuilding the appointment confirmation system to restore the patient flow baseline.</p>
+        </div>
+
+        <h2>1. Production & Revenue Overview</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Production Gross</h4>
+                <div class="metric-value">$1,069,579</div>
+                <div class="metric-change negative">Down $89,861 (-7.7%)</div>
+            </div>
+            <div class="metric-box">
+                <h4>Scheduled Gross</h4>
+                <div class="metric-value">$1,176,301</div>
+                <div class="metric-change negative">Down $72,954 (-5.8%)</div>
+            </div>
+            <div class="metric-box">
+                <h4>Annual Patient Value</h4>
+                <div class="metric-value">$1,459</div>
+                <div class="metric-change negative">Down $44 (-3%)</div>
+            </div>
+            <div class="metric-box">
+                <h4>Visits Per Working Day</h4>
+                <div class="metric-value">37.44</div>
+                <div class="metric-change negative">Down 5.98 (-13.8%)</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Key Insight:</strong> Scheduled production declined 5.8%, mirroring a drop in VPWD from 43.42 to 37.44. This suggests fewer visits per day are being completed despite healthy scheduling activity. The gap between scheduled and actual production points to appointment leakage and confirmation issues as primary culprits. The clinic appears to have capacity constraints or scheduling gaps reducing patient throughput.
+        </div>
+
+        <h2>2. New Patient Acquisition & Case Acceptance</h2>
+
+        <table>
+            <tr>
+                <th style="width: 50%;">Metric</th>
+                <th style="width: 25%;">Q1 2025</th>
+                <th style="width: 25%;">Q1 2026</th>
+            </tr>
+            <tr>
+                <td>New Patients</td>
+                <td>90</td>
+                <td>127</td>
+            </tr>
+            <tr>
+                <td>NPs Per Working Day</td>
+                <td>1.70</td>
+                <td>2.31</td>
+            </tr>
+            <tr>
+                <td>Case Acceptance % (NPs)</td>
+                <td>85.4%</td>
+                <td>83.3%</td>
+            </tr>
+            <tr>
+                <td>Case Acceptance % (All)</td>
+                <td>80.7%</td>
+                <td>83.9%</td>
+            </tr>
+            <tr>
+                <td>Case $ Presented</td>
+                <td>$930,369</td>
+                <td>$844,086</td>
+            </tr>
+            <tr>
+                <td>Case $ Accepted</td>
+                <td>$681,477</td>
+                <td>$617,914</td>
+            </tr>
+            <tr>
+                <td>Case $ Accepted %</td>
+                <td>55.7%</td>
+                <td>57.4%</td>
+            </tr>
+        </table>
+
+        <div class="insight-box">
+            <strong>Strong Performance Trend:</strong> New patient volume surged 41% (90 to 127 NPs), and overall case acceptance % improved 3.2 points to 83.9%. While case dollars presented declined 9.3%, the <span class="highlight">case $ accepted % improved 1.7 points (55.7% to 57.4%)</span>, indicating stronger patient commitment to treatment plans. NP case acceptance remained stable and strong at 83.3%. This is a location excelling in new patient conversion.
+        </div>
+
+        <p><strong>NP Marketing Performance:</strong> 124 NPs with +36% YoY growth; 80% reappointment rate (up 1 pt YoY); $1,097 avg production/NP (+47% YoY)—the highest per-NP productivity among all locations. Lead sources: Direct 42%, Organic 28%, Paid 23%, Referral 7%.</p>
+
+        <h2>3. Same-Day Treatment & Clinical Performance</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Same-Day Hygiene</h4>
+                <div class="metric-value">$18,398</div>
+                <div class="metric-change negative">Down $6,633 (-27%)</div>
+            </div>
+            <div class="metric-box">
+                <h4>Same-Day Restorative</h4>
+                <div class="metric-value">$401,452</div>
+                <div class="metric-change negative">Down $6,260 (-1.5%)</div>
+            </div>
+            <div class="metric-box">
+                <h4>Case Diagnosed Hygiene %</h4>
+                <div class="metric-value">13.3%</div>
+                <div class="metric-change positive">Up 2.3 pts</div>
+            </div>
+            <div class="metric-box">
+                <h4>Case Diagnosed Restorative %</h4>
+                <div class="metric-value">36.7%</div>
+                <div class="metric-change negative">Down 1.4 pts</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Mixed Performance:</strong> Same-day hygiene declined sharply 27% ($25,031 to $18,398), suggesting reduced same-day acceptance or fewer hygiene cases identified at chairside. However, case diagnosed hygiene % improved 2.3 points, indicating better detection. Same-day restorative remained stable at $401,452. The hygiene decline represents a missed same-day treatment opportunity (-$12,893 total same-day impact) and warrants investigation into patient willingness and scheduling constraints.
+        </div>
+
+        <h2>4. Patient Volume & Appointment Health</h2>
+
+        <table>
+            <tr>
+                <th style="width: 50%;">Metric</th>
+                <th style="width: 25%;">Q1 2025</th>
+                <th style="width: 25%;">Q1 2026</th>
+            </tr>
+            <tr>
+                <td>Active Hygiene Patients</td>
+                <td>2,782</td>
+                <td>2,680</td>
+            </tr>
+            <tr>
+                <td>Unscheduled Active Patients</td>
+                <td>1,166</td>
+                <td>987</td>
+            </tr>
+            <tr>
+                <td>Unsched Opportunity $</td>
+                <td>$1,752,929</td>
+                <td>$1,440,290</td>
+            </tr>
+            <tr>
+                <td>Appointments Completed</td>
+                <td>2,357</td>
+                <td>2,139</td>
+            </tr>
+            <tr>
+                <td>Appointments Broken</td>
+                <td>310</td>
+                <td>213</td>
+            </tr>
+            <tr>
+                <td>Appointments Cancelled</td>
+                <td>256</td>
+                <td>210</td>
+            </tr>
+            <tr>
+                <td>Appointment Leakage %</td>
+                <td>11.6%</td>
+                <td>8.7%</td>
+            </tr>
+            <tr>
+                <td>Hygiene Visits Per Hour</td>
+                <td>5.50</td>
+                <td>5.47</td>
+            </tr>
+        </table>
+
+        <div class="insight-box">
+            <strong>Positive Progress on Leakage:</strong> Appointment leakage improved significantly from 11.6% to 8.7%, and broken appointments declined 31% (310 to 213). This is a critical win. However, completed appointments dropped 9.2% (2,357 to 2,139), reflecting the VPWD decline. The unscheduled patient pool contracted 15%, reducing future pipeline. Hygiene velocity remained stable at 5.47 visits/hour, suggesting no scheduling pressure.
+        </div>
+
+        <h2>5. Appointment Confirmation & Patient Recapture</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>DI Confirmed</h4>
+                <div class="metric-value">980</div>
+                <div class="metric-change negative">Down 815 (-45%)</div>
+            </div>
+            <div class="metric-box">
+                <h4>DI Confirmed %</h4>
+                <div class="metric-value">45.1%</div>
+                <div class="metric-change negative">Down 14.3 pts</div>
+            </div>
+            <div class="metric-box">
+                <h4>NP Hygiene Re-Appt %</h4>
+                <div class="metric-value">34.6%</div>
+                <div class="metric-change negative">Down 7.6 pts</div>
+            </div>
+            <div class="metric-box">
+                <h4>Recaptured Patients</h4>
+                <div class="metric-value">43</div>
+                <div class="metric-change negative">Down 1 (-2%)</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Critical Deterioration:</strong> Digital confirmations plummeted 45% (1,795 to 980) and confirmation rate collapsed 14.3 points to 45.1%. This directly explains the VPWD decline and broken appointment spike. Additionally, NP hygiene re-appointment % dropped sharply from 42.2% to 34.6%—a major concern, as new patients are not being scheduled for follow-up hygiene visits. Combined, these two metrics represent the primary driver of production loss.
+        </div>
+
+        <h2>6. Perio Engagement & Unscheduled Patient Pool</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Perio Presented %</h4>
+                <div class="metric-value">14.4%</div>
+                <div class="metric-change positive">Up 0.3 pts</div>
+            </div>
+            <div class="metric-box">
+                <h4>Perio Visit %</h4>
+                <div class="metric-value">14.4%</div>
+                <div class="metric-change positive">Up 0.8 pts</div>
+            </div>
+            <div class="metric-box">
+                <h4>Unscheduled Active $</h4>
+                <div class="metric-value">$1,440,290</div>
+                <div class="metric-change negative">Down $312,639 (-18%)</div>
+            </div>
+            <div class="metric-box">
+                <h4>Unscheduled Patients</h4>
+                <div class="metric-value">987</div>
+                <div class="metric-change negative">Down 179 (-15%)</div>
+            </div>
+        </div>
+
+        <p>Perio engagement remained stable and consistent, with presentation % and visit % both improving slightly. The unscheduled patient opportunity declined 18% ($1.75M to $1.44M), reflecting reduced pipeline due to lower new patient re-appointment rates and improved scheduling of existing patients. This represents future revenue at risk that needs recapture through improved NP follow-up systems.</p>
+
+        <h2>Production Waterfall Analysis</h2>
+
+        <p style="font-size: 14px; margin-bottom: 20px;">The following waterfall breaks down the $89.9K production decline from Q1 2025 to Q1 2026, showing the dollar impact of each performance driver.</p>
+
+        <div class="waterfall-container">
+            <div class="waterfall-chart">
+                <div class="waterfall-item">
+                    <div class="waterfall-bar" style="height: 80px;"></div>
+                    <div class="waterfall-value">$1.16M</div>
+                    <div class="waterfall-label">Q1 2025<br>Production</div>
+                </div>
+                <div class="waterfall-item">
+                    <div class="waterfall-bar" style="height: 8px;"></div>
+                    <div class="waterfall-value">+$36.3K</div>
+                    <div class="waterfall-label">New Patient<br>Volume</div>
+                </div>
+                <div class="waterfall-item">
+                    <div class="waterfall-bar" style="height: 3px;"></div>
+                    <div class="waterfall-value">+$14.3K</div>
+                    <div class="waterfall-label">Case<br>Acceptance</div>
+                </div>
+                <div class="waterfall-item">
+                    <div class="waterfall-bar negative" style="height: 3px;"></div>
+                    <div class="waterfall-value">-$12.9K</div>
+                    <div class="waterfall-label">Same-Day<br>Treatment</div>
+                </div>
+                <div class="waterfall-item">
+                    <div class="waterfall-bar" style="height: 7px;"></div>
+                    <div class="waterfall-value">+$31.0K</div>
+                    <div class="waterfall-label">Appt<br>Leakage</div>
+                </div>
+                <div class="waterfall-item">
+                    <div class="waterfall-bar negative" style="height: 41px;"></div>
+                    <div class="waterfall-value">-$149.5K</div>
+                    <div class="waterfall-label">Schedule<br>Utilization</div>
+                </div>
+                <div class="waterfall-item">
+                    <div class="waterfall-bar negative" style="height: 2px;"></div>
+                    <div class="waterfall-value">-$9.1K</div>
+                    <div class="waterfall-label">Other /<br>Unattributed</div>
+                </div>
+                <div class="waterfall-item">
+                    <div class="waterfall-bar" style="height: 73px;"></div>
+                    <div class="waterfall-value">$1.07M</div>
+                    <div class="waterfall-label">Q1 2026<br>Production</div>
+                </div>
+            </div>
+        </div>
+
+        <table style="margin-top: 30px;">
+            <tr>
+                <th>Driver</th>
+                <th style="text-align: right;">Impact</th>
+                <th>Direction</th>
+                <th>Note</th>
+            </tr>
+            <tr>
+                <td>New Patient Volume</td>
+                <td style="text-align: right;">+$36,310</td>
+                <td style="text-align: center; color: #27ae60;">+</td>
+                <td>37 additional NPs x $981.35 avg restorative/exam</td>
+            </tr>
+            <tr>
+                <td>Case Acceptance $</td>
+                <td style="text-align: right;">+$14,349</td>
+                <td style="text-align: center; color: #27ae60;">+</td>
+                <td>Case $ Accepted % improved: 55.7% to 57.4%</td>
+            </tr>
+            <tr>
+                <td>Same-Day Treatment</td>
+                <td style="text-align: right;">-$12,893</td>
+                <td style="text-align: center; color: #e74c3c;">-</td>
+                <td>$419,850 current vs. $432,743 prior (hygiene down 27%)</td>
+            </tr>
+            <tr>
+                <td>Appointment Leakage</td>
+                <td style="text-align: right;">+$31,018</td>
+                <td style="text-align: center; color: #27ae60;">+</td>
+                <td>Leakage improved: 11.6% to 8.7% (positive recovery)</td>
+            </tr>
+            <tr>
+                <td>Schedule Utilization</td>
+                <td style="text-align: right;">-$149,511</td>
+                <td style="text-align: center; color: #e74c3c;">-</td>
+                <td>VPWD dropped 43.42 to 37.44 (CRITICAL DRAG)</td>
+            </tr>
+            <tr>
+                <td>Other / Unattributed</td>
+                <td style="text-align: right;">-$9,135</td>
+                <td style="text-align: center; color: #e74c3c;">-</td>
+                <td>Residual variance in other metrics</td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td>Net Change</td>
+                <td style="text-align: right;">-$89,861</td>
+                <td style="text-align: center; color: #e74c3c;">-7.7%</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div class="tactics-section">
+            <h2 style="margin-top: 0; color: #2E5E8C; border: none;">Top 3 Tactical Opportunities</h2>
+
+            <div class="tactic">
+                <h4>1. Schedule Utilization Recovery (Priority: Urgent)</h4>
+                <p><strong>Current State:</strong> VPWD collapsed from 43.42 to 37.44 (down 6 visits/day), accounting for -$149,511 in lost production—the single largest drag on profitability. This is 166% of the total production decline.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul>
+                    <li><strong>Capacity Audit:</strong> Verify provider schedule for Q1 2026: Were there unscheduled absences, reduced hours, or emergency closures? Compare provider availability hours to Q1 2025 baseline.</li>
+                    <li><strong>Supply-Side Verification:</strong> With 2,199 future appointments and 987 unscheduled patients ($1.44M opportunity), demand exists. Confirm that available provider time is being fully utilized for patient scheduling.</li>
+                    <li><strong>Hygiene Schedule Review:</strong> At 5.47 visits/hour, hygiene is not bottlenecked. Investigate whether restorative/provider schedules have open slots that could be filled with the existing patient pipeline.</li>
+                    <li><strong>Schedule Optimization:</strong> Implement daily huddles to review next-day schedule utilization and proactively fill open slots with unscheduled patients or short-notice appointments from the existing base.</li>
+                    <li><strong>Impact if Solved:</strong> Restoring VPWD to 43.42 would recover approximately $149,511 in production—nearly 100% of the year-over-year decline.</li>
+                </ul>
+            </div>
+
+            <div class="tactic">
+                <h4>2. Appointment Confirmation Rebuild (Priority: High)</h4>
+                <p><strong>Current State:</strong> DI confirmed appointments crashed 45% (1,795 to 980) and confirmation rate dropped 14.3 points to 45.1%—the weakest confirmation metric. This directly feeds broken appointments (still 213 despite improvement from 310) and missing patient visits.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul>
+                    <li><strong>DI System Audit:</strong> Verify the digital confirmation system is operational and that staff are actively soliciting confirmations at checkout. Check for system downtime or data sync issues during the reporting period.</li>
+                    <li><strong>Confirmation Protocol:</strong> Implement mandatory SMS/phone confirmations 48 hours pre-appointment. Create daily tracking dashboard showing confirmation %, target: 70%+.</li>
+                    <li><strong>Same-Day Confirmation:</strong> For appointments scheduled at checkout, ask patient to confirm on phone or via SMS before they leave the office to ensure commitment.</li>
+                    <li><strong>No-Show Root Cause:</strong> While no-show % improved (2% vs. 0.1%), broken appointments remain at 213 and cancellations at 210. Conduct brief exit interviews to understand cancellation drivers.</li>
+                    <li><strong>Impact if Solved:</strong> Restoring confirmation rate from 45.1% to 55% (historical baseline) would recapture approximately 80+ confirmed appointments and support VPWD recovery.</li>
+                </ul>
+            </div>
+
+            <div class="tactic">
+                <h4>3. NP Hygiene Re-Appointment & Same-Day Recovery (Priority: High)</h4>
+                <p><strong>Current State:</strong> NP hygiene re-appointment % dropped sharply from 42.2% to 34.6%, a 7.6-point decline despite 41% more new patients. Same-day hygiene also declined 27% ($25K to $18K), representing lost production and broken continuity of care.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul>
+                    <li><strong>NP Training Reinforcement:</strong> New patients must leave with a hygiene re-appointment scheduled before checkout. Make this a non-negotiable SOP: 100% of NPs leave with a scheduled hygiene visit.</li>
+                    <li><strong>Chairside Acceptance Scripts:</strong> Train clinicians to present same-day hygiene or restorative treatment at chair with clear rationale. Emphasize early intervention and patient benefits. Use case studies of successful same-day acceptance.</li>
+                    <li><strong>NP Hygiene Acceptance Campaign:</strong> Offer limited-time incentive for NPs to schedule hygiene re-appt at first visit (e.g., 10% off first cleaning, complimentary whitening consult). Track adherence daily.</li>
+                    <li><strong>Same-Day Supply Review:</strong> Verify that same-day treatment materials, time slots, and staff capacity support chairside treatment. Remove scheduling or supply barriers.</li>
+                    <li><strong>Impact if Solved:</strong> If NP hygiene re-appt improves from 34.6% to 42% (prior level), approximately 100+ additional hygiene appointments would be scheduled. Combined with same-day improvement, this could add $15-20K in annual production.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This analysis is based on operational data provided for Q1 2025 (Jan 1 - Mar 19, 2025) and Q1 2026 (Jan 1 - Mar 19, 2026). Comparisons are year-over-year for the same calendar period. Waterfall calculations use average production per visit and case metrics as directional drivers; actual causality may involve multiple interdependent factors. Data represents scheduled and completed appointments, production dollars, and patient activity as recorded in the practice management system. This report is intended for internal clinical and operational review and should be interpreted collaboratively with practice leadership. External factors (staffing changes, system updates, seasonal patterns) may influence reported metrics.
+        </div>
+
+        <div class="footer">
+            <p>Peak Family Dental Care - Flagstaff Production Analysis<br>
+            Confidential - For Internal Use Only<br>
+            Questions? Contact your practice consultant.</p>
+        </div>
+    </div>
+</body>
+</html>
