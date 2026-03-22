@@ -116,6 +116,96 @@
             color: #e74c3c;
         }
 
+        .scorecard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+        }
+        .scorecard-table th {
+            background: #2E5E8C;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .scorecard-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e0e6f0;
+        }
+        .scorecard-table tr:hover {
+            background: #f9fbfc;
+        }
+        .scorecard-category {
+            background: #f0f4f9;
+            font-weight: 700;
+            color: #2E5E8C;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .scorecard-category td {
+            padding: 10px 12px;
+            border-bottom: 2px solid #2E5E8C;
+        }
+        .result-pass {
+            background: #e8f8f0;
+            color: #27ae60;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-fail {
+            background: #fdf0ef;
+            color: #e74c3c;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-info {
+            background: #e8f4f8;
+            color: #2E5E8C;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-na {
+            background: #f5f5f5;
+            color: #999;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .scorecard-summary {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .scorecard-stat {
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .scorecard-stat span {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -287,6 +377,18 @@
             padding: 2px 4px;
             border-radius: 2px;
         }
+
+.team-section { margin-bottom: 25px; }
+.team-header { background: #2E5E8C; color: white; padding: 10px 16px; font-size: 14px; font-weight: 700; border-radius: 4px 4px 0 0; text-transform: uppercase; letter-spacing: 0.5px; }
+.team-actions { border: 1px solid #dfe6f0; border-top: none; border-radius: 0 0 4px 4px; }
+.action-item { padding: 14px 18px; border-bottom: 1px solid #e0e6f0; font-size: 13px; line-height: 1.6; }
+.action-item:last-child { border-bottom: none; }
+.action-title { font-weight: 700; color: #2E5E8C; font-size: 14px; }
+.action-meta { display: flex; gap: 20px; margin-top: 6px; font-size: 12px; flex-wrap: wrap; }
+.action-meta span { background: #f0f4f9; padding: 2px 8px; border-radius: 3px; color: #555; }
+.action-meta .owner { border-left: 3px solid #2E5E8C; }
+.action-meta .di-workflow { border-left: 3px solid #27ae60; }
+.action-meta .impact { border-left: 3px solid #e67e22; }
     </style>
 </head>
 <body>
@@ -300,8 +402,46 @@
 
         <div class="executive-summary">
             <h2 style="margin-top: 0; border: none; color: #2E5E8C;">Executive Summary</h2>
-            <p>Sedona's production declined 5.2% year-over-year ($469,020 to $444,726), despite meaningful clinical and patient volume gains. New patient volume increased 18% (83 to 98), case acceptance % improved 6.5 points (70.9% to 77.4%), and NP case acceptance rose to 88.1%. However, three critical headwinds offset these wins: (1) Case acceptance dollars dropped 4.9 points despite higher case %, (2) appointment leakage worsened significantly (6.5% to 8.2%), and (3) appointment confirmations plummeted (57.7% to 43.5%). The opportunity lies in stabilizing appointment management and recapturing lost case dollars through improved follow-up and patient acceptance processes.</p>
+            <p>Sedona's production declined 5.2% year-over-year ($469,020 to $444,726), despite meaningful clinical and patient volume gains. New patient volume increased 18% (83 to 98), case acceptance % improved 6.5 points (70.9% to 77.4%), and NP case acceptance rose to 88.1%. However, three critical headwinds offset these wins: (1) Case acceptance dollars dropped 4.9 points despite higher case %, (2) appointment leakage worsened significantly (6.5% to 8.2%), and (3) appointment confirmations plummeted (57.7% to 43.5%). The opportunity lies in stabilizing appointment management and recapturing lost case dollars through improved follow-up and patient acceptance processes. The practice scorecard shows 5 of 9 scoreable metrics passing, with key gaps in patient retention (unscheduled patients, NP re-appointment rate) and referral tracking.</p>
         </div>
+
+        <h2>Practice Marketing Scorecard</h2>
+        <p style="font-size: 14px; margin-bottom: 15px;">Quick-read health check across 19 key metrics. <span class="result-pass">PASS</span> = meets benchmark, <span class="result-fail">FAIL</span> = below benchmark, <span class="result-info">INFO</span> = context metric, <span class="result-na">N/A</span> = data not available.</p>
+
+        <div class="scorecard-summary">
+            <div class="scorecard-stat" style="background: #e8f8f0; color: #27ae60;">5<span>Pass</span></div>
+            <div class="scorecard-stat" style="background: #fdf0ef; color: #e74c3c;">4<span>Fail</span></div>
+            <div class="scorecard-stat" style="background: #e8f4f8; color: #2E5E8C;">3<span>Info</span></div>
+            <div class="scorecard-stat" style="background: #f5f5f5; color: #999;">17<span>N/A or Needs Data</span></div>
+        </div>
+
+        <table class="scorecard-table">
+            <tr><th>Metric</th><th>Value</th><th>Benchmark</th><th>Result</th></tr>
+            <tr class="scorecard-category"><td colspan="4">PATIENT ACQUISITION</td></tr>
+            <tr><td>Avg New Patients/Month (Last 90 Days)</td><td>33</td><td>≥ 30</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>NP Call Conversion % (Last 3 Months)</td><td>34%</td><td>≥ 55%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Missed Call % (Last 3 Months)</td><td>30.4%</td><td>≤ 18%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>3rd Next Available NP Appointment</td><td>39 days</td><td>Within 7 days</td><td><span class="result-info">INFO</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">PATIENT RETENTION</td></tr>
+            <tr><td>Unscheduled Active Patients</td><td>622 (prior: 805)</td><td>Decrease YOY</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Unscheduled Active Patients $$ Opportunity</td><td>$716,656</td><td>—</td><td><span class="result-info">INFO</span></td></tr>
+            <tr><td>NP Hygiene Re-Appointment %</td><td>49.0%</td><td>≥ 40%</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Hygiene Re-Appointment %</td><td>84%</td><td>≥ 85%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Pre-Appointment %</td><td>61%</td><td>≥ 60%</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">SCHEDULE MANAGEMENT</td></tr>
+            <tr><td>Appointments Completed</td><td>1,082 (prior: 1,060)</td><td>Increase YOY</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>No-Shows %</td><td>1.1% (12 of 1,082)</td><td>≤ 5%</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Cancellations %</td><td>7.9% (86 of 1,082)</td><td>≤ 5%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">ONLINE REPUTATION</td></tr>
+            <tr><td>Google Reviews (Total)</td><td>329</td><td>≥ 200</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Google Reviews (Last 30 Days)</td><td>7</td><td>≥ 10</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Google Star Rating</td><td>4.8</td><td>≥ 4.5</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Google 5 Star Reviews</td><td>90.6% (298 of 329)</td><td>≥ 95% of total</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Yelp Reviews (Total)</td><td>6</td><td>≥ 20</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Yelp Star Rating</td><td>3.2</td><td>≥ 4.0</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">REFERRAL PROGRAM</td></tr>
+            <tr><td>Tracking Referral Source for Every NP</td><td>80.6% missing</td><td>&lt; 20% missing</td><td><span class="result-fail">FAIL</span></td></tr>
+        </table>
 
         <h2>1. Production & Revenue Overview</h2>
 
@@ -381,7 +521,97 @@
             <strong>Critical Finding:</strong> Despite raising case acceptance rates and presenting 39% more in case dollars, the <span class="highlight">case $ accepted % dropped 4.9 points (40.8% to 35.9%)</span>. This means patients are saying "yes" to treatment more often, but committing to smaller portions of their recommended care. Patient expectations or financial barriers may need attention.
         </div>
 
+        <h3>NP-Specific Case Conversion</h3>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Cases Presented to NPs</h4>
+                <div class="metric-value">67</div>
+            </div>
+            <div class="metric-box">
+                <h4>Cases Accepted by NPs</h4>
+                <div class="metric-value">59</div>
+            </div>
+            <div class="metric-box">
+                <h4>NP Close Rate</h4>
+                <div class="metric-value">88.1%</div>
+            </div>
+            <div class="metric-box">
+                <h4>Overall Close Rate</h4>
+                <div class="metric-value">77.4%</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Performance Highlight:</strong> Sedona's NP close rate (88.1%) is the highest of all three locations and significantly exceeds the overall case acceptance rate (77.4%). New patients are converting to treatment plans at a strong rate—the challenge is retaining those patients for ongoing care and capturing the larger case dollar values they actually need.
+        </div>
+
         <p><strong>NP Marketing Performance:</strong> 97 NPs with +15% YoY growth; 72% reappointment rate (down 3 pts); $500 avg production/NP (+19%). Lead sources: Direct 47%, Organic 36%, Paid 10%, Referral 6%.</p>
+
+        <h2>2.1 Marketing ROI & Cost Per Acquisition</h2>
+
+        <table>
+            <tr>
+                <th style="width: 50%;">Metric</th>
+                <th style="width: 50%;">Value</th>
+            </tr>
+            <tr>
+                <td>Paid Media Spend</td>
+                <td>$6,535</td>
+            </tr>
+            <tr>
+                <td>Paid Leads</td>
+                <td>25</td>
+            </tr>
+            <tr>
+                <td>Qualified Leads</td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <td>Scheduled from Paid</td>
+                <td>13</td>
+            </tr>
+            <tr>
+                <td>New Patients (Paid)</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <td>Cost Per Lead (CPL)</td>
+                <td>$261.38</td>
+            </tr>
+            <tr>
+                <td>Cost Per Qualified Lead</td>
+                <td>$311.17</td>
+            </tr>
+            <tr>
+                <td>Cost Per Appointment (CPA)</td>
+                <td>$502.65</td>
+            </tr>
+            <tr>
+                <td>Customer Acquisition Cost (CAC)</td>
+                <td>$933.50</td>
+            </tr>
+            <tr>
+                <td>Net Production from Paid</td>
+                <td>$14,203</td>
+            </tr>
+            <tr>
+                <td>Schedule Rate</td>
+                <td>62%</td>
+            </tr>
+            <tr>
+                <td>ROI</td>
+                <td>117%</td>
+            </tr>
+            <tr>
+                <td>Leads Needing Action</td>
+                <td>12</td>
+            </tr>
+        </table>
+
+        <div class="insight-box">
+            <strong>Key Insight:</strong> Sedona has the highest CAC ($934 vs. $137 Cottonwood, $429 Flagstaff) and lowest ROI (117% vs. 217% Cottonwood, 163% Flagstaff) of all locations. With only 7 paid new patients from $6,535 in spend, the cost efficiency is concerning. However, the 62% schedule rate is actually the best among the three locations, suggesting the issue is upstream lead volume, not conversion quality. Paid spend allocation may need re-evaluation—shifting budget to higher-performing locations or optimizing Sedona's targeting for better lead quality could improve overall return.
+        </div>
 
         <h2>3. Same-Day Treatment & Clinical Performance</h2>
 
@@ -410,6 +640,25 @@
 
         <div class="insight-box">
             <strong>Positive Trend:</strong> Same-day treatment acceptance surged 44% in total ($156K to $225K), with restorative leading. The 12.9-point jump in restorative case diagnosis suggests improved chairside detection or patient communication. Hygiene case diagnosis remains low at 6.3%, representing an opportunity to increase same-day preventive treatment.
+        </div>
+
+        <h3>Operational Efficiency Metrics</h3>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Online Scheduling Adoption (NPs)</h4>
+                <div class="metric-value">4.1%</div>
+                <div class="metric-change negative">4 of 98 NPs</div>
+            </div>
+            <div class="metric-box">
+                <h4>Hygiene-to-Restorative Handoff</h4>
+                <div class="metric-value">0.76</div>
+                <div class="metric-change">421 restorative / 556 hygiene</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Operational Insights:</strong> Online scheduling adoption is the lowest across all locations at just 4.1%. Sedona should evaluate whether online booking is prominently featured on the website and Google Business Profile. On a positive note, the hygiene-to-restorative handoff ratio of 0.76 means Sedona converts roughly 3 of every 4 hygiene patients into restorative visits (Cottonwood 1.02, Flagstaff 0.65). There is room to improve chairside treatment identification during hygiene visits to increase the number of restorative cases presented and accepted.
         </div>
 
         <h2>4. Patient Volume & Appointment Health</h2>
@@ -464,6 +713,31 @@
 
         <div class="insight-box">
             <strong>Major Warning Signal:</strong> <span class="highlight">Appointment leakage worsened from 6.5% to 8.2%</span>—the only location where this metric deteriorated. Broken appointments doubled (73 to 98), and cancellations increased 62% (53 to 86). Hygiene velocity doubled (2.77 to 5.58 appts/hr), suggesting potential scheduling pressure or staffing constraints.
+        </div>
+
+        <h3>Patient Attrition Analysis</h3>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>New Patients Added</h4>
+                <div class="metric-value">98</div>
+            </div>
+            <div class="metric-box">
+                <h4>Recaptured Patients</h4>
+                <div class="metric-value">12</div>
+            </div>
+            <div class="metric-box">
+                <h4>Net Patient Growth</h4>
+                <div class="metric-value">+34</div>
+            </div>
+            <div class="metric-box">
+                <h4>Implied Patient Attrition</h4>
+                <div class="metric-value">76</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Critical Concern:</strong> Sedona added 98 new patients and recaptured 12, yet net growth was only 34 patients. This implies <span class="highlight">76 patients were lost (98 + 12 - 34 = 76)</span>, an attrition rate of 77.6% relative to new acquisitions. For every 4 patients acquired, roughly 3 leave. Combined with declining reappointment rates overall, Sedona has a retention problem that paid marketing alone cannot solve. Improving patient loyalty and reducing churn should be a primary focus.
         </div>
 
         <h2>5. Appointment Confirmation & Patient Recapture</h2>
@@ -622,46 +896,180 @@
             </tr>
         </table>
 
+        <h2>7. Data Hygiene & Tracking Gaps</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>New Patients Missing Referral Source</h4>
+                <div class="metric-value">79 of 98</div>
+                <div class="metric-change">80.6%</div>
+            </div>
+            <div class="metric-box">
+                <h4>Data Completeness</h4>
+                <div class="metric-value">19.4%</div>
+                <div class="metric-change negative">Only 19 patients with tagged source</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Critical Data Gap:</strong> Over 80% of new patient referral source data is missing, making it difficult to assess which channels are actually driving Sedona's growth. With the lowest paid lead volume (25) among locations, understanding organic and direct attribution becomes even more important. A data audit and staff training on consistent referral source entry should be prioritized to improve attribution accuracy going forward.
+        </div>
+
         <div class="tactics-section">
-            <h2 style="margin-top: 0; color: #2E5E8C; border: none;">Top 3 Tactical Opportunities</h2>
+            <h2 style="margin-top: 0; color: #2E5E8C; border: none;">Action Plan — Organized by Support Team</h2>
+            <p style="font-size: 14px; margin-bottom: 25px;">Each recommendation includes what to do, who owns it, Dental Intel workflow instructions where applicable, and estimated impact.</p>
 
-            <div class="tactic">
-                <h4>1. Reduce Appointment Leakage (Priority: Urgent)</h4>
-                <p><strong>Current State:</strong> Broken appointments surged 73 to 98 (34% increase), cancellations up 62% (53 to 86), and overall leakage worsened from 6.5% to 8.2%. Sedona is the only location where leakage deteriorated.</p>
-                <p><strong>Recommended Actions:</strong></p>
-                <ul>
-                    <li><strong>Root Cause Analysis:</strong> Conduct exit interviews with patients who cancel/no-show. Is it scheduling conflicts, transportation, cost concerns, or lack of reminder effectiveness?</li>
-                    <li><strong>Confirmation Protocol:</strong> Given DI confirmations fell 40%, implement mandatory SMS/phone confirmations 48 hours pre-appointment. Track confirmation rate daily.</li>
-                    <li><strong>Cancellation Policy Review:</strong> Evaluate whether cancellation policies are being enforced. Consider incentives for 48-hour cancellation notice.</li>
-                    <li><strong>Hygiene Scheduling Pressure:</strong> Hygiene visits/hour doubled (2.77 to 5.58), suggesting overbooking. Normalize appointment density to reduce burnout and patient dissatisfaction.</li>
-                    <li><strong>Impact if Solved:</strong> Reducing leakage from 8.2% to 6.5% (prior level) would recover approximately $7.6K in annual production.</li>
-                </ul>
+            <div class="team-section">
+                <div class="team-header">Marketing</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Paid Media Budget Reallocation</div>
+                        <p>Sedona's $934 CAC is 7x Cottonwood's $137, with only 117% ROI vs. Cottonwood's 771%. Evaluate reallocating a portion of Sedona's $6,535 paid budget to Cottonwood and Flagstaff where cost-per-acquisition is dramatically more efficient. Maintain organic/SEO investment at Sedona (36% of NPs come from organic — the highest organic share of all 3 locations).</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing</span>
+                            <span class="di-workflow">DI: N/A — Ad platform</span>
+                            <span class="impact">Impact: Same spend, more patients org-wide</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Patient Reactivation Campaign</div>
+                        <p>76 patients lost this quarter (77.6% attrition). Pull 6+ month overdue list from Dental Intel Analytics — NOT Engagement (inactive patients excluded from Engagement bulk actions). Assign manual phone outreach. Track weekly.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing + Office Manager</span>
+                            <span class="di-workflow">DI: Analytics → Patient List → Filter 6+ months overdue</span>
+                            <span class="impact">Impact: Recovering 15 patients = ~$6K production</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Activate 12 Unworked Paid Leads</div>
+                        <p>12 paid leads tagged "Needs Action" in CRM. At $934 CAC already spent per converted patient, every unworked lead is wasted investment. Immediate follow-up.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing</span>
+                            <span class="di-workflow">DI: N/A — CRM action</span>
+                            <span class="impact">Impact: Even 3 conversions = $1.2K production at zero additional spend</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="tactic">
-                <h4>2. Improve Case $ Accepted % (Priority: High)</h4>
-                <p><strong>Current State:</strong> Despite raising case acceptance % from 70.9% to 77.4%, the dollar value of accepted cases dropped 4.9 points (40.8% to 35.9%). Patients are saying "yes" to smaller treatment plans.</p>
-                <p><strong>Recommended Actions:</strong></p>
-                <ul>
-                    <li><strong>Treatment Plan Presentation Audit:</strong> Review case presentation consistency. Are clinicians presenting full recommended scope, or reducing scope before presentation?</li>
-                    <li><strong>Financial Arrangements:</strong> Analyze whether payment plan availability, insurance coverage, or out-of-pocket costs are driving lower case acceptance dollars. Consider flexible payment options.</li>
-                    <li><strong>Chairside Communication Training:</strong> Reinforce clinical rationale for recommended treatment. Patients who understand the "why" are more likely to accept larger plans.</li>
-                    <li><strong>Case Staging Strategy:</strong> For large cases, develop a systematic approach to phase treatment (Phase 1: urgent, Phase 2: restorative, Phase 3: cosmetic). Document planned phases at initial presentation.</li>
-                    <li><strong>Impact if Solved:</strong> Recovering even 2 points on case $ accepted % would add approximately $15.6K in annual production.</li>
-                </ul>
+            <div class="team-section">
+                <div class="team-header">Operations</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Appointment Leakage Reduction (URGENT — Only Location Worsening)</div>
+                        <p>Sedona is the only location where leakage worsened (6.5% → 8.2%). Broken appointments surged 34% (73 → 98), cancellations up 62% (53 → 86). Implement standardized Engagement TouchPoint for SMS/email confirmation 48 hours pre-appointment. Manual phone backup within 24 hours for unconfirmed. Daily dashboard at morning huddle. Track by staff member. If patient does not confirm, use Park Column to replace patient on the schedule as not to lose production.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Operations + Office Manager</span>
+                            <span class="di-workflow">DI: Engagement → TouchPoints → Confirmation + reminder sequence</span>
+                            <span class="impact">Impact: Restoring to 6.5% recovers ~$7.6K/quarter</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Confirmation System Rebuild</div>
+                        <p>DI confirmations fell 40% (795 → 478), confirmation rate dropped 14.2 points to 43.5% — the lowest of all 3 locations. Verify DI confirmation system is functioning (check for downtime, data sync issues). Implement daily confirmation dashboard at morning huddle. Track by staff member. If patient does not confirm, use Park Column to replace patient on the schedule as not to lose production.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Operations</span>
+                            <span class="di-workflow">DI: Engagement → system audit + Analytics → daily confirmation report</span>
+                            <span class="impact">Impact: Restoring to 55% recaptures ~80 confirmed appointments</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Hygiene Scheduling Density Review</div>
+                        <p>Hygiene visits per hour doubled from 2.77 to 5.58. This pace may indicate overbooking that contributes to appointment dissatisfaction, cancellations, and broken appointments. Review appointment length standards and hygienist capacity. Normalize scheduling to sustainable levels.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Operations</span>
+                            <span class="di-workflow">DI: Analytics → Hygiene report</span>
+                            <span class="impact">Impact: Reducing burnout and improving patient experience</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="tactic">
-                <h4>3. Rebuild Appointment Confirmation & Recapture Systems (Priority: High)</h4>
-                <p><strong>Current State:</strong> DI confirmed appointments fell 40% (795 to 478), confirmation rate dropped 14.2 points to 43.5%, and recaptured patients declined 33% (18 to 12). This is the weakest confirmation rate among all three locations.</p>
-                <p><strong>Recommended Actions:</strong></p>
-                <ul>
-                    <li><strong>DI Confirmation Audit:</strong> Verify that the DI system is functioning and that staff are actively soliciting confirmations during final checkout. Check for system downtime or data synchronization issues.</li>
-                    <li><strong>Reactivation Campaign:</strong> Target the 622 unscheduled active patients and 183 patients lost from the pool with a focused reactivation program (phone calls, emails, or mailings).</li>
-                    <li><strong>Recall & Recare Protocol:</strong> Implement automated recall messages for patients overdue for hygiene (beyond 6 months). Assign a team member to manage phone recalls weekly.</li>
-                    <li><strong>New Patient Follow-Up Timing:</strong> For new patients, confirm second appointment within 24 hours of first visit before they leave the office. NP hygiene re-appointment rate is strong at 49%; ensure all re-appointments are confirmed.</li>
-                    <li><strong>Impact if Solved:</strong> Restoring confirmation rate to 50% (baseline) would recapture approximately 80 confirmed appointments, generating approximately $33K in marginal production.</li>
-                </ul>
+            <div class="team-section">
+                <div class="team-header">Clinical</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Case Dollar Acceptance Recovery</div>
+                        <p>Case $ Accepted % dropped 4.9 points (40.8% → 35.9%) despite case acceptance rate improving to 77.4%. Patients are saying yes to treatment but committing to smaller portions. Implement full-scope presentation — present entire recommended plan first, then discuss phasing. Coordinate financial options before the patient makes a decision.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Doctor + Clinical Lead</span>
+                            <span class="di-workflow">DI: Analytics → Case Acceptance report</span>
+                            <span class="impact">Impact: Recovering 2 points = ~$15.6K annually</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Protect Same-Day Treatment Surge</div>
+                        <p>Same-day treatment surged +$68.7K (+44%) — the strongest gain in the report. Restorative case diagnosis jumped 12.9 points to 48.8%. Continue and expand whatever changed clinically. Document the approach for other locations.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Clinical Lead</span>
+                            <span class="di-workflow">DI: N/A</span>
+                            <span class="impact">Impact: Protect $225K same-day base</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Office Manager</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">NP 2nd Appointment Follow-Up</div>
+                        <p>NP Hygiene Re-Appointment is 49% (up 3.2 pts — positive trend but still below 80% benchmark). Before each NP leaves, confirm second appointment is booked. Daily review by Office Manager. Phone call within 24 hours for any NP without a second appointment. This is manual — DI Engagement cannot create individual follow-up tasks.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: Analytics → Follow Up Tasks (not Engagement)</span>
+                            <span class="impact">Impact: Raising to 70% retains ~21 more NPs/quarter</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Referral Source Entry Compliance</div>
+                        <p>80.6% of NPs (79 of 98) have no referral source tagged. Mandatory entry at check-in. Daily audit.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: N/A — PMS data entry</span>
+                            <span class="impact">Impact: Enables accurate marketing ROI — especially critical given Sedona's $934 CAC</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Recall Automation + Manual Phone Recall</div>
+                        <p>Configure TouchPoint in DI Engagement for hygiene recall. Weekly phone recall for non-responders. Engagement only reaches active patients — 76 lost patients require manual outreach via Analytics reactivation list.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: Engagement → TouchPoints → Recall sequence</span>
+                            <span class="impact">Impact: Reduce 77.6% attrition rate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">RCM / Finance</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Payment Plan Expansion</div>
+                        <p>Case $ Accepted % at 35.9% suggests financial barriers. Audit payment offerings. Expand CareCredit/in-house financing. Train front desk on presenting options before patient declines scope.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: RCM + Finance</span>
+                            <span class="di-workflow">DI: N/A</span>
+                            <span class="impact">Impact: Each 1% recovery = ~$7.8K</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Doctor</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Case Presentation Coaching from Flagstaff</div>
+                        <p>Sedona's Case $ Accepted % (35.9%) trails Flagstaff (57.4%) by 21.5 points. Monthly cross-location case review. Focus on full-scope presentation and financial arrangement timing.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Doctor</span>
+                            <span class="di-workflow">DI: Analytics → Case Acceptance by provider</span>
+                            <span class="impact">Impact: Closing to 45% = +$71K annually</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

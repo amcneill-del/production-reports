@@ -216,6 +216,51 @@
             min-width: 140px;
         }
 
+        .insight-box {
+            background-color: #fffacd;
+            border-left: 4px solid #ffc107;
+            padding: 18px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .insight-box strong {
+            color: #333;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .metric-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e4e8;
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .metric-box .metric-label {
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .metric-box .metric-value {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .metric-box .metric-detail {
+            font-size: 12px;
+            color: #999;
+        }
+
         .tactics-section {
             background-color: #fff7e6;
             border: 2px solid #ffc107;
@@ -325,6 +370,96 @@
             line-height: 1.7;
         }
 
+        .scorecard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+        }
+        .scorecard-table th {
+            background: #2E5E8C;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .scorecard-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e0e6f0;
+        }
+        .scorecard-table tr:hover {
+            background: #f9fbfc;
+        }
+        .scorecard-category {
+            background: #f0f4f9;
+            font-weight: 700;
+            color: #2E5E8C;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .scorecard-category td {
+            padding: 10px 12px;
+            border-bottom: 2px solid #2E5E8C;
+        }
+        .result-pass {
+            background: #e8f8f0;
+            color: #27ae60;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-fail {
+            background: #fdf0ef;
+            color: #e74c3c;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-info {
+            background: #e8f4f8;
+            color: #2E5E8C;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-na {
+            background: #f5f5f5;
+            color: #999;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .scorecard-summary {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .scorecard-stat {
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .scorecard-stat span {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
         @media print {
             body {
                 background-color: #ffffff;
@@ -344,6 +479,55 @@
                 page-break-after: avoid;
             }
         }
+        .team-section {
+            margin-bottom: 25px;
+        }
+        .team-header {
+            background: #2E5E8C;
+            color: white;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 4px 4px 0 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .team-actions {
+            border: 1px solid #dfe6f0;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            padding: 0;
+        }
+        .action-item {
+            padding: 14px 18px;
+            border-bottom: 1px solid #e0e6f0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .action-item:last-child {
+            border-bottom: none;
+        }
+        .action-title {
+            font-weight: 700;
+            color: #2E5E8C;
+            font-size: 14px;
+        }
+        .action-meta {
+            display: flex;
+            gap: 20px;
+            margin-top: 6px;
+            font-size: 12px;
+            flex-wrap: wrap;
+        }
+        .action-meta span {
+            background: #f0f4f9;
+            padding: 2px 8px;
+            border-radius: 3px;
+            color: #555;
+        }
+        .action-meta .owner { border-left: 3px solid #2E5E8C; }
+        .action-meta .di-workflow { border-left: 3px solid #27ae60; }
+        .action-meta .impact { border-left: 3px solid #e67e22; }
     </style>
 </head>
 <body>
@@ -359,8 +543,46 @@
             <h2>Executive Summary</h2>
             <p>Cottonwood achieved <span class="opportunity-highlight">production growth of 8.3% year-over-year</span>, moving from $549,939 to $595,845 in gross production. This growth was driven primarily by significant new patient acquisition (+54% increase to 174 NPs) and improved appointment management. However, the data reveals a critical opportunity area: <span class="opportunity-highlight">case acceptance percentage declined sharply from 42% to 26.2%</span>, representing a $224K negative impact that partially offset gains from other areas.</p>
             <p>The team demonstrated strong execution in appointment leakage control and schedule optimization, gaining an additional $96K in revenue through these improvements. Yet the case acceptance challenge suggests that despite bringing more patients through the door, there are specific opportunities to work with doctors on presentation, treatment planning, and patient communication that could unlock substantial additional production.</p>
-            <p>This analysis identifies three specific, actionable tactics focused on where the data shows the greatest opportunity for Cottonwood to build on its new patient success and recover the production that's currently being impacted by case acceptance dynamics.</p>
+            <p>This analysis identifies three specific, actionable tactics focused on where the data shows the greatest opportunity for Cottonwood to build on its new patient success and recover the production that's currently being impacted by case acceptance dynamics. The practice scorecard shows 5 of 9 scoreable metrics passing, with key gaps in patient retention (unscheduled patients, NP re-appointment rate) and referral tracking.</p>
         </section>
+
+        <h2>Practice Marketing Scorecard</h2>
+        <p style="font-size: 14px; margin-bottom: 15px;">Quick-read health check across 19 key metrics. <span class="result-pass">PASS</span> = meets benchmark, <span class="result-fail">FAIL</span> = below benchmark, <span class="result-info">INFO</span> = context metric, <span class="result-na">N/A</span> = data not available.</p>
+
+        <div class="scorecard-summary">
+            <div class="scorecard-stat" style="background: #e8f8f0; color: #27ae60;">5<span>Pass</span></div>
+            <div class="scorecard-stat" style="background: #fdf0ef; color: #e74c3c;">4<span>Fail</span></div>
+            <div class="scorecard-stat" style="background: #e8f4f8; color: #2E5E8C;">3<span>Info</span></div>
+            <div class="scorecard-stat" style="background: #f5f5f5; color: #999;">17<span>N/A or Needs Data</span></div>
+        </div>
+
+        <table class="scorecard-table">
+            <tr><th>Metric</th><th>Value</th><th>Benchmark</th><th>Result</th></tr>
+            <tr class="scorecard-category"><td colspan="4">PATIENT ACQUISITION</td></tr>
+            <tr><td>Avg New Patients/Month (Last 90 Days)</td><td>58</td><td>≥ 30</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>NP Call Conversion % (Last 3 Months)</td><td>40%</td><td>≥ 55%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Missed Call % (Last 3 Months)</td><td>23.7%</td><td>≤ 18%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>3rd Next Available NP Appointment</td><td>—</td><td>Within 7 days</td><td><span class="result-info">INFO</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">PATIENT RETENTION</td></tr>
+            <tr><td>Unscheduled Active Patients</td><td>997 (prior: 992)</td><td>Decrease YOY</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Unscheduled Active Patients $$ Opportunity</td><td>$1,096,331</td><td>—</td><td><span class="result-info">INFO</span></td></tr>
+            <tr><td>NP Hygiene Re-Appointment %</td><td>30.5%</td><td>≥ 40%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Hygiene Re-Appointment %</td><td>—</td><td>≥ 85%</td><td><span class="result-na">Data Not Available</span></td></tr>
+            <tr><td>Pre-Appointment %</td><td>53%</td><td>≥ 60%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">SCHEDULE MANAGEMENT</td></tr>
+            <tr><td>Appointments Completed</td><td>1,423 (prior: 1,190)</td><td>Increase YOY</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>No-Shows %</td><td>0.4% (5 of 1,423)</td><td>≤ 5%</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Cancellations %</td><td>1.3% (18 of 1,423)</td><td>≤ 5%</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">ONLINE REPUTATION</td></tr>
+            <tr><td>Google Reviews (Total)</td><td>~232</td><td>≥ 200</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Google Reviews (Last 30 Days)</td><td>—</td><td>≥ 10</td><td><span class="result-na">N/A</span></td></tr>
+            <tr><td>Google Star Rating</td><td>~5.0</td><td>≥ 4.5</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Google 5 Star Reviews</td><td>—</td><td>≥ 95% of total</td><td><span class="result-na">N/A</span></td></tr>
+            <tr><td>Yelp Reviews (Total)</td><td>12</td><td>≥ 20</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Yelp Star Rating</td><td>—</td><td>≥ 4.0</td><td><span class="result-na">N/A</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">REFERRAL PROGRAM</td></tr>
+            <tr><td>Tracking Referral Source for Every NP</td><td>97.7% missing</td><td>< 20% missing</td><td><span class="result-fail">FAIL</span></td></tr>
+        </table>
 
         <!-- SECTION 1: PATIENT FLOW & NEW PATIENT METRICS -->
         <h2>1. Patient Flow & New Patient Metrics</h2>
@@ -435,6 +657,102 @@
             </tbody>
         </table>
 
+        <!-- SECTION 1.5: MARKETING ROI & COST PER ACQUISITION -->
+        <h2>1.5. Marketing ROI & Cost Per Acquisition</h2>
+        <p class="section-intro">Paid media performance shows strong efficiency metrics, with Cottonwood delivering the lowest customer acquisition cost across all three locations and exceptional ROI on paid media spend.</p>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-label">Paid Media Spend</div>
+                <div class="metric-row">
+                    <span class="metric-value">$3,837</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">Q1 2026</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Cost Per Lead (CPL)</div>
+                <div class="metric-row">
+                    <span class="metric-value">$47.37</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">81 Leads</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Cost Per Qualified Lead</div>
+                <div class="metric-row">
+                    <span class="metric-value">$52.56</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">73 Qualified</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Cost Per Appointment (CPA)</div>
+                <div class="metric-row">
+                    <span class="metric-value">$89.23</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">43 Scheduled</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Customer Acquisition Cost (CAC)</div>
+                <div class="metric-row">
+                    <span class="metric-value">$137.03</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">28 New Patients</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Marketing ROI</div>
+                <div class="metric-row">
+                    <span class="metric-value">771%</span>
+                </div>
+                <div style="font-size: 12px; color: #999; margin-top: 8px;">$8.71 per $1 spent</div>
+            </div>
+        </div>
+
+        <h3>Paid Media Performance Detail</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                    <th>Insight</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="data-label">Paid Leads</td>
+                    <td class="value-primary">81</td>
+                    <td>Strong funnel entry volume from paid campaigns</td>
+                </tr>
+                <tr>
+                    <td class="data-label">Qualified Leads</td>
+                    <td class="value-primary">73</td>
+                    <td>90% qualification rate shows good lead quality</td>
+                </tr>
+                <tr>
+                    <td class="data-label">Scheduled Appointments</td>
+                    <td class="value-primary">43</td>
+                    <td>59% schedule rate; 39 leads still need action</td>
+                </tr>
+                <tr>
+                    <td class="data-label">New Patients from Paid</td>
+                    <td class="value-primary">28</td>
+                    <td>65% of scheduled convert to NP</td>
+                </tr>
+                <tr>
+                    <td class="data-label">Net Production from Paid</td>
+                    <td class="value-primary">$33,426</td>
+                    <td>$1,194 avg per paid NP</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="insight-box">
+            <strong>Key Insight — Competitive Advantage in Paid Acquisition:</strong> Cottonwood has the lowest CAC of all three locations at $137, compared to Flagstaff's $429 and Sedona's $934. The 771% ROI is exceptional. However, 39 leads still need action—converting even half would add approximately $9,700 in production at the $485 average per new patient. Focus should be placed on follow-up protocols for unscheduled qualified leads to maximize the efficiency already being achieved.
+        </div>
+
         <!-- SECTION 2: CLINICAL CONVERSION -->
         <h2>2. Clinical Conversion & Treatment Planning</h2>
         <p class="section-intro">This section examines case acceptance and diagnosis rates—areas where the data suggests specific improvement opportunities exist.</p>
@@ -507,6 +825,40 @@
                 </tr>
             </tbody>
         </table>
+
+        <h3>NP-Specific Case Conversion</h3>
+        <p class="section-intro">New patient case presentation and acceptance metrics reveal the NP experience is operating at high efficiency, suggesting the quality of new patient engagement is well-calibrated.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                    <th>Comparison to Overall</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="data-label">Cases Presented to NPs</td>
+                    <td class="value-primary">128</td>
+                    <td>9% of total cases presented</td>
+                </tr>
+                <tr>
+                    <td class="data-label">Cases Accepted by NPs</td>
+                    <td class="value-primary">105</td>
+                    <td>82.0% NP close rate</td>
+                </tr>
+                <tr>
+                    <td class="data-label">NP Close Rate</td>
+                    <td class="value-primary">82.0%</td>
+                    <td>Exceeds overall 75.2% by +6.8 pts</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="insight-box">
+            <strong>Key Insight — NP Case Conversion Strength:</strong> The NP close rate of 82% exceeds the overall practice acceptance rate of 75.2%, suggesting the new patient experience is well-optimized for case acceptance. This is a significant strength as NP volume scales. Focus should be on maintaining this differential as new patient volume continues to grow, and potentially learning from NP presentation protocols to strengthen acceptance rates among existing patients.
+        </div>
 
         <!-- SECTION 3: PATIENT RETENTION & UTILIZATION -->
         <h2>3. Patient Retention & Schedule Utilization</h2>
@@ -584,6 +936,82 @@
                 </tr>
             </tbody>
         </table>
+
+        <h3>Patient Attrition Analysis</h3>
+        <p class="section-intro">New patient acquisition and patient retention dynamics reveal important patterns in practice growth and patient stability.</p>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">New Patients Added</div>
+                <div class="metric-value">174</div>
+                <div class="metric-detail">Q1 2026</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Recaptured Patients</div>
+                <div class="metric-value">27</div>
+                <div class="metric-detail">Previously inactive</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Net Patient Growth</div>
+                <div class="metric-value">+85</div>
+                <div class="metric-detail">174 + 27 - 116</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Implied Attrition</div>
+                <div class="metric-value">116</div>
+                <div class="metric-detail">Patients lost</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Attrition Rate vs. Acquisition</div>
+                <div class="metric-value">66.7%</div>
+                <div class="metric-detail">2 lost per 3 acquired</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Key Insight — Patient Attrition Pattern:</strong> Despite strong new patient growth (+54%), the practice acquired 174 new patients while 116 were lost, resulting in net growth of only 85. This 66.7% attrition rate means for every 3 patients acquired, roughly 2 are being lost. While net growth remains positive, understanding why patients are leaving—whether due to insurance issues, clinical experience, scheduling constraints, or natural churn—is critical to maximizing the ROI on acquisition spending. A root cause analysis of cancellations, inactive status triggers, and exit feedback could unlock significant retention improvements.
+        </div>
+
+        <h3>Operational Efficiency Metrics</h3>
+        <p class="section-intro">Scheduling adoption and clinical handoff efficiency provide insight into practice workflow maturity and opportunity areas.</p>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Online Scheduling Adoption</div>
+                <div class="metric-value">9.2%</div>
+                <div class="metric-detail">16 of 174 NPs</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Hygiene-to-Restorative Handoff</div>
+                <div class="metric-value">1.02</div>
+                <div class="metric-detail">613 restorative / 599 hygiene</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Hygiene Completions</div>
+                <div class="metric-value">599</div>
+                <div class="metric-detail">Q1 2026</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Restorative Completions</div>
+                <div class="metric-value">613</div>
+                <div class="metric-detail">Q1 2026</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Online Scheduling Insight:</strong> At 9.2% adoption, online booking is significantly underutilized. This represents opportunity to reduce front desk friction and capture after-hours appointment demand. Improving this metric could ease administrative burden and improve patient convenience, particularly valuable as new patient volume continues to scale.
+        </div>
+
+        <div class="insight-box">
+            <strong>Hygiene-to-Restorative Handoff Strength:</strong> At 1.02 (613 restorative ÷ 599 hygiene completions), Cottonwood achieves nearly 1:1 handoff efficiency, meaning virtually every hygiene patient generates a restorative visit. This is the best performance of all three locations and represents excellent clinical synergy. Maintaining this differential as volume grows should be a priority, as it directly impacts production per patient and demonstrates strong integrated treatment planning.
+        </div>
 
         <!-- SECTION 4: PRODUCTION & SCHEDULE PERFORMANCE -->
         <h2>4. Production & Schedule Performance</h2>
@@ -710,6 +1138,40 @@
             </div>
         </div>
 
+        <!-- SECTION 7: DATA HYGIENE & TRACKING GAPS -->
+        <h2>7. Data Hygiene & Tracking Gaps</h2>
+        <p class="section-intro">Attribution and referral source tracking are critical to understanding where patients are coming from and optimizing marketing spend. This section identifies significant gaps in data capture.</p>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Missing Referral Source</div>
+                <div class="metric-value">170 of 174</div>
+                <div class="metric-detail">97.7% untagged</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Tracking Completeness</div>
+                <div class="metric-value">2.3%</div>
+                <div class="metric-detail">Only 4 NPs tagged</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Data Quality Impact</div>
+                <div class="metric-value">Critical</div>
+                <div class="metric-detail">Attribution lost</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-label">Worst Location Performance</div>
+                <div class="metric-value">Cottonwood</div>
+                <div class="metric-detail">vs other locations</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Data Hygiene Alert — Referral Source Tracking Failure:</strong> 97.7% of new patients (170 of 174) have no referral source tagged in the system. This is the worst tracking rate of all three locations and represents a critical data loss. Without knowing where patients are coming from, marketing spend optimization is impossible. Paid media ROI calculations rely on accurate attribution, and organic vs. paid performance can only be compared with complete data. Immediate action required: front desk training on intake form completion, PMS referral source entry protocols, and daily audits to ensure new patient records are tagged before they leave the office. This is a foundational hygiene issue that impacts all downstream marketing analysis and spend efficiency calculations.
+        </div>
+
         <!-- REVENUE WATERFALL -->
         <h2>Revenue Waterfall: Q1 2025 to Q1 2026</h2>
         <p class="section-intro">This waterfall shows how Cottonwood moved from $549,939 to $595,845 in production. The positive drivers included new patient volume and operational improvements, while case acceptance was the primary headwind.</p>
@@ -756,17 +1218,154 @@
             </div>
         </div>
 
-        <!-- TOP 3 TACTICS -->
         <div class="tactics-section">
-            <h2>Top 3 Tactics to Improve Production</h2>
-            <p style="color: #555; margin-bottom: 20px;">The data points to three specific areas where focused effort can unlock additional production. These tactics build on Cottonwood's strengths and directly address the largest revenue headwinds identified in the waterfall analysis.</p>
+            <h2 style="margin-top: 0; color: #2E5E8C; border: none;">Action Plan — Organized by Support Team</h2>
+            <p style="font-size: 14px; margin-bottom: 25px;">Each recommendation includes what to do, who owns it, Dental Intel workflow instructions where applicable, and estimated impact.</p>
 
-            <!-- TACTIC 1 -->
-            <div class="tactic">
-                <div>
-                    <span class="tactic-number">1</span>
-                    <span class="tactic-title">Recover Case Acceptance % Through Enhanced Treatment Presentation <span style="color: #22863a; font-size: 14px;">(Potential Impact: $56K–$112K annually)</span></span>
+            <div class="team-section">
+                <div class="team-header">Marketing</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Patient Reactivation Campaign</div>
+                        <p>Pull 6+ month overdue patient list from Dental Intel Analytics (not Engagement — inactive patients are excluded from Engagement bulk actions). Export list, assign manual phone outreach to front desk. Track contact attempts and conversion weekly.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing + Office Manager</span>
+                            <span class="di-workflow">DI: Analytics → Patient List → Filter 6+ months</span>
+                            <span class="impact">Impact: Recover portion of 116 lost patients</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Activate 39 Unworked Paid Leads</div>
+                        <p>39 paid leads in CRM currently tagged "Needs Action." These are patients who engaged with ads but were never contacted or scheduled. Assign immediate outreach — these represent the fastest path to incremental production with zero additional spend.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing</span>
+                            <span class="di-workflow">DI: N/A — CRM action</span>
+                            <span class="impact">Impact: At $137 CAC already spent, each converted lead is pure ROI</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Referral Program Launch</div>
+                        <p>Cottonwood has only 2 referral patients (1% of NPs). Implement a structured referral incentive program. Even reaching 5% referral share would add ~9 patients/quarter at zero acquisition cost.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing</span>
+                            <span class="di-workflow">DI: N/A</span>
+                            <span class="impact">Impact: 9+ additional NPs/quarter at $0 CAC</span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Operations</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">48-Hour Appointment Confirmation Protocol</div>
+                        <p>Confirmation rate dropped from 50.9% to 46.4% across all locations. Implement standardized Engagement TouchPoint for SMS/email confirmation 48 hours pre-appointment at all 3 locations. Manual phone backup within 24 hours for unconfirmed. Daily dashboard at morning huddle. Track by staff member. If patient does not confirm, use Park Column to replace patient on the schedule as not to lose production.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Operations + Office Manager</span>
+                            <span class="di-workflow">DI: Engagement → TouchPoints → Confirmation sequence</span>
+                            <span class="impact">Impact: Restore confirmation to 50%+ baseline</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Daily Confirmation Dashboard</div>
+                        <p>Office Manager reviews confirmed vs. unconfirmed appointments at morning huddle. Track confirmation rate by staff member for accountability. If patient does not confirm, use Park Column to replace patient on the schedule. Report weekly.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: Analytics → Appointment dashboard</span>
+                            <span class="impact">Impact: Prevent leakage regression from current 1.5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Clinical</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Case Dollar Acceptance Recovery (URGENT — $224K Impact)</div>
+                        <p>Case $ Accepted % crashed from 42% to 26.2% — the single largest waterfall drag at -$224K. Patients are saying yes more often (75.2% acceptance rate) but committing to dramatically smaller treatment plans. Implement full-scope treatment plan presentation templates. Present entire recommended scope first, then discuss phasing if needed.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Doctor + Clinical Lead</span>
+                            <span class="di-workflow">DI: Analytics → Case Acceptance report by provider</span>
+                            <span class="impact">Impact: Recovering to 35% = +$125K; to 42% = +$224K</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Sustain Same-Day Treatment Momentum</div>
+                        <p>Same-day treatment surged +$70K (+28%). This is working. Continue chairside diagnosis training. Expand to hygiene — case diagnosed % hygiene dropped from 9.6% to 5.4%, leaving room to grow.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Clinical Lead</span>
+                            <span class="di-workflow">DI: N/A</span>
+                            <span class="impact">Impact: Protect $321K same-day base + grow hygiene diagnosis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Office Manager</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">NP 2nd Appointment Follow-Up Protocol</div>
+                        <p>NP Hygiene Re-Appointment is critically low at 30.5% (benchmark: ≥80%). Before each new patient leaves, confirm second appointment is booked. Office Manager reviews prior day's NP list each morning. Any NP without a second appointment gets a phone call within 24 hours. This is a manual process — DI Engagement cannot automate individual follow-up task creation.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: Analytics → Follow Up Tasks (not Engagement)</span>
+                            <span class="impact">Impact: Raising from 30.5% to 60% retains ~51 more NPs/quarter</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Referral Source Entry Compliance</div>
+                        <p>97.7% of NPs (170 of 174) have no referral source tagged. Implement mandatory referral source entry at check-in. Daily audit: Office Manager reviews prior day's NP records and fills gaps. Without this data, marketing attribution is impossible.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: N/A — PMS data entry</span>
+                            <span class="impact">Impact: Enables accurate marketing ROI measurement</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Recall Automation for Active Patients</div>
+                        <p>Configure TouchPoint in DI Engagement for hygiene recall (2-week pre-due, due date, 1-week post, 1-month post). Assign weekly phone recall to front desk for non-responders. Note: Engagement only reaches active patients — the 116 lost/inactive patients require manual outreach via the Analytics reactivation list above.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: Engagement → TouchPoints → Recall sequence</span>
+                            <span class="impact">Impact: Reduce attrition from 66.7% baseline</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">RCM / Finance</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Payment Plan Architecture Review</div>
+                        <p>Case $ Accepted % at 26.2% signals financial barriers. Audit current payment plan offerings. Expand CareCredit or in-house financing. Train front desk on presenting payment options before the patient declines treatment scope.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: RCM + Finance</span>
+                            <span class="di-workflow">DI: N/A</span>
+                            <span class="impact">Impact: Each 1% recovery in Case $ Accepted = ~$14K</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Doctor</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Case Presentation Peer Review</div>
+                        <p>Cottonwood's Case $ Accepted % (26.2%) is less than half of Flagstaff's (57.4%). Schedule monthly cross-location case review calls where Flagstaff shares treatment presentation methods. Focus on presenting full recommended scope and financial arrangement timing.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Doctor</span>
+                            <span class="di-workflow">DI: Analytics → Case Acceptance by provider</span>
+                            <span class="impact">Impact: Closing the gap to 40% = +$196K annually</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
                 <div class="tactic-content">
                     <p><strong>The Opportunity:</strong> Case $ Accepted % dropped from 42% to 26.2% despite higher overall case acceptance (75.2%). This means more cases are being diagnosed, but patients are choosing to accept smaller portions of presented treatment. On $1.42M in cases presented, a 42% acceptance rate would yield $596K accepted; at 26.2%, you captured only $372K. Recovering just 5% of case acceptance would add $71K annually.</p>
                     <p><strong>Recommended Actions:</strong></p>

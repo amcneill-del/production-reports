@@ -116,6 +116,96 @@
             color: #e74c3c;
         }
 
+        .scorecard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+        }
+        .scorecard-table th {
+            background: #2E5E8C;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .scorecard-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e0e6f0;
+        }
+        .scorecard-table tr:hover {
+            background: #f9fbfc;
+        }
+        .scorecard-category {
+            background: #f0f4f9;
+            font-weight: 700;
+            color: #2E5E8C;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .scorecard-category td {
+            padding: 10px 12px;
+            border-bottom: 2px solid #2E5E8C;
+        }
+        .result-pass {
+            background: #e8f8f0;
+            color: #27ae60;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-fail {
+            background: #fdf0ef;
+            color: #e74c3c;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-info {
+            background: #e8f4f8;
+            color: #2E5E8C;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .result-na {
+            background: #f5f5f5;
+            color: #999;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .scorecard-summary {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .scorecard-stat {
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .scorecard-stat span {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -287,6 +377,18 @@
             padding: 2px 4px;
             border-radius: 2px;
         }
+
+        .team-section { margin-bottom: 25px; }
+        .team-header { background: #2E5E8C; color: white; padding: 10px 16px; font-size: 14px; font-weight: 700; border-radius: 4px 4px 0 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        .team-actions { border: 1px solid #dfe6f0; border-top: none; border-radius: 0 0 4px 4px; }
+        .action-item { padding: 14px 18px; border-bottom: 1px solid #e0e6f0; font-size: 13px; line-height: 1.6; }
+        .action-item:last-child { border-bottom: none; }
+        .action-title { font-weight: 700; color: #2E5E8C; font-size: 14px; }
+        .action-meta { display: flex; gap: 20px; margin-top: 6px; font-size: 12px; flex-wrap: wrap; }
+        .action-meta span { background: #f0f4f9; padding: 2px 8px; border-radius: 3px; color: #555; }
+        .action-meta .owner { border-left: 3px solid #2E5E8C; }
+        .action-meta .di-workflow { border-left: 3px solid #27ae60; }
+        .action-meta .impact { border-left: 3px solid #e67e22; }
     </style>
 </head>
 <body>
@@ -300,8 +402,46 @@
 
         <div class="executive-summary">
             <h2 style="margin-top: 0; border: none; color: #2E5E8C;">Executive Summary</h2>
-            <p>Flagstaff's production declined 7.7% year-over-year ($1,159,440 to $1,069,579), despite robust new patient growth (+41%) and improved case acceptance rates. The primary production drag is schedule utilization: Visits Per Working Day (VPWD) dropped significantly from 43.42 to 37.44, representing a -$149,511 impact—accounting for the majority of the decline. Appointment confirmation rates deteriorated sharply (59.4% to 45.1%), directly contributing to increased broken appointments and lower patient throughput. Positively, appointment leakage improved substantially (11.6% to 8.7%), and new patient case acceptance rose 3.2 points. The opportunity lies in recovering schedule capacity and rebuilding the appointment confirmation system to restore the patient flow baseline.</p>
+            <p>Flagstaff's production declined 7.7% year-over-year ($1,159,440 to $1,069,579), despite robust new patient growth (+41%) and improved case acceptance rates. The primary production drag is schedule utilization: Visits Per Working Day (VPWD) dropped significantly from 43.42 to 37.44, representing a -$149,511 impact—accounting for the majority of the decline. Appointment confirmation rates deteriorated sharply (59.4% to 45.1%), directly contributing to increased broken appointments and lower patient throughput. Positively, appointment leakage improved substantially (11.6% to 8.7%), and new patient case acceptance rose 3.2 points. The opportunity lies in recovering schedule capacity and rebuilding the appointment confirmation system to restore the patient flow baseline. The practice scorecard shows 5 of 10 scoreable metrics passing, with critical gaps in call conversion and patient retention (unscheduled patients, NP re-appointment rate, cancellations).</p>
         </div>
+
+        <h2>Practice Marketing Scorecard</h2>
+        <p style="font-size: 14px; margin-bottom: 15px;">Quick-read health check across 19 key metrics. <span class="result-pass">PASS</span> = meets benchmark, <span class="result-fail">FAIL</span> = below benchmark, <span class="result-info">INFO</span> = context metric, <span class="result-na">N/A</span> = data not available.</p>
+
+        <div class="scorecard-summary">
+            <div class="scorecard-stat" style="background: #e8f8f0; color: #27ae60;">5<span>Pass</span></div>
+            <div class="scorecard-stat" style="background: #fdf0ef; color: #e74c3c;">5<span>Fail</span></div>
+            <div class="scorecard-stat" style="background: #e8f4f8; color: #2E5E8C;">3<span>Info</span></div>
+            <div class="scorecard-stat" style="background: #f5f5f5; color: #999;">16<span>N/A or Needs Data</span></div>
+        </div>
+
+        <table class="scorecard-table">
+            <tr><th>Metric</th><th>Value</th><th>Benchmark</th><th>Result</th></tr>
+            <tr class="scorecard-category"><td colspan="4">PATIENT ACQUISITION</td></tr>
+            <tr><td>Avg New Patients/Month (Last 90 Days)</td><td>42</td><td>≥ 30</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>NP Call Conversion % (Last 3 Months)</td><td>35%</td><td>≥ 55%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Missed Call % (Last 3 Months)</td><td>39%</td><td>≤ 18%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>3rd Next Available NP Appointment</td><td>—</td><td>Within 7 days</td><td><span class="result-info">INFO</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">PATIENT RETENTION</td></tr>
+            <tr><td>Unscheduled Active Patients</td><td>987 (prior: 1,166)</td><td>Decrease YOY</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Unscheduled Active Patients $$ Opportunity</td><td>$1,440,290</td><td>—</td><td><span class="result-info">INFO</span></td></tr>
+            <tr><td>NP Hygiene Re-Appointment %</td><td>34.6%</td><td>≥ 40%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Hygiene Re-Appointment %</td><td>—</td><td>≥ 85%</td><td><span class="result-na">Data Not Available</span></td></tr>
+            <tr><td>Pre-Appointment %</td><td>69%</td><td>≥ 60%</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">SCHEDULE MANAGEMENT</td></tr>
+            <tr><td>Appointments Completed</td><td>2,139 (prior: 2,357)</td><td>Increase YOY</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>No-Shows %</td><td>0.1% (3 of 2,139)</td><td>≤ 5%</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Cancellations %</td><td>9.8% (210 of 2,139)</td><td>≤ 5%</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">ONLINE REPUTATION</td></tr>
+            <tr><td>Google Reviews (Total)</td><td>~609</td><td>≥ 200</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Google Reviews (Last 30 Days)</td><td>—</td><td>≥ 10</td><td><span class="result-na">N/A</span></td></tr>
+            <tr><td>Google Star Rating</td><td>~5.0</td><td>≥ 4.5</td><td><span class="result-pass">PASS</span></td></tr>
+            <tr><td>Google 5 Star Reviews</td><td>—</td><td>≥ 95% of total</td><td><span class="result-na">N/A</span></td></tr>
+            <tr><td>Yelp Reviews (Total)</td><td>11</td><td>≥ 20</td><td><span class="result-fail">FAIL</span></td></tr>
+            <tr><td>Yelp Star Rating</td><td>—</td><td>≥ 4.0</td><td><span class="result-na">N/A</span></td></tr>
+            <tr class="scorecard-category"><td colspan="4">REFERRAL PROGRAM</td></tr>
+            <tr><td>Tracking Referral Source for Every NP</td><td>78.0% missing</td><td>&lt; 20% missing</td><td><span class="result-fail">FAIL</span></td></tr>
+        </table>
 
         <h2>1. Production & Revenue Overview</h2>
 
@@ -383,6 +523,93 @@
 
         <p><strong>NP Marketing Performance:</strong> 124 NPs with +36% YoY growth; 80% reappointment rate (up 1 pt YoY); $1,097 avg production/NP (+47% YoY)—the highest per-NP productivity among all locations. Lead sources: Direct 42%, Organic 28%, Paid 23%, Referral 7%.</p>
 
+        <h2>2a. Marketing ROI & Cost Per Acquisition</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Paid Media Spend</h4>
+                <div class="metric-value">$12,019</div>
+            </div>
+            <div class="metric-box">
+                <h4>New Patients from Paid</h4>
+                <div class="metric-value">28</div>
+                <div class="metric-change">of 100 paid leads</div>
+            </div>
+            <div class="metric-box">
+                <h4>Cost Per Lead (CPL)</h4>
+                <div class="metric-value">$120.19</div>
+            </div>
+            <div class="metric-box">
+                <h4>Cost Per Qualified Lead</h4>
+                <div class="metric-value">$156.09</div>
+                <div class="metric-change">77 qualified of 100</div>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Cost Per Appointment (CPA)</h4>
+                <div class="metric-value">$279.51</div>
+                <div class="metric-change">43 scheduled</div>
+            </div>
+            <div class="metric-box">
+                <h4>Customer Acquisition Cost (CAC)</h4>
+                <div class="metric-value">$429.26</div>
+                <div class="metric-change">per new patient</div>
+            </div>
+            <div class="metric-box">
+                <h4>Net Production from Paid</h4>
+                <div class="metric-value">$84,846</div>
+            </div>
+            <div class="metric-box">
+                <h4>Marketing ROI</h4>
+                <div class="metric-value">606%</div>
+                <div class="metric-change positive">$7.06 returned per $1 spent</div>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Lead Schedule Rate</h4>
+                <div class="metric-value">56%</div>
+                <div class="metric-change">43 of 77 qualified leads</div>
+            </div>
+            <div class="metric-box">
+                <h4>Leads Needing Action</h4>
+                <div class="metric-value">66</div>
+                <div class="metric-change negative">Largest untapped pipeline</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Paid Media Insight:</strong> Flagstaff has the highest lead volume (100) but also the highest per-lead cost ($120 CPL vs. $47 Cottonwood). CAC at $429 is 3x Cottonwood. However, because Flagstaff's average production per NP is $1,097 (2x other locations), the ROI remains strong at 606%. The 66 leads needing action represents the largest untapped pipeline — converting even a third would add approximately $10,000+ in additional production. Focus should be on lead qualification and scheduling follow-up systems to maximize conversion from the paid funnel.
+        </div>
+
+        <h3>NP-Specific Case Conversion Analysis</h3>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Cases Presented to NPs</h4>
+                <div class="metric-value">78</div>
+            </div>
+            <div class="metric-box">
+                <h4>Cases Accepted by NPs</h4>
+                <div class="metric-value">65</div>
+            </div>
+            <div class="metric-box">
+                <h4>NP Close Rate</h4>
+                <div class="metric-value">83.3%</div>
+            </div>
+            <div class="metric-box">
+                <h4>Overall Case Acceptance %</h4>
+                <div class="metric-value">83.9%</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Case Conversion Insight:</strong> NP close rate (83.3%) closely tracks overall case acceptance (83.9%), suggesting consistent treatment presentation and acceptance across new and established patients. This indicates stable clinical communication and patient trust in the new patient experience.
+        </div>
+
         <h2>3. Same-Day Treatment & Clinical Performance</h2>
 
         <div class="metrics-grid">
@@ -410,6 +637,37 @@
 
         <div class="insight-box">
             <strong>Mixed Performance:</strong> Same-day hygiene declined sharply 27% ($25,031 to $18,398), suggesting reduced same-day acceptance or fewer hygiene cases identified at chairside. However, case diagnosed hygiene % improved 2.3 points, indicating better detection. Same-day restorative remained stable at $401,452. The hygiene decline represents a missed same-day treatment opportunity (-$12,893 total same-day impact) and warrants investigation into patient willingness and scheduling constraints.
+        </div>
+
+        <h3>Operational Efficiency Metrics</h3>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Online Scheduling Adoption</h4>
+                <div class="metric-value">10 of 127 NPs</div>
+                <div class="metric-change negative">7.9% Adoption Rate</div>
+            </div>
+            <div class="metric-box">
+                <h4>Hygiene-to-Restorative Handoff Ratio</h4>
+                <div class="metric-value">0.65</div>
+                <div class="metric-change negative">643 Restorative / 989 Hygiene</div>
+            </div>
+            <div class="metric-box">
+                <h4>Restorative Completions</h4>
+                <div class="metric-value">643</div>
+            </div>
+            <div class="metric-box">
+                <h4>Hygiene Completions</h4>
+                <div class="metric-value">989</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Online Scheduling Insight:</strong> At 7.9% adoption, online scheduling uptake among new patients is low. This represents an opportunity to reduce front desk friction and enable 24/7 booking convenience for the appointment-conscious patient segment.
+        </div>
+
+        <div class="insight-box">
+            <strong>Handoff Efficiency Insight:</strong> At 0.65, Flagstaff has the lowest hygiene-to-restorative handoff ratio — meaning only 65 restorative completions for every 100 hygiene visits. This suggests potential gaps in chairside treatment diagnosis during hygiene or patient reluctance to schedule restorative follow-up. Cottonwood achieves 1.02 — nearly double. This gap is worth investigating with hygiene and restorative teams to identify whether training, chairside communication, or scheduling barriers are limiting handoff conversion.
         </div>
 
         <h2>4. Patient Volume & Appointment Health</h2>
@@ -464,6 +722,32 @@
 
         <div class="insight-box">
             <strong>Positive Progress on Leakage:</strong> Appointment leakage improved significantly from 11.6% to 8.7%, and broken appointments declined 31% (310 to 213). This is a critical win. However, completed appointments dropped 9.2% (2,357 to 2,139), reflecting the VPWD decline. The unscheduled patient pool contracted 15%, reducing future pipeline. Hygiene velocity remained stable at 5.47 visits/hour, suggesting no scheduling pressure.
+        </div>
+
+        <h3>Patient Attrition Analysis</h3>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>New Patients Added</h4>
+                <div class="metric-value">127</div>
+            </div>
+            <div class="metric-box">
+                <h4>Recaptured Patients</h4>
+                <div class="metric-value">43</div>
+            </div>
+            <div class="metric-box">
+                <h4>Net Patient Growth</h4>
+                <div class="metric-value">+45</div>
+            </div>
+            <div class="metric-box">
+                <h4>Implied Patient Attrition</h4>
+                <div class="metric-value">125 Lost</div>
+                <div class="metric-change negative">98.4% Attrition Ratio</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Patient Attrition Concern:</strong> Flagstaff is losing nearly as many patients as it acquires — 125 lost vs. 127 new. This is the highest attrition ratio of all locations and explains why strong new patient growth (+41%) isn't translating to proportional production growth. Net patient growth of only +45 (despite 127 new starts) indicates that retention is a significant operational challenge. Retention improvement should be a priority investigation to ensure that acquisition gains translate into sustainable revenue.
         </div>
 
         <h2>5. Appointment Confirmation & Patient Recapture</h2>
@@ -521,6 +805,25 @@
         </div>
 
         <p>Perio engagement remained stable and consistent, with presentation % and visit % both improving slightly. The unscheduled patient opportunity declined 18% ($1.75M to $1.44M), reflecting reduced pipeline due to lower new patient re-appointment rates and improved scheduling of existing patients. This represents future revenue at risk that needs recapture through improved NP follow-up systems.</p>
+
+        <h2>7. Data Hygiene & Tracking Gaps</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h4>Missing Referral Source Data</h4>
+                <div class="metric-value">99 of 127 NPs</div>
+                <div class="metric-change negative">78.0% No Attribution</div>
+            </div>
+            <div class="metric-box">
+                <h4>Data Loss vs. Cottonwood</h4>
+                <div class="metric-value">78.0%</div>
+                <div class="metric-change negative">Better than Cottonwood's 97.7%</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <strong>Data Attribution Concern:</strong> Better than Cottonwood (97.7%) but still unacceptably high — 78% of new patient attribution data is lost. Given that Flagstaff has the highest paid spend ($12,019), accurate attribution is critical to optimize channel allocation. Without proper referral source tagging, it is impossible to determine which channels are driving the highest-quality, highest-production patients. Implementing mandatory referral source capture at new patient intake (including a "Don't Know" option to capture missing data) would dramatically improve marketing ROI analysis and budget reallocation decisions.
+        </div>
 
         <h2>Production Waterfall Analysis</h2>
 
@@ -623,45 +926,184 @@
         </table>
 
         <div class="tactics-section">
-            <h2 style="margin-top: 0; color: #2E5E8C; border: none;">Top 3 Tactical Opportunities</h2>
+            <h2 style="margin-top: 0; color: #2E5E8C; border: none;">Action Plan — Organized by Support Team</h2>
+            <p style="font-size: 14px; margin-bottom: 25px;">Each recommendation includes what to do, who owns it, Dental Intel workflow instructions where applicable, and estimated impact.</p>
 
-            <div class="tactic">
-                <h4>1. Schedule Utilization Recovery (Priority: Urgent)</h4>
-                <p><strong>Current State:</strong> VPWD collapsed from 43.42 to 37.44 (down 6 visits/day), accounting for -$149,511 in lost production—the single largest drag on profitability. This is 166% of the total production decline.</p>
-                <p><strong>Recommended Actions:</strong></p>
-                <ul>
-                    <li><strong>Capacity Audit:</strong> Verify provider schedule for Q1 2026: Were there unscheduled absences, reduced hours, or emergency closures? Compare provider availability hours to Q1 2025 baseline.</li>
-                    <li><strong>Supply-Side Verification:</strong> With 2,199 future appointments and 987 unscheduled patients ($1.44M opportunity), demand exists. Confirm that available provider time is being fully utilized for patient scheduling.</li>
-                    <li><strong>Hygiene Schedule Review:</strong> At 5.47 visits/hour, hygiene is not bottlenecked. Investigate whether restorative/provider schedules have open slots that could be filled with the existing patient pipeline.</li>
-                    <li><strong>Schedule Optimization:</strong> Implement daily huddles to review next-day schedule utilization and proactively fill open slots with unscheduled patients or short-notice appointments from the existing base.</li>
-                    <li><strong>Impact if Solved:</strong> Restoring VPWD to 43.42 would recover approximately $149,511 in production—nearly 100% of the year-over-year decline.</li>
-                </ul>
+            <div class="team-section">
+                <div class="team-header">Marketing</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Patient Reactivation Campaign (URGENT — 98.4% Attrition)</div>
+                        <p>Flagstaff lost 125 patients while gaining 127 new ones — nearly 1:1 replacement. Pull 6+ month overdue patient list from Dental Intel Analytics. Engagement cannot reach these patients (inactive patients excluded from bulk actions). Export list, assign manual phone outreach, track conversion weekly.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing + Office Manager</span>
+                            <span class="di-workflow">DI: Analytics → Patient List → Filter 6+ months overdue</span>
+                            <span class="impact">Impact: Retaining 25 patients = ~$27K incremental production</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Activate 66 Unworked Paid Leads</div>
+                        <p>66 paid leads in CRM tagged "Needs Action" — the most of any location. These are people who responded to ads but were never followed up. Immediate manual outreach. At $429 CAC, the spend is already committed.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing</span>
+                            <span class="di-workflow">DI: N/A — CRM action</span>
+                            <span class="impact">Impact: Converting even 15 leads = $16.5K production</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Implant Campaign Relaunch (April 1)</div>
+                        <p>Target 35+ demographic per Dr. Shanahan's request for comprehensive patients. Flagstaff already generates $1,097/NP visit — the highest per-patient production. Higher-value procedure campaigns should amplify this strength.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Marketing</span>
+                            <span class="di-workflow">DI: N/A</span>
+                            <span class="impact">Impact: Implant cases at $3K-$5K each shift patient mix upward</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="tactic">
-                <h4>2. Appointment Confirmation Rebuild (Priority: High)</h4>
-                <p><strong>Current State:</strong> DI confirmed appointments crashed 45% (1,795 to 980) and confirmation rate dropped 14.3 points to 45.1%—the weakest confirmation metric. This directly feeds broken appointments (still 213 despite improvement from 310) and missing patient visits.</p>
-                <p><strong>Recommended Actions:</strong></p>
-                <ul>
-                    <li><strong>DI System Audit:</strong> Verify the digital confirmation system is operational and that staff are actively soliciting confirmations at checkout. Check for system downtime or data sync issues during the reporting period.</li>
-                    <li><strong>Confirmation Protocol:</strong> Implement mandatory SMS/phone confirmations 48 hours pre-appointment. Create daily tracking dashboard showing confirmation %, target: 70%+.</li>
-                    <li><strong>Same-Day Confirmation:</strong> For appointments scheduled at checkout, ask patient to confirm on phone or via SMS before they leave the office to ensure commitment.</li>
-                    <li><strong>No-Show Root Cause:</strong> While no-show % improved (2% vs. 0.1%), broken appointments remain at 213 and cancellations at 210. Conduct brief exit interviews to understand cancellation drivers.</li>
-                    <li><strong>Impact if Solved:</strong> Restoring confirmation rate from 45.1% to 55% (historical baseline) would recapture approximately 80+ confirmed appointments and support VPWD recovery.</li>
-                </ul>
+            <div class="team-section">
+                <div class="team-header">Operations</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Schedule Utilization Recovery (URGENT — $149.5K Impact)</div>
+                        <p>VPWD collapsed from 43.4 to 37.4 — that's ~6 fewer patient visits per day, costing $149.5K this quarter alone. Conduct weekly provider schedule audit. Identify open slots, cancelled blocks, and reduced hours. Compare against Cottonwood's scheduling model (which grew VPWD from 22.5 to 25.4).</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Operations</span>
+                            <span class="di-workflow">DI: Analytics → Schedule Utilization report</span>
+                            <span class="impact">Impact: Recovering VPWD to 40 = +$75K/quarter</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Medento-EagleSoft Integration Fix</div>
+                        <p>Online scheduler showing only 3-4 openings until April 27 when Dr. Shanahan's actual schedule shows 50+ openings. Dr. Pedro's appointments not being read by the system. Marketing-generated patients may be unable to book, creating false perception that marketing isn't working. Alexa to investigate by Monday.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Operations (Alexa)</span>
+                            <span class="di-workflow">DI: N/A — PMS/Medento integration</span>
+                            <span class="impact">Impact: Unblocking online scheduling could recover significant NP volume</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Cancellation Reduction Protocol</div>
+                        <p>210 cancellations this quarter (FAIL on scorecard — benchmark ≤100). Confirmation rate dropped from 59.4% to 45.1%. Implement standardized Engagement TouchPoint for SMS/email confirmation 48 hours pre-appointment. Manual phone backup within 24 hours for unconfirmed. Daily dashboard at morning huddle. Track by staff member. If patient does not confirm, use Park Column to replace patient on the schedule as not to lose production.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Operations + Office Manager</span>
+                            <span class="di-workflow">DI: Engagement → TouchPoints → Confirmation sequence</span>
+                            <span class="impact">Impact: Cutting cancellations by 50% recovers ~105 appointments</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="tactic">
-                <h4>3. NP Hygiene Re-Appointment & Same-Day Recovery (Priority: High)</h4>
-                <p><strong>Current State:</strong> NP hygiene re-appointment % dropped sharply from 42.2% to 34.6%, a 7.6-point decline despite 41% more new patients. Same-day hygiene also declined 27% ($25K to $18K), representing lost production and broken continuity of care.</p>
-                <p><strong>Recommended Actions:</strong></p>
-                <ul>
-                    <li><strong>NP Training Reinforcement:</strong> New patients must leave with a hygiene re-appointment scheduled before checkout. Make this a non-negotiable SOP: 100% of NPs leave with a scheduled hygiene visit.</li>
-                    <li><strong>Chairside Acceptance Scripts:</strong> Train clinicians to present same-day hygiene or restorative treatment at chair with clear rationale. Emphasize early intervention and patient benefits. Use case studies of successful same-day acceptance.</li>
-                    <li><strong>NP Hygiene Acceptance Campaign:</strong> Offer limited-time incentive for NPs to schedule hygiene re-appt at first visit (e.g., 10% off first cleaning, complimentary whitening consult). Track adherence daily.</li>
-                    <li><strong>Same-Day Supply Review:</strong> Verify that same-day treatment materials, time slots, and staff capacity support chairside treatment. Remove scheduling or supply barriers.</li>
-                    <li><strong>Impact if Solved:</strong> If NP hygiene re-appt improves from 34.6% to 42% (prior level), approximately 100+ additional hygiene appointments would be scheduled. Combined with same-day improvement, this could add $15-20K in annual production.</li>
-                </ul>
+            <div class="team-section">
+                <div class="team-header">Clinical</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Maintain Case Acceptance Leadership</div>
+                        <p>Flagstaff leads at 57.4% Case $ Accepted % — more than double Cottonwood (26.2%). Document what's working: presentation approach, financial coordination timing, patient communication. Share methodology with other locations via monthly case review calls.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Doctor</span>
+                            <span class="di-workflow">DI: Analytics → Case Acceptance by provider</span>
+                            <span class="impact">Impact: Protect $617K accepted case base</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Same-Day Treatment Recovery</div>
+                        <p>Same-day treatment declined $12.9K. Restorative same-day dropped from $407.7K to $401.5K. Review chairside workflow for same-day crown/restoration opportunities. Hygiene same-day also declined ($25K → $18.4K).</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Clinical Lead</span>
+                            <span class="di-workflow">DI: N/A</span>
+                            <span class="impact">Impact: Recover $12.9K same-day gap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Office Manager</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">NP 2nd Appointment Follow-Up Protocol</div>
+                        <p>NP Hygiene Re-Appointment dropped from 42.2% to 34.6% (benchmark: ≥80%). Before each new patient leaves, confirm second appointment is booked. Office Manager reviews prior day's NP list each morning. Any NP without a second appointment gets a phone call within 24 hours. This is a manual process — DI Engagement cannot automate individual follow-up task creation.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: Analytics → Follow Up Tasks (not Engagement)</span>
+                            <span class="impact">Impact: Raising to 60% retains ~32 more NPs/quarter</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Referral Source Entry Compliance</div>
+                        <p>78% of NPs (99 of 127) have no referral source tagged. Mandatory entry at check-in. Daily audit by Office Manager.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: N/A — PMS data entry</span>
+                            <span class="impact">Impact: Enables accurate attribution and marketing ROI</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">Recall Automation + Manual Phone Recall</div>
+                        <p>Configure TouchPoint in DI Engagement for hygiene recall. Assign weekly phone recall to front desk for non-responders. Engagement only reaches active patients — the 125 lost/inactive patients require manual outreach via Analytics reactivation list.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Office Manager</span>
+                            <span class="di-workflow">DI: Engagement → TouchPoints → Recall sequence</span>
+                            <span class="impact">Impact: Reduce 98.4% attrition rate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">RCM / Finance</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Insurance Verification Workflow for NP Calls</div>
+                        <p>6 of 39 non-bookings at Flagstaff were due to insurance not accepted (Medicare/Medicaid). Implement insurance verification step at first call touchpoint. Update website to clearly state accepted insurance. Reduce wasted call time and improve true conversion rate.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: RCM</span>
+                            <span class="di-workflow">DI: N/A</span>
+                            <span class="impact">Impact: Reduce non-bookable calls, improve call conversion from 35%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Doctor</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Schedule Availability Review</div>
+                        <p>Dr. Shanahan reports lowest production in 35-year career with open schedule slots for the first time. VPWD drop from 43.4 to 37.4 confirms capacity underutilization. Review Dr. Shanahan's and Dr. Pedro's schedules for alignment with patient demand patterns. Ensure new provider onboarding (Dr. Pedro) is not creating scheduling conflicts.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Doctor</span>
+                            <span class="di-workflow">DI: Analytics → Provider Schedule report</span>
+                            <span class="impact">Impact: Primary lever for recovering $149.5K production gap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="team-header">Executive</div>
+                <div class="team-actions">
+                    <div class="action-item">
+                        <div class="action-title">Call Conversion Audit — 59 NP Calls</div>
+                        <p>Flagstaff converting only 35% of NP calls (industry benchmark: 50-70%). Amy to audit all 59 genuine NP call recordings. Identify breakdown: phone skills, scheduling availability, insurance mismatch, or system issues. Results determine whether this is a training, technology, or capacity problem.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Amy (Executive)</span>
+                            <span class="di-workflow">DI: N/A — Call tracking platform</span>
+                            <span class="impact">Impact: Improving to 50% adds ~9 NPs/quarter</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-title">DI vs PMS Data Reconciliation</div>
+                        <p>January discrepancy: 64 NPs entered in PMS but only 30 seen in January, 16 in Feb, 5 in March, 19 unaccounted. Amanda to cross-reference DI patient lists with PMS records. Resolve definition differences before next reporting cycle.</p>
+                        <div class="action-meta">
+                            <span class="owner">Owner: Amanda (Executive)</span>
+                            <span class="di-workflow">DI: Analytics → NP patient list export</span>
+                            <span class="impact">Impact: Accurate data foundation for all future analysis</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
