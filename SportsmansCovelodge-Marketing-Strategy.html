@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Strategy — Sportsman's Cove Lodge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9fafb;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: white;
+            border-bottom: 4px solid #1B4F72;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #1B4F72;
+            margin-bottom: 10px;
+        }
+
+        .header-meta {
+            font-size: 0.95em;
+            color: #666;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-meta strong {
+            margin-right: 5px;
+        }
+
+        .audit-note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.95em;
+            color: #856404;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #1B4F72;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1B4F72;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #2c5aa0;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #1B4F72;
+            font-size: 1.1em;
+            margin-top: 18px;
+            margin-bottom: 10px;
+        }
+
+        .exec-summary {
+            background: linear-gradient(135deg, #1B4F72 0%, #2c5aa0 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .exec-summary p {
+            margin-bottom: 15px;
+        }
+
+        .matrix-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        thead {
+            background: #f0f4f7;
+            border-bottom: 2px solid #1B4F72;
+        }
+
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #1B4F72;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge.impact-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.impact-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge.impact-low {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .badge.effort-low {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .badge.effort-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge.effort-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge.timeline-week {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.timeline-month {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .badge.timeline-quarter {
+            background: #e7d4f5;
+            color: #591c87;
+        }
+
+        .pillar {
+            background: white;
+            border-left: 4px solid #1B4F72;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .pillar h3 {
+            margin-top: 0;
+        }
+
+        .state-goal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .state-goal > div {
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 4px;
+        }
+
+        .state-goal strong {
+            color: #1B4F72;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .action-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .action-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .action-list li:last-child {
+            border-bottom: none;
+        }
+
+        .action-list li strong {
+            color: #1B4F72;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .action-list li em {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .metrics {
+            background: #f0f4f7;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .metrics ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .metrics li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .metrics li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #1B4F72;
+            font-weight: bold;
+        }
+
+        .checkbox-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checkbox-list li {
+            padding: 10px;
+            margin: 8px 0;
+            background: #f9fafb;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .checkbox-list li:hover {
+            background: #f0f4f7;
+            border-color: #1B4F72;
+        }
+
+        .checkbox-list li input[type="checkbox"] {
+            margin-right: 12px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .checkbox-list li.completed {
+            background: #d4edda;
+            text-decoration: line-through;
+            color: #666;
+        }
+
+        .timeline-section {
+            margin: 20px 0;
+        }
+
+        .timeline-header {
+            background: #1B4F72;
+            color: white;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .appendix-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .appendix-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .appendix-table td:first-child {
+            font-weight: 600;
+            color: #1B4F72;
+            width: 35%;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f0f4f7;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-weight: 600;
+            color: #1B4F72;
+            transition: all 0.2s;
+        }
+
+        .collapsible:hover {
+            background: #e0e8f0;
+        }
+
+        .collapsible::after {
+            content: "▼";
+            font-size: 0.8em;
+            transition: transform 0.2s;
+        }
+
+        .collapsible.collapsed::after {
+            transform: rotate(-90deg);
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 20px 15px;
+            background: white;
+        }
+
+        .collapsible-content.show {
+            display: block;
+        }
+
+        .quote {
+            border-left: 4px solid #1B4F72;
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #1B4F72 0%, #2c5aa0 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-box .label {
+            font-size: 0.95em;
+        }
+
+        footer {
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .collapsible::after {
+                content: "▼";
+                transform: none;
+            }
+            .collapsible-content {
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .state-goal {
+                grid-template-columns: 1fr;
+            }
+            .header-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+            table {
+                font-size: 0.85em;
+            }
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>MARKETING STRATEGY</h1>
+            <h1 style="color: #2c5aa0; font-size: 1.8em; border: none; padding: 0;">Sportsman's Cove Lodge</h1>
+            <div class="header-meta">
+                <span><strong>Generated:</strong> March 22, 2026</span>
+                <span><strong>Based on:</strong> Brand Content Report, UGC Report, 60-Day Social Media Calendar</span>
+            </div>
+            <div class="audit-note">
+                <strong>Note on Data:</strong> Digital Storefront Audit not available — Website & SEO recommendations are based on Brand Content Report observations and public domain analysis. A comprehensive website audit is recommended as a next step to validate technical SEO, site structure, and conversion optimization opportunities.
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- EXECUTIVE SUMMARY -->
+        <section>
+            <h2>Executive Summary</h2>
+            <div class="exec-summary">
+                <p><strong>Overall Status:</strong> Sportsman's Cove Lodge has built a solid foundation across Instagram (749 followers, 303 posts) and TripAdvisor (23 reviews with 68 guest photos, 4.5-star rating), but is leaving significant growth opportunities untapped. Your biggest strengths are guest reviews and Instagram engagement; your biggest gaps are YouTube, TikTok, and Facebook searchability.</p>
+
+                <p><strong>Biggest Opportunity:</strong> Launch YouTube immediately with 3-5 initial fishing and lifestyle videos. Fishing lodges with YouTube channels report 20-40% higher inquiry rates because potential guests want to see the actual experience before booking. You already have the content (guest testimonials, lodge footage, fishing moments) — YouTube simply repurposes and amplifies it.</p>
+
+                <p><strong>Recommended First Move (Week 1):</strong> Consolidate your dual domains (sportsmanscovelodge.com + alaskasbestlodge.com) for SEO clarity, launch your 60-day social calendar immediately (46+ posts already planned), and request Google reviews from your last 50 departing guests to establish a baseline review count and improve local search rankings.</p>
+            </div>
+        </section>
+
+        <!-- MASTER PRIORITY MATRIX -->
+        <section>
+            <h2>Master Priority Matrix</h2>
+            <p>All actions ranked by impact and effort. Focus on High Impact / Low Effort items first (green row 1). The calendar below maps actions to your 90-day timeline.</p>
+            <div class="matrix-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Impact</th>
+                            <th>Effort</th>
+                            <th>Timeline</th>
+                            <th>Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f0fdf4;">
+                            <td><strong>Execute 60-day social calendar (46+ posts planned)</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-low">Low Effort</span></td>
+                            <td><span class="badge timeline-week">Week 1-2</span></td>
+                            <td>Social Media Manager</td>
+                        </tr>
+                        <tr style="background: #f0fdf4;">
+                            <td><strong>Launch YouTube with 3 initial videos (lodge overview reel, day-in-life, best catches montage)</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-low">Low Effort</span></td>
+                            <td><span class="badge timeline-week">Week 1-2</span></td>
+                            <td>Marketing Lead + Videographer</td>
+                        </tr>
+                        <tr style="background: #f0fdf4;">
+                            <td><strong>Request Google reviews from last 50 departing guests (email template + SMS)</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-low">Low Effort</span></td>
+                            <td><span class="badge timeline-week">Week 1-2</span></td>
+                            <td>Operations + Owner</td>
+                        </tr>
+                        <tr style="background: #f0fdf4;">
+                            <td><strong>Consolidate dual domains (301 redirect alaskasbestlodge.com → sportsmanscovelodge.com, update all citations)</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-low">Low Effort</span></td>
+                            <td><span class="badge timeline-week">Week 1-2</span></td>
+                            <td>Web Developer</td>
+                        </tr>
+                        <tr style="background: #f0fdf4;">
+                            <td><strong>Create branded hashtag suite (#sportsmanscovelodge, #sportsmanscovelodgefishing, #ketchikanfishing) and pin to Instagram bio</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-low">Low Effort</span></td>
+                            <td><span class="badge timeline-week">Week 1-2</span></td>
+                            <td>Social Media Manager</td>
+                        </tr>
+                        <tr style="background: #fffbf0;">
+                            <td><strong>Publish weekly blog posts (fishing reports, Alaska guides, accommodation highlights)</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-medium">Medium Effort</span></td>
+                            <td><span class="badge timeline-month">Month 1</span></td>
+                            <td>Content Writer</td>
+                        </tr>
+                        <tr style="background: #fffbf0;">
+                            <td><strong>Establish TripAdvisor response protocol (reply to all reviews within 48 hours)</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-medium">Medium Effort</span></td>
+                            <td><span class="badge timeline-month">Month 1</span></td>
+                            <td>Operations + Social Media</td>
+                        </tr>
+                        <tr style="background: #fffbf0;">
+                            <td><strong>Optimize Facebook for local search (add local business schema, update hours, add service details, fix Google indexing)</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-medium">Medium Effort</span></td>
+                            <td><span class="badge timeline-month">Month 1</span></td>
+                            <td>Web Developer + SEO</td>
+                        </tr>
+                        <tr style="background: #fffbf0;">
+                            <td><strong>Build UGC reshare library (curate 20-30 best TripAdvisor/Yelp photos, testimonial graphics templates)</strong></td>
+                            <td><span class="badge impact-high">High Impact</span></td>
+                            <td><span class="badge effort-medium">Medium Effort</span></td>
+                            <td><span class="badge timeline-month">Month 1</span></td>
+                            <td>Social Media Manager + Designer</td>
+                        </tr>
+                        <tr style="background: #f3e5ff;">
+                            <td><strong>Launch TikTok account with 2-3 short fishing/lodge videos per week</strong></td>
+                            <td><span class="badge impact-medium">Medium Impact</span></td>
+                            <td><span class="badge effort-medium">Medium Effort</span></td>
+                            <td><span class="badge timeline-quarter">Month 2-3</span></td>
+                            <td>Social Media Manager</td>
+                        </tr>
+                        <tr style="background: #f3e5ff;">
+                            <td><strong>Expand YouTube with ongoing content series (weekly fishing reports, guide spotlights, guest testimonial videos)</strong></td>
+                            <td><span class="badge impact-medium">Medium Impact</span></td>
+                            <td><span class="badge effort-medium">Medium Effort</span></td>
+                            <td><span class="badge timeline-quarter">Month 2-3</span></td>
+                            <td>Marketing Lead + Videographer</td>
+                        </tr>
+                        <tr style="background: #f3e5ff;">
+                            <td><strong>Optimize all directory listings (MyAlaskanFishingTrip, FishLodges.com, ResortsAndLodges.com, Yelp, BBB)</strong></td>
+                            <td><span class="badge impact-medium">Medium Impact</span></td>
+                            <td><span class="badge effort-medium">Medium Effort</span></td>
+                            <td><span class="badge timeline-quarter">Month 2-3</span></td>
+                            <td>Operations + SEO</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Explore LinkedIn B2B outreach (corporate fishing retreats)</strong></td>
+                            <td><span class="badge impact-medium">Medium Impact</span></td>
+                            <td><span class="badge effort-high">High Effort</span></td>
+                            <td><span class="badge timeline-quarter">Month 3</span></td>
+                            <td>Marketing Lead</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conduct full website audit (technical SEO, mobile optimization, conversion funnel)</strong></td>
+                            <td><span class="badge impact-medium">Medium Impact</span></td>
+                            <td><span class="badge effort-high">High Effort</span></td>
+                            <td><span class="badge timeline-quarter">Month 2-3</span></td>
+                            <td>SEO Consultant</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Establish email newsletter (weekly fishing reports, testimonials, seasonal promotions)</strong></td>
+                            <td><span class="badge impact-low">Low Impact</span></td>
+                            <td><span class="badge effort-high">High Effort</span></td>
+                            <td><span class="badge timeline-quarter">Month 3</span></td>
+                            <td>Marketing Lead</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Monitor employee reviews on Indeed (employer brand protection)</strong></td>
+                            <td><span class="badge impact-low">Low Impact</span></td>
+                            <td><span class="badge effort-low">Low Effort</span></td>
+                            <td><span class="badge timeline-month">Month 1 (ongoing)</span></td>
+                            <td>HR + Operations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PILLAR 1: SOCIAL MEDIA STRATEGY -->
+        <section>
+            <h2>Pillar 1: Social Media Strategy</h2>
+
+            <h3>Current State</h3>
+            <div class="state-goal">
+                <div>
+                    <strong>Instagram: STRONG</strong>
+                    <p>749 followers, 303 posts, consistent engagement, active Reels, latest post March 2026. This is your best-performing channel. Audience is engaged and growing.</p>
+                </div>
+                <div>
+                    <strong>Facebook: UNDERUTILIZED</strong>
+                    <p>Active for community posts but NOT indexed by Google. Limited discoverability for search traffic. Good for existing audience but missing new customer acquisition.</p>
+                </div>
+                <div>
+                    <strong>YouTube: MISSING</strong>
+                    <p>Zero channel. Massive opportunity — fishing lodge videos drive 20-40% higher inquiry rates.</p>
+                </div>
+                <div>
+                    <strong>TikTok: MISSING</strong>
+                    <p>Zero presence. Short-form fishing content could reach younger demographics and international audiences.</p>
+                </div>
+            </div>
+
+            <h3>Goal (90 Days)</h3>
+            <div class="state-goal">
+                <div>
+                    <strong>Instagram</strong>
+                    <p>Increase to 4-5 posts per week (from current cadence) using 60-day calendar. Maintain engagement rate. Launch branded hashtag campaign (#sportsmanscovelodge, #sportsmanscovelodgefishing).</p>
+                </div>
+                <div>
+                    <strong>YouTube</strong>
+                    <p>Launch channel with 5-8 initial videos (overview, day-in-life, catch highlights, guide spotlights). Target 50-100 subscribers by end of Q1.</p>
+                </div>
+                <div>
+                    <strong>Facebook</strong>
+                    <p>Maintain existing community posts. Apply fix to improve Google indexing. Use for B2B corporate retreat outreach.</p>
+                </div>
+                <div>
+                    <strong>TikTok</strong>
+                    <p>Launch by Week 8 with 2-3 posts per week. Keep videos under 60 seconds, focus on entertainment + fishing tips.</p>
+                </div>
+            </div>
+
+            <h3>Priority Actions</h3>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Week 1-2: Quick Wins (Execute Immediately)</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Launch 60-day social calendar (46+ posts already planned)</strong>
+                        <em>You have a complete calendar through early May with specific posts, captions, hashtags, and instructions. Start posting immediately. Consistency beats perfection — assign one person to post Mon-Sat at consistent times.</em>
+                    </li>
+                    <li>
+                        <strong>Create branded hashtag suite and pin to Instagram bio</strong>
+                        <em>Add to bio: "Use #sportsmanscovelodge in your posts!" Include hashtags: #sportsmanscovelodge, #sportsmanscovelodgefishing, #ketchikanfishing, plus 5-7 supporting tags per post (already in calendar).</em>
+                    </li>
+                    <li>
+                        <strong>Create YouTube channel and upload 3 foundational videos</strong>
+                        <em>Video 1: 90-second lodge overview reel (use existing website video + drone footage if available). Video 2: 2-minute "Day in the Life at Sportsman's Cove" (morning boat launch → fishing → gourmet meal → sunset). Video 3: 1-minute highlight reel of best guest catches from 2025 season. Set channel to Public, add link in Instagram bio.</em>
+                    </li>
+                    <li>
+                        <strong>Request Google reviews from last 50 departing guests</strong>
+                        <em>Create email template: "Thank you for choosing Sportsman's Cove Lodge! We'd love a quick review [link to Google My Business]. Your feedback helps other anglers discover our lodge." Send via email on checkout day + SMS reminder 3 days post-departure. Target: 10-15 reviews by end of Month 1.</em>
+                    </li>
+                    <li>
+                        <strong>Consolidate dual domains for SEO</strong>
+                        <em>Contact web developer: 301 redirect alaskasbestlodge.com → sportsmanscovelodge.com. This prevents duplicate content penalties and consolidates all search authority to one domain. Update all citations (GMB, directories, social bios) to use sportsmanscovelodge.com only.</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Month 1: Build Foundations</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Maintain 60-day calendar cadence (4-5 posts per week on Instagram)</strong>
+                        <em>Continue pushing posts from the calendar. By Week 4, you should have 16-20 posts live. Track engagement (likes, comments, shares) and identify top-performing content types for Month 2 expansion.</em>
+                    </li>
+                    <li>
+                        <strong>Build UGC reshare library (template system for rapid execution)</strong>
+                        <em>Download and organize best assets: 20-30 TripAdvisor guest photos, 10-15 Yelp photos, Fish Alaska Magazine feature. Create 3 Canva templates (testimonial quote graphic, catch photo frame, before/after lodging). This enables fast, professional reshares without design work each time.</em>
+                    </li>
+                    <li>
+                        <strong>Upload 2-3 additional YouTube videos (guide spotlights or seasonal fishing report)</strong>
+                        <em>Video 4: Feature one of your experienced guides with name, years of experience, favorite Prince of Wales Island fishing spot, and a guest testimonial. Video 5: Current season fishing conditions report (King Salmon status, Halibut prospects, water temps, best tides). Keep format consistent for series feel.</em>
+                    </li>
+                    <li>
+                        <strong>Establish TripAdvisor response protocol</strong>
+                        <em>Assign one person to check TripAdvisor 2x per week. Reply to ALL new reviews (positive and negative) within 48 hours. Thank guests by name, mention specific experiences they praised, and address any concerns. This signals engagement and improves review visibility.</em>
+                    </li>
+                    <li>
+                        <strong>Optimize Facebook for Google indexing</strong>
+                        <em>Work with web developer to ensure Facebook page includes structured data (local business schema), updated hours, complete service descriptions, and high-quality images. Submit updated Facebook page URL to Google Search Console. This helps Facebook posts appear in Google search results for "Ketchikan fishing lodge" queries.</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Month 2-3: Scale & Expand</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Launch TikTok with weekly fishing/lodge content</strong>
+                        <em>Post 2-3 short videos per week: behind-the-scenes lodge moments, fishing tips, guest reactions, cook-the-catch videos, floatplane arrivals. Keep under 60 seconds, use trending sounds, include captions. TikTok algorithm rewards consistency — 8-12 weeks of regular posting builds audience.</em>
+                    </li>
+                    <li>
+                        <strong>Expand YouTube with content series (weekly cadence)</strong>
+                        <em>Establish recurring series: "Weekly Fishing Report" (conditions, species, guide tips), "Guide Spotlight" (profile a different guide monthly), "Guest Stories" (short testimonial videos from past guests). Aim for 8-12 videos total by end of Month 3. This drives repeat views and subscribers.</em>
+                    </li>
+                    <li>
+                        <strong>Increase Instagram posting to 5-6 posts per week (if calendar allows)</strong>
+                        <em>By Month 2, you'll have confidence in what works. If budget permits, add 1-2 extra posts per week beyond the 60-day calendar. Focus on Reels (higher algorithm boost) and Guides (educational content like "Top 5 King Salmon Spots on Prince of Wales Island").</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="metrics">
+                <h4>Success Metrics (Track Monthly)</h4>
+                <ul class="metrics">
+                    <li><strong>Instagram:</strong> Followers (target +200 by Month 3), engagement rate (comments + saves per post), Reels views (benchmark against feed posts)</li>
+                    <li><strong>YouTube:</strong> Subscribers (target 100+), total views (target 2,000+ by Month 3), average watch time (track which content holds audience)</li>
+                    <li><strong>TikTok:</strong> Followers (target 50+ by Month 3), views per post, share rate (critical for TikTok algorithm)</li>
+                    <li><strong>Facebook:</strong> Engagement (comments, shares, reactions), traffic to website from Facebook links</li>
+                    <li><strong>Cross-Platform:</strong> Hashtag reach (use Instagram Insights to track #sportsmanscovelodge mentions), website traffic from social referrals (Google Analytics)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PILLAR 2: WEBSITE & SEO STRATEGY -->
+        <section>
+            <h2>Pillar 2: Website & SEO Strategy</h2>
+
+            <h3>Current State</h3>
+            <div class="state-goal">
+                <div>
+                    <strong>Dual Domains: PROBLEM</strong>
+                    <p>sportsmanscovelodge.com AND alaskasbestlodge.com both active. This splits search authority and creates confusion. Google sees duplicate content and doesn't know which to rank.</p>
+                </div>
+                <div>
+                    <strong>Facebook Indexing: BROKEN</strong>
+                    <p>Facebook page not appearing in Google search results. Should be indexed to help "Ketchikan fishing lodge" searches. Likely missing schema markup or crawl permissions issue.</p>
+                </div>
+                <div>
+                    <strong>Website: PROFESSIONAL</strong>
+                    <p>Professional design, booking integration, blog with mission/values content. Solid foundation — needs optimization, not redesign.</p>
+                </div>
+                <div>
+                    <strong>Blog: ACTIVE</strong>
+                    <p>Content exists. Opportunity to expand seasonal topics and optimize for long-tail keywords like "best halibut fishing near Ketchikan" or "Alaska fishing lodge accommodations."</p>
+                </div>
+            </div>
+
+            <h3>Goal (90 Days)</h3>
+            <div class="state-goal">
+                <div>
+                    <strong>Domain Consolidation</strong>
+                    <p>Single authoritative domain (sportsmanscovelodge.com) with all search authority consolidated. All citations updated. No duplicate content issues.</p>
+                </div>
+                <div>
+                    <strong>Local SEO Strength</strong>
+                    <p>Rank #1-3 for "Ketchikan fishing lodge," "Alaska halibut fishing," "Prince of Wales Island lodge." Facebook and directory listings visible in Google.</p>
+                </div>
+                <div>
+                    <strong>Content Expansion</strong>
+                    <p>Weekly blog posts on seasonal fishing, accommodation guides, and destination content. 12-16 new blog posts by Month 3.</p>
+                </div>
+                <div>
+                    <strong>Technical SEO</strong>
+                    <p>Site speed optimized, mobile-responsive confirmed, schema markup added, Google Search Console clean (no crawl errors).</p>
+                </div>
+            </div>
+
+            <h3>Priority Actions</h3>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Week 1-2: Quick Wins</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Consolidate dual domains with 301 redirect</strong>
+                        <em>Developer: Set up 301 permanent redirect from alaskasbestlodge.com → sportsmanscovelodge.com. This tells Google that all authority flows to the primary domain. Check within 7 days using Google Search Console to verify redirect is working. Update all external links (Google My Business, directories, social bios, email signatures) to use sportsmanscovelodge.com only.</em>
+                    </li>
+                    <li>
+                        <strong>Fix Facebook Google indexing issue</strong>
+                        <em>Web developer audit: Check if Facebook page URL is in robots.txt, verify Open Graph tags are present, add local business schema markup to Facebook page metadata. Submit Facebook page URL to Google Search Console. If Facebook has "noindex" directive, work with Meta to enable indexing. Goal: Facebook posts should appear in Google search for "Sportsman's Cove Lodge" by Week 2.</em>
+                    </li>
+                    <li>
+                        <strong>Audit and update all directory citations</strong>
+                        <em>Check: MyAlaskanFishingTrip, FishLodges.com, ResortsAndLodges.com, Yelp, BBB, Google My Business. Ensure all list sportsmanscovelodge.com (not the old domain), match business name exactly ("Sportsman's Cove Lodge"), and use consistent phone/address. Inconsistencies hurt local SEO rankings.</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Month 1: Build Content & Authority</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Publish 4 blog posts on seasonal/long-tail keywords</strong>
+                        <em>Post 1 (Week 1): "King Salmon Fishing Guide: Best Seasons, Techniques, and Ketchikan Locations" (targets "King salmon fishing Ketchikan"). Post 2 (Week 2): "Halibut Fishing on Prince of Wales Island: When to Go and What to Expect" (targets "Halibut fishing Alaska"). Post 3 (Week 3): "Sportsman's Cove Lodge Accommodations: What to Expect" (addresses booking question). Post 4 (Week 4): "Why Spring is Peak Fishing Season in Alaska" (seasonal evergreen content). Each post 1,200-1,500 words, internal links to booking page, includes guest testimonial.</em>
+                    </li>
+                    <li>
+                        <strong>Add local business schema markup to homepage</strong>
+                        <em>Ensure homepage includes JSON-LD schema for local business (name, address, phone, hours, services, reviews). This helps Google understand your business and improves appearance in local search snippets and Knowledge Panel.</em>
+                    </li>
+                    <li>
+                        <strong>Optimize top landing pages for keyword targets</strong>
+                        <em>Pages to optimize: Homepage (target "Ketchikan fishing lodge"), Fishing Packages page (target "Alaska salmon fishing," "halibut fishing"), Accommodations page (target "Ketchikan lodge," "Alaska fishing lodge accommodations"). Add meta titles/descriptions, H1/H2 tags, internal links, and CTAs for each page. Goal: Top 5 landing pages should rank in Top 20 for primary keywords by end of Month 2.</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Month 2-3: Expand & Monitor</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Publish 8 additional blog posts (2 per week)</strong>
+                        <em>Topics: Fishing techniques by species, destination guides (Ketchikan, Prince of Wales Island), trip planning guides, guest stories (blog post featuring a past guest's experience), crew/guide spotlights, gear reviews. Maintain consistent publishing schedule to build topical authority and signal freshness to Google.</em>
+                    </li>
+                    <li>
+                        <strong>Conduct full website audit (optional but recommended)</strong>
+                        <em>Hire SEO consultant to assess: page speed, mobile responsiveness, internal link structure, crawlability, on-page SEO, conversion funnel. Report will identify quick wins (e.g., "add FAQ schema to FAQ page") and longer-term improvements (e.g., "redesign booking flow"). This investment ($1,000-2,500) pays back quickly if it improves conversion rate.</em>
+                    </li>
+                    <li>
+                        <strong>Monitor Google Search Console and analytics weekly</strong>
+                        <em>Track: organic search impressions (target +30% by Month 3), click-through rate to website, keyword rankings, crawl errors, Core Web Vitals. This data guides Month 4+ content strategy.</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="metrics">
+                <h4>Success Metrics (Track Monthly)</h4>
+                <ul class="metrics">
+                    <li><strong>Domain Authority:</strong> Confirm 301 redirect working, old domain no longer indexed</li>
+                    <li><strong>Local SEO:</strong> Rank in Top 5 for "Ketchikan fishing lodge," "Alaska halibut fishing," "Prince of Wales Island lodge" (check monthly via rank tracker)</li>
+                    <li><strong>Organic Search Traffic:</strong> Google Analytics organic sessions (target +25-40% by Month 3 from baseline)</li>
+                    <li><strong>Blog Performance:</strong> Avg. time on page (target 2+ min), pages per session (target 1.5+), click-through to booking page</li>
+                    <li><strong>Directory Presence:</strong> All 6+ directory listings showing sportsmanscovelodge.com, consistent name/address/phone (NAP)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PILLAR 3: REVIEW STRATEGY -->
+        <section>
+            <h2>Pillar 3: Review Strategy</h2>
+
+            <h3>Current State</h3>
+            <div class="state-goal">
+                <div>
+                    <strong>TripAdvisor: STRONG</strong>
+                    <p>23 reviews with 4.5-star rating. 68 guest photos in gallery. This is your strongest UGC asset — high social proof and significant visual content.</p>
+                </div>
+                <div>
+                    <strong>Yelp: SOLID</strong>
+                    <p>Business listing exists with 29 guest photos. Presence established but review count unknown. Potential for optimization.</p>
+                </div>
+                <div>
+                    <strong>Google Reviews: UNKNOWN</strong>
+                    <p>No baseline count provided. Likely low or non-existent. Critical gap — most potential guests search Google first.</p>
+                </div>
+                <div>
+                    <strong>BBB & Others: MINIMAL</strong>
+                    <p>Listings exist but minimal activity. Supporting presence only, not traffic drivers.</p>
+                </div>
+            </div>
+
+            <h3>Goal (90 Days)</h3>
+            <div class="state-goal">
+                <div>
+                    <strong>Google Reviews</strong>
+                    <p>Build baseline of 20-30 reviews by Month 2. Target 4.5+ rating. Make Google your strongest review platform.</p>
+                </div>
+                <div>
+                    <strong>TripAdvisor</strong>
+                    <p>Grow to 40+ reviews by Month 3. Maintain 4.5+ rating. Respond to all new reviews within 48 hours.</p>
+                </div>
+                <div>
+                    <strong>Yelp & Others</strong>
+                    <p>Maintain listings, respond to reviews, but deprioritize. Focus on Google and TripAdvisor where guests search.</p>
+                </div>
+                <div>
+                    <strong>Website Display</strong>
+                    <p>Showcase top 5-10 reviews on homepage. Create "Guest Reviews" page linking to all platforms. Build trust with new visitors.</p>
+                </div>
+            </div>
+
+            <h3>Priority Actions</h3>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Week 1-2: Activate Google Reviews</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Request Google reviews from last 50 departing guests (immediate outreach)</strong>
+                        <em>Create email template: "Thank you for choosing Sportsman's Cove Lodge! We'd love to hear about your experience. Leave a quick review here: [Google My Business link]." Send on checkout day. Add SMS reminder 3 days later. Offer incentive if allowed in your region (e.g., "help our lodge by leaving a review"). Assign operations person to track responses and follow up weekly. Conservative target: 10-15 reviews by end of Week 4 (20% response rate).</em>
+                    </li>
+                    <li>
+                        <strong>Verify and optimize Google My Business listing</strong>
+                        <em>Ensure: Business name matches TripAdvisor/Yelp exactly ("Sportsman's Cove Lodge"), hours are current, address is correct, phone number is verified, primary website is sportsmanscovelodge.com (updated post-domain-consolidation), service categories include "Fishing," "Lodging," "Tourism." Add 5-10 high-quality photos (lodge exterior, interior, fishing boats, meals, guest testimonials). Google My Business is the gateway to Google Reviews — optimize it first.</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Month 1: Build Response Culture</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Establish TripAdvisor response protocol (check 2x per week)</strong>
+                        <em>Assign one team member to review TripAdvisor twice per week. Reply to ALL new reviews (positive and negative) within 48 hours. Positive replies: thank guests by name, mention specific experiences they praised ("Thank you, Jane, for those kind words about Captain Tom's expertise!"), include lodge name/location. Negative replies: apologize, address the concern specifically, offer resolution, invite follow-up offline. Professional responses increase review visibility on TripAdvisor and show potential guests that you care.</em>
+                    </li>
+                    <li>
+                        <strong>Continue Google review generation (ongoing campaign)</strong>
+                        <em>By Week 4, you should have 10-15 Google reviews. Continue requesting from all new departing guests. Create text message template for faster response: "Thank you for staying with us! Enjoying your experience? Quick review helps us improve: [short link]." SMS has higher response rates than email for immediate feedback.</em>
+                    </li>
+                    <li>
+                        <strong>Create testimonial graphics for social media reshare</strong>
+                        <em>Design 3-5 Canva templates: Quote card (review quote + 5-star rating), Catch photo frame (guest catch + "As seen on TripAdvisor"), and Before/After carousel (lodge highlight + review). This enables fast, professional reshare of top reviews on Instagram/Facebook. Target: reshare 2-3 reviews per week from TripAdvisor/Yelp/Google.</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">Month 2-3: Scale & Systematize</div>
+                <ul class="action-list">
+                    <li>
+                        <strong>Display reviews prominently on website</strong>
+                        <em>Add "Guest Reviews" section to homepage: showcase 3-5 top reviews with 5-star ratings, link to full reviews on TripAdvisor/Google. Create dedicated "Reviews" page with embedded review widgets (TripAdvisor, Google) or mashup plugin that pulls reviews from multiple platforms. Build trust with potential bookers by making social proof immediately visible.</em>
+                    </li>
+                    <li>
+                        <strong>Expand review generation to past guests (email archive campaign)</strong>
+                        <em>By Month 2, reach out to past guests who may not have left reviews. Create email campaign: "Help Other Anglers Discover Sportsman's Cove Lodge — Share Your Experience" with direct links to Google, TripAdvisor, and Yelp. Target: 5-10 reviews from existing guest database per month.</em>
+                    </li>
+                    <li>
+                        <strong>Monitor Yelp and respond (weekly check-in)</strong>
+                        <em>Yelp is lower priority than Google/TripAdvisor but still visible in local search. Check weekly, respond to new reviews within 1 week, ensure business info (hours, phone, address) is current. The 29 guest photos on Yelp are underutilized — consider requesting high-res versions to feature on social/website.</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="metrics">
+                <h4>Success Metrics (Track Monthly)</h4>
+                <ul class="metrics">
+                    <li><strong>Google Reviews:</strong> Count (target 20-30 by Month 2), rating (maintain 4.5+), response rate to requests (target 20-30%)</li>
+                    <li><strong>TripAdvisor:</strong> Total reviews (target 40+ by Month 3), rating (maintain 4.5+), response time (target under 48 hours), response sentiment (analyze tone of replies)</li>
+                    <li><strong>Yelp & Others:</strong> Monitor for negative reviews, response time (target within 1 week)</li>
+                    <li><strong>Website Impact:</strong> Click-through rate from review section to booking page, time spent on Reviews page (Google Analytics)</li>
+                    <li><strong>Cross-Platform Social Proof:</strong> Review reshare performance on Instagram (engagement rate of testimonial posts), mentions in direct inquiries ("I saw your 5-star reviews on Google...")</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 90-DAY MILESTONE CHECKLIST -->
+        <section>
+            <h2>90-Day Milestone Checklist</h2>
+            <p>Use checkboxes below to track progress. This is interactive — check boxes as you complete tasks, and progress will be saved in your browser session.</p>
+
+            <div class="timeline-section">
+                <div class="timeline-header">WEEK 1-2: Quick Wins (Implement Immediately)</div>
+                <ul class="checkbox-list">
+                    <li><input type="checkbox" class="milestone-checkbox"> Launch 60-day social media calendar (46+ posts scheduled through early May)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Create branded hashtag suite and pin to Instagram bio (#sportsmanscovelodge, #sportsmanscovelodgefishing, #ketchikanfishing)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Create YouTube channel and upload 3 foundational videos (overview, day-in-life, catch highlights)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Email 50 departing guests requesting Google reviews (template + tracking sheet)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Consolidate dual domains with 301 redirect (alaskasbestlodge.com → sportsmanscovelodge.com)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Verify Google My Business listing is complete and optimized</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Update all directory citations to use sportsmanscovelodge.com</li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">END OF MONTH 1: Build Foundations</div>
+                <ul class="checkbox-list">
+                    <li><input type="checkbox" class="milestone-checkbox"> Publish 4 blog posts on long-tail keywords (King Salmon, Halibut, accommodations, seasonal tips)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Continue 60-day calendar cadence (16-20 Instagram posts published to date)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Build UGC reshare library (20-30 TripAdvisor photos, Canva templates for testimonials)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Upload 2-3 additional YouTube videos (guide spotlights, fishing reports)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Establish TripAdvisor response protocol (check 2x/week, reply within 48 hours)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Fix Facebook Google indexing (add schema, verify in Search Console)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Receive 10-15 Google reviews from departing guest campaign</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Audit all directory listings (MyAlaskan, FishLodges, ResortsList, Yelp, BBB)</li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">END OF MONTH 2: Expand & Optimize</div>
+                <ul class="checkbox-list">
+                    <li><input type="checkbox" class="milestone-checkbox"> Launch TikTok account with 4-6 short fishing/lodge videos (2-3 per week)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Publish 8 additional blog posts (2 per week on fishing tips, destination guides, guest stories)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Upload 2-3 more YouTube videos (aim for 8 total videos by end of Month 2)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Reach 20-30 Google reviews with 4.5+ rating</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Grow TripAdvisor to 30+ reviews (continue response protocol)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Create "Guest Reviews" page on website linking to all review platforms</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Display top 5 reviews on homepage (testimonial widget or manual curation)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Confirm domain consolidation complete (old domain no longer indexed, all traffic flowing to primary)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Check Google Search Console for organic impressions increase (+25% from baseline)</li>
+                </ul>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">END OF MONTH 3: Scale & Measure</div>
+                <ul class="checkbox-list">
+                    <li><input type="checkbox" class="milestone-checkbox"> Continue TikTok posting (aim for 50+ followers, 5,000+ total views)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Publish 4 final blog posts (total 16 new posts for quarter)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> YouTube channel established with 10+ videos, 100+ subscribers</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Instagram followers increase by 200+ (aim for 950+ total)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Reach 40+ TripAdvisor reviews with 4.5+ rating</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Reach 30-50 Google reviews with 4.5+ rating</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Organic search traffic increase 25-40% from Month 1 baseline</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Rank in Top 5 for "Ketchikan fishing lodge" (Google, organic search)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Complete full website audit (optional, if budget allows)</li>
+                    <li><input type="checkbox" class="milestone-checkbox"> Plan Q2 strategy based on Month 1-3 performance data</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- APPENDIX -->
+        <section>
+            <h2>Appendix: Data Sources & Key Metrics</h2>
+
+            <h3>Input Documents</h3>
+            <table class="appendix-table">
+                <tbody>
+                    <tr>
+                        <td><strong>Brand Content Report</strong></td>
+                        <td>Overview of owned content across Instagram (749 followers, 303 posts), website (professional design, booking integration, blog), Facebook (active but not indexed by Google), LinkedIn (minimal activity). Report generated March 22, 2026.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UGC Report</strong></td>
+                        <td>120-day baseline (Nov 23, 2025 - Mar 22, 2026) of user-generated content. Highlights: TripAdvisor (23 reviews, 68 guest photos, 4.5-star), Yelp (29 guest photos), Fish Alaska Magazine feature, CCA Washington partnership page, guest Instagram Reel, 4 directory listings. No branded hashtags established yet.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>60-Day Social Media Calendar</strong></td>
+                        <td>46+ posts planned Mar 23 - May 2, 2026. Includes platform (Instagram, Facebook, Reels, Stories), content type (brand original, UGC reshare, review spotlight, video share), caption copy, hashtags, source URLs, action steps. Ready to execute immediately.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Digital Storefront Audit</strong></td>
+                        <td><strong>NOT AVAILABLE.</strong> Website & SEO recommendations in this report are based on Brand Content Report observations (professional design, booking integration, blog present) and public domain analysis (dual-domain structure, Facebook indexing issue). A full technical audit (site speed, mobile optimization, schema markup, crawl errors, conversion funnel) is recommended as a next step.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Key Baseline Metrics (as of March 22, 2026)</h3>
+            <table class="appendix-table">
+                <tbody>
+                    <tr>
+                        <td><strong>Instagram</strong></td>
+                        <td>749 followers, 303 posts, consistent engagement, Reels active, latest post March 2026</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TripAdvisor</strong></td>
+                        <td>23 reviews, 4.5-star rating, 68 guest photos in gallery (strongest UGC asset)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yelp</strong></td>
+                        <td>Business listing established, 29 guest photos, review count unknown</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Reviews</strong></td>
+                        <td>Count unknown (likely low or non-existent — critical gap to fill)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Facebook</strong></td>
+                        <td>Active for community posts, not indexed by Google (discoverability issue)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>YouTube</strong></td>
+                        <td>No channel (major opportunity — fishing lodges with YouTube report 20-40% higher inquiry rates)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TikTok</strong></td>
+                        <td>No presence (opportunity for short-form fishing/lodge content to reach younger demographic)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LinkedIn</strong></td>
+                        <td>Minimal activity (opportunity for B2B corporate fishing retreat outreach)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Domains</strong></td>
+                        <td>sportsmanscovelodge.com AND alaskasbestlodge.com both active (SEO concern, consolidation recommended)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Directories</strong></td>
+                        <td>Presence on 4+ platforms (MyAlaskanFishingTrip, FishLodges.com, ResortsAndLodges.com, BBB). Supporting presence established.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Press Coverage</strong></td>
+                        <td>Fish Alaska Magazine feature "It's All in the Details" (high reshare value)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Partnerships</strong></td>
+                        <td>CCA Washington (Conservation Commission of Alaska) partnership page (high reshare value for sustainability messaging)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Recommended Next Steps (Beyond Month 3)</h3>
+            <p>This 90-day strategy establishes foundations across social media, SEO, and reviews. For Month 4+, consider:</p>
+            <ul class="action-list">
+                <li>
+                    <strong>Email Newsletter Program</strong>
+                    <em>Compile past guests and website signups into mailing list. Send weekly "Fishing Report" email + seasonal promotions. Nurture previous bookers for repeat visits.</em>
+                </li>
+                <li>
+                    <strong>LinkedIn B2B Outreach</strong>
+                    <em>Target corporate team-building segments. Create content around "Team Bonding in Alaska" and "Executive Fishing Retreats." Reach out to Alaska-based companies for offsite opportunities.</em>
+                </li>
+                <li>
+                    <strong>Paid Advertising Expansion</strong>
+                    <em>Once organic channels mature (Month 4+), test paid Facebook/Instagram ads targeting "fishing," "Alaska," "adventure." YouTube ads retarget website visitors. Set budget after organic ROI is proven.</em>
+                </li>
+                <li>
+                    <strong>Influencer Partnerships</strong>
+                    <em>Reach out to Alaska travel/fishing influencers (TikTok, Instagram) for sponsored trips. Request they post content during stay (20-50 posts generated, +10k impressions per influencer).</em>
+                </li>
+                <li>
+                    <strong>Video Production at Scale</strong>
+                    <em>Hire videographer for quarterly shoots. Create 30-50 short-form videos per quarter for YouTube, TikTok, Instagram Reels. Establish consistent video cadence.</em>
+                </li>
+            </ul>
+        </section>
+
+        <!-- FOOTER -->
+        <section style="background: #f0f4f7; text-align: center;">
+            <p style="margin: 0; color: #666; font-size: 0.9em;">
+                <strong>Report Generated:</strong> March 22, 2026<br>
+                <strong>Strategy Period:</strong> 90 days (March 23 - June 22, 2026)<br>
+                <strong>Status:</strong> Ready for Implementation
+            </p>
+        </section>
+    </div>
+
+    <script>
+        // Collapsible sections functionality
+        const collapsibles = document.querySelectorAll('.collapsible');
+        collapsibles.forEach(el => {
+            el.addEventListener('click', function() {
+                this.classList.toggle('collapsed');
+                const content = this.nextElementSibling;
+                if (content && content.classList.contains('collapsible-content')) {
+                    content.classList.toggle('show');
+                }
+            });
+        });
+
+        // Checkbox tracking for milestone checklist
+        const checkboxes = document.querySelectorAll('.milestone-checkbox');
+        checkboxes.forEach((checkbox, index) => {
+            // Load state from session storage
+            const savedState = sessionStorage.getItem(`checkbox-${index}`);
+            if (savedState === 'true') {
+                checkbox.checked = true;
+                checkbox.parentElement.classList.add('completed');
+            }
+
+            // Save state on change
+            checkbox.addEventListener('change', function() {
+                sessionStorage.setItem(`checkbox-${index}`, this.checked);
+                this.parentElement.classList.toggle('completed', this.checked);
+            });
+        });
+    </script>
+</body>
+</html>
