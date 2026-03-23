@@ -1,1350 +1,938 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peak Family Dentistry - Combined Production Summary</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f7fa;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 60px 50px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-            border-bottom: 3px solid #2E5E8C;
-            padding-bottom: 30px;
-        }
-
-        .header h1 {
-            font-size: 32px;
-            color: #2E5E8C;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            font-size: 14px;
-            color: #666;
-            margin: 5px 0;
-        }
-
-        h2 {
-            font-size: 20px;
-            color: #2E5E8C;
-            margin: 40px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e6f0;
-        }
-
-        h3 {
-            font-size: 16px;
-            color: #2E5E8C;
-            margin: 25px 0 12px 0;
-        }
-
-        .executive-summary {
-            background: #f0f4f9;
-            padding: 25px;
-            border-left: 4px solid #2E5E8C;
-            margin: 30px 0;
-            border-radius: 4px;
-        }
-
-        .executive-summary p {
-            margin: 12px 0;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .metric-box {
-            background: #f9fbfc;
-            padding: 20px;
-            border-radius: 6px;
-            border: 1px solid #dfe6f0;
-        }
-
-        .metric-box h4 {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .metric-value {
-            font-size: 24px;
-            color: #2E5E8C;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .metric-change {
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .metric-change.positive {
-            color: #27ae60;
-        }
-
-        .metric-change.negative {
-            color: #e74c3c;
-        }
-
-        .scorecard-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 13px;
-        }
-        .scorecard-table th {
-            background: #2E5E8C;
-            color: white;
-            padding: 10px 12px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 12px;
-        }
-        .scorecard-table td {
-            padding: 8px 12px;
-            border-bottom: 1px solid #e0e6f0;
-        }
-        .scorecard-table tr:hover {
-            background: #f9fbfc;
-        }
-        .scorecard-category {
-            background: #f0f4f9;
-            font-weight: 700;
-            color: #2E5E8C;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .scorecard-category td {
-            padding: 10px 12px;
-            border-bottom: 2px solid #2E5E8C;
-        }
-        .result-pass {
-            background: #e8f8f0;
-            color: #27ae60;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 3px;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        .result-fail {
-            background: #fdf0ef;
-            color: #e74c3c;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 3px;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        .result-info {
-            background: #e8f4f8;
-            color: #2E5E8C;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 3px;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        .result-na {
-            background: #f5f5f5;
-            color: #999;
-            font-weight: 600;
-            padding: 3px 10px;
-            border-radius: 3px;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        .scorecard-summary {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .scorecard-stat {
-            padding: 12px 20px;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .scorecard-stat span {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 14px;
-        }
-
-        table th {
-            background: #2E5E8C;
-            color: white;
-            padding: 14px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        table td {
-            padding: 12px 14px;
-            border-bottom: 1px solid #e0e6f0;
-        }
-
-        table tr:hover {
-            background: #f9fbfc;
-        }
-
-        table tr:last-child td {
-            border-bottom: 2px solid #2E5E8C;
-        }
-
-        .waterfall-container {
-            margin: 30px 0;
-            overflow-x: auto;
-        }
-
-        .waterfall-chart {
-            display: flex;
-            align-items: flex-end;
-            gap: 8px;
-            min-width: 100%;
-            height: 300px;
-            background: #f9fbfc;
-            padding: 20px;
-            border-radius: 6px;
-            border: 1px solid #dfe6f0;
-        }
-
-        .waterfall-item {
-            flex: 1;
-            min-width: 70px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .waterfall-bar {
-            width: 100%;
-            background: #2E5E8C;
-            border-radius: 3px 3px 0 0;
-            position: relative;
-        }
-
-        .waterfall-bar.negative {
-            background: #e74c3c;
-        }
-
-        .waterfall-label {
-            font-size: 11px;
-            text-align: center;
-            margin-top: 8px;
-            color: #333;
-            font-weight: 500;
-            line-height: 1.3;
-        }
-
-        .waterfall-value {
-            font-size: 10px;
-            position: absolute;
-            bottom: 100%;
-            width: 100%;
-            text-align: center;
-            color: #333;
-            font-weight: bold;
-            margin-bottom: 4px;
-            white-space: nowrap;
-        }
-
-        .tactics-section {
-            background: #f0f4f9;
-            padding: 30px;
-            margin: 40px 0;
-            border-radius: 6px;
-            border-left: 4px solid #2E5E8C;
-        }
-
-        .tactic {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            border-left: 3px solid #2E5E8C;
-        }
-
-        .tactic h4 {
-            font-size: 15px;
-            color: #2E5E8C;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .tactic p {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-
-        .tactic ul {
-            margin-left: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .tactic li {
-            margin-bottom: 6px;
-            line-height: 1.5;
-        }
-
-        .disclaimer {
-            background: #f5f5f5;
-            padding: 20px;
-            margin-top: 40px;
-            border-radius: 4px;
-            font-size: 12px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid #e0e6f0;
-            font-size: 12px;
-            color: #999;
-        }
-
-        @media print {
-            body {
-                background: white;
-            }
-            .container {
-                box-shadow: none;
-                max-width: 100%;
-            }
-        }
-
-        .insight-box {
-            background: #e8f4f8;
-            padding: 15px;
-            border-left: 3px solid #2E5E8C;
-            margin: 15px 0;
-            border-radius: 3px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .highlight {
-            background: #fff3cd;
-            padding: 2px 4px;
-            border-radius: 2px;
-        }
-
-        .team-section { margin-bottom: 25px; }
-        .team-header { background: #2E5E8C; color: white; padding: 10px 16px; font-size: 14px; font-weight: 700; border-radius: 4px 4px 0 0; text-transform: uppercase; letter-spacing: 0.5px; }
-        .team-actions { border: 1px solid #dfe6f0; border-top: none; border-radius: 0 0 4px 4px; }
-        .action-item { padding: 14px 18px; border-bottom: 1px solid #e0e6f0; font-size: 13px; line-height: 1.6; }
-        .action-item:last-child { border-bottom: none; }
-        .action-title { font-weight: 700; color: #2E5E8C; font-size: 14px; }
-        .action-meta { display: flex; gap: 20px; margin-top: 6px; font-size: 12px; flex-wrap: wrap; }
-        .action-meta span { background: #f0f4f9; padding: 2px 8px; border-radius: 3px; color: #555; }
-        .action-meta .owner { border-left: 3px solid #2E5E8C; }
-        .action-meta .di-workflow { border-left: 3px solid #27ae60; }
-        .action-meta .impact { border-left: 3px solid #e67e22; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peak Family Dentistry - Combined Production Summary</title>
+<style>
+  :root {
+    --navy: #1F3864;
+    --blue: #2B6CB0;
+    --light-blue: #D6E4F0;
+    --green: #27AE60;
+    --red: #E74C3C;
+    --amber: #F39C12;
+    --gray: #718096;
+    --light-gray: #F7FAFC;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--light-gray);
+    color: #2D3748;
+    line-height: 1.6;
+    padding: 2rem;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+  
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    color: white;
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .header h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
+  .header .subtitle { opacity: 0.85; font-size: 1.1rem; }
+  
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .kpi-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-left: 4px solid var(--blue);
+  }
+  .kpi-card .label { color: var(--gray); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+  .kpi-card .value { font-size: 1.8rem; font-weight: 700; color: var(--navy); }
+  .kpi-card .change { font-size: 0.9rem; margin-top: 0.25rem; }
+  .kpi-card .change.positive { color: var(--green); }
+  .kpi-card .change.negative { color: var(--red); }
+  
+  .combined-section {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .combined-section h2 {
+    color: var(--navy);
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--light-blue);
+  }
+  
+  .location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .location-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .location-card h2 {
+    color: var(--navy);
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .location-card .period { color: var(--gray); font-size: 0.85rem; margin-bottom: 1rem; }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  .data-table th {
+    background: var(--navy);
+    color: white;
+    padding: 0.6rem 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .data-table th:first-child { text-align: left; }
+  .data-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table tr:nth-child(even) { background: var(--light-gray); }
+  .data-table .metric-name { font-weight: 500; }
+  .data-table .value { text-align: center; }
+  .data-table .total-col { font-weight: 700; }
+  .data-table .trend { text-align: center; font-weight: 600; }
+  .data-table .positive { color: var(--green); }
+  .data-table .negative { color: var(--red); }
+  .data-table .neutral { color: var(--gray); }
+  
+  .section-row {
+    background: var(--light-blue) !important;
+  }
+  .section-row td {
+    font-weight: 700;
+    color: var(--navy);
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--gray);
+    font-size: 0.85rem;
+  }
+  
+  @media print {
+    body { padding: 0; background: white; }
+    .location-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Peak Family Dentistry — Combined Production Summary</h1>
-            <p>Organization-Wide Analysis (Cottonwood, Sedona, Flagstaff)</p>
-            <p>Q1 2025 vs. Q1 2026 (Jan 1 - Mar 19)</p>
-            <p style="font-size: 12px; color: #999; margin-top: 10px;">Generated March 20, 2026</p>
-        </div>
+<div class="container">
 
-        <div class="executive-summary">
-            <h2 style="margin-top: 0; border: none; color: #2E5E8C;">Executive Summary</h2>
-            <p>Peak Family Dentistry's organization-wide production declined 3.1% YoY ($2.178M to $2.110M), reflecting significant challenges in case dollar conversion despite strong new patient growth and improved appointment health metrics. The organization onboarded 113 more new patients (+39.5%), achieving 7.75 NPs per working day and generating strong demand signals. However, this growth is being partially offset by three critical headwinds: (1) case $ accepted % fell 6.4 points (46.2% to 39.8%)—representing a -$248K waterfall impact; (2) schedule utilization weakness at Flagstaff cost -$149K; and (3) appointment confirmation systems deteriorated across locations. The opportunity is clear: standardize case presentation and financial coordination, recover Flagstaff's scheduling capacity, and implement org-wide confirmation accountability. With these three tactical pivots, the organization has the patient volume and clinical momentum to achieve positive production growth. Across all three locations, the practice scorecard shows 18 passes and 16 fails on scoreable metrics, with consistent gaps in scheduling access (3rd Next Available NP Appointment at 23–46 days across all locations versus the ≤7 day benchmark), patient retention, and referral tracking. A bright spot: unscheduled opportunity dollars decreased across all three locations (4.9%–27.0% YOY), indicating positive patient recapture momentum.</p>
-        </div>
+<div class="header">
+  <h1>Peak Family Dentistry — Combined Production Summary</h1>
+  <div class="subtitle">All Locations | Jan 1 – Mar 19, 2026 vs 2025 | Data Source: Dental Intel</div>
+</div>
 
-        <h2>Practice Marketing Scorecard - Multi-Location Comparison</h2>
-        <p style="font-size: 14px; margin-bottom: 15px;">Org-wide health check comparing key marketing metrics across Cottonwood, Flagstaff, and Sedona. <span class="result-pass">PASS</span> = meets benchmark, <span class="result-fail">FAIL</span> = below benchmark, <span class="result-na">N/A</span> = data not available or insufficient for comparison.</p>
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="label">Total Gross Production</div>
+    <div class="value">$2,110,150</div>
+    <div class="change negative">-3.1% YOY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="label">Total New Patients</div>
+    <div class="value">399</div>
+    <div class="change positive">+39.5% YOY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="label">Unscheduled Patients</div>
+    <div class="value">2,610</div>
+    <div class="change positive">-11.9% YOY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="label">Net Patient Growth</div>
+    <div class="value">164</div>
+    <div class="change positive">Prior: -50</div>
+  </div>
+</div>
 
-        <div class="scorecard-summary">
-            <div style="flex: 1; text-align: center;">
-                <strong style="font-size: 14px; color: #2E5E8C;">Cottonwood</strong><br>
-                <div style="display: flex; gap: 8px; justify-content: center; margin-top: 8px;">
-                    <div style="background: #e8f8f0; color: #27ae60; padding: 6px 12px; border-radius: 3px; font-weight: 700; font-size: 14px;">6 Pass</div>
-                    <div style="background: #fdf0ef; color: #e74c3c; padding: 6px 12px; border-radius: 3px; font-weight: 700; font-size: 14px;">5 Fail</div>
-                </div>
-            </div>
-            <div style="flex: 1; text-align: center;">
-                <strong style="font-size: 14px; color: #2E5E8C;">Flagstaff</strong><br>
-                <div style="display: flex; gap: 8px; justify-content: center; margin-top: 8px;">
-                    <div style="background: #e8f8f0; color: #27ae60; padding: 6px 12px; border-radius: 3px; font-weight: 700; font-size: 14px;">6 Pass</div>
-                    <div style="background: #fdf0ef; color: #e74c3c; padding: 6px 12px; border-radius: 3px; font-weight: 700; font-size: 14px;">6 Fail</div>
-                </div>
-            </div>
-            <div style="flex: 1; text-align: center;">
-                <strong style="font-size: 14px; color: #2E5E8C;">Sedona</strong><br>
-                <div style="display: flex; gap: 8px; justify-content: center; margin-top: 8px;">
-                    <div style="background: #e8f8f0; color: #27ae60; padding: 6px 12px; border-radius: 3px; font-weight: 700; font-size: 14px;">6 Pass</div>
-                    <div style="background: #fdf0ef; color: #e74c3c; padding: 6px 12px; border-radius: 3px; font-weight: 700; font-size: 14px;">5 Fail</div>
-                </div>
-            </div>
-        </div>
+<div class="combined-section">
+  <h2>Combined Metrics — All 3 Locations</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Cottonwood</th>
+        <th>Flagstaff</th>
+        <th>Sedona</th>
+        <th>Combined</th>
+        <th>YOY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="section-row"><td colspan="6">PRODUCTION</td></tr>
+<tr>
+  <td class="metric-name">Gross Production</td>
+  <td class="value">$595,845</td><td class="value">$1,069,578</td><td class="value">$444,726</td>
+  <td class="value total-col">$2,110,150</td>
+  <td class="trend negative">↓ 3.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Scheduled Production</td>
+  <td class="value">$633,447</td><td class="value">$1,176,301</td><td class="value">$499,031</td>
+  <td class="value total-col">$2,308,779</td>
+  <td class="trend negative">↓ 1.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">Annual Patient Value</td>
+  <td class="value">$1,100</td><td class="value">$1,459</td><td class="value">$1,152</td>
+  <td class="value total-col">$1,237</td>
+  <td class="trend negative">↓ 4.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">Avg Restorative $/Exam</td>
+  <td class="value">$854</td><td class="value">$981</td><td class="value">$706</td>
+  <td class="value total-col">$847</td>
+  <td class="trend negative">↓ 6.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Avg Hygiene $/Visit</td>
+  <td class="value">$169</td><td class="value">$152</td><td class="value">$145</td>
+  <td class="value total-col">$156</td>
+  <td class="trend negative">↓ 1.6%</td>
+</tr>
+<tr class="section-row"><td colspan="6">PATIENT ACQUISITION</td></tr>
+<tr>
+  <td class="metric-name">New Patients</td>
+  <td class="value">174</td><td class="value">127</td><td class="value">98</td>
+  <td class="value total-col">399</td>
+  <td class="trend positive">↑ 39.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">NP Per Working Day</td>
+  <td class="value">3.16</td><td class="value">2.31</td><td class="value">2.28</td>
+  <td class="value total-col">7.75</td>
+  <td class="trend positive">↑ 33.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case Acceptance % (Overall)</td>
+  <td class="value">75.3%</td><td class="value">84.0%</td><td class="value">77.4%</td>
+  <td class="value total-col">78.9%</td>
+  <td class="trend positive">↑ 4.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case Acceptance % (New Patients)</td>
+  <td class="value">82.0%</td><td class="value">84.4%</td><td class="value">88.1%</td>
+  <td class="value total-col">84.8%</td>
+  <td class="trend positive">↑ 4.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case $ Presented</td>
+  <td class="value">$1,414,849</td><td class="value">$843,403</td><td class="value">$779,002</td>
+  <td class="value total-col">$3,037,254</td>
+  <td class="trend positive">↑ 31.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case $ Accepted %</td>
+  <td class="value">26.3%</td><td class="value">57.2%</td><td class="value">35.9%</td>
+  <td class="value total-col">39.8%</td>
+  <td class="trend negative">↓ 13.7%</td>
+</tr>
+<tr class="section-row"><td colspan="6">PATIENT RETENTION</td></tr>
+<tr>
+  <td class="metric-name">Unscheduled Active Patients</td>
+  <td class="value">998</td><td class="value">990</td><td class="value">622</td>
+  <td class="value total-col">2,610</td>
+  <td class="trend negative">↓ 11.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">Unscheduled Opportunity $$</td>
+  <td class="value">$1,097,431</td><td class="value">$1,444,667</td><td class="value">$716,656</td>
+  <td class="value total-col">$3,258,754</td>
+  <td class="trend negative">↓ 16.2%</td>
+</tr>
+<tr>
+  <td class="metric-name">Active Hygiene Patients</td>
+  <td class="value">1,369</td><td class="value">2,680</td><td class="value">1,251</td>
+  <td class="value total-col">5,300</td>
+  <td class="trend positive">↑ 0.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">Pre-Appointment %</td>
+  <td class="value">53.0%</td><td class="value">69.0%</td><td class="value">61.0%</td>
+  <td class="value total-col">61.0%</td>
+  <td class="trend positive">↑ 14.4%</td>
+</tr>
+<tr>
+  <td class="metric-name">Hygiene Re-Appointment %</td>
+  <td class="value">96.4%</td><td class="value">94.9%</td><td class="value">96.1%</td>
+  <td class="value total-col">95.8%</td>
+  <td class="trend positive">↑ 4.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">NP Hygiene Re-Appt %</td>
+  <td class="value">30.5%</td><td class="value">33.9%</td><td class="value">49.0%</td>
+  <td class="value total-col">36.1%</td>
+  <td class="trend negative">↓ 11.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Patients Net Growth</td>
+  <td class="value">85</td><td class="value">45</td><td class="value">34</td>
+  <td class="value total-col">164</td>
+  <td class="trend positive">↑ 428.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">Recaptured Patients</td>
+  <td class="value">27</td><td class="value">43</td><td class="value">12</td>
+  <td class="value total-col">82</td>
+  <td class="trend negative">↓ 14.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Perio Presented %</td>
+  <td class="value">48.4%</td><td class="value">14.4%</td><td class="value">26.7%</td>
+  <td class="value total-col">26.9%</td>
+  <td class="trend positive">↑ 2.7%</td>
+</tr>
+<tr>
+  <td class="metric-name">Perio Visit %</td>
+  <td class="value">48.4%</td><td class="value">14.4%</td><td class="value">26.7%</td>
+  <td class="value total-col">26.9%</td>
+  <td class="trend positive">↑ 5.5%</td>
+</tr>
+<tr class="section-row"><td colspan="6">SCHEDULE MANAGEMENT</td></tr>
+<tr>
+  <td class="metric-name">Appointments Completed</td>
+  <td class="value">1,423</td><td class="value">2,139</td><td class="value">1,082</td>
+  <td class="value total-col">4,644</td>
+  <td class="trend positive">↑ 0.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">Future Appointments</td>
+  <td class="value">1,144</td><td class="value">2,195</td><td class="value">980</td>
+  <td class="value total-col">4,319</td>
+  <td class="trend positive">↑ 12.2%</td>
+</tr>
+<tr>
+  <td class="metric-name">Visits Per Working Day</td>
+  <td class="value">25.35</td><td class="value">37.44</td><td class="value">24.70</td>
+  <td class="value total-col">87.48</td>
+  <td class="trend negative">↓ 3.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">No-Shows %</td>
+  <td class="value">0.3%</td><td class="value">0.1%</td><td class="value">1.0%</td>
+  <td class="value total-col">0.4%</td>
+  <td class="trend negative">↓ 73.3%</td>
+</tr>
+<tr>
+  <td class="metric-name">Cancellations %</td>
+  <td class="value">1.2%</td><td class="value">8.6%</td><td class="value">7.2%</td>
+  <td class="value total-col">6.2%</td>
+  <td class="trend negative">↓ 22.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">Hygiene Visits Per Hour</td>
+  <td class="value">1.03</td><td class="value">5.47</td><td class="value">5.58</td>
+  <td class="value total-col">2.49</td>
+  <td class="trend neutral">→ 0.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">DI Confirmed %</td>
+  <td class="value">46.4%</td><td class="value">45.1%</td><td class="value">43.5%</td>
+  <td class="value total-col">45.0%</td>
+  <td class="trend negative">↓ 19.6%</td>
+</tr>
 
-        <p style="background: #f0f4f9; padding: 15px; border-radius: 4px; margin: 20px 0; font-size: 13px; color: #555;"><strong>Organization Total:</strong> 18 Passes / 16 Fails across 3 locations</p>
+    </tbody>
+  </table>
+</div>
 
-        <table class="scorecard-table">
-            <tr><th>Metric</th><th>Benchmark</th><th>Cottonwood</th><th>Flagstaff</th><th>Sedona</th></tr>
-            <tr class="scorecard-category"><td colspan="5">PATIENT ACQUISITION</td></tr>
-            <tr><td>Avg New Patients/Month</td><td>≥ 30</td><td><span class="result-pass">58 PASS</span></td><td><span class="result-pass">42 PASS</span></td><td><span class="result-pass">33 PASS</span></td></tr>
-            <tr><td>NP Call Conversion %</td><td>≥ 55%</td><td><span class="result-fail">40% FAIL</span></td><td><span class="result-fail">35% FAIL</span></td><td><span class="result-fail">34% FAIL</span></td></tr>
-            <tr><td>Missed Call %</td><td>≤ 18%</td><td><span class="result-fail">23.7% FAIL</span></td><td><span class="result-fail">39% FAIL</span></td><td><span class="result-fail">30.4% FAIL</span></td></tr>
-            <tr><td>3rd Next Available NP Appointment</td><td>≤ 7 days</td><td><span class="result-fail">46 days FAIL</span></td><td><span class="result-fail">23 days FAIL</span></td><td><span class="result-fail">39 days FAIL</span></td></tr>
-            <tr class="scorecard-category"><td colspan="5">PATIENT RETENTION</td></tr>
-            <tr><td>Unscheduled Active Patients</td><td>Decrease YOY</td><td><span class="result-fail">997 (prior: 992) FAIL</span></td><td><span class="result-pass">987 (prior: 1,166) PASS</span></td><td><span class="result-pass">622 (prior: 805) PASS</span></td></tr>
-            <tr><td>Unscheduled Active Patients $$ Opportunity</td><td>Decrease YOY</td><td><span class="result-pass">$1,097,431 (prior: $1,153,855) PASS</span></td><td><span class="result-pass">$1,444,667 (prior: $1,752,929) PASS</span></td><td><span class="result-pass">$716,656 (prior: $981,384) PASS</span></td></tr>
-            <tr><td>NP Hygiene Re-Appointment %</td><td>≥ 40%</td><td><span class="result-fail">30.5% FAIL</span></td><td><span class="result-fail">34.6% FAIL</span></td><td><span class="result-pass">49.0% PASS</span></td></tr>
-            <tr><td>Pre-Appointment %</td><td>≥ 60%</td><td><span class="result-fail">53% FAIL</span></td><td><span class="result-pass">69% PASS</span></td><td><span class="result-pass">61% PASS</span></td></tr>
-            <tr class="scorecard-category"><td colspan="5">SCHEDULE MANAGEMENT</td></tr>
-            <tr><td>Appointments Completed</td><td>Increase YOY</td><td><span class="result-pass">1,423 (prior: 1,190) PASS</span></td><td><span class="result-fail">2,139 (prior: 2,357) FAIL</span></td><td><span class="result-pass">1,082 (prior: 1,060) PASS</span></td></tr>
-            <tr><td>No-Shows %</td><td>≤ 5%</td><td><span class="result-pass">0.4% PASS</span></td><td><span class="result-pass">0.1% PASS</span></td><td><span class="result-pass">1.1% PASS</span></td></tr>
-            <tr><td>Cancellations %</td><td>≤ 5%</td><td><span class="result-pass">1.3% PASS</span></td><td><span class="result-fail">9.8% FAIL</span></td><td><span class="result-fail">7.9% FAIL</span></td></tr>
-            <tr class="scorecard-category"><td colspan="5">ONLINE REPUTATION</td></tr>
-            <tr><td>Google Reviews (Total)</td><td>≥ 300</td><td><span class="result-pass">550 PASS</span></td><td><span class="result-pass">919 PASS</span></td><td><span class="result-pass">329 PASS</span></td></tr>
-            <tr><td>Google Star Rating</td><td>≥ 4.5</td><td><span class="result-pass">4.81 PASS</span></td><td><span class="result-pass">4.9 PASS</span></td><td><span class="result-pass">4.8 PASS</span></td></tr>
-            <tr><td>Google 5 Star Reviews</td><td>≥ 90% of total</td><td><span class="result-fail">84.7% FAIL</span></td><td><span class="result-fail">88.8% FAIL</span></td><td><span class="result-pass">90.6% PASS</span></td></tr>
-            <tr><td>Yelp Reviews (Total)</td><td>≥ 20</td><td><span class="result-fail">12 FAIL</span></td><td><span class="result-fail">12 FAIL</span></td><td><span class="result-fail">6 FAIL</span></td></tr>
-            <tr class="scorecard-category"><td colspan="5">REFERRAL PROGRAM</td></tr>
-            <tr><td>Tracking Referral Source</td><td>Yes</td><td><span class="result-fail">97.7% missing FAIL</span></td><td><span class="result-fail">78.0% missing FAIL</span></td><td><span class="result-fail">80.6% missing FAIL</span></td></tr>
-        </table>
+<h2 style="color: var(--navy); margin-bottom: 1rem; font-size: 1.4rem;">Individual Location Details</h2>
+<div class="location-grid">
+  
+<div class="location-card">
+  <h2>Cottonwood</h2>
+  <p class="period">Jan 1 – Mar 19, 2026 vs 2025</p>
+  <table class="data-table">
+    <thead>
+      <tr><th>Metric</th><th>2026</th><th>2025</th><th>YOY</th></tr>
+    </thead>
+    <tbody>
+      <tr class="section-row"><td colspan="4">PRODUCTION</td></tr>
+<tr>
+  <td class="metric-name">Gross Production</td>
+  <td class="value">$595,845</td>
+  <td class="value">$549,939</td>
+  <td class="trend positive">↑ 8.3%</td>
+</tr>
+<tr>
+  <td class="metric-name">Scheduled Production</td>
+  <td class="value">$633,447</td>
+  <td class="value">$595,821</td>
+  <td class="trend positive">↑ 6.3%</td>
+</tr>
+<tr>
+  <td class="metric-name">Annual Patient Value</td>
+  <td class="value">$1,100</td>
+  <td class="value">$1,163</td>
+  <td class="trend negative">↓ 5.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">Avg Restorative $/Exam</td>
+  <td class="value">$854</td>
+  <td class="value">$919</td>
+  <td class="trend negative">↓ 7.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Avg Hygiene $/Visit</td>
+  <td class="value">$169</td>
+  <td class="value">$180</td>
+  <td class="trend negative">↓ 6.0%</td>
+</tr>
+<tr class="section-row"><td colspan="4">PATIENT ACQUISITION</td></tr>
+<tr>
+  <td class="metric-name">New Patients</td>
+  <td class="value">174</td>
+  <td class="value">113</td>
+  <td class="trend positive">↑ 54.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">NP Per Working Day</td>
+  <td class="value">3.16</td>
+  <td class="value">2.17</td>
+  <td class="trend positive">↑ 45.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case Acceptance % (Overall)</td>
+  <td class="value">75.3%</td>
+  <td class="value">74.6%</td>
+  <td class="trend positive">↑ 0.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case Acceptance % (New Patients)</td>
+  <td class="value">82.0%</td>
+  <td class="value">79.7%</td>
+  <td class="trend positive">↑ 2.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case $ Presented</td>
+  <td class="value">$1,414,849</td>
+  <td class="value">$811,856</td>
+  <td class="trend positive">↑ 74.3%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case $ Accepted %</td>
+  <td class="value">26.3%</td>
+  <td class="value">42.0%</td>
+  <td class="trend negative">↓ 37.4%</td>
+</tr>
+<tr class="section-row"><td colspan="4">PATIENT RETENTION</td></tr>
+<tr>
+  <td class="metric-name">Unscheduled Active Patients</td>
+  <td class="value">998</td>
+  <td class="value">992</td>
+  <td class="trend positive">↑ 0.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Unscheduled Opportunity $$</td>
+  <td class="value">$1,097,431</td>
+  <td class="value">$1,153,855</td>
+  <td class="trend negative">↓ 4.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">Active Hygiene Patients</td>
+  <td class="value">1,369</td>
+  <td class="value">1,289</td>
+  <td class="trend positive">↑ 6.2%</td>
+</tr>
+<tr>
+  <td class="metric-name">Pre-Appointment %</td>
+  <td class="value">53.0%</td>
+  <td class="value">48.0%</td>
+  <td class="trend positive">↑ 10.4%</td>
+</tr>
+<tr>
+  <td class="metric-name">Hygiene Re-Appointment %</td>
+  <td class="value">96.4%</td>
+  <td class="value">94.6%</td>
+  <td class="trend positive">↑ 1.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">NP Hygiene Re-Appt %</td>
+  <td class="value">30.5%</td>
+  <td class="value">35.4%</td>
+  <td class="trend negative">↓ 13.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">Patients Net Growth</td>
+  <td class="value">85</td>
+  <td class="value">-11</td>
+  <td class="trend positive">↑ 872.7%</td>
+</tr>
+<tr>
+  <td class="metric-name">Recaptured Patients</td>
+  <td class="value">27</td>
+  <td class="value">34</td>
+  <td class="trend negative">↓ 20.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Perio Presented %</td>
+  <td class="value">48.4%</td>
+  <td class="value">45.6%</td>
+  <td class="trend positive">↑ 6.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Perio Visit %</td>
+  <td class="value">48.4%</td>
+  <td class="value">44.1%</td>
+  <td class="trend positive">↑ 9.8%</td>
+</tr>
+<tr class="section-row"><td colspan="4">SCHEDULE MANAGEMENT</td></tr>
+<tr>
+  <td class="metric-name">Appointments Completed</td>
+  <td class="value">1,423</td>
+  <td class="value">1,190</td>
+  <td class="trend positive">↑ 19.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Future Appointments</td>
+  <td class="value">1,144</td>
+  <td class="value">953</td>
+  <td class="trend positive">↑ 20.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">Visits Per Working Day</td>
+  <td class="value">25.35</td>
+  <td class="value">22.52</td>
+  <td class="trend positive">↑ 12.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">No-Shows %</td>
+  <td class="value">0.3%</td>
+  <td class="value">0.3%</td>
+  <td class="trend neutral">→ 0.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">Cancellations %</td>
+  <td class="value">1.2%</td>
+  <td class="value">7.4%</td>
+  <td class="trend negative">↓ 83.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">Hygiene Visits Per Hour</td>
+  <td class="value">1.03</td>
+  <td class="value">1.15</td>
+  <td class="trend negative">↓ 10.4%</td>
+</tr>
+<tr>
+  <td class="metric-name">DI Confirmed %</td>
+  <td class="value">46.4%</td>
+  <td class="value">50.9%</td>
+  <td class="trend negative">↓ 8.8%</td>
+</tr>
 
-        <h2>1. Organization-Wide Production & Revenue Overview</h2>
+    </tbody>
+  </table>
+</div>
 
-        <div class="metrics-grid">
-            <div class="metric-box">
-                <h4>Production Gross</h4>
-                <div class="metric-value">$2,110,150</div>
-                <div class="metric-change negative">Down $68,249 (-3.1%)</div>
-            </div>
-            <div class="metric-box">
-                <h4>Scheduled Gross</h4>
-                <div class="metric-value">$2,308,779</div>
-                <div class="metric-change negative">Down $34,655 (-1.5%)</div>
-            </div>
-            <div class="metric-box">
-                <h4>New Patients</h4>
-                <div class="metric-value">399</div>
-                <div class="metric-change positive">Up 113 (+39.5%)</div>
-            </div>
-            <div class="metric-box">
-                <h4>NP Per Working Day</h4>
-                <div class="metric-value">7.75</div>
-                <div class="metric-change positive">Up 1.95 (+33.6%)</div>
-            </div>
-        </div>
+<div class="location-card">
+  <h2>Flagstaff</h2>
+  <p class="period">Jan 1 – Mar 19, 2026 vs 2025</p>
+  <table class="data-table">
+    <thead>
+      <tr><th>Metric</th><th>2026</th><th>2025</th><th>YOY</th></tr>
+    </thead>
+    <tbody>
+      <tr class="section-row"><td colspan="4">PRODUCTION</td></tr>
+<tr>
+  <td class="metric-name">Gross Production</td>
+  <td class="value">$1,069,578</td>
+  <td class="value">$1,159,440</td>
+  <td class="trend negative">↓ 7.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">Scheduled Production</td>
+  <td class="value">$1,176,301</td>
+  <td class="value">$1,249,254</td>
+  <td class="trend negative">↓ 5.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">Annual Patient Value</td>
+  <td class="value">$1,459</td>
+  <td class="value">$1,503</td>
+  <td class="trend negative">↓ 2.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">Avg Restorative $/Exam</td>
+  <td class="value">$981</td>
+  <td class="value">$977</td>
+  <td class="trend positive">↑ 0.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">Avg Hygiene $/Visit</td>
+  <td class="value">$152</td>
+  <td class="value">$145</td>
+  <td class="trend positive">↑ 5.1%</td>
+</tr>
+<tr class="section-row"><td colspan="4">PATIENT ACQUISITION</td></tr>
+<tr>
+  <td class="metric-name">New Patients</td>
+  <td class="value">127</td>
+  <td class="value">90</td>
+  <td class="trend positive">↑ 41.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">NP Per Working Day</td>
+  <td class="value">2.31</td>
+  <td class="value">1.70</td>
+  <td class="trend positive">↑ 35.9%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case Acceptance % (Overall)</td>
+  <td class="value">84.0%</td>
+  <td class="value">80.7%</td>
+  <td class="trend positive">↑ 4.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case Acceptance % (New Patients)</td>
+  <td class="value">84.4%</td>
+  <td class="value">85.4%</td>
+  <td class="trend negative">↓ 1.2%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case $ Presented</td>
+  <td class="value">$843,403</td>
+  <td class="value">$930,369</td>
+  <td class="trend negative">↓ 9.3%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case $ Accepted %</td>
+  <td class="value">57.2%</td>
+  <td class="value">55.7%</td>
+  <td class="trend positive">↑ 2.7%</td>
+</tr>
+<tr class="section-row"><td colspan="4">PATIENT RETENTION</td></tr>
+<tr>
+  <td class="metric-name">Unscheduled Active Patients</td>
+  <td class="value">990</td>
+  <td class="value">1,166</td>
+  <td class="trend negative">↓ 15.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Unscheduled Opportunity $$</td>
+  <td class="value">$1,444,667</td>
+  <td class="value">$1,752,929</td>
+  <td class="trend negative">↓ 17.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Active Hygiene Patients</td>
+  <td class="value">2,680</td>
+  <td class="value">2,782</td>
+  <td class="trend negative">↓ 3.7%</td>
+</tr>
+<tr>
+  <td class="metric-name">Pre-Appointment %</td>
+  <td class="value">69.0%</td>
+  <td class="value">64.0%</td>
+  <td class="trend positive">↑ 7.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">Hygiene Re-Appointment %</td>
+  <td class="value">94.9%</td>
+  <td class="value">95.5%</td>
+  <td class="trend negative">↓ 0.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">NP Hygiene Re-Appt %</td>
+  <td class="value">33.9%</td>
+  <td class="value">42.2%</td>
+  <td class="trend negative">↓ 19.7%</td>
+</tr>
+<tr>
+  <td class="metric-name">Patients Net Growth</td>
+  <td class="value">45</td>
+  <td class="value">-37</td>
+  <td class="trend positive">↑ 221.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Recaptured Patients</td>
+  <td class="value">43</td>
+  <td class="value">44</td>
+  <td class="trend negative">↓ 2.3%</td>
+</tr>
+<tr>
+  <td class="metric-name">Perio Presented %</td>
+  <td class="value">14.4%</td>
+  <td class="value">14.1%</td>
+  <td class="trend positive">↑ 2.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Perio Visit %</td>
+  <td class="value">14.4%</td>
+  <td class="value">13.6%</td>
+  <td class="trend positive">↑ 5.9%</td>
+</tr>
+<tr class="section-row"><td colspan="4">SCHEDULE MANAGEMENT</td></tr>
+<tr>
+  <td class="metric-name">Appointments Completed</td>
+  <td class="value">2,139</td>
+  <td class="value">2,357</td>
+  <td class="trend negative">↓ 9.2%</td>
+</tr>
+<tr>
+  <td class="metric-name">Future Appointments</td>
+  <td class="value">2,195</td>
+  <td class="value">2,121</td>
+  <td class="trend positive">↑ 3.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">Visits Per Working Day</td>
+  <td class="value">37.44</td>
+  <td class="value">43.42</td>
+  <td class="trend negative">↓ 13.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">No-Shows %</td>
+  <td class="value">0.1%</td>
+  <td class="value">2.0%</td>
+  <td class="trend negative">↓ 95.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">Cancellations %</td>
+  <td class="value">8.6%</td>
+  <td class="value">9.6%</td>
+  <td class="trend negative">↓ 10.4%</td>
+</tr>
+<tr>
+  <td class="metric-name">Hygiene Visits Per Hour</td>
+  <td class="value">5.47</td>
+  <td class="value">5.50</td>
+  <td class="trend negative">↓ 0.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">DI Confirmed %</td>
+  <td class="value">45.1%</td>
+  <td class="value">59.4%</td>
+  <td class="trend negative">↓ 24.1%</td>
+</tr>
 
-        <div class="insight-box">
-            <strong>Key Insight:</strong> The organization is successfully attracting new patients at a strong rate (39.5% growth), but actual production is declining while scheduled production holds relatively flat. This gap signals cash leakage through appointment no-shows, cancellations, and—most critically—declining case dollar acceptance. The practice is scheduling work but failing to convert scheduled visits into completed production at expected dollar values.
-        </div>
+    </tbody>
+  </table>
+</div>
 
-        <h2>2. New Patient Acquisition & Case Acceptance</h2>
+<div class="location-card">
+  <h2>Sedona</h2>
+  <p class="period">Jan 1 – Mar 19, 2026 vs 2025</p>
+  <table class="data-table">
+    <thead>
+      <tr><th>Metric</th><th>2026</th><th>2025</th><th>YOY</th></tr>
+    </thead>
+    <tbody>
+      <tr class="section-row"><td colspan="4">PRODUCTION</td></tr>
+<tr>
+  <td class="metric-name">Gross Production</td>
+  <td class="value">$444,726</td>
+  <td class="value">$469,020</td>
+  <td class="trend negative">↓ 5.2%</td>
+</tr>
+<tr>
+  <td class="metric-name">Scheduled Production</td>
+  <td class="value">$499,031</td>
+  <td class="value">$498,359</td>
+  <td class="trend positive">↑ 0.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Annual Patient Value</td>
+  <td class="value">$1,152</td>
+  <td class="value">$1,219</td>
+  <td class="trend negative">↓ 5.5%</td>
+</tr>
+<tr>
+  <td class="metric-name">Avg Restorative $/Exam</td>
+  <td class="value">$706</td>
+  <td class="value">$826</td>
+  <td class="trend negative">↓ 14.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Avg Hygiene $/Visit</td>
+  <td class="value">$145</td>
+  <td class="value">$149</td>
+  <td class="trend negative">↓ 2.8%</td>
+</tr>
+<tr class="section-row"><td colspan="4">PATIENT ACQUISITION</td></tr>
+<tr>
+  <td class="metric-name">New Patients</td>
+  <td class="value">98</td>
+  <td class="value">83</td>
+  <td class="trend positive">↑ 18.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">NP Per Working Day</td>
+  <td class="value">2.28</td>
+  <td class="value">1.93</td>
+  <td class="trend positive">↑ 18.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case Acceptance % (Overall)</td>
+  <td class="value">77.4%</td>
+  <td class="value">70.9%</td>
+  <td class="trend positive">↑ 9.2%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case Acceptance % (New Patients)</td>
+  <td class="value">88.1%</td>
+  <td class="value">78.2%</td>
+  <td class="trend positive">↑ 12.7%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case $ Presented</td>
+  <td class="value">$779,002</td>
+  <td class="value">$560,204</td>
+  <td class="trend positive">↑ 39.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Case $ Accepted %</td>
+  <td class="value">35.9%</td>
+  <td class="value">40.8%</td>
+  <td class="trend negative">↓ 12.0%</td>
+</tr>
+<tr class="section-row"><td colspan="4">PATIENT RETENTION</td></tr>
+<tr>
+  <td class="metric-name">Unscheduled Active Patients</td>
+  <td class="value">622</td>
+  <td class="value">805</td>
+  <td class="trend negative">↓ 22.7%</td>
+</tr>
+<tr>
+  <td class="metric-name">Unscheduled Opportunity $$</td>
+  <td class="value">$716,656</td>
+  <td class="value">$981,384</td>
+  <td class="trend negative">↓ 27.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">Active Hygiene Patients</td>
+  <td class="value">1,251</td>
+  <td class="value">1,182</td>
+  <td class="trend positive">↑ 5.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">Pre-Appointment %</td>
+  <td class="value">61.0%</td>
+  <td class="value">48.0%</td>
+  <td class="trend positive">↑ 27.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Hygiene Re-Appointment %</td>
+  <td class="value">96.1%</td>
+  <td class="value">83.7%</td>
+  <td class="trend positive">↑ 14.8%</td>
+</tr>
+<tr>
+  <td class="metric-name">NP Hygiene Re-Appt %</td>
+  <td class="value">49.0%</td>
+  <td class="value">45.8%</td>
+  <td class="trend positive">↑ 7.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">Patients Net Growth</td>
+  <td class="value">34</td>
+  <td class="value">-2</td>
+  <td class="trend positive">↑ 1800.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">Recaptured Patients</td>
+  <td class="value">12</td>
+  <td class="value">18</td>
+  <td class="trend negative">↓ 33.3%</td>
+</tr>
+<tr>
+  <td class="metric-name">Perio Presented %</td>
+  <td class="value">26.7%</td>
+  <td class="value">30.0%</td>
+  <td class="trend negative">↓ 11.0%</td>
+</tr>
+<tr>
+  <td class="metric-name">Perio Visit %</td>
+  <td class="value">26.7%</td>
+  <td class="value">30.0%</td>
+  <td class="trend negative">↓ 11.0%</td>
+</tr>
+<tr class="section-row"><td colspan="4">SCHEDULE MANAGEMENT</td></tr>
+<tr>
+  <td class="metric-name">Appointments Completed</td>
+  <td class="value">1,082</td>
+  <td class="value">1,060</td>
+  <td class="trend positive">↑ 2.1%</td>
+</tr>
+<tr>
+  <td class="metric-name">Future Appointments</td>
+  <td class="value">980</td>
+  <td class="value">774</td>
+  <td class="trend positive">↑ 26.6%</td>
+</tr>
+<tr>
+  <td class="metric-name">Visits Per Working Day</td>
+  <td class="value">24.70</td>
+  <td class="value">24.35</td>
+  <td class="trend positive">↑ 1.4%</td>
+</tr>
+<tr>
+  <td class="metric-name">No-Shows %</td>
+  <td class="value">1.0%</td>
+  <td class="value">1.8%</td>
+  <td class="trend negative">↓ 44.4%</td>
+</tr>
+<tr>
+  <td class="metric-name">Cancellations %</td>
+  <td class="value">7.2%</td>
+  <td class="value">4.7%</td>
+  <td class="trend positive">↑ 53.2%</td>
+</tr>
+<tr>
+  <td class="metric-name">Hygiene Visits Per Hour</td>
+  <td class="value">5.58</td>
+  <td class="value">2.77</td>
+  <td class="trend positive">↑ 101.4%</td>
+</tr>
+<tr>
+  <td class="metric-name">DI Confirmed %</td>
+  <td class="value">43.5%</td>
+  <td class="value">57.7%</td>
+  <td class="trend negative">↓ 24.6%</td>
+</tr>
 
-        <table>
-            <tr>
-                <th style="width: 50%;">Metric</th>
-                <th style="width: 25%;">Q1 2025</th>
-                <th style="width: 25%;">Q1 2026</th>
-            </tr>
-            <tr>
-                <td>New Patients (Total)</td>
-                <td>286</td>
-                <td>399</td>
-            </tr>
-            <tr>
-                <td>NPs Per Working Day</td>
-                <td>5.80</td>
-                <td>7.75</td>
-            </tr>
-            <tr>
-                <td>Case Acceptance % (Avg)</td>
-                <td>75.4%</td>
-                <td>78.8%</td>
-            </tr>
-            <tr>
-                <td>NP Case Acceptance % (Avg)</td>
-                <td>81.1%</td>
-                <td>84.5%</td>
-            </tr>
-            <tr>
-                <td>Case $ Presented</td>
-                <td>$2,302,429</td>
-                <td>$3,043,238</td>
-            </tr>
-            <tr>
-                <td>Case $ Accepted</td>
-                <td>$1,505,347</td>
-                <td>$1,703,493</td>
-            </tr>
-            <tr>
-                <td>Case $ Accepted % (Avg)</td>
-                <td>46.2%</td>
-                <td>39.8%</td>
-            </tr>
-        </table>
+    </tbody>
+  </table>
+</div>
 
-        <div class="insight-box">
-            <strong>Critical Finding:</strong> The organization raised case acceptance % from 75.4% to 78.8% (+3.4 pts) and new patient case acceptance from 81.1% to 84.5% (+3.4 pts). Case dollars presented surged 32.2% ($2.3M to $3.0M). Yet <span class="highlight">case $ accepted % crashed 6.4 points (46.2% to 39.8%)</span>, the single largest headwind in the production waterfall (-$248K). Patients are saying "yes" to treatment more often, but accepting materially smaller treatment plans. This signals financial barriers, insurance coverage limitations, or loss of treatment plan presentation confidence.
-        </div>
+</div>
 
-        <p><strong>NP Marketing Performance (Org-Wide):</strong> Q1 2026 delivered 402 total NPs (+39.5% YoY). Reappointment rate: 78%. Average production per NP visit: $677. Monthly cadence: Jan 128, Feb 164, Mar 110 (partial). Lead sources: Direct 48.5%, Organic Search 30.3%, Paid Search 16.7%, Referral 4.2%.</p>
+<div class="footer">
+  Generated from Dental Intel CSV exports (Jan 1 – Mar 19, 2026 vs Jan 1 – Mar 19, 2025) | Peak Family Dentistry
+</div>
 
-        <h2>2.5. Marketing ROI & Cost Per Acquisition</h2>
-
-        <div class="metrics-grid">
-            <div class="metric-box">
-                <h4>Total Paid Media Spend</h4>
-                <div class="metric-value">$22,391</div>
-            </div>
-            <div class="metric-box">
-                <h4>New Patients (Paid)</h4>
-                <div class="metric-value">63</div>
-            </div>
-            <div class="metric-box">
-                <h4>Blended ROI</h4>
-                <div class="metric-value">492%</div>
-            </div>
-            <div class="metric-box">
-                <h4>Net Production (Paid)</h4>
-                <div class="metric-value">$132,475</div>
-            </div>
-        </div>
-
-        <table>
-            <tr>
-                <th>Metric</th>
-                <th>Value</th>
-            </tr>
-            <tr>
-                <td>Total Paid Leads</td>
-                <td>206</td>
-            </tr>
-            <tr>
-                <td>Qualified Leads</td>
-                <td>171</td>
-            </tr>
-            <tr>
-                <td>Scheduled Appointments</td>
-                <td>99</td>
-            </tr>
-            <tr>
-                <td>Cost Per Lead (CPL)</td>
-                <td>$108.69</td>
-            </tr>
-            <tr>
-                <td>Cost Per Qualified Lead (CPQL)</td>
-                <td>$130.94</td>
-            </tr>
-            <tr>
-                <td>Cost Per Appointment (CPA)</td>
-                <td>$226.17</td>
-            </tr>
-            <tr>
-                <td>Customer Acquisition Cost (CAC)</td>
-                <td>$355.41</td>
-            </tr>
-            <tr>
-                <td>Schedule Rate</td>
-                <td>58%</td>
-            </tr>
-            <tr>
-                <td>Leads Needing Action</td>
-                <td>117</td>
-            </tr>
-        </table>
-
-        <h3>Per-Location Paid Acquisition Performance</h3>
-
-        <table>
-            <tr>
-                <th>Metric</th>
-                <th>Cottonwood</th>
-                <th>Flagstaff</th>
-                <th>Sedona</th>
-            </tr>
-            <tr>
-                <td>Paid Spend</td>
-                <td>$3,837</td>
-                <td>$12,019</td>
-                <td>$6,535</td>
-            </tr>
-            <tr>
-                <td>Paid New Patients</td>
-                <td>28</td>
-                <td>28</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td>Customer Acquisition Cost (CAC)</td>
-                <td>$137</td>
-                <td>$429</td>
-                <td>$934</td>
-            </tr>
-            <tr>
-                <td>Marketing ROI</td>
-                <td>771%</td>
-                <td>606%</td>
-                <td>117%</td>
-            </tr>
-            <tr>
-                <td>Cost Per Lead (CPL)</td>
-                <td>$47</td>
-                <td>$120</td>
-                <td>$261</td>
-            </tr>
-            <tr>
-                <td>Net Production</td>
-                <td>$33,426</td>
-                <td>$84,846</td>
-                <td>$14,203</td>
-            </tr>
-            <tr>
-                <td>Leads Needing Action</td>
-                <td>39</td>
-                <td>66</td>
-                <td>12</td>
-            </tr>
-        </table>
-
-        <div class="insight-box">
-            <strong>Key Insight:</strong> Marketing spend efficiency varies dramatically across locations. <span class="highlight">Cottonwood delivers the lowest CAC ($137) at 771% ROI — it's the most efficient location for paid acquisition.</span> Flagstaff absorbs 54% of total spend ($12K) but delivers the highest production per dollar at $84.8K net. <span class="highlight">Sedona is the outlier: $934 CAC at only 117% ROI with just 7 paid NPs.</span> Budget reallocation from Sedona toward Cottonwood and Flagstaff could improve org-wide marketing efficiency. Additionally, <span class="highlight">117 total leads need action — this represents the single fastest path to incremental production without additional spend.</span>
-        </div>
-
-        <h2>3. Same-Day Treatment & Clinical Performance</h2>
-
-        <div class="metrics-grid">
-            <div class="metric-box">
-                <h4>Same-Day Hygiene</h4>
-                <div class="metric-value">$74,068</div>
-                <div class="metric-change positive">Up $9,862 (+15.3%)</div>
-            </div>
-            <div class="metric-box">
-                <h4>Same-Day Restorative</h4>
-                <div class="metric-value">$891,971</div>
-                <div class="metric-change positive">Up $115,916 (+14.9%)</div>
-            </div>
-            <div class="metric-box">
-                <h4>Same-Day Total</h4>
-                <div class="metric-value">$966,038</div>
-                <div class="metric-change positive">Up $125,777 (+15.0%)</div>
-            </div>
-            <div class="metric-box">
-                <h4>Case Diagnosed Restorative % (Avg)</h4>
-                <div class="metric-value">45.8%</div>
-                <div class="metric-change positive">Up 4.9 pts</div>
-            </div>
-        </div>
-
-        <div class="insight-box">
-            <strong>Positive Trend:</strong> Same-day treatment surged 15% organization-wide (+$126K), driven by 14.9% growth in same-day restorative. This represents one of the few consistent bright spots across all locations. Restorative case diagnosis improved to 45.8%, suggesting stronger chairside detection and clinical confidence. This same-day momentum needs to be sustained and accelerated through continued training and clinical culture alignment.
-        </div>
-
-        <h2>4. Patient Volume & Appointment Health</h2>
-
-        <table>
-            <tr>
-                <th style="width: 50%;">Metric</th>
-                <th style="width: 25%;">Q1 2025</th>
-                <th style="width: 25%;">Q1 2026</th>
-            </tr>
-            <tr>
-                <td>Active Hygiene Patients</td>
-                <td>5,253</td>
-                <td>5,300</td>
-            </tr>
-            <tr>
-                <td>Unscheduled Active Patients</td>
-                <td>2,963</td>
-                <td>2,606</td>
-            </tr>
-            <tr>
-                <td>Unscheduled Opportunity $</td>
-                <td>$3,888,168</td>
-                <td>$3,253,277</td>
-            </tr>
-            <tr>
-                <td>Appointments Completed</td>
-                <td>4,607</td>
-                <td>4,644</td>
-            </tr>
-            <tr>
-                <td>Appointments Broken</td>
-                <td>483</td>
-                <td>334</td>
-            </tr>
-            <tr>
-                <td>Appointments Cancelled</td>
-                <td>405</td>
-                <td>314</td>
-            </tr>
-            <tr>
-                <td>Combined Leakage % (Avg)</td>
-                <td>8.6%</td>
-                <td>6.1%</td>
-            </tr>
-        </table>
-
-        <div class="insight-box">
-            <strong>Mixed Results:</strong> Appointment leakage improved significantly (8.6% to 6.1%, -2.5 pts), with broken appointments down 30.8% and cancellations down 22.5%. This represents strong operational execution. However, unscheduled active patients declined 12.1%, and unscheduled opportunity dollars fell 16.3%—signals that the patient pipeline for future recovery may be eroding. Active hygiene patients held relatively flat (+47 patients), indicating mature patient base without substantial growth.
-        </div>
-
-        <h3>Patient Attrition Analysis</h3>
-
-        <table>
-            <tr>
-                <th>Location</th>
-                <th>NPs Added</th>
-                <th>Recaptured</th>
-                <th>Net Growth</th>
-                <th>Implied Attrition</th>
-                <th>Attrition Rate</th>
-            </tr>
-            <tr>
-                <td>Cottonwood</td>
-                <td>174</td>
-                <td>27</td>
-                <td>+85</td>
-                <td>116</td>
-                <td>66.7%</td>
-            </tr>
-            <tr>
-                <td>Flagstaff</td>
-                <td>127</td>
-                <td>43</td>
-                <td>+45</td>
-                <td>125</td>
-                <td>98.4%</td>
-            </tr>
-            <tr>
-                <td>Sedona</td>
-                <td>98</td>
-                <td>12</td>
-                <td>+34</td>
-                <td>76</td>
-                <td>77.6%</td>
-            </tr>
-            <tr style="font-weight: bold;">
-                <td>Org Total</td>
-                <td>399</td>
-                <td>82</td>
-                <td>+164</td>
-                <td>317</td>
-                <td>79.4%</td>
-            </tr>
-        </table>
-
-        <div class="insight-box">
-            <strong>Critical Finding:</strong> The organization lost an estimated 317 patients while gaining 399 new ones — a <span class="highlight">79.4% attrition rate.</span> <span class="highlight">Flagstaff is critical at 98.4% (losing nearly as many as it gains).</span> This means the majority of NP acquisition effort is replacing lost patients rather than growing the base. Understanding why patients leave (insurance changes, experience, relocation, recall failure) is essential. High attrition undermines long-term production sustainability and suggests retention-focused initiatives (patient experience, recall automation, proactive communication) must be prioritized alongside acquisition.
-        </div>
-
-        <h2>5. Appointment Confirmation & Patient Recapture</h2>
-
-        <div class="metrics-grid">
-            <div class="metric-box">
-                <h4>DI Confirmed</h4>
-                <div class="metric-value">2,125</div>
-                <div class="metric-change negative">Down 1,170 (-35.5%)</div>
-            </div>
-            <div class="metric-box">
-                <h4>DI Confirmed % (Avg)</h4>
-                <div class="metric-value">45.0%</div>
-                <div class="metric-change negative">Down 11.0 pts</div>
-            </div>
-            <div class="metric-box">
-                <h4>Recaptured Patients</h4>
-                <div class="metric-value">82</div>
-                <div class="metric-change negative">Down 14 (-14.6%)</div>
-            </div>
-            <div class="metric-box">
-                <h4>Net Patient Growth</h4>
-                <div class="metric-value">+164</div>
-                <div class="metric-change positive">Up 214 pts</div>
-            </div>
-        </div>
-
-        <div class="insight-box">
-            <strong>Significant Deterioration:</strong> Digital confirmations fell 35.5% organization-wide (3,295 to 2,125), and confirmation rate dropped 11.0 points to 45.0%—critically low. Sedona is the weakest link at 43.5%. Despite this confirmation weakness, net patient growth is positive (+164), indicating new patient acquisition strength is masking broader recall/retention challenges. This is a leading indicator of future revenue vulnerability.
-        </div>
-
-        <h2>6. Schedule Utilization & Future Capacity</h2>
-
-        <table>
-            <tr>
-                <th style="width: 50%;">Metric</th>
-                <th style="width: 25%;">Q1 2025</th>
-                <th style="width: 25%;">Q1 2026</th>
-            </tr>
-            <tr>
-                <td>Future Appointments Scheduled</td>
-                <td>3,848</td>
-                <td>4,325</td>
-            </tr>
-            <tr>
-                <td>Total Scheduled Appointments</td>
-                <td>5,090</td>
-                <td>5,103</td>
-            </tr>
-            <tr>
-                <td>Visits Per Working Day (Total)</td>
-                <td>90.29</td>
-                <td>87.49</td>
-            </tr>
-        </table>
-
-        <p>Future appointments increased 12.4% (+477), and the organization is maintaining near-flat overall scheduling activity. However, VPWD declined 3.1% (90.29 to 87.49), suggesting some capacity underutilization or provider scheduling gaps. Flagstaff drives much of this decline (43.4 to 37.4 VPWD, -13.9%), while Cottonwood shows capacity growth (22.5 to 25.4). This unevenness represents opportunity for rebalancing.</p>
-
-        <h2>6.5. Operational Efficiency Metrics</h2>
-
-        <table>
-            <tr>
-                <th>Metric</th>
-                <th>Cottonwood</th>
-                <th>Flagstaff</th>
-                <th>Sedona</th>
-            </tr>
-            <tr>
-                <td>Online Scheduling Adoption</td>
-                <td>9.2% (16/174)</td>
-                <td>7.9% (10/127)</td>
-                <td>4.1% (4/98)</td>
-            </tr>
-            <tr>
-                <td>Hygiene-to-Restorative Handoff Ratio</td>
-                <td>1.02</td>
-                <td>0.65</td>
-                <td>0.76</td>
-            </tr>
-            <tr>
-                <td>New Patient Close Rate</td>
-                <td>82.0%</td>
-                <td>83.3%</td>
-                <td>88.1%</td>
-            </tr>
-        </table>
-
-        <div class="insight-box">
-            <strong>Online Scheduling Insight:</strong> Only 7.5% of NPs org-wide (30 of 399) booked online. This represents a significant self-service gap. <span class="highlight">Improving online booking visibility on websites and Google profiles could reduce front desk workload and capture after-hours demand.</span>
-        </div>
-
-        <div class="insight-box">
-            <strong>Handoff Efficiency Insight:</strong> <span class="highlight">Cottonwood's 1.02 ratio (best) means nearly every hygiene patient generates a restorative visit.</span> Flagstaff at 0.65 is significantly lower — only 2 of every 3 hygiene patients convert to restorative. This gap represents a material production opportunity if Flagstaff can adopt Cottonwood's chairside treatment identification practices. Consider cross-location clinical coaching between sites to standardize restorative case diagnosis protocols.
-        </div>
-
-        <div class="insight-box">
-            <strong>Close Rate Insight:</strong> All 3 locations show NP close rates at or above 82%, with Sedona leading at 88.1%. The NP experience is converting well — new patients are committing to treatment at high rates. The challenge is downstream — retaining those patients and converting case acceptance into case dollars. Focus should shift to case presentation, financial coordination, and patient retention rather than NP experience optimization.
-        </div>
-
-        <h2>7. Location Comparison: Performance Across the Organization</h2>
-
-        <table>
-            <tr>
-                <th>Metric</th>
-                <th>Cottonwood</th>
-                <th>Flagstaff</th>
-                <th>Sedona</th>
-            </tr>
-            <tr>
-                <td>Production Change</td>
-                <td style="color: #27ae60; font-weight: bold;">+8.3%</td>
-                <td style="color: #e74c3c; font-weight: bold;">-7.7%</td>
-                <td style="color: #e74c3c; font-weight: bold;">-5.2%</td>
-            </tr>
-            <tr>
-                <td>NP Growth Rate</td>
-                <td style="color: #27ae60; font-weight: bold;">+54%</td>
-                <td style="color: #27ae60; font-weight: bold;">+41%</td>
-                <td style="color: #27ae60; font-weight: bold;">+18%</td>
-            </tr>
-            <tr>
-                <td>Case Acceptance %</td>
-                <td>75.2%</td>
-                <td>83.9%</td>
-                <td>77.4%</td>
-            </tr>
-            <tr>
-                <td>Case $ Accepted %</td>
-                <td style="color: #e74c3c;">26.2%</td>
-                <td style="color: #27ae60;">57.4%</td>
-                <td style="color: #e74c3c;">35.9%</td>
-            </tr>
-            <tr>
-                <td>Appointment Leakage</td>
-                <td>7.7% → 1.5%</td>
-                <td>11.6% → 8.7%</td>
-                <td>6.5% → 8.2%</td>
-            </tr>
-            <tr>
-                <td>VPWD Change</td>
-                <td style="color: #27ae60;">22.5 → 25.4</td>
-                <td style="color: #e74c3c;">43.4 → 37.4</td>
-                <td>24.4 → 24.7</td>
-            </tr>
-            <tr>
-                <td>Confirmation %</td>
-                <td>46.4%</td>
-                <td>45.1%</td>
-                <td>43.5%</td>
-            </tr>
-            <tr>
-                <td>CAC (Paid)</td>
-                <td style="color: #27ae60; font-weight: bold;">$137</td>
-                <td>$429</td>
-                <td style="color: #e74c3c;">$934</td>
-            </tr>
-            <tr>
-                <td>Paid ROI</td>
-                <td style="color: #27ae60; font-weight: bold;">771%</td>
-                <td>606%</td>
-                <td style="color: #e74c3c;">117%</td>
-            </tr>
-            <tr>
-                <td>Attrition Rate</td>
-                <td style="color: #27ae60;">66.7%</td>
-                <td style="color: #e74c3c;">98.4%</td>
-                <td style="color: #e74c3c;">77.6%</td>
-            </tr>
-            <tr>
-                <td>Hygiene→Restorative Ratio</td>
-                <td style="color: #27ae60; font-weight: bold;">1.02</td>
-                <td style="color: #e74c3c;">0.65</td>
-                <td>0.76</td>
-            </tr>
-            <tr>
-                <td>Missing Referral Source %</td>
-                <td style="color: #e74c3c;">97.7%</td>
-                <td style="color: #e74c3c;">78.0%</td>
-                <td style="color: #e74c3c;">80.6%</td>
-            </tr>
-        </table>
-
-        <div class="insight-box">
-            <strong>Location Dynamics:</strong> Cottonwood is the organization's growth engine (+8.3% production, +54% NPs, best leakage improvement 7.7%→1.5%). Flagstaff is the drag (-7.7% production, capacity collapse 43.4→37.4 VPWD, -$149K waterfall impact), despite having the strongest case $ accepted % (57.4%). Sedona is stable but has the lowest confirmation rate (43.5%) and worsening appointment leakage (6.5%→8.2%). Case $ accepted % is geographically disparate (Flagstaff 57.4% vs. Cottonwood 26.2%), suggesting inconsistent treatment plan presentation or financial coordination protocols across locations.
-        </div>
-
-        <h2>Production Waterfall Analysis</h2>
-
-        <p style="font-size: 14px; margin-bottom: 20px;">The following waterfall breaks down the $68.2K organization-wide production decline from Q1 2025 to Q1 2026, showing the dollar impact of each performance driver.</p>
-
-        <div class="waterfall-container">
-            <div class="waterfall-chart">
-                <div class="waterfall-item">
-                    <div class="waterfall-bar" style="height: 80px;"></div>
-                    <div class="waterfall-value">$2,178K</div>
-                    <div class="waterfall-label">Q1 2025<br>Production</div>
-                </div>
-                <div class="waterfall-item">
-                    <div class="waterfall-bar" style="height: 36px;"></div>
-                    <div class="waterfall-value">+$99K</div>
-                    <div class="waterfall-label">New Patient<br>Volume</div>
-                </div>
-                <div class="waterfall-item">
-                    <div class="waterfall-bar negative" style="height: 91px;"></div>
-                    <div class="waterfall-value">-$248K</div>
-                    <div class="waterfall-label">Case $<br>Accepted %</div>
-                </div>
-                <div class="waterfall-item">
-                    <div class="waterfall-bar" style="height: 46px;"></div>
-                    <div class="waterfall-value">+$126K</div>
-                    <div class="waterfall-label">Same-Day<br>Treatment</div>
-                </div>
-                <div class="waterfall-item">
-                    <div class="waterfall-bar" style="height: 22px;"></div>
-                    <div class="waterfall-value">+$60K</div>
-                    <div class="waterfall-label">Appt<br>Leakage</div>
-                </div>
-                <div class="waterfall-item">
-                    <div class="waterfall-bar negative" style="height: 30px;"></div>
-                    <div class="waterfall-value">-$83K</div>
-                    <div class="waterfall-label">Schedule<br>Utilization</div>
-                </div>
-                <div class="waterfall-item">
-                    <div class="waterfall-bar negative" style="height: 8px;"></div>
-                    <div class="waterfall-value">-$22K</div>
-                    <div class="waterfall-label">Other /<br>Unattributed</div>
-                </div>
-                <div class="waterfall-item">
-                    <div class="waterfall-bar" style="height: 77px;"></div>
-                    <div class="waterfall-value">$2,110K</div>
-                    <div class="waterfall-label">Q1 2026<br>Production</div>
-                </div>
-            </div>
-        </div>
-
-        <table style="margin-top: 30px;">
-            <tr>
-                <th>Driver</th>
-                <th style="text-align: right;">Impact</th>
-                <th>Direction</th>
-                <th>Note</th>
-            </tr>
-            <tr>
-                <td>New Patient Volume</td>
-                <td style="text-align: right;">+$98,988</td>
-                <td style="text-align: center; color: #27ae60;">+</td>
-                <td>113 more NPs driving strong demand signals</td>
-            </tr>
-            <tr>
-                <td>Case Acceptance $</td>
-                <td style="text-align: right;">-$248,206</td>
-                <td style="text-align: center; color: #e74c3c;">-</td>
-                <td>Case $ Accepted % fell 6.4 pts (46.2% to 39.8%) — LARGEST HEADWIND</td>
-            </tr>
-            <tr>
-                <td>Same-Day Treatment</td>
-                <td style="text-align: right;">+$125,777</td>
-                <td style="text-align: center; color: #27ae60;">+</td>
-                <td>Same-day surged 15%, strong clinical momentum</td>
-            </tr>
-            <tr>
-                <td>Appointment Leakage</td>
-                <td style="text-align: right;">+$60,400</td>
-                <td style="text-align: center; color: #27ae60;">+</td>
-                <td>Leakage improved 8.6% to 6.1%, operational strength</td>
-            </tr>
-            <tr>
-                <td>Schedule Utilization</td>
-                <td style="text-align: right;">-$83,069</td>
-                <td style="text-align: center; color: #e74c3c;">-</td>
-                <td>Flagstaff capacity decline (43.4 to 37.4 VPWD) drove -$149K</td>
-            </tr>
-            <tr>
-                <td>Other / Unattributed</td>
-                <td style="text-align: right;">-$22,141</td>
-                <td style="text-align: center; color: #e74c3c;">-</td>
-                <td>Residual variance in other metrics</td>
-            </tr>
-            <tr style="font-weight: bold;">
-                <td>Net Change</td>
-                <td style="text-align: right;">-$68,249</td>
-                <td style="text-align: center; color: #e74c3c;">-3.1%</td>
-                <td></td>
-            </tr>
-        </table>
-
-        <div class="insight-box">
-            <strong>Waterfall Interpretation:</strong> The organization is generating strong demand (NP volume +$99K) and executing operational wins (leakage -$60K, same-day +$126K). However, two structural headwinds overwhelm these positives: case $ acceptance dropping $248K and Flagstaff's capacity decline costing $83K. Net effect: -$68K. The path to positive growth is clear: fix case dollar conversion and restore Flagstaff's schedule utilization.
-        </div>
-
-        <h2>8. Data Hygiene & Tracking Gaps</h2>
-
-        <table>
-            <tr>
-                <th>Location</th>
-                <th>Missing Referral Source</th>
-                <th>% Missing</th>
-            </tr>
-            <tr>
-                <td>Cottonwood</td>
-                <td>170 of 174</td>
-                <td>97.7%</td>
-            </tr>
-            <tr>
-                <td>Flagstaff</td>
-                <td>99 of 127</td>
-                <td>78.0%</td>
-            </tr>
-            <tr>
-                <td>Sedona</td>
-                <td>79 of 98</td>
-                <td>80.6%</td>
-            </tr>
-            <tr style="font-weight: bold;">
-                <td>Org Total</td>
-                <td>348 of 399</td>
-                <td>87.2%</td>
-            </tr>
-        </table>
-
-        <div class="insight-box">
-            <strong>Critical Data Quality Issue:</strong> <span class="highlight">87.2% of all new patient referral sources are untagged — rendering attribution analysis unreliable for non-paid channels.</span> This is the single most impactful data quality issue in the organization. Without accurate referral tracking, the practice cannot determine ROI on organic marketing, referral programs, or community outreach. <span class="highlight">Cottonwood is especially poor at 97.7%.</span> Implement mandatory referral source entry at all locations with daily compliance audits. This foundational data hygiene work will unlock better marketing decision-making and budget allocation.
-        </div>
-
-        <div class="tactics-section">
-            <h2 style="margin-top: 0; color: #2E5E8C; border: none;">Org-Wide Action Plan — By Support Team</h2>
-            <p style="font-size: 14px; margin-bottom: 25px;">Team-specific, actionable recommendations with Dental Intel workflow instructions. Each item specifies what to do, who owns it, and expected impact.</p>
-
-            <div class="team-section">
-                <div class="team-header">Marketing</div>
-                <div class="team-actions">
-                    <div class="action-item">
-                        <div class="action-title">Patient Reactivation Campaign — All Locations</div>
-                        <p>317 patients lost org-wide (79.4% attrition). Flagstaff is critical at 98.4%. Pull 6+ month overdue patient lists from Dental Intel Analytics at each location. Engagement cannot reach these patients — inactive patients are excluded from bulk actions. Export lists, assign manual phone outreach, track conversion weekly. Report at Monday operations huddle.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Marketing + Office Managers (all locations)</span>
-                            <span class="di-workflow">DI: Analytics → Patient List → Filter 6+ months overdue (NOT Engagement)</span>
-                            <span class="impact">Impact: Retaining 10% of lost patients = ~$50K incremental production</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Activate 117 Unworked Paid Leads</div>
-                        <p>117 paid leads across all locations tagged "Needs Action" in CRM (Cottonwood 39, Flagstaff 66, Sedona 12). These represent the fastest path to incremental production with zero additional spend. Assign immediate outreach by location.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Marketing</span>
-                            <span class="di-workflow">DI: N/A — CRM action</span>
-                            <span class="impact">Impact: $22K already spent on these leads — conversion is pure ROI</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Paid Media Budget Reallocation</div>
-                        <p>CAC ranges from $137 (Cottonwood, 771% ROI) to $934 (Sedona, 117% ROI). Evaluate shifting portion of Sedona's $6.5K budget toward Cottonwood and Flagstaff. Maintain Sedona's organic/SEO investment (36% organic share is highest).</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Marketing + Finance</span>
-                            <span class="di-workflow">DI: N/A — Ad platform</span>
-                            <span class="impact">Impact: Same $22K spend, more patients org-wide</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Referral Program Launch</div>
-                        <p>Only 17 referral patients org-wide (4.2% of NPs). Cottonwood has just 2. Implement structured referral incentive program across all locations.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Marketing</span>
-                            <span class="di-workflow">DI: N/A</span>
-                            <span class="impact">Impact: Reaching 10% referral share = ~40 additional NPs/quarter at $0 CAC</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-section">
-                <div class="team-header">Operations</div>
-                <div class="team-actions">
-                    <div class="action-item">
-                        <div class="action-title">Flagstaff Schedule Utilization Recovery (URGENT — $149.5K Impact)</div>
-                        <p>Flagstaff VPWD collapsed from 43.4 to 37.4 — the single largest location-specific production drag. Weekly provider schedule audit. Benchmark against Cottonwood's model (which grew VPWD 12.6%). Investigate Medento-EagleSoft integration disconnect (showing 3-4 openings when 50+ exist).</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Operations</span>
-                            <span class="di-workflow">DI: Analytics → Schedule Utilization report</span>
-                            <span class="impact">Impact: Recovering VPWD to 40 = +$75K/quarter</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Org-Wide 48-Hour Confirmation Protocol</div>
-                        <p>Confirmation rate dropped from 56% to 45% across all locations. Implement standardized Engagement TouchPoint for SMS/email confirmation 48 hours pre-appointment at all 3 locations. Manual phone backup within 24 hours for unconfirmed. Daily dashboard at morning huddle. Track by staff member. If patient does not confirm, use Park Column to replace patient on the schedule as not to lose production.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Operations + Office Managers</span>
-                            <span class="di-workflow">DI: Engagement → TouchPoints → Confirmation sequence (all locations)</span>
-                            <span class="impact">Impact: Restoring to 55% recaptures ~500 confirmed appointments org-wide</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Sedona Appointment Leakage Intervention</div>
-                        <p>Sedona is the only location where leakage worsened (6.5% → 8.2%). Broken appointments +34%, cancellations +62%. Review hygiene scheduling density (visits/hour doubled to 5.58). Implement cancellation policy enforcement.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Operations (Sedona)</span>
-                            <span class="di-workflow">DI: Analytics → Appointment Health dashboard</span>
-                            <span class="impact">Impact: Restoring to 6.5% recovers ~$7.6K/quarter</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-section">
-                <div class="team-header">Clinical</div>
-                <div class="team-actions">
-                    <div class="action-item">
-                        <div class="action-title">Case Dollar Acceptance Standardization (URGENT — $248K Impact)</div>
-                        <p>Org-wide Case $ Accepted % dropped from 46.2% to 39.8% — the largest waterfall headwind at -$248K. Flagstaff leads at 57.4%; Cottonwood trails at 26.2%. Implement org-wide full-scope treatment plan presentation. Present entire recommended plan first, discuss phasing second. Monthly cross-location case review calls where Flagstaff shares methodology.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Doctors + Clinical Leads (all locations)</span>
-                            <span class="di-workflow">DI: Analytics → Case Acceptance report by provider and location</span>
-                            <span class="impact">Impact: Recovering to 43% = +$97K; to 46.2% = +$195K</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Sustain Same-Day Treatment Momentum</div>
-                        <p>Same-day treatment surged +$126K org-wide (+15%). This is the strongest positive trend. Continue chairside diagnosis training. Expand hygiene-side diagnosis (avg 8.3% — room to grow). Document what changed at Sedona (restorative case diagnosis jumped 12.9 pts).</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Clinical Leads</span>
-                            <span class="di-workflow">DI: N/A</span>
-                            <span class="impact">Impact: Protect $966K same-day base</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Hygiene-to-Restorative Handoff Improvement</div>
-                        <p>Cottonwood leads at 1.02 (nearly every hygiene visit generates a restorative follow-up). Flagstaff trails at 0.65, Sedona at 0.76. Implement chairside treatment identification protocol from Cottonwood across other locations.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Clinical Leads</span>
-                            <span class="di-workflow">DI: N/A</span>
-                            <span class="impact">Impact: Flagstaff reaching 0.85 = ~198 additional restorative appointments</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-section">
-                <div class="team-header">Office Manager</div>
-                <div class="team-actions">
-                    <div class="action-item">
-                        <div class="action-title">NP 2nd Appointment Follow-Up Protocol — All Locations</div>
-                        <p>NP Hygiene Re-Appointment ranges from 30.5% (Cottonwood) to 49% (Sedona). Sedona passes the 40% benchmark, but Cottonwood (30.5%) and Flagstaff (34.6%) remain below threshold. Before each NP leaves, confirm second appointment is booked. Office Manager reviews prior day's NP list each morning. Phone call within 24 hours for any NP without a second appointment. This is a manual process — DI Engagement cannot automate individual follow-up task creation.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Office Managers (all locations)</span>
-                            <span class="di-workflow">DI: Analytics → Follow Up Tasks (NOT Engagement)</span>
-                            <span class="impact">Impact: Raising org-wide to 65% retains ~100+ NPs/quarter</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Referral Source Entry Compliance — All Locations</div>
-                        <p>87.2% of NPs org-wide (348 of 399) have no referral source tagged. Cottonwood worst at 97.7%. Mandatory referral source entry at check-in. Daily compliance audit by Office Manager. No exceptions.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Office Managers (all locations)</span>
-                            <span class="di-workflow">DI: N/A — PMS data entry</span>
-                            <span class="impact">Impact: Foundation for all marketing attribution and ROI analysis</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Recall Automation + Manual Phone Recall</div>
-                        <p>Configure TouchPoints in DI Engagement for hygiene recall at all locations (2-week pre-due, due date, 1-week post, 1-month post). Weekly phone recall for non-responders. Critical: Engagement only includes ACTIVE patients. The 317 lost/inactive patients require manual outreach via Analytics reactivation lists — they cannot be reached through Engagement automation.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Office Managers (all locations)</span>
-                            <span class="di-workflow">DI: Engagement → TouchPoints → Recall (active only) + Analytics → Reactivation list (inactive)</span>
-                            <span class="impact">Impact: Reduce 79.4% org-wide attrition rate</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-section">
-                <div class="team-header">RCM / Finance</div>
-                <div class="team-actions">
-                    <div class="action-item">
-                        <div class="action-title">Financial Coordination Overhaul</div>
-                        <p>Case $ Accepted % at 39.8% signals org-wide financial barriers. Audit payment plan offerings at all locations. Expand CareCredit/in-house financing. Train all front desk staff on presenting payment options BEFORE the patient declines treatment scope. Standardize financial conversation across locations.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: RCM + Finance</span>
-                            <span class="di-workflow">DI: N/A</span>
-                            <span class="impact">Impact: Each 1% org-wide recovery in Case $ Accepted = ~$30K</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Insurance Verification at First Touch</div>
-                        <p>Flagstaff data shows 6 of 39 non-bookings were insurance not accepted. Implement verification step at first call across all locations. Update websites to clearly state accepted plans.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: RCM</span>
-                            <span class="di-workflow">DI: N/A</span>
-                            <span class="impact">Impact: Reduce non-bookable calls, improve call conversion rates</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-section">
-                <div class="team-header">Doctor</div>
-                <div class="team-actions">
-                    <div class="action-item">
-                        <div class="action-title">Monthly Cross-Location Case Review</div>
-                        <p>Case presentation effectiveness varies dramatically (Flagstaff 57.4% vs. Cottonwood 26.2%). Schedule monthly peer review calls where Flagstaff shares treatment presentation approach. Focus on full-scope presentation and financial coordination timing.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Doctors (all locations)</span>
-                            <span class="di-workflow">DI: Analytics → Case Acceptance by provider</span>
-                            <span class="impact">Impact: Org-wide standardization to 45% = +$158K annually</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Flagstaff Schedule Availability Review</div>
-                        <p>Dr. Shanahan reports lowest production in 35-year career with open slots. VPWD decline from 43.4 to 37.4 confirms. Review schedule alignment with patient demand. Ensure Dr. Pedro onboarding isn't creating scheduling conflicts.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Dr. Shanahan</span>
-                            <span class="di-workflow">DI: Analytics → Provider Schedule report</span>
-                            <span class="impact">Impact: Primary lever for recovering Flagstaff's $149.5K gap</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-section">
-                <div class="team-header">Executive</div>
-                <div class="team-actions">
-                    <div class="action-item">
-                        <div class="action-title">Flagstaff Call Conversion Audit</div>
-                        <p>35% NP call conversion (benchmark: ≥55%). Amy to audit 59 genuine NP calls. Determine breakdown: phone skills, scheduling availability, insurance mismatch, or system issues. Results define whether solution is training, technology, or capacity.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Amy</span>
-                            <span class="di-workflow">DI: N/A — Call tracking platform</span>
-                            <span class="impact">Impact: Improving to 50% adds ~9 NPs/quarter at Flagstaff</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">DI vs PMS Data Reconciliation</div>
-                        <p>Significant discrepancy between Dental Intel and PMS patient counts (January Flagstaff: 64 entered, only 30 seen, 19 unaccounted). Amanda to cross-reference. Resolve definition differences before next reporting cycle.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Amanda</span>
-                            <span class="di-workflow">DI: Analytics → NP list export for cross-reference</span>
-                            <span class="impact">Impact: Accurate data foundation for all future decisions</span>
-                        </div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-title">Office Manager Training Video — DI Navigation</div>
-                        <p>Amy to create 5-minute training video for Office Managers on navigating DI Analytics vs. Engagement portals. Cover: pulling patient lists, setting up TouchPoints, running reports, and understanding active vs. inactive patient limitations.</p>
-                        <div class="action-meta">
-                            <span class="owner">Owner: Amy</span>
-                            <span class="di-workflow">DI: Both portals — training content</span>
-                            <span class="impact">Impact: Enables Office Managers to self-serve on all recommendations above</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="disclaimer">
-            <strong>Disclaimer:</strong> This analysis is based on aggregated operational data across three Peak Family Dentistry locations (Cottonwood, Sedona, Flagstaff) for Q1 2025 (Jan 1 - Mar 19, 2025) and Q1 2026 (Jan 1 - Mar 19, 2026). For percentage-based metrics (case acceptance %, confirmation %, leakage %), organization-wide figures represent averages across locations; for dollar and volume metrics, figures represent sums. Waterfall calculations use production per visit and case metrics as directional drivers; actual causality may involve multiple interdependent factors. Data represents scheduled and completed appointments, production dollars, and patient activity as recorded in the practice management system. This report is intended for internal clinical and operational review and should be interpreted collaboratively with practice leadership at all locations. External factors (staffing changes, provider transitions, system updates, seasonal patterns, market dynamics) may influence reported metrics.
-        </div>
-
-        <div class="footer">
-            <p>Peak Family Dentistry — Organization-Wide Production Summary<br>
-            Confidential - For Internal Use Only<br>
-            Questions? Contact your practice consultant.</p>
-        </div>
-    </div>
+</div>
 </body>
 </html>
