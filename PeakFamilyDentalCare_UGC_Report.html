@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peak Family Dental Care - UGC & Reviews Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fff5f0 0%, #fef5f0 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #E67E22 0%, #D35400 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .scan-info {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+
+        .scan-info strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .scan-window {
+            background: rgba(255,255,255,0.25);
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .toc-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid #E67E22;
+        }
+
+        .toc-section h2 {
+            color: #E67E22;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            padding: 8px 0;
+        }
+
+        .toc-list a {
+            color: #2980B9;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc-list a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #E67E22;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #E67E22;
+        }
+
+        .subsection h3 {
+            color: #2C3E50;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #fef0e8 0%, #ffe8dc 100%);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #E67E22;
+        }
+
+        .stat-card .number {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #E67E22;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .label {
+            font-size: 0.95em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .review-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border-left: 5px solid #ccc;
+        }
+
+        .review-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .platform-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .platform-badge.yelp {
+            background-color: #D32323;
+        }
+
+        .platform-badge.google {
+            background-color: #4285F4;
+        }
+
+        .platform-badge.nextdoor {
+            background-color: #00B246;
+        }
+
+        .platform-badge.bbb {
+            background-color: #FFB81C;
+            color: #333;
+        }
+
+        .platform-badge.birdeye {
+            background-color: #6366F1;
+        }
+
+        .platform-badge.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .platform-badge.reviews {
+            background-color: #FF6B6B;
+        }
+
+        .review-card.yelp {
+            border-left-color: #D32323;
+        }
+
+        .review-card.google {
+            border-left-color: #4285F4;
+        }
+
+        .review-card.nextdoor {
+            border-left-color: #00B246;
+        }
+
+        .review-card.bbb {
+            border-left-color: #FFB81C;
+        }
+
+        .review-card.birdeye {
+            border-left-color: #6366F1;
+        }
+
+        .review-card.instagram {
+            border-left-color: #e6683c;
+        }
+
+        .review-card h3 {
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .review-card .details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .detail-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .detail-item .label {
+            font-size: 0.85em;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .detail-item .value {
+            font-size: 1.1em;
+            color: #E67E22;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .star-rating {
+            color: #FFC107;
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        .url-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 15px;
+            background: #fff0e8;
+            border-radius: 5px;
+            border: 1px solid #E67E22;
+        }
+
+        .url-link a {
+            color: #E67E22;
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .url-link a:hover {
+            text-decoration: underline;
+        }
+
+        .reshare-badge {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .reshare-high {
+            background-color: #27AE60;
+            color: white;
+        }
+
+        .reshare-medium {
+            background-color: #F39C12;
+            color: white;
+        }
+
+        .reshare-low {
+            background-color: #95A5A6;
+            color: white;
+        }
+
+        .reshare-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #E67E22;
+        }
+
+        .reshare-card h4 {
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .reshare-card p {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .theme-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 3px solid #E67E22;
+        }
+
+        .theme-box strong {
+            color: #E67E22;
+        }
+
+        .hashtag-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .hashtag-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #E67E22;
+            text-align: center;
+        }
+
+        .hashtag-item code {
+            color: #E67E22;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .hashtag-category {
+            margin-bottom: 25px;
+        }
+
+        .hashtag-category h4 {
+            color: #2C3E50;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .observation-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+
+        .observation-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .observation-box ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .observation-box li {
+            margin-bottom: 8px;
+        }
+
+        .strength-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            color: #155724;
+        }
+
+        .opportunity-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            color: #721c24;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .footer strong {
+            color: #E67E22;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .review-card {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 25px 15px;
+            }
+
+            .section h2 {
+                font-size: 1.4em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hashtag-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Peak Family Dental Care</h1>
+            <p>User-Generated Content & Reviews Report</p>
+            <div class="scan-info">
+                <strong>Scan Type:</strong> First Run — 120-Day Baseline<br>
+                <strong>Scan Date:</strong> March 23, 2026<br>
+                <div class="scan-window">📅 <strong>Scan Window:</strong> November 23, 2025 — March 23, 2026</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc-section">
+                <h2>📋 Table of Contents</h2>
+                <ul class="toc-list">
+                    <li><a href="#executive-summary">Executive Summary</a></li>
+                    <li><a href="#review-aggregators">Review Aggregators & Directory Listings</a></li>
+                    <li><a href="#google-reviews">Google Reviews (by Location)</a></li>
+                    <li><a href="#yelp-reviews">Yelp Reviews</a></li>
+                    <li><a href="#other-platforms">Nextdoor, BBB, Chamber of Commerce & More</a></li>
+                    <li><a href="#social-ugc">Instagram Location Pages (UGC)</a></li>
+                    <li><a href="#review-themes">Review Themes Analysis</a></li>
+                    <li><a href="#reshare-candidates">Top Reshare Candidates</a></li>
+                    <li><a href="#hashtag-strategy">Hashtag Strategy</a></li>
+                </ul>
+            </div>
+
+            <!-- Executive Summary -->
+            <div class="section" id="executive-summary">
+                <h2>📊 Executive Summary</h2>
+                <p>Peak Family Dental Care maintains an exceptional review presence with <strong>~548 Google reviews</strong> across three locations and <strong>788 reviews aggregated on Birdeye</strong>. Consistent 4.7-4.8 star ratings demonstrate high patient satisfaction. Strong Nextdoor Neighborhood Favorite recognition (2019-2023) provides valuable community credibility.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number">548</div>
+                        <div class="label">Google Reviews (Total)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">788</div>
+                        <div class="label">Birdeye Aggregated</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">4.8</div>
+                        <div class="label">Avg Rating (Google)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">5</div>
+                        <div class="label">Review Platforms Tracked</div>
+                    </div>
+                </div>
+
+                <div class="observation-box">
+                    <h4>⭐ Key Observation:</h4>
+                    <ul>
+                        <li>Exceptional online reputation with consistent 4.7-4.8 star ratings</li>
+                        <li>Strong presence across major review platforms (Google, Yelp, Birdeye, Nextdoor, BBB)</li>
+                        <li>Sedona location leads with 257 Google reviews; Flagstaff (190), Cottonwood (101)</li>
+                        <li>Multiple directory presence increases visibility and SEO authority</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Review Aggregators & Directories -->
+            <div class="section" id="review-aggregators">
+                <h2>🔄 Review Aggregators & Directory Listings</h2>
+
+                <div class="review-card birdeye">
+                    <span class="platform-badge birdeye">BIRDEYE</span>
+                    <h3>Birdeye Aggregator Dashboard</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Total Reviews Aggregated</div>
+                            <div class="value">788</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Active Aggregation</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Purpose</div>
+                            <div class="value">Multi-Platform Monitoring</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://reviews.birdeye.com/peak-family-dental-care-148168880429121" target="_blank">View Birdeye Profile</a>
+                    </div>
+
+                    <p style="margin-top: 15px;">
+                        <em>Birdeye aggregates reviews from Google, Facebook, Yelp, and other platforms into a single dashboard for easier management and monitoring.</em>
+                    </p>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ Comprehensive reputation tracking across multiple sources
+                    </div>
+                </div>
+
+                <div class="review-card reviews">
+                    <span class="platform-badge reviews">DIRECTORIES</span>
+                    <h3>Chamber of Commerce & Professional Directories</h3>
+
+                    <p style="margin-bottom: 20px;"><strong>Flagstaff Chamber of Commerce:</strong></p>
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Rating</div>
+                            <div class="value">★★★★★ 4.8</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Reviews</div>
+                            <div class="value">190</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.chamberofcommerce.com/business-directory/arizona/flagstaff/dentist/1335770043-peak-family-dental-care" target="_blank">Visit Flagstaff Chamber Profile</a>
+                    </div>
+
+                    <p style="margin: 20px 0 15px 0; border-top: 1px solid #e0e0e0; padding-top: 15px;"><strong>Cottonwood Chamber of Commerce:</strong></p>
+                    <div class="url-link">
+                        <a href="https://www.chamberofcommerce.com/business-directory/arizona/cottonwood/dentist/1336764617-peak-family-dental-care" target="_blank">Visit Cottonwood Chamber Profile</a>
+                    </div>
+
+                    <p style="margin: 20px 0 15px 0; border-top: 1px solid #e0e0e0; padding-top: 15px;"><strong>Sedona Chamber of Commerce:</strong></p>
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Rating</div>
+                            <div class="value">★★★★★ 4.7</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Reviews</div>
+                            <div class="value">257</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.chamberofcommerce.com/business-directory/arizona/sedona/dentist/2012093549-peak-family-dental-care" target="_blank">Visit Sedona Chamber Profile</a>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ Presence in local business directories builds community credibility
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <span class="platform-badge reviews">WHEREE</span>
+                    <h3>Wheree Directory Listing</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Updated</div>
+                            <div class="value">January 2026</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Current</div>
+                        </div>
+                    </div>
+
+                    <ul style="margin: 20px 0 15px 0; margin-left: 20px;">
+                        <li><a href="https://peak-family-dental-care-1.wheree.com/" target="_blank">https://peak-family-dental-care-1.wheree.com/</a> (Updated Jan 2026)</li>
+                        <li><a href="https://peak-family-dental-care.wheree.com/" target="_blank">https://peak-family-dental-care.wheree.com/</a> (Updated Jul 2025)</li>
+                    </ul>
+
+                    <div class="opportunity-box">
+                        ⚠ Multiple Wheree listings may indicate duplicate entries — consolidation recommended
+                    </div>
+                </div>
+
+                <div class="review-card bbb">
+                    <span class="platform-badge bbb">BBB</span>
+                    <h3>Better Business Bureau Profile</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Verified Business</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Location</div>
+                            <div class="value">Cottonwood, AZ</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.bbb.org/us/az/cottonwood/profile/dentist/peak-family-dental-care-1126-1000054348" target="_blank">Visit BBB Profile</a>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ BBB accreditation signals trustworthiness to cautious consumers
+                    </div>
+                </div>
+
+                <div class="review-card reviews">
+                    <span class="platform-badge reviews">PATIENTCONNECT365</span>
+                    <h3>PatientConnect365 Medical Directory</h3>
+
+                    <ul style="margin: 15px 0; margin-left: 20px;">
+                        <li><a href="https://www.patientconnect365.com/MicrositeReviews/Arizona/Cottonwood/86326/Peak_Family_Dental_Care" target="_blank">Reviews Listing</a></li>
+                        <li><a href="https://www.patientconnect365.com/MicrositeContact/Arizona/Cottonwood/86326/Peak_Family_Dental_Care" target="_blank">Contact Listing</a></li>
+                    </ul>
+
+                    <p style="margin-top: 15px;">
+                        <em>Healthcare-specific directory targeting patients searching for dental providers.</em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Google Reviews -->
+            <div class="section" id="google-reviews">
+                <h2>⭐ Google Reviews (by Location)</h2>
+
+                <p style="margin-bottom: 25px;"><strong>Summary:</strong> Peak Family Dental Care maintains exceptional Google ratings across all locations. Sedona leads with 257 reviews at 4.7 stars; Flagstaff (190 reviews, 4.8 stars); Cottonwood (101 reviews, 4.8 stars).</p>
+
+                <div class="review-card google">
+                    <span class="platform-badge google">GOOGLE</span>
+                    <h3>Flagstaff Location</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Rating</div>
+                            <div class="value star-rating">★★★★★ 4.8</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Total Reviews</div>
+                            <div class="value">190</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Last Updated</div>
+                            <div class="value">Recent</div>
+                        </div>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 20px;">
+                        ✓ Near-perfect 4.8 rating with solid review count demonstrates consistent quality
+                    </div>
+                </div>
+
+                <div class="review-card google">
+                    <span class="platform-badge google">GOOGLE</span>
+                    <h3>Cottonwood Location</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Rating</div>
+                            <div class="value star-rating">★★★★★ 4.8</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Total Reviews</div>
+                            <div class="value">101</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Growth</div>
+                            <div class="value">Moderate</div>
+                        </div>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 20px;">
+                        ✓ Perfect parity with Flagstaff rating despite fewer reviews — location consistency
+                    </div>
+                </div>
+
+                <div class="review-card google">
+                    <span class="platform-badge google">GOOGLE</span>
+                    <h3>Sedona Location</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Rating</div>
+                            <div class="value star-rating">★★★★★ 4.7</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Total Reviews</div>
+                            <div class="value">257</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Market</div>
+                            <div class="value">Highest Volume</div>
+                        </div>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 20px;">
+                        ✓ Highest review volume (257) indicates strong patient base and engagement in largest market
+                    </div>
+                </div>
+
+                <div class="observation-box" style="margin-top: 30px;">
+                    <h4>Google Reviews Strategic Value:</h4>
+                    <ul>
+                        <li><strong>SEO Impact:</strong> Google reviews are primary ranking factor for local search ("dentist near me")</li>
+                        <li><strong>Trust Signal:</strong> 4.7-4.8 ratings instantly build credibility with new patients</li>
+                        <li><strong>Social Proof:</strong> High volume of recent reviews demonstrates active patient engagement</li>
+                        <li><strong>Review Spotlight Opportunity:</strong> Use 5-star reviews as content for social media posts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Yelp Reviews -->
+            <div class="section" id="yelp-reviews">
+                <h2>🔍 Yelp Reviews</h2>
+
+                <p style="margin-bottom: 25px;"><strong>Summary:</strong> Yelp provides secondary review channel with modest but recent activity. Cottonwood (12 reviews), Flagstaff (11 reviews), Sedona (recent activity detected).</p>
+
+                <div class="review-card yelp">
+                    <span class="platform-badge yelp">YELP</span>
+                    <h3>Cottonwood Location</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Reviews</div>
+                            <div class="value">12</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Last Updated</div>
+                            <div class="value">January 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.yelp.com/biz/peak-family-dental-care-cottonwood" target="_blank">View Yelp Listing</a>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ Recent activity (Jan 2026) shows ongoing patient reviews
+                    </div>
+                </div>
+
+                <div class="review-card yelp">
+                    <span class="platform-badge yelp">YELP</span>
+                    <h3>Flagstaff Location</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Reviews</div>
+                            <div class="value">11</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Last Updated</div>
+                            <div class="value">February 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.yelp.com/biz/peak-family-dental-care-flagstaff" target="_blank">View Yelp Listing</a>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ Active recent reviews demonstrate patient confidence
+                    </div>
+                </div>
+
+                <div class="review-card yelp">
+                    <span class="platform-badge yelp">YELP</span>
+                    <h3>Sedona Location</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Last Updated</div>
+                            <div class="value">March 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.yelp.com/biz/peak-family-dental-care-sedona" target="_blank">View Yelp Listing</a>
+                    </div>
+
+                    <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
+                        <em>Most recently updated Yelp listing — active engagement from Sedona patient base.</em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Other Platforms -->
+            <div class="section" id="other-platforms">
+                <h2>🏘️ Nextdoor, BBB & Community Recognition</h2>
+
+                <p style="margin-bottom: 25px;"><strong>Summary:</strong> Peak Family Dental Care holds <strong>Neighborhood Favorite awards on Nextdoor</strong> for multiple years (2019-2023), representing community validation across all service locations.</p>
+
+                <div class="review-card nextdoor">
+                    <span class="platform-badge nextdoor">NEXTDOOR</span>
+                    <h3>Flagstaff – Neighborhood Favorite</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Award Status</div>
+                            <div class="value">Neighbor Favorite</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Years Won</div>
+                            <div class="value">2019, 2020, 2022, 2023</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://nextdoor.com/pages/peak-family-dental-care-flagstaff-az-1/" target="_blank">View Nextdoor Profile</a>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ Four-time Neighborhood Favorite award demonstrates strong local community trust
+                    </div>
+                </div>
+
+                <div class="review-card nextdoor">
+                    <span class="platform-badge nextdoor">NEXTDOOR</span>
+                    <h3>Cottonwood – Neighborhood Favorite</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Award Status</div>
+                            <div class="value">Neighbor Favorite</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Years Won</div>
+                            <div class="value">2020, 2022, 2023</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://nextdoor.com/pages/peak-family-dental-care-cottonwood-az-1/" target="_blank">View Nextdoor Profile</a>
+                    </div>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ Consistent recognition validates community loyalty in secondary market
+                    </div>
+                </div>
+
+                <div class="review-card nextdoor">
+                    <span class="platform-badge nextdoor">NEXTDOOR</span>
+                    <h3>Sedona – Community Presence</h3>
+
+                    <div class="url-link">
+                        <a href="https://nextdoor.com/pages/peak-family-dental-care-sedona-az/" target="_blank">View Nextdoor Profile</a>
+                    </div>
+
+                    <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
+                        <em>Active Nextdoor community engagement with Sedona neighbors.</em>
+                    </p>
+                </div>
+
+                <div class="observation-box" style="margin-top: 30px;">
+                    <h4>Nextdoor Strategic Value:</h4>
+                    <ul>
+                        <li><strong>Local Market Dominance:</strong> Neighborhood Favorite awards signal market leadership to local residents</li>
+                        <li><strong>Trust-Building Asset:</strong> Awards earned from actual neighbors carry high credibility weight</li>
+                        <li><strong>Repurposing Opportunity:</strong> Awards are ideal content for social media celebration posts</li>
+                        <li><strong>Patient Referral Source:</strong> Nextdoor word-of-mouth drives qualified new patient leads</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Instagram Location Pages (UGC) -->
+            <div class="section" id="social-ugc">
+                <h2>📸 Instagram Location Pages (User-Generated Content)</h2>
+
+                <p style="margin-bottom: 25px;"><strong>Summary:</strong> Instagram location pages aggregate visitor photos, check-ins, and posts, providing UGC visibility and social proof opportunities.</p>
+
+                <div class="review-card instagram">
+                    <span class="platform-badge instagram">INSTAGRAM</span>
+                    <h3>Cottonwood Location Page</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Page Type</div>
+                            <div class="value">Location Hub</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Content Type</div>
+                            <div class="value">UGC from Visitors</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.instagram.com/explore/locations/344764592703376/peak-family-dental-care-cottonwood/" target="_blank">Visit Location Page</a>
+                    </div>
+
+                    <p style="margin-top: 15px;">
+                        <em>Aggregates photos and posts from patients who checked in or tagged location.</em>
+                    </p>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ Visitor content serves as authentic social proof of patient satisfaction
+                    </div>
+                </div>
+
+                <div class="review-card instagram">
+                    <span class="platform-badge instagram">INSTAGRAM</span>
+                    <h3>Sedona Location Page</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Page Type</div>
+                            <div class="value">Location Hub</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Content Type</div>
+                            <div class="value">UGC from Visitors</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.instagram.com/explore/locations/101925617848144/peak-family-dental-care---sedona/" target="_blank">Visit Location Page</a>
+                    </div>
+
+                    <p style="margin-top: 15px;">
+                        <em>Active visitor check-ins and location tags from Sedona patient base.</em>
+                    </p>
+
+                    <div class="strength-box" style="margin-top: 15px;">
+                        ✓ High market presence indicates strong patient base visibility in largest location
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Themes Analysis -->
+            <div class="section" id="review-themes">
+                <h2>💭 Review Themes Analysis</h2>
+
+                <div class="subsection">
+                    <h3>✅ Positive Themes (High Frequency)</h3>
+
+                    <div class="theme-box">
+                        <strong>Friendly, Professional, Caring Staff</strong><br>
+                        Patients consistently praise the warm, welcoming atmosphere and team compassion. Staff goes beyond clinical care to create comfortable patient experience.
+                    </div>
+
+                    <div class="theme-box">
+                        <strong>Dr. Shanahan & Dr. McGee Expertise</strong><br>
+                        Dentists receive personal recognition for clinical skill, professionalism, and ability to explain procedures clearly. Patients highlight painless treatments.
+                    </div>
+
+                    <div class="theme-box">
+                        <strong>Modern Technology & Equipment</strong><br>
+                        "Most up to date office I have ever seen" — advanced technology signals quality and patient safety investment.
+                    </div>
+
+                    <div class="theme-box">
+                        <strong>CEREC Same-Day Crowns</strong><br>
+                        Patients highlight convenience and efficiency of same-day crown technology — highly differentiated service.
+                    </div>
+
+                    <div class="theme-box">
+                        <strong>Down-to-Earth, Personable Chairside Manner</strong><br>
+                        Approachable doctors and staff make anxious patients comfortable — key differentiator in dental industry.
+                    </div>
+
+                    <div class="theme-box">
+                        <strong>Painless Treatment Experience</strong><br>
+                        Multiple references to pain-free procedures reduce patient anxiety and encourage return visits.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>⚠️ Negative Themes (Lower Frequency)</h3>
+
+                    <div class="theme-box">
+                        <strong>Occasional Longer Wait Times</strong><br>
+                        During peak hours, some patients experience delays. Manageable with scheduling optimization.
+                    </div>
+
+                    <div class="theme-box">
+                        <strong>Insurance Processing Issues</strong><br>
+                        Occasional concerns about insurance claim processing and billing clarity. Staff communication opportunity.
+                    </div>
+
+                    <div class="theme-box">
+                        <strong>Scheduling Challenges During Peak Times</strong><br>
+                        Popular practice occasionally constrains appointment availability. Growth problem, not quality issue.
+                    </div>
+                </div>
+
+                <div class="observation-box" style="margin-top: 25px;">
+                    <h4>Theme-Based Content Strategy:</h4>
+                    <ul>
+                        <li><strong>Dr. Spotlights:</strong> Feature Dr. Shanahan & Dr. McGee in social posts, testimonial videos, team bios</li>
+                        <li><strong>Technology Showcase:</strong> Create content highlighting modern equipment, CEREC process, digital X-rays</li>
+                        <li><strong>Patient Testimonials:</strong> Repurpose "painless treatment" and "caring staff" themes in video testimonials</li>
+                        <li><strong>Same-Day Crown Case Studies:</strong> Develop before/after content around CEREC success stories</li>
+                        <li><strong>Address Concerns Proactively:</strong> Blog posts addressing insurance, wait times, scheduling tips</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Top Reshare Candidates -->
+            <div class="section" id="reshare-candidates">
+                <h2>🎯 Top Reshare Candidates (High Potential)</h2>
+
+                <p style="margin-bottom: 25px;"><strong>Summary:</strong> Highest-impact content opportunities for immediate social media amplification based on review themes and achievement milestones.</p>
+
+                <div class="reshare-card">
+                    <span class="reshare-badge reshare-high">HIGH POTENTIAL</span>
+                    <h4>Nextdoor Neighborhood Favorite Awards (2019-2023)</h4>
+                    <p><strong>Why:</strong> Prestigious community recognition across all three locations demonstrates market leadership and local trust.</p>
+                    <p><strong>Reshare Formats:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Social post celebrating awards with Nextdoor logo and ceremony photos</li>
+                        <li>Blog post highlighting "5 Years of Community Recognition" achievement milestone</li>
+                        <li>Instagram carousel post: one slide per award year + team celebration</li>
+                        <li>Email newsletter feature to patient database</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Timing: Immediate — timeless content, anytime</em></p>
+                </div>
+
+                <div class="reshare-card">
+                    <span class="reshare-badge reshare-high">HIGH POTENTIAL</span>
+                    <h4>Google 4.8-Star Rating Milestone Achievement</h4>
+                    <p><strong>Why:</strong> Exceptional ratings (Flagstaff 4.8, Cottonwood 4.8, Sedona 4.7) demonstrate consistent quality and patient satisfaction.</p>
+                    <p><strong>Reshare Formats:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Achievement milestone post: "250+ Five-Star Patients Reviews Across Our Arizona Locations"</li>
+                        <li>Testimonial carousel: Feature 5-10 best Google review quotes with star ratings</li>
+                        <li>Video compilation: Quick clips of positive reviews read aloud by staff/doctors</li>
+                        <li>Website homepage banner: "Trusted by 500+ Patients — 4.8 Star Rating"</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Timing: Monthly update as new reviews accumulate</em></p>
+                </div>
+
+                <div class="reshare-card">
+                    <span class="reshare-badge reshare-high">HIGH POTENTIAL</span>
+                    <h4>Patient Testimonial Quotes About Painless Treatments</h4>
+                    <p><strong>Why:</strong> Recurring theme across reviews — painless experiences are major anxiety reducer and patient attractor.</p>
+                    <p><strong>Reshare Formats:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Video testimonials: 30-60 second patient interviews about pain-free experience</li>
+                        <li>Graphic quotes: "I didn't feel a thing!" styled quote graphics with patient first name</li>
+                        <li>Blog post: "Why Our Patients Say Treatment is Painless" (explain techniques, anesthesia, etc.)</li>
+                        <li>Facebook carousel: Series of patient testimonial quotes about comfort</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Timing: Ongoing — evergreen content for new patient anxiety concerns</em></p>
+                </div>
+
+                <div class="reshare-card">
+                    <span class="reshare-badge reshare-high">HIGH POTENTIAL</span>
+                    <h4>CEREC Same-Day Crown Success Cases</h4>
+                    <p><strong>Why:</strong> Before/after CEREC cases represent major competitive advantage and time-saving benefit.</p>
+                    <p><strong>Reshare Formats:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Video case study: 60-90 second walkthrough of CEREC crown process with patient testimonial</li>
+                        <li>Before/After gallery: High-quality images of crown transformations with patient quotes</li>
+                        <li>Instagram Reels: Quick 15-30 second CEREC process visualization with impact messaging</li>
+                        <li>Blog post series: "From Damaged Tooth to Perfect Smile in One Day" with case examples</li>
+                        <li>Service page emphasis: Call out CEREC as premium same-day solution</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Timing: Ongoing — promote during crown inquiries</em></p>
+                </div>
+
+                <div class="reshare-card">
+                    <span class="reshare-badge reshare-high">HIGH POTENTIAL</span>
+                    <h4>Dr. Shanahan & Dr. McGee Expertise Spotlights</h4>
+                    <p><strong>Why:</strong> Doctors receive personal recognition for clinical skill and compassionate care — humanize the brand.</p>
+                    <p><strong>Reshare Formats:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Doctor profile blog posts: Background, specialties, philosophy, patient testimonials</li>
+                        <li>Instagram stories: Q&A sessions with doctors answering common dental questions</li>
+                        <li>Team video: Introductions to Dr. Shanahan and Dr. McGee (30-60 sec each)</li>
+                        <li>Social posts: "Meet the Team" featuring doctors' bios, credentials, favorite treatments</li>
+                        <li>Testimonial graphics: "Dr. Shanahan's Patients Say..." with review quotes</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Timing: Monthly — establish ongoing doctor brand presence</em></p>
+                </div>
+
+                <div class="reshare-card">
+                    <span class="reshare-badge reshare-medium">MEDIUM POTENTIAL</span>
+                    <h4>Community Involvement & Local Event Mentions</h4>
+                    <p><strong>Why:</strong> References to community engagement in reviews indicate local integration opportunity.</p>
+                    <p><strong>Reshare Formats:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Social posts: Sponsorships, event participation, community involvement</li>
+                        <li>Blog post: "Peak Family Dental Cares for the Community" highlighting initiatives</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Timing: Quarterly alignment with local event calendar</em></p>
+                </div>
+
+                <div class="reshare-card">
+                    <span class="reshare-badge reshare-medium">MEDIUM POTENTIAL</span>
+                    <h4>Modern Technology & Innovation Showcase</h4>
+                    <p><strong>Why:</strong> "Most up to date office" theme suggests patients value technology — create educational content.</p>
+                    <p><strong>Reshare Formats:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Office tour video: Showcase digital X-rays, CEREC machine, treatment rooms</li>
+                        <li>Technology blog series: Explain benefits of each advanced technology to patients</li>
+                        <li>Social media graphics: Highlight specific technologies with patient benefit messaging</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Timing: Quarterly — refresh when new tech is added</em></p>
+                </div>
+            </div>
+
+            <!-- Hashtag Strategy -->
+            <div class="section" id="hashtag-strategy">
+                <h2>#️⃣ Hashtag Strategy</h2>
+
+                <p style="margin-bottom: 30px;"><strong>Summary:</strong> Recommended hashtags organized by category for Instagram, Facebook, and TikTok expansion. Combine branded hashtags with location and service tags for maximum discoverability.</p>
+
+                <div class="hashtag-category">
+                    <h4>🎯 Branded Hashtags (Always Include)</h4>
+                    <p style="margin-bottom: 12px; color: #666;">Create brand ownership and community around these hashtags:</p>
+                    <div class="hashtag-list">
+                        <div class="hashtag-item"><code>#PeakFamilyDental</code></div>
+                        <div class="hashtag-item"><code>#PeakDentalCare</code></div>
+                        <div class="hashtag-item"><code>#PeakSmiles</code></div>
+                    </div>
+                </div>
+
+                <div class="hashtag-category">
+                    <h4>📍 Location Tags (Use Location-Specific Accounts)</h4>
+                    <p style="margin-bottom: 12px; color: #666;">Target local search and geographically-relevant content:</p>
+                    <div class="hashtag-list">
+                        <div class="hashtag-item"><code>#FlagstaffDentist</code></div>
+                        <div class="hashtag-item"><code>#SedonaDentist</code></div>
+                        <div class="hashtag-item"><code>#CottonwoodDentist</code></div>
+                        <div class="hashtag-item"><code>#FlagstaffAZ</code></div>
+                        <div class="hashtag-item"><code>#SedonaAZ</code></div>
+                        <div class="hashtag-item"><code>#CottonwoodAZ</code></div>
+                        <div class="hashtag-item"><code>#NorthernArizona</code></div>
+                    </div>
+                </div>
+
+                <div class="hashtag-category">
+                    <h4>🦷 Service & Treatment Tags (High-Intent Keywords)</h4>
+                    <p style="margin-bottom: 12px; color: #666;">Capture patients searching for specific treatments:</p>
+                    <div class="hashtag-list">
+                        <div class="hashtag-item"><code>#DentalImplants</code></div>
+                        <div class="hashtag-item"><code>#SameDayCrowns</code></div>
+                        <div class="hashtag-item"><code>#CEREC</code></div>
+                        <div class="hashtag-item"><code>#InvisalignProvider</code></div>
+                        <div class="hashtag-item"><code>#ToothWhitening</code></div>
+                        <div class="hashtag-item"><code>#CosmeticDentistry</code></div>
+                        <div class="hashtag-item"><code>#FamilyDentistry</code></div>
+                        <div class="hashtag-item"><code>#PediatricDentist</code></div>
+                        <div class="hashtag-item"><code>#DentalVeneers</code></div>
+                        <div class="hashtag-item"><code>#EmergencyDentist</code></div>
+                    </div>
+                </div>
+
+                <div class="hashtag-category">
+                    <h4>🌟 Community & Local Engagement Tags</h4>
+                    <p style="margin-bottom: 12px; color: #666;">Build community and support local movements:</p>
+                    <div class="hashtag-list">
+                        <div class="hashtag-item"><code>#FlagstaffLocal</code></div>
+                        <div class="hashtag-item"><code>#SedonaLocal</code></div>
+                        <div class="hashtag-item"><code>#CottonwoodLocal</code></div>
+                        <div class="hashtag-item"><code>#SupportLocal</code></div>
+                        <div class="hashtag-item"><code>#LocalBusiness</code></div>
+                        <div class="hashtag-item"><code>#SmallBusiness</code></div>
+                    </div>
+                </div>
+
+                <div class="observation-box">
+                    <h4>Hashtag Strategy Best Practices:</h4>
+                    <ul>
+                        <li><strong>Mix Range:</strong> Use 15-20 hashtags per Instagram post (10-15 high-volume + 5-10 niche)</li>
+                        <li><strong>Location Accounts:</strong> Use location-specific hashtags on location account posts</li>
+                        <li><strong>Main Account:</strong> Mix branded + general service hashtags for broad reach</li>
+                        <li><strong>Rotation:</strong> Avoid using identical hashtag sets — vary by 30% per post</li>
+                        <li><strong>Monitor Performance:</strong> Track which hashtags drive engagement and adjust monthly</li>
+                        <li><strong>Create Campaigns:</strong> Develop unique campaign hashtags for seasonal promotions (#PeakSmilesMarch)</li>
+                    </ul>
+                </div>
+
+                <div class="observation-box">
+                    <h4>Hashtag Expansion for TikTok (If Entering Platform):</h4>
+                    <ul>
+                        <li><code>#DentalTok</code> — emerging TikTok dental education community</li>
+                        <li><code>#DentistLife</code> — lifestyle content from dental professionals</li>
+                        <li><code>#FYP</code> / <code>#FYP2</code> — algorithmic reach (always include on TikTok)</li>
+                        <li><code>#SmileMakeover</code> — before/after transformation content</li>
+                        <li><code>#TeethWhitening</code> — trending beauty/wellness category</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated by <strong>Content Scout</strong> — March 23, 2026</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">Report Type: UGC & Reviews Discovery | Scan Window: November 23, 2025 — March 23, 2026</p>
+        </div>
+    </div>
+</body>
+</html>

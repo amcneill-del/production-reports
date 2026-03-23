@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peak Family Dental Care - Brand Content Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #f0f2f5 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #27AE60 0%, #229954 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .scan-info {
+            background: rgba(255,255,255,0.15);
+            padding: 15px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 0.95em;
+        }
+
+        .scan-info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .toc-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid #27AE60;
+        }
+
+        .toc-section h2 {
+            color: #27AE60;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            padding: 8px 0;
+        }
+
+        .toc-list a {
+            color: #2980B9;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc-list a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #27AE60;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #27AE60;
+        }
+
+        .subsection h3 {
+            color: #2C3E50;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f4f8 100%);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #27AE60;
+        }
+
+        .stat-card .number {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #27AE60;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .label {
+            font-size: 0.95em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .platform-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border-left: 5px solid #ccc;
+        }
+
+        .platform-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .platform-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .platform-badge.facebook {
+            background-color: #1877F2;
+        }
+
+        .platform-badge.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .platform-badge.youtube {
+            background-color: #FF0000;
+        }
+
+        .platform-badge.website {
+            background-color: #27AE60;
+        }
+
+        .platform-card.facebook {
+            border-left-color: #1877F2;
+        }
+
+        .platform-card.instagram {
+            border-left-color: #e6683c;
+        }
+
+        .platform-card.youtube {
+            border-left-color: #FF0000;
+        }
+
+        .platform-card.website {
+            border-left-color: #27AE60;
+        }
+
+        .platform-card h3 {
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .platform-card .details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .detail-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .detail-item .label {
+            font-size: 0.85em;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .detail-item .value {
+            font-size: 1.1em;
+            color: #27AE60;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .url-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 15px;
+            background: #f0f8ff;
+            border-radius: 5px;
+            border: 1px solid #2980B9;
+        }
+
+        .url-link a {
+            color: #2980B9;
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .url-link a:hover {
+            text-decoration: underline;
+        }
+
+        .observation-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+
+        .observation-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .observation-box ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .observation-box li {
+            margin-bottom: 8px;
+        }
+
+        .strength-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            color: #155724;
+        }
+
+        .opportunity-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            color: #721c24;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .footer strong {
+            color: #27AE60;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .platform-card {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 25px 15px;
+            }
+
+            .section h2 {
+                font-size: 1.4em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Peak Family Dental Care</h1>
+            <p>Brand Content Discovery Report</p>
+            <div class="scan-info">
+                <strong>Scan Type:</strong> First Run — 120-Day Baseline<br>
+                <strong>Scan Window:</strong> November 23, 2025 — March 23, 2026<br>
+                <strong>Scan Date:</strong> March 23, 2026
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc-section">
+                <h2>📋 Table of Contents</h2>
+                <ul class="toc-list">
+                    <li><a href="#executive-summary">Executive Summary</a></li>
+                    <li><a href="#brand-overview">Business Profile & Locations</a></li>
+                    <li><a href="#content-summary">Content Summary Statistics</a></li>
+                    <li><a href="#website">Website & Blog</a></li>
+                    <li><a href="#facebook">Facebook Strategy</a></li>
+                    <li><a href="#instagram">Instagram Strategy</a></li>
+                    <li><a href="#youtube">YouTube Channel</a></li>
+                    <li><a href="#key-findings">Key Findings & Recommendations</a></li>
+                </ul>
+            </div>
+
+            <!-- Executive Summary -->
+            <div class="section" id="executive-summary">
+                <h2>📊 Executive Summary</h2>
+                <p>Peak Family Dental Care operates across three Arizona locations (Flagstaff, Sedona, Cottonwood) with a multi-channel digital presence. The brand maintains content across 6 active platforms with approximately 20+ website pages, 3 location-specific Facebook pages, 3 Instagram accounts, and 1 YouTube channel.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number">6</div>
+                        <div class="label">Active Platforms</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">20+</div>
+                        <div class="label">Website Pages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">3</div>
+                        <div class="label">Location Accounts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">607</div>
+                        <div class="label">Facebook Likes (Flagstaff)</div>
+                    </div>
+                </div>
+
+                <div class="observation-box">
+                    <h4>⚠️ Key Observation:</h4>
+                    <ul>
+                        <li>Social media presence is <strong>fragmented across location-specific accounts</strong></li>
+                        <li>Flagstaff dominates engagement metrics while Sedona and Cottonwood lag significantly</li>
+                        <li>Opportunity to consolidate or strengthen secondary location channels</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Brand Overview -->
+            <div class="section" id="brand-overview">
+                <h2>🏢 Business Profile & Locations</h2>
+
+                <div class="subsection">
+                    <h3>Primary Information</h3>
+                    <p><strong>Business Name:</strong> Peak Family Dental Care</p>
+                    <p><strong>Primary Website:</strong> <a href="https://www.peakfamilydentalaz.com/" target="_blank">https://www.peakfamilydentalaz.com/</a></p>
+                    <p><strong>Service Areas:</strong> Flagstaff, Cottonwood, Sedona, Arizona</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Location-Specific Landing Pages</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Flagstaff:</strong> <a href="https://www.peakfamilydentalaz.com/landing-page-flagstaff/" target="_blank">https://www.peakfamilydentalaz.com/landing-page-flagstaff/</a></li>
+                        <li><strong>Sedona:</strong> <a href="https://www.peakfamilydentalaz.com/landing-page-sedona/" target="_blank">https://www.peakfamilydentalaz.com/landing-page-sedona/</a></li>
+                        <li><strong>Cottonwood:</strong> <a href="https://www.peakfamilydentalaz.com/landing-page-cottonwood/" target="_blank">https://www.peakfamilydentalaz.com/landing-page-cottonwood/</a></li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Key Website Sections</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Patient Reviews: <a href="https://www.peakfamilydentalaz.com/about-us/patient-reviews/" target="_blank">/about-us/patient-reviews/</a></li>
+                        <li>Blog: <a href="https://www.peakfamilydentalaz.com/blog/" target="_blank">/blog/</a></li>
+                        <li><strong>Service Pages:</strong> General Dentistry, Implants, Veneers, Whitening, Crowns, Dentures, Hybrid Dentures, Emergency, Pediatric, TMJ, Sleep Apnea, Orthodontic Aligners</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Content Summary Statistics -->
+            <div class="section" id="content-summary">
+                <h2>📈 Content Summary Statistics</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number">20+</div>
+                        <div class="label">Website Pages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">3</div>
+                        <div class="label">Facebook Pages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">3</div>
+                        <div class="label">Instagram Accounts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">1</div>
+                        <div class="label">YouTube Channel</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">0</div>
+                        <div class="label">TikTok Presence</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">6</div>
+                        <div class="label">Total Touchpoints</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Website & Blog -->
+            <div class="section" id="website">
+                <h2>🌐 Website & Blog</h2>
+
+                <div class="platform-card website">
+                    <span class="platform-badge website">WEBSITE</span>
+                    <h3>Peak Family Dental Care - Main Website</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Active</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Pages Indexed</div>
+                            <div class="value">20+</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Blog Posts</div>
+                            <div class="value">2025-2026</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Posting Frequency</div>
+                            <div class="value">Unclear</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.peakfamilydentalaz.com/" target="_blank">Visit Website</a>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <h4>Content Strengths:</h4>
+                        <div class="strength-box">
+                            ✓ Comprehensive service pages covering 11+ dental services
+                        </div>
+                        <div class="strength-box">
+                            ✓ Location-specific landing pages for all three service areas
+                        </div>
+                        <div class="strength-box">
+                            ✓ Dedicated patient reviews section for social proof
+                        </div>
+                        <div class="strength-box">
+                            ✓ Active blog with recent 2025-2026 content
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 15px;">
+                        <h4>Opportunities:</h4>
+                        <div class="opportunity-box">
+                            ✓ Clarify blog posting frequency and establish consistent schedule
+                        </div>
+                        <div class="opportunity-box">
+                            ✓ Ensure blog content is being amplified across social channels
+                        </div>
+                        <div class="opportunity-box">
+                            ✓ Add FAQ sections for high-intent service pages
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facebook Strategy -->
+            <div class="section" id="facebook">
+                <h2>👥 Facebook Strategy</h2>
+
+                <p style="margin-bottom: 20px;"><strong>Summary:</strong> Three location-specific Facebook pages with significant performance disparity. Flagstaff page dominates, while Sedona and Cottonwood pages show minimal engagement.</p>
+
+                <div class="platform-card facebook">
+                    <span class="platform-badge facebook">FACEBOOK</span>
+                    <h3>Flagstaff – Peak Family Dental Care</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Page Likes</div>
+                            <div class="value">607</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Very Active</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Engagement</div>
+                            <div class="value">Strong</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.facebook.com/PeakFamilyDentalCare/" target="_blank">Visit Facebook Page</a>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <div class="strength-box">
+                            ✓ Strongest social page with 607 likes — nearly 15x Sedona's following
+                        </div>
+                        <div class="strength-box">
+                            ✓ Active posting and community engagement
+                        </div>
+                    </div>
+                </div>
+
+                <div class="platform-card facebook">
+                    <span class="platform-badge facebook">FACEBOOK</span>
+                    <h3>Sedona – Peak Family Dental Care</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Page Likes</div>
+                            <div class="value">41</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Minimal Activity</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.facebook.com/peakfamilydentalsedona/" target="_blank">Visit Facebook Page</a>
+                    </div>
+
+                    <p style="margin-top: 15px;">
+                        <em>Note: Alternative Sedona page exists at <a href="https://www.facebook.com/p/Peak-Family-Dental-Care-100023594404791/" target="_blank">https://www.facebook.com/p/Peak-Family-Dental-Care-100023594404791/</a></em>
+                    </p>
+
+                    <div style="margin-top: 20px;">
+                        <div class="opportunity-box">
+                            ⚠ Fragmented: Two separate Sedona pages may confuse followers
+                        </div>
+                        <div class="opportunity-box">
+                            ⚠ Low engagement: 41 likes indicates minimal community building efforts
+                        </div>
+                    </div>
+                </div>
+
+                <div class="platform-card facebook">
+                    <span class="platform-badge facebook">FACEBOOK</span>
+                    <h3>Cottonwood – Peak Family Dental Care</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Secondary Location</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.facebook.com/p/Peak-Family-Dental-Care-Cottonwood-100065007580924/" target="_blank">Visit Facebook Page</a>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <div class="opportunity-box">
+                            ⚠ Under-resourced: Limited page development relative to Flagstaff
+                        </div>
+                    </div>
+                </div>
+
+                <div class="observation-box" style="margin-top: 30px;">
+                    <h4>Facebook Strategy Recommendations:</h4>
+                    <ul>
+                        <li>Consolidate Sedona pages or designate one as primary and redirect followers</li>
+                        <li>Increase posting frequency on Cottonwood page to match Flagstaff activity levels</li>
+                        <li>Cross-promote location pages to build followings in secondary markets</li>
+                        <li>Implement location-tagged posts to improve local search visibility</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Instagram Strategy -->
+            <div class="section" id="instagram">
+                <h2>📸 Instagram Strategy</h2>
+
+                <p style="margin-bottom: 20px;"><strong>Summary:</strong> Three location-specific Instagram accounts with modest followings. Sedona account shows strongest content output (52+ posts) but all accounts show room for growth.</p>
+
+                <div class="platform-card instagram">
+                    <span class="platform-badge instagram">INSTAGRAM</span>
+                    <h3>@peakfamilydentalcare – Main Account</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Handle</div>
+                            <div class="value">@peakfamilydentalcare</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Active</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.instagram.com/peakfamilydentalcare/" target="_blank">Visit Instagram Profile</a>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <div class="strength-box">
+                            ✓ Brand consolidation account for all locations
+                        </div>
+                    </div>
+                </div>
+
+                <div class="platform-card instagram">
+                    <span class="platform-badge instagram">INSTAGRAM</span>
+                    <h3>@peakfamilydentalflag – Flagstaff Location</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Handle</div>
+                            <div class="value">@peakfamilydentalflag</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Active</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.instagram.com/peakfamilydentalflag/" target="_blank">Visit Instagram Profile</a>
+                    </div>
+                </div>
+
+                <div class="platform-card instagram">
+                    <span class="platform-badge instagram">INSTAGRAM</span>
+                    <h3>@peakfamilydentalsedona – Sedona Location</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Handle</div>
+                            <div class="value">@peakfamilydentalsedona</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Followers</div>
+                            <div class="value">126</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Posts</div>
+                            <div class="value">52+</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Bio</div>
+                            <div class="value">"Striving to provide dental care like our own families"</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.instagram.com/peakfamilydentalsedona/" target="_blank">Visit Instagram Profile</a>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <div class="strength-box">
+                            ✓ Highest post count (52+) shows consistent content creation
+                        </div>
+                        <div class="strength-box">
+                            ✓ Community-focused bio messaging resonates with family dentistry positioning
+                        </div>
+                    </div>
+                </div>
+
+                <div class="observation-box" style="margin-top: 30px;">
+                    <h4>Instagram Strategy Observations:</h4>
+                    <ul>
+                        <li><strong>Follower Count:</strong> All accounts show modest followings (126+ on Sedona, unclear on Flagstaff/main)</li>
+                        <li><strong>Content Volume:</strong> Sedona account demonstrates consistent posting with 52+ posts</li>
+                        <li><strong>Fragmentation:</strong> Similar to Facebook, multiple location accounts may dilute engagement</li>
+                        <li><strong>Engagement Potential:</strong> Leveraging before/after dental cases, patient testimonials, and behind-the-scenes content</li>
+                    </ul>
+                </div>
+
+                <div class="observation-box">
+                    <h4>Instagram Optimization Recommendations:</h4>
+                    <ul>
+                        <li>Increase posting frequency to 3-4x weekly (Instagram algorithm favors consistency)</li>
+                        <li>Develop location-specific hashtag strategy while promoting main brand handle</li>
+                        <li>Create reels/short-form video content to boost discoverability (visual platform advantage)</li>
+                        <li>Establish cross-account promotion to drive followers from main to location-specific pages</li>
+                        <li>Leverage before/after CEREC crown content and patient testimonials for high engagement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- YouTube Channel -->
+            <div class="section" id="youtube">
+                <h2>▶️ YouTube Channel</h2>
+
+                <div class="platform-card youtube">
+                    <span class="platform-badge youtube">YOUTUBE</span>
+                    <h3>@PeakFamilyDentalCareAZ</h3>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="label">Handle</div>
+                            <div class="value">@PeakFamilyDentalCareAZ</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Status</div>
+                            <div class="value">Active (Low Visibility)</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Discoverability</div>
+                            <div class="value">Minimal</div>
+                        </div>
+                    </div>
+
+                    <div class="url-link">
+                        <a href="https://www.youtube.com/@PeakFamilyDentalCareAZ" target="_blank">Visit YouTube Channel</a>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <div class="opportunity-box">
+                            ⚠ Limited indexed content in search results
+                        </div>
+                        <div class="opportunity-box">
+                            ⚠ Channel exists but underutilized relative to other platforms
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <h4>YouTube Growth Opportunities:</h4>
+                        <ul style="margin-left: 20px; color: #333;">
+                            <li><strong>Patient Education Series:</strong> "Ask the Dentist" Q&A videos, procedure walkthroughs, oral care tips</li>
+                            <li><strong>Behind-the-Scenes:</strong> Office tours, staff introductions, technology showcases</li>
+                            <li><strong>Treatment Showcase:</strong> CEREC crown videos, implant case studies, smile transformations</li>
+                            <li><strong>Community Content:</strong> Local events, sponsorships, community involvement</li>
+                            <li><strong>SEO Benefits:</strong> YouTube videos rank in Google search; optimize titles/descriptions for "dentist near me" searches</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Findings & Recommendations -->
+            <div class="section" id="key-findings">
+                <h2>🎯 Key Findings & Recommendations</h2>
+
+                <div class="subsection">
+                    <h3>Strengths</h3>
+                    <div class="strength-box">
+                        ✓ <strong>Solid Website Foundation:</strong> 20+ pages covering services, locations, and patient information
+                    </div>
+                    <div class="strength-box">
+                        ✓ <strong>Multi-Platform Presence:</strong> Active on 6 digital channels shows commitment to customer engagement
+                    </div>
+                    <div class="strength-box">
+                        ✓ <strong>Strong Flagship (Flagstaff):</strong> Main Facebook page (607 likes) demonstrates growth capacity
+                    </div>
+                    <div class="strength-box">
+                        ✓ <strong>Consistent Content Creation:</strong> Sedona Instagram's 52+ posts shows ability to maintain schedules
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Challenges</h3>
+                    <div class="opportunity-box">
+                        ⚠ <strong>Fragmented Social Strategy:</strong> Multiple location accounts dilute engagement and follower base
+                    </div>
+                    <div class="opportunity-box">
+                        ⚠ <strong>Performance Disparity:</strong> 15x difference between Flagstaff (607) and Sedona (41) Facebook likes
+                    </div>
+                    <div class="opportunity-box">
+                        ⚠ <strong>YouTube Underutilization:</strong> Channel exists but minimal discoverability in search
+                    </div>
+                    <div class="opportunity-box">
+                        ⚠ <strong>No Short-Form Video:</strong> Missing TikTok presence and limited Reels on Instagram
+                    </div>
+                    <div class="opportunity-box">
+                        ⚠ <strong>Blog Posting Frequency:</strong> Unclear cadence limits blog as content hub
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Immediate Action Items (Next 30 Days)</h3>
+                    <ol style="margin-left: 20px; margin-top: 15px;">
+                        <li><strong>Audit Social Fragmentation:</strong> Document follower counts, post history, and engagement metrics for all location pages</li>
+                        <li><strong>Consolidate Sedona Facebook:</strong> Choose primary Sedona page, redirect followers, update secondary page description</li>
+                        <li><strong>Establish Blog Schedule:</strong> Define posting frequency (recommended: 2x weekly) and content themes</li>
+                        <li><strong>Launch YouTube Content Series:</strong> Plan 4-week content calendar for patient education and behind-the-scenes videos</li>
+                        <li><strong>Increase Instagram Frequency:</strong> Target 3-4 posts weekly across location accounts</li>
+                    </ol>
+                </div>
+
+                <div class="subsection">
+                    <h3>90-Day Strategic Initiatives</h3>
+                    <ol style="margin-left: 20px; margin-top: 15px;">
+                        <li><strong>Content Cross-Promotion:</strong> Amplify blog posts and YouTube videos across all social channels</li>
+                        <li><strong>Instagram Reels Strategy:</strong> Create 2-3 reels weekly showcasing treatments, tips, and team content</li>
+                        <li><strong>Location-Specific Campaigns:</strong> Develop geo-targeted content for Flagstaff, Sedona, and Cottonwood audiences</li>
+                        <li><strong>Patient Testimonial Archive:</strong> Systematically collect and repurpose patient reviews across platforms</li>
+                        <li><strong>YouTube SEO Optimization:</strong> Title, description, and tag optimization for local search ("dentist Flagstaff," etc.)</li>
+                        <li><strong>TikTok Evaluation:</strong> Assess viability and resource requirements for short-form video platform entry</li>
+                    </ol>
+                </div>
+
+                <div class="subsection">
+                    <h3>Metrics to Monitor (Monthly)</h3>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li>Facebook page likes growth across all three locations</li>
+                        <li>Instagram follower growth and engagement rate (likes + comments / followers)</li>
+                        <li>YouTube channel views, watch time, and subscriber growth</li>
+                        <li>Blog post traffic and search rankings for target dental keywords</li>
+                        <li>Website conversion rates and new patient inquiries by source (social, organic, direct)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated by <strong>Content Scout</strong> — March 23, 2026</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">Report Type: Brand Content Discovery | Scan Window: November 23, 2025 — March 23, 2026</p>
+        </div>
+    </div>
+</body>
+</html>
