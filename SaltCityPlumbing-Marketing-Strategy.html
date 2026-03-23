@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salt City Plumbing — Marketing Strategy</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      border-bottom: 4px solid #1B4F72;
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      color: #1B4F72;
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .header h2 {
+      color: #2C3E50;
+      font-size: 32px;
+      margin-bottom: 20px;
+      font-weight: normal;
+    }
+
+    .header p {
+      color: #666;
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    /* Executive Summary */
+    .executive-summary {
+      background-color: #f0f7ff;
+      border-left: 5px solid #1B4F72;
+      padding: 25px;
+      margin-bottom: 40px;
+      border-radius: 4px;
+    }
+
+    .executive-summary h3 {
+      color: #1B4F72;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .executive-summary p {
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    /* Priority Matrix Table */
+    .matrix-section {
+      margin-bottom: 40px;
+    }
+
+    .matrix-section h3 {
+      color: #1B4F72;
+      font-size: 22px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ddd;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #1B4F72;
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f0f7ff;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      min-width: 60px;
+    }
+
+    .badge-high-impact {
+      background-color: #d4edda;
+      color: #1b5e20;
+    }
+
+    .badge-medium-impact {
+      background-color: #fff3cd;
+      color: #664d03;
+    }
+
+    .badge-low-impact {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .badge-low-effort {
+      background-color: #d4edda;
+      color: #1b5e20;
+    }
+
+    .badge-medium-effort {
+      background-color: #fff3cd;
+      color: #664d03;
+    }
+
+    .badge-high-effort {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .badge-week1 {
+      background-color: #d4edda;
+      color: #1b5e20;
+    }
+
+    .badge-month1 {
+      background-color: #cfe2ff;
+      color: #084298;
+    }
+
+    .badge-month2 {
+      background-color: #e2d7f5;
+      color: #5a1a8c;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-header {
+      color: #1B4F72;
+      font-size: 32px;
+      font-weight: bold;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #1B4F72;
+      margin-bottom: 25px;
+      margin-top: 40px;
+      page-break-before: always;
+    }
+
+    .subsection-header {
+      color: #2C3E50;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 25px;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .subsubsection-header {
+      color: #2C3E50;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 12px;
+    }
+
+    /* Content */
+    .content-block {
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .content-block p {
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    .action-item {
+      margin-bottom: 18px;
+      padding-left: 30px;
+      position: relative;
+    }
+
+    .action-item:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #1B4F72;
+      font-weight: bold;
+    }
+
+    .action-title {
+      font-weight: bold;
+      color: #1B4F72;
+      display: inline;
+    }
+
+    .metrics-list {
+      list-style-position: inside;
+      margin-bottom: 20px;
+    }
+
+    .metrics-list li {
+      margin-bottom: 12px;
+      padding-left: 20px;
+    }
+
+    .metrics-list li:before {
+      content: "• ";
+      color: #1B4F72;
+      font-weight: bold;
+      position: absolute;
+      margin-left: -20px;
+    }
+
+    /* Collapsible Sections */
+    .collapsible-header {
+      background-color: #e8f0f7;
+      border: 1px solid #1B4F72;
+      padding: 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      user-select: none;
+      font-weight: bold;
+      color: #1B4F72;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+
+    .collapsible-header:hover {
+      background-color: #d5e8f0;
+    }
+
+    .collapsible-header::after {
+      content: "▼";
+      font-size: 12px;
+      transition: transform 0.3s;
+    }
+
+    .collapsible-header.collapsed::after {
+      transform: rotate(-90deg);
+    }
+
+    .collapsible-content {
+      padding: 20px;
+      background-color: #fafafa;
+      border: 1px solid #ddd;
+      border-top: none;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .collapsible-content.show {
+      display: block;
+    }
+
+    /* Checklist */
+    .milestone-section {
+      margin-bottom: 30px;
+    }
+
+    .milestone-title {
+      color: #2C3E50;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .checklist {
+      list-style: none;
+      margin-bottom: 15px;
+    }
+
+    .checklist li {
+      padding: 10px;
+      margin-bottom: 8px;
+      background-color: #fafafa;
+      border-left: 3px solid #1B4F72;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .checklist li:hover {
+      background-color: #f0f7ff;
+    }
+
+    .checklist input[type="checkbox"] {
+      margin-right: 12px;
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+
+    .checklist li.checked {
+      background-color: #d4edda;
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    /* Data Sources */
+    .data-sources {
+      background-color: #f9f9f9;
+      padding: 25px;
+      border-radius: 4px;
+      margin-top: 30px;
+    }
+
+    .data-sources h3 {
+      color: #1B4F72;
+      margin-bottom: 15px;
+    }
+
+    .data-sources ul {
+      list-style-position: inside;
+      margin-bottom: 15px;
+    }
+
+    .data-sources li {
+      margin-bottom: 8px;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background-color: white;
+      }
+
+      .container {
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .section-header {
+        page-break-before: always;
+        page-break-after: avoid;
+      }
+
+      .collapsible-content {
+        display: block !important;
+      }
+
+      .collapsible-header {
+        border: none;
+        background-color: white;
+        padding: 0;
+      }
+
+      .collapsible-header::after {
+        display: none;
+      }
+
+      .checklist input[type="checkbox"] {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      .header h1 {
+        font-size: 32px;
+      }
+
+      .header h2 {
+        font-size: 22px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+
+      .section-header {
+        font-size: 24px;
+      }
+
+      .subsection-header {
+        font-size: 18px;
+      }
+
+      .badge {
+        padding: 3px 8px;
+        font-size: 11px;
+      }
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      text-align: center;
+      color: #999;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>MARKETING STRATEGY</h1>
+      <h2>Salt City Plumbing, Heating & Air</h2>
+      <p><strong>Generated:</strong> March 22, 2026</p>
+      <p><strong>Based on:</strong> Digital Storefront Audit (42%), Brand Content Report, UGC Report</p>
+    </div>
+
+    <!-- Executive Summary -->
+    <div class="executive-summary">
+      <h3>Executive Summary</h3>
+      <p>Salt City Plumbing scores 42% overall on the Digital Storefront Audit, indicating significant opportunity in conversion optimization, trust-building, and local SEO. Your strongest asset is an active blog (50+ posts) and solid customer reviews (4.8+ rating across platforms with 35+ Yelp reviews). The biggest near-term opportunity is implementing online booking and a new customer offer—these will directly convert more website visitors into leads. Secondary priorities include review generation system setup and Instagram activation for visual credibility. With focused effort on the top 5 quick wins (all completable in Week 1), you can drive measurable customer acquisition within 30 days.</p>
+    </div>
+
+    <!-- Priority Matrix -->
+    <div class="matrix-section">
+      <h3>Master Priority Matrix — Top 20 Actions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Action</th>
+            <th>Pillar</th>
+            <th>Impact</th>
+            <th>Effort</th>
+            <th>Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Implement online booking widget</td><td>Website/SEO</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1</span></td></tr>
+          <tr><td>2</td><td>Launch new customer offer ($50 off)</td><td>Website/SEO</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1</span></td></tr>
+          <tr><td>3</td><td>Fix title tag and H1 for local keywords</td><td>Website/SEO</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1</span></td></tr>
+          <tr><td>4</td><td>Consolidate NAP to one phone number</td><td>Website/SEO</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1</span></td></tr>
+          <tr><td>5</td><td>Shorten contact form to 4 fields</td><td>Website/SEO</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1</span></td></tr>
+          <tr><td>6</td><td>Set up review monitoring and response templates</td><td>Reviews</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1</span></td></tr>
+          <tr><td>7</td><td>Create Instagram template and hashtags</td><td>Social Media</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1</span></td></tr>
+          <tr><td>8</td><td>Schedule 2 weeks of social content</td><td>Social Media</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1</span></td></tr>
+          <tr><td>9</td><td>Create website reviews page</td><td>Reviews</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-low-effort">Low</span></td><td><span class="badge badge-week1">Week 1-2</span></td></tr>
+          <tr><td>10</td><td>Optimize service page title tags and meta descriptions</td><td>Website/SEO</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month1">Month 1</span></td></tr>
+          <tr><td>11</td><td>Resume blog publishing weekly</td><td>Social Media</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month1">Month 1</span></td></tr>
+          <tr><td>12</td><td>Create before/after project gallery</td><td>Website/SEO</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month1">Month 1</span></td></tr>
+          <tr><td>13</td><td>Launch Technician Spotlight monthly series</td><td>Social Media</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month1">Month 1</span></td></tr>
+          <tr><td>14</td><td>Implement post-service review request automation</td><td>Reviews</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month1">Month 1</span></td></tr>
+          <tr><td>15</td><td>Optimize Google Business Profile</td><td>Website/SEO</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month1">Month 1</span></td></tr>
+          <tr><td>16</td><td>Activate Instagram with 2-3 posts per week</td><td>Social Media</td><td><span class="badge badge-high-impact">High</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month1">Month 1</span></td></tr>
+          <tr><td>17</td><td>Implement local schema markup (JSON-LD)</td><td>Website/SEO</td><td><span class="badge badge-medium-impact">Medium</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month2">Month 2-3</span></td></tr>
+          <tr><td>18</td><td>Launch YouTube how-to video series</td><td>Social Media</td><td><span class="badge badge-medium-impact">Medium</span></td><td><span class="badge badge-high-effort">High</span></td><td><span class="badge badge-month2">Month 2-3</span></td></tr>
+          <tr><td>19</td><td>Create location-specific landing pages</td><td>Website/SEO</td><td><span class="badge badge-medium-impact">Medium</span></td><td><span class="badge badge-high-effort">High</span></td><td><span class="badge badge-month2">Month 2-3</span></td></tr>
+          <tr><td>20</td><td>Build internal linking strategy</td><td>Website/SEO</td><td><span class="badge badge-medium-impact">Medium</span></td><td><span class="badge badge-medium-effort">Medium</span></td><td><span class="badge badge-month2">Month 2-3</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Social Media Strategy Section -->
+    <div class="section">
+      <div class="section-header">Social Media Strategy</div>
+
+      <div class="subsection-header">Current State</div>
+      <div class="content-block">
+        <p>You maintain an active Facebook page (15 reviews, 94% recommendation rate) with regular promotional and blog content, but Instagram is severely underutilized with only 1 post and 69 followers. Your blog generates 50+ evergreen posts that could amplify on social but aren't currently being leveraged. No TikTok or YouTube presence. The disconnect: customers are asking questions on review platforms (Yelp, Nextdoor, Thumbtack) that could be answered via social content, but you're not mining that opportunity.</p>
+      </div>
+
+      <div class="subsection-header">Goal</div>
+      <div class="content-block">
+        <p>In 90 days, activate Instagram with 2-3 posts per week showing before/afters and team spotlights; maintain Facebook momentum with weekly blog shares and Reels; resume blog publishing at 2x per month with seasonal topics; launch a monthly 'Technician Spotlight' or 'Customer of the Month' series across all platforms. Build owned-channel audience to capture customers researching plumbing and HVAC locally.</p>
+      </div>
+
+      <div class="subsection-header">Priority Actions</div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Immediate (Week 1-2) — Quick Wins</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Audit and organize existing customer photos and reviews.</span><br>
+          Collect 15–20 before/after photos from recent jobs and customer testimonials from Yelp, Google, and HomeAdvisor. Tag 5-star reviews mentioning technicians by name (Jaden, Payton, Jake, Devon, Tommy). Spend: 1–2 hours. <strong>Why:</strong> You have 25 UGC photos on Yelp but they're hidden; resharing them proves your work quality and builds social proof.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Create an Instagram content template with branded hashtags.</span><br>
+          Set up 5–7 branded hashtags (#SaltCityPlumbing, #SLCPlumber, #UtahHVAC, #PlumbingSLC, #WeCanDoThat, #SaltLakeCityPlumber, #HVACSaltLake). Design a simple carousel template using Canva or built-in mobile tools. Post first 3 posts to test engagement. Spend: 1.5 hours. <strong>Why:</strong> Instagram is your visual credibility channel; every post with a branded hashtag improves local search visibility.
+        </div>
+        <div class="action-item">
+          <span class="action-title">3. Schedule 2 weeks of Facebook and Instagram content in advance.</span><br>
+          Use Meta Business Suite (free) to schedule 4–6 posts for Facebook and 6–8 for Instagram. Include 1 post per week highlighting a named technician. Spend: 2 hours. <strong>Why:</strong> Consistent posting signals active business and keeps audience engaged.
+        </div>
+        <div class="action-item">
+          <span class="action-title">4. Activate Nextdoor and create a Nextdoor business post.</span><br>
+          Nextdoor has 11 neighbor recommendations for you. Join as the business owner and create a welcome post offering a 'Neighborhood Discount'. Spend: 45 minutes. <strong>Why:</strong> Nextdoor is high-intent local traffic; neighbors trust neighbors more than ads.
+        </div>
+      </div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Short-Term (Month 1) — Foundation Building</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Launch a weekly blog publishing cadence (every Wednesday).</span><br>
+          Resume publishing with seasonal topics. Promote each blog post to Facebook and Instagram same-day. Spend: 2 hours/week. <strong>Why:</strong> Blog posts are SEO assets that compound—publishing after 4-month pause will regain search momentum.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Create a 'Technician Spotlight' monthly series.</span><br>
+          Feature one team member per month with 3–5 carousel posts. Post across Facebook, Instagram, and Nextdoor. Spend: 4 hours/month. <strong>Why:</strong> Personalizes your brand and leverages the fact that customers name-check specific technicians in reviews.
+        </div>
+        <div class="action-item">
+          <span class="action-title">3. Set up a monthly email newsletter with 'What Our Customers Say' section.</span><br>
+          Compile top 10 reviews into a monthly email. Use Mailchimp free tier. Spend: 3 hours setup, 1 hour/month. <strong>Why:</strong> Email has 40x higher ROI than social; customers who've already hired you are your best referral source.
+        </div>
+      </div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Medium-Term (Month 2-3) — Growth Drivers</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Launch a YouTube channel with 4–6 how-to and education videos.</span><br>
+          Repurpose existing blog content into 3–5 minute videos. Embed on blog posts. Spend: 8–12 hours. <strong>Why:</strong> YouTube ranks highly in local search and builds authority.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Explore TikTok short-form content (optional but recommended).</span><br>
+          Create 15–30 second clips from longer videos. Spend: 4–6 hours/month. <strong>Why:</strong> TikTok's algorithm favors service professionals; even 10K views = local awareness and inbound calls.
+        </div>
+      </div>
+
+      <div class="subsection-header">Key Metrics to Track</div>
+      <ul class="metrics-list">
+        <li>Instagram growth: Target 500 followers by month 3 (vs. 69 today)</li>
+        <li>Facebook page reach and engagement: Monitor weekly reach and comment response time (goal: &lt;24 hours)</li>
+        <li>Blog traffic and social referrals: Track blog post sessions from social shares. Target 20% YoY growth</li>
+        <li>Email newsletter open rate: Monitor monthly newsletter open rate (target 20–25%)</li>
+        <li>Call attributions from social: Tag leads in CRM with source to measure direct ROI</li>
+      </ul>
+    </div>
+
+    <!-- Website & SEO Strategy Section -->
+    <div class="section">
+      <div class="section-header">Website & SEO Strategy</div>
+
+      <div class="subsection-header">Current State</div>
+      <div class="content-block">
+        <p>Your website scores 42% overall, with Conversion Strategy at 2.5/6—the biggest red flag. You have the foundation right: individual service pages, active blog, and proper SSL. But three critical gaps prevent conversion: (1) No online booking widget, forcing customers to choose between calling or filling a 7-field form. (2) No new customer offer visible anywhere. (3) Title tags and H1 are generic and not keyword-focused. NAP consistency issues confuse both customers and Google.</p>
+      </div>
+
+      <div class="subsection-header">Goal</div>
+      <div class="content-block">
+        <p>In 90 days, reduce website conversion friction by 60%: implement online booking widget, launch new customer offer, tighten contact form to 4 fields, fix all title tags and H1 tags for local keywords, consolidate NAP to one phone number, add before/after gallery. Target: 50% increase in lead form submissions within 6 weeks.</p>
+      </div>
+
+      <div class="subsection-header">Priority Actions</div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Immediate (Week 1-2) — Quick Wins</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Implement an online booking widget.</span><br>
+          Add ServiceTitan or Housecall Pro to your /scheduling/ page. Spend: 2–4 hours + $0–100/month. <strong>Why:</strong> Contact form conversions are 30% lower than self-service booking.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Create and display a new customer offer.</span><br>
+          Launch '$50 off your first service' visible in header and service pages. Spend: 1 hour. <strong>Why:</strong> Offers increase conversions by 10–15%.
+        </div>
+        <div class="action-item">
+          <span class="action-title">3. Shorten contact form to 4 fields.</span><br>
+          Remove Last Name, Address, Email, New Customer dropdown. Keep: Name, Phone, Service Type, Message. Spend: 1 hour. <strong>Why:</strong> Longer forms have 10-15% worse completion rates.
+        </div>
+        <div class="action-item">
+          <span class="action-title">4. Rewrite homepage title tag and H1 for local keywords.</span><br>
+          Change title tag to: 'Salt Lake City Plumber & HVAC | Emergency Service | Salt City Plumbing'. Change H1 to: 'Salt Lake City Plumber & HVAC Service — 24/7 Emergency'. Spend: 30 min. <strong>Why:</strong> Title tags directly impact click-through rate from Google.
+        </div>
+        <div class="action-item">
+          <span class="action-title">5. Consolidate NAP to one phone number across all pages.</span><br>
+          Primary: (801) 640-9785. Remove or consolidate other numbers. Spend: 1–1.5 hours. <strong>Why:</strong> NAP consistency directly impacts local SEO.
+        </div>
+      </div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Short-Term (Month 1) — Foundation Building</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Optimize all service page title tags and meta descriptions.</span><br>
+          Follow pattern: '[Service] in Salt Lake City | [Differentiator] | Salt City Plumbing'. Spend: 3–4 hours. <strong>Why:</strong> Optimized ones increase click-through rate 15-30%.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Create and add a before/after project gallery.</span><br>
+          Create /projects/ page with 10–15 projects with captions and testimonials. Spend: 4–6 hours. <strong>Why:</strong> Before/after photos are the #1 trust-building element for home services.
+        </div>
+        <div class="action-item">
+          <span class="action-title">3. Fix or add embedded Google Map to contact page.</span><br>
+          Add Google Map embed with address and hours. Spend: 30 min. <strong>Why:</strong> Embedded maps reduce friction and signal local presence.
+        </div>
+        <div class="action-item">
+          <span class="action-title">4. Optimize Google Business Profile with full details and photos.</span><br>
+          Upload 5–10 high-quality photos. Add services list and hours. Spend: 2 hours. <strong>Why:</strong> GBP is your local SEO anchor.
+        </div>
+      </div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Medium-Term (Month 2-3) — Growth Drivers</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Implement local schema markup (JSON-LD).</span><br>
+          Add LocalBusiness and PlumberService schema to pages. Spend: 3–4 hours. <strong>Why:</strong> Local schema improves rich snippet visibility.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Create location-specific landing pages.</span><br>
+          Create /locations/ pages for service areas. Spend: 6 hours per page. <strong>Why:</strong> Location pages rank better for city-specific queries.
+        </div>
+        <div class="action-item">
+          <span class="action-title">3. Implement internal linking strategy.</span><br>
+          Link blog posts to service pages and vice versa. Spend: 30 min per blog post ongoing. <strong>Why:</strong> Internal linking passes authority and improves crawlability.
+        </div>
+        <div class="action-item">
+          <span class="action-title">4. Build a seasonal FAQ page.</span><br>
+          Mine reviews for common questions. Create /faq/ with answers. Spend: 4–5 hours. <strong>Why:</strong> FAQ pages rank for long-tail questions.
+        </div>
+      </div>
+
+      <div class="subsection-header">Key Metrics to Track</div>
+      <ul class="metrics-list">
+        <li>Lead form submissions: Goal 50% increase within 6 weeks</li>
+        <li>Organic search traffic: Goal 20% increase YoY</li>
+        <li>Google Business Profile views and actions: Goal 500+ monthly views and 50+ direction clicks</li>
+        <li>Click-through rate from search: Target 5% CTR</li>
+        <li>Booking widget conversion rate: Goal 5–10% of scheduling page visitors</li>
+      </ul>
+    </div>
+
+    <!-- Review Strategy Section -->
+    <div class="section">
+      <div class="section-header">Review Strategy</div>
+
+      <div class="subsection-header">Current State</div>
+      <div class="content-block">
+        <p>This is your biggest strength. You have 35+ Yelp reviews with 4.8+ rating, strong presence on Google Maps, HomeAdvisor (4.8/5), Nextdoor (11 recommendations), and Thumbtack. Customers specifically name-check technicians, indicating high satisfaction. The gap: You're not systematically asking for reviews, not leveraging them on owned channels, and not responding quickly to every review.</p>
+      </div>
+
+      <div class="subsection-header">Goal</div>
+      <div class="content-block">
+        <p>In 90 days, implement a systematic review generation system that asks 100% of happy customers to review you, respond to all new reviews within 24–48 hours, and reshare 2–3 customer testimonials per month across Instagram, Facebook, and email. Target: 50+ new Yelp and Google reviews by end of Q2. Maintain 4.8+ aggregate rating.</p>
+      </div>
+
+      <div class="subsection-header">Priority Actions</div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Immediate (Week 1-2) — Quick Wins</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Create review request process and collateral.</span><br>
+          Design a 1-page PDF with review links. Include SMS template. Spend: 1.5 hours. <strong>Why:</strong> Most customers will review if asked directly—70% will if you provide easy links.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Set up a review monitoring calendar.</span><br>
+          Daily check for new reviews. Assign one person as 'review response owner'. Spend: 30 min setup, 15 min/day. <strong>Why:</strong> Quick responses increase booking impact by 20%.
+        </div>
+        <div class="action-item">
+          <span class="action-title">3. Create response templates for positive and negative reviews.</span><br>
+          Spend: 30 min. <strong>Why:</strong> Templates ensure consistent tone and save time.
+        </div>
+        <div class="action-item">
+          <span class="action-title">4. Add a reviews page to your website.</span><br>
+          Create /reviews/ with top 10–15 5-star testimonials. Spend: 2 hours. <strong>Why:</strong> Reviews-focused pages have 50% higher conversion rate.
+        </div>
+        <div class="action-item">
+          <span class="action-title">5. Ensure Google Business Profile review count is accurate.</span><br>
+          Verify GBP shows current reviews and enable review requests. Spend: 1 hour. <strong>Why:</strong> Google reviews appear directly in search results.
+        </div>
+      </div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Short-Term (Month 1) — Foundation Building</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Implement post-service text or email reminder.</span><br>
+          Configure CRM to send review request 3 days post-service. Spend: 3 hours setup. <strong>Why:</strong> Reviews requested within 3–7 days have highest conversion rate.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Develop a 'top reviewer' incentive (optional).</span><br>
+          Monthly drawing: customers who leave reviews enter to win $50 gift card. Spend: 30 min setup, $50/month. <strong>Why:</strong> Incentives increase review volume 30–50%.
+        </div>
+        <div class="action-item">
+          <span class="action-title">3. Create a monthly reshare calendar.</span><br>
+          Designate 2–3 reviews per month to reshare on Instagram and Facebook. Spend: 1–2 hours/month. <strong>Why:</strong> Customers trust peer reviews more than your marketing claims.
+        </div>
+        <div class="action-item">
+          <span class="action-title">4. Address any 1–3 star reviews constructively.</span><br>
+          Respond publicly acknowledging the issue and offering a solution. Spend: 2 hours initial, 15 min per review. <strong>Why:</strong> How you respond to criticism is MORE impactful than positive reviews.
+        </div>
+      </div>
+
+      <div class="collapsible-header collapsed" onclick="toggleSection(this)">
+        <span>Medium-Term (Month 2-3) — Growth Drivers</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <span class="action-title">1. Explore advanced review platforms.</span><br>
+          HomeAdvisor Local Services or Google Local Services Ads. Spend: 4 hours + variable budget ($100–300/month). <strong>Why:</strong> High-intent channels with review visibility directly impact booking.
+        </div>
+        <div class="action-item">
+          <span class="action-title">2. Build a 'Reviews Trend' dashboard.</span><br>
+          Log monthly counts/ratings across all platforms. Identify themes. Spend: 4 hours setup, 30 min/month. <strong>Why:</strong> Data-driven team culture builds service improvement ownership.
+        </div>
+      </div>
+
+      <div class="subsection-header">Key Metrics to Track</div>
+      <ul class="metrics-list">
+        <li>Total review count: Goal 50+ net new reviews by end of Q2</li>
+        <li>Average rating: Maintain or improve 4.8+ across all platforms</li>
+        <li>Review response rate: Goal 95%+ within 24–48 hours</li>
+        <li>Review-to-booking conversion: Goal 10% of bookings mention reviews</li>
+        <li>Social media reshare engagement: Goal 5% engagement rate on reshare posts</li>
+      </ul>
+    </div>
+
+    <!-- 90-Day Milestone Checklist -->
+    <div class="section">
+      <div class="section-header">90-Day Milestone Checklist</div>
+
+      <div class="milestone-section">
+        <div class="milestone-title">Week 1–2: Quick Wins (All three pillars)</div>
+        <ul class="checklist" id="checklist-week1">
+          <li><input type="checkbox"> Implement online booking widget (ServiceTitan or Housecall Pro)</li>
+          <li><input type="checkbox"> Launch '$50 off first service' offer, display in header and service pages</li>
+          <li><input type="checkbox"> Shorten contact form to 4 fields</li>
+          <li><input type="checkbox"> Rewrite homepage title tag and H1 for local keywords</li>
+          <li><input type="checkbox"> Consolidate NAP to one phone number (801-640-9785) across all pages</li>
+          <li><input type="checkbox"> Organize 15–20 before/after photos and customer testimonials</li>
+          <li><input type="checkbox"> Create Instagram content template with branded hashtags</li>
+          <li><input type="checkbox"> Schedule 2 weeks of Facebook and Instagram content in advance</li>
+          <li><input type="checkbox"> Activate Nextdoor business profile and post neighborhood discount</li>
+          <li><input type="checkbox"> Create review request PDF and SMS templates</li>
+          <li><input type="checkbox"> Set up review monitoring calendar and response templates</li>
+          <li><input type="checkbox"> Create website /reviews/ page with top 10–15 testimonials</li>
+        </ul>
+      </div>
+
+      <div class="milestone-section">
+        <div class="milestone-title">End of Month 1 (by April 22)</div>
+        <ul class="checklist" id="checklist-month1">
+          <li><input type="checkbox"> Launch first 3 Instagram posts; growth to 150+ followers (from 69)</li>
+          <li><input type="checkbox"> Resume blog publishing weekly (every Wednesday) with seasonal topics</li>
+          <li><input type="checkbox"> Optimize all service page title tags and meta descriptions</li>
+          <li><input type="checkbox"> Create and publish before/after project gallery (/projects/ or /gallery/)</li>
+          <li><input type="checkbox"> Implement embedded Google Map on contact page</li>
+          <li><input type="checkbox"> Optimize Google Business Profile with photos, hours, services</li>
+          <li><input type="checkbox"> Launch first 'Technician Spotlight' monthly series</li>
+          <li><input type="checkbox"> Set up monthly email newsletter with 'What Our Customers Say' section</li>
+          <li><input type="checkbox"> Implement post-service review request automation (SMS/email after 3 days)</li>
+          <li><input type="checkbox"> Respond to 100% of new reviews within 24–48 hours</li>
+          <li><input type="checkbox"> Reshare first customer testimonials on social (2–3 posts)</li>
+        </ul>
+      </div>
+
+      <div class="milestone-section">
+        <div class="milestone-title">End of Month 2 (by May 22)</div>
+        <ul class="checklist" id="checklist-month2">
+          <li><input type="checkbox"> Grow Instagram to 300+ followers; post 2–3x per week</li>
+          <li><input type="checkbox"> Publish 8–10 blog posts (2 per week cadence); monitor blog traffic in Analytics</li>
+          <li><input type="checkbox"> Implement local schema markup (JSON-LD) on all pages</li>
+          <li><input type="checkbox"> Create location-specific pages if serving multiple cities</li>
+          <li><input type="checkbox"> Build internal linking strategy (service pages → blog, blog → service pages)</li>
+          <li><input type="checkbox"> Launch seasonal FAQ page</li>
+          <li><input type="checkbox"> Publish 2nd and 3rd Technician Spotlight posts</li>
+          <li><input type="checkbox"> Launch YouTube channel with 4–6 how-to videos</li>
+          <li><input type="checkbox"> Track: +20 new Yelp/Google reviews (toward 50+ Q2 goal)</li>
+          <li><input type="checkbox"> Track: 50%+ increase in lead form submissions (vs. baseline)</li>
+        </ul>
+      </div>
+
+      <div class="milestone-section">
+        <div class="milestone-title">End of Month 3 / 90-Day Mark (by June 22)</div>
+        <ul class="checklist" id="checklist-month3">
+          <li><input type="checkbox"> Instagram: 500+ followers, 2–3 posts/week, 5%+ engagement rate</li>
+          <li><input type="checkbox"> Blog: 12+ new posts published; organic traffic +20% YoY</li>
+          <li><input type="checkbox"> Website: Title tags and H1 optimized; before/after gallery active</li>
+          <li><input type="checkbox"> Reviews: 50+ new reviews across all platforms; maintain 4.8+ rating</li>
+          <li><input type="checkbox"> GBP: 500+ monthly views; 50+ directions clicks</li>
+          <li><input type="checkbox"> YouTube: 10+ videos published; 500+ views</li>
+          <li><input type="checkbox"> TikTok (if launched): 10–20 videos; 1K+ followers</li>
+          <li><input type="checkbox"> Booking widget: Tracking 5–10% conversion rate of scheduling page visitors</li>
+          <li><input type="checkbox"> Lead generation: 50%+ increase in form submissions and booking requests</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Data Sources -->
+    <div class="section">
+      <div class="section-header">Appendix: Data Sources</div>
+
+      <div class="data-sources">
+        <h3>Digital Storefront Audit (Phase 1 — March 22, 2026)</h3>
+        <ul>
+          <li><strong>Overall Score:</strong> 42% (Needs Work) — Significant opportunity, not critical crisis</li>
+          <li><strong>Conversion Strategy:</strong> 2.5/6 (Critical) — Biggest gap; focus here for immediate ROI</li>
+          <li><strong>Trust-Building:</strong> 2.0/6 (Critical) — Before/after gallery and bios needed</li>
+          <li><strong>Location & NAP:</strong> 1.5/4 (Critical) — Phone and address consolidation urgent</li>
+          <li><strong>Financing & Offers:</strong> 0.5/4 (Critical) — No new customer offer visible</li>
+          <li><strong>Services:</strong> 9 dedicated service pages (Plumbing, HVAC, water heaters, drains, sewers, etc.)</li>
+          <li><strong>Navigation:</strong> 10+ items (exceeds recommended 7)</li>
+          <li><strong>Emergency Service:</strong> 24/7 badge prominently displayed</li>
+        </ul>
+
+        <h3>Brand Content Report (March 22, 2026)</h3>
+        <ul>
+          <li><strong>Blog:</strong> 50+ total posts; 10 recent posts (Oct–Nov 2025); publishing paused Nov 2025</li>
+          <li><strong>Facebook:</strong> Active; 15 reviews; 94% recommendation rate; regular promotional and video content</li>
+          <li><strong>Instagram:</strong> Dormant; 1 post; 69 followers — Significant growth opportunity</li>
+        </ul>
+
+        <h3>UGC Report (120-Day Baseline, Nov 23, 2025–Mar 22, 2026)</h3>
+        <ul>
+          <li><strong>9 active review platforms</strong> with 35+ Yelp reviews at 4.8+ average rating</li>
+          <li><strong>Top reshare platforms:</strong> Yelp (tech mentions), Google Maps (local presence), HomeAdvisor (4.8/5), Nextdoor (11 recommendations), Thumbtack</li>
+          <li><strong>Hashtag strategy:</strong> 8 recommended hashtags including #SaltCityPlumbing, #SLCPlumber, #UtahHVAC, #WeCanDoThat</li>
+          <li><strong>Named technicians:</strong> Jaden, Payton, Jake, Devon, Tommy (frequently mentioned in customer reviews)</li>
+          <li><strong>UGC photos:</strong> 25+ customer photos available for resharing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Generated by Marketing Strategy Skill — March 22, 2026</p>
+      <p>For Salt City Plumbing, Heating & Air</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleSection(header) {
+      header.classList.toggle('collapsed');
+      const content = header.nextElementSibling;
+      content.classList.toggle('show');
+    }
+
+    // Checklist functionality
+    document.querySelectorAll('.checklist').forEach(list => {
+      list.querySelectorAll('li').forEach(item => {
+        item.addEventListener('click', function(e) {
+          if (e.target.tagName === 'INPUT') {
+            this.classList.toggle('checked');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
