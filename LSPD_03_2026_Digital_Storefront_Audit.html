@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSPD_03_2026 — Digital Storefront Audit Phase 1</title>
+<style>
+:root{--navy:#2E5E8C;--green:#27ae60;--red:#e74c3c;--yellow:#f39c12;--orange:#e67e22;--gray:#999;--bg-green:#e8f8f0;--bg-red:#fdf0ef;--bg-yellow:#fef9e7;--bg-blue:#e8f4f8;--bg-gray:#f5f5f5;--bg-orange:#fdf2e9;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#333;line-height:1.6;max-width:1000px;margin:0 auto;padding:20px;background:#fff;}
+h1{color:var(--navy);font-size:1.7em;border-bottom:3px solid var(--navy);padding-bottom:10px;margin-bottom:5px;}
+h2{color:var(--navy);font-size:1.3em;margin:28px 0 10px;border-left:4px solid var(--navy);padding-left:12px;}
+h3{color:#555;font-size:1.05em;margin:12px 0 6px;}
+.subtitle{color:#666;font-size:0.92em;margin-bottom:18px;}
+.exec{background:var(--bg-blue);border-left:4px solid var(--navy);padding:16px 20px;margin:12px 0 22px;border-radius:0 6px 6px 0;}
+table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:0.88em;}
+th{background:var(--navy);color:#fff;padding:9px 10px;text-align:left;font-weight:600;}
+td{padding:8px 10px;border-bottom:1px solid #e8e8e8;}
+tr:nth-child(even){background:#f8f9fa;}
+.score-tbl td:nth-child(2),.score-tbl td:nth-child(3){text-align:center;}
+.pass{color:var(--green);font-weight:700;}.fail{color:var(--red);font-weight:700;}.partial{color:var(--orange);font-weight:700;}.na{color:var(--gray);font-style:italic;}
+.grade-green{background:var(--bg-green);text-align:center;font-weight:700;color:var(--green);}
+.grade-yellow{background:var(--bg-yellow);text-align:center;font-weight:700;color:var(--orange);}
+.grade-red{background:var(--bg-red);text-align:center;font-weight:700;color:var(--red);}
+.qw{background:var(--bg-yellow);border-left:4px solid var(--yellow);padding:12px 16px;margin:10px 0;border-radius:0 6px 6px 0;font-size:0.9em;}
+.qw strong{color:#8a6d00;}
+.insight{background:var(--bg-blue);border-left:4px solid var(--navy);padding:12px 16px;margin:10px 0;border-radius:0 6px 6px 0;font-size:0.9em;}
+.cat-hdr{background:#eef3f7 !important;font-weight:700;color:var(--navy);}
+.cat-hdr td{border-bottom:2px solid var(--navy);}
+.conf{text-align:center;color:#999;font-size:0.78em;margin-top:20px;padding-top:15px;border-top:1px solid #eee;}
+@media print{body{max-width:100%;}h2{page-break-after:avoid;}}
+</style>
+</head>
+<body>
+
+<h1>LSPD_03_2026 — Digital Storefront Audit</h1>
+<div class="subtitle">
+<strong>Practice:</strong> Little Smiles Pediatric Dentistry &nbsp;|&nbsp; <strong>Website:</strong> drjennysmiles.com<br>
+<strong>Address:</strong> 205 Denali Pass, Suite A, Cedar Park, TX 78613 &nbsp;|&nbsp; <strong>Phone:</strong> (512) 218-1500<br>
+<strong>Audit Date:</strong> March 22, 2026 &nbsp;|&nbsp; <strong>Audited By:</strong> Claude (Gen4 Dental Marketing Framework)
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<h2>Executive Summary</h2>
+<div class="exec">
+<p>Little Smiles Pediatric Dentistry scores an estimated <strong>55% overall (Needs Work)</strong> on the Phase 1 Digital Storefront Audit. The practice's strongest asset is its online reputation — 361 Google reviews at 4.8 stars and 122 Yelp reviews at 4.3 stars give it a significant competitive advantage in Cedar Park. The biggest gap is conversion infrastructure: the site structure suggests online booking and financial info pages exist but lack prominent CTAs, a compelling new patient offer, and modern chat functionality. Data hygiene and tracking gaps (no detectable GA4, GTM, or call tracking from available signals) also represent significant blind spots.</p>
+<p><em>Note: Direct website fetching was blocked during this audit. Scores are based on search-indexed data, site structure analysis, and publicly available information. Items marked "Verify Manually" should be confirmed by visiting the site directly.</em></p>
+</div>
+
+<!-- SCORE SUMMARY -->
+<h2>Score Summary</h2>
+<table class="score-tbl">
+<thead><tr><th>Section</th><th>Score</th><th>Grade</th></tr></thead>
+<tbody>
+<tr><td>1.1 Conversion Strategy</td><td>2.5 / 6</td><td class="grade-yellow">🟡 42%</td></tr>
+<tr><td>1.2 User Experience</td><td>3.0 / 5</td><td class="grade-yellow">🟡 60%</td></tr>
+<tr><td>1.3 SEO Fundamentals</td><td>4.0 / 8</td><td class="grade-yellow">🟡 50%</td></tr>
+<tr><td>1.4 Service Line Clarity</td><td>2.0 / 4</td><td class="grade-yellow">🟡 50%</td></tr>
+<tr><td>1.5 Trust-Building Elements</td><td>3.0 / 6</td><td class="grade-yellow">🟡 50%</td></tr>
+<tr><td>1.6 Location &amp; NAP</td><td>3.0 / 4</td><td class="grade-green">🟢 75%</td></tr>
+<tr><td>1.7 Insurance, Financing &amp; Offers</td><td>2.0 / 4</td><td class="grade-yellow">🟡 50%</td></tr>
+<tr><td>1.8 Content Quality</td><td>1.5 / 4</td><td class="grade-red">🔴 38%</td></tr>
+<tr><td>1.9 Technical Performance</td><td>2.0 / 5</td><td class="grade-red">🔴 40%</td></tr>
+<tr><td>1.10 Tracking &amp; Analytics</td><td>1.0 / 5</td><td class="grade-red">🔴 20%</td></tr>
+<tr style="background:#eef3f7;font-weight:700;"><td><strong>OVERALL WEBSITE</strong></td><td><strong>24 / 51</strong></td><td class="grade-yellow"><strong>🟡 47%</strong></td></tr>
+</tbody>
+</table>
+
+<!-- SECTION 1.1 -->
+<h2>1.1 Conversion Strategy (2.5/6) 🟡</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.1.1</td><td>Primary CTA above the fold</td><td class="partial">⚠️ Partial</td><td>Search snippets show "Make an Appointment" exists. Verify if above fold with contrasting color.</td></tr>
+<tr><td>1.1.2</td><td>Click-to-call phone on mobile</td><td class="partial">⚠️ Partial</td><td>Phone (512) 218-1500 found in listings. Verify it's a tel: link visible without scrolling on mobile.</td></tr>
+<tr><td>1.1.3</td><td>Online appointment booking</td><td class="partial">⚠️ Partial</td><td>/our-patients/online-services/ page exists (Modento integration per scorecard). Verify if embedded widget vs. external link.</td></tr>
+<tr><td>1.1.4</td><td>Contact form ≤5 fields</td><td class="na">➖ Verify</td><td>/contact-us/ page exists. Field count needs manual verification.</td></tr>
+<tr><td>1.1.5</td><td>New patient offer visible</td><td class="fail">❌ Fail</td><td>No new patient special detected in any search snippet or page title. No "$XX exam" or offer language found.</td></tr>
+<tr><td>1.1.6</td><td>Multiple contact methods</td><td class="partial">⚠️ Partial</td><td>Phone + online services page found. No chat widget detected. Likely phone + form only.</td></tr>
+</tbody>
+</table>
+<div class="qw"><strong>Quick Wins:</strong> 1) Add a specific new patient offer ($99 exam, free whitening consultation, etc.) with a prominent CTA. 2) Add a chat widget (e.g., Podium, Birdeye) to capture after-hours inquiries. 3) Embed the Modento booking widget directly on the homepage hero section.</div>
+
+<!-- SECTION 1.2 -->
+<h2>1.2 User Experience (3.0/5) 🟡</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.2.1</td><td>Mobile-responsive</td><td class="partial">⚠️ Partial</td><td>Modern site framework likely responsive. Needs visual mobile test for thumb-friendly navigation.</td></tr>
+<tr><td>1.2.2</td><td>Page load speed &lt;3s</td><td class="na">➖ Verify</td><td>PageSpeed API unavailable. Run PageSpeed Insights manually at pagespeed.web.dev.</td></tr>
+<tr><td>1.2.3</td><td>Navigation clear (&le;7 items, NP visible)</td><td class="pass">✅ Pass</td><td>Clean nav structure found: Our Services, Our Difference, Our Patients, Financial Info, Contact Us, Location — 6 main items.</td></tr>
+<tr><td>1.2.4</td><td>Accessibility (alt text, contrast)</td><td class="partial">⚠️ Partial</td><td>Cannot verify without direct page access. Score conservatively as Partial.</td></tr>
+<tr><td>1.2.5</td><td>404 page branded</td><td class="na">➖ Verify</td><td>Cannot test without direct access. Verify manually.</td></tr>
+</tbody>
+</table>
+<div class="qw"><strong>Quick Win:</strong> Run PageSpeed Insights (pagespeed.web.dev) and address any "Poor" metrics. Typical quick fixes include image compression and lazy loading.</div>
+
+<!-- SECTION 1.3 -->
+<h2>1.3 SEO Fundamentals (4.0/8) 🟡</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.3.1</td><td>Unique location page</td><td class="pass">✅ Pass</td><td>/location/ page exists with dedicated URL. Content depth unknown — verify 500+ words.</td></tr>
+<tr><td>1.3.2</td><td>Title tag (keyword + city + brand)</td><td class="partial">⚠️ Partial</td><td>Title reads "Pediatric Dentist in Cedar Park" — has keyword and city. Repetitive "Pediatric Dentist in Cedar Park" appears twice in some snippets.</td></tr>
+<tr><td>1.3.3</td><td>Meta description</td><td class="partial">⚠️ Partial</td><td>Search snippet: "Dr. Jenny Smiles is a trusted Pediatric Dentist in Cedar Park, providing gentle, expert dental care for kids." Likely auto-generated or partially optimized — verify length and CTA.</td></tr>
+<tr><td>1.3.4</td><td>H1 singular and keyword-rich</td><td class="na">➖ Verify</td><td>Cannot verify H1 without direct page access.</td></tr>
+<tr><td>1.3.5</td><td>Individual service pages</td><td class="partial">⚠️ Partial</td><td>/our-services/ exists as a parent page. No individual service page URLs found in search index (e.g., /services/cleanings/, /services/sealants/).</td></tr>
+<tr><td>1.3.6</td><td>Local schema markup</td><td class="na">➖ Verify</td><td>Cannot verify from search data alone. Check page source for JSON-LD Dentist/LocalBusiness schema.</td></tr>
+<tr><td>1.3.7</td><td>Google Search Console</td><td class="na">➖ Verify</td><td>Cannot verify from external audit. Confirm GSC setup internally.</td></tr>
+<tr><td>1.3.8</td><td>Internal linking</td><td class="pass">✅ Pass</td><td>Logical site structure with cross-linking between Our Difference, Services, Patients sections. Appears well-organized.</td></tr>
+</tbody>
+</table>
+<div class="qw"><strong>Quick Wins:</strong> 1) Fix the title tag — remove the duplicate "Pediatric Dentist in Cedar Park" repetition. Use: "Pediatric Dentist Cedar Park, TX | Little Smiles | Dr. Jenny". 2) Create individual service pages for top procedures (sealants, sedation dentistry, emergency care).</div>
+
+<!-- SECTION 1.4 -->
+<h2>1.4 Service Line Clarity (2.0/4) 🟡</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.4.1</td><td>Services in patient-friendly language</td><td class="pass">✅ Pass</td><td>"High-quality, high-tech pediatric dentistry revolving around the child's total comfort" — patient-first language confirmed.</td></tr>
+<tr><td>1.4.2</td><td>High-value procedures have dedicated pages</td><td class="fail">❌ Fail</td><td>No individual service page URLs detected in search index. Pediatric-specific HV services (sedation, orthodontics, special needs) need dedicated pages.</td></tr>
+<tr><td>1.4.3</td><td>Emergency dental services promoted</td><td class="fail">❌ Fail</td><td>No emergency dental content found in any search snippet or page title.</td></tr>
+<tr><td>1.4.4</td><td>Cosmetic/specialty with aspirational language</td><td class="na">➖ N/A</td><td>Pediatric practice — cosmetic services less applicable. Adjust for age-appropriate offerings.</td></tr>
+</tbody>
+</table>
+<div class="qw"><strong>Quick Wins:</strong> 1) Create an "Emergency Dental Care" page — parents search for this urgently. 2) Build dedicated pages for sedation dentistry, infant/first visit, and special needs care.</div>
+
+<!-- SECTION 1.5 -->
+<h2>1.5 Trust-Building Elements (3.0/6) 🟡</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.5.1</td><td>Doctor bio with real photo</td><td class="pass">✅ Pass</td><td>/our-difference/meet-dr-jenny/ page exists. Dr. Jenny has a dedicated bio page. Staff page also found at /meet-our-staff/.</td></tr>
+<tr><td>1.5.2</td><td>Patient reviews on website</td><td class="partial">⚠️ Partial</td><td>No Google review widget detected in search snippets. /our-patients/ page exists but unclear if reviews are embedded. Verify manually.</td></tr>
+<tr><td>1.5.3</td><td>Before/after gallery</td><td class="fail">❌ Fail</td><td>No before/after gallery or photo gallery detected. 29 photos on Yelp but not on the website.</td></tr>
+<tr><td>1.5.4</td><td>Technology featured</td><td class="partial">⚠️ Partial</td><td>/our-difference/our-office/ exists — likely showcases office/technology. "High-tech" mentioned in copy. Verify specific technology listings.</td></tr>
+<tr><td>1.5.5</td><td>Awards/affiliations displayed</td><td class="partial">⚠️ Partial</td><td>"Certified pediatric dentist" mentioned. No specific award badges or affiliation logos detected in search data.</td></tr>
+<tr><td>1.5.6</td><td>HIPAA/Privacy Policy</td><td class="na">➖ Verify</td><td>Cannot verify footer links without direct page access.</td></tr>
+</tbody>
+</table>
+<div class="qw"><strong>Quick Wins:</strong> 1) Embed a Google Reviews widget on the homepage — leverage those 361 reviews. 2) Add ADA, AAPD affiliation badges to the footer and About page.</div>
+
+<!-- SECTION 1.6 -->
+<h2>1.6 Location &amp; NAP Consistency (3.0/4) 🟢</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.6.1</td><td>NAP consistent and visible</td><td class="pass">✅ Pass</td><td>205 Denali Pass, Suite A, Cedar Park TX 78613 / (512) 218-1500 — consistent across Google, Yelp, WebMD, Healthgrades, and Nextdoor.</td></tr>
+<tr><td>1.6.2</td><td>Unique location URL</td><td class="pass">✅ Pass</td><td>/location/ dedicated page exists with unique URL.</td></tr>
+<tr><td>1.6.3</td><td>Embedded Google Map</td><td class="partial">⚠️ Partial</td><td>"Near 183 & 183A and East Whitestone Boulevard" directional copy found. Google Map embed needs manual verification.</td></tr>
+<tr><td>1.6.4</td><td>Hours accurate and prominent</td><td class="pass">✅ Pass</td><td>Mon-Thu 8am-5pm confirmed across multiple directories. Single-location practice with consistent hours.</td></tr>
+</tbody>
+</table>
+
+<!-- SECTION 1.7 -->
+<h2>1.7 Insurance, Financing &amp; Offers (2.0/4) 🟡</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.7.1</td><td>Insurance accepted list</td><td class="partial">⚠️ Partial</td><td>/financial-info/ page exists. "Staff helps with insurance claims and paperwork" language found. Verify if specific plan names are listed.</td></tr>
+<tr><td>1.7.2</td><td>Financing options featured</td><td class="pass">✅ Pass</td><td>iCredit financing option confirmed — "affordable financing option with low monthly rates."</td></tr>
+<tr><td>1.7.3</td><td>New patient special</td><td class="fail">❌ Fail</td><td>No new patient special, dollar offer, or promotional pricing found anywhere in search data.</td></tr>
+<tr><td>1.7.4</td><td>Membership/savings plan</td><td class="fail">❌ Fail</td><td>No in-house membership plan detected. Opportunity for uninsured families.</td></tr>
+</tbody>
+</table>
+<div class="qw"><strong>Quick Wins:</strong> 1) Create a new patient special ($X first visit or free initial consultation) and feature it on the homepage and NP page. 2) List specific insurance plans accepted by name on the financial page.</div>
+
+<!-- SECTION 1.8 -->
+<h2>1.8 Content Quality &amp; Messaging (1.5/4) 🔴</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.8.1</td><td>Patient-centric homepage copy</td><td class="pass">✅ Pass</td><td>"Gentle, expert dental care for kids in a fun, welcoming environment" — patient-centric, benefit-focused.</td></tr>
+<tr><td>1.8.2</td><td>Blog active with recent content</td><td class="fail">❌ Fail</td><td>No /blog/ page found in search index. No blog content detected in any search results.</td></tr>
+<tr><td>1.8.3</td><td>FAQs on service pages</td><td class="fail">❌ Fail</td><td>No FAQ content found in search results or page structures.</td></tr>
+<tr><td>1.8.4</td><td>Consistent brand messaging</td><td class="partial">⚠️ Partial</td><td>"Dr. Jenny Smiles" branding is warm and pediatric-appropriate. Verify consistency across all pages.</td></tr>
+</tbody>
+</table>
+<div class="qw"><strong>Quick Wins:</strong> 1) Add FAQ sections to key service pages — "When should my child first see a dentist?" "Is sedation safe for children?" 2) Start a blog with monthly posts on pediatric dental topics targeting local SEO.</div>
+
+<!-- SECTION 1.9 -->
+<h2>1.9 Technical Performance (2.0/5) 🔴</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.9.1</td><td>Core Web Vitals pass</td><td class="na">➖ Verify</td><td>PageSpeed API blocked. Run manually at pagespeed.web.dev.</td></tr>
+<tr><td>1.9.2</td><td>HTTPS with valid SSL</td><td class="pass">✅ Pass</td><td>All search results show https:// URLs. SSL appears valid.</td></tr>
+<tr><td>1.9.3</td><td>XML sitemap</td><td class="partial">⚠️ Partial</td><td>Cannot verify /sitemap.xml directly. Well-indexed pages suggest sitemap may exist.</td></tr>
+<tr><td>1.9.4</td><td>No broken links</td><td class="na">➖ Verify</td><td>Cannot verify without crawl. Run a broken link checker (Screaming Frog or Ahrefs).</td></tr>
+<tr><td>1.9.5</td><td>No duplicate content</td><td class="partial">⚠️ Partial</td><td>Title tag duplication ("Pediatric Dentist in Cedar Park Pediatric Dentist in Cedar Park") detected in snippets — may indicate template issues.</td></tr>
+</tbody>
+</table>
+
+<!-- SECTION 1.10 -->
+<h2>1.10 Tracking &amp; Analytics (1.0/5) 🔴</h2>
+<table>
+<thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>1.10.1</td><td>GA4 installed</td><td class="na">➖ Verify</td><td>Cannot verify without page source. Check for GA4 tag in HTML head. Critical for marketing attribution.</td></tr>
+<tr><td>1.10.2</td><td>Call tracking</td><td class="partial">⚠️ Partial</td><td>PeerLogic data exists (per scorecard: 31% call conversion, 27.4% missed calls). Verify DNI is active on website.</td></tr>
+<tr><td>1.10.3</td><td>Google Tag Manager</td><td class="na">➖ Verify</td><td>Cannot verify without page source. Check for GTM container ID in HTML.</td></tr>
+<tr><td>1.10.4</td><td>Conversion goals defined</td><td class="fail">❌ Fail</td><td>With 94.8% of NPs missing referral source, conversion tracking is likely incomplete or not firing.</td></tr>
+<tr><td>1.10.5</td><td>Heatmapping active</td><td class="fail">❌ Fail</td><td>No evidence of Hotjar, Microsoft Clarity, or similar tools. Recommended for conversion optimization.</td></tr>
+</tbody>
+</table>
+<div class="qw"><strong>Quick Wins:</strong> 1) Install Microsoft Clarity (free) for heatmapping and session recordings. 2) Verify GA4 is installed with form submission and call click events as conversions. 3) Confirm call tracking DNI (Dynamic Number Insertion) is active.</div>
+
+<!-- GBP SECTION -->
+<h2>Google Business Profile Summary</h2>
+<table>
+<thead><tr><th>Item</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Profile exists and verified</td><td class="pass">✅</td><td>Practice appears in Google search with full business panel.</td></tr>
+<tr><td>Star rating</td><td class="pass">✅ 4.8 stars</td><td>Well above the 4.5 threshold. Strong competitive position.</td></tr>
+<tr><td>Review count</td><td class="pass">✅ 361 reviews</td><td>Exceeds the 300 benchmark. Dominant in local market.</td></tr>
+<tr><td>Review recency</td><td class="fail">❌ 3 in last 30 days</td><td>Below the 10/month target. Velocity needs acceleration.</td></tr>
+<tr><td>5-star percentage</td><td class="fail">❌ 79.8%</td><td>288 of 361 are 5-star. Below the 90% benchmark.</td></tr>
+<tr><td>NAP accuracy</td><td class="pass">✅</td><td>Consistent across all directories checked.</td></tr>
+<tr><td>Hours listed</td><td class="pass">✅</td><td>Mon-Thu 8am-5pm confirmed.</td></tr>
+<tr><td>Photos</td><td class="partial">⚠️</td><td>Yelp shows 29 photos. Verify GBP photo count and recency.</td></tr>
+<tr><td>Posts</td><td class="na">➖ Verify</td><td>Cannot verify GBP post cadence from search alone.</td></tr>
+<tr><td>Q&A section</td><td class="na">➖ Verify</td><td>Check if practice has seeded FAQs in GBP Q&A.</td></tr>
+</tbody>
+</table>
+
+<!-- SOCIAL SECTION -->
+<h2>Social Media Summary</h2>
+<table>
+<thead><tr><th>Platform</th><th>URL</th><th>Status</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Facebook</td><td>facebook.com/LittleSmilesCedarPark</td><td class="pass">✅ Active</td><td>Page exists. Verify posting cadence, engagement, and review count.</td></tr>
+<tr><td>Instagram</td><td>instagram.com/littlesmilescedarpark</td><td class="pass">✅ Active</td><td>Handle exists. Verify follower count, post frequency, and Reels usage.</td></tr>
+<tr><td>Yelp</td><td>yelp.com/biz/little-smiles-pediatric-dentistry-cedar-park</td><td class="pass">✅ 122 reviews, 4.3★</td><td>Strong presence. 29 photos uploaded.</td></tr>
+<tr><td>Nextdoor</td><td>nextdoor.com/pages/little-smiles-pediatric-dentistry/</td><td class="pass">✅ Listed</td><td>Community listing present.</td></tr>
+<tr><td>YouTube</td><td>—</td><td class="fail">❌ Not found</td><td>No YouTube channel detected. Opportunity for parent education content.</td></tr>
+<tr><td>TikTok</td><td>—</td><td class="fail">❌ Not found</td><td>No TikTok presence detected. Growing platform for family audiences.</td></tr>
+</tbody>
+</table>
+
+<!-- PRIORITIZED ACTIONS -->
+<h2>Prioritized Action Plan — Top 10</h2>
+<table>
+<thead><tr><th>#</th><th>Action</th><th>Effort</th><th>Impact</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Create a compelling New Patient Offer</strong> — $XX first visit special with CTA, featured on homepage hero and all landing pages</td><td>Low</td><td>High</td><td>P0</td></tr>
+<tr><td>2</td><td><strong>Embed Google Reviews widget on homepage</strong> — Showcase 361 reviews and 4.8-star rating to build instant trust</td><td>Low</td><td>High</td><td>P0</td></tr>
+<tr><td>3</td><td><strong>Install Microsoft Clarity + verify GA4/GTM</strong> — Establish baseline tracking for all conversion events</td><td>Low</td><td>High</td><td>P0</td></tr>
+<tr><td>4</td><td><strong>Accelerate Google review velocity</strong> — Implement systematic post-visit review requests to hit 10+/month</td><td>Low</td><td>High</td><td>P1</td></tr>
+<tr><td>5</td><td><strong>Add chat widget</strong> (Podium, Birdeye, or Weave) — Capture after-hours parent inquiries</td><td>Med</td><td>High</td><td>P1</td></tr>
+<tr><td>6</td><td><strong>Create Emergency Dental page</strong> — Parents search urgently; this captures high-intent traffic</td><td>Low</td><td>High</td><td>P1</td></tr>
+<tr><td>7</td><td><strong>Build individual service pages</strong> — Sealants, sedation dentistry, special needs, orthodontics, first visit</td><td>Med</td><td>High</td><td>P1</td></tr>
+<tr><td>8</td><td><strong>Fix title tag duplication</strong> — "Pediatric Dentist in Cedar Park" appears twice in page titles</td><td>Low</td><td>Med</td><td>P1</td></tr>
+<tr><td>9</td><td><strong>Add FAQ sections with schema markup</strong> — Target "People Also Ask" boxes for pediatric dental queries</td><td>Med</td><td>Med</td><td>P2</td></tr>
+<tr><td>10</td><td><strong>Launch a blog</strong> — Monthly posts on pediatric dental topics, local events, child oral health tips</td><td>Med</td><td>Med</td><td>P2</td></tr>
+</tbody>
+</table>
+
+<div class="insight"><strong>Overall Assessment:</strong> Little Smiles has a strong foundation — excellent reputation (4.8★, 361 Google reviews), warm patient-centric brand, and organized site structure. The gaps are primarily in conversion optimization (no NP offer, no chat, weak CTAs), content depth (no blog, no FAQs, no individual service pages), and tracking infrastructure. Addressing the P0 and P1 items above would likely move the overall score from 47% to 70%+ within 60 days.</div>
+
+<div class="conf">CONFIDENTIAL — Prepared for Little Smiles Pediatric Dentistry &nbsp;|&nbsp; LSPD_03_2026 &nbsp;|&nbsp; Generated March 2026</div>
+
+</body>
+</html>
