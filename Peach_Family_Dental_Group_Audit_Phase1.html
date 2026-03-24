@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peach Family Dental Group — Digital Storefront Audit</title>
+<style>
+  :root { --primary: #1A5276; --secondary: #2E86C1; --accent: #E8F0FE; --green: #27AE60; --yellow: #F1C40F; --orange: #E67E22; --red: #C0392B; --gray: #6C757D; --light: #F8F9FA; --white: #FFFFFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; color: #333; line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+  .cover { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 60px 40px; border-radius: 12px; margin-bottom: 30px; text-align: center; }
+  .cover h1 { font-size: 2.2em; margin-bottom: 8px; letter-spacing: 1px; }
+  .cover h2 { font-size: 1.3em; font-weight: 400; opacity: 0.9; margin-bottom: 30px; }
+  .cover .meta { font-size: 0.95em; opacity: 0.85; line-height: 1.8; }
+  .card { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 24px; overflow: hidden; }
+  .card-header { padding: 18px 24px; font-size: 1.2em; font-weight: 700; color: white; background: var(--primary); }
+  .card-body { padding: 24px; }
+  .exec-summary { font-size: 1.05em; line-height: 1.7; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+  th { background: var(--primary); color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e9ecef; }
+  tr:nth-child(even) td { background: var(--light); }
+  .score-table td:nth-child(2), .score-table td:nth-child(3), .score-table th:nth-child(2), .score-table th:nth-child(3) { text-align: center; }
+  .overall-row td { background: var(--accent) !important; font-weight: 700; font-size: 1.05em; }
+  .grade-key { font-size: 0.85em; color: var(--gray); margin-top: 12px; }
+  .section-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; background: var(--primary); color: white; }
+  .section-header h3 { font-size: 1.15em; }
+  .section-header .badge { background: rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px; font-size: 0.9em; }
+  .item-row { display: grid; grid-template-columns: 50px 1fr; gap: 12px; padding: 14px 24px; border-bottom: 1px solid #eee; align-items: start; }
+  .item-row:last-child { border-bottom: none; }
+  .status-icon { font-size: 1.3em; text-align: center; padding-top: 2px; }
+  .item-name { font-weight: 600; color: #333; margin-bottom: 3px; }
+  .item-note { font-size: 0.9em; color: #555; line-height: 1.5; }
+  .action-table td:first-child { font-weight: 700; text-align: center; white-space: nowrap; }
+  .p0 { color: var(--red); }
+  .p1 { color: var(--orange); }
+  .p2 { color: #B7950B; }
+  .p3 { color: var(--green); }
+  .social-card { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .social-item { background: var(--light); border-radius: 8px; padding: 16px; }
+  .social-item h4 { color: var(--primary); margin-bottom: 6px; }
+  .footer-bar { text-align: center; padding: 20px; color: var(--gray); font-size: 0.85em; }
+  @media (max-width: 768px) {
+    .social-card { grid-template-columns: 1fr; }
+    .cover { padding: 30px 20px; }
+    .cover h1 { font-size: 1.6em; }
+    .card-body { padding: 16px; }
+    table { font-size: 0.82em; }
+    th, td { padding: 8px 10px; }
+  }
+  @media print { body { background: white; } .container { max-width: 100%; } .card { box-shadow: none; break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- COVER -->
+<div class="cover">
+  <h1>PRACTICE DIGITAL AUDIT</h1>
+  <h2>Phase 1: Digital Storefront</h2>
+  <div class="meta">
+    <strong>Practice:</strong> Peach Family Dental Group<br>
+    <strong>Website:</strong> <a href="https://peachfamilydentalgroup.com/" style="color:#AED6F1">peachfamilydentalgroup.com</a><br>
+    <strong>Audit Date:</strong> March 23, 2026<br>
+    <strong>Audited By:</strong> Claude (Gen4 Dental Marketing Framework)
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="card">
+  <div class="card-header">Executive Summary</div>
+  <div class="card-body exec-summary">
+    <p><strong>Peach Family Dental Group scores 24% overall (&#x1F534; Critical).</strong> The practice's strongest asset is its doctor bio content &mdash; two detailed, authentic bios with real photos and credentials build genuine trust. However, critical gaps in conversion infrastructure (no online booking, no new patient offer, no reviews on site), analytics (zero tracking tools installed), and SEO foundations (no schema markup, no meta description, no individual service pages) are significantly limiting new patient acquisition. Multiple template artifacts from other practices (Statesboro Family Dentistry, Periodontal Associates of Memphis) indicate the site was not fully customized after launch.</p>
+  </div>
+</div>
+
+<!-- SCORE SUMMARY -->
+<div class="card">
+  <div class="card-header">Score Summary</div>
+  <div class="card-body">
+    <table class="score-table">
+      <thead><tr><th>Section</th><th>Score</th><th>Pct</th><th>Grade</th></tr></thead>
+      <tbody>
+        <tr><td>1.1 Conversion Strategy</td><td>3.0 / 6</td><td>50%</td><td>&#x1F7E0; Needs Work</td></tr>
+        <tr><td>1.2 User Experience</td><td>2.0 / 4</td><td>50%</td><td>&#x1F7E0; Needs Work</td></tr>
+        <tr><td>1.3 SEO Fundamentals</td><td>2.5 / 6</td><td>42%</td><td>&#x1F7E0; Needs Work</td></tr>
+        <tr><td>1.4 Service Line Clarity</td><td>1.5 / 4</td><td>38%</td><td>&#x1F534; Critical</td></tr>
+        <tr><td>1.5 Trust-Building Elements</td><td>2.5 / 6</td><td>42%</td><td>&#x1F7E0; Needs Work</td></tr>
+        <tr><td>1.6 Location &amp; NAP Consistency</td><td>1.0 / 4</td><td>25%</td><td>&#x1F534; Critical</td></tr>
+        <tr><td>1.7 Insurance, Financing &amp; Offers</td><td>0.5 / 4</td><td>13%</td><td>&#x1F534; Critical</td></tr>
+        <tr><td>1.8 Content Quality &amp; Messaging</td><td>1.0 / 4</td><td>25%</td><td>&#x1F534; Critical</td></tr>
+        <tr><td>1.9 Technical Performance</td><td>2.0 / 3</td><td>67%</td><td>&#x1F7E1; Good</td></tr>
+        <tr><td>1.10 Tracking &amp; Analytics</td><td>0.0 / 5</td><td>0%</td><td>&#x1F534; Critical</td></tr>
+        <tr class="overall-row"><td>OVERALL</td><td>16.0 / 46</td><td>35%</td><td>&#x1F534; Critical</td></tr>
+      </tbody>
+    </table>
+    <p class="grade-key">&#x1F7E2; 80%+ Strong &nbsp;|&nbsp; &#x1F7E1; 60-79% Good &nbsp;|&nbsp; &#x1F7E0; 40-59% Needs Work &nbsp;|&nbsp; &#x1F534; &lt;40% Critical</p>
+  </div>
+</div>
+
+<!-- SECTION 1.1 -->
+<div class="card">
+  <div class="section-header"><h3>1.1 Conversion Strategy</h3><span class="badge">50% &mdash; &#x1F7E0; Needs Work</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.1.1 Primary CTA above the fold</div><div class="item-note">"Request Appointment" button exists but links to basic contact page, not a booking widget. CTA uses decent language but the contact page is very sparse.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x2705;</div><div><div class="item-name">1.1.2 Click-to-call phone number on mobile</div><div class="item-note">Phone number (478) 825-3315 uses tel: link and is visible in header area.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.1.3 Online appointment booking available</div><div class="item-note">No online booking widget. "Request Appointment" and "Schedule Appointment" buttons redirect to /contact-us which only shows email, phone, and address. No scheduling software detected.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x2705;</div><div><div class="item-name">1.1.4 Contact/booking form is short</div><div class="item-note">Footer contact form has 4 visible fields: Name, Email Address, Phone Number, Message. Simple and efficient.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.1.5 New patient offer/special visible</div><div class="item-note">No new patient special, discount, or promotional offer visible anywhere on the site. Homepage says "Welcoming New Patients!" but offers no incentive.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.1.6 Multiple contact methods</div><div class="item-note">Phone + contact form available. No chat widget or chatbot detected. Email listed but no dedicated messaging system.</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.2 -->
+<div class="card">
+  <div class="section-header"><h3>1.2 User Experience</h3><span class="badge">50% &mdash; &#x1F7E0; Needs Work</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.2.1 Fully mobile-responsive</div><div class="item-note">Viewport meta tag present. Site uses Divi theme (responsive). Partial credit pending mobile UX testing.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.2.2 Page load speed under 3 seconds</div><div class="item-note">PageSpeed Insights API timed out. Site loaded in browser with moderate delay. Score as Partial pending formal testing.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.2.3 Navigation clear and intuitive</div><div class="item-note">Nav has 5 items: Home, Our Services, Contact Us, Membership Plan, Pay Now. Missing a dedicated "New Patients" link. "Pay Now" takes users off-site.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.2.4 Basic accessibility (alt text, contrast)</div><div class="item-note">Some images have alt text (logo), but many use non-descriptive names like "83-min", "75-75", "8484-84-min".</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x2796;</div><div><div class="item-name">1.2.5 404 page branded and helpful</div><div class="item-note">Not tested. Scored as N/A.</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.3 -->
+<div class="card">
+  <div class="section-header"><h3>1.3 SEO Fundamentals</h3><span class="badge">42% &mdash; &#x1F7E0; Needs Work</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.3.1 Location has unique, indexable page</div><div class="item-note">Homepage serves as the location page with 500+ words and local references. No dedicated /locations/ page.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x2705;</div><div><div class="item-name">1.3.2 Title tag includes keyword + city + brand</div><div class="item-note">Title: "Dentist Fort Valley GA | Peach Family Dental Group" &mdash; includes keyword, city, and brand. Under 65 characters.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.3.3 Meta description unique with CTA</div><div class="item-note">No meta description detected on the homepage. Google will auto-generate a snippet.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.3.4 H1 is singular and keyword-rich</div><div class="item-note">H1 is "Welcome To Peach Family Dental Group" &mdash; includes brand but misses keyword (dentist) and location.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.3.5 Individual service pages for top procedures</div><div class="item-note">All services on a single /our-services/ page. No individual URLs for implants, crowns, whitening, etc.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.3.6 Local schema markup implemented</div><div class="item-note">No JSON-LD or schema markup detected. No structured data for Dentist/LocalBusiness.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x2796;</div><div><div class="item-name">1.3.7 Google Search Console connected</div><div class="item-note">Cannot verify from HTML. Recommend manual verification.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.3.8 Internal linking strategy</div><div class="item-note">Some internal links between homepage and services page. No cross-linking between services and no blog.</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.4 -->
+<div class="card">
+  <div class="section-header"><h3>1.4 Service Line Clarity</h3><span class="badge">38% &mdash; &#x1F534; Critical</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x2705;</div><div><div class="item-name">1.4.1 General services in patient-friendly language</div><div class="item-note">Services page uses patient-friendly language, explains procedures clearly, mentions comfort options (Nitrous Oxide, conscious sedation).</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.4.2 High-value procedures have dedicated pages</div><div class="item-note">Implants, crowns, veneers, bridges, and whitening all share one page. No dedicated URLs for any high-value service.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.4.3 Emergency dental services promoted</div><div class="item-note">No mention of emergency dental services, same-day appointments, or urgent care anywhere on the site.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.4.4 Cosmetic services use aspirational language</div><div class="item-note">Some aspirational language ("take their smile from dull to dazzling"). However, no before/after photos or visual results.</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.5 -->
+<div class="card">
+  <div class="section-header"><h3>1.5 Trust-Building Elements</h3><span class="badge">42% &mdash; &#x1F7E0; Needs Work</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x2705;</div><div><div class="item-name">1.5.1 Doctor bio with real photo and credentials</div><div class="item-note">Two excellent doctor bios: Dr. Kendrick Mathews (MCG 1974, AGD Fellow) and Dr. Raj Patel (Mercer/DCG 2023). Both have real photos and personal stories.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.5.2 Patient reviews displayed on website</div><div class="item-note">Zero patient reviews or testimonials anywhere on the website. No Google review widget or star ratings.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.5.3 Before/after gallery present</div><div class="item-note">No before/after photos or case gallery for any procedure.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.5.4 Technology and equipment featured</div><div class="item-note">"Use of Innovative Technology" mentioned but no specific technologies named. No equipment photos.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.5.5 Awards, affiliations, certifications displayed</div><div class="item-note">ADA, GDA, AGD, Hinman memberships in bios but no logo badges or dedicated section.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.5.6 HIPAA/Privacy Policy accessible</div><div class="item-note">"Privacy Policy | Accessibility Statement" text in footer but does not appear to link to actual policy pages.</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.6 -->
+<div class="card">
+  <div class="section-header"><h3>1.6 Location &amp; NAP Consistency</h3><span class="badge">25% &mdash; &#x1F534; Critical</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.6.1 NAP consistent and visible</div><div class="item-note">NAP visible on all pages. However, hours are INCONSISTENT: hero says Mon-Thurs 8:30am-4pm / Fri Closed, but footer says Mon-Fri 8-4 / Fri 8AM-2PM.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.6.2 Location has unique URL</div><div class="item-note">No dedicated location page. Contact page serves as location page but has minimal content.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.6.3 Embedded Google Map on location page</div><div class="item-note">No embedded Google Map anywhere. Address links to Maps externally but no embedded widget.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.6.4 Hours accurate and prominently displayed</div><div class="item-note">Hours shown in footer on all pages but CONFLICT between body and footer (Friday: Closed vs. Friday 8AM-2PM).</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.7 -->
+<div class="card">
+  <div class="section-header"><h3>1.7 Insurance, Financing &amp; Offers</h3><span class="badge">13% &mdash; &#x1F534; Critical</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.7.1 Insurance accepted list current and visible</div><div class="item-note">"We accept most dental insurance" on services page but no specific plan names listed.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.7.2 Financing options featured</div><div class="item-note">No financing page, no CareCredit/Sunbit logos, no payment calculator. "Flexible payment options" mentioned with no details.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.7.3 New patient special with specific offer</div><div class="item-note">No new patient special or promotional offer anywhere on the site.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.7.4 Membership/savings plan for uninsured</div><div class="item-note">Membership Plan page exists in nav but is EMPTY &mdash; shows "Statesboro Family Dentistry" (wrong practice name!) with no plan details.</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.8 -->
+<div class="card">
+  <div class="section-header"><h3>1.8 Content Quality &amp; Messaging</h3><span class="badge">25% &mdash; &#x1F534; Critical</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.8.1 Homepage copy is patient-centric</div><div class="item-note">Mix of patient-centric and practice-focused language. Some good outcome language but also generic claims.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.8.2 Blog/resources active and recent</div><div class="item-note">No blog, resource center, or educational content section exists on the site.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.8.3 FAQs present on service pages</div><div class="item-note">No FAQ section on any page. No schema-marked FAQs.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.8.4 Messaging consistent with brand voice</div><div class="item-note">Warm family-oriented tone, but template artifacts (Statesboro Family Dentistry, Periodontal Associates of Memphis) indicate incomplete customization.</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.9 -->
+<div class="card">
+  <div class="section-header"><h3>1.9 Technical Performance</h3><span class="badge">67% &mdash; &#x1F7E1; Good</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x2796;</div><div><div class="item-name">1.9.1 Core Web Vitals pass</div><div class="item-note">PageSpeed Insights API timed out. Unable to test. Manual testing recommended.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x2705;</div><div><div class="item-name">1.9.2 HTTPS with valid SSL</div><div class="item-note">Site loads over HTTPS with valid SSL. No mixed content warnings.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x2796;</div><div><div class="item-name">1.9.3 XML sitemap submitted</div><div class="item-note">Unable to verify due to network restrictions. Manual check recommended.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.9.4 No broken links on key pages</div><div class="item-note">Facebook footer link points to "#" (broken). Footer links to wrong practice (Periodontal Associates of Memphis).</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x26A0;&#xFE0F;</div><div><div class="item-name">1.9.5 No duplicate content issues</div><div class="item-note">Template content from other practices visible (Statesboro Family Dentistry). Site built from template without full customization.</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 1.10 -->
+<div class="card">
+  <div class="section-header"><h3>1.10 Tracking &amp; Analytics</h3><span class="badge">0% &mdash; &#x1F534; Critical</span></div>
+  <div class="card-body">
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.10.1 GA4 installed and configured</div><div class="item-note">No Google Analytics 4 (gtag.js or G- measurement ID) detected.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.10.2 Call tracking in place</div><div class="item-note">No call tracking detected. Static phone number throughout, no dynamic number insertion.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.10.3 Google Tag Manager deployed</div><div class="item-note">No GTM container detected.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.10.4 Conversion goals defined and firing</div><div class="item-note">No analytics platform installed. No conversion tracking possible.</div></div></div>
+    <div class="item-row"><div class="status-icon">&#x274C;</div><div><div class="item-name">1.10.5 Heatmapping/session recording active</div><div class="item-note">No Hotjar, Microsoft Clarity, or similar tool detected.</div></div></div>
+  </div>
+</div>
+
+<!-- GBP SUMMARY -->
+<div class="card">
+  <div class="card-header">Google Business Profile Summary</div>
+  <div class="card-body">
+    <p>A Google Business Profile for Peach Family Dental Group exists at the correct address (302 Knoxville St, Fort Valley, GA 31030). The practice appears in Google Maps and has listings on Birdeye, Yelp, WebMD, and the Peach Regional Chamber of Commerce.</p>
+    <br>
+    <p><strong>Key Observations:</strong></p>
+    <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+      <li>Reviews exist across third-party platforms; exact Google review count/rating not confirmed during audit</li>
+      <li>No Google review widget embedded on website to leverage social proof</li>
+      <li>CareCredit listing confirmed via carecredit.com directory</li>
+      <li>Facebook page exists (facebook.com/PeachFamilyDental) but website link is broken</li>
+      <li>No Instagram presence detected for this practice</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SOCIAL MEDIA SUMMARY -->
+<div class="card">
+  <div class="card-header">Social Media Summary</div>
+  <div class="card-body">
+    <div class="social-card">
+      <div class="social-item"><h4>Facebook</h4><p>Page exists at facebook.com/PeachFamilyDental (~325 likes). Website footer link is broken (href="#").</p></div>
+      <div class="social-item"><h4>Instagram</h4><p>No Instagram account found for Peach Family Dental Group in Fort Valley, GA.</p></div>
+      <div class="social-item"><h4>Google</h4><p>Google Maps link present and functional in footer. "Follow on Google" social link works.</p></div>
+      <div class="social-item"><h4>Other Platforms</h4><p>No YouTube, TikTok, Twitter/X, or other social profiles linked from website.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTION PLAN -->
+<div class="card">
+  <div class="card-header">Prioritized Action Plan</div>
+  <div class="card-body">
+    <table class="action-table">
+      <thead><tr><th>Priority</th><th>Action</th><th>Effort</th><th>Impact</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="p0">P0</td><td>Install Google Analytics 4 and Google Tag Manager</td><td>Low</td><td>Critical</td><td>Zero data is being collected. Every day without tracking is lost insight.</td></tr>
+        <tr><td class="p0">P0</td><td>Add online appointment booking (LocalMed, Dentrix, etc.)</td><td>Medium</td><td>Critical</td><td>No way for patients to book online. #1 conversion driver for dental websites.</td></tr>
+        <tr><td class="p0">P0</td><td>Fix template artifacts: remove Statesboro Family Dentistry and Periodontal Associates of Memphis references</td><td>Low</td><td>High</td><td>Wrong practice names/links damage trust and confuse patients.</td></tr>
+        <tr><td class="p1">P1</td><td>Create and publish a new patient special with specific dollar amount</td><td>Low</td><td>High</td><td>No incentive for new patients to choose this practice.</td></tr>
+        <tr><td class="p1">P1</td><td>Embed Google reviews widget on homepage</td><td>Low</td><td>High</td><td>Social proof is the #2 conversion driver. Zero reviews shown currently.</td></tr>
+        <tr><td class="p1">P1</td><td>Add meta description to homepage and all key pages</td><td>Low</td><td>High</td><td>Google is auto-generating snippets. Custom descriptions improve CTR.</td></tr>
+        <tr><td class="p1">P1</td><td>Create individual service pages for implants, crowns, veneers, whitening</td><td>Medium</td><td>High</td><td>One combined page limits SEO visibility for high-value keywords.</td></tr>
+        <tr><td class="p1">P1</td><td>Complete Membership Plan page with actual plan details and pricing</td><td>Low</td><td>High</td><td>Page exists but is empty and shows wrong practice name.</td></tr>
+        <tr><td class="p1">P1</td><td>Add JSON-LD schema markup for Dentist/LocalBusiness</td><td>Low</td><td>Medium</td><td>No structured data means missing rich snippets in search.</td></tr>
+        <tr><td class="p2">P2</td><td>Fix broken Facebook link and add Instagram presence</td><td>Low</td><td>Medium</td><td>Facebook link goes nowhere. No Instagram limits social reach.</td></tr>
+        <tr><td class="p2">P2</td><td>Add embedded Google Map to Contact page</td><td>Low</td><td>Medium</td><td>Helps patients find office and improves local SEO signals.</td></tr>
+        <tr><td class="p2">P2</td><td>Fix inconsistent hours (body says Fri Closed, footer says Fri 8AM-2PM)</td><td>Low</td><td>High</td><td>Conflicting info confuses patients and hurts trust.</td></tr>
+        <tr><td class="p2">P2</td><td>Install call tracking (CallRail or similar)</td><td>Medium</td><td>Medium</td><td>No way to attribute phone calls to marketing channels.</td></tr>
+        <tr><td class="p3">P3</td><td>Launch a blog with monthly locally-relevant content</td><td>High</td><td>Medium</td><td>Builds SEO authority and provides shareable content.</td></tr>
+        <tr><td class="p3">P3</td><td>Add before/after photo gallery for cosmetic procedures</td><td>Medium</td><td>Medium</td><td>Visual proof drives case acceptance for high-value treatments.</td></tr>
+      </tbody>
+    </table>
+    <p class="grade-key" style="margin-top:16px;"><strong>Priority Key:</strong> P0 = This Week &nbsp;|&nbsp; P1 = This Month &nbsp;|&nbsp; P2 = Next Quarter &nbsp;|&nbsp; P3 = Nice to Have</p>
+  </div>
+</div>
+
+<div class="footer-bar">
+  <p>&copy; Gen4 Dental Marketing Framework &nbsp;|&nbsp; Confidential &nbsp;|&nbsp; March 23, 2026</p>
+</div>
+
+</div>
+</body>
+</html>
