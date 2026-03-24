@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gen4 Marketing Task Analysis — AI Content Tool Blueprint</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f8f9fa;--card:#fff;--accent:#2563eb;--accent2:#7c3aed;--green:#059669;--orange:#d97706;--red:#dc2626;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--radius:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.header{background:linear-gradient(135deg,#1e293b 0%,#334155 100%);color:#fff;padding:40px 0;text-align:center}
+.header h1{font-size:2rem;font-weight:700;margin-bottom:8px}
+.header p{color:#94a3b8;font-size:1.05rem}
+.stats-bar{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.stat-pill{background:rgba(255,255,255,.12);border-radius:40px;padding:10px 24px;font-size:.95rem;backdrop-filter:blur(8px)}
+.stat-pill strong{color:#60a5fa}
+nav{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;overflow-x:auto;white-space:nowrap}
+nav .inner{max-width:1200px;margin:auto;display:flex;gap:4px;padding:8px 20px}
+nav button{border:none;background:transparent;padding:10px 18px;font-size:.875rem;font-weight:500;color:var(--muted);cursor:pointer;border-radius:8px;transition:.2s}
+nav button:hover{background:#f1f5f9}
+nav button.active{background:var(--accent);color:#fff}
+.container{max-width:1200px;margin:0 auto;padding:32px 20px}
+.section{display:none}
+.section.active{display:block}
+.section-title{font-size:1.4rem;font-weight:700;margin-bottom:6px}
+.section-sub{color:var(--muted);margin-bottom:24px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+@media(max-width:768px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.card h3{font-size:1.05rem;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card h3 .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.chart-wrap{position:relative;height:320px}
+.chart-wrap.tall{height:440px}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{text-align:left;padding:10px 12px;background:#f8fafc;border-bottom:2px solid var(--border);font-weight:600;color:var(--muted);text-transform:uppercase;font-size:.75rem;letter-spacing:.5px}
+td{padding:10px 12px;border-bottom:1px solid var(--border)}
+tr:hover td{background:#f8fafc}
+.bar-inline{display:flex;align-items:center;gap:8px}
+.bar-fill{height:8px;border-radius:4px;background:var(--accent)}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:600}
+.badge-blue{background:#dbeafe;color:#1d4ed8}
+.badge-green{background:#d1fae5;color:#065f46}
+.badge-orange{background:#fef3c7;color:#92400e}
+.badge-red{background:#fee2e2;color:#991b1b}
+.badge-purple{background:#ede9fe;color:#5b21b6}
+.callout{border-left:4px solid var(--accent);background:#f0f7ff;padding:16px 20px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:16px}
+.callout.warn{border-color:var(--orange);background:#fffbeb}
+.callout.green{border-color:var(--green);background:#ecfdf5}
+.callout h4{font-size:.95rem;margin-bottom:4px}
+.callout p{font-size:.875rem;color:var(--muted)}
+.bucket{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden}
+.bucket-header{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#fafbfc;transition:.2s}
+.bucket-header:hover{background:#f1f5f9}
+.bucket-header h4{font-size:.95rem;font-weight:600}
+.bucket-body{padding:0 20px 20px;display:none}
+.bucket.open .bucket-body{display:block}
+.bucket.open .bucket-header .arrow{transform:rotate(180deg)}
+.arrow{transition:.2s;color:var(--muted)}
+.question-list{list-style:none;padding:0}
+.question-list li{padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem}
+.question-list li:last-child{border:none}
+.question-list li strong{color:var(--accent)}
+.tag{display:inline-block;padding:2px 8px;background:#f1f5f9;border-radius:4px;font-size:.75rem;color:var(--muted);margin-right:4px;margin-bottom:4px}
+.priority-card{border-left:4px solid;padding:16px 20px;border-radius:0 var(--radius) var(--radius) 0;background:var(--card);margin-bottom:12px}
+.priority-card.high{border-color:var(--red)}
+.priority-card.med{border-color:var(--orange)}
+.priority-card.low{border-color:var(--green)}
+.priority-card h4{font-size:.95rem;margin-bottom:4px}
+.priority-card p{font-size:.85rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Gen4 Marketing Task Analysis</h1>
+  <p>AI Content Automation Blueprint — 2,862 tasks analyzed (Nov 2024 – Mar 2026)</p>
+  <div class="stats-bar">
+    <div class="stat-pill"><strong>2,862</strong>&nbsp; Total Tasks</div>
+    <div class="stat-pill"><strong>18</strong>&nbsp; Request Types</div>
+    <div class="stat-pill"><strong>40+</strong>&nbsp; Practices</div>
+    <div class="stat-pill"><strong>~170/mo</strong>&nbsp; Avg Volume</div>
+  </div>
+</div>
+
+<nav><div class="inner">
+  <button class="active" onclick="show('overview')">Overview</button>
+  <button onclick="show('offices')">Offices</button>
+  <button onclick="show('categories')">Request Categories</button>
+  <button onclick="show('buckets')">AI Automation Buckets</button>
+  <button onclick="show('questions')">Key Questions</button>
+  <button onclick="show('roadmap')">Roadmap</button>
+</div></nav>
+
+<div class="container">
+
+<!-- OVERVIEW -->
+<div id="overview" class="section active">
+  <h2 class="section-title">The Big Picture</h2>
+  <p class="section-sub">What your marketing team is doing and where the load concentrates.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="dot" style="background:var(--accent)"></span>Request Types — Volume Share</h3>
+      <div class="chart-wrap"><canvas id="chartReqType"></canvas></div>
+    </div>
+    <div class="card">
+      <h3><span class="dot" style="background:var(--accent2)"></span>Monthly Task Volume</h3>
+      <div class="chart-wrap"><canvas id="chartMonthly"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--green)"></span>Task Status Distribution</h3>
+    <table>
+      <tr><th>Status</th><th>Count</th><th>Share</th><th></th></tr>
+      <tr><td><span class="badge badge-green">Complete</span></td><td>2,396</td><td>83.7%</td><td><div class="bar-inline"><div class="bar-fill" style="width:250px;background:var(--green)"></div></div></td></tr>
+      <tr><td><span class="badge badge-blue">Not Started</span></td><td>137</td><td>4.8%</td><td><div class="bar-inline"><div class="bar-fill" style="width:14px"></div></div></td></tr>
+      <tr><td><span class="badge badge-orange">Blocked</span></td><td>64</td><td>2.2%</td><td><div class="bar-inline"><div class="bar-fill" style="width:7px;background:var(--orange)"></div></div></td></tr>
+      <tr><td><span class="badge badge-blue">In Progress</span></td><td>34</td><td>1.2%</td><td><div class="bar-inline"><div class="bar-fill" style="width:4px"></div></div></td></tr>
+      <tr><td><span class="badge badge-orange">On Hold</span></td><td>32</td><td>1.1%</td><td><div class="bar-inline"><div class="bar-fill" style="width:3px;background:var(--orange)"></div></div></td></tr>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="dot" style="background:var(--orange)"></span>Market Managers — Task Load</h3>
+      <div class="chart-wrap"><canvas id="chartMM"></canvas></div>
+    </div>
+    <div class="card">
+      <h3><span class="dot" style="background:var(--red)"></span>Assigned To — Who Executes</h3>
+      <div class="chart-wrap"><canvas id="chartAssigned"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFICES -->
+<div id="offices" class="section">
+  <h2 class="section-title">Office Request Volume</h2>
+  <p class="section-sub">Which practices generate the most marketing work — and what they're asking for.</p>
+
+  <div class="card">
+    <h3>Top 15 Offices by Total Requests</h3>
+    <div class="chart-wrap tall"><canvas id="chartOffices"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h3>Top 10 Offices × Request Type Breakdown</h3>
+    <div style="overflow-x:auto">
+    <table>
+      <tr><th>Office</th><th>Website Edit</th><th>Other</th><th>Print Material</th><th>Email</th><th>Social Media</th><th>Video</th><th>Events</th><th>Listing Update</th><th>New Doctor</th><th>New Service</th></tr>
+      <tr><td><strong>PCCD Los Altos</strong></td><td>56</td><td>38</td><td>24</td><td>20</td><td>30</td><td>35</td><td>1</td><td>18</td><td>0</td><td>9</td></tr>
+      <tr><td><strong>Gen4 Corporate</strong></td><td>14</td><td>40</td><td>94</td><td>5</td><td>5</td><td>17</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+      <tr><td><strong>AID Artistry</strong></td><td>28</td><td>30</td><td>9</td><td>15</td><td>38</td><td>24</td><td>2</td><td>0</td><td>0</td><td>13</td></tr>
+      <tr><td><strong>NHD New Horizons</strong></td><td>15</td><td>18</td><td>6</td><td>5</td><td>19</td><td>16</td><td>27</td><td>2</td><td>0</td><td>1</td></tr>
+      <tr><td><strong>NAD Nashville</strong></td><td>22</td><td>59</td><td>18</td><td>0</td><td>4</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td></tr>
+      <tr><td><strong>ADL Allure</strong></td><td>16</td><td>72</td><td>6</td><td>3</td><td>4</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+      <tr><td><strong>PCCD Mt View</strong></td><td>12</td><td>20</td><td>9</td><td>7</td><td>3</td><td>0</td><td>10</td><td>3</td><td>0</td><td>0</td></tr>
+      <tr><td><strong>PFD Flagstaff</strong></td><td>8</td><td>21</td><td>1</td><td>2</td><td>12</td><td>8</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+      <tr><td><strong>BFD Beaumont</strong></td><td>15</td><td>27</td><td>1</td><td>5</td><td>8</td><td>0</td><td>1</td><td>2</td><td>9</td><td>0</td></tr>
+      <tr><td><strong>ADB Bain</strong></td><td>15</td><td>31</td><td>9</td><td>6</td><td>3</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Key Insight: Demand Is Top-Heavy</h4>
+    <p>The top 5 offices account for ~28% of all requests. PCCD Los Altos alone generates 242 tasks — more than many offices combined. Any AI tool should be piloted at PCCD Los Altos and AID Artistry first, as they exercise the widest variety of request types.</p>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div id="categories" class="section">
+  <h2 class="section-title">Request Categories Deep Dive</h2>
+  <p class="section-sub">The 18 distinct request types, grouped into logical tiers.</p>
+
+  <div class="card">
+    <h3>Tier 1 — High-Volume (70%+ of all requests)</h3>
+    <table>
+      <tr><th>Category</th><th>Count</th><th>Share</th><th>What It Covers</th></tr>
+      <tr><td><span class="badge badge-blue">Website Edit</span></td><td>665</td><td>23.2%</td><td>Image/text updates (59%), add/remove pages, analytics scripts, doctor bio changes</td></tr>
+      <tr><td><span class="badge badge-purple">Other / Miscellaneous</span></td><td>633</td><td>22.1%</td><td>Campaigns/ads (160), reporting (44), tech/domain (42), patient comms (37), listings (35), doctor changes (33), logos (27), slide decks (19)</td></tr>
+      <tr><td><span class="badge badge-blue">Create Print Material</span></td><td>318</td><td>11.1%</td><td>Flyers, business cards, QR code signage, exterior banners, print ads, letterheads</td></tr>
+      <tr><td><span class="badge badge-blue">Send Marketing Email</span></td><td>247</td><td>8.6%</td><td>Campaign emails with landing pages, promotions, patient re-engagement</td></tr>
+      <tr><td><span class="badge badge-blue">Social Media Request</span></td><td>236</td><td>8.2%</td><td>Post photos/videos, update cover/profile images, page info updates, access help</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Tier 2 — Medium Volume</h3>
+    <table>
+      <tr><th>Category</th><th>Count</th><th>Share</th><th>What It Covers</th></tr>
+      <tr><td><span class="badge badge-green">Video Shoots</span></td><td>123</td><td>4.3%</td><td>Scheduled production shoots — heavily concentrated at PCCD Los Altos and AID</td></tr>
+      <tr><td><span class="badge badge-green">Listing Service Update</span></td><td>78</td><td>2.7%</td><td>Hours changes, address updates, new doctor additions across directories</td></tr>
+      <tr><td><span class="badge badge-green">New Doctor Announcement</span></td><td>76</td><td>2.7%</td><td>Bio, headshot, website/social intro, patient comms — multi-step workflow</td></tr>
+      <tr><td><span class="badge badge-green">Run Office Promotion</span></td><td>73</td><td>2.6%</td><td>Discounts/offers with exclusions, date ranges, multi-channel rollout</td></tr>
+      <tr><td><span class="badge badge-green">Host In-Person Event</span></td><td>71</td><td>2.5%</td><td>Full event planning — food, speakers, agenda, budget, advertising, vendors</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Tier 3 — Lower Volume / Specialized</h3>
+    <table>
+      <tr><th>Category</th><th>Count</th><th>Share</th></tr>
+      <tr><td><span class="badge badge-orange">Launch New Service</span></td><td>36</td><td>1.3%</td></tr>
+      <tr><td><span class="badge badge-orange">Local Sponsorship</span></td><td>13</td><td>0.5%</td></tr>
+      <tr><td><span class="badge badge-orange">Launch Referral Program</span></td><td>9</td><td>0.3%</td></tr>
+      <tr><td><span class="badge badge-orange">New Patient Request</span></td><td>7</td><td>0.2%</td></tr>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <h4>The "Other" Problem</h4>
+    <p>633 tasks (22%) are categorized as "Other" — the second-largest bucket. Keyword analysis reveals at least 8 hidden sub-categories: Campaigns/Ads (160), Reporting (44), Domain/Tech (42), Patient Comms (37), Listings/GMB (35), Doctor Changes (33), Logo/Branding (27), and Slide Decks (19). An AI tool needs structured intake to eliminate this catch-all.</p>
+  </div>
+</div>
+
+<!-- AI AUTOMATION BUCKETS -->
+<div id="buckets" class="section">
+  <h2 class="section-title">AI Automation Buckets</h2>
+  <p class="section-sub">Grouped by automation feasibility — what an AI tool can realistically handle, assist with, or should leave to humans.</p>
+
+  <div class="priority-card high">
+    <h4>Bucket 1: Fully Automatable Content Generation</h4>
+    <p>~1,200 tasks/year — AI drafts the final deliverable with minimal human review.</p>
+  </div>
+  <div class="bucket open">
+    <div class="bucket-header" onclick="toggleBucket(this)"><h4>Details & Recommendations</h4><span class="arrow">▼</span></div>
+    <div class="bucket-body">
+      <table>
+        <tr><th>Content Type</th><th>Volume</th><th>AI Capability</th><th>Key Consideration</th></tr>
+        <tr><td>Marketing Email Drafts</td><td>247/yr</td><td>Generate subject line + body from promotion details, audience, and landing page</td><td>Brand voice library, CAN-SPAM compliance, template system</td></tr>
+        <tr><td>Social Media Posts</td><td>236/yr</td><td>Generate captions, hashtags, and scheduling recommendations from event/promotion data</td><td>Platform-specific formatting, image pairing logic, approval workflow</td></tr>
+        <tr><td>New Doctor Announcements</td><td>76/yr</td><td>Generate bio page copy, social posts, email blast, and print welcome flyer from structured intake (credentials, headshot, bio)</td><td>Multi-deliverable workflow from single intake — biggest efficiency gain</td></tr>
+        <tr><td>Office Promotion Collateral</td><td>73/yr</td><td>Generate flyer copy, email, social post, and website banner from promotion details</td><td>Legal review of discount claims, expiration dates, exclusion language</td></tr>
+        <tr><td>Print Flyers & Materials</td><td>~200/yr</td><td>Generate copy and layout from templates; business cards from structured data</td><td>Brand-compliant templates per office, print-ready PDF export</td></tr>
+        <tr><td>Patient Communication Drafts</td><td>~37/yr</td><td>Retirement letters, holiday greetings, appointment reminders from templates</td><td>HIPAA awareness — no PHI in marketing content</td></tr>
+      </table>
+
+      <div class="callout green" style="margin-top:16px">
+        <h4>Recommendation</h4>
+        <p>Build a template-driven content engine. Each request type gets a structured intake form that maps to branded templates. AI fills the template, human approves. Start with Marketing Emails and Social Media Posts — highest volume, most standardized.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="priority-card med">
+    <h4>Bucket 2: AI-Assisted (Human-in-the-Loop)</h4>
+    <p>~800 tasks/year — AI does the heavy lifting but a human must review/execute the final step.</p>
+  </div>
+  <div class="bucket">
+    <div class="bucket-header" onclick="toggleBucket(this)"><h4>Details & Recommendations</h4><span class="arrow">▼</span></div>
+    <div class="bucket-body">
+      <table>
+        <tr><th>Content Type</th><th>Volume</th><th>AI Role</th><th>Human Role</th></tr>
+        <tr><td>Website Edits — Text/Image</td><td>~510/yr</td><td>Draft updated copy, suggest image placement, generate alt text</td><td>CMS login to publish, verify layout rendering</td></tr>
+        <tr><td>Campaign/Ad Creation</td><td>~160/yr</td><td>Draft ad copy variations, suggest targeting, generate landing page copy</td><td>Platform setup, budget allocation, performance monitoring</td></tr>
+        <tr><td>Listing/Directory Updates</td><td>~113/yr</td><td>Generate consistent NAP data, hours, and descriptions across all platforms</td><td>Login to each platform to make changes (unless API-connected)</td></tr>
+        <tr><td>Slide Decks / Presentations</td><td>~19/yr</td><td>Generate slide content from data/briefs using brand templates</td><td>Data validation, executive review</td></tr>
+      </table>
+
+      <div class="callout green" style="margin-top:16px">
+        <h4>Recommendation</h4>
+        <p>For website edits — the #1 request type — consider a CMS integration that lets AI push drafted changes to a staging environment for one-click approval. This alone could save hundreds of hours. For listings, explore API connections to Google Business Profile, Yelp, and Birdeye to enable push-button updates.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="priority-card low">
+    <h4>Bucket 3: Workflow Orchestration (AI as Project Manager)</h4>
+    <p>~300 tasks/year — AI manages the multi-step process, assigns tasks, tracks status, sends reminders.</p>
+  </div>
+  <div class="bucket">
+    <div class="bucket-header" onclick="toggleBucket(this)"><h4>Details & Recommendations</h4><span class="arrow">▼</span></div>
+    <div class="bucket-body">
+      <table>
+        <tr><th>Workflow</th><th>Volume</th><th>AI Role</th><th>What Changes</th></tr>
+        <tr><td>In-Person Events</td><td>71/yr</td><td>Generate event checklist, timeline, vendor outreach drafts, promo materials, post-event recap</td><td>Replaces manual coordination across 12+ data fields</td></tr>
+        <tr><td>New Service Launch</td><td>36/yr</td><td>Trigger multi-channel workflow: website page, social announcement, email campaign, print material</td><td>One intake form spawns 4-5 deliverables automatically</td></tr>
+        <tr><td>Video Shoot Coordination</td><td>123/yr</td><td>Schedule, create shot lists, generate social/email content from finished video assets</td><td>Post-production content repurposing is where AI shines</td></tr>
+        <tr><td>Sponsorship Management</td><td>13/yr</td><td>Track deadlines, generate sponsorship recap materials, ROI analysis</td><td>Low volume but high coordination cost</td></tr>
+      </table>
+
+      <div class="callout green" style="margin-top:16px">
+        <h4>Recommendation</h4>
+        <p>Build "playbook" workflows for complex multi-step requests. When someone submits "Host In-Person Event," AI auto-generates the full checklist, creates draft materials for each step, and tracks completion. This is the highest-ROI investment for reducing coordination overhead.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="priority-card low" style="border-color:var(--muted)">
+    <h4>Bucket 4: Human-Only (AI Cannot Automate)</h4>
+    <p>~500 tasks/year — Requires physical presence, vendor negotiation, or strategic judgment.</p>
+  </div>
+  <div class="bucket">
+    <div class="bucket-header" onclick="toggleBucket(this)"><h4>Details</h4><span class="arrow">▼</span></div>
+    <div class="bucket-body">
+      <table>
+        <tr><th>Task Type</th><th>Why Human-Only</th></tr>
+        <tr><td>Video shoots (on-site production)</td><td>Physical camera work, lighting, patient consent</td></tr>
+        <tr><td>Exterior signage installation</td><td>Physical measurement, vendor coordination, permits</td></tr>
+        <tr><td>Domain recovery / DNS changes</td><td>Requires account access, registrar coordination</td></tr>
+        <tr><td>Event day-of execution</td><td>Physical presence, real-time problem solving</td></tr>
+        <tr><td>Budget approvals</td><td>Financial authority, strategic judgment</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- KEY QUESTIONS -->
+<div id="questions" class="section">
+  <h2 class="section-title">Critical Questions for Building the AI Tool</h2>
+  <p class="section-sub">Organized by workstream — what your team needs to answer before building.</p>
+
+  <div class="card">
+    <h3>1. Content & Brand Standards</h3>
+    <ul class="question-list">
+      <li><strong>Brand voice:</strong> Do all 40+ offices share one brand voice, or does each market/office have its own tone? How much variation is acceptable?</li>
+      <li><strong>Template library:</strong> What existing templates exist for flyers, emails, and social posts? Are they in Canva, Adobe, or something else? How many need to be created?</li>
+      <li><strong>Approval tiers:</strong> Which content types can be auto-published vs. which need market manager review vs. ops director sign-off?</li>
+      <li><strong>Legal/compliance:</strong> What disclaimers or regulatory language must appear on dental promotions? Are there state-level variations?</li>
+      <li><strong>Image/asset library:</strong> Where do office photos, headshots, and logos live today? Is there a centralized DAM (digital asset management) system?</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>2. Intake & Categorization</h3>
+    <ul class="question-list">
+      <li><strong>"Other" cleanup:</strong> 22% of requests are miscategorized as "Other." Should the AI tool enforce structured categories with smart routing, or keep a free-text option?</li>
+      <li><strong>Required fields:</strong> Many tasks have sparse data (empty columns). What should be mandatory per request type to reduce back-and-forth?</li>
+      <li><strong>Requestor training:</strong> Should the tool guide requestors through a wizard-style intake, or accept free-form descriptions and use AI to extract structure?</li>
+      <li><strong>Priority logic:</strong> How should the tool prioritize? By office revenue? By request type? By market manager capacity?</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>3. Integration & Technical Architecture</h3>
+    <ul class="question-list">
+      <li><strong>CMS integration:</strong> Which CMS platforms do the offices use? Can the AI tool push website edits directly to staging?</li>
+      <li><strong>Email platform:</strong> What ESP (Mailchimp, HubSpot, etc.) is used? Can the AI tool draft and schedule emails via API?</li>
+      <li><strong>Social media tools:</strong> Is there a social management platform (Sprout, Hootsuite, etc.) the AI tool should connect to?</li>
+      <li><strong>Listing platforms:</strong> Birdeye appears in the data — is it the primary listing management tool? Can API updates replace manual edits?</li>
+      <li><strong>Print production:</strong> How are print materials produced today — Canva, InDesign, outsourced? What format does the AI need to output?</li>
+      <li><strong>Project management:</strong> This data lives in SmartSheet today — should the AI tool replace it, or feed into it?</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>4. Scale & Rollout</h3>
+    <ul class="question-list">
+      <li><strong>Pilot offices:</strong> PCCD Los Altos (242 tasks) and AID Artistry (162 tasks) exercise the widest variety of request types — are they good pilot candidates?</li>
+      <li><strong>Market manager capacity:</strong> Jenn Freemyer handles 53% of all tasks. Is the goal to reduce her load, or to enable more offices to self-serve?</li>
+      <li><strong>Self-service vs. centralized:</strong> Should office managers be able to generate their own content directly, or should all requests still route through marketing?</li>
+      <li><strong>Volume growth:</strong> As new offices are acquired, task volume will grow. Is the AI tool designed for 50 offices? 100? 200?</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>5. Quality & Governance</h3>
+    <ul class="question-list">
+      <li><strong>QA process:</strong> Who reviews AI-generated content before it goes live? Is there a single reviewer or per-market?</li>
+      <li><strong>Feedback loop:</strong> How will users flag bad AI output? How will the system learn from corrections?</li>
+      <li><strong>Version control:</strong> For website edits and print materials, how are previous versions tracked and rolled back?</li>
+      <li><strong>Metrics:</strong> What defines success — faster turnaround time? Fewer blocked tasks? Higher office satisfaction scores?</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div id="roadmap" class="section">
+  <h2 class="section-title">Suggested Phased Roadmap</h2>
+  <p class="section-sub">A practical sequence for building the AI content tool, based on the data.</p>
+
+  <div class="card" style="border-left:4px solid var(--accent)">
+    <h3>Phase 1 — Foundation (Months 1-2)</h3>
+    <p style="margin-bottom:12px;color:var(--muted)">Fix the intake, establish the brand rules.</p>
+    <table>
+      <tr><th>Action</th><th>Impact</th></tr>
+      <tr><td>Redesign intake form with structured categories (eliminate "Other")</td><td>Proper routing, data quality for AI training</td></tr>
+      <tr><td>Build brand voice guide + prompt library per content type</td><td>Consistent AI output from day one</td></tr>
+      <tr><td>Audit and centralize image/asset library</td><td>AI can auto-select appropriate images</td></tr>
+      <tr><td>Define required fields per request type</td><td>Reduce blocked tasks (currently 64 open)</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--green)">
+    <h3>Phase 2 — Quick Wins (Months 2-4)</h3>
+    <p style="margin-bottom:12px;color:var(--muted)">Deploy AI for the highest-volume, most standardized content.</p>
+    <table>
+      <tr><th>Action</th><th>Tasks Impacted</th></tr>
+      <tr><td>AI-generated marketing emails from structured intake</td><td>247/yr</td></tr>
+      <tr><td>AI-generated social media posts with image suggestions</td><td>236/yr</td></tr>
+      <tr><td>Auto-generated New Doctor Announcement packages</td><td>76/yr</td></tr>
+      <tr><td>Template-based print material generation (flyers, business cards)</td><td>~200/yr</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--orange)">
+    <h3>Phase 3 — Deep Integration (Months 4-6)</h3>
+    <p style="margin-bottom:12px;color:var(--muted)">Connect to external platforms for end-to-end automation.</p>
+    <table>
+      <tr><th>Action</th><th>Tasks Impacted</th></tr>
+      <tr><td>CMS integration for website edit staging + one-click publish</td><td>665/yr</td></tr>
+      <tr><td>Listing platform API for bulk directory updates</td><td>113/yr</td></tr>
+      <tr><td>Multi-deliverable playbooks (event planning, service launches)</td><td>107/yr</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--accent2)">
+    <h3>Phase 4 — Intelligence Layer (Months 6+)</h3>
+    <p style="margin-bottom:12px;color:var(--muted)">AI proactively suggests and optimizes.</p>
+    <table>
+      <tr><th>Capability</th><th>Value</th></tr>
+      <tr><td>Proactive content calendar suggestions based on office performance data</td><td>Shift from reactive to strategic marketing</td></tr>
+      <tr><td>A/B testing integration for emails and social posts</td><td>Data-driven content optimization</td></tr>
+      <tr><td>Capacity forecasting for market managers</td><td>Balance workload across 40+ offices</td></tr>
+      <tr><td>Office self-service portal with AI guardrails</td><td>Scale without adding headcount</td></tr>
+    </table>
+  </div>
+
+  <div class="callout" style="margin-top:8px">
+    <h4>Bottom Line</h4>
+    <p>Based on the data, an AI content tool addressing just Bucket 1 (fully automatable) would cover ~1,200 tasks/year — roughly 42% of all requests. Adding Bucket 2 (AI-assisted) brings that to ~2,000 tasks/year or 70% coverage. The biggest single unlock is fixing the "Other" categorization problem and building structured intake, which makes everything downstream more effective.</p>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+const tabs=document.querySelectorAll('nav button');
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  tabs.forEach(t=>t.classList.remove('active'));
+  tabs.forEach(t=>{if(t.getAttribute('onclick').includes(id))t.classList.add('active')});
+}
+
+function toggleBucket(el){el.closest('.bucket').classList.toggle('open')}
+
+// Charts
+const colors=['#2563eb','#7c3aed','#059669','#d97706','#dc2626','#0891b2','#4f46e5','#c026d3','#ea580c','#65a30d','#0d9488','#e11d48','#6366f1','#f59e0b','#8b5cf6','#ec4899','#14b8a6','#f97316'];
+
+// Request Type Donut
+new Chart(document.getElementById('chartReqType'),{type:'doughnut',data:{labels:['Website Edit','Other','Print Material','Marketing Email','Social Media','Video Shoots','Listing Update','New Doctor','Promotion','In-Person Event','New Service','Sponsorship','Referral Program','Other Small'],datasets:[{data:[665,633,318,247,236,123,78,76,73,71,36,13,9,8],backgroundColor:colors}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}}}}});
+
+// Monthly
+const months=["2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03"];
+const mVals=[38,34,101,116,129,165,214,213,218,198,215,150,126,118,91,97,98];
+new Chart(document.getElementById('chartMonthly'),{type:'bar',data:{labels:months.map(m=>{const[y,mo]=m.split('-');return['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+mo-1]+' '+y.slice(2)}),datasets:[{data:mVals,backgroundColor:'#2563eb',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Tasks'}},x:{ticks:{maxRotation:45}}}}});
+
+// Market Managers
+new Chart(document.getElementById('chartMM'),{type:'bar',data:{labels:['Jenn F.','Kelly C.','Amy M.','Jayme M.','Megan R.','Alexa M.'],datasets:[{data:[1516,620,399,206,55,25],backgroundColor:['#d97706','#2563eb','#059669','#7c3aed','#0891b2','#dc2626'],borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});
+
+// Assigned To
+new Chart(document.getElementById('chartAssigned'),{type:'bar',data:{labels:['Don C.','Jenn F.','Korinne C.','Brad W.','Lance P.','Wonderista','Kelly C.','Allie C.','Jayme M.','Sofia B.'],datasets:[{data:[549,432,336,265,254,215,139,125,52,34],backgroundColor:'#7c3aed',borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});
+
+// Offices
+new Chart(document.getElementById('chartOffices'),{type:'bar',data:{labels:['PCCD Los Altos','Gen4 Corporate','AID Artistry','NHD New Horizons','NAD Nashville','ADL Allure','PCCD Mt View','PFD Flagstaff','BFD Beaumont','ADB Bain','NHD Sand Creek','GDC Stone Barn','PCC Mid Peninsula','MJC Cavendish','DDM Apple Valley'],datasets:[{data:[242,177,162,121,105,103,95,82,78,65,65,60,58,56,56],backgroundColor:'#059669',borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});
+
+// Auto-open first bucket
+</script>
+</body>
+</html>
