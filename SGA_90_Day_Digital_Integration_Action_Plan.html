@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SGA 90-Day Digital Integration Action Plan</title>
+<title>SGA 90-Day Digital Integration Action Plan — Updated 3/24</title>
 <style>
   :root {
     --navy: #1a2744;
@@ -31,8 +31,6 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.6; }
-
-  /* Header */
   .header { background: linear-gradient(135deg, var(--navy) 0%, var(--dark-blue) 100%); color: white; padding: 48px 0 40px; }
   .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
   .header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
@@ -40,23 +38,15 @@
   .header-meta { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
   .header-meta .meta-item { display: flex; align-items: center; gap: 8px; font-size: 14px; opacity: 0.8; }
   .header-meta .meta-icon { width: 20px; height: 20px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; }
-
-  /* Nav */
   .phase-nav { background: white; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
   .phase-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; gap: 0; overflow-x: auto; }
   .phase-tab { padding: 16px 24px; font-size: 14px; font-weight: 600; color: var(--gray-500); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; text-decoration: none; }
   .phase-tab:hover { color: var(--gray-900); background: var(--gray-50); }
   .phase-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-  /* Container */
   .container { max-width: 1200px; margin: 0 auto; padding: 32px; }
-
-  /* Executive Summary */
   .exec-summary { background: white; border-radius: var(--radius); padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow); }
   .exec-summary h2 { font-size: 22px; color: var(--navy); margin-bottom: 20px; }
   .exec-summary p { color: var(--gray-700); margin-bottom: 16px; font-size: 15px; }
-
-  /* KPI Strip */
   .kpi-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
   .kpi-card { background: white; border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); text-align: center; }
   .kpi-card .kpi-value { font-size: 36px; font-weight: 800; color: var(--navy); }
@@ -65,8 +55,6 @@
   .kpi-card.blue { border-top: 4px solid var(--accent); }
   .kpi-card.orange { border-top: 4px solid var(--orange); }
   .kpi-card.purple { border-top: 4px solid var(--purple); }
-
-  /* Phase Section */
   .phase-section { margin-bottom: 48px; }
   .phase-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--gray-200); }
   .phase-badge { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; font-weight: 800; font-size: 18px; color: white; flex-shrink: 0; }
@@ -75,8 +63,6 @@
   .phase-badge.p3 { background: var(--purple); }
   .phase-header h2 { font-size: 24px; color: var(--navy); }
   .phase-header .phase-dates { font-size: 14px; color: var(--gray-500); font-weight: 500; }
-
-  /* Workstream */
   .workstream { background: white; border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow); overflow: hidden; }
   .workstream-header { padding: 20px 24px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
   .workstream-header h3 { font-size: 17px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
@@ -86,25 +72,21 @@
   .workstream-body { padding: 0 24px 24px; display: none; }
   .workstream.open .workstream-body { display: block; }
   .workstream-body p { color: var(--gray-700); font-size: 14px; margin-bottom: 12px; }
-
-  /* Task Table */
   .task-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
   .task-table th { background: var(--gray-100); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--gray-700); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
   .task-table td { padding: 12px 14px; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
   .task-table tr:last-child td { border-bottom: none; }
   .task-table .task-name { font-weight: 500; }
-
-  /* Ownership Badge */
   .owner { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
   .owner.amy { background: #e8f0fe; color: #1a73e8; }
   .owner.ops { background: #fef9e7; color: #b7950b; }
   .owner.mm { background: #eafaf1; color: #1e8449; }
   .owner.om { background: #f4ecf7; color: #7d3c98; }
   .owner.web { background: #fdedec; color: #c0392b; }
-  .owner.dev { background: #fef9e7; color: #d68910; }
+  .owner.mike { background: #fce4ec; color: #c62828; }
+  .owner.sarah { background: #e0f2f1; color: #00695c; }
   .owner.prd { background: #e8daef; color: #6c3483; }
-
-  /* Priority */
+  .owner.yext { background: #fff3e0; color: #e65100; }
   .priority { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; }
   .priority.high { color: var(--red); }
   .priority.med { color: var(--orange); }
@@ -113,23 +95,18 @@
   .priority.high::before { background: var(--red); }
   .priority.med::before { background: var(--orange); }
   .priority.low::before { background: var(--green); }
-
-  /* Benchmark Box */
   .benchmark-box { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
   .benchmark-box h4 { font-size: 14px; color: var(--dark-blue); margin-bottom: 8px; }
   .benchmark-box ul { list-style: none; padding: 0; }
   .benchmark-box li { font-size: 14px; color: var(--gray-700); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
   .benchmark-box li::before { content: '🎯'; font-size: 12px; }
-
-  /* Decision Box */
   .decision-box { background: var(--orange-light); border-left: 4px solid var(--orange); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
   .decision-box h4 { font-size: 14px; color: #7d6608; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-  .decision-box p { font-size: 14px; color: var(--gray-700); }
-
-  /* Skill Tag */
+  .decision-box p { font-size: 14px; color: var(--gray-700); margin-top: 6px; }
+  .resolved-box { background: var(--green-light); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
+  .resolved-box h4 { font-size: 14px; color: #1e8449; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .resolved-box p { font-size: 14px; color: var(--gray-700); margin-top: 6px; }
   .skill-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; background: var(--navy); color: white; border-radius: 4px; font-size: 11px; font-weight: 600; font-family: 'SF Mono', Monaco, Consolas, monospace; }
-
-  /* RACI */
   .raci-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
   .raci-table th { background: var(--navy); color: white; padding: 10px 12px; text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
   .raci-table th:first-child { text-align: left; }
@@ -139,19 +116,6 @@
   .raci-a { color: var(--accent); font-weight: 700; }
   .raci-c { color: var(--orange); font-weight: 600; }
   .raci-i { color: var(--gray-500); }
-
-  /* Timeline Visual */
-  .timeline { position: relative; padding-left: 32px; margin: 20px 0; }
-  .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: var(--gray-300); }
-  .timeline-item { position: relative; margin-bottom: 20px; }
-  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid white; box-shadow: 0 0 0 2px var(--accent); }
-  .timeline-item.green::before { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
-  .timeline-item.purple::before { background: var(--purple); box-shadow: 0 0 0 2px var(--purple); }
-  .timeline-item h4 { font-size: 14px; color: var(--navy); }
-  .timeline-item p { font-size: 13px; color: var(--gray-700); margin-top: 4px; }
-  .timeline-item .week { font-size: 11px; color: var(--gray-500); font-weight: 600; text-transform: uppercase; }
-
-  /* Callout */
   .callout { background: var(--green-light); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
   .callout.purple { background: var(--purple-light); border-left-color: var(--purple); }
   .callout.red { background: var(--red-light); border-left-color: var(--red); }
@@ -159,22 +123,29 @@
   .callout p, .callout li { font-size: 14px; color: var(--gray-700); }
   .callout ul { padding-left: 18px; margin-top: 6px; }
 
-  /* Footer */
-  .footer { text-align: center; padding: 40px 32px; color: var(--gray-500); font-size: 13px; border-top: 1px solid var(--gray-200); margin-top: 48px; }
+  /* Updated / New badge */
+  .update-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-left: 8px; vertical-align: middle; }
+  .update-badge.new { background: #e8f5e9; color: #2e7d32; }
+  .update-badge.changed { background: #fff3e0; color: #e65100; }
+  .update-badge.resolved { background: #e0f2f1; color: #00695c; }
 
-  /* Gantt-like visual */
+  /* Sarah directive */
+  .sarah-directive { background: #e0f2f1; border-left: 4px solid #00897b; border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
+  .sarah-directive h4 { font-size: 14px; color: #00695c; margin-bottom: 8px; }
+  .sarah-directive p { font-size: 14px; color: var(--gray-700); }
+
   .gantt { width: 100%; margin: 24px 0; border-collapse: collapse; }
   .gantt th { font-size: 11px; color: var(--gray-500); font-weight: 600; padding: 8px 4px; text-align: center; border-bottom: 1px solid var(--gray-300); }
   .gantt th:first-child { text-align: left; width: 240px; }
   .gantt td { padding: 6px 2px; border-bottom: 1px solid var(--gray-100); position: relative; }
   .gantt td:first-child { font-size: 13px; font-weight: 500; padding-left: 8px; }
-  .gantt-bar { height: 22px; border-radius: 4px; position: relative; }
+  .gantt-bar { height: 22px; border-radius: 4px; }
   .gantt-bar.green { background: linear-gradient(90deg, #27ae60, #2ecc71); }
   .gantt-bar.blue { background: linear-gradient(90deg, #2980b9, #4a90d9); }
   .gantt-bar.purple { background: linear-gradient(90deg, #8e44ad, #a569bd); }
   .gantt-bar.orange { background: linear-gradient(90deg, #e67e22, #f39c12); }
-
-  /* Responsive */
+  .gantt-bar.teal { background: linear-gradient(90deg, #00897b, #26a69a); }
+  .footer { text-align: center; padding: 40px 32px; color: var(--gray-500); font-size: 13px; border-top: 1px solid var(--gray-200); margin-top: 48px; }
   @media (max-width: 768px) {
     .header h1 { font-size: 24px; }
     .container { padding: 16px; }
@@ -187,13 +158,13 @@
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
+<!-- HEADER -->
 <div class="header">
   <div class="header-inner">
     <h1>90-Day Digital Integration Action Plan</h1>
     <div class="subtitle">SGA Dental — 260 Location Digital Storefront Unification & Marketing Performance Framework</div>
     <div class="header-meta">
-      <div class="meta-item"><div class="meta-icon">📅</div> March 24, 2026</div>
+      <div class="meta-item"><div class="meta-icon">📅</div> March 24, 2026 — Updated after Sarah Alofs sync</div>
       <div class="meta-item"><div class="meta-icon">👤</div> Prepared by Amy McNeill</div>
       <div class="meta-item"><div class="meta-icon">🏢</div> Gen4 Dental × SGA</div>
       <div class="meta-item"><div class="meta-icon">📍</div> 260 Locations</div>
@@ -201,30 +172,86 @@
   </div>
 </div>
 
-<!-- ===== NAV ===== -->
+<!-- NAV -->
 <div class="phase-nav">
   <div class="phase-nav-inner">
-    <a class="phase-tab active" href="#summary">Summary</a>
+    <a class="phase-tab active" href="#sarah-sync">CGO Sync</a>
+    <a class="phase-tab" href="#summary">Summary</a>
     <a class="phase-tab" href="#phase1">Phase 1: Foundation</a>
     <a class="phase-tab" href="#phase2">Phase 2: Performance</a>
     <a class="phase-tab" href="#phase3">Phase 3: Experience</a>
     <a class="phase-tab" href="#raci">RACI & Roles</a>
-    <a class="phase-tab" href="#decisions">Open Decisions</a>
+    <a class="phase-tab" href="#decisions">Decisions</a>
     <a class="phase-tab" href="#timeline">Timeline</a>
   </div>
 </div>
 
-<!-- ===== MAIN CONTENT ===== -->
 <div class="container">
+
+<!-- ===== SARAH SYNC SECTION ===== -->
+<section id="sarah-sync" class="exec-summary" style="border-left: 4px solid #00897b;">
+  <h2>Key Decisions from Sarah Alofs Sync <span class="update-badge new">3/24 Update</span></h2>
+  <p>The following strategic decisions came out of the weekly connect with Sarah (CGO) on March 24, 2026. These significantly reshape the sequencing and approach of the 90-day plan.</p>
+
+  <div class="sarah-directive">
+    <h4>1. Strategy Before Tactics — Meet Operators First</h4>
+    <p><strong>Do NOT run marketing-performance reports for Modus/GP practices until we've met with the operators.</strong> The first meeting should be a discovery/level-set: "Tell us about these practices." Operators share the revenue story, doctor situation, practice context. We come back in Meeting 2 with funnel data, digital storefront audit, and marketing recommendations. Every practice engagement starts with "what's the revenue growth strategy" — not "here's what's wrong with your website."</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>2. Wyatt Is Not the Answer — Mike + AI Owns Website Fixes</h4>
+    <p>Sarah is clear: <strong>170+ websites need updating in 60 days, and the answer is not Wyatt.</strong> Wyatt should move under Mike's reporting. Mike (as creative director, future VP) should own the website build/update problem. The AI enablement company will build tools to connect audit findings directly to site implementations. In 4 weeks, Wyatt should not be a bottleneck — AI tools handle the bulk. Charlie's 404 error spreadsheets sent to Wyatt with no prioritization is exactly the problem we're solving.</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>3. Yext White Glove Service for GBP — Leverage It</h4>
+    <p>SGA just signed a <strong>Yext white glove deal at $20/location/month</strong> covering Google My Business + Yelp across all locations. The team should be updating all GBP profiles. Key question: can we run the GBP audit, hand findings to Yext, and have them optimize? If yes, this dramatically reduces the GBP remediation burden on OMs and Market Managers.</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>4. Nathan/Miles Need to Book the Handoff Meeting</h4>
+    <p>The Modus GP practices are blocked on operations. <strong>Nathan</strong> (head of operations for these practices) and <strong>Miles</strong> (COO) need to book the initial handoff meeting. Sarah bumped the email chain on 3/18 — Miles' assistant provided times, Miles never responded. We are not going to go into practices without a consolidated plan. Sarah's position: "We're ready. Book the meeting."</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>5. Specialty Practices Moving Ahead with Matt Sesto</h4>
+    <p>Matt Sesto is driving specialty practice integration. Jamie has a call scheduled for specialty tomorrow (3/25). Specialty track is on a separate, faster path. This confirms the perio performance reports and Referral Lab work should proceed independently of the Modus GP blocker.</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>6. Pilot Process — Don't Stress the First Few Reps</h4>
+    <p>Sarah emphasized: these first few practices are the pilot. Everyone (Sarah, Amy, Mike) will be heavily involved. The goal is to use the AI tools on one practice, then three, then iterate. Don't try to change the world immediately. Build the process right so it scales.</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>7. CRM Gap — Many Practices Lack Funnel Data</h4>
+    <p>Many Modus practices (non-full-arch) <strong>don't have a CRM system</strong>, so patient funnel metrics are unavailable. Dental Intel should be in all of them (need to confirm with operators). Getting practices onto a CRM is a prerequisite for meaningful performance reporting. This goes into the systems implementation conversation in Meeting 2.</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>8. Peak Report Review — Schedule with Mitch/Ops This Week</h4>
+    <p>Amy to schedule a call with Sarah, Mitch, and Ops to review the Peak Family Dental production report together. Focus: how do we collaborate on data analysis? What do we agree/disagree on? How do we use this as the model for all future practice reviews? Sarah is open to joining this week.</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>9. Present to Operators Simply — 5 Foundational Things</h4>
+    <p>When presenting digital storefront findings, keep it to: "Here are the 5 things we look at for a healthy foundation. Here's where you're weak. Here's the project plan to fix them. We'll come back in a month." Don't overwhelm with 50 audit items — surface the critical categories only.</p>
+  </div>
+
+  <div class="sarah-directive">
+    <h4>10. Plugin/Agent Opportunity for GBP</h4>
+    <p>Sarah flagged that GBP optimization is "not complicated work" and should become an automated plugin/agent that takes audit findings and executes the updates. This is a build opportunity for the AI enablement roadmap.</p>
+  </div>
+</section>
 
 <!-- ===== EXECUTIVE SUMMARY ===== -->
 <section id="summary" class="exec-summary">
   <h2>Executive Summary</h2>
-  <p>This plan outlines a 90-day integration roadmap to unify 260 dental practice locations under a consistent digital standard. The work is organized into three sequential phases that build on each other: establishing the digital storefront foundation (websites, GMB profiles, social accounts), standing up scalable marketing performance reporting, and launching a 5-star patient experience program.</p>
+  <p>This plan outlines a 90-day integration roadmap to unify 260 dental practice locations under a consistent digital standard. <strong>Updated 3/24 to reflect Sarah Alofs' strategic direction:</strong> strategy before tactics, operator meetings before performance reports, and Mike + AI (not Wyatt) owning the website fix pipeline.</p>
 
-  <p>The plan leverages Gen4's existing Claude-powered audit toolkit — three core skills (<span class="skill-tag">dental-website-audit</span> <span class="skill-tag">dental-gbp-audit</span> <span class="skill-tag">marketing-performance</span>) that automate the discovery, scoring, and reporting process at scale across both general practice and periodontal specialty locations.</p>
+  <p>The work is organized into three phases: establishing the digital storefront foundation (websites, GMB profiles, social accounts), standing up scalable marketing performance reporting, and launching a 5-star patient experience program. The plan uses Gen4's Claude-powered audit toolkit — <span class="skill-tag">dental-website-audit</span> <span class="skill-tag">dental-gbp-audit</span> <span class="skill-tag">marketing-performance</span> — to automate discovery, scoring, and reporting at scale.</p>
 
-  <p>Rather than attempting to audit, fix, and optimize all 260 locations simultaneously, the plan uses a <strong>pilot → scale</strong> approach: validate the process with SGA Priority Practices (Pony Express, Little Smiles, Peak Family Dental), then roll it out in waves of 25–30 locations per sprint while Ops maintains the running baseline.</p>
+  <p>Two parallel tracks run simultaneously: <strong>Specialty practices</strong> (led by Matt Sesto, moving ahead now) and <strong>Modus GP practices</strong> (blocked until Nathan/Miles book the operator handoff meeting). Digital storefront audits proceed for both tracks; marketing performance reports only after operator discovery meetings.</p>
 
   <div class="kpi-strip" style="margin-top: 24px;">
     <div class="kpi-card green">
@@ -236,12 +263,12 @@
       <div class="kpi-label">GMB Audit Target</div>
     </div>
     <div class="kpi-card orange">
-      <div class="kpi-value">260</div>
-      <div class="kpi-label">Locations to Unify</div>
+      <div class="kpi-value">60d</div>
+      <div class="kpi-label">Website Fix Deadline</div>
     </div>
     <div class="kpi-card purple">
-      <div class="kpi-value">3</div>
-      <div class="kpi-label">Pilot Brands First</div>
+      <div class="kpi-value">$20</div>
+      <div class="kpi-label">Yext/Loc/Month</div>
     </div>
   </div>
 </section>
@@ -256,25 +283,94 @@
     </div>
   </div>
 
-  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">Establish the baseline for every location's digital presence. Audit websites and GMB profiles, identify what's broken, create social accounts where needed, and build the playbook that Ops will execute against for the remaining 230+ locations.</p>
+  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">Establish the baseline digital presence for every location. Audit websites and GBP profiles, identify critical issues (not everything — just the categories that drive new patients), and build the playbook. Simultaneously kick off operator discovery meetings for Modus practices.</p>
 
-  <!-- WS 1.1 -->
+  <!-- WS 1.0: OPERATOR MEETINGS -->
   <div class="workstream open">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
-      <h3><span class="ws-icon">🌐</span> 1.1 — Website Audit & Baseline</h3>
+      <h3><span class="ws-icon">🤝</span> 1.0 — Operator Discovery Meetings <span class="update-badge new">New</span></h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Run the <span class="skill-tag">dental-website-audit</span> skill against all SGA Priority Practice websites first, then establish the rollout cadence for the remaining 260 locations. All sites live on <strong>WordPress or Webflow</strong> — audit findings will be categorized by platform to enable batched fixes.</p>
+      <p>Per Sarah: every practice engagement starts with understanding the revenue growth strategy, not jumping into tactics. Two-meeting structure: Meeting 1 = discovery with operators, Meeting 2 = come back with data and recommendations.</p>
+
+      <div class="sarah-directive">
+        <h4>Sarah's Framework: Two-Meeting Approach</h4>
+        <p><strong>Meeting 1 (Discovery):</strong> Sit down with operators (Nathan for Modus GP, Matt Sesto for Specialty). "Tell us about these practices." Understand: doctor situations, revenue trajectory, capacity, known issues. Do NOT present marketing tactics.</p>
+        <p><strong>Meeting 2 (Recommendations):</strong> Come back with: (1) Patient funnel view and revenue story, (2) Digital storefront audit (5 foundational things, what's weak), (3) Project plan to fix storefront issues in 30 days, (4) Systems implementation needs (CRM, Dental Intel, etc.).</p>
+      </div>
+
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="task-name"><strong>Get Nathan/Miles to book the handoff meeting</strong> — Sarah bumped email 3/18, Miles' assistant sent times, Miles never responded</td>
+            <td><span class="owner sarah">Sarah</span> <span class="owner amy">Amy</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>This week</td>
+          </tr>
+          <tr>
+            <td class="task-name">Amy to bump the Nathan email thread (separate from Sarah's chain) — respond with "please book time on our calendar"</td>
+            <td><span class="owner amy">Amy</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Today (3/24)</td>
+          </tr>
+          <tr>
+            <td class="task-name">Specialty practices: Jamie has call scheduled with Matt Sesto team (3/25) — specialty track proceeds independently</td>
+            <td><span class="owner ops">Ops</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Tomorrow</td>
+          </tr>
+          <tr>
+            <td class="task-name">Meeting 1 with Modus GP operators — discovery/level-set</td>
+            <td><span class="owner sarah">Sarah</span> <span class="owner amy">Amy</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td class="task-name">Meeting 2 prep: compile funnel data, storefront audits, systems gap assessment</td>
+            <td><span class="owner amy">Amy</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 3</td>
+          </tr>
+          <tr>
+            <td class="task-name">Meeting 2 with operators — present revenue story + digital storefront + recommendations</td>
+            <td><span class="owner sarah">Sarah</span> <span class="owner amy">Amy</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 3–4</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout red">
+        <h4>Blocker: CRM Gap</h4>
+        <p>Many Modus practices (non-full-arch) lack a CRM system, making patient funnel metrics unavailable. Need to confirm with operators whether all practices have Dental Intel. If not, CRM onboarding becomes part of the systems implementation plan presented in Meeting 2.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WS 1.1: WEBSITE AUDIT -->
+  <div class="workstream open">
+    <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="ws-icon">🌐</span> 1.1 — Website Audit & Baseline <span class="update-badge changed">Updated</span></h3>
+      <span class="ws-toggle">▼</span>
+    </div>
+    <div class="workstream-body">
+      <p>Run <span class="skill-tag">dental-website-audit</span> against all SGA Priority Practice websites. Per Sarah: <strong>focus on critical issues that drive new patients</strong> — not everything. From the 20 audits already run, 7 of 25 locations had critical issues. That's the prioritization model: identify the critical few, fix those first.</p>
 
       <div class="benchmark-box">
         <h4>Benchmark: 70% Website Audit Score</h4>
         <ul>
-          <li>50+ checkpoints across 10 categories (Conversion, UX, SEO, Services, Trust, NAP, Insurance/Financing, Content, Technical Performance, Tracking)</li>
-          <li>Each checkpoint scored as Pass / Partial / Fail / N/A</li>
-          <li>Score of 70% = strong baseline — most critical conversion and trust signals present</li>
-          <li>Locations below 70% enter a remediation queue with prioritized fix list</li>
+          <li>50+ checkpoints across 10 categories — but present to operators as "5 foundational things"</li>
+          <li>Critical issues that drive new patients get fixed first (CTAs, phone numbers, online scheduling, mobile UX)</li>
+          <li>Non-critical items (blog cadence, schema markup, etc.) are secondary</li>
+          <li>All sites on WordPress or Webflow — batch fixes by platform</li>
         </ul>
+      </div>
+
+      <div class="resolved-box">
+        <h4>✅ Resolved: Website Fix Ownership</h4>
+        <p><strong>Mike owns the website fix pipeline.</strong> Wyatt moves under Mike. AI tools + enablement company builds the connection from audit findings to site implementations. Sarah's directive: 170+ websites updated in 60 days, using AI — not manual Wyatt work. Prioritize critical issues over Charlie's 404 spreadsheets.</p>
       </div>
 
       <table class="task-table">
@@ -305,9 +401,15 @@
             <td>Week 2</td>
           </tr>
           <tr>
-            <td class="task-name">Compile platform-specific fix list (WordPress fixes vs. Webflow fixes)</td>
+            <td class="task-name"><strong>Synthesize top critical issues across all audited locations</strong> — categorize by: (1) drives new patients, (2) trust/conversion, (3) nice-to-have <span class="update-badge new">New</span></td>
             <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority med">Medium</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td class="task-name"><strong>Present critical issue categories to Mike</strong> — these are the buckets the AI fix pipeline needs to handle <span class="update-badge new">New</span></td>
+            <td><span class="owner amy">Amy</span> <span class="owner mike">Mike</span></td>
+            <td><span class="priority high">High</span></td>
             <td>Week 2</td>
           </tr>
           <tr>
@@ -317,15 +419,15 @@
             <td>Week 2–3</td>
           </tr>
           <tr>
+            <td class="task-name"><strong>Mike + AI enablement company: build audit-to-fix pipeline</strong> — connect findings to automated site updates <span class="update-badge new">New</span></td>
+            <td><span class="owner mike">Mike</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 2–4</td>
+          </tr>
+          <tr>
             <td class="task-name">Define rollout cadence: 25–30 locations per sprint for remaining sites</td>
             <td><span class="owner ops">Ops</span></td>
             <td><span class="priority med">Medium</span></td>
-            <td>Week 3</td>
-          </tr>
-          <tr>
-            <td class="task-name">Deliver SGA website recommendations to Web team — document capacity constraints</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority high">High</span></td>
             <td>Week 3</td>
           </tr>
           <tr>
@@ -336,31 +438,30 @@
           </tr>
         </tbody>
       </table>
-
-      <div class="decision-box">
-        <h4>⚠️ Open Decision: Web Team Capacity</h4>
-        <p>Web team currently has <strong>no capacity</strong> for large-scale site remediation. Need to determine: (1) Will fixes be handled by Web, outsourced, or assigned to Market Managers for non-technical items? (2) Should we batch WordPress fixes separately from Webflow fixes to leverage platform-specific expertise? (3) What is the SLA for fixing a location that scores below 70%?</p>
-      </div>
     </div>
   </div>
 
-  <!-- WS 1.2 -->
+  <!-- WS 1.2: GBP AUDIT -->
   <div class="workstream open">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
-      <h3><span class="ws-icon">📍</span> 1.2 — Google Business Profile Audit & Optimization</h3>
+      <h3><span class="ws-icon">📍</span> 1.2 — Google Business Profile Audit & Optimization <span class="update-badge changed">Updated</span></h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Run the <span class="skill-tag">dental-gbp-audit</span> skill across all locations. GBP is the #1 driver of local patient discovery — patients searching "dentist near me" see the profile before the website. An unoptimized profile means lost new patients the practice never knows about.</p>
+      <p>Run <span class="skill-tag">dental-gbp-audit</span> across locations. <strong>Major update:</strong> SGA has a Yext white glove service ($20/location/month) that should be managing GBP + Yelp across all locations. The question is whether Yext can take audit findings and execute optimization — if yes, this dramatically changes the remediation workflow.</p>
 
       <div class="benchmark-box">
         <h4>Benchmark: 80% GBP Audit Score</h4>
         <ul>
-          <li>8 categories scored 0–5: Core Profile, Services Alignment, Reviews & Reputation, Photos, Posts & Activity, Q&A, Messaging & Conversion, Local SEO Signals</li>
-          <li>80% = 32/40 points — profile is well-optimized for patient discovery and conversion</li>
-          <li>Reviews, photos, and response quality carry the most weight for patient trust</li>
-          <li>Locations below 80% receive a prioritized optimization checklist for the OM</li>
+          <li>8 categories scored 0–5: Core Profile, Services, Reviews, Photos, Posts, Q&A, Messaging, Local SEO</li>
+          <li>80% = 32/40 — profile well-optimized for patient discovery</li>
+          <li>Reviews and response quality carry the most weight for patient trust</li>
         </ul>
+      </div>
+
+      <div class="resolved-box">
+        <h4>✅ New: Yext White Glove Service</h4>
+        <p>SGA pays <strong>$20/location/month</strong> for Yext white glove service covering GBP + Yelp. Their team is supposed to be updating all profiles. <strong>Action:</strong> Run GBP audits, then test whether Yext will take the findings and implement them. If yes, the OM/Market Manager GBP workload drops significantly.</p>
       </div>
 
       <table class="task-table">
@@ -371,6 +472,12 @@
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority high">High</span></td>
             <td>Week 1</td>
+          </tr>
+          <tr>
+            <td class="task-name"><strong>Test Yext handoff:</strong> send GBP audit findings to Yext white glove team — can they optimize from our report? <span class="update-badge new">New</span></td>
+            <td><span class="owner amy">Amy</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 2</td>
           </tr>
           <tr>
             <td class="task-name">Verify GBP ownership / access for all 260 locations (Google Business Manager)</td>
@@ -385,14 +492,14 @@
             <td>Week 2</td>
           </tr>
           <tr>
-            <td class="task-name">Train OMs on GMB recommendations execution (photos, posts, review responses)</td>
-            <td><span class="owner mm">Market Mgr</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 3</td>
+            <td class="task-name"><strong>Explore building a GBP plugin/agent</strong> that auto-executes audit recommendations (Sarah's suggestion) <span class="update-badge new">New</span></td>
+            <td><span class="owner amy">Amy</span> <span class="owner mike">Mike</span></td>
+            <td><span class="priority low">Low</span></td>
+            <td>Week 4+</td>
           </tr>
           <tr>
-            <td class="task-name">Begin Wave 1 GBP rollout: next 30 locations audited</td>
-            <td><span class="owner ops">Ops</span> <span class="owner mm">Market Mgr</span></td>
+            <td class="task-name">Begin Wave 1 GBP rollout: next 30 locations</td>
+            <td><span class="owner ops">Ops</span> <span class="owner yext">Yext</span></td>
             <td><span class="priority med">Medium</span></td>
             <td>Week 4</td>
           </tr>
@@ -401,32 +508,26 @@
     </div>
   </div>
 
-  <!-- WS 1.3 -->
-  <div class="workstream open">
+  <!-- WS 1.3: SOCIAL -->
+  <div class="workstream">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
-      <h3><span class="ws-icon">📱</span> 1.3 — Social Media Presence & Content Strategy</h3>
+      <h3><span class="ws-icon">📱</span> 1.3 — Social Media Presence & Content Engine</h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Ensure every location has active social media profiles with consistent posting. Use <span class="skill-tag">content-scout</span> to discover existing UGC and brand content, then build a repeatable social calendar that OMs can execute with Market Manager support.</p>
+      <p>Use <span class="skill-tag">content-scout</span> for UGC discovery and brand content audits. Sarah sees this as the "content engine" — potential for automated resharing from hashtags and UGC discoveries. Build a repeatable social calendar that OMs can execute.</p>
 
       <table class="task-table">
         <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
         <tbody>
           <tr>
-            <td class="task-name">Audit social accounts for all 260 locations (Facebook, Instagram, Google — what exists?)</td>
+            <td class="task-name">Audit social accounts for all 260 locations (what exists?)</td>
             <td><span class="owner ops">Ops</span></td>
             <td><span class="priority high">High</span></td>
             <td>Week 1–2</td>
           </tr>
           <tr>
-            <td class="task-name">Create missing social accounts for locations without them</td>
-            <td><span class="owner om">OM</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 2–3</td>
-          </tr>
-          <tr>
-            <td class="task-name">Run Content Scout (UGC Discovery) for Peak Family Dental</td>
+            <td class="task-name">Run Content Scout (Brand + UGC) for Peak Family Dental</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority med">Medium</span></td>
             <td>Week 2</td>
@@ -438,74 +539,73 @@
             <td>Week 2</td>
           </tr>
           <tr>
-            <td class="task-name">Build General Social Playbook (posting cadence, content types, brand guidelines)</td>
+            <td class="task-name">Run Content Scout (Brand audit) for Pony Express (3 locations)</td>
+            <td><span class="owner amy">Amy</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td class="task-name">Create missing social accounts for locations that need them</td>
+            <td><span class="owner om">OM</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 2–3</td>
+          </tr>
+          <tr>
+            <td class="task-name">Build General Social Playbook — assess Gen4 version, document what changes for SGA</td>
             <td><span class="owner amy">Amy</span> <span class="owner mm">Market Mgr</span></td>
             <td><span class="priority high">High</span></td>
             <td>Week 3</td>
           </tr>
           <tr>
-            <td class="task-name">Define OM vs. Market Manager responsibilities for social (who posts, who strategizes)</td>
+            <td class="task-name">Define OM vs. Market Manager social responsibilities</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority high">High</span></td>
             <td>Week 2</td>
           </tr>
           <tr>
-            <td class="task-name">Assess current Gen4 Social Playbook — document what changes for SGA</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 3</td>
-          </tr>
-          <tr>
-            <td class="task-name">Community outreach strategy (Myles/Karen initiative) — integrate with social plan</td>
+            <td class="task-name">Community outreach strategy (Myles/Karen initiative)</td>
             <td><span class="owner mm">Market Mgr</span></td>
             <td><span class="priority low">Low</span></td>
             <td>Week 4</td>
           </tr>
         </tbody>
       </table>
-
-      <div class="decision-box">
-        <h4>⚠️ Open Decision: Paid Media</h4>
-        <p><strong>Not launching paid media at this time.</strong> Phase 1 focuses entirely on organic presence. Paid media readiness will be evaluated at the end of Phase 2 once baseline digital storefronts meet benchmark scores and marketing performance reporting is operational.</p>
-      </div>
     </div>
   </div>
 
-  <!-- WS 1.4 -->
+  <!-- WS 1.4: TRACKING -->
   <div class="workstream">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
-      <h3><span class="ws-icon">📊</span> 1.4 — Digital Storefront Tracking Spreadsheet</h3>
+      <h3><span class="ws-icon">📊</span> 1.4 — Tracking & Immediate Actions</h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Maintain the master tracking spreadsheet (currently in Google Sheets) as the single source of truth for audit scores, remediation status, and rollout progress across all 260 locations.</p>
-
       <table class="task-table">
         <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
         <tbody>
           <tr>
-            <td class="task-name">Add columns: Website Audit Score, GBP Audit Score, Social Status, Remediation Status</td>
+            <td class="task-name">Update Digital Storefront spreadsheet with audit score columns</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority high">High</span></td>
             <td>Week 1</td>
           </tr>
           <tr>
-            <td class="task-name">Populate pilot practice scores as audits complete</td>
+            <td class="task-name"><strong>Schedule Peak report review with Sarah, Mitch, and Ops</strong> — collaborative data analysis session <span class="update-badge new">New</span></td>
+            <td><span class="owner amy">Amy</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>This week</td>
+          </tr>
+          <tr>
+            <td class="task-name"><strong>Prep for Fusion meeting next week</strong> — communication flow for practice issues, marketing/ops alignment <span class="update-badge new">New</span></td>
+            <td><span class="owner amy">Amy</span> <span class="owner sarah">Sarah</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 1</td>
+          </tr>
+          <tr>
+            <td class="task-name">Populate pilot practice scores in tracking spreadsheet</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority med">Medium</span></td>
             <td>Ongoing</td>
-          </tr>
-          <tr>
-            <td class="task-name">Set up conditional formatting: red below benchmark, green at/above</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority low">Low</span></td>
-            <td>Week 2</td>
-          </tr>
-          <tr>
-            <td class="task-name">Share dashboard view with Ops leads for weekly standup</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 3</td>
           </tr>
         </tbody>
       </table>
@@ -515,11 +615,13 @@
   <div class="callout" style="margin-top: 24px;">
     <h4>Phase 1 Exit Criteria</h4>
     <ul>
+      <li>Operator discovery meeting (Meeting 1) completed for Modus GP practices</li>
       <li>All SGA Priority Practices audited (website + GBP) with scores recorded</li>
-      <li>Playbooks finalized: Website remediation checklist, GBP optimization checklist, Social playbook</li>
+      <li>Critical issue categories synthesized and handed to Mike for AI fix pipeline</li>
+      <li>Yext GBP handoff tested — confirm they can execute from audit findings</li>
+      <li>Playbooks finalized: Website remediation, GBP optimization, Social</li>
       <li>Rollout cadence defined and Wave 1 (30 locations) in progress</li>
-      <li>Market Manager vs. OM responsibilities documented and communicated</li>
-      <li>Tracking spreadsheet operational with pilot data populated</li>
+      <li>Peak report reviewed collaboratively with Sarah, Mitch, Ops</li>
     </ul>
   </div>
 </section>
@@ -529,62 +631,68 @@
   <div class="phase-header">
     <div class="phase-badge p2">2</div>
     <div>
-      <h2>Marketing Performance & Reporting</h2>
+      <h2>Marketing Performance & Reporting <span class="update-badge changed">Sequencing Changed</span></h2>
       <div class="phase-dates">Days 31–60 &nbsp;|&nbsp; April 24 – May 23, 2026</div>
     </div>
   </div>
 
-  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">Stand up the marketing performance reporting infrastructure so every practice — general and specialty — has data-driven visibility into production, patient flow, and ROI. Simultaneously continue the digital storefront rollout from Phase 1.</p>
+  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">Stand up marketing performance reporting — but <strong>only after operator discovery meetings</strong> have established the revenue growth strategy per practice. Specialty/perio reporting proceeds on its own track with Matt Sesto.</p>
+
+  <div class="sarah-directive">
+    <h4>Sarah's Guardrail: Strategy → Data → Tactics</h4>
+    <p>Do NOT show up to practices with marketing performance reports before understanding their context. The operators need to tell us: which practices are growing, which are declining, which have doctor issues, which have capacity. Then we pull funnel data and come back with an informed view. Otherwise, we're just doing "random stuff without a strategy."</p>
+  </div>
 
   <!-- WS 2.1 -->
   <div class="workstream open">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
-      <h3><span class="ws-icon">📈</span> 2.1 — General Practice Performance Reports</h3>
+      <h3><span class="ws-icon">📈</span> 2.1 — GP Performance Reports (Post-Operator Meeting) <span class="update-badge changed">Updated</span></h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Deploy the <span class="skill-tag">marketing-performance</span> skill to generate production summary reports like the Peak Family Dentistry model. These reports include practice scorecards (pass/fail on key metrics), production waterfalls, marketing ROI, call conversion rates, and team-based action plans.</p>
-
-      <div class="callout">
-        <h4>What Ops Needs to Know (For Now)</h4>
-        <p>Full marketing performance reporting requires practice management CSVs, paid media exports, and call tracking data. For the initial rollout, we're ensuring the digital storefront foundation is solid first. Ops should focus on hitting the <strong>70% website / 80% GMB</strong> benchmarks. Full performance reporting will be layered on once the storefront is in place.</p>
-      </div>
+      <p>Deploy <span class="skill-tag">marketing-performance</span> for GP practices — but only after the operator discovery meetings from Phase 1 have established context. These reports include scorecards, production waterfalls, marketing ROI, and team-based action plans.</p>
 
       <table class="task-table">
         <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
         <tbody>
           <tr>
-            <td class="task-name">Run marketing-performance report for Peak Family Dental (model already exists — validate &amp; refresh)</td>
+            <td class="task-name"><strong>Meeting 2 with Modus operators:</strong> present funnel data + digital storefront audit + systems recommendations <span class="update-badge new">New</span></td>
+            <td><span class="owner sarah">Sarah</span> <span class="owner amy">Amy</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 5</td>
+          </tr>
+          <tr>
+            <td class="task-name"><strong>Confirm Dental Intel / CRM status</strong> for each Modus practice (prerequisite for funnel metrics) <span class="update-badge new">New</span></td>
+            <td><span class="owner ops">Ops</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 5</td>
+          </tr>
+          <tr>
+            <td class="task-name">Run marketing-performance for Peak Family Dental (refresh existing model)</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority high">High</span></td>
             <td>Week 5</td>
           </tr>
           <tr>
-            <td class="task-name">Run marketing-performance report for Pony Express (3 locations)</td>
+            <td class="task-name">Run marketing-performance for Pony Express (3 locations)</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority high">High</span></td>
-            <td>Week 5</td>
+            <td>Week 6</td>
           </tr>
           <tr>
-            <td class="task-name">Define data collection requirements per location (Dental Intel exports, call tracking, paid media)</td>
-            <td><span class="owner amy">Amy</span> <span class="owner ops">Ops</span></td>
-            <td><span class="priority high">High</span></td>
-            <td>Week 5</td>
-          </tr>
-          <tr>
-            <td class="task-name">Build template data request for Market Managers to collect from each practice</td>
+            <td class="task-name">Build data collection template for Market Managers (practice management CSVs, call tracking, paid media)</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority med">Medium</span></td>
             <td>Week 6</td>
           </tr>
           <tr>
-            <td class="task-name">Generate reports for next 10 priority GP locations</td>
+            <td class="task-name">Begin reports for practices where CRM data is available (practice-by-practice per Sarah's approach)</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority med">Medium</span></td>
             <td>Week 7–8</td>
           </tr>
           <tr>
-            <td class="task-name">Establish quarterly reporting cadence and delivery schedule</td>
+            <td class="task-name">Establish quarterly reporting cadence</td>
             <td><span class="owner amy">Amy</span> <span class="owner ops">Ops</span></td>
             <td><span class="priority med">Medium</span></td>
             <td>Week 8</td>
@@ -597,17 +705,17 @@
   <!-- WS 2.2 -->
   <div class="workstream open">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
-      <h3><span class="ws-icon">🦷</span> 2.2 — Perio Specialty Performance Reports</h3>
+      <h3><span class="ws-icon">🦷</span> 2.2 — Perio Specialty Performance Reports (Proceeding Now)</h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Deploy the <span class="skill-tag">marketing-performance-perio</span> skill for periodontal specialty practices. These offices grow through referring doctor relationships, not direct-to-consumer marketing — so the report framework is fundamentally different. It tracks referral program ROI, referring doctor engagement, case acceptance by referral source, and surgical vs. maintenance production mix.</p>
+      <p>Deploy <span class="skill-tag">marketing-performance-perio</span> for periodontal specialty practices. <strong>This track moves ahead now</strong> — Matt Sesto is engaged and driving it. Jamie has a call scheduled for specialty tomorrow (3/25). Not blocked by the Modus operator meeting.</p>
 
       <table class="task-table">
         <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
         <tbody>
           <tr>
-            <td class="task-name">Validate Woodyard Perio report model — confirm it's the standard for all perio locations</td>
+            <td class="task-name">Validate Woodyard Perio report as the standard for all perio locations</td>
             <td><span class="owner amy">Amy</span></td>
             <td><span class="priority high">High</span></td>
             <td>Week 5</td>
@@ -625,13 +733,13 @@
             <td>Week 6–7</td>
           </tr>
           <tr>
-            <td class="task-name">Build specialty marketing calendar template (CE events, lunch & learns, referral outreach)</td>
+            <td class="task-name">Build specialty marketing calendar template (CE events, lunch & learns)</td>
             <td><span class="owner amy">Amy</span> <span class="owner prd">PRD</span></td>
             <td><span class="priority med">Medium</span></td>
             <td>Week 7</td>
           </tr>
           <tr>
-            <td class="task-name">Define PRD role clearly + status update: where do PRDs currently exist?</td>
+            <td class="task-name">Define PRD role + status update: where do PRDs currently exist?</td>
             <td><span class="owner ops">Ops</span></td>
             <td><span class="priority high">High</span></td>
             <td>Week 6</td>
@@ -648,41 +756,20 @@
   </div>
 
   <!-- WS 2.3 -->
-  <div class="workstream open">
+  <div class="workstream">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
       <h3><span class="ws-icon">🔄</span> 2.3 — Continued Digital Storefront Rollout</h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>While Phase 2 focuses on performance reporting, the digital storefront audit rollout from Phase 1 continues. By the end of Phase 2, we target 120+ locations audited (website + GBP) with remediation underway for those below benchmark.</p>
-
+      <p>Audit rollout continues. Target: 120+ locations audited by end of Phase 2. Mike's AI fix pipeline should be operational by now, handling remediation at scale.</p>
       <table class="task-table">
         <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
         <tbody>
-          <tr>
-            <td class="task-name">Wave 2: Audit next 30 locations (website + GBP)</td>
-            <td><span class="owner ops">Ops</span> <span class="owner mm">Market Mgr</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 5–6</td>
-          </tr>
-          <tr>
-            <td class="task-name">Wave 3: Audit next 30 locations</td>
-            <td><span class="owner ops">Ops</span> <span class="owner mm">Market Mgr</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 7–8</td>
-          </tr>
-          <tr>
-            <td class="task-name">Remediation tracking: update spreadsheet, flag locations still below benchmark</td>
-            <td><span class="owner ops">Ops</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Ongoing</td>
-          </tr>
-          <tr>
-            <td class="task-name">Social account activation: ensure Wave 1–3 locations are posting</td>
-            <td><span class="owner om">OM</span> <span class="owner mm">Market Mgr</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Ongoing</td>
-          </tr>
+          <tr><td class="task-name">Wave 2: Audit next 30 locations (website + GBP)</td><td><span class="owner ops">Ops</span> <span class="owner mm">Market Mgr</span></td><td><span class="priority med">Medium</span></td><td>Week 5–6</td></tr>
+          <tr><td class="task-name">Wave 3: Audit next 30 locations</td><td><span class="owner ops">Ops</span> <span class="owner mm">Market Mgr</span></td><td><span class="priority med">Medium</span></td><td>Week 7–8</td></tr>
+          <tr><td class="task-name">AI fix pipeline: Mike's team remediating critical website issues at scale</td><td><span class="owner mike">Mike</span></td><td><span class="priority high">High</span></td><td>Ongoing</td></tr>
+          <tr><td class="task-name">Yext remediating GBP issues from audit findings</td><td><span class="owner yext">Yext</span></td><td><span class="priority med">Medium</span></td><td>Ongoing</td></tr>
         </tbody>
       </table>
     </div>
@@ -691,12 +778,12 @@
   <div class="callout" style="margin-top: 24px;">
     <h4>Phase 2 Exit Criteria</h4>
     <ul>
-      <li>Marketing-performance reports generated for all SGA Priority GP practices</li>
+      <li>Operator Meeting 2 completed — revenue story + recommendations delivered</li>
+      <li>Marketing-performance reports generated for Peak + Pony Express</li>
       <li>Marketing-performance-perio reports generated for pilot perio locations</li>
-      <li>PRD role defined with current status mapped across locations</li>
-      <li>Quarterly reporting cadence established</li>
-      <li>120+ locations audited (website + GBP) with remediation in progress</li>
-      <li>Data collection templates and processes documented for Market Managers</li>
+      <li>CRM/Dental Intel status confirmed for all Modus practices</li>
+      <li>PRD role defined with current status mapped</li>
+      <li>120+ locations audited with remediation via Mike's AI pipeline + Yext</li>
     </ul>
   </div>
 </section>
@@ -711,159 +798,72 @@
     </div>
   </div>
 
-  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">With digital storefronts optimized and performance reporting running, shift focus to the patient experience layer — phone skills, review generation, and the operational infrastructure that turns a great digital presence into consistent 5-star reviews.</p>
+  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">With storefronts optimized and reporting running, shift to the patient experience layer. Per Sarah: much of the "marketing problem" is actually a practice problem — phone skills, treatment planning, case acceptance. This phase addresses that directly.</p>
 
-  <!-- WS 3.1 -->
+  <div class="sarah-directive">
+    <h4>Sarah's Insight: Stop Chasing Butterflies</h4>
+    <p>When practices blame marketing, the real issue is often: they're not answering phones, case acceptance is 20% below benchmark, or they're chasing the wrong tactics. Our job is to frame decision-making so teams aren't wasting time on the wrong things. The 5-Star Experience program gives practices the data and framework to focus on what they can control — conversion, phone skills, treatment planning — instead of blaming marketing.</p>
+  </div>
+
   <div class="workstream open">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
       <h3><span class="ws-icon">⭐</span> 3.1 — 5-Star Experience Program Launch</h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Build on the Kim Middleton / Phone Skills training initiative at Peak offices. Expand the program framework to all locations with a focus on phone conversion, patient communication, and review generation.</p>
-
       <table class="task-table">
         <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
         <tbody>
-          <tr>
-            <td class="task-name">Follow up on 5-Star Experience email (Kim Middleton / Phone Skills training with Peak offices)</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority high">High</span></td>
-            <td>Week 9</td>
-          </tr>
-          <tr>
-            <td class="task-name">Document Peak phone skills training framework — what's working, what needs to scale</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority high">High</span></td>
-            <td>Week 9</td>
-          </tr>
-          <tr>
-            <td class="task-name">Define 5-Star Experience program components (phone skills, in-office experience, review ask flow)</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority high">High</span></td>
-            <td>Week 10</td>
-          </tr>
-          <tr>
-            <td class="task-name">Create training rollout plan: which locations first, what cadence</td>
-            <td><span class="owner ops">Ops</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 10</td>
-          </tr>
-          <tr>
-            <td class="task-name">Integrate review generation metrics into marketing-performance reports</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 11</td>
-          </tr>
-          <tr>
-            <td class="task-name">Pilot 5-Star program at 3 additional locations beyond Peak</td>
-            <td><span class="owner mm">Market Mgr</span> <span class="owner om">OM</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 12</td>
-          </tr>
+          <tr><td class="task-name">Follow up on 5-Star Experience email (Kim Middleton / Phone Skills training with Peak offices)</td><td><span class="owner amy">Amy</span></td><td><span class="priority high">High</span></td><td>Week 9</td></tr>
+          <tr><td class="task-name">Document Peak phone skills training framework — what's working, what scales</td><td><span class="owner amy">Amy</span></td><td><span class="priority high">High</span></td><td>Week 9</td></tr>
+          <tr><td class="task-name">Define 5-Star program components (phone skills, in-office experience, review ask flow)</td><td><span class="owner amy">Amy</span></td><td><span class="priority high">High</span></td><td>Week 10</td></tr>
+          <tr><td class="task-name"><strong>Build "marketing vs. operations" framework</strong> — clearly delineate what marketing controls vs. what happens in the office <span class="update-badge new">New</span></td><td><span class="owner amy">Amy</span> <span class="owner sarah">Sarah</span></td><td><span class="priority high">High</span></td><td>Week 10</td></tr>
+          <tr><td class="task-name">Integrate review generation metrics into marketing-performance reports</td><td><span class="owner amy">Amy</span></td><td><span class="priority med">Medium</span></td><td>Week 11</td></tr>
+          <tr><td class="task-name">Pilot 5-Star program at 3 additional locations</td><td><span class="owner mm">Market Mgr</span> <span class="owner om">OM</span></td><td><span class="priority med">Medium</span></td><td>Week 12</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- WS 3.2 -->
   <div class="workstream open">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
       <h3><span class="ws-icon">🎓</span> 3.2 — Amy's Training & Enablement Path</h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Define and execute the training plan for Amy's role in managing the digital integration at scale — skill mastery, reporting proficiency, and cross-functional coordination.</p>
-
+      <div class="sarah-directive">
+        <h4>Sarah's Empowerment Message</h4>
+        <p>The confidence gap is real — the team knows the right answers but doesn't feel empowered to say them. Building confidence comes from having the data, the framework, and the authority backing (from Sarah/leadership) to tell practices what they need to hear. The AI tools and standardized reports are a major part of this — they give the team objective evidence to stand behind.</p>
+      </div>
       <table class="task-table">
         <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
         <tbody>
-          <tr>
-            <td class="task-name">Define training curriculum: which skills, tools, and processes Amy needs to master</td>
-            <td><span class="owner amy">Amy</span> <span class="owner ops">Ops</span></td>
-            <td><span class="priority high">High</span></td>
-            <td>Week 9</td>
-          </tr>
-          <tr>
-            <td class="task-name">Master all 3 core skills: dental-website-audit, dental-gbp-audit, marketing-performance</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority high">High</span></td>
-            <td>Ongoing</td>
-          </tr>
-          <tr>
-            <td class="task-name">Shadow Kim Middleton phone skills training at Peak — learn the facilitation model</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 10</td>
-          </tr>
-          <tr>
-            <td class="task-name">Document Amy's training progress and gaps — weekly self-assessment</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority low">Low</span></td>
-            <td>Ongoing</td>
-          </tr>
+          <tr><td class="task-name">Define training curriculum: skills mastery, report generation, program facilitation</td><td><span class="owner amy">Amy</span> <span class="owner sarah">Sarah</span></td><td><span class="priority high">High</span></td><td>Week 9</td></tr>
+          <tr><td class="task-name">Master all 3 core skills: dental-website-audit, dental-gbp-audit, marketing-performance</td><td><span class="owner amy">Amy</span></td><td><span class="priority high">High</span></td><td>Ongoing</td></tr>
+          <tr><td class="task-name">Shadow Kim Middleton phone skills training at Peak</td><td><span class="owner amy">Amy</span></td><td><span class="priority med">Medium</span></td><td>Week 10</td></tr>
+          <tr><td class="task-name"><strong>Build confidence through data:</strong> practice presenting findings backed by reports, not opinion <span class="update-badge new">New</span></td><td><span class="owner amy">Amy</span></td><td><span class="priority med">Medium</span></td><td>Ongoing</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- WS 3.3 -->
-  <div class="workstream open">
+  <div class="workstream">
     <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
-      <h3><span class="ws-icon">🏁</span> 3.3 — Scale & Handoff to Steady-State Operations</h3>
+      <h3><span class="ws-icon">🏁</span> 3.3 — Scale & Steady-State Operations</h3>
       <span class="ws-toggle">▼</span>
     </div>
     <div class="workstream-body">
-      <p>Continue the audit rollout, finalize all playbooks, and transition from "project mode" to "operational cadence" — where audits, reports, and optimization are recurring activities rather than one-time sprints.</p>
-
       <table class="task-table">
         <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
         <tbody>
-          <tr>
-            <td class="task-name">Wave 4–5: Audit next 60 locations (website + GBP)</td>
-            <td><span class="owner ops">Ops</span> <span class="owner mm">Market Mgr</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 9–12</td>
-          </tr>
-          <tr>
-            <td class="task-name">Target: 180+ locations audited by end of 90 days</td>
-            <td><span class="owner ops">Ops</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 12</td>
-          </tr>
-          <tr>
-            <td class="task-name">Finalize all playbooks: Website, GBP, Social, Performance Reporting, 5-Star Experience</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority high">High</span></td>
-            <td>Week 11</td>
-          </tr>
-          <tr>
-            <td class="task-name">Build 90-Day Retrospective: what worked, what didn't, what needs to change for remaining 80 locations</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority high">High</span></td>
-            <td>Week 12</td>
-          </tr>
-          <tr>
-            <td class="task-name">Propose ongoing cadence: monthly re-audits for lowest-scoring locations, quarterly full refresh</td>
-            <td><span class="owner amy">Amy</span></td>
-            <td><span class="priority med">Medium</span></td>
-            <td>Week 12</td>
-          </tr>
+          <tr><td class="task-name">Wave 4–5: Audit next 60 locations</td><td><span class="owner ops">Ops</span> <span class="owner mm">Market Mgr</span></td><td><span class="priority med">Medium</span></td><td>Week 9–12</td></tr>
+          <tr><td class="task-name">Target: 180+ locations audited by end of 90 days</td><td><span class="owner ops">Ops</span></td><td><span class="priority med">Medium</span></td><td>Week 12</td></tr>
+          <tr><td class="task-name">Finalize all playbooks</td><td><span class="owner amy">Amy</span></td><td><span class="priority high">High</span></td><td>Week 11</td></tr>
+          <tr><td class="task-name">90-Day Retrospective</td><td><span class="owner amy">Amy</span></td><td><span class="priority high">High</span></td><td>Week 12</td></tr>
+          <tr><td class="task-name">Propose ongoing cadence: monthly re-audits, quarterly full refresh</td><td><span class="owner amy">Amy</span></td><td><span class="priority med">Medium</span></td><td>Week 12</td></tr>
         </tbody>
       </table>
     </div>
-  </div>
-
-  <div class="callout purple" style="margin-top: 24px;">
-    <h4>Phase 3 Exit Criteria</h4>
-    <ul>
-      <li>5-Star Experience program defined, piloted at Peak, and ready for broader rollout</li>
-      <li>Amy's training path defined and in progress</li>
-      <li>180+ locations audited with scores tracked</li>
-      <li>All playbooks finalized and distributed</li>
-      <li>Transition plan from project mode to operational cadence documented</li>
-      <li>90-day retrospective completed with recommendations for next 90 days</li>
-    </ul>
   </div>
 </section>
 
@@ -872,146 +872,40 @@
   <div class="phase-header">
     <div class="phase-badge p1" style="background: var(--gray-700);">R</div>
     <div>
-      <h2>RACI Matrix & Role Definitions</h2>
-      <div class="phase-dates">Who does what across the 90 days</div>
+      <h2>RACI Matrix & Role Definitions <span class="update-badge changed">Updated</span></h2>
+      <div class="phase-dates">Who does what — updated with Mike and Yext roles</div>
     </div>
   </div>
 
   <div style="margin-bottom: 24px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px;">
-    <span><span class="raci-r">R</span> = Responsible (does the work)</span>
-    <span><span class="raci-a">A</span> = Accountable (owns the outcome)</span>
+    <span><span class="raci-r">R</span> = Responsible</span>
+    <span><span class="raci-a">A</span> = Accountable</span>
     <span><span class="raci-c">C</span> = Consulted</span>
     <span><span class="raci-i">I</span> = Informed</span>
   </div>
 
   <table class="raci-table">
     <thead>
-      <tr>
-        <th>Activity</th>
-        <th>Amy</th>
-        <th>Ops</th>
-        <th>Market Mgr</th>
-        <th>OM</th>
-        <th>Web Team</th>
-        <th>PRD</th>
-      </tr>
+      <tr><th>Activity</th><th>Amy</th><th>Sarah</th><th>Mike</th><th>Ops</th><th>Market Mgr</th><th>OM</th><th>Yext</th></tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Run website audits (skill execution)</td>
-        <td><span class="raci-r">R</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>Run GBP audits (skill execution)</td>
-        <td><span class="raci-r">R</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td>—</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>Website remediation (fix audit failures)</td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td>—</td>
-        <td><span class="raci-r">R</span></td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>GBP optimization (photos, posts, responses)</td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-r">R</span></td>
-        <td>—</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>Social media posting</td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-r">R</span></td>
-        <td>—</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>Social strategy & playbook</td>
-        <td><span class="raci-r">R</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td>—</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>GP marketing performance reports</td>
-        <td><span class="raci-r">R</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td>—</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>Perio performance reports</td>
-        <td><span class="raci-r">R</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td>—</td>
-        <td><span class="raci-c">C</span></td>
-      </tr>
-      <tr>
-        <td>Referral Lab data collection (perio)</td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td>—</td>
-        <td>—</td>
-        <td><span class="raci-r">R</span></td>
-      </tr>
-      <tr>
-        <td>5-Star Experience training</td>
-        <td><span class="raci-r">R</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-r">R</span></td>
-        <td>—</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>Community outreach (Myles/Karen)</td>
-        <td><span class="raci-i">I</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td><span class="raci-r">R</span></td>
-        <td><span class="raci-c">C</span></td>
-        <td>—</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td>Tracking spreadsheet maintenance</td>
-        <td><span class="raci-r">R</span></td>
-        <td><span class="raci-a">A</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td><span class="raci-i">I</span></td>
-        <td>—</td>
-        <td>—</td>
-      </tr>
+      <tr><td>Operator discovery meetings</td><td><span class="raci-r">R</span></td><td><span class="raci-a">A</span></td><td><span class="raci-i">I</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td>—</td><td>—</td></tr>
+      <tr><td>Run website audits (skill execution)</td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td><span class="raci-i">I</span></td><td><span class="raci-i">I</span></td><td><span class="raci-c">C</span></td><td>—</td><td>—</td></tr>
+      <tr><td>Website remediation (AI fix pipeline)</td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td><span class="raci-r">R</span></td><td><span class="raci-a">A</span></td><td><span class="raci-i">I</span></td><td>—</td><td>—</td></tr>
+      <tr><td>Run GBP audits</td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td>—</td><td><span class="raci-i">I</span></td><td><span class="raci-c">C</span></td><td>—</td><td><span class="raci-i">I</span></td></tr>
+      <tr><td>GBP optimization (execute findings)</td><td><span class="raci-c">C</span></td><td>—</td><td>—</td><td><span class="raci-i">I</span></td><td><span class="raci-a">A</span></td><td><span class="raci-c">C</span></td><td><span class="raci-r">R</span></td></tr>
+      <tr><td>Social media strategy & playbook</td><td><span class="raci-r">R</span></td><td><span class="raci-c">C</span></td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td><span class="raci-a">A</span></td><td><span class="raci-i">I</span></td><td>—</td></tr>
+      <tr><td>Social media posting</td><td><span class="raci-i">I</span></td><td>—</td><td>—</td><td><span class="raci-i">I</span></td><td><span class="raci-a">A</span></td><td><span class="raci-r">R</span></td><td>—</td></tr>
+      <tr><td>GP marketing performance reports</td><td><span class="raci-r">R</span></td><td><span class="raci-a">A</span></td><td>—</td><td><span class="raci-c">C</span></td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td>—</td></tr>
+      <tr><td>Perio performance reports</td><td><span class="raci-r">R</span></td><td><span class="raci-a">A</span></td><td>—</td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td>—</td><td>—</td></tr>
+      <tr><td>5-Star Experience training</td><td><span class="raci-r">R</span></td><td><span class="raci-a">A</span></td><td>—</td><td><span class="raci-c">C</span></td><td><span class="raci-c">C</span></td><td><span class="raci-r">R</span></td><td>—</td></tr>
+      <tr><td>AI enablement / website build tool</td><td><span class="raci-c">C</span></td><td><span class="raci-a">A</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td>—</td><td>—</td><td>—</td></tr>
     </tbody>
   </table>
 
-  <div class="decision-box" style="margin-top: 24px;">
-    <h4>⚠️ Market Manager vs. OM Enablement — Digital Storefront Ownership</h4>
-    <p><strong>Current model:</strong> Market Managers own the strategy; OMs execute the day-to-day (posting, review responses, photo uploads). This needs formal documentation and training paths for both roles.</p>
-    <p style="margin-top: 8px;"><strong>Key question:</strong> For locations without a dedicated Market Manager, does the OM absorb both strategy and execution? If so, what simplified playbook do they need?</p>
+  <div class="resolved-box" style="margin-top: 24px;">
+    <h4>✅ Mike's Role Clarified (Sarah 3/24)</h4>
+    <p>Mike is a <strong>creative director, not a graphic designer</strong>. He's a senior partner to Amy, future VP-level. He should own entire creative outputs — including the website fix problem. Give him the problem ("I need 200 websites updated") and let him figure out the system. He reports to Sarah and will work with the AI enablement company to build the pipeline.</p>
   </div>
 </section>
 
@@ -1020,72 +914,69 @@
   <div class="phase-header">
     <div class="phase-badge p1" style="background: var(--orange);">!</div>
     <div>
-      <h2>Open Decisions & Blockers</h2>
-      <div class="phase-dates">Items requiring leadership input before proceeding</div>
+      <h2>Open Decisions & Resolved Items</h2>
+      <div class="phase-dates">Updated 3/24 after Sarah sync</div>
     </div>
   </div>
 
-  <div class="workstream open" style="border-left: 4px solid var(--red);">
-    <div class="workstream-header"><h3>1. Web Team Capacity for Remediation</h3></div>
+  <div class="workstream open" style="border-left: 4px solid var(--green);">
+    <div class="workstream-header"><h3>✅ RESOLVED: Web Team Capacity <span class="update-badge resolved">Resolved</span></h3></div>
     <div class="workstream-body">
-      <p><strong>Status:</strong> Web team has no capacity for large-scale site fixes.</p>
-      <p><strong>Impact:</strong> Locations that fail the website audit below 70% cannot be remediated without a fix resource.</p>
-      <p><strong>Options:</strong> (A) Outsource WordPress/Webflow fixes to an agency. (B) Hire a dedicated web resource for SGA. (C) Train Market Managers to make non-technical fixes (content, images, CTAs) and only escalate technical issues.</p>
-      <p><strong>Decision needed by:</strong> End of Week 2</p>
+      <p><strong>Resolution:</strong> Mike owns website fixes. Wyatt moves under Mike. AI tools + enablement company builds the fix pipeline. 170+ sites in 60 days using AI, not manual work. Wyatt should not be a bottleneck in 4 weeks. Prioritize critical patient-driving issues over 404 spreadsheets.</p>
+    </div>
+  </div>
+
+  <div class="workstream open" style="border-left: 4px solid var(--green);">
+    <div class="workstream-header"><h3>✅ RESOLVED: Run Peak Analysis for Each Location? <span class="update-badge resolved">Resolved</span></h3></div>
+    <div class="workstream-body">
+      <p><strong>Resolution (Sarah):</strong> Not yet. Meet operators first. Understand the revenue growth strategy. Then selectively run reports where CRM data exists and the context justifies it. Don't blanket-run reports without knowing what you're trying to solve.</p>
     </div>
   </div>
 
   <div class="workstream open" style="border-left: 4px solid var(--orange);">
-    <div class="workstream-header"><h3>2. SGA Website Recommendations — What Do We Do With Them?</h3></div>
+    <div class="workstream-header"><h3>⚠️ OPEN: SGA Website Recommendations — Reconciliation</h3></div>
     <div class="workstream-body">
-      <p><strong>Status:</strong> SGA has its own website recommendations. Need to reconcile with Gen4 audit findings.</p>
-      <p><strong>Impact:</strong> Conflicting or overlapping recommendations could slow execution.</p>
-      <p><strong>Recommendation:</strong> Use the Gen4 dental-website-audit as the standard framework. Map SGA recommendations into the audit categories and flag any SGA-specific items that the audit doesn't cover.</p>
+      <p><strong>Issue:</strong> SGA has its own website recommendations (Charlie's 404 lists, SEO company fixes). These overlap and potentially conflict with Gen4 audit findings.</p>
+      <p><strong>Sarah's framing:</strong> The problem is the lack of prioritization. Charlie dumps a spreadsheet of 404 errors to Wyatt with no triage. We need to separate critical (drives new patients) from noise (SEO quarterly maintenance).</p>
       <p><strong>Decision needed by:</strong> End of Week 3</p>
     </div>
   </div>
 
   <div class="workstream open" style="border-left: 4px solid var(--orange);">
-    <div class="workstream-header"><h3>3. Should We Run Peak Analysis (Marketing Performance) for Each Location?</h3></div>
+    <div class="workstream-header"><h3>⚠️ OPEN: Paid Media Launch Timeline</h3></div>
     <div class="workstream-body">
-      <p><strong>Current recommendation:</strong> Not yet. Ops should focus on hitting the 70% website / 80% GMB benchmarks first. Full marketing-performance reports require practice management data that may not be accessible at scale yet.</p>
-      <p><strong>Phased approach:</strong> Run reports for priority practices in Phase 2. Evaluate whether to scale to all 260 based on data availability and Ops bandwidth.</p>
-      <p><strong>Decision needed by:</strong> End of Phase 1 (Week 4)</p>
+      <p><strong>Current status:</strong> Not launching paid media during the 90-day plan. Prerequisite: 70% website / 80% GMB before paid spend is justified. Evaluate in Q3 2026.</p>
     </div>
   </div>
 
   <div class="workstream open" style="border-left: 4px solid var(--orange);">
-    <div class="workstream-header"><h3>4. Paid Media Launch Timeline</h3></div>
+    <div class="workstream-header"><h3>⚠️ OPEN: Gen4 Playbook — What Changes for SGA?</h3></div>
     <div class="workstream-body">
-      <p><strong>Current status:</strong> Not launching paid media during the 90-day plan.</p>
-      <p><strong>Prerequisite:</strong> Location must meet 70% website / 80% GMB benchmarks before paid spend is justified — otherwise you're paying to send traffic to a broken storefront.</p>
-      <p><strong>Decision needed:</strong> When in Q3 2026 should we evaluate paid media readiness for top-performing locations?</p>
+      <p>Current Gen4 social/digital playbook needs assessment for SGA context (260 locations, different brand mix, different ops structure). Decision needed by Week 3.</p>
+    </div>
+  </div>
+
+  <div class="workstream open" style="border-left: 4px solid var(--orange);">
+    <div class="workstream-header"><h3>⚠️ OPEN: CRM/Dental Intel Gap <span class="update-badge new">New</span></h3></div>
+    <div class="workstream-body">
+      <p><strong>Issue:</strong> Many Modus practices (non-full-arch) lack a CRM system, preventing patient funnel analysis. Sarah believes all should have Dental Intel — needs confirmation from operators.</p>
+      <p><strong>Decision needed:</strong> First operator meeting (Week 2). CRM onboarding goes into systems implementation plan if confirmed.</p>
     </div>
   </div>
 
   <div class="workstream open" style="border-left: 4px solid var(--purple);">
-    <div class="workstream-header"><h3>5. Gen4 Playbook — What Changes for SGA?</h3></div>
+    <div class="workstream-header"><h3>⚠️ OPEN: Nathan/Miles Handoff Meeting <span class="update-badge new">New — Blocker</span></h3></div>
     <div class="workstream-body">
-      <p><strong>Status:</strong> Current Gen4 version of the social/digital playbook exists. Need to determine what changes for the SGA context (260 locations, different brand mix, different Ops structure).</p>
-      <p><strong>Decision needed by:</strong> End of Week 3</p>
+      <p><strong>Status:</strong> Sarah bumped email 3/18. Miles' assistant sent times. Miles never responded. Sarah's position: we can't go into practices without meeting operators first. Ball is in their court.</p>
+      <p><strong>Amy action:</strong> Bump the separate Nathan thread today. Respond with "please put something on our calendar."</p>
     </div>
   </div>
 
   <div class="workstream open" style="border-left: 4px solid var(--purple);">
-    <div class="workstream-header"><h3>6. PRD Role Definition & Status</h3></div>
+    <div class="workstream-header"><h3>⚠️ OPEN: Marketing/Ops Communication Flow <span class="update-badge new">New</span></h3></div>
     <div class="workstream-body">
-      <p><strong>Status:</strong> PRD (Practice Relations Director) role needs clear definition for perio specialty practices. Also need a status update on where PRDs currently exist across the portfolio.</p>
-      <p><strong>Impact:</strong> Without PRDs, referral program data collection and relationship management falls to someone else — who?</p>
-      <p><strong>Decision needed by:</strong> End of Week 6</p>
-    </div>
-  </div>
-
-  <div class="workstream open" style="border-left: 4px solid var(--purple);">
-    <div class="workstream-header"><h3>7. Amy's Training & Onboarding Path</h3></div>
-    <div class="workstream-body">
-      <p><strong>Status:</strong> Amy (report author) needs a defined training curriculum to execute this plan at scale.</p>
-      <p><strong>Key question:</strong> Who owns Amy's training? What does the progression look like — skills mastery → report generation → program facilitation → strategic planning?</p>
-      <p><strong>Decision needed by:</strong> End of Week 9</p>
+      <p><strong>Issue:</strong> Doctors pull marketing into meetings when the problem is operational. Ops doesn't present collaboratively — marketing always takes the heat. Need to define: when there's a practice issue, what's the communication flow? Who presents? How do we align before going to the practice?</p>
+      <p><strong>Forum:</strong> Fusion meeting next week is the opportunity to address this top-down.</p>
     </div>
   </div>
 </section>
@@ -1095,166 +986,69 @@
   <div class="phase-header">
     <div class="phase-badge p1" style="background: var(--gray-700);">📅</div>
     <div>
-      <h2>90-Day Gantt Overview</h2>
-      <div class="phase-dates">Visual timeline of all workstreams</div>
+      <h2>90-Day Gantt Overview <span class="update-badge changed">Updated</span></h2>
+      <div class="phase-dates">Includes operator meetings and AI pipeline</div>
     </div>
   </div>
 
   <table class="gantt">
     <thead>
-      <tr>
-        <th>Workstream</th>
-        <th>W1</th><th>W2</th><th>W3</th><th>W4</th>
-        <th>W5</th><th>W6</th><th>W7</th><th>W8</th>
-        <th>W9</th><th>W10</th><th>W11</th><th>W12</th>
-      </tr>
+      <tr><th>Workstream</th><th>W1</th><th>W2</th><th>W3</th><th>W4</th><th>W5</th><th>W6</th><th>W7</th><th>W8</th><th>W9</th><th>W10</th><th>W11</th><th>W12</th></tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Pilot Audits (Priority Practices)</td>
-        <td colspan="2"><div class="gantt-bar green" title="Weeks 1-2"></div></td>
-        <td colspan="10"></td>
-      </tr>
-      <tr>
-        <td>SEMRush / SEO Analysis</td>
-        <td></td>
-        <td colspan="2"><div class="gantt-bar green" title="Weeks 2-3"></div></td>
-        <td colspan="9"></td>
-      </tr>
-      <tr>
-        <td>Playbook Development</td>
-        <td></td>
-        <td colspan="3"><div class="gantt-bar green" title="Weeks 2-4"></div></td>
-        <td colspan="8"></td>
-      </tr>
-      <tr>
-        <td>Social Account Setup & Content Scout</td>
-        <td></td>
-        <td colspan="3"><div class="gantt-bar green" title="Weeks 2-4"></div></td>
-        <td colspan="8"></td>
-      </tr>
-      <tr>
-        <td>Wave 1 Rollout (30 locations)</td>
-        <td colspan="2"></td>
-        <td colspan="2"><div class="gantt-bar blue" title="Weeks 3-4"></div></td>
-        <td colspan="8"></td>
-      </tr>
-      <tr>
-        <td>GP Performance Reports (Pilot)</td>
-        <td colspan="4"></td>
-        <td colspan="2"><div class="gantt-bar blue" title="Weeks 5-6"></div></td>
-        <td colspan="6"></td>
-      </tr>
-      <tr>
-        <td>Perio Performance Reports (Pilot)</td>
-        <td colspan="4"></td>
-        <td></td>
-        <td colspan="3"><div class="gantt-bar blue" title="Weeks 6-8"></div></td>
-        <td colspan="4"></td>
-      </tr>
-      <tr>
-        <td>Wave 2–3 Rollout (60 locations)</td>
-        <td colspan="4"></td>
-        <td colspan="4"><div class="gantt-bar blue" title="Weeks 5-8"></div></td>
-        <td colspan="4"></td>
-      </tr>
-      <tr>
-        <td>PRD Role & Referral Lab</td>
-        <td colspan="4"></td>
-        <td colspan="3"><div class="gantt-bar blue" title="Weeks 5-7"></div></td>
-        <td colspan="5"></td>
-      </tr>
-      <tr>
-        <td>5-Star Experience Program</td>
-        <td colspan="8"></td>
-        <td colspan="4"><div class="gantt-bar purple" title="Weeks 9-12"></div></td>
-      </tr>
-      <tr>
-        <td>Amy's Training Path</td>
-        <td colspan="8"></td>
-        <td colspan="4"><div class="gantt-bar purple" title="Weeks 9-12"></div></td>
-      </tr>
-      <tr>
-        <td>Wave 4–5 Rollout (60 locations)</td>
-        <td colspan="8"></td>
-        <td colspan="4"><div class="gantt-bar purple" title="Weeks 9-12"></div></td>
-      </tr>
-      <tr>
-        <td>Retrospective & Steady-State Plan</td>
-        <td colspan="10"></td>
-        <td colspan="2"><div class="gantt-bar orange" title="Weeks 11-12"></div></td>
-      </tr>
+      <tr><td>Operator Meeting 1 (Discovery)</td><td colspan="2"><div class="gantt-bar teal"></div></td><td colspan="10"></td></tr>
+      <tr><td>Pilot Audits (Priority Practices)</td><td colspan="2"><div class="gantt-bar green"></div></td><td colspan="10"></td></tr>
+      <tr><td>Peak Report Review (Sarah/Mitch/Ops)</td><td><div class="gantt-bar teal"></div></td><td colspan="11"></td></tr>
+      <tr><td>Fusion Meeting (Savannah)</td><td></td><td><div class="gantt-bar teal"></div></td><td colspan="10"></td></tr>
+      <tr><td>Critical Issue Synthesis → Mike</td><td></td><td colspan="2"><div class="gantt-bar green"></div></td><td colspan="9"></td></tr>
+      <tr><td>Mike AI Fix Pipeline Build</td><td></td><td colspan="3"><div class="gantt-bar orange"></div></td><td colspan="8"></td></tr>
+      <tr><td>Yext GBP Handoff Test</td><td></td><td><div class="gantt-bar orange"></div></td><td colspan="10"></td></tr>
+      <tr><td>Social/Content Scout/Playbooks</td><td></td><td colspan="3"><div class="gantt-bar green"></div></td><td colspan="8"></td></tr>
+      <tr><td>Wave 1 Rollout (30 locations)</td><td colspan="2"></td><td colspan="2"><div class="gantt-bar blue"></div></td><td colspan="8"></td></tr>
+      <tr><td>Operator Meeting 2 (Recommendations)</td><td colspan="4"></td><td><div class="gantt-bar teal"></div></td><td colspan="7"></td></tr>
+      <tr><td>GP Performance Reports (Post-Meeting)</td><td colspan="4"></td><td colspan="2"><div class="gantt-bar blue"></div></td><td colspan="6"></td></tr>
+      <tr><td>Perio Reports + Referral Lab</td><td colspan="4"></td><td></td><td colspan="3"><div class="gantt-bar blue"></div></td><td colspan="4"></td></tr>
+      <tr><td>Wave 2–3 Rollout (60 locations)</td><td colspan="4"></td><td colspan="4"><div class="gantt-bar blue"></div></td><td colspan="4"></td></tr>
+      <tr><td>5-Star Experience Program</td><td colspan="8"></td><td colspan="4"><div class="gantt-bar purple"></div></td></tr>
+      <tr><td>Marketing vs. Ops Framework</td><td colspan="8"></td><td colspan="2"><div class="gantt-bar purple"></div></td><td colspan="2"></td></tr>
+      <tr><td>Wave 4–5 Rollout (60 locations)</td><td colspan="8"></td><td colspan="4"><div class="gantt-bar purple"></div></td></tr>
+      <tr><td>Retrospective & Steady-State</td><td colspan="10"></td><td colspan="2"><div class="gantt-bar orange"></div></td></tr>
     </tbody>
   </table>
 
   <div style="display: flex; gap: 24px; margin-top: 16px; font-size: 13px; flex-wrap: wrap;">
+    <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #00897b, #26a69a); border-radius: 3px; vertical-align: middle;"></span> Operator Meetings / Leadership</span>
     <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 3px; vertical-align: middle;"></span> Phase 1: Foundation</span>
     <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #2980b9, #4a90d9); border-radius: 3px; vertical-align: middle;"></span> Phase 2: Performance</span>
     <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #8e44ad, #a569bd); border-radius: 3px; vertical-align: middle;"></span> Phase 3: Experience</span>
-    <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #e67e22, #f39c12); border-radius: 3px; vertical-align: middle;"></span> Wrap-Up</span>
+    <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #e67e22, #f39c12); border-radius: 3px; vertical-align: middle;"></span> AI Pipeline / Wrap-Up</span>
   </div>
 </section>
 
-<!-- ===== SKILL TOOLKIT REFERENCE ===== -->
+<!-- SKILL REFERENCE -->
 <section class="exec-summary" style="margin-top: 0;">
   <h2>Skill Toolkit Reference</h2>
-  <p style="margin-bottom: 20px;">These are the Claude-powered automation skills that drive the audit and reporting process at scale. Each generates a standardized, scored output that feeds into the tracking spreadsheet and leadership dashboards.</p>
-
   <table class="task-table">
-    <thead>
-      <tr><th>Skill</th><th>What It Does</th><th>Output</th><th>Used In</th></tr>
-    </thead>
+    <thead><tr><th>Skill</th><th>What It Does</th><th>Output</th><th>Used In</th></tr></thead>
     <tbody>
-      <tr>
-        <td><span class="skill-tag">dental-website-audit</span></td>
-        <td>Scores website against 50+ checkpoints across 10 categories (Conversion, UX, SEO, Trust, NAP, etc.)</td>
-        <td>Scored audit report with pass/fail per item + prioritized fix list</td>
-        <td>Phase 1 + ongoing</td>
-      </tr>
-      <tr>
-        <td><span class="skill-tag">dental-gbp-audit</span></td>
-        <td>Scores GBP across 8 categories (Profile, Services, Reviews, Photos, Posts, Q&A, Messaging, Local SEO)</td>
-        <td>Scored audit report with optimization checklist for OMs</td>
-        <td>Phase 1 + ongoing</td>
-      </tr>
-      <tr>
-        <td><span class="skill-tag">marketing-performance</span></td>
-        <td>Production summaries, scorecards, marketing ROI, call conversion, patient attrition for GP practices</td>
-        <td>HTML report with waterfall charts, scorecards, team action plans</td>
-        <td>Phase 2 (GP)</td>
-      </tr>
-      <tr>
-        <td><span class="skill-tag">marketing-performance-perio</span></td>
-        <td>Referral program ROI, referring doctor tracking, surgical vs. maintenance mix for perio practices</td>
-        <td>HTML report with referral scorecards, case acceptance analysis</td>
-        <td>Phase 2 (Specialty)</td>
-      </tr>
-      <tr>
-        <td><span class="skill-tag">content-scout</span></td>
-        <td>Discovers brand content and UGC across social media, review sites, and the open web</td>
-        <td>Brand Content Report + UGC Report + 60-day social calendar</td>
-        <td>Phase 1 (Social)</td>
-      </tr>
-      <tr>
-        <td><span class="skill-tag">marketing-strategy</span></td>
-        <td>Synthesizes audit + content reports into a prioritized action plan by impact × effort</td>
-        <td>Prioritized marketing strategy document</td>
-        <td>Post-audit</td>
-      </tr>
+      <tr><td><span class="skill-tag">dental-website-audit</span></td><td>Scores website against 50+ checkpoints across 10 categories</td><td>Scored audit report + prioritized fix list</td><td>Phase 1 + ongoing</td></tr>
+      <tr><td><span class="skill-tag">dental-gbp-audit</span></td><td>Scores GBP across 8 categories (0–5 each)</td><td>Scored audit + optimization checklist → Yext</td><td>Phase 1 + ongoing</td></tr>
+      <tr><td><span class="skill-tag">marketing-performance</span></td><td>Production summaries, scorecards, marketing ROI for GP practices</td><td>HTML report with waterfalls, scorecards, action plans</td><td>Phase 2 (GP) — post-operator meeting only</td></tr>
+      <tr><td><span class="skill-tag">marketing-performance-perio</span></td><td>Referral program ROI, referring doctor tracking for perio</td><td>HTML report with referral scorecards</td><td>Phase 2 (Specialty) — proceeding now</td></tr>
+      <tr><td><span class="skill-tag">content-scout</span></td><td>Brand content + UGC discovery across social/web</td><td>Brand Report + UGC Report + 60-day calendar</td><td>Phase 1 (Social content engine)</td></tr>
+      <tr><td><span class="skill-tag">marketing-strategy</span></td><td>Synthesizes audit + content reports into prioritized action plan</td><td>Prioritized marketing strategy document</td><td>Post-audit, pre-Meeting 2</td></tr>
     </tbody>
   </table>
 </section>
 
 </div>
 
-<!-- ===== FOOTER ===== -->
 <div class="footer">
-  <p>SGA 90-Day Digital Integration Action Plan &nbsp;|&nbsp; Gen4 Dental &nbsp;|&nbsp; Prepared March 24, 2026</p>
-  <p style="margin-top: 8px; opacity: 0.7;">This is a living document. Update weekly as decisions are made and rollout progresses.</p>
+  <p>SGA 90-Day Digital Integration Action Plan &nbsp;|&nbsp; Gen4 Dental &nbsp;|&nbsp; Updated March 24, 2026 after Sarah Alofs CGO Sync</p>
+  <p style="margin-top: 8px; opacity: 0.7;">Living document. Items tagged <span class="update-badge new" style="vertical-align: baseline;">New</span> and <span class="update-badge changed" style="vertical-align: baseline;">Updated</span> reflect the 3/24 Sarah sync.</p>
 </div>
 
 <script>
-  // Smooth scroll for nav
   document.querySelectorAll('.phase-tab').forEach(tab => {
     tab.addEventListener('click', function(e) {
       e.preventDefault();
@@ -1266,21 +1060,16 @@
       }
     });
   });
-
-  // Update active tab on scroll
   window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('.phase-section, .exec-summary');
-    let current = 'summary';
+    let current = 'sarah-sync';
     sections.forEach(section => {
-      if (section.getBoundingClientRect().top < 200) {
-        current = section.id || 'summary';
-      }
+      if (section.getBoundingClientRect().top < 200) current = section.id || 'sarah-sync';
     });
     document.querySelectorAll('.phase-tab').forEach(tab => {
       tab.classList.toggle('active', tab.getAttribute('href') === '#' + current);
     });
   });
 </script>
-
 </body>
 </html>
