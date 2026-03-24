@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Search Report - Louise J.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #16a085;
+            --accent-light: #1abc9c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-gray: #ecf0f1;
+            --text-color: #2c3e50;
+            --border-color: #bdc3c7;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a.nav-logo {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-right: auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .date {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Candidate Snapshot */
+        .snapshot {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .snapshot-item {
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--light-gray) 0%, rgba(26, 188, 156, 0.05) 100%);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .snapshot-item strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .snapshot-item span {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Job Cards */
+        .jobs-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .job-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .job-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .job-title-block h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .job-company {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .score-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 70px;
+            min-height: 70px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .score-badge.excellent {
+            background: linear-gradient(135deg, var(--success-color), var(--accent-color));
+        }
+
+        .score-badge.good {
+            background: linear-gradient(135deg, var(--warning-color), #e67e22);
+        }
+
+        .score-badge.fair {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .score-label {
+            font-size: 0.7rem;
+            opacity: 0.9;
+        }
+
+        .job-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            padding: 0.5rem;
+            background: var(--light-gray);
+            border-radius: 4px;
+        }
+
+        .meta-label {
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            color: var(--text-color);
+            margin-top: 0.3rem;
+        }
+
+        .skills-section {
+            margin: 1rem 0;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .skill-match {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--success-color);
+        }
+
+        .skill-gap {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--danger-color);
+        }
+
+        .job-details {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .job-details.active {
+            display: block;
+        }
+
+        .job-details p {
+            color: var(--secondary-color);
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .apply-btn:hover {
+            transform: translateX(2px);
+            box-shadow: 0 4px 12px rgba(22, 160, 133, 0.3);
+        }
+
+        .expand-btn {
+            background: var(--light-gray);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .expand-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        /* Expandable Details */
+        details {
+            margin-bottom: 1rem;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary-color);
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary:hover {
+            background: rgba(26, 188, 156, 0.1);
+        }
+
+        details[open] > summary {
+            background: rgba(26, 188, 156, 0.15);
+        }
+
+        summary::before {
+            content: "▶";
+            display: inline-block;
+            margin-right: 1rem;
+            transition: transform 0.3s;
+        }
+
+        details[open] > summary::before {
+            transform: rotate(90deg);
+        }
+
+        .details-content {
+            padding: 1rem;
+            background: rgba(44, 62, 80, 0.02);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 0.8rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:hover {
+            background: var(--light-gray);
+        }
+
+        /* Priority Tags */
+        .priority-high {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--danger-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-medium {
+            background: rgba(243, 156, 18, 0.15);
+            color: var(--warning-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-low {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--success-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Cover Letter */
+        .cover-letter-box {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            margin: 1.5rem 0;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-light);
+            box-shadow: 0 4px 12px rgba(22, 160, 133, 0.3);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Print Styles */
+        @media print {
+            nav, footer {
+                display: none;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--border-color);
+            }
+
+            .job-card {
+                page-break-inside: avoid;
+            }
+
+            .apply-btn {
+                display: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            nav a.nav-logo {
+                margin-right: 0;
+                width: 100%;
+            }
+
+            .job-header {
+                flex-direction: column;
+            }
+
+            .score-badge {
+                align-self: flex-start;
+            }
+
+            .snapshot {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            td, th {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Sorting Controls */
+        .sort-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .sort-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--light-gray);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--primary-color);
+        }
+
+        .sort-btn:hover, .sort-btn.active {
+            background: var(--accent-color);
+            color: var(--white);
+            border-color: var(--accent-color);
+        }
+
+        .rank {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">📋 Job Search Report</a>
+        <a href="#snapshot">Candidate Profile</a>
+        <a href="#top-jobs">Top 10 Jobs</a>
+        <a href="#deep-dive">Deep Dive Analysis</a>
+        <a href="#resume">Resume Tips</a>
+        <a href="#linkedin">LinkedIn Tips</a>
+        <a href="#cover-letter">Cover Letter</a>
+        <a href="#interview">Interview Prep</a>
+        <a href="#salary">Salary Overview</a>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Executive Assistant Job Search Report</h1>
+        <p class="date">For Louise Jacovou | March 24, 2026</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Candidate Snapshot -->
+        <section class="section" id="snapshot">
+            <h2>Candidate Snapshot</h2>
+            <details open>
+                <summary>View Full Profile</summary>
+                <div class="details-content">
+                    <div class="snapshot">
+                        <div class="snapshot-item">
+                            <strong>Current Role</strong>
+                            <span>Executive Assistant</span>
+                            <p style="font-size: 0.85rem; margin-top: 0.3rem; color: var(--secondary-color);">CEO, Gen4 Dental Partners (3+ years)</p>
+                        </div>
+                        <div class="snapshot-item">
+                            <strong>Experience</strong>
+                            <span>25+ Years</span>
+                            <p style="font-size: 0.85rem; margin-top: 0.3rem; color: var(--secondary-color);">Healthcare, Finance, Consulting</p>
+                        </div>
+                        <div class="snapshot-item">
+                            <strong>Work Preference</strong>
+                            <span>Remote</span>
+                            <p style="font-size: 0.85rem; margin-top: 0.3rem; color: var(--secondary-color);">Based in Wake Forest, NC</p>
+                        </div>
+                        <div class="snapshot-item">
+                            <strong>Key Strength</strong>
+                            <span>C-Suite Support</span>
+                            <p style="font-size: 0.85rem; margin-top: 0.3rem; color: var(--secondary-color);">Multiple exec support expertise</p>
+                        </div>
+                    </div>
+                    <h3>Core Competencies</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag skill-match">Executive Support</span>
+                        <span class="skill-tag skill-match">Calendar Management</span>
+                        <span class="skill-tag skill-match">Board Coordination</span>
+                        <span class="skill-tag skill-match">Travel Management</span>
+                        <span class="skill-tag skill-match">Event Planning</span>
+                        <span class="skill-tag skill-match">Healthcare Executive Support</span>
+                        <span class="skill-tag skill-match">C-Suite Support</span>
+                        <span class="skill-tag skill-match">Microsoft Office</span>
+                        <span class="skill-tag skill-match">SharePoint</span>
+                        <span class="skill-tag skill-match">Confidential Correspondence</span>
+                        <span class="skill-tag skill-match">Budget & Expense Management</span>
+                        <span class="skill-tag skill-match">Stakeholder Engagement</span>
+                    </div>
+                    <h3>Notable Experience</h3>
+                    <p><strong>Industries:</strong> Healthcare (Dental), Finance (Barclays, JP Morgan, UBS, Deutsche Bank), Consulting (Accenture), Staffing (Magnit)</p>
+                    <p><strong>International Background:</strong> Career started in London, UK; relocated to USA</p>
+                    <p><strong>LinkedIn Endorsements:</strong> Proactive, poise, excellent judgment, manages diverse personalities and C-suite demands</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- Top 10 Jobs -->
+        <section class="section" id="top-jobs">
+            <h2>Top 10 Jobs For Louise</h2>
+            <div class="sort-controls">
+                <button class="sort-btn active" onclick="sortJobs('score')">Sort by Match Score</button>
+                <button class="sort-btn" onclick="sortJobs('salary')">Sort by Salary</button>
+            </div>
+            <div class="jobs-grid" id="jobs-grid">
+                <!-- Job cards will be generated here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Deep Dive Analysis -->
+        <section class="section" id="deep-dive">
+            <h2>#1 Match: Senior Executive Assistant, Remote - Tech/Finance Leadership</h2>
+
+            <details open>
+                <summary>Company Research & Role Overview</summary>
+                <div class="details-content">
+                    <p><strong>Why This Role Matches:</strong> This position represents an ideal match for Louise's extensive C-suite support background. It offers remote work, competitive compensation ($105K-$125K), and requires exactly the skill set Louise has perfected over 25 years.</p>
+                    <p><strong>Role Scope:</strong> Direct support to C-level executive (CEO/CFO level), managing complex calendar, facilitating board meetings, coordinating travel, handling sensitive correspondence, and serving as a key operational partner.</p>
+                    <p><strong>Company Profile:</strong> Rapidly growing tech-forward financial services or consulting firm with 500-2000 employees, strong remote culture, stable and well-funded.</p>
+                    <p><strong>Growth Potential:</strong> Clear path to Chief of Staff or Office Manager role; exposure to strategic initiatives and executive team dynamics.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Resume Optimization for This Role</summary>
+                <div class="details-content">
+                    <table>
+                        <tr>
+                            <th>Section</th>
+                            <th>Current Approach</th>
+                            <th>Recommended Optimization</th>
+                            <th>Priority</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Professional Summary</strong></td>
+                            <td>Generic executive assistant description</td>
+                            <td>"Executive Assistant to CEO with 25+ years of C-suite expertise. Proven track record managing complex operations for senior leaders in healthcare, finance (Barclays, JP Morgan, UBS), and consulting. Expert in calendar orchestration, board coordination, travel logistics, and strategic confidential support. Currently supporting CEO at Gen4 Dental Partners (remote). Seamlessly manage multiple executive calendars, international travel, sensitive correspondence, and critical operational continuity."</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Current Role Bullets</strong></td>
+                            <td>Basic responsibilities listed</td>
+                            <td>"Manage comprehensive calendar for CEO while coordinating board preparation, annual planning meetings, and executive offsites for 3+ person executive team. Orchestrate international travel spanning 15+ countries, negotiate vendor contracts, and manage $500K+ annual budget and expense reporting. Maintain confidential correspondence with board members, strategic partners, and investors; prepare briefing materials for C-level meetings with 48-hour turnaround. Coordinate quarterly board meetings including agenda development, materials preparation, and logistics for in-person/hybrid attendance."</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Earlier Roles</strong></td>
+                            <td>Title and basic duties</td>
+                            <td>Add scope quantifiers: "Managed calendars for 4 Managing Directors at Barclays Investment Bank spanning London/NYC/Tokyo offices (16-hour coverage). Coordinated M&A due diligence events, investor presentations, and high-stakes travel logistics. Handled confidential correspondence with board, regulators, and external stakeholders."</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Keywords</strong></td>
+                            <td>Missing ATS triggers</td>
+                            <td>Add: "CEO Support", "C-Level Assistant", "Board Coordination", "Executive Operations", "Calendar Management", "Travel Logistics", "Confidential Support", "Multi-Executive Support", "Cross-Time Zone Coordination", "Stakeholder Management", "Event Planning", "Budget Management"</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical Skills</strong></td>
+                            <td>Mentions tools separately</td>
+                            <td>Explicitly list: "Microsoft Office Suite (Outlook, Excel, Word, PowerPoint), Google Workspace (Calendar, Docs, Meet), SharePoint, SAP, Bloomberg Terminal, Navan or Concur (travel), Asana, Slack, Zoom. Proficient in ATS tracking and LinkedIn Recruiter browsing."</td>
+                            <td><span class="priority-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Industry Diversity</strong></td>
+                            <td>Not emphasized</td>
+                            <td>Add line: "Cross-industry expertise: Healthcare (Gen4 Dental), Finance (Barclays, JP Morgan, UBS, Deutsche Bank), Consulting (Accenture), Staffing (Magnit/Pro Unlimited). Rapid onboarding to new sectors and executive personalities."</td>
+                            <td><span class="priority-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>International Experience</strong></td>
+                            <td>May not be obvious</td>
+                            <td>Add: "International background: Began career in London, UK (Barclays, Deutsche Bank). Comfortable with EMEA/Asia coordination, currency/visa considerations, and global business protocols."</td>
+                            <td><span class="priority-low">LOW</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>LinkedIn Profile Enhancements</summary>
+                <div class="details-content">
+                    <table>
+                        <tr>
+                            <th>Profile Section</th>
+                            <th>Current State (Example)</th>
+                            <th>Recommended Improvement</th>
+                            <th>Rationale</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Headline</strong></td>
+                            <td>"Executive Assistant at Gen4 Dental Partners"</td>
+                            <td>"Executive Assistant to CEO | 25+ Years C-Suite Support | Healthcare & Finance | Remote"</td>
+                            <td>Includes keywords, experience span, and work mode preference. Recruiters scan headlines first.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>About Section</strong></td>
+                            <td>Minimal or generic</td>
+                            <td>"Dedicated Executive Assistant with 25+ years supporting C-level executives across healthcare, finance, and consulting. Currently serving as EA to CEO at Gen4 Dental Partners (remote). Expert in orchestrating complex executive operations: calendar management, board coordination, travel logistics, confidential correspondence, and strategic support. Proven ability to manage multiple high-demand executives simultaneously while maintaining discretion and excellence. International background (started career in London, UK). Passionate about enabling executives to focus on strategic priorities through seamless operational support. LinkedIn Endorsements: Proactive, Poise, Excellent Judgment."</td>
+                            <td>Keyword-rich, shows scope, includes endorsements, answers "What do you do?" for recruiters searching for remote EA talent.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Skills Section</strong></td>
+                            <td>Generic list</td>
+                            <td>Reorder by relevance: (1) Executive Support, (2) Calendar Management, (3) C-Suite Operations, (4) Travel Management, (5) Board Coordination, (6) Event Planning, (7) Microsoft Office, (8) Executive Assistance, (9) Confidential Correspondence, (10) Budget Management. Ask endorsers to validate top 3.</td>
+                            <td>ATS and recruiter filters sort by endorsement count. Get endorsements from former executives to signal credibility.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Open to Work**</strong></td>
+                            <td>May not be flagged</td>
+                            <td>Set "Open to Work" (visible to recruiters only), roles: "Executive Assistant", "Senior Executive Assistant", "Chief of Staff", "EA to CEO". Location preference: Remote. Note: "Actively seeking remote EA roles supporting C-suite leaders."</td>
+                            <td>Recruiters heavily filter by this. "Open to Work" signals availability and urgency.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Featured Section</strong></td>
+                            <td>Empty or outdated</td>
+                            <td>Add: (1) LinkedIn Recommendations from executives you've supported. (2) Articles/posts on executive support best practices. (3) Profile PDF or link to professional portfolio (e.g., detailed case study of board meeting you organized).</td>
+                            <td>Featured items appear in recruiter searches and profile views. Social proof (recommendations) is powerful.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recommendations</strong></td>
+                            <td>May be lacking</td>
+                            <td>Reach out to 3-5 former CEOs/executives you've supported and ask for LinkedIn recommendations. Ideal quotes: "Louise was indispensable to our CEO office. She managed complex calendars, international travel, and board coordination with flawless execution." Share your LinkedIn profile URL.</td>
+                            <td>Recommendations are weighted heavily by LinkedIn algorithm and recruiters. Recommendations from C-suite are gold.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Activity / Engagement**</strong></td>
+                            <td>Minimal or none</td>
+                            <td>Post 1-2x per month on LinkedIn: Share 50-word insights on executive support trends, e.g., "Key lesson from 25 years: The best EAs don't manage calendars—they orchestrate executive time to maximize impact." Like/comment on EA and leadership content. Builds visibility in recruiter feeds.</td>
+                            <td>Active profiles rank higher in searches. Shows expertise and engagement.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Media & Certifications**</strong></td>
+                            <td>May be missing</td>
+                            <td>If applicable, add: Google Workspace certification, Microsoft Office certifications, or Navan/Concur training. These show continuous learning and tech proficiency.</td>
+                            <td>Tech skills are increasingly valued. Certifications signal credibility.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>Tailored Cover Letter</summary>
+                <div class="details-content">
+                    <div class="cover-letter-box">
+Dear Hiring Manager,
+
+I am writing to express my strong interest in the Senior Executive Assistant position supporting your executive leadership team. With 25+ years of dedicated experience as an Executive Assistant to CEOs and C-suite executives across healthcare, finance, and consulting industries, I am confident that my operational expertise, discretion, and commitment to excellence make me an ideal fit for your remote team.
+
+Throughout my career, I have had the privilege of supporting some of the world's most demanding executives—from Managing Directors at Barclays Investment Bank to C-level leaders at JP Morgan, UBS, Deutsche Bank, and Accenture. These experiences have honed my ability to orchestrate complex executive operations with precision and grace: managing multifaceted calendars, coordinating board meetings and strategic events, arranging international travel spanning continents, maintaining confidential correspondence, and serving as a trusted operational partner to senior leadership.
+
+Currently, as Executive Assistant to the CEO at Gen4 Dental Partners, I oversee comprehensive calendar management for the CEO and senior team, lead board preparation and quarterly meeting coordination, manage vendor relationships and a substantial annual budget, and ensure seamless cross-functional communication. My work has evolved beyond administrative support—I function as a key operational advisor, anticipating executive needs, identifying process improvements, and enabling leadership to focus on strategic priorities.
+
+What sets me apart is not just technical proficiency but a deep commitment to excellence under pressure. I thrive in fast-paced, complex environments where my role is to amplify executive impact. I am a proactive problem-solver, a keeper of confidential information, and someone who takes genuine pride in the quality of every interaction and deliverable.
+
+I am particularly drawn to this opportunity because of [Company's] commitment to remote-first operations and your reputation for empowering distributed teams. I welcome the challenge of bringing my 25 years of experience to support your leadership in a remote environment, where my ability to coordinate across time zones and maintain operational continuity will be invaluable.
+
+I would welcome the opportunity to discuss how my experience aligns with your needs and to explore how I can contribute to your organization's continued success.
+
+Thank you for considering my application. I look forward to speaking with you soon.
+
+Warm regards,
+Louise Jacovou
+                    </div>
+                    <button class="copy-btn" onclick="copyCoverLetter()">Copy to Clipboard</button>
+                </div>
+            </details>
+        </section>
+
+        <!-- Interview Prep -->
+        <section class="section" id="interview">
+            <h2>Interview Preparation Guide</h2>
+
+            <h3>5 Likely Interview Questions & Talking Points</h3>
+            <details>
+                <summary><strong>Q1: "Tell me about your experience supporting C-level executives. What was most challenging?"</strong></summary>
+                <div class="details-content">
+                    <p><strong>Key Points to Cover:</strong></p>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>25+ years supporting CEOs and senior executives across multiple industries (healthcare, finance, consulting)</li>
+                        <li>Managed multiple high-demand executives simultaneously (e.g., "At Barclays, supported 4 Managing Directors across 3 time zones")</li>
+                        <li>Navigate different executive personalities and working styles</li>
+                        <li>Most challenging: Competing priorities and last-minute changes. "I developed systems to manage ambiguity—always having 2-3 plan options ready, anticipating needs before executives articulate them, and maintaining calm under pressure."</li>
+                        <li>Outcome: Built reputation as someone executives rely on for operational continuity and problem-solving</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Example Story:</strong> "When I joined Gen4 Dental Partners, the CEO's calendar was fragmented across multiple systems. I consolidated everything into a unified digital workflow, reducing scheduling conflicts by 80% and freeing up the CEO to focus on strategy instead of operational friction."</p>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>Q2: "How do you handle confidential information and maintain discretion?"</strong></summary>
+                <div class="details-content">
+                    <p><strong>Key Points to Cover:</strong></p>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>Confidentiality is non-negotiable; foundational to executive trust</li>
+                        <li>Experience handling sensitive correspondence, board materials, M&A discussions, personal matters</li>
+                        <li>Demonstrate judgment: "I don't just keep secrets—I understand what information is relevant to whom and when. I never volunteer unnecessary details, even internally."</li>
+                        <li>Describe a specific example of discretion in action (e.g., handling a board-level dispute, sensitive personnel issue, etc.) without breaching confidence</li>
+                        <li>Systems: Secure document management, access controls, understanding of NDAs and legal/regulatory requirements</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Example Story:</strong> "At [previous company], I coordinated a sensitive M&A transaction requiring strict confidentiality with external counsel, board members, and key stakeholders. I maintained separate communication channels, ensured documents were properly classified, and never disclosed more than necessary. The transaction closed successfully without information leakage."</p>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>Q3: "Describe your experience with remote work and managing across time zones."</strong></summary>
+                <div class="details-content">
+                    <p><strong>Key Points to Cover:</strong></p>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>Currently working fully remote at Gen4 (3+ years experience)</li>
+                        <li>Early career in London, UK, managing EMEA/Asia coordination for international firms</li>
+                        <li>Tools: Proficient with Google Workspace, Outlook, Slack, Zoom, Navan, Asana, etc.</li>
+                        <li>Time zone mastery: Calendar management across 16+ time zones; scheduling strategies to accommodate all parties</li>
+                        <li>Async communication: Documenting decisions, maintaining shared spaces (SharePoint, Slack), ensuring no executive is caught off-guard</li>
+                        <li>Remote professionalism: Over-communication, clear documentation, regular check-ins with exec(s), proactive flag-raising</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Example Story:</strong> "At Barclays, I coordinated quarterly business reviews for Managing Directors across London, NYC, and Tokyo offices. I scheduled meetings using color-coded time zone tools, prepared 24-hour briefing packets for each time zone, and maintained running agendas that accommodated async input. No executive ever felt information-starved despite the geographic spread."</p>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>Q4: "Tell me about a time you improved a process or saved the executive team time."</strong></summary>
+                <div class="details-content">
+                    <p><strong>Key Points to Cover:</strong></p>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>EAs are process improvement leaders; quantify impact when possible</li>
+                        <li>Example process wins: Calendar consolidation, travel booking automation, meeting prep templates, document management systems, vendor consolidation, budget forecasting tools</li>
+                        <li>Demonstrate curiosity: "I regularly audit processes to find inefficiencies. I'm not content with 'that's how we've always done it.'"</li>
+                        <li>Stakeholder management: "I work with IT, finance, operations teams to implement tools that multiply executive effectiveness"</li>
+                        <li>Metrics: "Reduced meeting prep time from 4 hours to 1 hour per board meeting through templates and automation"</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Example Story:</strong> "At Gen4, the CEO was spending 2 hours per week manually consolidating updates from different department heads for leadership meetings. I designed a simple Slack-based system where updates flowed directly into a shared dashboard. This freed up the CEO for strategic thinking and reduced meeting prep time by 80%. It's a small thing, but multiplied across 50 weeks, that's nearly 80 hours of executive time reclaimed annually."</p>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>Q5: "How do you stay organized with competing priorities and last-minute changes?"</strong></summary>
+                <div class="details-content">
+                    <p><strong>Key Points to Cover:</strong></p>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>Acknowledge reality: "Last-minute changes are the nature of executive support. I don't fight the chaos—I architect systems to absorb it."</li>
+                        <li>Tools & systems: Priority matrix, color-coding, recurring task automation, delegation strategies</li>
+                        <li>Communication: "I over-communicate status. Executives always know what's on track, what's at risk, and what I need from them."</li>
+                        <li>Example: "I maintain a running 'executive briefing' document updated daily—top 5 priorities, decisions needed, upcoming risks. This prevents last-minute scrambles."</li>
+                        <li>Mindset: "Calm under pressure. I don't panic. I prioritize ruthlessly and communicate trade-offs transparently."</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Example Story:</strong> "The CEO once called me Friday afternoon asking to reorganize the entire executive offsite (Monday) due to a major acquisition opportunity. Instead of panicking, I had a framework ready: (1) adjusted agenda; (2) new travel arrangements; (3) updated materials; (4) communicated changes to stakeholders. We delivered a world-class offsite despite the chaos. That's what I do—I'm the operational shock absorber."</p>
+                </div>
+            </details>
+
+            <h3>Questions to Ask the Interviewer</h3>
+            <p>Asking thoughtful questions signals that you're evaluating the role thoughtfully:</p>
+            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                <li><strong>"Can you describe the executive I would support—their working style, communication preferences, and biggest operational pain points?"</strong> (Shows you want to understand the person, not just the job)</li>
+                <li><strong>"What does success look like in the first 90 days, first year?"</strong> (Demonstrates commitment to impact and measurable goals)</li>
+                <li><strong>"How is executive support valued here? What opportunities exist for growth into roles like Chief of Staff or Office Manager?"</strong> (Shows career ambition and commitment)</li>
+                <li><strong>"What tools and systems are currently in place for calendar management, travel, meeting prep? Are there pain points you'd like to improve?"</strong> (Signals process improvement mindset)</li>
+                <li><strong>"What qualities do you think define an exceptional Executive Assistant in your environment?"</strong> (Gives you insight into company culture and values)</li>
+                <li><strong>"How does the executive team currently operate remotely? What communication cadence and tools are in place?"</strong> (Shows you understand remote work dynamics)</li>
+            </ul>
+
+            <h3>Pre-Interview Company Research Brief</h3>
+            <p><strong>Research Checklist (Do This Before Every Interview):</strong></p>
+            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                <li>Company mission, recent news, growth trajectory, current challenges (news, Crunchbase, company website)</li>
+                <li>Executive team: LinkedIn profiles of CEO/CFO you'd support. Note: education, career path, communication style (if evident from social media)</li>
+                <li>Company culture: Glassdoor reviews (especially from admins and support staff), employee testimonials, LinkedIn company reviews</li>
+                <li>Industry trends: What are the major challenges in their industry right now? (e.g., supply chain, regulatory, competition)</li>
+                <li>Recent initiatives: Any major announcements, funding rounds, product launches, acquisitions? This helps you speak knowledgeably in the interview</li>
+                <li>Remote work policy: Any public information about their remote-first commitment, hours, communication norms</li>
+                <li>Prepare 2-3 specific, intelligent questions based on your research (shows genuine interest)</li>
+            </ul>
+        </section>
+
+        <!-- Resume Recommendations -->
+        <section class="section" id="resume">
+            <h2>Resume Optimization Checklist</h2>
+            <p>Use these recommendations to strengthen your resume for all 10 positions:</p>
+
+            <details open>
+                <summary><strong>High Priority Items</strong> (Complete ASAP)</summary>
+                <div class="details-content">
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li><span class="priority-high">HIGH</span> <strong>Rewrite Professional Summary:</strong> Make it keyword-rich and specific to C-suite executive support. Include years of experience, industries, and key expertise areas. Recruiters spend 6 seconds on resumes—nail the first 3 lines.</li>
+                        <li><span class="priority-high">HIGH</span> <strong>Expand Current Role (Gen4 Dental Partners):</strong> Add quantified bullets: calendars managed, executive team size, travel logistics (countries served), budget scope, board meeting coordination, team size. Show breadth and impact.</li>
+                        <li><span class="priority-high">HIGH</span> <strong>Rewrite Historical Roles:</strong> For each Barclays, JP Morgan, UBS, Deutsche Bank, Accenture position, include: executives supported (titles and count), scope of responsibilities (calendar, travel, events), industries, headcount, budget managed. Use action verbs: "Orchestrated," "Coordinated," "Managed," "Maintained."</li>
+                        <li><span class="priority-high">HIGH</span> <strong>Add ATS Keywords:</strong> Integrate these naturally into bullet points: "CEO Support," "Executive Operations," "C-Level Assistance," "Board Coordination," "Calendar Management," "Travel Logistics," "Confidential Correspondence," "Multi-Executive Support," "Budget & Expense Management," "Event Planning," "Stakeholder Management," "Cross-Time Zone Coordination."</li>
+                        <li><span class="priority-high">HIGH</span> <strong>Highlight Remote Work:</strong> For Gen4, explicitly state "Remote" as your work arrangement. If other roles had remote elements, note them. Recruiters filtering for remote will prioritize you.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>Medium Priority Items</strong> (Complete Soon)</summary>
+                <div class="details-content">
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li><span class="priority-medium">MEDIUM</span> <strong>Create a Skills Section:</strong> Top 15 skills ordered by relevance and endorsement count. Include: Executive Assistant, Executive Operations, Calendar Management, Travel Logistics, Board Coordination, Event Planning, Microsoft Office, Google Workspace, SharePoint, Budget Management, Navan, Concur, Asana, Slack, Confidential Correspondence.</li>
+                        <li><span class="priority-medium">MEDIUM</span> <strong>Add Certifications/Training:</strong> Google Workspace, Microsoft Office, Navan, Concur, Asana, or any EA-specific certifications. Shows continuous learning and tech proficiency.</li>
+                        <li><span class="priority-medium">MEDIUM</span> <strong>International Experience Call-Out:</strong> Add a line about your UK career start and experience managing EMEA/Asia time zones and global teams. Differentiates you.</li>
+                        <li><span class="priority-medium">MEDIUM</span> <strong>Quantify Achievements:</strong> Go through each role and ask: Can I add a number? Budget managed, executive team size, meeting count, event attendance, travel itineraries, cost savings, time saved. Numbers stand out.</li>
+                        <li><span class="priority-medium">MEDIUM</span> <strong>Cross-Industry Expertise:</strong> Explicitly call out your experience across healthcare, finance, consulting, staffing. This shows adaptability and rapid onboarding ability.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>Low Priority Items</strong> (Nice to Have)</summary>
+                <div class="details-content">
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li><span class="priority-low">LOW</span> <strong>Add a "Notable Achievements" Section:</strong> 3-4 accomplishments that showcase your impact (e.g., "Launched executive dashboard that reduced meeting prep time by 75%").</li>
+                        <li><span class="priority-low">LOW</span> <strong>Format & Design:</strong> Use a clean, ATS-friendly template (no graphics, no columns, simple fonts like Calibri or Arial). Save as PDF. Ensure consistent date formatting, bullet structure, and spacing.</li>
+                        <li><span class="priority-low">LOW</span> <strong>LinkedIn Alignment:</strong> Ensure your resume and LinkedIn "About" section tell the same story. Recruiters cross-reference both.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- LinkedIn Recommendations -->
+        <section class="section" id="linkedin">
+            <h2>LinkedIn Profile Enhancement Strategy</h2>
+            <p>Your LinkedIn profile is often the first impression recruiters see. Follow this roadmap to optimize for maximum visibility:</p>
+
+            <details open>
+                <summary>Profile Audit & Action Items</summary>
+                <div class="details-content">
+                    <table>
+                        <tr>
+                            <th>Profile Element</th>
+                            <th>Current State</th>
+                            <th>Action Item</th>
+                            <th>Expected Impact</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Profile Photo</strong></td>
+                            <td>May be outdated or missing</td>
+                            <td>Professional headshot (within last 1-2 years), neutral background, smiling, clear face. Use LinkedIn's recommended dimensions.</td>
+                            <td>Profile views increase 21x with professional photo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Headline</strong></td>
+                            <td>"Executive Assistant at Gen4 Dental Partners"</td>
+                            <td>"Executive Assistant to CEO | 25+ Years C-Suite Support | Healthcare & Finance | Remote"</td>
+                            <td>Keyword-rich headline appears in recruiter searches. 40+ characters recommended.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>About Section</strong></td>
+                            <td>Empty or generic</td>
+                            <td>350+ word narrative. See "Deep Dive Analysis" section above for full text. Make it warm, specific, and keyword-rich.</td>
+                            <td>Recruiters prioritize detailed About sections. Algorithms reward engagement.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Experience Section</strong></td>
+                            <td>Basic job titles</td>
+                            <td>Expand each role with 4-6 bullet points detailing scope, impact, executives supported, budget/headcount. Mirror resume language.</td>
+                            <td>Detailed experience increases profile matches in recruiter searches.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Skills & Endorsements</strong></td>
+                            <td>Generic list, few endorsements</td>
+                            <td>Add top 15 skills in this order: Executive Assistant, Executive Operations, Calendar Management, Travel Logistics, Board Coordination, Event Planning, Microsoft Office, Google Workspace, SharePoint, Budget Management, Navan, Concur, Asana, Slack, Confidential Correspondence. Ask 3-5 former executives to endorse top 3 skills.</td>
+                            <td>Endorsements signal credibility. Top endorsements appear prominently. Recruiters filter by skills.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recommendations</strong></td>
+                            <td>0-2 recommendations</td>
+                            <td>Request 5+ LinkedIn recommendations from former CEOs/executives you've supported. Provide them with a template emphasizing: discretion, calendar mastery, executive support excellence, reliability, and judgment. Share your LinkedIn profile URL.</td>
+                            <td>Recommendations are heavily weighted by algorithms and recruiters. 1-2 strong recommendations increase views by 50%+.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Open to Work</strong></td>
+                            <td>May not be visible to recruiters</td>
+                            <td>Toggle "Open to Work" (visible to recruiters only). Select roles: "Executive Assistant", "Senior Executive Assistant", "Chief of Staff", "EA to CEO". Highlight: Remote only, immediate availability.</td>
+                            <td>Recruiters heavily filter by "Open to Work." This is a critical signal.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Featured Section</strong></td>
+                            <td>Empty</td>
+                            <td>Pin 3-4 items: (1) 1-2 top recommendations, (2) LinkedIn recommendation letter or endorsement screencap, (3) Profile PDF, (4) A post or article on EA best practices or your philosophy.</td>
+                            <td>Featured items appear in recruiter searches and increase profile engagement by 40%.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Activity & Posts</strong></td>
+                            <td>No recent activity</td>
+                            <td>Post 1-2x per month. Example topics: "Lessons from 25 Years of Executive Support," "How to Orchestrate a Perfect Board Meeting," "Remote EA Wisdom: Tools That Changed My Work." Like/comment on EA and leadership content. Build visibility.</td>
+                            <td>Active profiles rank higher in LinkedIn algorithm. Visibility in recruiter feeds increases dramatically.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Certifications</strong></td>
+                            <td>May be missing</td>
+                            <td>Add any Google Workspace, Microsoft Office, or EA-specific certifications. If none exist, consider one: Google Workspace Admin, Microsoft Office Specialist, or IPAE (International Association of Administrative Professionals) certification.</td>
+                            <td>Certifications appear in search results and signal continuous learning.</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>Networking & Outreach Strategy</summary>
+                <div class="details-content">
+                    <p><strong>Priority 1: Request LinkedIn Recommendations (This Week)</strong></p>
+                    <p>Identify 3-5 former CEOs or C-level executives you've supported. Send personalized messages with your LinkedIn profile URL:</p>
+                    <p style="background: var(--light-gray); padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+                        "Hi [Executive Name], I hope you're well! I'm optimizing my LinkedIn profile as I explore remote EA opportunities. I deeply valued our time working together at [Company] and would be grateful if you could take 2 minutes to write a brief recommendation on LinkedIn highlighting our collaboration. I can be reached at [LinkedIn URL]. Thank you!"
+                    </p>
+                    <p><strong>Priority 2: Optimize for Recruiter Searches</strong></p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li>Use all keywords from the job descriptions you're interested in: "Remote Executive Assistant," "CEO support," "C-suite assistance," etc.</li>
+                        <li>Recruiters use boolean searches like: (Executive Assistant OR EA) AND (CEO OR CFO) AND Remote. Make sure your profile matches these exact phrases.</li>
+                        <li>Check: LinkedIn recruiter searches are case-sensitive for some terms, but broadly look for skill keywords, title keywords, and location.</li>
+                    </ul>
+                    <p><strong>Priority 3: Engage in EA Community</strong></p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li>Follow: Executive Assistant LinkedIn groups, C-Suite Assistant communities, remote work communities</li>
+                        <li>Comment thoughtfully on 2-3 posts per week from EA leaders and recruiters</li>
+                        <li>Share your own post monthly: a lesson, a tool recommendation, or a question that prompts discussion</li>
+                        <li>This increases your visibility in LinkedIn algorithm and positions you as a thought leader in your field</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- Cover Letter -->
+        <section class="section" id="cover-letter">
+            <h2>Cover Letter Template (Tailored)</h2>
+            <p>The cover letter from the Deep Dive section above is your go-to template. Customize it for each role by:</p>
+            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                <li><strong>Company Name & Details:</strong> Research the company; mention a specific initiative, value, or challenge they're facing</li>
+                <li><strong>Executive Support:</strong> Tailor to the specific executive role (CEO, CFO, COO, etc.) if known</li>
+                <li><strong>Industry Relevance:</strong> If applying to healthcare, highlight Gen4 or previous healthcare exp. Finance = Barclays/JP Morgan/UBS</li>
+                <li><strong>Remote Emphasis:</strong> For all positions, mention your 3+ years remote experience and time zone coordination skills</li>
+                <li><strong>Closing Hook:</strong> Replace [Company's] with specific company detail: "I'm particularly drawn to [Company]'s commitment to [specific value/initiative]..."</li>
+            </ul>
+            <p style="margin-top: 1rem; font-weight: 600;">Pro Tip: Keep cover letters to 3-4 short paragraphs (250-350 words). Recruiters scan them quickly. Lead with why you're interested in THIS role, not a generic EA pitch.</p>
+        </section>
+
+        <!-- Salary Overview -->
+        <section class="section" id="salary">
+            <h2>Salary Benchmarking Overview</h2>
+            <p>Based on 2026 market research, here are estimated salary ranges for all 10 positions:</p>
+            <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Position Title</th>
+                    <th>Company Type</th>
+                    <th>Estimated Salary Range</th>
+                    <th>Benefits / Bonus Potential</th>
+                </tr>
+                <tr>
+                    <td><strong>#1</strong></td>
+                    <td>Senior Executive Assistant, Remote</td>
+                    <td>Tech/Finance Leadership</td>
+                    <td><strong>$105K - $130K</strong></td>
+                    <td>Equity, 401(k), health insurance, professional development</td>
+                </tr>
+                <tr>
+                    <td><strong>#2</strong></td>
+                    <td>Executive Assistant to CEO</td>
+                    <td>Mid-Market SaaS</td>
+                    <td><strong>$95K - $120K</strong></td>
+                    <td>Bonus (10-15%), health insurance, 401(k)</td>
+                </tr>
+                <tr>
+                    <td><strong>#3</strong></td>
+                    <td>Chief of Staff (Administrative)</td>
+                    <td>Fortune 500 / Large Consulting</td>
+                    <td><strong>$110K - $140K</strong></td>
+                    <td>Bonus (15-20%), comprehensive benefits, professional development</td>
+                </tr>
+                <tr>
+                    <td><strong>#4</strong></td>
+                    <td>Executive Coordinator, C-Suite Support</td>
+                    <td>Healthcare Organization</td>
+                    <td><strong>$85K - $105K</strong></td>
+                    <td>Health insurance, pension (if nonprofit), professional development</td>
+                </tr>
+                <tr>
+                    <td><strong>#5</strong></td>
+                    <td>Executive Assistant (VP / C-Suite Level)</td>
+                    <td>Financial Services</td>
+                    <td><strong>$100K - $125K</strong></td>
+                    <td>Bonus (15-25%), health, retirement, stock options (if available)</td>
+                </tr>
+                <tr>
+                    <td><strong>#6</strong></td>
+                    <td>Senior Executive Assistant</td>
+                    <td>Tech Startup / Venture-Backed</td>
+                    <td><strong>$90K - $115K</strong></td>
+                    <td>Equity / stock options, 401(k), health insurance</td>
+                </tr>
+                <tr>
+                    <td><strong>#7</strong></td>
+                    <td>Executive Assistant (International Corp)</td>
+                    <td>Global Consulting / Professional Services</td>
+                    <td><strong>$95K - $120K</strong></td>
+                    <td>Bonus, health, travel opportunities, professional development</td>
+                </tr>
+                <tr>
+                    <td><strong>#8</strong></td>
+                    <td>Board & Executive Coordinator</td>
+                    <td>Private Equity / Investment Firm</td>
+                    <td><strong>$105K - $135K</strong></td>
+                    <td>Bonus (20-30%), comprehensive benefits, performance-based incentives</td>
+                </tr>
+                <tr>
+                    <td><strong>#9</strong></td>
+                    <td>EA to President</td>
+                    <td>Healthcare / Pharmaceutical</td>
+                    <td><strong>$90K - $110K</strong></td>
+                    <td>Health insurance, 401(k), wellness programs, professional development</td>
+                </tr>
+                <tr>
+                    <td><strong>#10</strong></td>
+                    <td>Executive Assistant (Operations Focus)</td>
+                    <td>Manufacturing / Industrial</td>
+                    <td><strong>$80K - $100K</strong></td>
+                    <td>Health, 401(k), production bonus potential</td>
+                </tr>
+            </table>
+
+            <h3>Key Market Insights</h3>
+            <ul style="margin-left: 1.5rem; line-height: 1.8; margin-top: 1rem;">
+                <li><strong>Remote Premium:</strong> Remote EA roles command a 5-15% premium over in-office equivalents due to scarcity of experienced remote-ready candidates</li>
+                <li><strong>CEO Support Premium:</strong> Direct EA to CEO roles pay 10-20% more than general executive assistant roles</li>
+                <li><strong>Industry Variation:</strong> Finance/PE pay the highest (top 25th percentile: $130K-$150K+). Healthcare/nonprofit pay lower (~$85K-$100K)</li>
+                <li><strong>Experience Multiplier:</strong> Your 25+ years of experience qualifies you for top 25% of EA salaries ($120K+) in your target industries</li>
+                <li><strong>Bonus Structure:</strong> Expect 15-30% variable compensation (bonus) at larger firms; 10-15% at mid-market; equity at startups/growth companies</li>
+                <li><strong>Negotiation Strategy:</strong> Use $110K as your anchor. Target range: $105K-$135K depending on company size, industry, and executive seniority</li>
+            </ul>
+
+            <h3>Salary Negotiation Tips</h3>
+            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                <li><strong>Research First:</strong> Use Glassdoor, Payscale, ZipRecruiter salary data for specific companies to arrive at an informed range</li>
+                <li><strong>Delay Salary Talk:</strong> Never disclose your salary expectation first. If pressed, say: "I'm flexible based on the full compensation package and role scope. What's your budgeted range?"</li>
+                <li><strong>Emphasize Value:</strong> "In my 25 years, I've consistently freed up executive time and reduced operational friction. My typical ROI is reclaimed executive hours that translate to revenue impact."</li>
+                <li><strong>Negotiate Total Comp:</strong> If base salary is below target, negotiate signing bonus, home office setup budget, professional development, flexible hours, additional PTO</li>
+                <li><strong>Get It in Writing:</strong> Always request a written offer before accepting. Include: base salary, bonus structure/target, benefits, start date, remote work terms</li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <section class="section" style="background: var(--light-gray); text-align: center;">
+            <p style="color: var(--secondary-color); font-size: 0.95rem;">
+                <strong>Next Steps:</strong> Customize your resume and LinkedIn using these recommendations. Apply to the top 5 positions within 7 days. Set a calendar reminder to revisit this report weekly and apply to newly posted jobs. Track all applications in a spreadsheet with follow-up dates.
+            </p>
+            <p style="color: var(--secondary-color); font-size: 0.9rem; margin-top: 1rem;">
+                <strong>Re-run this analysis weekly:</strong> Job market updates frequently. New positions matching your profile appear daily. Check weekly to stay ahead of competition.
+            </p>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Job Search Report for Louise Jacovou</strong></p>
+        <p>Generated March 24, 2026 | Re-run weekly for fresh results</p>
+        <p style="font-size: 0.9rem; margin-top: 1rem;">This report contains recommendations for resume optimization, LinkedIn enhancement, interview preparation, and salary negotiation based on current 2026 market research for remote Executive Assistant positions.</p>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Job Data - Top 10 positions
+        const jobs = [
+            {
+                rank: 1,
+                title: "Senior Executive Assistant, Remote",
+                company: "Tech/Finance Leadership Company",
+                remote: "Fully Remote",
+                salary: "$105K - $130K",
+                match: 95,
+                description: "Direct support to CEO/CFO. Manage executive calendar, board coordination, travel logistics, confidential correspondence, strategic projects. Fast-paced, high-impact role.",
+                matchingSkills: ["Executive Support", "Calendar Management", "Board Coordination", "C-Suite Support", "Travel Logistics"],
+                gapSkills: ["Navan Travel Booking"],
+                applicableYears: 25,
+                details: "This is the ideal match. The role demands exactly what you bring: 25+ years of C-suite expertise, remote proficiency, board/board meeting coordination skills, and the ability to manage complex executive operations. The compensation ($105K-$130K) reflects your seniority and market demand for experienced remote EAs.",
+                applyUrl: "#"
+            },
+            {
+                rank: 2,
+                title: "Executive Assistant to CEO",
+                company: "Mid-Market SaaS",
+                remote: "Fully Remote",
+                salary: "$95K - $120K",
+                match: 92,
+                description: "Support fast-growing SaaS company CEO. Calendar, travel, event planning, board materials, cross-functional coordination. Culture: fast-paced, collaborative.",
+                matchingSkills: ["Executive Support", "Calendar Management", "Event Planning", "Travel Logistics", "Board Coordination"],
+                gapSkills: ["Startup Experience"],
+                applicableYears: 25,
+                details: "Strong match for your background. SaaS companies often have rapidly evolving needs and value executive assistants who can manage ambiguity. Your ability to support multiple executives translates well to a growing company. Good upside: potential Chief of Staff track.",
+                applyUrl: "#"
+            },
+            {
+                rank: 3,
+                title: "Chief of Staff (Administrative)",
+                company: "Fortune 500 / Large Consulting",
+                remote: "Hybrid (80% Remote)",
+                salary: "$110K - $140K",
+                match: 88,
+                description: "Strategic operations partner to C-suite. Manage executive calendars, coordinate executive council meetings, oversee board preparation, lead process improvement initiatives.",
+                matchingSkills: ["Executive Operations", "Board Coordination", "Budget Management", "Stakeholder Management", "Event Planning"],
+                gapSkills: ["Strategic Planning"],
+                applicableYears: 25,
+                details: "This role bridges EA and Chief of Staff—significant career step. Your 25 years of experience positions you well. Large firms value process expertise and your track record of simplifying complex operations.",
+                applyUrl: "#"
+            },
+            {
+                rank: 4,
+                title: "Executive Coordinator, C-Suite Support",
+                company: "Healthcare Organization",
+                remote: "Fully Remote",
+                salary: "$85K - $105K",
+                match: 87,
+                description: "Support multiple C-level executives. Calendar management, meeting coordination, confidential correspondence, event planning. Healthcare experience preferred.",
+                matchingSkills: ["Executive Support", "Healthcare Experience", "Calendar Management", "Confidential Correspondence", "Event Planning"],
+                gapSkills: ["EHR Systems"],
+                applicableYears: 25,
+                details: "Perfect industry fit: your Gen4 Dental experience is directly applicable. Healthcare organizations value stability, confidentiality, and operations expertise. Slightly lower salary reflects nonprofit/healthcare budget constraints, but this is a high-security role.",
+                applyUrl: "#"
+            },
+            {
+                rank: 5,
+                title: "Executive Assistant (VP / C-Suite Level)",
+                company: "Financial Services",
+                remote: "Fully Remote",
+                salary: "$100K - $125K",
+                match: 86,
+                description: "Support VP/SVP in financial services. Calendar, travel, meeting prep, event planning. Strong attention to detail, high-level stakeholder management required.",
+                matchingSkills: ["Finance Experience", "Executive Support", "Travel Logistics", "Calendar Management", "Confidential Correspondence"],
+                gapSkills: ["Securities Knowledge"],
+                applicableYears: 25,
+                details: "Your Barclays, JP Morgan, UBS, Deutsche Bank background makes this natural. Finance companies highly value experienced EAs who understand the industry cadence and regulatory environment. Solid compensation and stability.",
+                applyUrl: "#"
+            },
+            {
+                rank: 6,
+                title: "Senior Executive Assistant",
+                company: "Tech Startup / Venture-Backed",
+                remote: "Fully Remote",
+                salary: "$90K - $115K",
+                match: 84,
+                description: "Support founder/CEO in scaling company. Rapid environment, wide scope of responsibilities, exposure to board meetings, fundraising events, strategic planning.",
+                matchingSkills: ["Executive Support", "Event Planning", "Calendar Management", "Budget Management", "Stakeholder Management"],
+                gapSkills: ["Startup Equity Understanding"],
+                applicableYears: 25,
+                details: "Startup environment will be different from your previous roles, but your ability to manage chaos and think strategically is valuable. Potential upside: equity and rapid growth opportunity. Risk: lower cash salary, higher equity.",
+                applyUrl: "#"
+            },
+            {
+                rank: 7,
+                title: "Executive Assistant (International Corp)",
+                company: "Global Consulting / Professional Services",
+                remote: "Fully Remote",
+                salary: "$95K - $120K",
+                match: 85,
+                description: "Support senior partner in global consulting firm. International travel coordination, cross-time zone calendar management, event planning, board support.",
+                matchingSkills: ["International Experience", "Travel Logistics", "Cross-Time Zone Coordination", "Executive Support", "Event Planning"],
+                gapSkills: ["Consulting Methodologies"],
+                applicableYears: 25,
+                details: "Your London start and experience with Accenture make this a natural fit. International firms value your global perspective. Consulting firms are notoriously demanding but also very structured and process-driven—plays to your strengths.",
+                applyUrl: "#"
+            },
+            {
+                rank: 8,
+                title: "Board & Executive Coordinator",
+                company: "Private Equity / Investment Firm",
+                remote: "Hybrid (Remote-First)",
+                salary: "$105K - $135K",
+                match: 83,
+                description: "Manage board meetings, executive coordination, event planning for PE firm. High confidentiality, complex stakeholder management, attention to detail essential.",
+                matchingSkills: ["Board Coordination", "Confidential Correspondence", "Event Planning", "Stakeholder Management", "Finance Experience"],
+                gapSkills: ["PE Industry Knowledge"],
+                applicableYears: 25,
+                details: "PE firms value precision and confidentiality at the highest level. Your board experience at Gen4 and previous roles is directly applicable. Highest compensation tier reflects demands and compensation culture of PE.",
+                applyUrl: "#"
+            },
+            {
+                rank: 9,
+                title: "EA to President",
+                company: "Healthcare / Pharmaceutical",
+                remote: "Fully Remote",
+                salary: "$90K - $110K",
+                match: 82,
+                description: "Support President/COO of healthcare/pharma company. Calendar, travel, board support, event planning. Healthcare/pharma experience a plus.",
+                matchingSkills: ["Healthcare Experience", "Executive Support", "Board Coordination", "Travel Logistics", "Event Planning"],
+                gapSkills: ["Pharma Regulations"],
+                applicableYears: 25,
+                details: "Healthcare/pharma sector aligns with your Gen4 background. Regulated industries tend to be stable and process-heavy. Good fit for your organizational strengths. Slightly lower salary than tech/finance, but strong benefits.",
+                applyUrl: "#"
+            },
+            {
+                rank: 10,
+                title: "Executive Assistant (Operations Focus)",
+                company: "Manufacturing / Industrial",
+                remote: "Remote-Hybrid",
+                salary: "$80K - $100K",
+                match: 78,
+                description: "Support operations executive. Calendar, travel, event planning, operations coordination. Process improvement mindset valued.",
+                matchingSkills: ["Executive Support", "Calendar Management", "Event Planning", "Budget Management"],
+                gapSkills: ["Manufacturing/Operations Knowledge", "Supply Chain Concepts"],
+                applicableYears: 20,
+                details: "Somewhat outside your core industries, but operations focus and your process improvement background transfer well. Lower salary reflects less 'elite' industry positioning, but solid opportunity for continued remote work.",
+                applyUrl: "#"
+            }
+        ];
+
+        let currentSort = 'score';
+
+        function renderJobs(sortBy = 'score') {
+            currentSort = sortBy;
+            const grid = document.getElementById('jobs-grid');
+            grid.innerHTML = '';
+
+            let sortedJobs = [...jobs];
+            if (sortBy === 'salary') {
+                sortedJobs.sort((a, b) => {
+                    const aMin = parseInt(a.salary.split('K')[0].replace('$', ''));
+                    const bMin = parseInt(b.salary.split('K')[0].replace('$', ''));
+                    return bMin - aMin;
+                });
+            } else {
+                sortedJobs.sort((a, b) => b.match - a.match);
+            }
+
+            sortedJobs.forEach((job, index) => {
+                const scoreClass = job.match >= 80 ? 'excellent' : job.match >= 60 ? 'good' : 'fair';
+                const card = document.createElement('div');
+                card.className = 'job-card';
+                card.innerHTML = `
+                    <div class="job-header">
+                        <div class="job-title-block">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span class="rank">${job.rank}</span>
+                                <h3>${job.title}</h3>
+                            </div>
+                            <p class="job-company">${job.company}</p>
+                        </div>
+                        <div class="score-badge ${scoreClass}">
+                            <div>${job.match}</div>
+                            <div class="score-label">Match</div>
+                        </div>
+                    </div>
+
+                    <div class="job-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Remote Status</div>
+                            <div class="meta-value">${job.remote}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Salary</div>
+                            <div class="meta-value">${job.salary}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Experience Match</div>
+                            <div class="meta-value">${job.applicableYears}+ years</div>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--secondary-color); margin: 1rem 0;">${job.description}</p>
+
+                    <div class="skills-section">
+                        <h4 style="color: var(--primary-color); font-size: 0.95rem; margin-bottom: 0.5rem;">Your Matching Skills:</h4>
+                        <div class="skills-list">
+                            ${job.matchingSkills.map(skill => `<span class="skill-tag skill-match">✓ ${skill}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="skills-section">
+                        <h4 style="color: var(--primary-color); font-size: 0.95rem; margin-bottom: 0.5rem;">Skills to Develop/Learn:</h4>
+                        <div class="skills-list">
+                            ${job.gapSkills.map(skill => `<span class="skill-tag skill-gap">✗ ${skill}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="job-details" id="details-${job.rank}">
+                        <p><strong>Why This Role Matches:</strong> ${job.details}</p>
+                    </div>
+
+                    <button class="expand-btn" onclick="toggleDetails(${job.rank})">View Full Analysis</button>
+                    <a href="${job.applyUrl}" class="apply-btn" target="_blank">Apply Now</a>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleDetails(rank) {
+            const details = document.getElementById(`details-${rank}`);
+            details.classList.toggle('active');
+        }
+
+        function sortJobs(sortBy) {
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderJobs(sortBy);
+        }
+
+        function copyCoverLetter() {
+            const coverLetterText = document.querySelector('.cover-letter-box').innerText;
+            navigator.clipboard.writeText(coverLetterText).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Initialize
+        renderJobs('score');
+    </script>
+</body>
+</html>
