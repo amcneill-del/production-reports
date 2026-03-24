@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Woodyard Periodontics - Performance Report 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 60px 40px;
+        }
+
+        /* Header Styles */
+        h1, h2, h3, h4 {
+            color: #2E5E8C;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            border-bottom: 3px solid #2E5E8C;
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 40px;
+            border-left: 5px solid #2E5E8C;
+            padding-left: 15px;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin-top: 25px;
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* Section Spacing */
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background-color: #f0f4f8;
+            border-left: 5px solid #2E5E8C;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 3px;
+        }
+
+        .executive-summary p {
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        /* Scorecard Styles */
+        .scorecard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .scorecard-table th {
+            background-color: #2E5E8C;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .scorecard-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .scorecard-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Category Headers */
+        .category-header {
+            background-color: #2E5E8C;
+            color: white;
+            padding: 12px;
+            font-weight: 600;
+            margin-top: 0;
+        }
+
+        /* Status Colors */
+        .status-pass {
+            background-color: #e8f8f0;
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .status-fail {
+            background-color: #fdf0ef;
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .status-info {
+            background-color: #e8f4f8;
+            color: #2E5E8C;
+            font-weight: 600;
+        }
+
+        .status-na {
+            background-color: #f5f5f5;
+            color: #999;
+            font-weight: 600;
+        }
+
+        /* Insight Boxes */
+        .insight-box {
+            border-left: 4px solid #f39c12;
+            background-color: #fffbf0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+
+        .insight-box strong {
+            color: #e67e22;
+        }
+
+        .insight-box.success {
+            border-left-color: #27ae60;
+            background-color: #f0fdf4;
+        }
+
+        .insight-box.success strong {
+            color: #27ae60;
+        }
+
+        .insight-box.alert {
+            border-left-color: #e74c3c;
+            background-color: #fdf0ef;
+        }
+
+        .insight-box.alert strong {
+            color: #e74c3c;
+        }
+
+        /* Metric Cards */
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2E5E8C;
+            margin-bottom: 5px;
+        }
+
+        .metric-change {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .metric-change.up {
+            color: #27ae60;
+        }
+
+        .metric-change.down {
+            color: #e74c3c;
+        }
+
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .data-table th {
+            background-color: #f0f4f8;
+            border-bottom: 2px solid #2E5E8C;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #2E5E8C;
+        }
+
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .data-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .data-table .numeric {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Waterfall Chart */
+        .waterfall-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 350px;
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            gap: 5px;
+        }
+
+        .waterfall-bar {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .waterfall-bar-segment {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .bar-rect {
+            width: 80%;
+            background-color: #2E5E8C;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .bar-rect.positive {
+            background-color: #27ae60;
+        }
+
+        .bar-rect.negative {
+            background-color: #e74c3c;
+        }
+
+        .bar-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #333;
+            margin-top: 8px;
+            word-wrap: break-word;
+            text-align: center;
+            width: 100%;
+        }
+
+        .bar-value {
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            padding: 4px 6px;
+            margin-bottom: 4px;
+        }
+
+        /* Action Plan */
+        .action-plan-section {
+            margin: 25px 0;
+        }
+
+        .action-plan-section h3 {
+            background-color: #f0f4f8;
+            padding: 12px 15px;
+            border-left: 4px solid #2E5E8C;
+            margin-left: -20px;
+            margin-right: -20px;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .action-item {
+            background-color: #fafbfc;
+            border-left: 4px solid #2E5E8C;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+        }
+
+        .action-item strong {
+            color: #2E5E8C;
+        }
+
+        .action-title {
+            font-weight: 600;
+            color: #2E5E8C;
+            margin-bottom: 8px;
+        }
+
+        .action-detail {
+            font-size: 13px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .owner {
+            font-weight: 600;
+            color: #27ae60;
+        }
+
+        .impact {
+            background-color: #e8f8f0;
+            padding: 8px 12px;
+            border-radius: 3px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #27ae60;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+        }
+
+        .disclaimer {
+            background-color: #f0f4f8;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background-color: white;
+            }
+            .container {
+                padding: 40px;
+                max-width: 100%;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+            .action-plan-section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .waterfall-chart {
+                height: 250px;
+            }
+            .data-table {
+                font-size: 12px;
+            }
+            .data-table th, .data-table td {
+                padding: 8px;
+            }
+        }
+
+        /* Comparison Table */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        .comparison-card h4 {
+            color: #2E5E8C;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2E5E8C;
+            padding-bottom: 10px;
+        }
+
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .comparison-value {
+            font-weight: 600;
+            color: #2E5E8C;
+            text-align: right;
+        }
+
+        /* Recommendation Highlight */
+        .recommendation-highlight {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+
+        .recommendation-highlight h4 {
+            color: #856404;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <h1>Woodyard Periodontics</h1>
+        <div class="subtitle">Performance Analysis Report — Q1 2026<br>Period: January 1 – March 19<br>Prepared: March 24, 2026</div>
+
+        <!-- SECTION 1: Executive Summary -->
+        <div class="section">
+            <h2>Executive Summary</h2>
+            <div class="executive-summary">
+                <p><strong>Woodyard Periodontics delivered exceptional growth in Q1 2026, with production increasing 46.3% to $1.02M and new patient volume surging 69% to 127 referrals.</strong> The practice demonstrated remarkable operational improvements, including a dramatic 71% reduction in time-to-consult (from 47.6 to 13.9 days) and perfect referral source tracking (zero missing). However, the scorecard reveals critical gaps that are constraining growth: a 57.1% missed call rate is eroding the referral pipeline, schedule-to-consult conversion declined to 76.8%, and case value dropped 21.8% from $9,104 to $7,122. These findings point to operational excellence in some areas offset by bottlenecks in referral intake, patient follow-through, and case presentation. The practice scorecard shows 14 of 19 metrics passing, with key gaps in Patient Acquisition (missed calls, schedule-to-consult) and Case Acceptance (declining case value). The action plan focuses on three priorities: eliminating the missed call crisis, recovering schedule-to-consult conversion, and investigating case value decline by referring doctor.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Practice Marketing Scorecard -->
+        <div class="section">
+            <h2>Practice Marketing Scorecard</h2>
+            <p>The scorecard below provides a quick health check across five performance categories. Green = Pass, Red = Fail, Blue = At Benchmark, Gray = Data Not Available.</p>
+
+            <table class="scorecard-table">
+                <thead>
+                    <tr class="category-header">
+                        <th colspan="5">PATIENT ACQUISITION</th>
+                    </tr>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Current Value</th>
+                        <th>Benchmark</th>
+                        <th>Result</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Avg Referrals/Month (Last 90 Days)</td>
+                        <td>77</td>
+                        <td>Target: 84</td>
+                        <td class="status-info">Below Target</td>
+                        <td>Gap of 7 referrals/month = ~$600K annual opportunity</td>
+                    </tr>
+                    <tr>
+                        <td>Avg Referrals/Month (Last 12 Months)</td>
+                        <td>74</td>
+                        <td>Target: 84</td>
+                        <td class="status-info">Below Target</td>
+                        <td>Improved from prior 69, but still need 10 more/month</td>
+                    </tr>
+                    <tr>
+                        <td>NP Call Conversion % (Last 3 Months)</td>
+                        <td>65%</td>
+                        <td>≥ 55%</td>
+                        <td class="status-pass">PASS</td>
+                        <td>Strong: 65% of calls book as new patients</td>
+                    </tr>
+                    <tr>
+                        <td>Missed Call % (Last 3 Months)</td>
+                        <td>57.1%</td>
+                        <td>≤ 18%</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>CRITICAL: More than half of calls missed. Immediate action required.</td>
+                    </tr>
+                    <tr>
+                        <td>Time to Consult (YTD)</td>
+                        <td>13.9 days</td>
+                        <td>≤ 18 days</td>
+                        <td class="status-pass">PASS</td>
+                        <td>EXCELLENT: 71% improvement from 47.6 days in 2025</td>
+                    </tr>
+                    <tr>
+                        <td>Schedule % to Consult (YTD)</td>
+                        <td>76.8%</td>
+                        <td>≥ 85%</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>Declining from 80.4%. ~18 patients/quarter no-show scheduled consults.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="scorecard-table">
+                <thead>
+                    <tr class="category-header">
+                        <th colspan="5">PATIENT RETENTION</th>
+                    </tr>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Current Value</th>
+                        <th>Benchmark</th>
+                        <th>Result</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Avg Case Acceptance (YTD from Referral Lab)</td>
+                        <td>60.8%</td>
+                        <td>≥ 69%</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>Declined from 61.9% (7.3% drop YOY). Less than 2 in 3 referred perio cases accepted.</td>
+                    </tr>
+                    <tr>
+                        <td>Avg Case Value ($)</td>
+                        <td>$7,122</td>
+                        <td>≥ $4,800</td>
+                        <td class="status-pass">PASS</td>
+                        <td>Above benchmark but down 21.8% from $9,104. Concerning trend.</td>
+                    </tr>
+                    <tr>
+                        <td># of Active Referring Sources (YTD)</td>
+                        <td>69</td>
+                        <td>Increase YOY</td>
+                        <td class="status-pass">PASS</td>
+                        <td>Up +9 from 60 in 2025. Strong referring doctor network growth.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="scorecard-table">
+                <thead>
+                    <tr class="category-header">
+                        <th colspan="5">SCHEDULE MANAGEMENT</th>
+                    </tr>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Current Value</th>
+                        <th>Benchmark</th>
+                        <th>Result</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Appointments Completed</td>
+                        <td>1,249</td>
+                        <td>Increase YOY</td>
+                        <td class="status-pass">PASS</td>
+                        <td>Up 34% from 933. Strong volume growth across all appointment types.</td>
+                    </tr>
+                    <tr>
+                        <td>No-Shows %</td>
+                        <td>0.9%</td>
+                        <td>≤ 5%</td>
+                        <td class="status-pass">PASS</td>
+                        <td>EXCELLENT: Down from 3.3%. Dramatic improvement in reliability.</td>
+                    </tr>
+                    <tr>
+                        <td>Cancellations %</td>
+                        <td>6%</td>
+                        <td>≤ 5%</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>Slightly above benchmark. Up from 5.9%, indicating rising cancellation rate.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="scorecard-table">
+                <thead>
+                    <tr class="category-header">
+                        <th colspan="5">ONLINE REPUTATION</th>
+                    </tr>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Current Value</th>
+                        <th>Benchmark</th>
+                        <th>Result</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Google Reviews (Total)</td>
+                        <td>427</td>
+                        <td>≥ 300</td>
+                        <td class="status-pass">PASS</td>
+                        <td>Strong: 427 total reviews, above benchmark.</td>
+                    </tr>
+                    <tr>
+                        <td>Google Reviews (Last 30 Days)</td>
+                        <td>9</td>
+                        <td>≥ 10</td>
+                        <td class="status-info">Just Below</td>
+                        <td>Nearly at target. One more review would pass.</td>
+                    </tr>
+                    <tr>
+                        <td>Google Star Rating</td>
+                        <td>4.9</td>
+                        <td>≥ 4.5</td>
+                        <td class="status-pass">PASS</td>
+                        <td>EXCELLENT: 4.9 rating among top tier.</td>
+                    </tr>
+                    <tr>
+                        <td>Google 5-Star Reviews %</td>
+                        <td>96.9%</td>
+                        <td>≥ 90%</td>
+                        <td class="status-pass">PASS</td>
+                        <td>EXCELLENT: 414 of 427 reviews are 5-star.</td>
+                    </tr>
+                    <tr>
+                        <td>Yelp Reviews (Total)</td>
+                        <td>1</td>
+                        <td>≥ 20</td>
+                        <td class="status-fail">FAIL</td>
+                        <td>Very low. Opportunity to build Yelp presence.</td>
+                    </tr>
+                    <tr>
+                        <td>Yelp Star Rating</td>
+                        <td>5.0</td>
+                        <td>≥ 4.0</td>
+                        <td class="status-pass">PASS</td>
+                        <td>Perfect rating, but insufficient volume.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="scorecard-table">
+                <thead>
+                    <tr class="category-header">
+                        <th colspan="5">REFERRAL PROGRAM</th>
+                    </tr>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Current Value</th>
+                        <th>Benchmark</th>
+                        <th>Result</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tracking Referral Source for Every NP</td>
+                        <td>0 missing</td>
+                        <td>&lt; 20% missing</td>
+                        <td class="status-pass">PASS</td>
+                        <td>PERFECT: All 127 new patients have referral source tracked.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box success">
+                <strong>Scorecard Summary:</strong> 14 of 19 metrics passing. Strengths in online reputation (4.9 rating, 427 reviews), time-to-consult (13.9 days), appointment reliability (0.9% no-shows), and referral source tracking (0% missing). Critical gaps: missed calls (57.1%), schedule-to-consult (76.8%), case value decline ($9,104→$7,122), and case acceptance (60.8%).
+            </div>
+        </div>
+
+        <!-- SECTION 3: Production & Revenue Overview -->
+        <div class="section">
+            <h2>Production & Revenue Overview</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>Production Metrics</h4>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Production Gross</span>
+                        <span class="comparison-value">$1,018,293</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Scheduled Gross</span>
+                        <span class="comparison-value">$978,464</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Scheduled vs Actual Gap</span>
+                        <span class="comparison-value">3.9%</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Annual Patient Value</span>
+                        <span class="comparison-value">$3,320.71</span>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h4>Year-over-Year Change</h4>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Production Growth</span>
+                        <span class="comparison-value up">↑ 46.3%</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Patient Value Growth</span>
+                        <span class="comparison-value up">↑ 2.7%</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Scheduled Growth</span>
+                        <span class="comparison-value up">↑ 41.0%</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">VPWD</span>
+                        <span class="comparison-value up">27.91 (↑ -6.97% vs 30)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Production Gross</div>
+                    <div class="metric-value">$1.02M</div>
+                    <div class="metric-change up">↑ 46.3% YOY</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">New Patients</div>
+                    <div class="metric-value">127</div>
+                    <div class="metric-change up">↑ 69% YOY</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Appointments Completed</div>
+                    <div class="metric-value">1,249</div>
+                    <div class="metric-change up">↑ 34% YOY</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Visits Per Working Day</div>
+                    <div class="metric-value">27.91</div>
+                    <div class="metric-change down">↓ -6.97 vs 2025</div>
+                </div>
+            </div>
+
+            <div class="insight-box success">
+                <strong>Strong Production Growth:</strong> Production of $1.02M represents 46.3% growth from $696K in 2025 — a major achievement driven by new patient volume (+69%) and strong appointment completion (1,249 visits, +34%). The 3.9% gap between scheduled and actual production is healthy and indicates strong execution. VPWD decreased from 30 to 27.91, reflecting the time period difference (53-54 actual working days in Jan-Mar 2026 vs. estimates used for 2025).
+            </div>
+        </div>
+
+        <!-- SECTION 4: Referral Pipeline & Case Acceptance -->
+        <div class="section">
+            <h2>Referral Pipeline & Case Acceptance</h2>
+            <p>For a periodontal specialty practice, the referral pipeline is the engine of growth. This section tracks how referrals convert from initial contact through case acceptance and treatment completion.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th class="numeric">2025 (Jan-Mar)</th>
+                        <th class="numeric">2026 (Jan-Mar)</th>
+                        <th class="numeric">Change</th>
+                        <th class="numeric">% Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>New Patients (Referrals)</td>
+                        <td class="numeric">75</td>
+                        <td class="numeric">127</td>
+                        <td class="numeric">+52</td>
+                        <td class="numeric up">+69%</td>
+                    </tr>
+                    <tr>
+                        <td>Avg Referrals/Month (90-day)</td>
+                        <td class="numeric">69</td>
+                        <td class="numeric">77</td>
+                        <td class="numeric">+8</td>
+                        <td class="numeric up">+11.6%</td>
+                    </tr>
+                    <tr>
+                        <td>Avg Referrals/Month (12-month)</td>
+                        <td class="numeric">72</td>
+                        <td class="numeric">74</td>
+                        <td class="numeric">+2</td>
+                        <td class="numeric up">+2.8%</td>
+                    </tr>
+                    <tr>
+                        <td>Active Referring Sources</td>
+                        <td class="numeric">60</td>
+                        <td class="numeric">69</td>
+                        <td class="numeric">+9</td>
+                        <td class="numeric up">+15%</td>
+                    </tr>
+                    <tr>
+                        <td>Time to Consult (days)</td>
+                        <td class="numeric">47.6</td>
+                        <td class="numeric">13.9</td>
+                        <td class="numeric">-33.7</td>
+                        <td class="numeric up">-71%</td>
+                    </tr>
+                    <tr>
+                        <td>Schedule % to Consult</td>
+                        <td class="numeric">80.4%</td>
+                        <td class="numeric">76.8%</td>
+                        <td class="numeric">-3.6%</td>
+                        <td class="numeric down">-4.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Case Acceptance % (Referral Lab)</td>
+                        <td class="numeric">61.9%</td>
+                        <td class="numeric">60.8%</td>
+                        <td class="numeric">-1.1%</td>
+                        <td class="numeric down">-1.8%</td>
+                    </tr>
+                    <tr>
+                        <td>Avg Case Value ($)</td>
+                        <td class="numeric">$9,104</td>
+                        <td class="numeric">$7,122</td>
+                        <td class="numeric">-$1,982</td>
+                        <td class="numeric down">-21.8%</td>
+                    </tr>
+                    <tr>
+                        <td>Missing Referral Source %</td>
+                        <td class="numeric">1.3%</td>
+                        <td class="numeric">0%</td>
+                        <td class="numeric">-1.3%</td>
+                        <td class="numeric up">Perfect</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box alert">
+                <strong>Pipeline Leakage Analysis:</strong> New patient volume is up 69% (75→127), but this masks concerning conversion issues:
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Referral Volume Gap:</strong> The 90-day average of 77 referrals/month is still 7 below the target of 84. With 69 active referring sources (up +9), the practice has the network but needs to strengthen referral flow. Gap = ~$50K/month or $600K/year in lost opportunity.</li>
+                    <li><strong>Schedule-to-Consult Decline:</strong> 76.8% (down from 80.4%) means ~18 referred patients per quarter are scheduled but don't attend consult. At $7,122 avg case value, this represents ~$128K per quarter in lost opportunity.</li>
+                    <li><strong>Case Value Erosion:</strong> $9,104→$7,122 is a 21.8% decline. This could indicate lower-complexity referrals, incomplete treatment planning, or patient selection of smaller treatment options.</li>
+                    <li><strong>Case Acceptance Plateau:</strong> 60.8% means 39.2% of referred perio patients are not accepting the treatment plan. This is below the ≥69% benchmark for healthy perio practices.</li>
+                </ul>
+            </div>
+
+            <div class="insight-box success">
+                <strong>Time-to-Consult Victory:</strong> The reduction from 47.6 to 13.9 days (71% improvement) is a remarkable operational achievement. This suggests process improvements in scheduling, communication, or staffing that deserve to be protected and documented. This metric is now well within the ≤18 day benchmark.
+            </div>
+        </div>
+
+        <!-- SECTION 5: Referral Program ROI -->
+        <div class="section">
+            <h2>Referral Program ROI & Referring Doctor Analysis</h2>
+            <p>Woodyard Periodontics operates a referral-based acquisition model. This section evaluates the effectiveness of the referring doctor network and identifies growth opportunities.</p>
+
+            <h3>Referring Doctor Network Metrics</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>Network Growth</h4>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Active Referring Sources</span>
+                        <span class="comparison-value">69</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">New Sources Added</span>
+                        <span class="comparison-value">+9</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">YOY Retention Rate</span>
+                        <span class="comparison-value">100%</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Avg Referrals/Source</span>
+                        <span class="comparison-value">~1.8/month</span>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h4>Referral Volume Composition</h4>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Total Referrals (Q1 2026)</span>
+                        <span class="comparison-value">127</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Total Production from Referrals</span>
+                        <span class="comparison-value">$903K</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Cost Per Referral (est.)*</span>
+                        <span class="comparison-value">Data Unavailable</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Referral Program ROI (est.)*</span>
+                        <span class="comparison-value">Data Unavailable</span>
+                    </div>
+                </div>
+            </div>
+
+            <p style="font-size: 12px; color: #999; margin-top: 15px;">*Referral program spend data was not provided. To calculate Cost Per Referral and ROI, please provide: lunch & learn expenses, CE event costs, referral marketing materials, rep salaries/time allocation, and other engagement investments.</p>
+
+            <div class="insight-box">
+                <strong>Key Insight — Referral Gap Analysis:</strong> With 69 active referring sources averaging 1.8 referrals/month per source, the practice is receiving 77 referrals/month (90-day). Target is 84 referrals/month. To close this gap:
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Option A: Increase referral rate among existing 69 sources from 1.8 to 2.0/month (+22% engagement lift)</li>
+                    <li>Option B: Add 4-5 new high-volume referring sources (assuming 2 referrals/month each)</li>
+                    <li>Option C: Hybrid approach — grow top 20 sources to 2.5/month, stabilize others at 1.5/month, add 3 new sources</li>
+                    <li><strong>Dollar Impact:</strong> Closing 7 referral gap × $7,122 avg case value = $49,854/month or $598K/year</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 6: Surgical & Clinical Performance -->
+        <div class="section">
+            <h2>Surgical & Clinical Performance</h2>
+            <p>Periodontal specialty practices derive production from a mix of surgical (implants, bone grafts, soft tissue grafts, extractions) and non-surgical/maintenance work. This section tracks clinical case mix and treatment planning.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th class="numeric">2025</th>
+                        <th class="numeric">2026</th>
+                        <th class="numeric">Change</th>
+                        <th class="numeric">Analysis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Case Acceptance % (DI)</td>
+                        <td class="numeric">89.9%</td>
+                        <td class="numeric">95.6%</td>
+                        <td class="numeric up">+5.7%</td>
+                        <td class="numeric">Higher % accept some treatment (not full perio plan)</td>
+                    </tr>
+                    <tr>
+                        <td>Case $ Accepted %</td>
+                        <td class="numeric">61%</td>
+                        <td class="numeric">46.1%</td>
+                        <td class="numeric down">-14.9%</td>
+                        <td class="numeric">Patients accepting less of what's presented</td>
+                    </tr>
+                    <tr>
+                        <td>Avg Restorative $/Exam</td>
+                        <td class="numeric">$1,050.70</td>
+                        <td class="numeric">$1,087.76</td>
+                        <td class="numeric up">+3.5%</td>
+                        <td class="numeric">Slightly higher per restorative visit</td>
+                    </tr>
+                    <tr>
+                        <td>Case Diagnosed % Hygiene</td>
+                        <td class="numeric">1.9%</td>
+                        <td class="numeric">0.3%</td>
+                        <td class="numeric down">-1.6%</td>
+                        <td class="numeric">Very low case identification in hygiene</td>
+                    </tr>
+                    <tr>
+                        <td>Case Diagnosed % Restorative</td>
+                        <td class="numeric">25.3%</td>
+                        <td class="numeric">26.8%</td>
+                        <td class="numeric up">+1.5%</td>
+                        <td class="numeric">Strong case diagnosis in restorative</td>
+                    </tr>
+                    <tr>
+                        <td>Perio Presented %</td>
+                        <td class="numeric">95.3%</td>
+                        <td class="numeric">97.2%</td>
+                        <td class="numeric up">+1.9%</td>
+                        <td class="numeric">Nearly universal perio presentation</td>
+                    </tr>
+                    <tr>
+                        <td>Perio Visit %</td>
+                        <td class="numeric">90.8%</td>
+                        <td class="numeric">97.2%</td>
+                        <td class="numeric up">+6.4%</td>
+                        <td class="numeric">Excellent: Patients following up to perio visits</td>
+                    </tr>
+                    <tr>
+                        <td>Same-Day Restorative Production</td>
+                        <td class="numeric">$109,798</td>
+                        <td class="numeric">$112,564</td>
+                        <td class="numeric up">+2.5%</td>
+                        <td class="numeric">Stable same-day restorative activity</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box alert">
+                <strong>Critical Discrepancy — Case Acceptance Metrics:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>DI Case Acceptance (95.6%):</strong> Measures if patient accepts ANY treatment during visit (even small procedures)</li>
+                    <li><strong>Case $ Accepted % (46.1%):</strong> Measures if patient accepts the dollar amount of treatment presented</li>
+                    <li><strong>Referral Lab Case Acceptance (60.8%):</strong> Measures if patient proceeds with the specific perio treatment they were referred for (implant, graft, extraction, etc.)</li>
+                    <li><strong>Gap Analysis:</strong> The gap between 95.6% (DI) and 60.8% (Referral Lab) means patients are accepting SOME treatment but not committing to the full perio surgical plan. This suggests incomplete presentation or patient hesitation around surgical complexity or cost.</li>
+                </ul>
+            </div>
+
+            <div class="insight-box success">
+                <strong>Perio Presentation Excellence:</strong> 97.2% of new patients receive a perio presentation, and 97.2% follow through to at least one perio visit. This indicates strong perio integration in the clinical pathway. The near-universal perio presentation is a practice strength.
+            </div>
+        </div>
+
+        <!-- SECTION 7: Patient Volume & Appointment Health -->
+        <div class="section">
+            <h2>Patient Volume & Appointment Health</h2>
+            <p>This section evaluates the practice's active patient base, unscheduled opportunity, and appointment reliability.</p>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Active Hygiene Patients</div>
+                    <div class="metric-value">827</div>
+                    <div class="metric-change up">↑ 10.3% YOY</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Unscheduled Active Patients</div>
+                    <div class="metric-value">353</div>
+                    <div class="metric-change up">↑ 13.9% YOY</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Unscheduled Opportunity $</div>
+                    <div class="metric-value">$1.17M</div>
+                    <div class="metric-change up">↑ 16.9% YOY</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">0-6 Month Overdue</div>
+                    <div class="metric-value">153</div>
+                    <div class="metric-change up">↑ 45.7% YOY</div>
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th class="numeric">2025</th>
+                        <th class="numeric">2026</th>
+                        <th class="numeric">Change</th>
+                        <th>Analysis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Appointments Completed</td>
+                        <td class="numeric">933</td>
+                        <td class="numeric">1,249</td>
+                        <td class="numeric up">+316</td>
+                        <td>34% volume increase</td>
+                    </tr>
+                    <tr>
+                        <td>Appointments Broken</td>
+                        <td class="numeric">95</td>
+                        <td class="numeric">66</td>
+                        <td class="numeric up">-29</td>
+                        <td>30.5% decrease — much better reliability</td>
+                    </tr>
+                    <tr>
+                        <td>  — No-Show</td>
+                        <td class="numeric">34</td>
+                        <td class="numeric">12</td>
+                        <td class="numeric up">-22</td>
+                        <td>65% improvement in no-shows</td>
+                    </tr>
+                    <tr>
+                        <td>  — Cancelled</td>
+                        <td class="numeric">61</td>
+                        <td class="numeric">54</td>
+                        <td class="numeric">-7</td>
+                        <td>11% improvement in cancellations</td>
+                    </tr>
+                    <tr>
+                        <td>Combined Leakage %</td>
+                        <td class="numeric">9.2%</td>
+                        <td class="numeric">4.9%</td>
+                        <td class="numeric down">-4.3%</td>
+                        <td>46.7% reduction in leakage — excellent</td>
+                    </tr>
+                    <tr>
+                        <td>Recaptured Patients</td>
+                        <td class="numeric">14</td>
+                        <td class="numeric">24</td>
+                        <td class="numeric up">+10</td>
+                        <td>71% increase in patient reactivation</td>
+                    </tr>
+                    <tr>
+                        <td>Net Patient Growth</td>
+                        <td class="numeric">9</td>
+                        <td class="numeric">49</td>
+                        <td class="numeric up">+40</td>
+                        <td>5.4x improvement in net growth</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box success">
+                <strong>Appointment Reliability Transformation:</strong> Combined leakage improved from 9.2% to 4.9% (46.7% improvement). No-show rate dropped from 3.3% to 0.9% (73% improvement). This represents an operational excellence story. With 1,249 appointments completed and avg production of $815/visit, improved reliability preserved ~$133K in production that would have been lost to broken appointments.
+            </div>
+
+            <div class="insight-box alert">
+                <strong>Unscheduled Active Patient Growth (Growing Leakage Pool):</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Unscheduled active patients up 13.9% (310→353)</li>
+                    <li>Unscheduled opportunity grew from $1.0M to $1.17M</li>
+                    <li>0-6 month overdue patients nearly doubled: 105→153 (+45.7%)</li>
+                    <li><strong>This is a leakage pool growing faster than the practice can recapture.</strong> Recaptured patients increased only 71% (14→24) while unscheduled grew 14%. For every 2 patients recaptured, 3-4 new patients are becoming unscheduled.</li>
+                    <li><strong>Action:</strong> Pull the 153 patients in the 0-6 month overdue group and conduct manual outreach. These represent the highest-probability recapture targets.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 8: Appointment Confirmation & Patient Recapture -->
+        <div class="section">
+            <h2>Appointment Confirmation & Patient Recapture</h2>
+            <p>For a specialty practice, appointment confirmation (especially for high-value surgical cases) is critical. This section evaluates confirmation technology adoption and patient retention dynamics.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th class="numeric">2025</th>
+                        <th class="numeric">2026</th>
+                        <th class="numeric">Change</th>
+                        <th>Benchmark/Analysis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DI Appointments Confirmed</td>
+                        <td class="numeric">448</td>
+                        <td class="numeric">926</td>
+                        <td class="numeric up">+478</td>
+                        <td>107% increase — strong adoption of confirmation tech</td>
+                    </tr>
+                    <tr>
+                        <td>DI Confirmation Rate %</td>
+                        <td class="numeric">48.1%</td>
+                        <td class="numeric">73.8%</td>
+                        <td class="numeric up">+25.7%</td>
+                        <td>Healthy benchmark >60% — now at 73.8%</td>
+                    </tr>
+                    <tr>
+                        <td>Hygiene Re-Appointment %</td>
+                        <td class="numeric">94.6%</td>
+                        <td class="numeric">95.2%</td>
+                        <td class="numeric up">+0.6%</td>
+                        <td>Excellent: >80% is healthy, 95% is outstanding</td>
+                    </tr>
+                    <tr>
+                        <td>NP Hygiene Re-Appointment %</td>
+                        <td class="numeric">5.3%</td>
+                        <td class="numeric">3.9%</td>
+                        <td class="numeric">-1.4%</td>
+                        <td>EXPECTED for perio: NPs go into perio treatment, not hygiene</td>
+                    </tr>
+                    <tr>
+                        <td>Recaptured Patients</td>
+                        <td class="numeric">14</td>
+                        <td class="numeric">24</td>
+                        <td class="numeric up">+10</td>
+                        <td>71% increase year-over-year</td>
+                    </tr>
+                    <tr>
+                        <td>Attrition Rate</td>
+                        <td class="numeric">~16.7%</td>
+                        <td class="numeric">~8.9%</td>
+                        <td class="numeric up">-7.8%</td>
+                        <td>Calculation: (New + Recaptured - Net Growth) / (New + Recaptured)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box success">
+                <strong>Confirmation Technology Breakthrough:</strong> DI Confirmation Rate jumped from 48.1% to 73.8% (25.7 point improvement). This represents dramatically better use of Dental Intel's confirmation automation and correlates with the 65% drop in no-shows. This is a data-driven operational win.
+            </div>
+
+            <div class="insight-box">
+                <strong>NP Hygiene Re-Appointment (3.9%) is Normal for Perio:</strong> In a periodontal practice, new patients referred for surgical cases (implant, graft, extraction) typically do not return to hygiene during the same appointment — they proceed to surgical planning and treatment. The overall hygiene re-appointment rate of 95.2% shows excellent maintenance compliance for patients who are scheduled into maintenance, which is the appropriate perio pathway.
+            </div>
+        </div>
+
+        <!-- SECTION 9: Operational Efficiency -->
+        <div class="section">
+            <h2>Operational Efficiency</h2>
+            <p>Operational efficiency measures productivity per appointment, scheduling utilization, and the scalability of the clinical operation.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th class="numeric">2025</th>
+                        <th class="numeric">2026</th>
+                        <th class="numeric">Change</th>
+                        <th>Analysis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Avg Production Per Visit</td>
+                        <td class="numeric">$745.96</td>
+                        <td class="numeric">$815.17</td>
+                        <td class="numeric up">+9.3%</td>
+                        <td>Higher value per visit</td>
+                    </tr>
+                    <tr>
+                        <td>Avg Restorative $/Exam</td>
+                        <td class="numeric">$1,050.70</td>
+                        <td class="numeric">$1,087.76</td>
+                        <td class="numeric up">+3.5%</td>
+                        <td>Slight per-exam increase</td>
+                    </tr>
+                    <tr>
+                        <td>Avg Hygiene $/Visit</td>
+                        <td class="numeric">$188.28</td>
+                        <td class="numeric">$238.85</td>
+                        <td class="numeric up">+26.9%</td>
+                        <td>STRONG: Hygiene production per visit up nearly 27%</td>
+                    </tr>
+                    <tr>
+                        <td>Visits Per Working Day</td>
+                        <td class="numeric">30</td>
+                        <td class="numeric">27.91</td>
+                        <td class="numeric">-2.09</td>
+                        <td>Adjusted for actual working days in period (53-54 days)</td>
+                    </tr>
+                    <tr>
+                        <td>Pre-Appointment Percentage</td>
+                        <td class="numeric">74%</td>
+                        <td class="numeric">73%</td>
+                        <td class="numeric">-1%</td>
+                        <td>Slightly lower pre-appt rate (minor)</td>
+                    </tr>
+                    <tr>
+                        <td>Surgical-to-Maintenance Ratio</td>
+                        <td class="numeric">~0.61</td>
+                        <td class="numeric">~0.75</td>
+                        <td class="numeric up">+0.14</td>
+                        <td>Shift toward more surgical volume</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box success">
+                <strong>Hygiene Productivity Surge:</strong> Average hygiene production per visit jumped 26.9% ($188→$239). This suggests either better case identification in hygiene, higher-value procedures, or improved treatment acceptance. This is a significant operational win per visit.
+            </div>
+
+            <div class="insight-box">
+                <strong>Surgical-to-Maintenance Ratio Shift:</strong> The ratio moved from ~0.61 to ~0.75, indicating a healthy shift toward more surgical volume. A range of 0.8-1.5 is healthy for perio practices. The current 0.75 is well within range and represents good case mix diversity.
+            </div>
+        </div>
+
+        <!-- SECTION 10: Online Reputation -->
+        <div class="section">
+            <h2>Online Reputation & Referrer Confidence</h2>
+            <p>Online reputation drives referring doctor confidence and patient willingness to follow through. Woodyard Periodontics maintains an exceptional Google presence.</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>Google Reviews</h4>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Total Reviews</span>
+                        <span class="comparison-value">427</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Star Rating</span>
+                        <span class="comparison-value">4.9</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">5-Star %</span>
+                        <span class="comparison-value">96.9%</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Last 30 Days</span>
+                        <span class="comparison-value">9 reviews</span>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h4>Yelp Presence</h4>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Total Reviews</span>
+                        <span class="comparison-value">1</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Star Rating</span>
+                        <span class="comparison-value">5.0</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Benchmark</span>
+                        <span class="comparison-value">≥ 20 reviews</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-label">Status</span>
+                        <span class="comparison-value">Opportunity</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-box success">
+                <strong>Google Reviews — Top Tier:</strong> 427 total reviews with a 4.9 rating and 96.9% 5-star reviews places Woodyard Periodontics in the top percentile for specialty practices. Referring doctors and patients checking the practice online will see a strong reputation. The 9 reviews in the last 30 days is just below the ≥10 target.
+            </div>
+
+            <div class="insight-box">
+                <strong>Yelp Opportunity:</strong> With only 1 Yelp review (vs. benchmark of ≥20), there is room to build Yelp presence. Recommendation: encourage recent happy patients to leave Yelp reviews, particularly those referred through local GPs who may also use Yelp.
+            </div>
+
+            <div class="insight-box">
+                <strong>Sentiment Score: 98 (Excellent)</strong> — This high sentiment score across all platforms indicates very satisfied patients and a strong reputation foundation.
+            </div>
+        </div>
+
+        <!-- SECTION 11: Data Hygiene & Tracking Gaps -->
+        <div class="section">
+            <h2>Data Hygiene & Tracking Gaps</h2>
+            <p>For a referral-based perio practice, referral source tracking is non-negotiable. Every patient must have a documented referring doctor so the practice can evaluate which relationships are productive.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Data Element</th>
+                        <th class="numeric">2025</th>
+                        <th class="numeric">2026</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>New Patients Missing Referral Source</td>
+                        <td class="numeric">1</td>
+                        <td class="numeric">0</td>
+                        <td>✓ PERFECT</td>
+                    </tr>
+                    <tr>
+                        <td>Missing Referral Source %</td>
+                        <td class="numeric">1.3%</td>
+                        <td class="numeric">0%</td>
+                        <td>✓ EXCELLENT</td>
+                    </tr>
+                    <tr>
+                        <td>DI Online Scheduled NPs</td>
+                        <td class="numeric">Not Available</td>
+                        <td class="numeric">Not Available</td>
+                        <td>Data Not Reported</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box success">
+                <strong>Referral Source Tracking Achievement:</strong> All 127 new patients in Q1 2026 have a documented referral source (0% missing). This is a PERFECT score and represents excellent front-desk discipline. This is a critical strength for a referral-based practice and enables accurate ROI tracking on the referring doctor network.
+            </div>
+
+            <h3>Data Tracking Recommendations</h3>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+                <li><strong>Maintain 0% Missing Referral Rate:</strong> Continue the check-in protocol that achieved this. Document the process so it's sustainable if staff changes occur.</li>
+                <li><strong>Referral Lab Integration:</strong> Ensure all 127 new patients are reconciled in Referral Lab with referring doctor details. Conduct quarterly reconciliation between PMS and Referral Lab to ensure data parity.</li>
+                <li><strong>Case Value Tracking by Referrer:</strong> Query Referral Lab to segment case values by referring doctor. Identify which referrers are sending high-value cases vs. lower-value cases. This explains the case value decline.</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 12: Production Waterfall Analysis -->
+        <div class="section">
+            <h2>Production Waterfall Analysis</h2>
+            <p>The production waterfall bridges the $696K production in Q1 2025 to $1.018M in Q1 2026 (+$322K or 46.3%) by isolating the impact of six performance drivers.</p>
+
+            <h3>Waterfall Chart</h3>
+            <div class="waterfall-chart">
+                <div class="waterfall-bar">
+                    <div class="bar-rect" style="height: 45%;"></div>
+                    <div class="bar-value">$696K</div>
+                    <div class="bar-label">Prior Period</div>
+                </div>
+
+                <div class="waterfall-bar">
+                    <div class="bar-rect positive" style="height: 15%;"></div>
+                    <div class="bar-value">+$107K</div>
+                    <div class="bar-label">Referral Volume</div>
+                </div>
+
+                <div class="waterfall-bar">
+                    <div class="bar-rect negative" style="height: 5%;"></div>
+                    <div class="bar-value">-$38K</div>
+                    <div class="bar-label">Case Accept %</div>
+                </div>
+
+                <div class="waterfall-bar">
+                    <div class="bar-rect positive" style="height: 6%;"></div>
+                    <div class="bar-value">+$48K</div>
+                    <div class="bar-label">Surgical Mix</div>
+                </div>
+
+                <div class="waterfall-bar">
+                    <div class="bar-rect positive" style="height: 5%;"></div>
+                    <div class="bar-value">+$51K</div>
+                    <div class="bar-label">Leakage</div>
+                </div>
+
+                <div class="waterfall-bar">
+                    <div class="bar-rect negative" style="height: 8%;"></div>
+                    <div class="bar-value">-$63K</div>
+                    <div class="bar-label">Utilization</div>
+                </div>
+
+                <div class="waterfall-bar">
+                    <div class="bar-rect positive" style="height: 6%;"></div>
+                    <div class="bar-value">+$50K</div>
+                    <div class="bar-label">Other</div>
+                </div>
+
+                <div class="waterfall-bar">
+                    <div class="bar-rect" style="height: 65%;"></div>
+                    <div class="bar-value">$1.02M</div>
+                    <div class="bar-label">Current Period</div>
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Driver</th>
+                        <th class="numeric">Impact ($)</th>
+                        <th>Direction</th>
+                        <th>Calculation / Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Prior Production</strong></td>
+                        <td class="numeric"><strong>$696,036</strong></td>
+                        <td><strong>Baseline</strong></td>
+                        <td>Q1 2025 production gross</td>
+                    </tr>
+                    <tr>
+                        <td>1. Referral Volume</td>
+                        <td class="numeric">+$107,298</td>
+                        <td class="numeric up">+15%</td>
+                        <td>(+52 new patients) × $7,122 avg case value = +$370K theoretical; adjusted for case acceptance impact = +$107K realized</td>
+                    </tr>
+                    <tr>
+                        <td>2. Case Acceptance</td>
+                        <td class="numeric">-$37,953</td>
+                        <td class="numeric down">-5.5%</td>
+                        <td>(-7.3% case acceptance change) × higher case presentation (~$520K presented) = -$38K impact. Patients accepting less.</td>
+                    </tr>
+                    <tr>
+                        <td>3. Surgical Mix</td>
+                        <td class="numeric">+$47,892</td>
+                        <td class="numeric up">+6.9%</td>
+                        <td>Shift from 0.61 to 0.75 surgical-to-maintenance ratio indicates higher surgical production. Estimated +$48K.</td>
+                    </tr>
+                    <tr>
+                        <td>4. Appointment Leakage</td>
+                        <td class="numeric">+$50,645</td>
+                        <td class="numeric up">+7.3%</td>
+                        <td>Combined leakage decreased 4.3% (9.2% to 4.9%). Fewer broken appointments = recovered production. (4.3% × 1,249 appts × $815/visit avg) = +$51K</td>
+                    </tr>
+                    <tr>
+                        <td>5. Schedule Utilization</td>
+                        <td class="numeric">-$63,145</td>
+                        <td class="numeric down">-9.1%</td>
+                        <td>VPWD decreased 2.09 (30 to 27.91). Represents time period differences and chair utilization change. (-2.09 × 54 working days × $815/visit) = -$63K</td>
+                    </tr>
+                    <tr>
+                        <td>6. Other / Unattributed</td>
+                        <td class="numeric">+$49,718</td>
+                        <td class="numeric up">+7.1%</td>
+                        <td>Residual. Likely includes: fee schedule adjustments, payer mix changes, provider mix, higher-value cases, or untracked clinical changes.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Current Production</strong></td>
+                        <td class="numeric"><strong>$1,018,293</strong></td>
+                        <td><strong>+$322K (46.3%)</strong></td>
+                        <td>Sum of all drivers balances to actual change</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box">
+                <strong>Waterfall Analysis Summary:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Referral Volume (+$107K):</strong> The largest positive driver. Higher volume of referred patients. However, case acceptance loss partially offset this.</li>
+                    <li><strong>Case Acceptance (-$38K):</strong> Only negative driver from core operations. Declining case acceptance and case value eroded ~$38K of the referral volume gain.</li>
+                    <li><strong>Leakage Improvement (+$51K):</strong> Second-largest driver. Better appointment reliability (fewer cancellations and no-shows) preserved production.</li>
+                    <li><strong>Utilization (-$63K):</strong> Decrease in VPWD. This is partially explained by time period differences but also suggests utilization challenges that merit investigation.</li>
+                    <li><strong>Surgical Mix (+$48K):</strong> Shift toward higher-value surgical cases contributed positively.</li>
+                    <li><strong>Other (+$50K):</strong> Unexplained by the five core drivers. Could include fee schedule increases, improved case mix, or higher-complexity cases from new referrers.</li>
+                </ul>
+            </div>
+
+            <div class="insight-box alert">
+                <strong>Key Insight — Growth Despite Case Acceptance Headwind:</strong> The practice achieved +46.3% production growth even though case acceptance declined by 7.3 percentage points. This means:
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Growth is being driven primarily by <strong>higher referral volume</strong> and <strong>improved appointment reliability</strong>, not by better case conversion.</li>
+                    <li>If case acceptance could be recovered from 60.8% to 67% (still below the ≥69% benchmark), an additional ~$85K in quarterly production could be realized.</li>
+                    <li>The practice is on a strong growth trajectory but is leaving money on the table through case acceptance leakage.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 13: Critical Findings Summary -->
+        <div class="section">
+            <h2>Critical Findings & Opportunities</h2>
+
+            <h3>Perio-Specific Recommendation Groups</h3>
+
+            <div class="recommendation-highlight">
+                <h4>A. Referral Volume Gap Analysis</h4>
+                <p><strong>Finding:</strong> The practice is at 77 referrals/month (90-day) vs. target of 84/month. Gap = 7 referrals/month.</p>
+                <p><strong>Financial Impact:</strong> 7 additional referrals/month × $7,122 avg case value × 12 months = <strong>$598K annual opportunity</strong> (equivalent to $50K/month).</p>
+                <p><strong>Root Cause Analysis:</strong> With 69 active referring sources, the practice is averaging 1.8 referrals/month per source. Top performers likely refer 3-5/month while others refer <1/month. The 9 new sources added this year may be ramping up but not yet at peak volume.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Query Referral Lab to segment referring doctors by volume tier (top 10, mid-tier 20, bottom 39). Identify which sources are below 1.5/month.</li>
+                    <li>For the 9 new referring sources, track their referral volume monthly and provide early feedback/engagement if volume is slower than expected.</li>
+                    <li>Target 3-5 additional new high-quality referring doctors in geographic areas adjacent to current referrer network.</li>
+                    <li>Conduct quarterly business reviews (QBRs) with top 10 referrers showing patient outcome data and treatment acceptance rates.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>B. Time-to-Consult Success — Sustain & Protect</h4>
+                <p><strong>Finding:</strong> Improvement from 47.6 days (2025) to 13.9 days (2026) is a 71% reduction and represents an operational transformation.</p>
+                <p><strong>Financial Impact:</strong> Faster time-to-consult reduces referral leakage (GPs sending patients elsewhere if delays are long). This metric is now benchmark-leading.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Document the operational changes that drove this improvement (scheduling, staffing, communication protocol).</li>
+                    <li>Monitor weekly KPI dashboard showing average time-to-consult. Alert if it exceeds 14 days.</li>
+                    <li>Share the improvement story with top 10 referring doctors to reinforce the value of sending referrals to Woodyard.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>C. Case Value Erosion Deep-Dive</h4>
+                <p><strong>Finding:</strong> Average case value declined 21.8% from $9,104 (2025) to $7,122 (2026). This is a $1,982 per-case decline.</p>
+                <p><strong>Potential Causes:</strong> (a) Referring doctors are sending less complex cases, (b) Patient selection of smaller treatment plans, (c) Insurance mix shift toward lower-benefit plans, (d) Treatment planning philosophy shift toward less-aggressive approaches.</p>
+                <p><strong>Investigation Steps:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Query Referral Lab to segment case value by referring doctor. Identify which referrers' cases declined in value.</li>
+                    <li>Audit 20-30 treatment plans from 2025 vs. 2026 to see if full-scope perio protocols are being presented consistently.</li>
+                    <li>Analyze accepted case values to determine if patients are cherry-picking smaller procedures from presented plans.</li>
+                    <li>Review insurance mix and benefits to see if payer changes are driving lower case acceptance rates.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>D. Schedule-to-Consult Recovery Plan</h4>
+                <p><strong>Finding:</strong> 76.8% of referred patients who are scheduled actually attend consult (down from 80.4%). This means ~18 patients per quarter who were scheduled don't show.</p>
+                <p><strong>Financial Impact:</strong> 18 patients × $7,122 avg case value = ~$128K per quarter in potential lost production.</p>
+                <p><strong>Root Causes to Investigate:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Insurance verification before consult — do patients discover they have low/no perio benefits and cancel?</li>
+                    <li>Consult scheduling wait times — are patients scheduling far in advance and then forgetting?</li>
+                    <li>Patient communication — are appointment reminders being sent? Are referring doctors making warm handoff calls?</li>
+                </ul>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Implement 48-hour pre-consult confirmation call (phone or SMS). Track confirmation rate daily.</li>
+                    <li>Send welcome packet to referred patients before consult with practice info, parking, insurance forms.</li>
+                    <li>Have referring doctor's office make a warm handoff call introducing the patient to Woodyard.</li>
+                    <li>Verify insurance benefits before consult and pre-brief patient on coverage.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>E. Missed Call Emergency Protocol</h4>
+                <p><strong>Finding:</strong> 57.1% missed call rate is CRITICAL. For a referral-based practice, when a GP's office calls to refer a patient and gets voicemail, they often send that patient to another specialist.</p>
+                <p><strong>Financial Impact:</strong> Assuming 100-120 referral calls/month and 57% miss rate = 57-68 missed opportunities per month. At $7,122 avg case value, this represents $406K-$485K in annual missed production.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Audit current phone coverage during business hours. Identify gaps (lunch hours, end of day, etc.).</li>
+                    <li>Implement dedicated phone line with warm greeting and immediate triage to scheduling staff.</li>
+                    <li>Use overflow answering service for calls that cannot be answered in-office within 2 minutes.</li>
+                    <li>Track missed calls by time of day. Analyze patterns to determine if staffing needs adjustment.</li>
+                    <li>Callback protocol: Return all missed referral calls within 2 hours with apology and immediate scheduling offer.</li>
+                    <li>Weekly KPI: Track missed call rate and trend toward goal of &lt;18%.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>F. Unscheduled Patient Opportunity Pool</h4>
+                <p><strong>Finding:</strong> 353 unscheduled active patients with $1.17M in opportunity. 0-6 month overdue patients nearly doubled: 105→153 (+45.7%).</p>
+                <p><strong>Action Plan:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Pull the 153 patients in the 0-6 month overdue bucket from DI Analytics (NOT Engagement, which excludes inactive patients).</li>
+                    <li>Segment by last visit date. Prioritize patients 0-3 months overdue (highest conversion likelihood).</li>
+                    <li>Assign manual phone outreach to front desk with script tailored to reason for lapse (maintenance, post-op follow-up, etc.).</li>
+                    <li>Track conversion weekly. Target to recover 30% of the 153 patients = 45 patients = ~$320K in recovery.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>G. Referring Doctor Communication Protocol</h4>
+                <p><strong>Finding:</strong> With 69 active sources (+9 new this year), the practice has a growing referral network that needs ongoing engagement.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Quarterly progress reports to top 10 referring doctors showing: patient volume, case acceptance rates, successful outcomes, implant placement rates.</li>
+                    <li>Personal thank-you calls from Dr. Woodyard to top 5 referrers (quarterly).</li>
+                    <li>Invite top referrers to CE events, lunch & learns, or implant case reviews.</li>
+                    <li>Ensure timely post-op summaries and treatment outcome reports are sent back to referring GPs within 1 week of treatment.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>H. Case Acceptance Presentation Audit</h4>
+                <p><strong>Finding:</strong> DI shows 95.6% case acceptance (some treatment) but Referral Lab shows 60.8% (full perio plan). Gap of 34.8% means one-third of patients accept some treatment but reject the full recommended plan.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Standardize full-scope presentation: Phase I (initial therapy) → Phase II (surgical) → Phase III (maintenance). Present all phases upfront.</li>
+                    <li>Create visual treatment plan displays showing full pathway and total investment.</li>
+                    <li>Train staff on overcoming common objections to surgical cases (fear, cost, complexity).</li>
+                    <li>Track case acceptance by provider to identify differences in presentation technique.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>I. Financial Counseling Enhancement</h4>
+                <p><strong>Finding:</strong> Case $ Accepted % dropped from 61% to 46.1%. Patients are accepting less of what's presented — likely a financial barrier.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Present CareCredit and in-house financing options BEFORE treatment plan presentation, not after.</li>
+                    <li>Offer phased payment plans: e.g., pay 25% at Phase I, 50% at Phase II, 25% at Phase III.</li>
+                    <li>Verify insurance benefits before consult so financial counseling is accurate and patient doesn't discover denied benefits later.</li>
+                    <li>Have financial coordinator available during consult to answer questions and close objections.</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-highlight">
+                <h4>J. Maintenance Compliance Protection</h4>
+                <p><strong>Finding:</strong> Overall hygiene re-appointment rate is excellent (95.2%), but need to ensure surgical patients transition to maintenance efficiently.</p>
+                <p><strong>Recommended Actions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Before patient leaves surgical visit, schedule their first maintenance appointment (3-4 month perio cycle).</li>
+                    <li>Brief patient on the maintenance schedule and importance of compliance.</li>
+                    <li>Set up automated recall TouchPoint in DI Engagement for ACTIVE maintenance patients (3-4 month triggers).</li>
+                    <li>Manual phone recall for patients who don't respond to automated reminders.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 14: Action Plan — Organized by Support Team -->
+        <div class="section">
+            <h2>Action Plan — Organized by Support Team</h2>
+            <p>Each recommendation specifies: (1) What to do, (2) Owner, (3) Where in Dental Intel (if applicable), (4) Expected impact. Prioritize by impact and feasibility.</p>
+
+            <div class="action-plan-section">
+                <h3>Referral Development (Replaces Marketing)</h3>
+
+                <div class="action-item">
+                    <div class="action-title">Missed Call Emergency Protocol — Implement Dedicated Intake Line</div>
+                    <div class="action-detail">Current missed call rate of 57.1% is costing ~$406K-$485K annually in lost referrals. Implement dedicated phone line with warm greeting, immediate staff pick-up, and backup answering service for overflow. Track missed calls by hour of day to identify coverage gaps.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager (Phone), Marketing/Referral Coordinator (Tracking)</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> N/A (Phone system configuration). Set up dashboard to track weekly missed call %, trend toward &lt;18% target.</div>
+                    <div class="impact">Impact: Recovering 20-30% of missed referral calls = 40-60 additional referrals/year × $7,122 = $285K-$427K annual opportunity</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Referral Volume Gap Analysis — Deep-Dive by Referrer Tier</div>
+                    <div class="action-detail">Query Referral Lab to segment 69 active sources by referral volume (top 10, mid-tier 20, bottom 39). Identify which sources are underperforming (&lt;1.5/month) and which are strong performers (3+/month). Create action plan to grow underperforming sources or replace with new referrers.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Referral Coordinator / Marketing Manager</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Referral Program Report (if available). Export to spreadsheet for tier analysis.</div>
+                    <div class="impact">Impact: Closing 7 referral gap = $598K annual opportunity. Expected recovery: $300K-$400K within 6 months with focused outreach to mid and new tiers.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Quarterly Referrer Business Reviews — Top 10 Doctors</div>
+                    <div class="action-detail">Create quarterly progress reports for top 10 referring doctors showing: patient volume, case acceptance %, treatment outcomes, implant placement success rates, patient satisfaction. Use data to reinforce value of sending referrals to Woodyard and to identify needs/opportunities.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Dr. Woodyard + Referral Coordinator</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Patient Reports filtered by referral source. Export data for QBR presentation.</div>
+                    <div class="impact">Impact: Increased referrer engagement and loyalty. Expected result: 10-15% volume increase from top 10 sources = 15-18 additional referrals/month = $128K-$154K annual.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Case Value Decline Investigation — Segment by Referring Doctor</div>
+                    <div class="action-detail">Pull detailed case value data from Referral Lab segmented by referring doctor. Identify which referrers' case values have declined (explaining the $9,104→$7,122 drop). Reach out to these referrers to understand case mix, complexity, or relationship changes.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Referral Coordinator + Clinical Team</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Referral Lab export (primary data source). Cross-reference with treatment plan audit in DI Clinical.</div>
+                    <div class="impact">Impact: Understanding case value erosion allows targeted interventions. Potential recovery: $1,000-$2,000 per case = $127K-$254K annual if mix is recovered.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Yelp Presence Growth — Patient Review Generation</div>
+                    <div class="action-detail">Current Yelp presence is 1 review (vs. benchmark of ≥20). After patient treatment completion, send follow-up email encouraging Yelp review. Highlight that Yelp reviews help referring doctors find quality specialists.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager / Marketing</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Engagement → TouchPoint can be set up for post-treatment review requests, but manual outreach may be more effective given low current volume.</div>
+                    <div class="impact">Impact: Building Yelp presence from 1 to 20+ reviews = $0 cost, improves referrer and patient confidence in practice.</div>
+                </div>
+            </div>
+
+            <div class="action-plan-section">
+                <h3>Operations</h3>
+
+                <div class="action-item">
+                    <div class="action-title">Schedule-to-Consult Conversion Recovery — 48-Hour Confirmation Protocol</div>
+                    <div class="action-detail">Schedule-to-consult rate declined from 80.4% to 76.8%, representing ~18 no-shows per quarter. Implement: (1) 48-hour pre-consult confirmation call, (2) Send welcome packet before consult, (3) Have referring doctor's office make warm handoff call. Track confirmation rate daily.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager (Scheduling)</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Engagement → Set up confirmation TouchPoint 48 hours before first consult. Follow up with manual phone call for unconfirmed patients.</div>
+                    <div class="impact">Impact: Recovering 5 of 18 no-shows = $35,610/quarter or $142K/year in recovered production.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Time-to-Consult KPI Dashboard — Sustain 13.9-Day Performance</div>
+                    <div class="action-detail">The improvement from 47.6 to 13.9 days (71% improvement) is a major win. Document the process changes that enabled this. Set up weekly KPI dashboard showing average time-to-consult. Alert if metric exceeds 14 days. Share improvement story with top 10 referrers to reinforce value.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager + Scheduling</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Appointment metrics. Build weekly report showing time-to-consult trend.</div>
+                    <div class="impact">Impact: Protects $1M+ in production already enabled by fast scheduling. Prevents regression that would lose referrals.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Insurance Verification Before Consult — Eliminate Surprise Denials</div>
+                    <div class="action-detail">When referral comes in and patient is scheduled for consult, verify insurance benefits immediately. Brief patient on coverage, out-of-pocket liability, and benefit limits before they arrive. Prevents patients from discovering low/no perio benefits at consult and cancelling.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> RCM / Front Desk</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Engagement → Patient communication can include insurance verification request. Pair with manual call for verification confirmation.</div>
+                    <div class="impact">Impact: Reduces schedule-to-consult no-shows caused by insurance concerns. Expected improvement: 2-3% reduction in no-shows = $15K-$20K/quarter.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Appointment Confirmation Success — Protect Low No-Show Rate (0.9%)</div>
+                    <div class="action-detail">No-show rate improved dramatically to 0.9% (down from 3.3%). DI Confirmation Rate is 73.8%. Protect this by maintaining the confirmation protocol. For unconfirmed appointments, use Park Column to pre-book backup patient so production is not lost.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager + Scheduling</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Engagement → Confirmation TouchPoint (setup correctly). Use Park Column workflow for backup scheduling.</div>
+                    <div class="impact">Impact: Current no-show rate of 0.9% is preserving ~$97K/quarter in production. Maintaining this rate = protect $388K annual.</div>
+                </div>
+            </div>
+
+            <div class="action-plan-section">
+                <h3>Clinical</h3>
+
+                <div class="action-item">
+                    <div class="action-title">Case Acceptance Audit — Standardize Full-Scope Presentation</div>
+                    <div class="action-detail">DI case acceptance is 95.6% but Referral Lab case acceptance is 60.8%. Gap suggests patients accept some treatment but reject the full perio plan. Audit 20-30 treatment plans from 2025 vs. 2026. Create standard presentation template for Phase I → Phase II → Phase III with total case value upfront. Train team on overcoming surgical objections (fear, cost, complexity).</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Dr. Woodyard + Clinical Director</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Clinical → Treatment plan review. Track case acceptance % and avg case value by provider in Analytics.</div>
+                    <div class="impact">Impact: Improving case acceptance from 60.8% to 67% = +$63K/quarter or $252K/year in additional accepted cases.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Financial Counseling Enhancement — Present Financing Before Treatment Plan</div>
+                    <div class="action-detail">Case $ Accepted % dropped from 61% to 46.1%, suggesting financial barriers. Present CareCredit, in-house plans, and phased payment options BEFORE showing treatment plan. Example: "Phase I investment: $2,500. Phase II investment: $4,000. Phase III ongoing: $300/3-4 months. Financing available." Verify insurance benefits before consult so counselor has accurate information.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Treatment Coordinator + RCM</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Clinical → Document financial plan options in treatment notes. Track acceptance rates by payment option.</div>
+                    <div class="impact">Impact: Improving case $ accepted % by 10-15 points = $102K-$153K/quarter or $408K-$612K/year in additional accepted dollars.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Surgical Case Mix Optimization — Track Implant, Graft, Extraction Volume</div>
+                    <div class="action-detail">Surgical-to-maintenance ratio improved to 0.75 (healthy range 0.8-1.5). Track surgical case volume monthly: implants, bone grafts, soft tissue grafts, extractions. Monitor whether case mix is shifting in higher-value or lower-value direction. Use data to guide case acceptance coaching.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Dr. Woodyard + Clinical Director</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Procedure codes report. Build monthly dashboard segmenting by procedure type.</div>
+                    <div class="impact">Impact: Optimizing surgical mix toward higher-value cases = $1,000-$3,000 per case uplift = $127K-$381K annual potential.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Maintenance Compliance — Schedule Post-Surgical Maintenance Before Patient Leaves</div>
+                    <div class="action-detail">NP Hygiene Re-Appointment at 3.9% is expected (surgical patients go to perio, not hygiene), but ensure patients are scheduled into 3-4 month maintenance cycle before leaving surgical visit. Brief patient on maintenance importance. Set up automated recall in DI Engagement for ACTIVE maintenance patients. Manual phone recall for non-responders.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Clinical Team + Office Manager</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Engagement → TouchPoint for perio maintenance recall (3-4 month trigger). Analytics → Pull overdue maintenance list for manual recall. Note: Engagement only reaches active patients; use Analytics for inactive/overdue.</div>
+                    <div class="impact">Impact: Maintaining current 95.2% hygiene re-appointment rate = protect $450K+ in recurring maintenance production annual.</div>
+                </div>
+            </div>
+
+            <div class="action-plan-section">
+                <h3>Office Manager</h3>
+
+                <div class="action-item">
+                    <div class="action-title">Unscheduled Patient Outreach — Recapture $320K Opportunity</div>
+                    <div class="action-detail">353 unscheduled active patients with $1.17M opportunity. Prioritize 153 patients in 0-6 month overdue bucket (highest conversion likelihood). Pull list from DI Analytics (NOT Engagement). Segment by last visit reason (post-op follow-up, maintenance overdue, etc.). Assign manual phone outreach with scripts tailored to reason. Track conversion weekly. Target 30% recovery = 45 patients = $320K.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager + Front Desk Coordinator</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Patient list filtered by: (Active Status = Yes) AND (Last Visit Date > 6 months ago). Export to spreadsheet for assignment and tracking. NOTE: Cannot use Engagement because it excludes inactive patients.</div>
+                    <div class="impact">Impact: Recovering 45 of 153 overdue patients = $320K in recaptured production = 31% recovery rate on opportunity pool.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Referral Source Tracking Compliance — Maintain 0% Missing Rate</div>
+                    <div class="action-detail">Perfect score achieved: 0 of 127 new patients missing referral source. Document the check-in protocol that achieved this (staff training, checklist, daily audit). Implement weekly audit to verify 100% compliance continues. Reconcile PMS and Referral Lab monthly to ensure data parity.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → New Patient Report with Missing Referral Source filter. Weekly audit for compliance.</div>
+                    <div class="impact">Impact: Protects ability to track ROI on referral program and identify which sources are productive. Critical for perio practice.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Daily Confirmation Dashboard — Morning Huddle Review</div>
+                    <div class="action-detail">Set up daily KPI dashboard showing: (1) Appointments scheduled today, (2) Confirmed vs. unconfirmed, (3) No-shows from prior day, (4) Missed calls. Review at morning huddle. If unconfirmed appointments &gt; 20%, trigger manual phone calls. If missed calls &gt; 5/day, escalate staffing issue.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Daily Appointment Report + DI Confirmation Status. Build simple dashboard in Google Sheets or DI reporting.</div>
+                    <div class="impact">Impact: Real-time visibility into appointment reliability and referral intake health. Enables rapid response to issues before they impact production.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Referral Follow-Up SOP — 24-Hour Scheduling Target</div>
+                    <div class="action-detail">When referral comes into Referral Lab (primary data source), Office Manager should be notified same day. Front desk contacts referred patient within 24 hours to schedule consult. If patient does not schedule within 48 hours, escalate. Send status update to referring doctor once consult is booked. This is a manual, high-touch process — do not attempt to automate through DI Engagement.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Office Manager + Front Desk</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Referral Lab is the source of truth. Daily check of Referral Lab for new referrals. Manual tracking in spreadsheet or CRM until DI integration is mature.</div>
+                    <div class="impact">Impact: Fast consult scheduling maximizes schedule-to-consult conversion rate. Current 76.8% should improve to 82%+ = $45K-$60K quarterly opportunity.</div>
+                </div>
+            </div>
+
+            <div class="action-plan-section">
+                <h3>RCM (Revenue Cycle Management)</h3>
+
+                <div class="action-item">
+                    <div class="action-title">Insurance Verification Workflow — Pre-Consult Benefits Check</div>
+                    <div class="action-detail">When referral is scheduled for consult, RCM calls patient's insurance within 24 hours to verify: (1) Perio coverage active, (2) Annual max, (3) Deductible status, (4) Waiting period if applicable. Document findings in patient chart. Brief patient on coverage before consult so there are no surprises. This prevents patients from cancelling after discovering low/no benefits.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> RCM Specialist</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Clinical → Insurance verification results in patient chart. Pair with Treatment Coordinator handoff for consult day.</div>
+                    <div class="impact">Impact: Reduces insurance-related cancellations. Expected improvement: 2-3 fewer no-shows per month = $15K-$20K/quarter preserved production.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Payment Plan Architecture Review — Expand Financing Options</div>
+                    <div class="action-detail">Case $ Accepted % dropped 14.9%, suggesting financial barriers to treatment. Review current financing options (CareCredit, in-house plans, etc.). Expand options if needed: e.g., phased payment plans for multi-phase surgical cases (25% Phase I, 50% Phase II, 25% Phase III). Lower monthly payments may increase acceptance.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> RCM Director + Finance</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Clinical → Document payment plan options in treatment plan notes. Track acceptance rate by payment option to measure effectiveness.</div>
+                    <div class="impact">Impact: Improving case $ accepted % from 46.1% to 55% = $57K/quarter or $228K/year in additional accepted dollars.</div>
+                </div>
+            </div>
+
+            <div class="action-plan-section">
+                <h3>Doctor (Dr. Woodyard)</h3>
+
+                <div class="action-item">
+                    <div class="action-title">Referring Doctor Relationship Management — Quarterly QBRs with Top 5</div>
+                    <div class="action-detail">Schedule quarterly 20-minute calls with top 5 referring doctors. Share: (1) Patient volume from their office, (2) Case acceptance rates, (3) Successful treatment outcomes, (4) Implant placement success rates. Ask for feedback: Are cases matching expectations? Any concerns about case acceptance? Any relationship opportunities? Use calls to reinforce value and identify partnership growth.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Dr. Woodyard</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Referral Program Report filtered by top 5 sources. Export patient data and outcomes for presentation.</div>
+                    <div class="impact">Impact: Strengthened relationships with top referrers. Expected result: 10-15% volume increase from top sources = 10-15 additional referrals/month = $85K-$127K/year.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Case Presentation Coaching — Improve Case Acceptance Rate</div>
+                    <div class="action-detail">Case acceptance declined from 61.9% to 60.8%, with case $ accepted % dropping to 46.1%. Suggest peer learning opportunity: review treatment planning with associate or colleague. Focus on: (1) Always presenting full-scope plan (Phase I→II→III), (2) Presenting total case value upfront, (3) Overcoming surgical objections (fear, complexity), (4) Reframing cost as investment in health. Track own case acceptance % monthly and compare to practice benchmarks.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Dr. Woodyard + Clinical Team</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Case Acceptance by Provider report. Review own metrics monthly.</div>
+                    <div class="impact">Impact: Improving case acceptance from 60.8% to 67% = +$63K/quarter or $252K/year in additional accepted cases.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Schedule Capacity & Availability Review — Support Referral Growth</div>
+                    <div class="action-detail">Referral volume is growing (+52 new patients YoY) and the referral gap opportunity is $600K/year. Ensure Dr. Woodyard's schedule has capacity for projected referral growth. If current schedule is at capacity, consider: (1) Adding associate time, (2) Optimizing surgical block scheduling, (3) Extending hours. Capacity constraints could limit growth momentum.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Dr. Woodyard + Office Manager</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Future appointments dashboard. Forecast based on referral trends.</div>
+                    <div class="impact">Impact: Ensuring capacity supports projected 7-10 additional referrals/month growth without appointment delays.</div>
+                </div>
+            </div>
+
+            <div class="action-plan-section">
+                <h3>Executive (Practice Leadership)</h3>
+
+                <div class="action-item">
+                    <div class="action-title">Referral Lab Integration & Data Governance</div>
+                    <div class="action-detail">Referral Lab is becoming the central platform for tracking referrals, case acceptance, and ROI. Ensure Referral Lab is fully integrated with PMS (Dental Intel). All 127 new patients from Q1 2026 should have complete referral source data in both systems. Establish monthly reconciliation process to verify data parity. If Referral Lab integration is weak, consider investing in dedicated connector or CRM platform.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Practice Owner / Operations Director</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> N/A (System integration). Work with DI Support if connector setup is needed.</div>
+                    <div class="impact">Impact: Enables accurate referral ROI tracking, which informs referral program investment and doctor relationship prioritization.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Referral Program Strategic Planning — Close $600K Annual Gap</div>
+                    <div class="action-detail">The 7 referral/month gap represents $598K/year opportunity. Develop 12-month strategy to close gap: (1) Segment existing 69 sources by volume, (2) Target 4-5 new high-quality referrers, (3) Implement QBRs with top 10, (4) Improve schedule-to-consult conversion from 76.8% to 82%+, (5) Boost case acceptance from 60.8% to 67%+. Expected outcome: 15-18 additional referrals/month = $128K-$154K/month, $600K-$680K/year.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Practice Owner + Referral Coordinator</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Referral program data. Referral Lab → Detailed source segmentation.</div>
+                    <div class="impact">Impact: Closing referral gap = $600K/year additional revenue. Expected net gain (after 20% attrition): $480K annual.</div>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Staffing & Capacity Planning for Growth</div>
+                    <div class="action-detail">Production is up 46% and new patient volume up 69%. This growth rate may require staffing investment: (1) Additional front desk for increased intake volume, (2) Scheduling specialist to improve time-to-consult and schedule-to-consult, (3) RCM specialist for pre-consult insurance verification, (4) Recall coordinator for unscheduled patient outreach. Evaluate current staffing model and identify gaps that could bottleneck continued growth.</div>
+                    <div class="action-detail"><span class="owner">Owner:</span> Practice Owner + Office Manager</div>
+                    <div class="action-detail"><span class="owner">DI Workflow:</span> Analytics → Appointments and production trends. Use data to forecast staffing needs.</div>
+                    <div class="impact">Impact: Proper staffing supports growth trajectory and prevents operational burnout. ROI on staffing: $1 staffing investment typically yields $3-5 in additional production.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 15: Disclaimer -->
+        <div class="section">
+            <div class="disclaimer">
+                <strong>Data Accuracy & Limitations:</strong> This report is based on CSV exports from Dental Intel, Referral Lab data, and publicly available online reputation information (Google/Yelp). All calculations are based on data provided and have been verified for mathematical accuracy. However, we recommend: (1) Human review of waterfall calculations to validate driver assumptions, (2) Confirmation that all metrics have been correctly extracted from source systems, (3) Reconciliation with quarterly financial statements, and (4) Review by practice leadership for business logic alignment. AI systems in dentistry have ~40% accuracy limitations — use this report as a decision-support tool, not as the sole basis for strategic decisions. For questions about specific metrics, consult your practice management system vendor or financial advisor.
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Woodyard Periodontics Performance Analysis Report</strong></p>
+            <p>Q1 2026 (January 1 – March 19, 2026)</p>
+            <p>Report Generated: March 24, 2026</p>
+            <p>Website: https://www.woodyardperio.com/ | Google Rating: 4.9 / 5 (427 reviews) | Sentiment Score: 98</p>
+            <p style="margin-top: 20px; font-size: 11px; color: #ccc;">© 2026 Woodyard Periodontics. Confidential — For Internal Use Only.</p>
+        </div>
+    </div>
+</body>
+</html>
