@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Storefront Audit — Conversion Priority Report</title>
+<style>
+  :root {
+    --navy: #1F4E79;
+    --blue: #2E75B6;
+    --red: #C00000;
+    --yellow: #BF8F00;
+    --green: #548235;
+    --gray: #666666;
+    --bg-red: #FFC7CE;
+    --bg-yellow: #FFEB9C;
+    --bg-green: #C6EFCE;
+    --border: #CCCCCC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #333; background: #f5f6fa; line-height: 1.5; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+  
+  /* Header */
+  .header { background: linear-gradient(135deg, var(--navy), var(--blue)); color: white; padding: 40px 48px; border-radius: 12px; margin-bottom: 32px; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+  .header h2 { font-size: 18px; font-weight: 400; opacity: 0.9; margin-bottom: 12px; }
+  .header .meta { font-size: 13px; opacity: 0.7; }
+  
+  /* Cards */
+  .card { background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); padding: 32px; margin-bottom: 28px; }
+  .card h2 { font-size: 20px; color: var(--navy); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--blue); }
+  .card p { font-size: 14px; color: #444; margin-bottom: 12px; }
+  
+  /* Stat boxes */
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .stat-box { background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); text-align: center; border-top: 4px solid var(--blue); }
+  .stat-box.critical { border-top-color: var(--red); }
+  .stat-box.warning { border-top-color: var(--yellow); }
+  .stat-box.good { border-top-color: var(--green); }
+  .stat-box .number { font-size: 32px; font-weight: 700; color: var(--navy); }
+  .stat-box .label { font-size: 12px; color: var(--gray); margin-top: 4px; }
+  
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--navy); color: white; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr:hover td { background: #f8f9fc; }
+  .text-center { text-align: center; }
+  
+  /* Score pills */
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 12px; font-weight: 600; font-size: 12px; min-width: 48px; text-align: center; }
+  .pill-red { background: var(--bg-red); color: #9C0006; }
+  .pill-yellow { background: var(--bg-yellow); color: #9C6500; }
+  .pill-green { background: var(--bg-green); color: #006100; }
+  
+  /* Priority tags */
+  .priority { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11px; }
+  .p0 { background: var(--bg-red); color: #9C0006; }
+  .p1 { background: var(--bg-yellow); color: #9C6500; }
+  .p2 { background: var(--bg-green); color: #006100; }
+  
+  /* Phase timeline */
+  .phase { margin-bottom: 20px; padding-left: 24px; border-left: 4px solid var(--border); }
+  .phase.phase-1 { border-left-color: var(--red); }
+  .phase.phase-2 { border-left-color: var(--yellow); }
+  .phase.phase-3 { border-left-color: var(--green); }
+  .phase h3 { font-size: 16px; margin-bottom: 8px; }
+  .phase ul { margin-left: 16px; font-size: 14px; color: #444; }
+  .phase li { margin-bottom: 4px; }
+  
+  /* Responsive */
+  .table-wrap { overflow-x: auto; }
+  
+  /* Legend */
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; font-size: 13px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 3px; }
+  
+  @media print {
+    body { background: white; }
+    .container { max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+    .header { border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>Digital Storefront Audit</h1>
+  <h2>New Patient Conversion Priority Report</h2>
+  <div class="meta">32 Practices &nbsp;|&nbsp; SGA + Gen4 Portfolios &nbsp;|&nbsp; March 2026</div>
+</div>
+
+<!-- Key Stats -->
+<div class="stats-row">
+  <div class="stat-box critical">
+    <div class="number">72%</div>
+    <div class="label">Missing Before/After Gallery</div>
+  </div>
+  <div class="stat-box critical">
+    <div class="number">69%</div>
+    <div class="label">No New Patient Offer</div>
+  </div>
+  <div class="stat-box critical">
+    <div class="number">66%</div>
+    <div class="label">No Membership Plan</div>
+  </div>
+  <div class="stat-box warning">
+    <div class="number">56%</div>
+    <div class="label">Insurance Plans Not Listed</div>
+  </div>
+  <div class="stat-box warning">
+    <div class="number">41%</div>
+    <div class="label">No Reviews on Website</div>
+  </div>
+</div>
+
+<!-- Executive Summary -->
+<div class="card">
+  <h2>Executive Summary</h2>
+  <p>This report consolidates the Digital Storefront Audit findings from 32 dental and specialty practices across the SGA (18 practices) and Gen4 (14 practices) portfolios. The analysis is prioritized around converting new patients — the factors that most directly determine whether a prospective patient who visits a practice's website will actually book an appointment.</p>
+  <p>The data reveals systemic gaps across the portfolio. Only 3 of 32 practices (9%) have zero conversion-critical fails. The average Conversion Strategy score is 61%, but the average Insurance &amp; Financing score is just 32% — meaning most practices fail to remove the financial barriers that stop patients from booking. Trust-Building averages 54%, with before/after galleries missing from 72% of all practices.</p>
+  <p>The highest-impact, most-repeatable fixes fall into three categories: (1) adding new patient offers and online booking CTAs, (2) listing specific insurance plans and adding financing/membership options, and (3) embedding reviews and before/after galleries on practice websites. These three categories alone would address over 80% of all conversion-critical fails across the portfolio.</p>
+</div>
+
+<!-- Top Issues -->
+<div class="card">
+  <h2>Top Conversion-Blocking Issues (Portfolio-Wide)</h2>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Issue</th>
+        <th class="text-center">Affected</th>
+        <th>Patient Impact</th>
+        <th>Recommended Action</th>
+        <th class="text-center">Effort</th>
+        <th class="text-center">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Before/after gallery missing</strong></td>
+        <td class="text-center">23/32 (72%)</td>
+        <td>Patients can't visualize outcomes; reduces cosmetic case acceptance</td>
+        <td>Collect 10–15 case photos per practice; add gallery page + link from service pages</td>
+        <td class="text-center">Medium</td>
+        <td class="text-center"><span class="priority p0">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>No new patient offer on website</strong></td>
+        <td class="text-center">22/32 (69%)</td>
+        <td>No financial incentive to choose this practice over competitors</td>
+        <td>Create $99 exam/X-ray/cleaning bundle or free consultation offer; place in hero + sticky banner</td>
+        <td class="text-center">Low</td>
+        <td class="text-center"><span class="priority p0">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>No membership/savings plan</strong></td>
+        <td class="text-center">21/32 (66%)</td>
+        <td>Uninsured patients (30–40% of market) have no affordable path to care</td>
+        <td>Launch in-house membership plan ($25–35/mo); add dedicated page + pricing</td>
+        <td class="text-center">Medium</td>
+        <td class="text-center"><span class="priority p0">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>Insurance plans not listed</strong></td>
+        <td class="text-center">18/32 (56%)</td>
+        <td>Patients can't confirm coverage; bounce to competitors who list plans</td>
+        <td>Get full insurance list from front desk; create /insurance page with plan logos</td>
+        <td class="text-center">Low</td>
+        <td class="text-center"><span class="priority p1">P1</span></td>
+      </tr>
+      <tr>
+        <td><strong>No reviews on website</strong></td>
+        <td class="text-center">13/32 (41%)</td>
+        <td>Missing social proof at the point of decision</td>
+        <td>Embed Google review widget on homepage; add testimonials to service pages</td>
+        <td class="text-center">Low</td>
+        <td class="text-center"><span class="priority p1">P1</span></td>
+      </tr>
+      <tr>
+        <td><strong>No financing options shown</strong></td>
+        <td class="text-center">12/32 (38%)</td>
+        <td>High-value cases ($3K+) lost when patients assume they can't afford treatment</td>
+        <td>Add CareCredit/Sunbit logos + apply links on service pages and financing page</td>
+        <td class="text-center">Low</td>
+        <td class="text-center"><span class="priority p1">P1</span></td>
+      </tr>
+      <tr>
+        <td><strong>No FAQs on service pages</strong></td>
+        <td class="text-center">27/32 (84%)</td>
+        <td>Patients leave with unanswered questions; SEO opportunity lost</td>
+        <td>Add 5–8 FAQs per service page with FAQ schema markup</td>
+        <td class="text-center">Low</td>
+        <td class="text-center"><span class="priority p2">P2</span></td>
+      </tr>
+      <tr>
+        <td><strong>Tracking/analytics missing</strong></td>
+        <td class="text-center">22/32 (69%)</td>
+        <td>Can't measure marketing ROI or identify conversion drop-off points</td>
+        <td>Deploy GTM + GA4 + call tracking on all sites; define conversion goals</td>
+        <td class="text-center">Medium</td>
+        <td class="text-center"><span class="priority p2">P2</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- Data Gathering Plan -->
+<div class="card">
+  <h2>Data Gathering Plan</h2>
+  <p style="margin-bottom:16px;">To fix the issues above, the following data and assets need to be collected from each practice. Use this as a checklist for market managers.</p>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Data / Asset Needed</th>
+        <th>Source</th>
+        <th class="text-center">Timeline</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Before/after case photos (10–15 cases)</strong></td>
+        <td>Clinical team / doctor</td>
+        <td class="text-center">2–4 weeks</td>
+        <td>Need signed patient consent forms; focus on implants, Invisalign, veneers, whitening</td>
+      </tr>
+      <tr>
+        <td><strong>New patient offer details</strong></td>
+        <td>Practice owner / office manager</td>
+        <td class="text-center">1 week</td>
+        <td>Determine: exam + X-ray + cleaning bundle price, free consult for implants/Invisalign, any exclusions</td>
+      </tr>
+      <tr>
+        <td><strong>Membership plan structure &amp; pricing</strong></td>
+        <td>Practice owner / office manager</td>
+        <td class="text-center">2 weeks</td>
+        <td>If no plan exists: recommend $25–35/mo covering 2 cleanings, exams, X-rays + 15–20% off treatment</td>
+      </tr>
+      <tr>
+        <td><strong>Full insurance plan list</strong></td>
+        <td>Front desk / billing coordinator</td>
+        <td class="text-center">1 week</td>
+        <td>Need every accepted plan name; group by carrier (Delta, Cigna, Aetna, BCBS, MetLife, etc.)</td>
+      </tr>
+      <tr>
+        <td><strong>Financing partner details</strong></td>
+        <td>Office manager</td>
+        <td class="text-center">1 week</td>
+        <td>Confirm active CareCredit/Sunbit accounts; get provider IDs for apply-now links; request logo assets</td>
+      </tr>
+      <tr>
+        <td><strong>Google review feed access</strong></td>
+        <td>Marketing team</td>
+        <td class="text-center">1 week</td>
+        <td>Use Birdeye, Podium, or direct Google Places widget; need Google Place ID per location</td>
+      </tr>
+      <tr>
+        <td><strong>Patient testimonials (video or written)</strong></td>
+        <td>Front desk / marketing coordinator</td>
+        <td class="text-center">2–4 weeks</td>
+        <td>Collect 5–10 testimonials; video preferred; need signed release forms</td>
+      </tr>
+      <tr>
+        <td><strong>FAQ content per service line</strong></td>
+        <td>Doctor + clinical team</td>
+        <td class="text-center">2–3 weeks</td>
+        <td>5–8 questions per service; focus on cost, duration, pain, recovery, results</td>
+      </tr>
+      <tr>
+        <td><strong>GTM container ID / GA4 property access</strong></td>
+        <td>Web developer / IT</td>
+        <td class="text-center">1 week</td>
+        <td>If none exists: create GTM account + GA4 property; document container IDs</td>
+      </tr>
+      <tr>
+        <td><strong>Call tracking numbers (per location)</strong></td>
+        <td>Marketing team / CallRail</td>
+        <td class="text-center">1 week</td>
+        <td>Need tracking numbers for website, GBP, and each ad channel; configure whisper messages</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- Practice Scorecard -->
+<div class="card">
+  <h2>Practice Scorecard — Conversion Focus</h2>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--bg-red)"></div> Critical (&lt;50%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--bg-yellow)"></div> Needs Work (50–74%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--bg-green)"></div> Strong (75%+)</div>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Practice</th>
+        <th class="text-center">Portfolio</th>
+        <th class="text-center">Overall</th>
+        <th class="text-center">Conversion</th>
+        <th class="text-center">Trust</th>
+        <th class="text-center">Ins/Fin</th>
+        <th class="text-center">UX</th>
+        <th class="text-center">Conv. Fails</th>
+        <th class="text-center">Tier</th>
+      </tr>
+    </thead>
+    <tbody id="scorecard"></tbody>
+  </table>
+  </div>
+</div>
+
+<!-- Phased Roadmap -->
+<div class="card">
+  <h2>Phased Implementation Roadmap</h2>
+  
+  <div class="phase phase-1">
+    <h3 style="color:var(--red)">Phase 1: Quick Wins (Weeks 1–2)</h3>
+    <ul>
+      <li>Add new patient offer to every practice website (hero section + sticky banner)</li>
+      <li>List specific insurance plans on a dedicated /insurance page for each practice</li>
+      <li>Add CareCredit/Sunbit logos and apply-now links to service pages</li>
+      <li>Embed Google review widget on every homepage</li>
+      <li>Ensure click-to-call phone number is in header (mobile-first)</li>
+    </ul>
+  </div>
+  
+  <div class="phase phase-2">
+    <h3 style="color:var(--yellow)">Phase 2: Foundation (Weeks 3–6)</h3>
+    <ul>
+      <li>Collect before/after photos and build gallery pages (prioritize Critical tier practices)</li>
+      <li>Design and launch membership/savings plans for uninsured patients</li>
+      <li>Add FAQ sections with schema markup to all service pages</li>
+      <li>Deploy Google Tag Manager + GA4 with conversion goals on all sites</li>
+      <li>Set up call tracking (CallRail or similar) with source-level attribution</li>
+    </ul>
+  </div>
+  
+  <div class="phase phase-3">
+    <h3 style="color:var(--green)">Phase 3: Optimization (Weeks 7–12)</h3>
+    <ul>
+      <li>Add heatmapping/session recording (Hotjar/Microsoft Clarity) to measure user behavior</li>
+      <li>Optimize page speed for practices with Core Web Vitals failures</li>
+      <li>Add video testimonials and doctor intro videos</li>
+      <li>Build blog/resource sections with local SEO content</li>
+      <li>A/B test CTAs, offers, and landing pages based on analytics data</li>
+    </ul>
+  </div>
+</div>
+
+<div style="text-align:center; font-size:12px; color:#999; padding:16px 0;">
+  Gen4 Dental &nbsp;|&nbsp; Confidential &nbsp;|&nbsp; March 2026
+</div>
+
+</div>
+
+<script>
+const practices = [
+  {name:"Sandhills Dental Rehab.",file:"SGA",overall:52,conv:17,trust:58,ins:0,ux:33,fails:5},
+  {name:"Lake Mary Dentistry",file:"SGA",overall:38,conv:33,trust:50,ins:0,ux:50,fails:4},
+  {name:"David A. Slaughter, DDS",file:"Gen4",overall:42,conv:33,trust:33,ins:13,ux:50,fails:3},
+  {name:"Alpharetta Periodontics",file:"SGA",overall:43,conv:42,trust:50,ins:25,ux:67,fails:8},
+  {name:"Parkway Periodontics",file:"SGA",overall:49,conv:42,trust:50,ins:0,ux:50,fails:9},
+  {name:"Benner & Townsend",file:"SGA",overall:49,conv:50,trust:42,ins:25,ux:63,fails:7},
+  {name:"Peach Family Dental",file:"SGA",overall:40,conv:50,trust:33,ins:38,ux:50,fails:4},
+  {name:"Smile Gulf Coast",file:"SGA",overall:45,conv:50,trust:50,ins:0,ux:50,fails:6},
+  {name:"Aiken Augusta Oral",file:"SGA",overall:62,conv:50,trust:33,ins:38,ux:50,fails:6},
+  {name:"Van Scoyoc Perio",file:"SGA",overall:56,conv:50,trust:67,ins:0,ux:67,fails:7},
+  {name:"Nashville Aesthetic",file:"Gen4",overall:65,conv:50,trust:50,ins:25,ux:63,fails:6},
+  {name:"New Horizons Dental",file:"Gen4",overall:60,conv:50,trust:50,ins:38,ux:75,fails:5},
+  {name:"Peak Family Dental",file:"Gen4",overall:62,conv:50,trust:33,ins:25,ux:75,fails:10},
+  {name:"Dakota Dental",file:"Gen4",overall:67,conv:58,trust:50,ins:50,ux:75,fails:3},
+  {name:"Lakeshore Dental",file:"SGA",overall:52,conv:67,trust:50,ins:50,ux:60,fails:2},
+  {name:"Ressler Dental",file:"SGA",overall:52,conv:67,trust:67,ins:25,ux:50,fails:4},
+  {name:"Smile Center Orlando",file:"SGA",overall:43,conv:67,trust:42,ins:0,ux:50,fails:7},
+  {name:"Harris Dental",file:"Gen4",overall:63,conv:67,trust:50,ins:50,ux:63,fails:4},
+  {name:"Peninsula Cosmetic",file:"Gen4",overall:73,conv:67,trust:50,ins:50,ux:75,fails:5},
+  {name:"Eric T. Moskowitz",file:"SGA",overall:58,conv:75,trust:67,ins:38,ux:70,fails:2},
+  {name:"Oakwood Smiles",file:"SGA",overall:62,conv:75,trust:75,ins:50,ux:75,fails:0},
+  {name:"Riverside Dental",file:"SGA",overall:60,conv:75,trust:75,ins:25,ux:75,fails:4},
+  {name:"Southern Oak Conway",file:"SGA",overall:46,conv:75,trust:42,ins:0,ux:50,fails:8},
+  {name:"Beaches Periodontics",file:"SGA",overall:71,conv:75,trust:70,ins:50,ux:67,fails:4},
+  {name:"Dental Ctr Florence",file:"Gen4",overall:75,conv:75,trust:50,ins:50,ux:75,fails:4},
+  {name:"Pony Express Dental",file:"Gen4",overall:73,conv:75,trust:42,ins:50,ux:75,fails:3},
+  {name:"Wagner Dental",file:"Gen4",overall:70,conv:75,trust:42,ins:63,ux:75,fails:3},
+  {name:"Pryor Family Dentistry",file:"SGA",overall:65,conv:83,trust:67,ins:63,ux:70,fails:0},
+  {name:"Allure Dental",file:"Gen4",overall:66,conv:83,trust:75,ins:38,ux:88,fails:2},
+  {name:"Beaumont Family",file:"Gen4",overall:81,conv:83,trust:100,ins:100,ux:67,fails:0},
+  {name:"Artistry in Dentistry",file:"Gen4",overall:76,conv:92,trust:83,ins:25,ux:83,fails:4},
+  {name:"Century City Aesthetic",file:"Gen4",overall:78,conv:92,trust:67,ins:75,ux:83,fails:2},
+];
+
+function pill(val) {
+  const cls = val < 50 ? 'pill-red' : val < 75 ? 'pill-yellow' : 'pill-green';
+  return `<span class="pill ${cls}">${val}%</span>`;
+}
+
+function tier(conv) {
+  if (conv < 50) return '<span class="pill pill-red">Critical</span>';
+  if (conv < 75) return '<span class="pill pill-yellow">Monitor</span>';
+  return '<span class="pill pill-green">Strong</span>';
+}
+
+const tbody = document.getElementById('scorecard');
+practices.forEach(p => {
+  tbody.innerHTML += `<tr>
+    <td><strong>${p.name}</strong></td>
+    <td class="text-center">${p.file}</td>
+    <td class="text-center">${pill(p.overall)}</td>
+    <td class="text-center">${pill(p.conv)}</td>
+    <td class="text-center">${pill(p.trust)}</td>
+    <td class="text-center">${pill(p.ins)}</td>
+    <td class="text-center">${pill(p.ux)}</td>
+    <td class="text-center">${p.fails}</td>
+    <td class="text-center">${tier(p.conv)}</td>
+  </tr>`;
+});
+</script>
+</body>
+</html>
