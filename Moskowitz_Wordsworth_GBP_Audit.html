@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBP Audit — Eric T. Moskowitz, DDS and Kari Wordsworth, DMD</title>
+<style>
+  :root {
+    --navy: #2E5E8C;
+    --navy-dark: #1e3f5e;
+    --green: #2E7D32;
+    --amber: #F57F17;
+    --red: #C62828;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --teal: #16a085;
+    --light-gray: #e9ecef;
+    --border: #dee2e6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color: white;
+    padding: 40px;
+    text-align: center;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 16px; opacity: 0.85; margin-bottom: 20px; }
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .header-meta span { white-space: nowrap; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+
+  /* OVERALL SCORE */
+  .score-hero {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+  .score-big {
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .score-of { font-size: 24px; color: #888; font-weight: 400; }
+  .tier-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 12px 0;
+  }
+  .tier-amber { background: #FFF3E0; color: var(--amber); border: 2px solid var(--amber); }
+  .tier-green { background: #E8F5E9; color: var(--green); border: 2px solid var(--green); }
+  .tier-red { background: #FFEBEE; color: var(--red); border: 2px solid var(--red); }
+  .tier-blue { background: #E3F2FD; color: var(--navy); border: 2px solid var(--navy); }
+  .score-bar-track {
+    height: 14px;
+    background: var(--light-gray);
+    border-radius: 7px;
+    margin: 16px auto;
+    max-width: 500px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 7px;
+    transition: width 0.6s ease;
+  }
+  .score-summary { font-size: 15px; color: #555; max-width: 700px; margin: 0 auto; }
+
+  /* CATEGORY GRID */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .cat-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border-left: 5px solid;
+    position: relative;
+  }
+  .cat-card.green { border-left-color: var(--green); }
+  .cat-card.amber { border-left-color: var(--amber); }
+  .cat-card.red { border-left-color: var(--red); }
+  .cat-card .cat-score {
+    font-size: 32px;
+    font-weight: 800;
+    float: right;
+    line-height: 1;
+  }
+  .cat-card.green .cat-score { color: var(--green); }
+  .cat-card.amber .cat-score { color: var(--amber); }
+  .cat-card.red .cat-score { color: var(--red); }
+  .cat-card h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #555; margin-bottom: 4px; }
+  .cat-card .cat-label { font-size: 12px; color: #888; }
+
+  /* SECTION DETAIL */
+  .section {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2 .score-pill {
+    font-size: 13px;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+  .pill-green { background: #E8F5E9; color: var(--green); }
+  .pill-amber { background: #FFF3E0; color: var(--amber); }
+  .pill-red { background: #FFEBEE; color: var(--red); }
+
+  .finding {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .finding:last-child { border-bottom: none; }
+  .finding .icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
+  .finding .detail { flex: 1; }
+  .finding .detail strong { font-size: 14px; }
+  .finding .detail p { font-size: 13px; color: #666; margin-top: 2px; }
+  .rec-box {
+    background: #F0F4FF;
+    border-left: 4px solid var(--navy);
+    padding: 12px 16px;
+    margin-top: 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+  }
+  .rec-box strong { color: var(--navy); }
+
+  /* PRIORITY TABLE */
+  .priority-list { counter-reset: priority; }
+  .priority-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .priority-item:last-child { border-bottom: none; }
+  .priority-num {
+    background: var(--navy);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .priority-content h4 { font-size: 15px; margin-bottom: 4px; }
+  .priority-content p { font-size: 13px; color: #666; }
+  .impact-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .impact-high { background: #FFEBEE; color: var(--red); }
+  .impact-med { background: #FFF3E0; color: var(--amber); }
+
+  /* ACTION PLAN */
+  .team-section { margin-bottom: 20px; }
+  .team-section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--navy);
+    display: inline-block;
+  }
+  .team-section ul { list-style: none; padding: 0; }
+  .team-section li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .team-section li::before {
+    content: "→";
+    position: absolute;
+    left: 4px;
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .team-section li strong { color: var(--text); }
+  .team-section li em { font-size: 12px; color: #888; font-style: normal; }
+
+  /* QUICK WINS / STRATEGIC */
+  .highlight-box {
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .quick-wins {
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    border: 2px solid var(--green);
+  }
+  .quick-wins h2 { color: var(--green); }
+  .strategic {
+    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    border: 2px solid var(--navy);
+  }
+  .strategic h2 { color: var(--navy); }
+  .highlight-box ol {
+    margin-left: 20px;
+    font-size: 14px;
+  }
+  .highlight-box li {
+    padding: 6px 0;
+  }
+
+  /* COMPETITIVE CONTEXT */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  .comp-table th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .comp-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .comp-table tr:nth-child(even) { background: #f8f9fa; }
+  .comp-table .highlight-row { background: #FFF3E0; font-weight: 600; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 12px;
+    color: #999;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  @media print {
+    body { padding: 0; }
+    .container { max-width: 100%; }
+    .section, .score-hero { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>DENTAL GBP OPTIMIZATION AUDIT</h1>
+  <div class="subtitle">Eric T. Moskowitz, DDS and Kari Wordsworth, DMD</div>
+  <div class="header-meta">
+    <span>GBP: google.com/maps</span>
+    <span>Market: Concord, NC</span>
+    <span>Audit Date: March 23, 2026</span>
+    <span>Audited By: Claude (Gen4 Dental GBP Framework)</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- OVERALL SCORE -->
+<div class="score-hero">
+  <div class="score-big">20 <span class="score-of">/ 40</span></div>
+  <div><span class="tier-badge tier-amber">⚠ NEEDS IMPROVEMENT</span></div>
+  <div class="score-bar-track">
+    <div class="score-bar-fill" style="width:50%; background: linear-gradient(90deg, var(--amber), #FFB300);"></div>
+  </div>
+  <p class="score-summary">This profile has a strong reputation foundation (4.9 stars, 435 reviews) but significant optimization gaps in <strong>Q&A, services, local SEO, and posting</strong> are costing new patient opportunities. Competitors Afton Dental (643 reviews) and McNeely &amp; Mallette (778 reviews) are outpacing this practice in visibility.</p>
+</div>
+
+<!-- CATEGORY GRID -->
+<div class="cat-grid">
+  <div class="cat-card green">
+    <div class="cat-score">4/5</div>
+    <h3>Core Profile</h3>
+    <div class="cat-label">Visibility Foundation</div>
+  </div>
+  <div class="cat-card amber">
+    <div class="cat-score">2/5</div>
+    <h3>Services</h3>
+    <div class="cat-label">Revenue Alignment</div>
+  </div>
+  <div class="cat-card green">
+    <div class="cat-score">4/5</div>
+    <h3>Reviews</h3>
+    <div class="cat-label">Conversion Driver</div>
+  </div>
+  <div class="cat-card amber">
+    <div class="cat-score">3/5</div>
+    <h3>Photos</h3>
+    <div class="cat-label">Trust Builder</div>
+  </div>
+  <div class="cat-card amber">
+    <div class="cat-score">2/5</div>
+    <h3>Posts</h3>
+    <div class="cat-label">Engagement Signal</div>
+  </div>
+  <div class="cat-card red">
+    <div class="cat-score">0/5</div>
+    <h3>Q&A</h3>
+    <div class="cat-label">Objection Handling</div>
+  </div>
+  <div class="cat-card amber">
+    <div class="cat-score">3/5</div>
+    <h3>Conversion</h3>
+    <div class="cat-label">Booking Pathways</div>
+  </div>
+  <div class="cat-card amber">
+    <div class="cat-score">2/5</div>
+    <h3>Local SEO</h3>
+    <div class="cat-label">Search Visibility</div>
+  </div>
+</div>
+
+<!-- DETAILED FINDINGS -->
+
+<!-- Category 1 -->
+<div class="section">
+  <h2>1. Core Profile Completeness <span class="score-pill pill-green">4 / 5</span></h2>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>Business Name — Clean, no keyword stuffing</strong>
+      <p>"Eric T. Moskowitz, DDS and Kari Wordsworth, DMD" — proper professional naming with both practitioners listed.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Primary Category: "Dentist" — Missing Secondary Categories</strong>
+      <p>Only "Dentist" is visible as the primary category. No secondary categories like "Cosmetic Dentist," "Dental Implants Provider," or "Emergency Dental Service" are showing. This limits search visibility for high-value service queries.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>Address Complete with Suite Number</strong>
+      <p>9900 Poplar Tent Rd #150, Concord, NC 28027 — Floor 1, Cannon Crossroads. Full address with suite and building name.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>Phone, Website, and Hours All Present</strong>
+      <p>(704) 782-2400 with click-to-call. Website ericmoskowitzdds.com linked. Hours listed for all 7 days with accurate Mon–Fri schedule. Wheelchair accessible entrance noted.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>RevenueWell Booking Link Present</strong>
+      <p>Online appointment scheduling available through RevenueWell integration, plus a direct services link to the website.</p>
+    </div>
+  </div>
+  <div class="rec-box">
+    <strong>Recommendation:</strong> Add secondary categories — "Cosmetic Dentist," "Dental Implants Provider," and "Emergency Dental Service" at minimum. This immediately expands which searches surface this profile.
+  </div>
+</div>
+
+<!-- Category 2 -->
+<div class="section">
+  <h2>2. Services & Treatment Alignment <span class="score-pill pill-amber">2 / 5</span></h2>
+  <div class="finding">
+    <span class="icon">❌</span>
+    <div class="detail">
+      <strong>No Services Listed Directly on GBP</strong>
+      <p>The GBP links to ericmoskowitzdds.com/services but does not have services populated within the Google Business Profile itself. Google's services section is empty or minimal. Patients browsing the GBP never see what this practice actually offers.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>High-Value Services Not Highlighted</strong>
+      <p>The practice offers dental implants, CEREC same-day crowns, cosmetic dentistry, Invisalign, and teeth whitening — but none of these appear in the GBP services section where patients search.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">❌</span>
+    <div class="detail">
+      <strong>No Service Descriptions or Keywords</strong>
+      <p>Without GBP-native services, there are no keyword-rich descriptions helping this profile rank for service-specific searches like "dental implants Concord NC" or "same day crowns near me."</p>
+    </div>
+  </div>
+  <div class="rec-box">
+    <strong>Recommendation:</strong> Add 15–20 services directly to the GBP with keyword-rich descriptions. Prioritize: Dental Implants, CEREC Same-Day Crowns, Invisalign Clear Aligners, Cosmetic Dentistry, Teeth Whitening, Emergency Dental Care, Root Canal Therapy, Dental Veneers, Deep Cleaning, Family Dentistry, Dental Bridges & Crowns, Preventive Care, Sedation Dentistry, and Tooth Extractions.
+  </div>
+</div>
+
+<!-- Category 3 -->
+<div class="section">
+  <h2>3. Reviews & Reputation Strength <span class="score-pill pill-green">4 / 5</span></h2>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>435 Reviews at 4.9 Stars — Strong Position</strong>
+      <p>Well above the 150+ "strong" threshold. Star rating of 4.9 is excellent. Distribution: 424 five-star (97.5%), 1 four-star, 3 three-star, 0 two-star, 7 one-star. The 97.5% five-star rate is outstanding.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>Active Review Velocity</strong>
+      <p>Recent reviews from 2 weeks ago, 1 month ago, and 2 months ago show consistent patient review activity. Keywords appearing naturally: cleaning (35 mentions), crown (22), technology (11), root canal (9), skilled (7), filling (7).</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Owner Responses Are Too Templated</strong>
+      <p>Nearly every owner response is simply "Thank you!" — a missed opportunity. Only one review (the mixed review from Pam Tesh) received a personalized, detailed response. Templated responses don't build trust or help with SEO keyword density.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Competitors Outpacing on Volume</strong>
+      <p>Afton Dental has 643 reviews (48% more) and McNeely &amp; Mallette has 778 reviews (79% more) — both at 4.9 stars. This practice risks losing the local pack position to higher-volume competitors.</p>
+    </div>
+  </div>
+  <div class="rec-box">
+    <strong>Recommendation:</strong> (1) Personalize every review response — mention the reviewer's name, reference their specific experience, and include a service keyword. (2) Accelerate review velocity with a systematic ask-every-patient program targeting 15+ reviews/month to close the gap with competitors.
+  </div>
+</div>
+
+<!-- Category 4 -->
+<div class="section">
+  <h2>4. Photos & Visual Content <span class="score-pill pill-amber">3 / 5</span></h2>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>90+ Photos — Good but Not Dominant</strong>
+      <p>The profile shows 90+ photos, which meets the "good" threshold (50+) but falls short of "strong" (100+). Given that this is a 30+ year practice with two doctors and CEREC technology, there's significant room to showcase more.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Photo Variety and Recency Need Assessment</strong>
+      <p>Unable to fully assess individual photo quality, but the profile should include: professional exterior/interior shots, individual team photos, CEREC technology in action, before/after cases, and patient experience moments. Recent uploads (last 7 days per GBP data) are a positive sign.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>Street View Available</strong>
+      <p>Street View imagery is present, helping patients find the physical location.</p>
+    </div>
+  </div>
+  <div class="rec-box">
+    <strong>Recommendation:</strong> Push to 150+ photos. Schedule a professional photo shoot covering: both doctors individually, team group photos, operatory technology (especially CEREC), before/after smile makeovers, the welcoming waiting room, and the building exterior with signage. Upload 5+ photos per week.
+  </div>
+</div>
+
+<!-- Category 5 -->
+<div class="section">
+  <h2>5. Posts & Activity <span class="score-pill pill-amber">2 / 5</span></h2>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Most Recent Post: March 4, 2026 (19 Days Ago)</strong>
+      <p>"Call us for your Adult Clear Aligner consultation. The clear alternative to braces." — includes a "Call now" CTA, which is good. But this appears to be the only recent post visible.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">❌</span>
+    <div class="detail">
+      <strong>Sporadic Posting Frequency</strong>
+      <p>The practice is not maintaining a consistent posting cadence. Weekly posting is the minimum standard; 2–3x per week is ideal. Inconsistent posting signals a dormant profile to both Google's algorithm and prospective patients.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Limited Content Variety</strong>
+      <p>The visible post is service-focused (clear aligners only). Missing: educational content, team spotlights, new patient offers, community involvement, technology showcases, before/after stories, and seasonal promotions.</p>
+    </div>
+  </div>
+  <div class="rec-box">
+    <strong>Recommendation:</strong> Implement a weekly GBP posting calendar with variety: Monday = service highlight, Wednesday = patient education, Friday = team/community. Each post should include a professional image and CTA. Feature CEREC same-day crowns, implants, and cosmetic services prominently.
+  </div>
+</div>
+
+<!-- Category 6 -->
+<div class="section">
+  <h2>6. Q&A Section <span class="score-pill pill-red">0 / 5</span></h2>
+  <div class="finding">
+    <span class="icon">❌</span>
+    <div class="detail">
+      <strong>No Q&A Section Present</strong>
+      <p>The Google Business Profile has zero questions and answers. This is the biggest single gap in this audit. The Q&A section is where patients look for answers to their most common objections before they ever call — cost, insurance, pain, what to expect. An empty Q&A means every objection goes unanswered.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">❌</span>
+    <div class="detail">
+      <strong>No Insurance Information on GBP</strong>
+      <p>Patients searching for "dentist that accepts [insurance name]" get no help from this profile. This is one of the top 3 decision factors for dental patients.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">❌</span>
+    <div class="detail">
+      <strong>No Cost/Financing Information on GBP</strong>
+      <p>No mention of payment plans, CareCredit, or pricing transparency. Cost is the #1 barrier to dental treatment acceptance.</p>
+    </div>
+  </div>
+  <div class="rec-box">
+    <strong>Recommendation:</strong> Immediately seed 10+ Q&A entries covering: accepted insurance plans, payment/financing options, new patient process, emergency availability, sedation options, CEREC same-day crowns explanation, implant candidacy, what to expect at first visit, parking/accessibility, and dental anxiety accommodations. The practice should answer its own seeded questions from the business account.
+  </div>
+</div>
+
+<!-- Category 7 -->
+<div class="section">
+  <h2>7. Messaging & Conversion Features <span class="score-pill pill-amber">3 / 5</span></h2>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>RevenueWell Online Booking Link Active</strong>
+      <p>An appointment scheduling link through RevenueWell is present and accessible directly from the GBP. This allows patients to book without calling.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>Click-to-Call Functional</strong>
+      <p>(704) 782-2400 is displayed and linked for one-tap calling on mobile.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>GBP Messaging Not Detected</strong>
+      <p>Google's built-in messaging feature does not appear to be enabled. Many patients, especially younger demographics, prefer texting over calling. This is a missed conversion channel.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Booking Flow Goes Through Third Party</strong>
+      <p>The RevenueWell link routes patients to an external booking page. While functional, a direct-to-schedule experience within the practice's own system would reduce friction.</p>
+    </div>
+  </div>
+  <div class="rec-box">
+    <strong>Recommendation:</strong> Enable GBP messaging and assign a team member to monitor/respond within 1 hour during business hours. Consider whether the RevenueWell booking flow is the smoothest possible path — test it from a patient's perspective on mobile.
+  </div>
+</div>
+
+<!-- Category 8 -->
+<div class="section">
+  <h2>8. Local SEO Signals <span class="score-pill pill-amber">2 / 5</span></h2>
+  <div class="finding">
+    <span class="icon">❌</span>
+    <div class="detail">
+      <strong>No Optimized Business Description Visible</strong>
+      <p>The GBP does not display a keyword-rich business description. This is 750 characters of free local SEO real estate that's going unused. No mention of Concord, no service keywords, no differentiators.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Only One Category — Limited Search Coverage</strong>
+      <p>"Dentist" is the only visible category. Without secondary categories, the profile doesn't compete for searches like "cosmetic dentist Concord NC," "dental implants near me," or "emergency dentist Concord."</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>NAP Appears Consistent</strong>
+      <p>Name, address, and phone number match between GBP and the website URL (ericmoskowitzdds.com). Also listed consistently on Yelp (20 photos, 19 reviews, 4.5 stars), Healthgrades, and ADA Find a Dentist.</p>
+    </div>
+  </div>
+  <div class="rec-box">
+    <strong>Recommendation:</strong> Write a keyword-optimized 750-character business description: "Eric T. Moskowitz, DDS and Kari Wordsworth, DMD provide comprehensive dental care in Concord, NC..." Include service keywords (implants, CEREC, cosmetic, Invisalign, family dentistry), location terms (Concord, Cabarrus County, Kannapolis, Harrisburg), and differentiators (30+ years experience, same-day crowns, advanced technology).
+  </div>
+</div>
+
+<!-- TOP 5 PRIORITY ISSUES -->
+<div class="section">
+  <h2>Top 5 Priority Issues</h2>
+  <div class="priority-list">
+    <div class="priority-item">
+      <div class="priority-num">1</div>
+      <div class="priority-content">
+        <h4>Empty Q&A Section — Zero Objection Handling <span class="impact-tag impact-high">HIGH IMPACT</span></h4>
+        <p>Patients researching this practice get no answers to their most common questions (insurance, cost, pain, what to expect). Every unanswered objection is a potential new patient who calls a competitor instead. This is the fastest-to-fix, highest-impact gap.</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">2</div>
+      <div class="priority-content">
+        <h4>No Services Listed on GBP — Invisible for Service Searches <span class="impact-tag impact-high">HIGH IMPACT</span></h4>
+        <p>The practice offers high-value services (implants, CEREC, cosmetic) but none are listed on the GBP itself. Patients searching "dental implants Concord NC" or "same day crowns near me" won't see this practice surface for those specific queries.</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">3</div>
+      <div class="priority-content">
+        <h4>No Business Description — Wasted SEO Real Estate <span class="impact-tag impact-high">HIGH IMPACT</span></h4>
+        <p>750 characters of keyword-rich local SEO content is going unused. A well-optimized description directly impacts which searches surface this profile in the local pack.</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">4</div>
+      <div class="priority-content">
+        <h4>Templated Review Responses — Missed Trust & SEO Opportunity <span class="impact-tag impact-med">MEDIUM IMPACT</span></h4>
+        <p>"Thank you!" responses don't build relationships, don't help with search keywords, and signal minimal engagement to prospective patients reading reviews. Personalized responses mentioning specific services and experiences drive both trust and rankings.</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">5</div>
+      <div class="priority-content">
+        <h4>Competitors Outpacing on Review Volume <span class="impact-tag impact-med">MEDIUM IMPACT</span></h4>
+        <p>Afton Dental (643 reviews) and McNeely &amp; Mallette (778 reviews) have significantly more reviews at the same star rating. In a tight local pack race, review volume is often the tiebreaker for positioning.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTION PLAN BY TEAM -->
+<div class="section">
+  <h2>Action Plan by Team</h2>
+
+  <div class="team-section">
+    <h3>Marketing</h3>
+    <ul>
+      <li><strong>Add secondary GBP categories</strong> — Cosmetic Dentist, Dental Implants Provider, Emergency Dental Service. <em>Owner: Marketing lead. Impact: Immediate search visibility expansion.</em></li>
+      <li><strong>Write keyword-optimized business description</strong> — Include Concord NC, implants, CEREC, cosmetic, Invisalign, family dentistry, 30+ years experience. <em>Owner: Marketing. Impact: Improved local pack ranking for service queries.</em></li>
+      <li><strong>Implement weekly GBP posting calendar</strong> — 2–3 posts per week rotating: service highlights, patient education, team spotlights, seasonal offers. Use professional branded graphics. <em>Owner: Marketing. Impact: Sustained engagement signals, improved profile freshness.</em></li>
+      <li><strong>Build review velocity program</strong> — Target 15+ new Google reviews per month through systematic patient ask. Provide review cards, email/text follow-ups, and team incentives. <em>Owner: Marketing + Office Manager. Impact: Close competitive gap (currently 435 vs. competitors at 643 and 778).</em></li>
+      <li><strong>Develop photo content strategy</strong> — Schedule quarterly professional photo shoots. Upload 5+ new photos per week to push past 150+. Prioritize CEREC technology, before/after cases, and team personalities. <em>Owner: Marketing. Impact: Visual trust building, profile engagement.</em></li>
+    </ul>
+  </div>
+
+  <div class="team-section">
+    <h3>Office Manager</h3>
+    <ul>
+      <li><strong>Personalize every review response within 48 hours</strong> — Use reviewer name, reference their specific visit/service, include a service keyword naturally. Script template: "Hi [Name], thank you for sharing your experience with [service]. Dr. [Moskowitz/Wordsworth] and our team..." <em>Owner: Office Manager. Impact: Trust, SEO, patient retention.</em></li>
+      <li><strong>Ask every patient for a review at checkout</strong> — Hand them a review card with QR code or send a follow-up text within 2 hours of appointment. Track conversion rate weekly. <em>Owner: Office Manager. Impact: Accelerated review velocity.</em></li>
+      <li><strong>Seed 10 Q&A entries this week</strong> — Cover: insurance accepted, payment plans/CareCredit, new patient process, emergency availability, sedation, CEREC explanation, Invisalign candidacy, what to expect at first visit, parking, dental anxiety. <em>Owner: Office Manager. Impact: Remove objections blocking conversion.</em></li>
+      <li><strong>Upload 5 new photos per week</strong> — Team candids, office shots, technology in action. Even smartphone photos add freshness. <em>Owner: Office Manager. Impact: Profile engagement, photo volume.</em></li>
+    </ul>
+  </div>
+
+  <div class="team-section">
+    <h3>Doctor</h3>
+    <ul>
+      <li><strong>Identify 5 priority procedures to emphasize</strong> — Recommend: dental implants, CEREC same-day crowns, Invisalign, cosmetic veneers, full-mouth rehabilitation. Confirm these align with growth goals and capacity. <em>Owner: Dr. Moskowitz & Dr. Wordsworth. Impact: Focused marketing on highest-revenue services.</em></li>
+      <li><strong>Provide before/after case photos</strong> — With patient consent, photograph smile makeovers, implant cases, and cosmetic results. These are the most compelling GBP photos for converting prospective patients. <em>Owner: Doctors. Impact: Visual proof of clinical excellence.</em></li>
+      <li><strong>Respond to clinical questions in reviews</strong> — When patients mention specific procedures (root canals, crowns, implants), the doctor's personalized response adds authority. Even 2–3 per month makes an impact. <em>Owner: Doctors. Impact: Clinical credibility, trust.</em></li>
+    </ul>
+  </div>
+
+  <div class="team-section">
+    <h3>Operations</h3>
+    <ul>
+      <li><strong>Enable GBP messaging and assign a monitor</strong> — Turn on Google messaging and ensure responses within 1 hour during business hours. <em>Owner: Operations. Impact: Capture text-preferred patients who won't call.</em></li>
+      <li><strong>Test RevenueWell booking flow end-to-end</strong> — Walk through the booking process on mobile as a new patient. Note any friction, broken steps, or confusion. Optimize. <em>Owner: Operations. Impact: Reduce booking abandonment.</em></li>
+      <li><strong>Verify NAP consistency across all directories</strong> — Confirm name, address, phone match on Google, Yelp, Healthgrades, ADA, Facebook, Nextdoor, and any other listings. <em>Owner: Operations. Impact: Local SEO signal strength.</em></li>
+      <li><strong>Confirm hours accuracy including holidays</strong> — Add special hours for upcoming holidays to prevent patient frustration. <em>Owner: Operations. Impact: Trust, accuracy.</em></li>
+    </ul>
+  </div>
+
+  <div class="team-section">
+    <h3>RCM / Finance</h3>
+    <ul>
+      <li><strong>Confirm insurance list for Q&A section</strong> — Provide the complete list of accepted insurance plans for the seeded Q&A entry. This is the #1 question patients ask. <em>Owner: RCM. Impact: Remove the insurance objection.</em></li>
+      <li><strong>Highlight financing options on GBP</strong> — If CareCredit, in-house payment plans, or other financing is available, include this in Q&A and services. <em>Owner: Finance. Impact: Improve case acceptance for high-value services.</em></li>
+    </ul>
+  </div>
+</div>
+
+<!-- QUICK WINS -->
+<div class="highlight-box quick-wins">
+  <h2>Quick Wins — Complete Within 7 Days</h2>
+  <ol>
+    <li><strong>Seed 10 Q&A questions with answers</strong> — Insurance, cost, new patient experience, emergency, sedation, CEREC, Invisalign, anxiety, hours, parking</li>
+    <li><strong>Add 15–20 services to GBP</strong> — With keyword-rich descriptions for each (implants, CEREC, Invisalign, cosmetic, whitening, emergency, etc.)</li>
+    <li><strong>Write the 750-character business description</strong> — Include Concord NC, service keywords, differentiators, and a call-to-action</li>
+    <li><strong>Respond to last 20 reviews with personalized messages</strong> — Use reviewer name, mention specific experience, include service keyword</li>
+    <li><strong>Upload 10+ new photos</strong> — Team, technology (CEREC), operatories, exterior, and waiting room</li>
+    <li><strong>Add secondary categories</strong> — Cosmetic Dentist, Dental Implants Provider, Emergency Dental Service</li>
+    <li><strong>Create 2 GBP posts</strong> — One highlighting CEREC same-day crowns, one new patient welcome offer</li>
+  </ol>
+</div>
+
+<!-- STRATEGIC MOVES -->
+<div class="highlight-box strategic">
+  <h2>Strategic Moves — 30 to 60 Days</h2>
+  <ol>
+    <li><strong>Build systematic review velocity program</strong> — Automated text/email post-visit, review cards at checkout, team tracking. Target: 15+ new reviews per month to close the gap with Afton Dental (643) and McNeely &amp; Mallette (778).</li>
+    <li><strong>Develop before/after visual content library</strong> — Photograph every notable cosmetic, implant, and CEREC case with consent. Build a portfolio of 20+ cases for GBP photos and posts.</li>
+    <li><strong>Implement monthly GBP content calendar</strong> — Plan 8–12 posts/month across service highlights, patient education, team features, and seasonal content. Batch-create branded graphics.</li>
+    <li><strong>Optimize for high-value procedure keywords</strong> — Ensure "dental implants Concord NC," "same day crowns near me," "cosmetic dentist Concord," and "Invisalign Concord NC" are woven throughout the profile (description, services, posts, Q&A, review responses).</li>
+    <li><strong>Align GBP with paid search strategy</strong> — If running Google Ads, ensure GBP services and keywords match ad targeting. Use GBP insights to identify which searches are driving impressions and calls.</li>
+    <li><strong>Competitive GBP gap analysis</strong> — Audit Afton Dental and McNeely &amp; Mallette's GBP profiles to identify specific areas where they're outperforming. Mirror best practices, differentiate where possible.</li>
+  </ol>
+</div>
+
+<!-- COMPETITIVE CONTEXT -->
+<div class="section">
+  <h2>Competitive Landscape — Concord, NC Dental Market</h2>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Practice</th>
+        <th>Rating</th>
+        <th>Reviews</th>
+        <th>Category</th>
+        <th>Gap vs. This Practice</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight-row">
+        <td>Eric T. Moskowitz, DDS & Kari Wordsworth, DMD</td>
+        <td>4.9 ⭐</td>
+        <td>435</td>
+        <td>Dentist</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>McNeely & Mallette Family Dental Group</td>
+        <td>4.9 ⭐</td>
+        <td>778</td>
+        <td>Dentist</td>
+        <td>+343 reviews (79% more)</td>
+      </tr>
+      <tr>
+        <td>Afton Dental</td>
+        <td>4.9 ⭐</td>
+        <td>643</td>
+        <td>Dentist</td>
+        <td>+208 reviews (48% more)</td>
+      </tr>
+      <tr>
+        <td>Comiskey Oral Surgery</td>
+        <td>4.7 ⭐</td>
+        <td>143</td>
+        <td>Oral Surgeon</td>
+        <td>Different specialty</td>
+      </tr>
+      <tr>
+        <td>Carolina Aesthetic Dentistry</td>
+        <td>4.8 ⭐</td>
+        <td>44</td>
+        <td>Dentist</td>
+        <td>−391 reviews</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px; font-size:13px; color:#666;">The Concord market has two strong competitors with significantly higher review volumes at the same star rating. The quality is there — the volume gap is the vulnerability. A 15+ review/month program would close this gap within 12–18 months.</p>
+</div>
+
+<!-- Yelp Cross-Reference -->
+<div class="section">
+  <h2>Cross-Platform Presence</h2>
+  <div class="finding">
+    <span class="icon">⚠️</span>
+    <div class="detail">
+      <strong>Yelp: 19 Reviews, 4.5 Stars, 20 Photos</strong>
+      <p>The Yelp presence is minimal compared to Google. While Google is the priority, Yelp still surfaces in searches and a 4.5-star rating (vs. 4.9 on Google) suggests some negative reviews may be weighing the Yelp score down. Worth monitoring.</p>
+    </div>
+  </div>
+  <div class="finding">
+    <span class="icon">✅</span>
+    <div class="detail">
+      <strong>Healthgrades, ADA, Facebook, Nextdoor All Present</strong>
+      <p>The practice has listings across major dental directories including Healthgrades (8 reviews), ADA Find a Dentist, Facebook (Moskowitz Dental), Nextdoor, and ZoomInfo. NAP appears consistent.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<div class="footer">
+  <p>Confidential — Prepared for internal use only.</p>
+  <p>Gen4 Dental GBP Optimization Framework · Audited by Claude · March 23, 2026</p>
+  <p style="margin-top:8px;">This audit reflects publicly available data as of the audit date. Some GBP features (messaging status, full photo gallery quality) may require owner-level access for complete verification.</p>
+</div>
+
+</body>
+</html>
