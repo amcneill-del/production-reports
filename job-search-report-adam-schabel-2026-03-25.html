@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Search Report — Adam S.</title>
+<style>
+:root {
+  --navy: #1e293b;
+  --slate: #334155;
+  --muted: #64748b;
+  --light: #f1f5f9;
+  --white: #ffffff;
+  --accent: #3b82f6;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --orange: #f97316;
+  --red: #ef4444;
+  --border: #e2e8f0;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--navy); background: var(--light); line-height:1.6; }
+a { color: var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+/* Sticky Nav */
+nav.topnav {
+  position:sticky; top:0; z-index:100;
+  background: var(--navy); color:var(--white);
+  padding: 12px 24px; display:flex; gap:20px; flex-wrap:wrap; align-items:center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+nav.topnav a { color: #cbd5e1; font-size:0.85rem; font-weight:500; }
+nav.topnav a:hover { color:var(--white); text-decoration:none; }
+nav.topnav .brand { font-weight:700; font-size:1rem; color:var(--white); margin-right:auto; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color:var(--white); padding:48px 32px 40px; text-align:center;
+}
+.hero h1 { font-size:2rem; margin-bottom:8px; }
+.hero .sub { color:#94a3b8; font-size:0.95rem; }
+
+/* Container */
+.container { max-width:1000px; margin:0 auto; padding:24px 16px; }
+
+/* Section */
+section { background:var(--white); border-radius:12px; margin-bottom:24px; box-shadow:0 1px 3px rgba(0,0,0,.06); overflow:hidden; }
+section .sec-header { padding:20px 24px; border-bottom:1px solid var(--border); }
+section .sec-header h2 { font-size:1.25rem; }
+section .sec-body { padding:24px; }
+
+/* Score badge */
+.score-badge {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:52px; height:52px; border-radius:50%; font-weight:700; font-size:1.1rem; color:var(--white);
+}
+.score-green { background: var(--green); }
+.score-yellow { background: var(--yellow); color: var(--navy); }
+.score-orange { background: var(--orange); }
+.score-red { background: var(--red); }
+
+/* Job Cards */
+.job-card {
+  border:1px solid var(--border); border-radius:10px; margin-bottom:16px; overflow:hidden; transition: box-shadow .2s;
+}
+.job-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.job-card-header {
+  display:flex; align-items:center; gap:16px; padding:16px 20px; cursor:pointer; background:var(--white);
+}
+.job-card-header .rank { font-size:1.4rem; font-weight:800; color:var(--muted); min-width:32px; }
+.job-card-header .info { flex:1; }
+.job-card-header .info h3 { font-size:1.05rem; margin-bottom:2px; }
+.job-card-header .info .company { color:var(--muted); font-size:0.9rem; }
+.job-card-header .meta { text-align:right; }
+.job-card-header .meta .salary { font-weight:600; color:var(--navy); font-size:0.95rem; }
+.job-card-header .meta .location { color:var(--muted); font-size:0.82rem; }
+.job-card-body { padding:0 20px 20px; display:none; }
+.job-card.open .job-card-body { display:block; }
+.job-card-body .tags { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0; }
+.job-card-body .tag { padding:3px 10px; border-radius:20px; font-size:0.78rem; font-weight:500; }
+.tag-match { background:#dcfce7; color:#166534; }
+.tag-gap { background:#fef3c7; color:#92400e; }
+.btn-apply {
+  display:inline-block; padding:10px 24px; background:var(--accent); color:var(--white);
+  border-radius:8px; font-weight:600; font-size:0.9rem; transition: background .2s;
+}
+.btn-apply:hover { background:#2563eb; text-decoration:none; }
+
+/* Details/Summary */
+details { margin-bottom:16px; }
+details summary {
+  cursor:pointer; font-weight:600; font-size:1rem; padding:10px 0; color:var(--navy);
+  list-style:none; display:flex; align-items:center; gap:8px;
+}
+details summary::before { content:'▸'; transition:transform .2s; display:inline-block; }
+details[open] summary::before { transform:rotate(90deg); }
+details .detail-body { padding:8px 0 8px 20px; }
+
+/* Priority tags */
+.priority { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600; margin-right:6px; }
+.priority-high { background:#fee2e2; color:#991b1b; }
+.priority-med { background:#fef3c7; color:#92400e; }
+.priority-low { background:#dbeafe; color:#1e40af; }
+
+/* Cover Letter */
+.cover-letter {
+  background:#f8fafc; border:1px solid var(--border); border-radius:8px; padding:24px; position:relative;
+  font-family: Georgia, 'Times New Roman', serif; line-height:1.8; font-size:0.95rem;
+}
+.copy-btn {
+  position:absolute; top:12px; right:12px; padding:6px 14px; background:var(--accent); color:var(--white);
+  border:none; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:600;
+}
+.copy-btn:hover { background:#2563eb; }
+
+/* Salary Table */
+table.salary-table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+table.salary-table th { background:var(--navy); color:var(--white); padding:10px 12px; text-align:left; font-weight:600; }
+table.salary-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+table.salary-table tr:hover td { background:#f8fafc; }
+
+/* Q&A */
+.qa-item { margin-bottom:16px; }
+.qa-item .question { font-weight:600; color:var(--navy); margin-bottom:4px; }
+.qa-item .answer { color:var(--slate); padding-left:16px; border-left:3px solid var(--accent); }
+
+/* Print */
+@media print {
+  nav.topnav { display:none; }
+  .hero { padding:24px; }
+  section { box-shadow:none; border:1px solid #ccc; page-break-inside:avoid; }
+  .btn-apply { border:1px solid var(--accent); }
+  .copy-btn { display:none; }
+}
+@media(max-width:640px){
+  .job-card-header { flex-wrap:wrap; }
+  .job-card-header .meta { text-align:left; width:100%; margin-top:8px; }
+  nav.topnav { gap:10px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">Job Search Report</span>
+  <a href="#snapshot">Candidate</a>
+  <a href="#jobs">Top 10 Jobs</a>
+  <a href="#deepdive">Deep Dive</a>
+  <a href="#resume-recs">Resume</a>
+  <a href="#linkedin-recs">LinkedIn</a>
+  <a href="#cover-letter">Cover Letter</a>
+  <a href="#interview">Interview</a>
+  <a href="#salary">Salary</a>
+</nav>
+
+<div class="hero">
+  <h1>Job Search Report for Adam S.</h1>
+  <div class="sub">Generated March 25, 2026 &bull; Remote &amp; Greater Phoenix Area &bull; FP&amp;A Manager / Director</div>
+  <div class="sub" style="margin-top:4px;">Sources: LinkedIn Jobs, Indeed, Glassdoor, Built In, We Work Remotely, ZipRecruiter, RemoteRocketship, Greenhouse</div>
+</div>
+
+<div class="container">
+
+<!-- CANDIDATE SNAPSHOT -->
+<section id="snapshot">
+  <div class="sec-header"><h2>Candidate Snapshot</h2></div>
+  <div class="sec-body">
+    <details open>
+      <summary>Profile Summary</summary>
+      <div class="detail-body">
+        <p><strong>Current Role:</strong> Manager, FP&amp;A at Gen4 Dental Partners (Oct 2023 – Present)</p>
+        <p><strong>Experience:</strong> ~20 years in finance/accounting with progressive advancement from analyst to manager</p>
+        <p><strong>Education:</strong> MBA in Finance &bull; BS in Accounting — University of Phoenix</p>
+        <p><strong>Location:</strong> Phoenix, AZ &bull; Seeking Remote or Greater Phoenix Area</p>
+        <p style="margin-top:12px;"><strong>Key Strengths:</strong></p>
+        <ul style="margin:8px 0 0 20px;">
+          <li><strong>Multi-location FP&amp;A leadership:</strong> Manages budgeting for 103 dental locations, $300M revenue — rare multi-site scale experience</li>
+          <li><strong>Team builder:</strong> Doubled FP&amp;A team in consecutive years (now 4 direct reports), plus managed 22 direct reports previously</li>
+          <li><strong>M&amp;A and due diligence:</strong> Partners on acquisition reviews and Quality of Earnings analysis</li>
+          <li><strong>ERP/BI implementation:</strong> Led Velixo rollout, PowerBI data warehouse integration, and SAGE-to-Intacct migration</li>
+          <li><strong>Healthcare &amp; DSO domain expertise:</strong> Deep experience in dental, healthcare transportation, and health services</li>
+          <li><strong>Technical skills:</strong> Oracle, Great Plains, Intacct, SAGE, Hyperion, SQL, JavaScript, PowerBI, Advanced Excel</li>
+        </ul>
+        <p style="margin-top:12px;"><strong>Target Roles:</strong> FP&amp;A Manager, Senior FP&amp;A Manager, Director of FP&amp;A, Finance Manager</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- TOP 10 JOBS -->
+<section id="jobs">
+  <div class="sec-header">
+    <h2>Top 10 Job Matches</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-top:4px;">Click any card to expand details. Score reflects overall match to Adam's profile.</p>
+  </div>
+  <div class="sec-body">
+
+    <!-- JOB 1 -->
+    <div class="job-card open" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#1</span>
+        <span class="score-badge score-green">92</span>
+        <div class="info">
+          <h3>Manager, FP&amp;A and Strategy</h3>
+          <div class="company">Eleanor Health &bull; Remote (US)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">$115,000 – $130,000</div>
+          <div class="location">Remote &bull; Healthcare</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Strategic partner to Operations, People Ops/HR, and senior leadership. Responsible for financial planning, headcount strategies, and resource allocation across multi-site healthcare operations. Reports to Director, FP&amp;A.</p>
+        <div class="tags">
+          <span class="tag tag-match">FP&amp;A Leadership ✓</span>
+          <span class="tag tag-match">Multi-site Healthcare ✓</span>
+          <span class="tag tag-match">Budgeting &amp; Forecasting ✓</span>
+          <span class="tag tag-match">Financial Modeling ✓</span>
+          <span class="tag tag-match">5+ Years FP&amp;A ✓</span>
+          <span class="tag tag-match">Team Management ✓</span>
+          <span class="tag tag-gap">Adaptive/Anaplan (preferred)</span>
+        </div>
+        <p><strong>Why #1:</strong> This role mirrors Adam's current work almost exactly — multi-site healthcare FP&amp;A management with budgeting, forecasting, and strategic business partnership. His 103-location DSO experience directly translates. Healthcare industry preference is met. Title and seniority are a strong match.</p>
+        <a class="btn-apply" href="https://www.workingnomads.com/jobs/manager-fpa-and-strategy-eleanor-health" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 2 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#2</span>
+        <span class="score-badge score-green">88</span>
+        <div class="info">
+          <h3>Manager, FP&amp;A (Revenue Forecast / Healthcare Technology)</h3>
+          <div class="company">McKesson &bull; Remote/Hybrid (Irving, TX)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">$100,100 – $166,800</div>
+          <div class="location">Remote &bull; Healthcare Tech</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Strategic finance partner for Macro Helix within McKesson's Commercial, Strategy &amp; Innovation division. Responsible for budgeting, forecasting, business modeling, new product pricing, and revenue forecasting. Includes 15% Management Incentive Plan bonus.</p>
+        <div class="tags">
+          <span class="tag tag-match">FP&amp;A Manager ✓</span>
+          <span class="tag tag-match">Healthcare Industry ✓</span>
+          <span class="tag tag-match">Budgeting &amp; Forecasting ✓</span>
+          <span class="tag tag-match">Financial Modeling ✓</span>
+          <span class="tag tag-match">7+ Years Finance ✓</span>
+          <span class="tag tag-gap">SaaS/Subscription Revenue Models</span>
+        </div>
+        <p><strong>Why #2:</strong> Fortune 15 company with outstanding stability. Healthcare industry match. Adam's 20 years of finance experience far exceeds the 7+ year requirement. The SaaS revenue model aspect is a slight gap but his ERP/BI experience compensates. Strong total comp with 15% bonus.</p>
+        <a class="btn-apply" href="https://careers.mckesson.com/en/job/irving/manager-fp-and-a-revenue-forecast-healthcare-technology/733/90284192160" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 3 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#3</span>
+        <span class="score-badge score-green">85</span>
+        <div class="info">
+          <h3>Finance Manager — FP&amp;A</h3>
+          <div class="company">Lyra Health &bull; Remote (US)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">$95,000 – $146,000</div>
+          <div class="location">Remote &bull; Healthcare</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Finance Manager responsible for integration &amp; strategic initiatives, reporting to the Director of FP&amp;A. Leads financial planning, budgeting, forecasting, and strategic analysis to support a newly acquired entity. Lyra Health is a leading mental health benefits platform.</p>
+        <div class="tags">
+          <span class="tag tag-match">FP&amp;A ✓</span>
+          <span class="tag tag-match">Healthcare ✓</span>
+          <span class="tag tag-match">Budgeting &amp; Forecasting ✓</span>
+          <span class="tag tag-match">M&amp;A Integration ✓</span>
+          <span class="tag tag-match">Strategic Analysis ✓</span>
+        </div>
+        <p><strong>Why #3:</strong> The M&amp;A integration component is a perfect match for Adam's acquisition review experience at Gen4. Healthcare industry alignment is strong. Mental health is a high-growth sector. Good stepping stone toward a Director role.</p>
+        <a class="btn-apply" href="https://careers.lyrahealth.com/job/remote/finance-manager-fp-and-a/43250/85069701584" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 4 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#4</span>
+        <span class="score-badge score-green">82</span>
+        <div class="info">
+          <h3>FP&amp;A Manager</h3>
+          <div class="company">Dataiku &bull; Remote (US)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">$148,500 – $160,000</div>
+          <div class="location">Remote &bull; Tech/AI</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>High-energy finance leader for Corporate FP&amp;A team. Central role managing Global Cash Flow as company scales operations. Requires 5-7 years FP&amp;A experience. Dataiku is a leading AI/data science platform company.</p>
+        <div class="tags">
+          <span class="tag tag-match">FP&amp;A Manager ✓</span>
+          <span class="tag tag-match">Cash Flow Management ✓</span>
+          <span class="tag tag-match">Budgeting &amp; Forecasting ✓</span>
+          <span class="tag tag-match">5+ Years FP&amp;A ✓</span>
+          <span class="tag tag-gap">SaaS/AI Industry Experience</span>
+        </div>
+        <p><strong>Why #4:</strong> Excellent salary range and Adam far exceeds the experience requirement. Cash flow management and scaling operations map to his DSO growth work. Moving from healthcare to AI/tech is a consideration but core FP&amp;A skills transfer directly.</p>
+        <a class="btn-apply" href="https://job-boards.greenhouse.io/dataiku/jobs/5610311004" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 5 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#5</span>
+        <span class="score-badge score-green">80</span>
+        <div class="info">
+          <h3>FP&amp;A Manager (US Remote)</h3>
+          <div class="company">Cimpress &bull; Remote (US)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">Est. $120,000 – $150,000</div>
+          <div class="location">Remote &bull; Tech/E-Commerce</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Strategic finance partner for Cimpress Technology organization (parent company of Vista/Vistaprint). Owns management reporting, budgeting, forecasting, long-range financial planning, and evaluation of investment opportunities. Oversees two financial analysts. Remote-First culture since 2020.</p>
+        <div class="tags">
+          <span class="tag tag-match">FP&amp;A Manager ✓</span>
+          <span class="tag tag-match">Team Management ✓</span>
+          <span class="tag tag-match">Budgeting &amp; Forecasting ✓</span>
+          <span class="tag tag-match">Investment ROI Analysis ✓</span>
+          <span class="tag tag-match">5+ Years FP&amp;A ✓</span>
+        </div>
+        <p><strong>Why #5:</strong> Excellent culture fit with Remote-First model. Team oversight of two analysts mirrors Adam's current structure. Investment evaluation aligns with his CapEx and M&amp;A analysis work. Established company with proven remote operations.</p>
+        <a class="btn-apply" href="https://www.linkedin.com/jobs/view/fp-a-manager-us-remote-at-cimpress-2843794095" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 6 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#6</span>
+        <span class="score-badge score-yellow">78</span>
+        <div class="info">
+          <h3>Senior FP&amp;A Analyst (Remote Work From Home)</h3>
+          <div class="company">Freedom Financial Network (Achieve) &bull; Remote / Tempe, AZ</div>
+        </div>
+        <div class="meta">
+          <div class="salary">Est. $95,000 – $125,000</div>
+          <div class="location">Remote/Tempe &bull; Financial Services</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Senior Financial Analyst on the Corporate FP&amp;A Team, driving core analytics and reporting for Shared Services businesses. Leads annual budgeting for technology, facilities, procurement, and accounting business units. Reports to Senior Manager of FP&amp;A.</p>
+        <div class="tags">
+          <span class="tag tag-match">FP&amp;A ✓</span>
+          <span class="tag tag-match">Budgeting &amp; Reporting ✓</span>
+          <span class="tag tag-match">Phoenix/Tempe Area ✓</span>
+          <span class="tag tag-match">Financial Services ✓</span>
+          <span class="tag tag-gap">Title is Senior Analyst (lateral/slight step down)</span>
+        </div>
+        <p><strong>Why #6:</strong> Tempe location is ideal for Adam's Phoenix preference. Financial services industry aligns with his AIG/AmEx background. However, the Senior Analyst title is a step down from Manager — Adam should negotiate for a Manager title or ensure the scope compensates.</p>
+        <a class="btn-apply" href="https://jobs.freedomfinancialnetwork.com/senior-fpandamp-a-analyst/job/18444809" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 7 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#7</span>
+        <span class="score-badge score-yellow">76</span>
+        <div class="info">
+          <h3>FP&amp;A Manager (Remote)</h3>
+          <div class="company">TrueCar &bull; Remote (US)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">Est. $130,000 – $160,000</div>
+          <div class="location">Remote &bull; Automotive/Tech</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Reports to VP of Corporate Finance. Focuses on building finance operations, reporting financial results, identifying efficiencies, and instilling FP&amp;A best practices. TrueCar is a publicly traded digital automotive marketplace.</p>
+        <div class="tags">
+          <span class="tag tag-match">FP&amp;A Manager ✓</span>
+          <span class="tag tag-match">Finance Operations ✓</span>
+          <span class="tag tag-match">Process Improvement ✓</span>
+          <span class="tag tag-match">Reporting ✓</span>
+          <span class="tag tag-gap">Automotive/Tech Industry</span>
+        </div>
+        <p><strong>Why #7:</strong> Building finance operations from scratch maps directly to Adam's experience building FP&amp;A processes at Gen4 when the team was just the CFO and VP. Public company experience is a plus given his SEC reporting background at ON Semiconductor. Industry is different but transferable.</p>
+        <a class="btn-apply" href="https://builtin.com/job/fpa-manager-remote/2780645" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 8 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#8</span>
+        <span class="score-badge score-yellow">74</span>
+        <div class="info">
+          <h3>Sr Finance Analyst — FP&amp;A/G&amp;A (Remote)</h3>
+          <div class="company">Molina Healthcare &bull; Remote (US)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">$54,373 – $117,809</div>
+          <div class="location">Remote &bull; Healthcare/Insurance</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Senior-level analyst supporting finance activities including financial analysis, reporting, forecasting, trending, and modeling for future business decisions. Molina Healthcare is a Fortune 500 managed care company serving government-assisted populations.</p>
+        <div class="tags">
+          <span class="tag tag-match">Healthcare ✓</span>
+          <span class="tag tag-match">Financial Analysis ✓</span>
+          <span class="tag tag-match">Forecasting &amp; Modeling ✓</span>
+          <span class="tag tag-match">Fortune 500 ✓</span>
+          <span class="tag tag-gap">Title is Sr Analyst (step down)</span>
+          <span class="tag tag-gap">Wide salary range — target top end</span>
+        </div>
+        <p><strong>Why #8:</strong> Healthcare industry match and Fortune 500 stability are strong draws. However, the title is below Adam's current level and the salary floor is very low. He should only pursue this if he can negotiate toward the top of the range ($110K+) with a path to Manager.</p>
+        <a class="btn-apply" href="https://careers.molinahealthcare.com/job/united-states/sr-finance-analyst-fp-and-a-g-and-a-remote/21726/92859096432" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 9 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#9</span>
+        <span class="score-badge score-yellow">72</span>
+        <div class="info">
+          <h3>Director, FP&amp;A</h3>
+          <div class="company">Oscar Health &bull; Remote (US)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">$162,453 – $213,220</div>
+          <div class="location">Remote &bull; Healthcare/Insurance</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Leads coordination of budgeting, monitoring, analyzing, and forecasting departmental and overall financial performance. Consolidates financial results and provides strategic insights to senior leadership. Reports to Sr. Director, Insurance Financial Management.</p>
+        <div class="tags">
+          <span class="tag tag-match">Healthcare ✓</span>
+          <span class="tag tag-match">FP&amp;A Leadership ✓</span>
+          <span class="tag tag-match">Budgeting &amp; Forecasting ✓</span>
+          <span class="tag tag-match">Board/Leadership Reporting ✓</span>
+          <span class="tag tag-gap">Director title — stretch role</span>
+          <span class="tag tag-gap">Insurance/Managed Care specific</span>
+        </div>
+        <p><strong>Why #9:</strong> This is a stretch opportunity with exceptional compensation. Adam's board and lender reporting experience at Gen4 maps well. Healthcare industry alignment. The Director title would be a step up — but his 20 years of experience and leadership track record make it worth pursuing. High reward if successful.</p>
+        <a class="btn-apply" href="https://remotive.com/remote/jobs/finance/director-fp-a-3888832" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+    <!-- JOB 10 -->
+    <div class="job-card" onclick="this.classList.toggle('open')">
+      <div class="job-card-header">
+        <span class="rank">#10</span>
+        <span class="score-badge score-yellow">68</span>
+        <div class="info">
+          <h3>FP&amp;A Manager/Director (Remote)</h3>
+          <div class="company">Hasura &bull; Remote (San Francisco, CA)</div>
+        </div>
+        <div class="meta">
+          <div class="salary">$190,000 – $220,000 + ESOPs</div>
+          <div class="location">Remote &bull; Tech/SaaS</div>
+        </div>
+      </div>
+      <div class="job-card-body">
+        <p>Strategic, results-driven FP&amp;A Senior Manager/Director to drive financial planning and deliver insights that guide key decisions. Cross-functional annual planning, board reporting, scenario analysis, and team development. High-growth startup environment.</p>
+        <div class="tags">
+          <span class="tag tag-match">FP&amp;A Leadership ✓</span>
+          <span class="tag tag-match">Board Reporting ✓</span>
+          <span class="tag tag-match">Team Management ✓</span>
+          <span class="tag tag-match">Financial Modeling ✓</span>
+          <span class="tag tag-gap">8+ Years FP&amp;A (has it)</span>
+          <span class="tag tag-gap">3+ Years SaaS Required</span>
+          <span class="tag tag-gap">MBA/CPA/CFA Preferred (has MBA)</span>
+        </div>
+        <p><strong>Why #10:</strong> Exceptional compensation and the highest salary in this list. Adam has the years of experience and MBA. The gap is the SaaS requirement — he doesn't have direct SaaS FP&amp;A experience. This is an aspirational reach that's worth applying to, especially given the compensation. His startup-to-scale experience at Gen4 (growing from 62 to 103 locations) tells a compelling growth story.</p>
+        <a class="btn-apply" href="https://www.linkedin.com/jobs/view/fp-a-manager-director-remote-at-hasura-4158323693" target="_blank">Apply Now →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DEEP DIVE ON #1 -->
+<section id="deepdive">
+  <div class="sec-header"><h2>#1 Match Deep Dive — Eleanor Health</h2></div>
+  <div class="sec-body">
+    <details open>
+      <summary>Why This Is the Top Match</summary>
+      <div class="detail-body">
+        <p>Eleanor Health's Manager, FP&amp;A and Strategy role is the strongest match for Adam because it maps almost 1:1 to his current responsibilities at Gen4 Dental Partners:</p>
+        <ul style="margin:10px 0 0 20px;">
+          <li><strong>Multi-site healthcare operations:</strong> Eleanor Health operates across multiple states, mirroring Adam's 103-location DSO experience</li>
+          <li><strong>Exact title match:</strong> Manager, FP&amp;A — same level, same function</li>
+          <li><strong>Business partnership model:</strong> Both roles serve as strategic finance partners to operations and leadership teams</li>
+          <li><strong>Core responsibilities overlap:</strong> Budgeting, forecasting, headcount planning, resource allocation, and financial modeling</li>
+          <li><strong>Healthcare domain:</strong> Adam's healthcare experience (AMR, Gen4) transfers directly</li>
+          <li><strong>Team collaboration:</strong> Reports to Director, FP&amp;A — same reporting structure as many of his prior roles</li>
+        </ul>
+        <p style="margin-top:12px;">The salary range ($115K-$130K) is competitive and Adam should target the top of the range given his extensive experience. The only minor gap is preferred experience with Adaptive/Anaplan, which is listed as "preferred" not "required."</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- RESUME RECOMMENDATIONS -->
+<section id="resume-recs">
+  <div class="sec-header"><h2>Resume Recommendations (Tailored to Eleanor Health #1 Match)</h2></div>
+  <div class="sec-body">
+    <details open>
+      <summary>High Priority Changes</summary>
+      <div class="detail-body">
+        <p><span class="priority priority-high">HIGH</span> <strong>Add "multi-site" and "multi-state" language:</strong> Under Gen4, change "62 locations" language to explicitly say "multi-site, multi-state healthcare operations spanning 103 locations across [X] states." Eleanor Health's listing specifically calls out multi-site/multi-state support.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-high">HIGH</span> <strong>Add a professional summary at the top:</strong> The resume currently jumps straight into experience. Add a 3-line summary: "FP&amp;A leader with 20 years of progressive finance experience across multi-site healthcare organizations. Proven track record scaling financial planning operations from startup to $300M+ revenue. Expert in budgeting, forecasting, M&amp;A due diligence, and cross-functional business partnership."</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-high">HIGH</span> <strong>Quantify team leadership impact:</strong> Add metrics like "Built and managed FP&amp;A team from 0 to 4 analysts, reducing monthly close cycle by [X] days" or "Improved forecast accuracy to within [X]% of actuals." Even estimated ranges help.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-high">HIGH</span> <strong>Add the keyword "strategic business partner":</strong> Eleanor Health's listing emphasizes being a "strategic partner to Operations." Weave this phrase into 1-2 bullet points under Gen4 and AMR.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Medium Priority Changes</summary>
+      <div class="detail-body">
+        <p><span class="priority priority-med">MEDIUM</span> <strong>Add "resource allocation" to Gen4 bullets:</strong> Eleanor Health specifically mentions resource allocation decisions. Adam's CapEx and underwriting work qualifies — rephrase to include this keyword.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-med">MEDIUM</span> <strong>Emphasize the "built from scratch" narrative:</strong> Under the Sr. Financial Analyst role at Gen4, the bullet about building financial reporting for a new FP&amp;A team is extremely compelling. Expand it: "Founded and built FP&amp;A function from ground-up when team consisted only of CFO and VP of Finance; established reporting frameworks, KPI dashboards, and forecasting processes adopted company-wide."</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-med">MEDIUM</span> <strong>Consolidate older roles:</strong> The "Cont. Job Experience" section is good but could be streamlined. Keep the company names and dates but remove the detailed section for roles before 2012 — they're 14+ years old.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-med">MEDIUM</span> <strong>Add headcount planning language:</strong> Eleanor Health mentions "headcount strategies." Under Gen4 Manager role, add a bullet about managing headcount planning for the FP&amp;A team buildout and potentially supporting broader organization headcount budgeting.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Low Priority / ATS Optimization</summary>
+      <div class="detail-body">
+        <p><span class="priority priority-low">LOW</span> <strong>Add "value-based care" or "behavioral health" if applicable:</strong> These are listed as preferred qualifications. If Adam has any exposure to these models through Gen4 or AMR, even tangentially, include it.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-low">LOW</span> <strong>Keyword optimization:</strong> Ensure these ATS-friendly terms appear at least once: FP&amp;A, financial planning and analysis, forecasting, budgeting, variance analysis, financial modeling, business partnership, healthcare operations, cross-functional, senior leadership, data-driven insights.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-low">LOW</span> <strong>Format the Skills section:</strong> Break it into categories: "Financial Systems," "Technical Skills," "Analysis &amp; Reporting" for easier scanning.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- LINKEDIN RECOMMENDATIONS -->
+<section id="linkedin-recs">
+  <div class="sec-header"><h2>LinkedIn Profile Recommendations</h2></div>
+  <div class="sec-body">
+    <details open>
+      <summary>Headline &amp; About Section</summary>
+      <div class="detail-body">
+        <p><span class="priority priority-high">HIGH</span> <strong>Optimize the headline:</strong></p>
+        <p style="margin:8px 0;"><em>Current (estimated):</em> "Manager, FP&amp;A at Gen4 Dental Partners"</p>
+        <p><em>Suggested:</em> "FP&amp;A Leader | Multi-Site Healthcare Finance | $300M Budget Management | M&amp;A &amp; Strategic Planning"</p>
+        <p style="margin-top:8px;">This headline targets the keywords recruiters search for and signals scope immediately.</p>
+
+        <p style="margin-top:16px;"><span class="priority priority-high">HIGH</span> <strong>Rewrite the About section:</strong> Structure it as:</p>
+        <ul style="margin:8px 0 0 20px;">
+          <li>Opening hook: "I build FP&amp;A functions that scale. From founding a financial planning team to managing $300M in revenue across 103 healthcare locations..."</li>
+          <li>3-4 sentences on core expertise and career narrative</li>
+          <li>Close with what you're looking for: "Open to remote FP&amp;A leadership opportunities in healthcare and high-growth organizations."</li>
+          <li>Include keywords naturally: financial modeling, forecasting, M&amp;A, board reporting, team leadership</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Experience &amp; Skills</summary>
+      <div class="detail-body">
+        <p><span class="priority priority-med">MEDIUM</span> <strong>Expand Gen4 descriptions:</strong> Mirror the strongest resume bullets but add context that wouldn't fit on a resume. Include a brief note about Gen4 being a dental DSO — many recruiters won't know what that means.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-med">MEDIUM</span> <strong>Reorder skills:</strong> Move these to the top: Financial Planning &amp; Analysis, Financial Modeling, Budgeting, Forecasting, Healthcare Finance, Team Leadership, M&amp;A Due Diligence, PowerBI, SQL</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-med">MEDIUM</span> <strong>Request recommendations:</strong> Ask 2-3 people for LinkedIn recommendations — ideally your CFO or VP of Finance at Gen4, a peer from AMR, and someone from operations who can speak to your business partnership. Frame the ask: "Would you be willing to write a brief recommendation highlighting our work together on [specific project]?"</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Activity &amp; Visibility</summary>
+      <div class="detail-body">
+        <p><span class="priority priority-low">LOW</span> <strong>Start posting 1-2x per week:</strong> Share insights about FP&amp;A trends, multi-site financial management, or healthcare finance topics. Even commenting on others' posts increases visibility.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-low">LOW</span> <strong>Turn on "Open to Work":</strong> Set it to visible to recruiters only. Target titles: FP&amp;A Manager, Director of FP&amp;A, Finance Manager, Senior Manager FP&amp;A.</p>
+
+        <p style="margin-top:12px;"><span class="priority priority-low">LOW</span> <strong>Add a Featured section:</strong> If you have any presentations, reports (sanitized), or articles about FP&amp;A best practices, pin them here.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- COVER LETTER -->
+<section id="cover-letter">
+  <div class="sec-header"><h2>Cover Letter — Eleanor Health, Manager FP&amp;A and Strategy</h2></div>
+  <div class="sec-body">
+    <div class="cover-letter" id="coverLetterText">
+      <button class="copy-btn" onclick="event.stopPropagation();navigator.clipboard.writeText(document.getElementById('coverLetterText').innerText.replace('Copy','').trim());this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+
+<p>Dear Hiring Manager,</p>
+
+<p style="margin-top:16px;">When I joined Gen4 Dental Partners, the FP&amp;A function was a blank page — just a CFO and a VP of Finance with no staff, no reporting framework, and no scalable processes. Today, we manage a $300 million revenue operation across 103 dental offices, supported by a team I built from the ground up. That trajectory — from zero to operational maturity in a fast-growing healthcare organization — is exactly the experience I'd bring to Eleanor Health.</p>
+
+<p style="margin-top:16px;">Your Manager, FP&amp;A and Strategy role resonated with me because it mirrors the work I find most rewarding: serving as a strategic finance partner to operations and leadership teams in a multi-site healthcare environment. At Gen4, I don't just deliver budgets and forecasts — I partner with our M&amp;A team on acquisition due diligence, develop compliance certifications for debt facilities, build KPI frameworks for Board and lender reporting, and lead the integration of new ERP and BI tools that our field teams actually use.</p>
+
+<p style="margin-top:16px;">What draws me to Eleanor Health specifically is the mission. I've spent the last several years in healthcare because I believe finance should be a force multiplier for organizations doing meaningful work. Supporting financial planning that directly enables better patient access and outcomes is the kind of impact I want my career to have.</p>
+
+<p style="margin-top:16px;">I'd welcome the opportunity to discuss how my experience scaling FP&amp;A operations, managing cross-functional business partnerships, and driving financial strategy in multi-state healthcare organizations can support Eleanor Health's continued growth.</p>
+
+<p style="margin-top:20px;">Sincerely,<br>Adam Schabel</p>
+    </div>
+  </div>
+</section>
+
+<!-- INTERVIEW PREP -->
+<section id="interview">
+  <div class="sec-header"><h2>Interview Preparation — Eleanor Health</h2></div>
+  <div class="sec-body">
+    <details open>
+      <summary>Likely Interview Questions &amp; Talking Points</summary>
+      <div class="detail-body">
+        <div class="qa-item">
+          <div class="question">1. "Tell me about a time you built or significantly improved an FP&amp;A process."</div>
+          <div class="answer">Lead with the Gen4 story: joining when FP&amp;A was just the CFO and VP, building the reporting framework, hiring and training 4 analysts, implementing Velixo, and creating the KPI dashboards now used for Board and lender reporting. Emphasize the "from zero to 103 locations" narrative.</div>
+        </div>
+        <div class="qa-item">
+          <div class="question">2. "How do you manage the budgeting process across multiple sites or business units?"</div>
+          <div class="answer">Walk through your annual budget process at Gen4: coordinating across 103 locations, growing from 62 in year one. Discuss how you standardized templates, partnered with operations on assumptions, managed the consolidation, and handled variance analysis during monthly close. Mention your Wyndham experience managing 76 properties across multiple states for additional depth.</div>
+        </div>
+        <div class="qa-item">
+          <div class="question">3. "How do you handle competing priorities from different stakeholders?"</div>
+          <div class="answer">Reference your cross-functional partnerships: M&amp;A team for acquisitions, Operations for KPI data warehouse, Accounting for close procedures, and lenders/Board for compliance reporting. Give a specific example of balancing these during a busy quarter — perhaps when a new debt facility coincided with a heavy acquisition period.</div>
+        </div>
+        <div class="qa-item">
+          <div class="question">4. "What's your experience with healthcare-specific financial planning challenges?"</div>
+          <div class="answer">Draw on both Gen4 (dental DSO — multi-site provider management, earnouts, holdbacks, provider compensation) and AMR (healthcare transportation — contract pricing, client reviews, regulatory compliance). Emphasize your understanding of healthcare economics and the intersection of clinical operations and financial performance.</div>
+        </div>
+        <div class="qa-item">
+          <div class="question">5. "How do you approach headcount planning and resource allocation?"</div>
+          <div class="answer">Discuss building your own team (doubling staff two years in a row), managing the hiring and training process, and your experience at BASIS overseeing budgets that included salary and benefits decisions for all personnel. Tie it to how financial modeling supports staffing decisions.</div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Questions to Ask the Interviewer</summary>
+      <div class="detail-body">
+        <ul style="margin-left:20px;">
+          <li>"How does the FP&amp;A team currently support Eleanor Health's expansion into new states or markets?"</li>
+          <li>"What does the tech stack look like for financial planning here — are you using Adaptive, Anaplan, or another tool?"</li>
+          <li>"How does the finance team collaborate with clinical operations leaders on budget decisions?"</li>
+          <li>"What does success look like for this role in the first 90 days?"</li>
+          <li>"How is Eleanor Health thinking about growth over the next 2-3 years, and how will this role evolve with that growth?"</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Company Research Brief — Eleanor Health</summary>
+      <div class="detail-body">
+        <ul style="margin-left:20px;">
+          <li><strong>What they do:</strong> Eleanor Health is a community-based outpatient provider specializing in addiction and mental health treatment using a value-based care model</li>
+          <li><strong>Business model:</strong> Multi-site healthcare operations across multiple states, focused on whole-person evidence-based treatment</li>
+          <li><strong>Growth stage:</strong> Expanding — the FP&amp;A role supports multi-state scaling, which signals active growth</li>
+          <li><strong>Culture signals:</strong> Mission-driven, benefits-focused (generous PTO, 401k match, employer-paid insurance)</li>
+          <li><strong>Funding:</strong> Venture-backed healthcare company — research latest funding round before interview</li>
+          <li><strong>Key talking point:</strong> Connect your experience scaling Gen4 from 62 to 103 locations to Eleanor Health's multi-state expansion</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- SALARY OVERVIEW -->
+<section id="salary">
+  <div class="sec-header"><h2>Salary Overview — All 10 Positions</h2></div>
+  <div class="sec-body">
+    <table class="salary-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Company</th>
+          <th>Title</th>
+          <th>Salary Range</th>
+          <th>Type</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Eleanor Health</td>
+          <td>Manager, FP&amp;A</td>
+          <td>$115,000 – $130,000</td>
+          <td>Posted</td>
+          <td>+ bonus + 401k match</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>McKesson</td>
+          <td>Manager, FP&amp;A</td>
+          <td>$100,100 – $166,800</td>
+          <td>Posted</td>
+          <td>+ 15% MIP bonus. Target mid-to-high.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Lyra Health</td>
+          <td>Finance Manager, FP&amp;A</td>
+          <td>$95,000 – $146,000</td>
+          <td>Posted</td>
+          <td>+ discretionary bonus</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Dataiku</td>
+          <td>FP&amp;A Manager</td>
+          <td>$148,500 – $160,000</td>
+          <td>Posted</td>
+          <td>AI/data science company</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Cimpress</td>
+          <td>FP&amp;A Manager</td>
+          <td>$120,000 – $150,000</td>
+          <td>Estimated</td>
+          <td>Based on Glassdoor/industry data</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Freedom Financial</td>
+          <td>Sr FP&amp;A Analyst</td>
+          <td>$95,000 – $125,000</td>
+          <td>Estimated</td>
+          <td>Tempe, AZ — local option</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>TrueCar</td>
+          <td>FP&amp;A Manager</td>
+          <td>$130,000 – $160,000</td>
+          <td>Estimated</td>
+          <td>Based on Levels.fyi/Glassdoor</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Molina Healthcare</td>
+          <td>Sr Finance Analyst</td>
+          <td>$54,373 – $117,809</td>
+          <td>Posted</td>
+          <td>Wide range — negotiate $110K+</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Oscar Health</td>
+          <td>Director, FP&amp;A</td>
+          <td>$162,453 – $213,220</td>
+          <td>Posted</td>
+          <td>Stretch role — high reward</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Hasura</td>
+          <td>FP&amp;A Mgr/Director</td>
+          <td>$190,000 – $220,000</td>
+          <td>Posted</td>
+          <td>+ ESOPs. SaaS experience required.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:20px; padding:16px; background:#f0f9ff; border-radius:8px; border-left:4px solid var(--accent);">
+      <p><strong>Market Context (2026):</strong></p>
+      <p style="margin-top:6px;">FP&amp;A Manager national average: <strong>$154,583/year</strong> (Glassdoor) &bull; FP&amp;A Director average: <strong>$149,983/year</strong> (ZipRecruiter)</p>
+      <p style="margin-top:4px;">Adam's 20 years of experience, MBA, and multi-site healthcare specialization position him in the <strong>75th percentile and above</strong> for FP&amp;A Manager roles. He should target $130K–$160K for Manager-level positions and $160K–$200K for Director-level.</p>
+      <p style="margin-top:4px;font-size:0.85rem;color:var(--muted);">Sources: Glassdoor FP&amp;A Manager Salary Trends 2026, ZipRecruiter FP&amp;A Director Salary Data, Robert Half 2026 Salary Guide, Datarails FP&amp;A Salary Guide 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:32px 16px; color:var(--muted); font-size:0.85rem;">
+  <p>Generated on March 25, 2026 — Re-run weekly for fresh results</p>
+  <p style="margin-top:4px;">Job availability changes frequently. Verify all listings are still active before applying.</p>
+</div>
+
+</div>
+
+<script>
+// Make sure clicking inside card body doesn't toggle
+document.querySelectorAll('.job-card-body').forEach(el => {
+  el.addEventListener('click', e => e.stopPropagation());
+});
+</script>
+
+</body>
+</html>
