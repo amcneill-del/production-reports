@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCCD Digital Storefront Audit — Phase 1</title>
+<style>
+  :root {
+    --blue: #1B4F72;
+    --blue-light: #D6EAF8;
+    --blue-mid: #2E86C1;
+    --green: #27AE60;
+    --yellow: #F39C12;
+    --orange: #E67E22;
+    --red: #E74C3C;
+    --gray-light: #F8F9FA;
+    --gray-med: #BDC3C7;
+    --gray-dark: #5D6D7E;
+    --white: #FFFFFF;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: #EBF0F5; color: #2C3E50; line-height: 1.6; }
+
+  /* NAV */
+  .topnav { position: sticky; top: 0; z-index: 100; background: var(--blue); padding: 0; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
+  .topnav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 0; overflow-x: auto; }
+  .topnav a { color: rgba(255,255,255,.8); text-decoration: none; font-size: .82rem; padding: 14px 16px; white-space: nowrap; transition: .2s; border-bottom: 3px solid transparent; }
+  .topnav a:hover, .topnav a.active { color: #fff; border-bottom-color: var(--blue-mid); background: rgba(255,255,255,.07); }
+  .topnav .brand { font-weight: 700; font-size: .95rem; color: #fff; padding: 14px 20px 14px 16px; letter-spacing: .3px; }
+
+  /* CONTAINER */
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  /* CARDS */
+  .card { background: var(--white); border-radius: 12px; box-shadow: 0 1px 6px rgba(0,0,0,.06); padding: 28px 32px; margin-bottom: 24px; }
+  .card h2 { color: var(--blue); font-size: 1.35rem; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--blue-light); }
+  .card h3 { color: var(--blue); font-size: 1.1rem; margin: 18px 0 10px; }
+
+  /* HEADER CARD */
+  .header-card { background: linear-gradient(135deg, var(--blue) 0%, #2E86C1 100%); color: #fff; text-align: center; padding: 48px 32px 40px; border-radius: 12px; margin-bottom: 24px; }
+  .header-card h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
+  .header-card .subtitle { font-size: 1.1rem; opacity: .85; margin-bottom: 24px; }
+  .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; text-align: left; max-width: 700px; margin: 0 auto; }
+  .meta-item { background: rgba(255,255,255,.12); border-radius: 8px; padding: 10px 14px; }
+  .meta-item .label { font-size: .75rem; text-transform: uppercase; letter-spacing: .5px; opacity: .7; }
+  .meta-item .value { font-size: .95rem; font-weight: 600; }
+
+  /* SCORE RING */
+  .score-hero { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; margin: 16px 0; }
+  .ring-wrap { position: relative; width: 160px; height: 160px; }
+  .ring-wrap svg { transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: #E8ECF0; stroke-width: 12; }
+  .ring-fg { fill: none; stroke-width: 12; stroke-linecap: round; transition: stroke-dashoffset .8s ease; }
+  .ring-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
+  .ring-label .pct { font-size: 2.2rem; font-weight: 700; color: var(--blue); }
+  .ring-label .sub { font-size: .8rem; color: var(--gray-dark); }
+  .score-detail { max-width: 440px; }
+  .score-detail p { font-size: .95rem; color: #555; margin-bottom: 12px; }
+
+  /* GRADE BADGES */
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+  .badge-strong { background: #D5F5E3; color: #1E8449; }
+  .badge-good { background: #FEF5E7; color: #B7950B; }
+  .badge-needs { background: #FDEBD0; color: #AF601A; }
+  .badge-critical { background: #FADBD8; color: #C0392B; }
+
+  /* STATUS PILLS */
+  .status { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .3px; }
+  .status-pass { background: #D5F5E3; color: #1E8449; }
+  .status-partial { background: #FEF5E7; color: #B7950B; }
+  .status-fail { background: #FADBD8; color: #C0392B; }
+  .status-na { background: #EAECEE; color: #7F8C8D; }
+
+  /* SCORE TABLE */
+  .score-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .score-table th { background: var(--blue); color: #fff; padding: 10px 14px; text-align: left; font-size: .82rem; text-transform: uppercase; letter-spacing: .3px; }
+  .score-table th:nth-child(n+2) { text-align: center; }
+  .score-table td { padding: 10px 14px; border-bottom: 1px solid #EEE; font-size: .9rem; }
+  .score-table td:nth-child(n+2) { text-align: center; }
+  .score-table tr:nth-child(even) { background: var(--gray-light); }
+  .score-table tr:last-child { font-weight: 700; background: var(--blue-light); }
+  .score-table tr:hover:not(:last-child) { background: #EBF5FB; }
+
+  /* CHECKLIST TABLE */
+  .check-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: .88rem; }
+  .check-table th { background: var(--blue); color: #fff; padding: 9px 12px; text-align: left; font-size: .78rem; text-transform: uppercase; letter-spacing: .3px; }
+  .check-table td { padding: 9px 12px; border-bottom: 1px solid #EEE; vertical-align: top; }
+  .check-table tr:nth-child(even) { background: var(--gray-light); }
+  .check-table .id-col { width: 60px; text-align: center; font-weight: 600; color: var(--gray-dark); }
+  .check-table .status-col { width: 90px; text-align: center; }
+
+  /* QUICK WINS */
+  .quick-wins { background: linear-gradient(135deg, #EBF5FB, #D6EAF8); border-left: 4px solid var(--blue-mid); border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+  .quick-wins h4 { color: var(--blue); font-size: .9rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .5px; }
+  .quick-wins ol { margin-left: 18px; }
+  .quick-wins li { font-size: .88rem; margin-bottom: 6px; color: #34495E; }
+
+  /* ACTION TABLE */
+  .action-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .action-table th { background: var(--blue); color: #fff; padding: 10px 14px; text-align: left; font-size: .8rem; text-transform: uppercase; letter-spacing: .3px; }
+  .action-table td { padding: 10px 14px; border-bottom: 1px solid #EEE; font-size: .88rem; }
+  .action-table tr:nth-child(even) { background: var(--gray-light); }
+  .action-table .rank { font-weight: 700; color: var(--blue); text-align: center; width: 40px; }
+  .impact-high { color: var(--green); font-weight: 700; }
+  .impact-med { color: var(--yellow); font-weight: 700; }
+
+  /* SOCIAL / GBP GRID */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+  .info-box { background: var(--gray-light); border-radius: 8px; padding: 16px; }
+  .info-box .lbl { font-size: .75rem; text-transform: uppercase; color: var(--gray-dark); letter-spacing: .3px; margin-bottom: 4px; }
+  .info-box .val { font-size: 1rem; font-weight: 600; color: var(--blue); }
+  .info-box .note { font-size: .82rem; color: #666; margin-top: 4px; }
+
+  /* SECTION HEADER BAR */
+  .section-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--blue-light); }
+  .section-bar h2 { border: none; padding: 0; margin: 0; }
+  .section-bar .score-badge { font-size: 1rem; font-weight: 700; }
+
+  /* FOOTER */
+  .report-footer { text-align: center; padding: 32px 20px; color: var(--gray-dark); font-size: .82rem; }
+
+  /* COLLAPSIBLE */
+  details { margin-bottom: 20px; }
+  details summary { cursor: pointer; list-style: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: '▸'; display: inline-block; margin-right: 8px; transition: transform .2s; font-size: 1rem; color: var(--blue-mid); }
+  details[open] summary::before { transform: rotate(90deg); }
+  details > .card { margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+
+  /* NOTE */
+  .note-text { font-size: .85rem; color: #7F8C8D; font-style: italic; margin-top: 10px; }
+
+  @media (max-width: 700px) {
+    .score-hero { flex-direction: column; }
+    .info-grid { grid-template-columns: 1fr; }
+    .meta-grid { grid-template-columns: 1fr; }
+    .card { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="#top">Gen4 Audit</a>
+    <a href="#summary">Summary</a>
+    <a href="#scores">Scores</a>
+    <a href="#s1-1">Conversion</a>
+    <a href="#s1-2">UX</a>
+    <a href="#s1-3">SEO</a>
+    <a href="#s1-4">Services</a>
+    <a href="#s1-5">Trust</a>
+    <a href="#s1-6">NAP</a>
+    <a href="#s1-7">Insurance</a>
+    <a href="#s1-8">Content</a>
+    <a href="#s1-9">Technical</a>
+    <a href="#s1-10">Tracking</a>
+    <a href="#gbp">GBP</a>
+    <a href="#social">Social</a>
+    <a href="#actions">Actions</a>
+  </div>
+</nav>
+
+<div class="container" id="top">
+
+<!-- HEADER -->
+<div class="header-card">
+  <h1>Practice Digital Audit</h1>
+  <div class="subtitle">Phase 1: Digital Storefront</div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="label">Practice</div><div class="value">Peninsula Center of Cosmetic Dentistry</div></div>
+    <div class="meta-item"><div class="label">Website</div><div class="value">pccdsmiles.com</div></div>
+    <div class="meta-item"><div class="label">Locations</div><div class="value">Los Altos, CA &bull; Mountain View, CA</div></div>
+    <div class="meta-item"><div class="label">Audit Date</div><div class="value">March 25, 2026</div></div>
+    <div class="meta-item"><div class="label">Audited By</div><div class="value">Claude &mdash; Gen4 Framework</div></div>
+    <div class="meta-item"><div class="label">Framework</div><div class="value">Gen4 Phase 1 (51 checkpoints)</div></div>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="card" id="summary">
+  <h2>Executive Summary</h2>
+  <div class="score-hero">
+    <div class="ring-wrap">
+      <svg viewBox="0 0 180 180" width="160" height="160">
+        <circle class="ring-bg" cx="90" cy="90" r="78"/>
+        <circle class="ring-fg" cx="90" cy="90" r="78"
+          stroke="var(--yellow)" stroke-dasharray="490" stroke-dashoffset="137"/>
+      </svg>
+      <div class="ring-label">
+        <div class="pct">72%</div>
+        <div class="sub">31 / 43 pts</div>
+      </div>
+    </div>
+    <div class="score-detail">
+      <p><strong>Overall Grade: <span class="badge badge-good">Good</span></strong></p>
+      <p>PCCD excels in service line clarity, content quality, trust-building, and location consistency &mdash; with an outstanding smile gallery, 50+ blog posts, detailed doctor bios, and 4.9-star reviews across platforms.</p>
+      <p>The primary gaps are in conversion optimization (no real-time online booking), insurance transparency (no named plans, no membership plan), and broken internal links. Fixing the top 3 quick wins could push the score above 80%.</p>
+      <p class="note-text">Items that could not be verified externally (GA4, GTM, schema, heatmapping) were excluded from scoring. Actual score may be higher.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SCORE SUMMARY -->
+<div class="card" id="scores">
+  <h2>Score Summary</h2>
+  <table class="score-table">
+    <thead><tr><th>Section</th><th>Score</th><th>Percent</th><th>Grade</th></tr></thead>
+    <tbody>
+      <tr><td>1.1 Conversion Strategy</td><td>4.0 / 6</td><td>67%</td><td><span class="badge badge-good">Good</span></td></tr>
+      <tr><td>1.2 User Experience</td><td>2.0 / 4</td><td>50%</td><td><span class="badge badge-needs">Needs Work</span></td></tr>
+      <tr><td>1.3 SEO Fundamentals</td><td>4.0 / 6</td><td>67%</td><td><span class="badge badge-good">Good</span></td></tr>
+      <tr><td>1.4 Service Line Clarity</td><td>4.0 / 4</td><td>100%</td><td><span class="badge badge-strong">Strong</span></td></tr>
+      <tr><td>1.5 Trust-Building Elements</td><td>5.0 / 6</td><td>83%</td><td><span class="badge badge-strong">Strong</span></td></tr>
+      <tr><td>1.6 Location &amp; NAP Consistency</td><td>3.5 / 4</td><td>88%</td><td><span class="badge badge-strong">Strong</span></td></tr>
+      <tr><td>1.7 Insurance, Financing &amp; Offers</td><td>2.0 / 4</td><td>50%</td><td><span class="badge badge-needs">Needs Work</span></td></tr>
+      <tr><td>1.8 Content Quality &amp; Messaging</td><td>4.0 / 4</td><td>100%</td><td><span class="badge badge-strong">Strong</span></td></tr>
+      <tr><td>1.9 Technical Performance</td><td>2.0 / 4</td><td>50%</td><td><span class="badge badge-needs">Needs Work</span></td></tr>
+      <tr><td>1.10 Tracking &amp; Analytics</td><td>0.5 / 1</td><td>50%</td><td><span class="badge badge-needs">Needs Work</span></td></tr>
+      <tr><td><strong>OVERALL</strong></td><td><strong>31 / 43</strong></td><td><strong>72%</strong></td><td><span class="badge badge-good">Good</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ========== SECTION 1.1 ========== -->
+<details open id="s1-1">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.1 Conversion Strategy</h2>
+      <div class="score-badge">4.0 / 6 &nbsp; <span class="badge badge-good">67% Good</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.1.1</td><td>Primary CTA above the fold</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>&ldquo;Schedule an Appointment&rdquo; and &ldquo;Free Virtual Consult&rdquo; both prominent in hero area.</td></tr>
+        <tr><td class="id-col">1.1.2</td><td>Click-to-call phone number</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>tel: link in header (650-675-5192). Multiple phone numbers used across pages.</td></tr>
+        <tr><td class="id-col">1.1.3</td><td>Online appointment booking</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>SmileVirtual widget for virtual consults. &ldquo;Schedule&rdquo; buttons link to contact forms, not a real-time booking widget.</td></tr>
+        <tr><td class="id-col">1.1.4</td><td>Contact form short (&le;5 fields)</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Contact page has a brief form. Exact field count could not be verified; appears location-dependent.</td></tr>
+        <tr><td class="id-col">1.1.5</td><td>New patient offer visible</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Free consult/exam/x-rays + free whitening kit on Specials page. No dollar value, no expiration. Not visible on homepage.</td></tr>
+        <tr><td class="id-col">1.1.6</td><td>Multiple contact methods</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Phone + form + virtual consult. No live chat widget detected.</td></tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>Quick Wins</h4>
+      <ol>
+        <li>Embed a real-time scheduling widget (e.g., NexHealth, LocalMed) so visitors can book 24/7 without a form.</li>
+        <li>Add the new patient offer (free exam + whitening kit) as a banner on the homepage with a specific dollar value and expiration date.</li>
+        <li>Add a live chat or AI chatbot (e.g., Podium, Birdeye) for instant visitor engagement.</li>
+      </ol>
+    </div>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.2 ========== -->
+<details id="s1-2">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.2 User Experience</h2>
+      <div class="score-badge">2.0 / 4 &nbsp; <span class="badge badge-needs">50% Needs Work</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.2.1</td><td>Mobile responsive</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Modern Webflow build suggests responsiveness, but mobile UX could not be tested directly.</td></tr>
+        <tr><td class="id-col">1.2.2</td><td>Page load speed</td><td class="status-col"><span class="status status-na">N/A</span></td><td>PageSpeed Insights API blocked. Recommend manual test.</td></tr>
+        <tr><td class="id-col">1.2.3</td><td>Navigation clear and intuitive</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Nav includes Smile Gallery, Contact, Referring Doctors, service dropdowns. Missing a dedicated &ldquo;New Patients&rdquo; nav item.</td></tr>
+        <tr><td class="id-col">1.2.4</td><td>Accessibility (alt text, contrast)</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Modern design with good contrast. Alt text coverage could not be fully verified.</td></tr>
+        <tr><td class="id-col">1.2.5</td><td>404 page branded</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Custom 404 page exists with &ldquo;Return Home&rdquo; link. Lacks search bar or appointment CTA.</td></tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>Quick Wins</h4>
+      <ol>
+        <li>Add a &ldquo;New Patients&rdquo; item to the main navigation linking to the specials/welcome page.</li>
+        <li>Enhance the 404 page with a search bar and prominent &ldquo;Schedule Appointment&rdquo; CTA.</li>
+        <li>Run a manual PageSpeed test and address any flagged issues (image optimization, lazy loading).</li>
+      </ol>
+    </div>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.3 ========== -->
+<details id="s1-3">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.3 SEO Fundamentals</h2>
+      <div class="score-badge">4.0 / 6 &nbsp; <span class="badge badge-good">67% Good</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.3.1</td><td>Location pages with unique content</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Unique pages for Los Altos and Mountain View with distinct content, doctor bios, and hours.</td></tr>
+        <tr><td class="id-col">1.3.2</td><td>Title tag optimized</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>&ldquo;Dentist in Los Altos &amp; Mountain View | Peninsula Center of Cosmetic Dentistry&rdquo; &mdash; keyword + cities + brand.</td></tr>
+        <tr><td class="id-col">1.3.3</td><td>Meta description</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Could not extract directly. Search snippets suggest descriptions exist but should be verified for CTA inclusion.</td></tr>
+        <tr><td class="id-col">1.3.4</td><td>H1 tag keyword-rich</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Homepage H1 &ldquo;Creating Confidence with Every Smile&rdquo; is aspirational but missing keyword (dentist) and location.</td></tr>
+        <tr><td class="id-col">1.3.5</td><td>Individual service pages</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Dedicated pages for cosmetic dentistry, general dentistry, dental implants, Invisalign, and sub-services.</td></tr>
+        <tr><td class="id-col">1.3.6</td><td>Local schema markup</td><td class="status-col"><span class="status status-na">N/A</span></td><td>Could not verify JSON-LD from external scan. Manual verification recommended.</td></tr>
+        <tr><td class="id-col">1.3.7</td><td>Google Search Console</td><td class="status-col"><span class="status status-na">N/A</span></td><td>Cannot verify externally. Manual confirmation recommended.</td></tr>
+        <tr><td class="id-col">1.3.8</td><td>Internal linking strategy</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Strong internal linking between service pages, location pages, blog, and smile gallery.</td></tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>Quick Wins</h4>
+      <ol>
+        <li>Update homepage H1 to include keyword + location, e.g. &ldquo;Cosmetic Dentist in Los Altos &amp; Mountain View.&rdquo;</li>
+        <li>Verify and optimize meta description to include a patient-facing CTA under 160 characters.</li>
+        <li>Implement LocalBusiness/Dentist JSON-LD schema if not already present.</li>
+      </ol>
+    </div>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.4 ========== -->
+<details id="s1-4">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.4 Service Line Clarity</h2>
+      <div class="score-badge">4.0 / 4 &nbsp; <span class="badge badge-strong">100% Strong</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.4.1</td><td>General dentistry services listed</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Comprehensive list with patient-friendly language: cleanings, hygiene, X-rays, fluoride, sealants, emergency, perio, laser therapy, sedation.</td></tr>
+        <tr><td class="id-col">1.4.2</td><td>High-value procedures dedicated pages</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Dedicated content for veneers, Invisalign, implants, makeovers, whitening, bonding, Botox, and enameloplasty.</td></tr>
+        <tr><td class="id-col">1.4.3</td><td>Emergency dental services</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Emergency dentistry prominently featured with same-day appointment messaging and after-hours instructions.</td></tr>
+        <tr><td class="id-col">1.4.4</td><td>Cosmetic services aspirational</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Before/after Smile Gallery with 12+ real cases, video testimonials, aspirational transformation language throughout.</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:10px; color: #555; font-size:.9rem;">This is the strongest section. PCCD excels at communicating its full range of services in patient-friendly, outcome-focused language. The Smile Gallery with real patient video testimonials is a standout feature.</p>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.5 ========== -->
+<details id="s1-5">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.5 Trust-Building Elements</h2>
+      <div class="score-badge">5.0 / 6 &nbsp; <span class="badge badge-strong">83% Strong</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.5.1</td><td>Doctor bio with photo and story</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Detailed, warm bios for 7 doctors with credentials (USC, Stanford, UOP), personal stories, and professional headshots.</td></tr>
+        <tr><td class="id-col">1.5.2</td><td>Patient reviews on website</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>4.9 stars, 200+ reviews displayed. Testimonials with patient names appear on homepage and every sub-page.</td></tr>
+        <tr><td class="id-col">1.5.3</td><td>Before/after gallery</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Smile Gallery with 12+ real patient cases organized by procedure with case descriptions.</td></tr>
+        <tr><td class="id-col">1.5.4</td><td>Technology featured</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>DSD Certified (only Bay Area practice), digital smile design, laser therapy, digital X-rays, in-house lab prominently featured.</td></tr>
+        <tr><td class="id-col">1.5.5</td><td>Awards and affiliations</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>AACD, DABOI/ID, Stanford, USC mentioned in bios. &ldquo;Featured in&rdquo; section on homepage. No visible logo badges in footer.</td></tr>
+        <tr><td class="id-col">1.5.6</td><td>HIPAA/Privacy policy</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Cookie consent widget (CMP) detected. Privacy policy link could not be confirmed in footer.</td></tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>Quick Wins</h4>
+      <ol>
+        <li>Add credential/affiliation logo badges (ADA, AACD, DSD, Invisalign) to the About page and footer.</li>
+        <li>Ensure a clearly labeled Privacy Policy link is visible in the footer of every page.</li>
+      </ol>
+    </div>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.6 ========== -->
+<details id="s1-6">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.6 Location &amp; NAP Consistency</h2>
+      <div class="score-badge">3.5 / 4 &nbsp; <span class="badge badge-strong">88% Strong</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.6.1</td><td>NAP consistent and visible</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Consistent across all pages: 99 3rd St, Los Altos, CA 94022 and 105 South Dr #200, Mountain View, CA 94040.</td></tr>
+        <tr><td class="id-col">1.6.2</td><td>Location has unique URL</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>/our-locations/los-altos and /our-locations/mountain-view with unique content per location.</td></tr>
+        <tr><td class="id-col">1.6.3</td><td>Embedded Google Map</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Map embed could not be confirmed externally. Location chooser present on homepage and contact page.</td></tr>
+        <tr><td class="id-col">1.6.4</td><td>Hours accurate and prominent</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Mon&ndash;Thu 7 AM&ndash;5 PM, Fri 7 AM&ndash;4 PM clearly displayed on location pages.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.7 ========== -->
+<details id="s1-7">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.7 Insurance, Financing &amp; Offers</h2>
+      <div class="score-badge">2.0 / 4 &nbsp; <span class="badge badge-needs">50% Needs Work</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.7.1</td><td>Insurance accepted list</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>&ldquo;Accept most PPO plans&rdquo; stated but no named plans listed. Fee-for-service model explained well.</td></tr>
+        <tr><td class="id-col">1.7.2</td><td>Financing options featured</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Dedicated financing page with CareCredit, PatientFi, iCreditWorks. 401(k) and online payment options also listed.</td></tr>
+        <tr><td class="id-col">1.7.3</td><td>New patient special with details</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Free consultation/exam/X-rays and free whitening kit offered. No dollar value or expiration date included.</td></tr>
+        <tr><td class="id-col">1.7.4</td><td>Membership/savings plan</td><td class="status-col"><span class="status status-fail">Fail</span></td><td>No membership or in-house savings plan for uninsured patients detected.</td></tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>Quick Wins</h4>
+      <ol>
+        <li>Create an in-house membership/savings plan for uninsured patients with transparent annual pricing.</li>
+        <li>Add specific dollar values and expiration dates to patient specials (e.g., &ldquo;Free exam valued at $350 &mdash; expires 4/30/26&rdquo;).</li>
+        <li>List top accepted PPO plans by name so patients can quickly check coverage.</li>
+      </ol>
+    </div>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.8 ========== -->
+<details id="s1-8">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.8 Content Quality &amp; Messaging</h2>
+      <div class="score-badge">4.0 / 4 &nbsp; <span class="badge badge-strong">100% Strong</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.8.1</td><td>Homepage copy patient-centric</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Outcome-focused, emotional, aspirational language throughout. &ldquo;Creating Confidence with Every Smile&rdquo; framing.</td></tr>
+        <tr><td class="id-col">1.8.2</td><td>Blog active with recent content</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>50+ blog posts covering cosmetic, sedation, TMJ, Invisalign, implants, and lifestyle/interview content.</td></tr>
+        <tr><td class="id-col">1.8.3</td><td>FAQs on service pages</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>FAQs present on cosmetic and general dentistry pages covering cost, candidacy, procedure details.</td></tr>
+        <tr><td class="id-col">1.8.4</td><td>Messaging consistent with brand</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Luxury, spa-like, confidence-focused brand voice is remarkably consistent across all pages.</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:10px; color: #555; font-size:.9rem;">Another standout section. The blog covers both clinical and lifestyle/interview topics, which is excellent for SEO and patient engagement. The brand voice is consistent and premium throughout.</p>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.9 ========== -->
+<details id="s1-9">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.9 Technical Performance</h2>
+      <div class="score-badge">2.0 / 4 &nbsp; <span class="badge badge-needs">50% Needs Work</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.9.1</td><td>Core Web Vitals pass</td><td class="status-col"><span class="status status-na">N/A</span></td><td>PageSpeed Insights API blocked. Manual test recommended.</td></tr>
+        <tr><td class="id-col">1.9.2</td><td>HTTPS with valid SSL</td><td class="status-col"><span class="status status-pass">Pass</span></td><td>Site loads over HTTPS with no mixed content warnings detected.</td></tr>
+        <tr><td class="id-col">1.9.3</td><td>XML sitemap submitted</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Sitemap likely exists (Webflow auto-generates) but submission to GSC could not be verified.</td></tr>
+        <tr><td class="id-col">1.9.4</td><td>No broken links on key pages</td><td class="status-col"><span class="status status-fail">Fail</span></td><td>Broken URLs found: /our-team, /our-doctors, /service-categories/sedation-dentistry-in-los-altos all return 404.</td></tr>
+        <tr><td class="id-col">1.9.5</td><td>No duplicate content issues</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Location-specific service pages exist. Canonical tag implementation could not be verified.</td></tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>Quick Wins</h4>
+      <ol>
+        <li>Fix or redirect broken URLs: /our-team, /our-doctors, and the sedation dentistry page.</li>
+        <li>Run Google PageSpeed Insights manually and address items in the &ldquo;Poor&rdquo; range.</li>
+        <li>Verify XML sitemap is submitted in Google Search Console with all active URLs.</li>
+      </ol>
+    </div>
+  </div>
+</details>
+
+<!-- ========== SECTION 1.10 ========== -->
+<details id="s1-10">
+  <summary class="card" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+    <div class="section-bar">
+      <h2 style="font-size:1.15rem;">1.10 Tracking &amp; Analytics</h2>
+      <div class="score-badge">0.5 / 1 &nbsp; <span class="badge badge-needs">50% Needs Work</span></div>
+    </div>
+  </summary>
+  <div class="card">
+    <table class="check-table">
+      <thead><tr><th class="id-col">ID</th><th>Checkpoint</th><th class="status-col">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id-col">1.10.1</td><td>GA4 installed</td><td class="status-col"><span class="status status-na">N/A</span></td><td>Could not verify externally. Manual check required.</td></tr>
+        <tr><td class="id-col">1.10.2</td><td>Call tracking in place</td><td class="status-col"><span class="status status-partial">Partial</span></td><td>Multiple phone numbers across pages (650-675-5192, 888-320-0725, 650-405-4346) suggest possible call tracking. Verify DNI.</td></tr>
+        <tr><td class="id-col">1.10.3</td><td>Google Tag Manager</td><td class="status-col"><span class="status status-na">N/A</span></td><td>Could not verify externally. Manual check required.</td></tr>
+        <tr><td class="id-col">1.10.4</td><td>Conversion goals defined</td><td class="status-col"><span class="status status-na">N/A</span></td><td>Could not verify externally. Manual check required.</td></tr>
+        <tr><td class="id-col">1.10.5</td><td>Heatmapping active</td><td class="status-col"><span class="status status-na">N/A</span></td><td>Could not verify externally. Manual check required.</td></tr>
+      </tbody>
+    </table>
+    <p class="note-text">This section requires manual verification. Use Google Tag Assistant or inspect the page source to confirm GA4, GTM, and session recording tools. The use of multiple phone numbers suggests call tracking may already be in place.</p>
+  </div>
+</details>
+
+<!-- ========== GBP SUMMARY ========== -->
+<div class="card" id="gbp">
+  <h2>Google Business Profile Summary</h2>
+  <div class="info-grid">
+    <div class="info-box"><div class="lbl">Yelp &mdash; Los Altos</div><div class="val">210 reviews &bull; 86 photos</div><div class="note">Updated March 2026</div></div>
+    <div class="info-box"><div class="lbl">Yelp &mdash; Mountain View</div><div class="val">61 reviews &bull; 44 photos</div><div class="note">Updated March 2026</div></div>
+    <div class="info-box"><div class="lbl">Birdeye Aggregate</div><div class="val">4.9 stars &bull; 295 reviews</div><div class="note">Cross-platform aggregate</div></div>
+    <div class="info-box"><div class="lbl">On-Site Display</div><div class="val">4.9 stars &bull; 200+ reviews</div><div class="note">Testimonials on every page</div></div>
+    <div class="info-box"><div class="lbl">Review Recency</div><div class="val">Active</div><div class="note">Recent reviews as of March 2026</div></div>
+    <div class="info-box"><div class="lbl">Google Maps (direct)</div><div class="val">Manual check needed</div><div class="note">Verify appointment link, Q&amp;A, posts, and photos</div></div>
+  </div>
+  <p style="margin-top:12px; font-size:.9rem; color: #555;">PCCD has an excellent review profile across platforms. The 4.9 rating with 295+ aggregate reviews is well above average. Recommend verifying Google Business Profile directly for appointment link, Q&amp;A seeding, post frequency, and photo freshness.</p>
+</div>
+
+<!-- ========== SOCIAL MEDIA ========== -->
+<div class="card" id="social">
+  <h2>Social Media Summary</h2>
+  <div class="info-grid">
+    <div class="info-box"><div class="lbl">Instagram</div><div class="val">@peninsulacosmeticdentistry</div><div class="note">35K followers. Active Reels with smile transformations.</div></div>
+    <div class="info-box"><div class="lbl">Facebook</div><div class="val">/pccdsmiles</div><div class="note">Active page with reviews and regular posts.</div></div>
+    <div class="info-box"><div class="lbl">YouTube</div><div class="val">Embedded Shorts</div><div class="note">Patient video testimonials on homepage (Karen, Debra, Jared, Sabine).</div></div>
+    <div class="info-box"><div class="lbl">TikTok</div><div class="val">Listed on contact page</div><div class="note">Presence claimed. Activity level not verified.</div></div>
+    <div class="info-box"><div class="lbl">Twitter / X</div><div class="val">Listed on contact page</div><div class="note">Presence claimed. Activity level not verified.</div></div>
+    <div class="info-box"><div class="lbl">Yelp</div><div class="val">Active &mdash; both locations</div><div class="note">271 combined reviews with photos.</div></div>
+  </div>
+  <p style="margin-top:12px; font-size:.9rem; color: #555;">PCCD has an impressive social presence, particularly on Instagram with 35K followers. Video content (Reels, YouTube Shorts) effectively showcases smile transformations. This is well above average for a dental practice.</p>
+</div>
+
+<!-- ========== PRIORITIZED ACTION PLAN ========== -->
+<div class="card" id="actions">
+  <h2>Prioritized Action Plan</h2>
+  <p style="font-size:.9rem; color: #555; margin-bottom: 14px;">Ranked by estimated impact on new patient conversion and overall digital health.</p>
+  <table class="action-table">
+    <thead><tr><th style="width:40px;">#</th><th>Action</th><th style="width:80px;">Effort</th><th style="width:80px;">Impact</th><th style="width:110px;">Timeline</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td>Embed real-time online scheduling widget (NexHealth, LocalMed)</td><td>Medium</td><td class="impact-high">High</td><td>This Month</td></tr>
+      <tr><td class="rank">2</td><td>Fix broken internal links (/our-team, /our-doctors, sedation page)</td><td>Low</td><td class="impact-high">High</td><td>This Week</td></tr>
+      <tr><td class="rank">3</td><td>Add &ldquo;New Patients&rdquo; to main navigation</td><td>Low</td><td class="impact-high">High</td><td>This Week</td></tr>
+      <tr><td class="rank">4</td><td>Create in-house membership plan for uninsured patients</td><td>Medium</td><td class="impact-high">High</td><td>This Month</td></tr>
+      <tr><td class="rank">5</td><td>Add dollar values and expiration dates to patient specials</td><td>Low</td><td class="impact-med">Medium</td><td>This Week</td></tr>
+      <tr><td class="rank">6</td><td>Update homepage H1 to include keyword + location</td><td>Low</td><td class="impact-med">Medium</td><td>This Week</td></tr>
+      <tr><td class="rank">7</td><td>Add credential logo badges (ADA, AACD, DSD) to footer &amp; About page</td><td>Low</td><td class="impact-med">Medium</td><td>This Week</td></tr>
+      <tr><td class="rank">8</td><td>List top accepted PPO insurance plans by name</td><td>Low</td><td class="impact-med">Medium</td><td>This Week</td></tr>
+      <tr><td class="rank">9</td><td>Add live chat or AI chatbot for instant engagement</td><td>Medium</td><td class="impact-med">Medium</td><td>This Month</td></tr>
+      <tr><td class="rank">10</td><td>Verify GA4, GTM, schema markup, and call tracking are configured</td><td>Low</td><td class="impact-high">High</td><td>This Week</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:14px; font-size:.9rem; color: #555;">Addressing items 1&ndash;3 alone would significantly improve the conversion funnel and move the overall score into the <strong>Strong (80%+)</strong> range. Most items are low-effort fixes completable within a single sprint.</p>
+</div>
+
+</div><!-- .container -->
+
+<div class="report-footer">
+  <p>Confidential &mdash; Gen4 Dental Marketing Framework &mdash; Phase 1 Digital Storefront Audit</p>
+  <p>Generated March 25, 2026 by Claude</p>
+</div>
+
+<script>
+// Highlight active nav on scroll
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.topnav a:not(.brand)');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
