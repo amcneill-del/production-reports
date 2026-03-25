@@ -30,479 +30,127 @@
   --white: #ffffff;
   --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font); background: var(--gray-50); color: var(--gray-800); line-height: 1.6; font-size: 15px; }
 
-body {
-  font-family: var(--font);
-  background: var(--gray-50);
-  color: var(--gray-800);
-  line-height: 1.6;
-  font-size: 15px;
-}
+/* Sticky Nav */
+.sticky-nav { position: sticky; top: 0; z-index: 100; background: var(--navy); padding: 0 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.sticky-nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sticky-nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 13px; font-weight: 500; padding: 14px 12px; white-space: nowrap; transition: color 0.2s; border-bottom: 2px solid transparent; }
+.sticky-nav a:hover { color: #fff; border-bottom-color: var(--blue); }
 
-/* Sticky Navigation */
-.sticky-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--navy);
-  padding: 0 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-.sticky-nav .nav-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.sticky-nav a {
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 14px 12px;
-  white-space: nowrap;
-  transition: color 0.2s, border-bottom 0.2s;
-  border-bottom: 2px solid transparent;
-}
-.sticky-nav a:hover {
-  color: #fff;
-  border-bottom: 2px solid var(--blue);
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
 /* Header */
-.report-header {
-  background: linear-gradient(135deg, var(--navy) 0%, #2d4a7a 100%);
-  color: white;
-  padding: 48px 24px;
-  text-align: center;
-}
-.report-header h1 {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.report-header .subtitle {
-  font-size: 16px;
-  opacity: 0.85;
-  margin-bottom: 16px;
-}
-.report-header .meta {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  font-size: 13px;
-  opacity: 0.75;
-}
-.report-header .meta span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.report-header { background: linear-gradient(135deg, var(--navy) 0%, #2d4a7a 100%); color: white; padding: 48px 24px; text-align: center; }
+.report-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+.report-header .subtitle { font-size: 16px; opacity: 0.85; margin-bottom: 16px; }
+.report-header .meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; font-size: 13px; opacity: 0.75; }
 
-/* Section Styling */
-.section {
-  padding: 40px 0;
-}
-.section-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 24px;
-  padding-bottom: 8px;
-  border-bottom: 3px solid var(--blue);
-  display: inline-block;
-}
+/* Section */
+.section { padding: 40px 0; }
+.section-title { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 24px; padding-bottom: 8px; border-bottom: 3px solid var(--blue); display: inline-block; }
 
-/* Candidate Snapshot */
-.snapshot-card {
-  background: white;
-  border-radius: 12px;
-  padding: 28px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  margin-bottom: 16px;
-}
-.snapshot-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-@media (max-width: 700px) {
-  .snapshot-grid { grid-template-columns: 1fr; }
-}
-.snapshot-grid h3 {
-  font-size: 14px;
-  color: var(--blue);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-.snapshot-grid ul {
-  list-style: none;
-  padding: 0;
-}
-.snapshot-grid li {
-  padding: 4px 0;
-  font-size: 14px;
-  color: var(--gray-700);
-  position: relative;
-  padding-left: 16px;
-}
-.snapshot-grid li::before {
-  content: "▸";
-  position: absolute;
-  left: 0;
-  color: var(--blue);
-}
+/* Snapshot */
+.snapshot-card { background: white; border-radius: 12px; padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.snapshot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 700px) { .snapshot-grid { grid-template-columns: 1fr; } }
+.snapshot-grid h3 { font-size: 14px; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.snapshot-grid ul { list-style: none; padding: 0; }
+.snapshot-grid li { padding: 4px 0; font-size: 14px; color: var(--gray-700); padding-left: 16px; position: relative; }
+.snapshot-grid li::before { content: "▸"; position: absolute; left: 0; color: var(--blue); }
 
 /* Job Cards */
-.job-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.job-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  overflow: hidden;
-  transition: box-shadow 0.2s;
-}
-.job-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-}
-.job-card-header {
-  display: flex;
-  align-items: flex-start;
-  padding: 20px 24px;
-  gap: 16px;
-  cursor: pointer;
-}
-.job-rank {
-  min-width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 18px;
-  color: white;
-  flex-shrink: 0;
-}
+.job-cards { display: flex; flex-direction: column; gap: 16px; }
+.job-card { background: white; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden; transition: box-shadow 0.2s; }
+.job-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+.job-card-header { display: flex; align-items: flex-start; padding: 20px 24px; gap: 16px; cursor: pointer; }
+.job-rank { min-width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; color: white; flex-shrink: 0; }
 .rank-green { background: var(--green); }
 .rank-yellow { background: var(--yellow); }
 .rank-orange { background: var(--orange); }
 .job-card-info { flex: 1; }
-.job-card-info h3 {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--gray-900);
-  margin-bottom: 2px;
-}
-.job-card-info .company {
-  font-size: 14px;
-  color: var(--blue);
-  font-weight: 500;
-}
-.job-card-info .location {
-  font-size: 13px;
-  color: var(--gray-500);
-  margin-top: 2px;
-}
-.job-card-right {
-  text-align: right;
-  flex-shrink: 0;
-}
-.score-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 14px;
-}
+.job-card-info h3 { font-size: 17px; font-weight: 600; color: var(--gray-900); margin-bottom: 2px; }
+.job-card-info .company { font-size: 14px; color: var(--blue); font-weight: 500; }
+.job-card-info .location { font-size: 13px; color: var(--gray-500); margin-top: 2px; }
+.job-card-right { text-align: right; flex-shrink: 0; }
+.score-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 14px; }
 .score-green { background: var(--green-light); color: var(--green); }
 .score-yellow { background: var(--yellow-light); color: var(--yellow); }
 .score-orange { background: var(--orange-light); color: var(--orange); }
-.salary-range {
-  font-size: 13px;
-  color: var(--gray-600);
-  margin-top: 4px;
-}
-.salary-label {
-  font-size: 11px;
-  color: var(--gray-400);
-}
-.job-card-details {
-  display: none;
-  padding: 0 24px 20px 24px;
-  border-top: 1px solid var(--gray-100);
-}
-.job-card-details.open {
-  display: block;
-}
-.skill-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 12px 0;
-}
-.skill-tag {
-  padding: 3px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
-}
+.salary-range { font-size: 13px; color: var(--gray-600); margin-top: 4px; }
+.salary-label { font-size: 11px; color: var(--gray-400); }
+.job-card-details { display: none; padding: 0 24px 20px; border-top: 1px solid var(--gray-100); }
+.job-card-details.open { display: block; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+.skill-tag { padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
 .skill-match { background: var(--green-light); color: var(--green); }
 .skill-miss { background: var(--orange-light); color: var(--orange); }
-.apply-btn {
-  display: inline-block;
-  padding: 8px 20px;
-  background: var(--blue);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: 12px;
-  transition: background 0.2s;
-}
-.apply-btn:hover {
-  background: #1d4ed8;
-}
+.apply-btn { display: inline-block; padding: 8px 20px; background: var(--blue); color: white; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 600; margin-top: 12px; transition: background 0.2s; }
+.apply-btn:hover { background: #1d4ed8; }
+.apply-btn.secondary { background: var(--gray-600); margin-left: 8px; }
 
-/* Sort Controls */
-.sort-controls {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-.sort-btn {
-  padding: 6px 14px;
-  border: 1px solid var(--gray-300);
-  background: white;
-  border-radius: 8px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: var(--font);
-}
-.sort-btn:hover, .sort-btn.active {
-  background: var(--blue);
-  color: white;
-  border-color: var(--blue);
-}
+/* Sort */
+.sort-controls { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.sort-btn { padding: 6px 14px; border: 1px solid var(--gray-300); background: white; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: var(--font); }
+.sort-btn:hover, .sort-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
 
-/* Deep Dive Section */
-.deep-dive {
-  background: white;
-  border-radius: 12px;
-  padding: 32px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  margin-bottom: 24px;
-}
-.deep-dive h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--navy);
-  margin-bottom: 16px;
-  margin-top: 24px;
-}
+/* Deep Dive */
+.deep-dive { background: white; border-radius: 12px; padding: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 24px; }
+.deep-dive h3 { font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 16px; margin-top: 24px; }
 .deep-dive h3:first-child { margin-top: 0; }
 
-/* Priority Tags */
-.priority-high {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  background: #fee2e2;
-  color: var(--red);
-  margin-left: 8px;
-}
-.priority-med {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  background: var(--yellow-light);
-  color: var(--yellow);
-  margin-left: 8px;
-}
-.priority-low {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  background: var(--green-light);
-  color: var(--green);
-  margin-left: 8px;
-}
+/* Priority */
+.priority-high { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; background: #fee2e2; color: var(--red); margin-left: 8px; }
+.priority-med { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--yellow-light); color: var(--yellow); margin-left: 8px; }
+.priority-low { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--green-light); color: var(--green); margin-left: 8px; }
 
-/* Recommendation List */
-.rec-list {
-  list-style: none;
-  padding: 0;
-}
-.rec-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--gray-100);
-  font-size: 14px;
-  line-height: 1.6;
-}
+/* Rec List */
+.rec-list { list-style: none; padding: 0; }
+.rec-list li { padding: 10px 0; border-bottom: 1px solid var(--gray-100); font-size: 14px; line-height: 1.6; }
 .rec-list li:last-child { border-bottom: none; }
 
 /* Cover Letter */
-.cover-letter-box {
-  background: var(--gray-50);
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  padding: 24px;
-  font-size: 14px;
-  line-height: 1.8;
-  position: relative;
-  white-space: pre-wrap;
-}
-.copy-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  padding: 6px 14px;
-  background: var(--blue);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: var(--font);
-}
+.cover-letter-box { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; padding: 24px; font-size: 14px; line-height: 1.8; position: relative; white-space: pre-wrap; }
+.copy-btn { position: absolute; top: 12px; right: 12px; padding: 6px 14px; background: var(--blue); color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--font); }
 .copy-btn:hover { background: #1d4ed8; }
 
-/* Interview Prep */
-.interview-q {
-  margin-bottom: 16px;
-}
-.interview-q summary {
-  font-weight: 600;
-  font-size: 15px;
-  cursor: pointer;
-  padding: 8px 0;
-  color: var(--gray-800);
-}
-.interview-q .answer {
-  padding: 12px 0 12px 20px;
-  font-size: 14px;
-  color: var(--gray-600);
-  border-left: 3px solid var(--blue-light);
-  margin-top: 4px;
-}
+/* Interview */
+.interview-q { margin-bottom: 16px; }
+.interview-q summary { font-weight: 600; font-size: 15px; cursor: pointer; padding: 8px 0; color: var(--gray-800); }
+.interview-q .answer { padding: 12px 0 12px 20px; font-size: 14px; color: var(--gray-600); border-left: 3px solid var(--blue-light); margin-top: 4px; }
 
 /* Salary Table */
-.salary-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-.salary-table th {
-  background: var(--navy);
-  color: white;
-  padding: 10px 14px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 13px;
-}
-.salary-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--gray-200);
-}
-.salary-table tr:nth-child(even) td {
-  background: var(--gray-50);
-}
+.salary-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.salary-table th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; }
+.salary-table td { padding: 10px 14px; border-bottom: 1px solid var(--gray-200); }
+.salary-table tr:nth-child(even) td { background: var(--gray-50); }
 .salary-table .est { font-style: italic; color: var(--gray-500); }
 
 /* Score Bar */
-.score-bar-wrapper {
-  width: 100%;
-  max-width: 120px;
-  height: 8px;
-  background: var(--gray-200);
-  border-radius: 4px;
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-}
-.score-bar {
-  height: 100%;
-  border-radius: 4px;
-}
+.score-bar-wrapper { width: 100%; max-width: 120px; height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 8px; }
+.score-bar { height: 100%; border-radius: 4px; }
 .bar-green { background: var(--green); }
 .bar-yellow { background: var(--yellow); }
 .bar-orange { background: var(--orange); }
 
-/* Details/Summary */
+/* Details */
 details { margin-bottom: 4px; }
-details summary {
-  cursor: pointer;
-  user-select: none;
-}
+details summary { cursor: pointer; user-select: none; }
 details summary::-webkit-details-marker { display: none; }
-details summary::before {
-  content: "▶ ";
-  font-size: 10px;
-  color: var(--gray-400);
-  transition: transform 0.2s;
-}
-details[open] summary::before {
-  content: "▼ ";
-}
+details summary::before { content: "▶ "; font-size: 10px; color: var(--gray-400); }
+details[open] summary::before { content: "▼ "; }
 
 /* Footer */
-.report-footer {
-  text-align: center;
-  padding: 32px 24px;
-  color: var(--gray-400);
-  font-size: 13px;
-  border-top: 1px solid var(--gray-200);
-  margin-top: 40px;
-}
+.report-footer { text-align: center; padding: 32px 24px; color: var(--gray-400); font-size: 13px; border-top: 1px solid var(--gray-200); margin-top: 40px; }
 
-/* Print styles */
-@media print {
-  .sticky-nav { display: none; }
-  .job-card-details { display: block !important; }
-  body { font-size: 12px; }
-  .report-header { padding: 24px; }
-  .section { padding: 20px 0; }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .job-card-header { flex-direction: column; gap: 10px; }
-  .job-card-right { text-align: left; display: flex; gap: 12px; align-items: center; }
-  .report-header h1 { font-size: 24px; }
-}
+/* Print */
+@media print { .sticky-nav { display: none; } .job-card-details { display: block !important; } body { font-size: 12px; } .report-header { padding: 24px; } .section { padding: 20px 0; } }
+@media (max-width: 600px) { .job-card-header { flex-direction: column; gap: 10px; } .job-card-right { text-align: left; display: flex; gap: 12px; align-items: center; } .report-header h1 { font-size: 24px; } }
 </style>
 </head>
 <body>
 
-<!-- Sticky Nav -->
 <nav class="sticky-nav">
   <div class="nav-inner">
     <a href="#snapshot">Candidate</a>
@@ -516,15 +164,14 @@ details[open] summary::before {
   </div>
 </nav>
 
-<!-- Header -->
 <header class="report-header">
   <h1>Job Search Report for Don C.</h1>
   <p class="subtitle">Website Manager &amp; Web Developer — PE-Backed Multi-Location Companies</p>
   <div class="meta">
-    <span>📅 Generated March 24, 2026</span>
-    <span>🎯 Target: Web Manager / Web Ops at PE-backed 100+ location companies</span>
-    <span>🌐 Preference: 100% Remote</span>
-    <span>🔍 Sources: LinkedIn, Indeed, Glassdoor, ZipRecruiter, Built In, FlexJobs, Arc, WP Remote Work</span>
+    <span>Generated March 24, 2026</span>
+    <span>Target: Web Manager / Web Ops at PE-backed 100+ location companies</span>
+    <span>Preference: 100% Remote</span>
+    <span>Sources: LinkedIn, Indeed, Glassdoor, ZipRecruiter, Built In, Lever, Greenhouse, FlexJobs</span>
   </div>
 </header>
 
@@ -560,22 +207,22 @@ details[open] summary::before {
       <div>
         <h3>Key Differentiators</h3>
         <ul>
-          <li>Rare niche expertise: web management at scale for DSOs</li>
-          <li>Managed 100+ websites simultaneously with HIPAA &amp; ADA compliance</li>
+          <li>Rare niche: web management at scale for DSOs</li>
+          <li>Managed 100+ websites with HIPAA &amp; ADA compliance</li>
           <li>Built internal servers that cut hosting costs by 67%</li>
           <li>Managed 130+ domain transfers</li>
-          <li>Led multi-phased SEO &amp; UX optimization across enterprise portfolio</li>
-          <li>Team leadership (managed 3-person dev team at agency)</li>
+          <li>Led multi-phased SEO &amp; UX optimization across portfolio</li>
+          <li>Team leadership (managed 3-person dev team)</li>
         </ul>
       </div>
       <div>
         <h3>Target Role Profile</h3>
         <ul>
-          <li><strong>Primary:</strong> Website Manager / Web Ops Manager at PE-backed multi-location company (100+ locations)</li>
+          <li><strong>Primary:</strong> Website Manager / Web Ops at PE-backed multi-location company (100+ locations)</li>
           <li><strong>Industries:</strong> DSOs (ideal), veterinary, dermatology, medspa, or any PE-backed healthcare rollup</li>
           <li><strong>Secondary Interest:</strong> Video game programming (entry-level / junior)</li>
           <li><strong>Work Mode:</strong> 100% Remote</li>
-          <li><strong>Salary Target:</strong> $85K–$130K based on market data</li>
+          <li><strong>Salary Target:</strong> $90K–$140K based on market data</li>
         </ul>
       </div>
     </div>
@@ -585,7 +232,6 @@ details[open] summary::before {
 <!-- Top 10 Jobs -->
 <section id="jobs" class="section">
   <h2 class="section-title">Top 10 Job Matches</h2>
-
   <div class="sort-controls">
     <button class="sort-btn active" onclick="sortJobs('score')">Sort by Score</button>
     <button class="sort-btn" onclick="sortJobs('salary')">Sort by Salary</button>
@@ -595,330 +241,340 @@ details[open] summary::before {
   <div id="jobList" class="job-cards">
 
     <!-- Job 1 -->
-    <div class="job-card" data-score="88" data-salary="115000" data-title="Website Operations Manager">
+    <div class="job-card" data-score="90" data-salary="181500" data-title="Senior Manager Web Experience Platform">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-green">1</div>
         <div class="job-card-info">
-          <h3>Website Operations Manager — Remote</h3>
-          <div class="company">Baylor Scott &amp; White Health</div>
-          <div class="location">🌐 Remote (Nationwide) · Healthcare System · 50+ Hospitals, 800+ Care Sites</div>
+          <h3>Senior Manager of Web Experience &amp; Platform</h3>
+          <div class="company">Included Health</div>
+          <div class="location">Remote (US) · Digital Health · PE-backed (Andreessen Horowitz, Silver Lake)</div>
         </div>
         <div class="job-card-right">
-          <span class="score-badge score-green">88/100</span>
-          <div class="salary-range">$89,200–$165,600</div>
+          <span class="score-badge score-green">90/100</span>
+          <div class="salary-range">$128,000–$235,000</div>
           <div class="salary-label">Posted salary range</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          Central role driving digital marketing effectiveness across public-facing patient (B2C) and provider (B2B) websites. Serves as Lead Product Manager of the Website Content agile squad. Owns web governance, site operations dashboard, uptime (99.9%), and site speed. Plans workflows, allocates resources, and ensures sprint-based content delivery.
+          Own the end-to-end health, performance, and evolution of Included Health &amp; Doctor On Demand's marketing websites as a core growth and conversion channel. Define and lead the roadmap across web platform modernization, scalable CMS governance &amp; publishing operations, technical SEO and AI-driven search (AIO), and conversion rate optimization. Build systems that democratize web publishing for cross-functional partners.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Enterprise-scale multi-site web management at a massive healthcare system. Don's experience managing 100+ DSO websites maps directly to this role's scope. The web governance, SEO optimization, and compliance mandates are very similar to his current Gen4 role, just at an even larger scale.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> This is Don's Gen4 role elevated to a senior manager level at a major PE-backed healthcare company. The web governance model for multi-stakeholder marketing organizations, CMS management, SEO strategy, and site performance ownership map directly to his current work managing 100+ DSO websites. Included Health is backed by top-tier investors including Andreessen Horowitz and Silver Lake — this is the PE-backed healthcare target he's looking for.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ Multi-site web management</span>
-          <span class="skill-tag skill-match">✓ CMS expertise</span>
-          <span class="skill-tag skill-match">✓ SEO optimization</span>
-          <span class="skill-tag skill-match">✓ Site performance</span>
-          <span class="skill-tag skill-match">✓ Web governance</span>
-          <span class="skill-tag skill-match">✓ Agile/sprint delivery</span>
-          <span class="skill-tag skill-miss">◦ Sitecore preferred (WordPress transferable)</span>
-          <span class="skill-tag skill-miss">◦ Agile product management terminology</span>
+          <span class="skill-tag skill-match">✓ Web governance &amp; CMS management</span>
+          <span class="skill-tag skill-match">✓ Multi-stakeholder web ops</span>
+          <span class="skill-tag skill-match">✓ Technical SEO</span>
+          <span class="skill-tag skill-match">✓ Site performance &amp; optimization</span>
+          <span class="skill-tag skill-match">✓ Healthcare / regulated industry</span>
+          <span class="skill-tag skill-match">✓ PE-backed company</span>
+          <span class="skill-tag skill-match">✓ WordPress proficiency required</span>
+          <span class="skill-tag skill-miss">◦ Manager-level strategic planning</span>
+          <span class="skill-tag skill-miss">◦ CRO &amp; A/B testing depth</span>
         </div>
-        <a class="apply-btn" href="https://builtin.com/job/operations/website-operations-manager-remote/985957" target="_blank" rel="noopener">Apply on Built In →</a>
+        <a class="apply-btn" href="https://jobs.lever.co/includedhealth/aa77feaa-62a7-44bd-8001-a3073fa9faeb" target="_blank" rel="noopener">Apply on Lever →</a>
       </div>
     </div>
 
     <!-- Job 2 -->
-    <div class="job-card" data-score="85" data-salary="95000" data-title="Front-End Developer Marketing">
+    <div class="job-card" data-score="86" data-salary="95000" data-title="Frontend Developer Marketing">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-green">2</div>
         <div class="job-card-info">
-          <h3>Front-End Developer, Marketing</h3>
+          <h3>Frontend Developer, Marketing (Yext Platform)</h3>
           <div class="company">Heartland Dental</div>
-          <div class="location">🌐 Remote · DSO · 2,400+ Dental Offices</div>
+          <div class="location">Remote · DSO · 2,400+ Dental Offices · PE-backed (KKR)</div>
         </div>
         <div class="job-card-right">
-          <span class="score-badge score-green">85/100</span>
+          <span class="score-badge score-green">86/100</span>
           <div class="salary-range">$80,000–$110,000</div>
-          <div class="salary-label">Estimated range</div>
+          <div class="salary-label">Estimated range (Glassdoor data)</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          Build clean, modern web experiences with thoughtful design details and user-friendly websites for the largest DSO in the United States. This marketing-focused front-end developer role works closely with the marketing team to deliver web-based campaigns, landing pages, and digital experiences across the Heartland Dental portfolio.
+          Build clean, modern web experiences for the largest DSO in the United States. This marketing-focused frontend role requires expertise in building and optimizing websites using the Yext platform, including Yext Pages. Work closely with the marketing team to deliver web-based campaigns, landing pages, and digital experiences across Heartland Dental's massive portfolio.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> This is the exact DSO environment Don excels in — just at 24x the scale of Gen4. His combined web development + marketing collaboration + multi-site dental experience makes him an ideal candidate. Heartland Dental is the largest DSO in the US, backed by KKR (one of the biggest PE firms).</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> This is the exact DSO environment Don excels in — at 24x the scale of Gen4. His combined web development + marketing collaboration + multi-site dental experience makes him ideal. Heartland is the largest DSO in the US, backed by KKR (one of the biggest PE firms). The Yext platform is learnable for someone with Don's CMS versatility.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ Front-end development</span>
-          <span class="skill-tag skill-match">✓ DSO industry</span>
-          <span class="skill-tag skill-match">✓ Marketing collaboration</span>
-          <span class="skill-tag skill-match">✓ Landing page design</span>
+          <span class="skill-tag skill-match">✓ Frontend development (HTML/CSS/JS)</span>
+          <span class="skill-tag skill-match">✓ DSO industry — exact match</span>
+          <span class="skill-tag skill-match">✓ Marketing team collaboration</span>
           <span class="skill-tag skill-match">✓ Multi-site web experience</span>
-          <span class="skill-tag skill-match">✓ Modern UI/UX</span>
+          <span class="skill-tag skill-match">✓ PE-backed (KKR)</span>
+          <span class="skill-tag skill-match">✓ UX design sensibility</span>
+          <span class="skill-tag skill-miss">◦ Yext platform (new, but CMS skills transfer)</span>
         </div>
-        <a class="apply-btn" href="https://jobs.heartland.com/jobs/information-technology/" target="_blank" rel="noopener">Apply at Heartland Dental →</a>
+        <a class="apply-btn" href="https://jobs.heartland.com/jobs/marketing/" target="_blank" rel="noopener">Apply at Heartland Dental →</a>
       </div>
     </div>
 
     <!-- Job 3 -->
-    <div class="job-card" data-score="82" data-salary="105000" data-title="Manager SEO and Digital Experience">
+    <div class="job-card" data-score="83" data-salary="104000" data-title="Senior Website Manager">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-green">3</div>
         <div class="job-card-info">
-          <h3>Manager, SEO &amp; Digital Experience</h3>
-          <div class="company">Evidence In Motion (EIM) — Consonance Capital Partners portfolio</div>
-          <div class="location">🌐 Remote · Healthcare Education · PE-Backed</div>
+          <h3>Senior Website Manager</h3>
+          <div class="company">CALSTART</div>
+          <div class="location">Remote (US) · Clean Transportation Nonprofit</div>
         </div>
         <div class="job-card-right">
-          <span class="score-badge score-green">82/100</span>
-          <div class="salary-range">$90,000–$120,000</div>
-          <div class="salary-label">Estimated range</div>
+          <span class="score-badge score-green">83/100</span>
+          <div class="salary-range">$95,000–$113,000</div>
+          <div class="salary-label">Posted salary range</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          Lead SEO strategy and digital experience optimization across a PE-backed healthcare education platform. Responsible for web performance, content strategy, organic traffic growth, and conversion optimization. Collaborate with marketing, product, and content teams to improve digital touchpoints.
+          Lead and optimize website strategy focusing on content management, website performance, user experience, and scoping/developing new websites, landing pages, and site updates. Manage the full lifecycle of web projects from scoping new builds to driving optimization of existing sites. Work closely with marketing, product, and technical teams. Reports to Deputy Director of Marketing.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> PE-backed healthcare company with multi-site digital presence. Don's SEO audit experience at Gen4 (multi-phased plan for 100+ sites) directly applies. This role combines his web management, SEO, and marketing collaboration skills into one position.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Near-perfect title match — "Senior Website Manager" is exactly Don's target. The role covers content management, site performance, UX, new site builds, and cross-functional collaboration — all things Don does daily at Gen4. Not healthcare/PE, but the title, scope, and skills alignment are excellent.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ SEO strategy</span>
-          <span class="skill-tag skill-match">✓ Web performance</span>
-          <span class="skill-tag skill-match">✓ Google Analytics</span>
-          <span class="skill-tag skill-match">✓ Google Search Console</span>
-          <span class="skill-tag skill-match">✓ Content strategy</span>
-          <span class="skill-tag skill-match">✓ PE-backed company</span>
-          <span class="skill-tag skill-miss">◦ Healthcare education (not dental)</span>
+          <span class="skill-tag skill-match">✓ Website management (exact title)</span>
+          <span class="skill-tag skill-match">✓ Content management &amp; CMS</span>
+          <span class="skill-tag skill-match">✓ Site performance optimization</span>
+          <span class="skill-tag skill-match">✓ UX focus</span>
+          <span class="skill-tag skill-match">✓ New site builds &amp; scoping</span>
+          <span class="skill-tag skill-match">✓ Cross-functional collaboration</span>
+          <span class="skill-tag skill-miss">◦ Not healthcare/PE industry</span>
         </div>
-        <a class="apply-btn" href="https://lensa.com/job-v1/evidence-in-motion/remote/seo-manager/dcf169ecef82178c41e3d07f5f96b71a" target="_blank" rel="noopener">Apply on Lensa →</a>
+        <a class="apply-btn" href="https://jobs.lever.co/calstart/763e3074-1e51-4760-81e5-328560f2d632" target="_blank" rel="noopener">Apply on Lever →</a>
       </div>
     </div>
 
     <!-- Job 4 -->
-    <div class="job-card" data-score="78" data-salary="110000" data-title="Senior Web Developer Web Project Lead">
+    <div class="job-card" data-score="81" data-salary="112500" data-title="Web Developer WordPress React">
       <div class="job-card-header" onclick="toggleDetails(this)">
-        <div class="job-rank rank-yellow">4</div>
+        <div class="job-rank rank-green">4</div>
         <div class="job-card-info">
-          <h3>Senior Web Developer / Web Project Lead</h3>
-          <div class="company">Hoskinson Health &amp; Wellness Clinic (Hoskinson Companies)</div>
-          <div class="location">🌐 Remote eligible · Healthcare / Wellness</div>
+          <h3>Web Developer</h3>
+          <div class="company">Patch My PC</div>
+          <div class="location">Remote (US — 44 states eligible) · Software / SaaS</div>
         </div>
         <div class="job-card-right">
-          <span class="score-badge score-yellow">78/100</span>
-          <div class="salary-range">$95,000–$130,000</div>
-          <div class="salary-label">Estimated range</div>
+          <span class="score-badge score-green">81/100</span>
+          <div class="salary-range">$105,000–$120,000</div>
+          <div class="salary-label">Posted salary range</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          Lead web development and project management for a comprehensive health and wellness clinic. Responsible for overseeing the web ecosystem, maintaining digital infrastructure, and leading web projects. Hoskinson Companies is a diversified technology and healthcare group (founded by Cardano blockchain co-founder Charles Hoskinson).
+          Build and maintain websites, web-based applications, and internal tools supporting customer-facing portals, marketing initiatives, and business operations. Requires strong WordPress/PHP development (Roots/Bedrock framework, Gutenberg blocks), React/JavaScript/TypeScript, Figma, Tailwind CSS, Bootstrap, MySQL/MongoDB, Git, WCAG 2.1/2.2 Level AA compliance, and SEO fundamentals.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Combines Don's web development leadership with healthcare industry experience. The project lead aspect mirrors his Gen4 role managing development cycles. Company offers 100% health insurance premium coverage and education support.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Don's tech stack is almost a 1:1 match — WordPress, PHP, React, JavaScript, Figma, Bootstrap, Git, SEO, ADA/WCAG compliance are all in his wheelhouse. The benefits are exceptional: 200% 401k match up to 5% salary (10% total), 99% health premium coverage. Not healthcare, but the skills alignment and compensation are strong.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ Web development leadership</span>
-          <span class="skill-tag skill-match">✓ Project management</span>
-          <span class="skill-tag skill-match">✓ Healthcare industry</span>
-          <span class="skill-tag skill-match">✓ Full-stack skills</span>
-          <span class="skill-tag skill-miss">◦ Not multi-location DSO</span>
-          <span class="skill-tag skill-miss">◦ Based in Gillette, WY (verify remote)</span>
+          <span class="skill-tag skill-match">✓ WordPress/PHP — exact match</span>
+          <span class="skill-tag skill-match">✓ React/JavaScript</span>
+          <span class="skill-tag skill-match">✓ Figma design collaboration</span>
+          <span class="skill-tag skill-match">✓ Bootstrap/Tailwind CSS</span>
+          <span class="skill-tag skill-match">✓ Git version control</span>
+          <span class="skill-tag skill-match">✓ WCAG/ADA compliance</span>
+          <span class="skill-tag skill-match">✓ SEO fundamentals</span>
+          <span class="skill-tag skill-miss">◦ Roots/Bedrock framework (learnable)</span>
+          <span class="skill-tag skill-miss">◦ MongoDB (MySQL transferable)</span>
         </div>
-        <a class="apply-btn" href="https://hoskinsonhealth.com/careers" target="_blank" rel="noopener">Apply at Hoskinson →</a>
+        <a class="apply-btn" href="https://jobs.lever.co/patchmypc/412957ae-d03c-42ff-ba65-4a700c9a99ea" target="_blank" rel="noopener">Apply on Lever →</a>
       </div>
     </div>
 
     <!-- Job 5 -->
-    <div class="job-card" data-score="76" data-salary="100000" data-title="Web Operations Manager CMS">
+    <div class="job-card" data-score="78" data-salary="125000" data-title="Senior Backend WordPress PHP Developer">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-yellow">5</div>
         <div class="job-card-info">
-          <h3>Web Operations Manager (CMS / AEM)</h3>
-          <div class="company">Remote Job Leads — Enterprise Healthcare Client</div>
-          <div class="location">🌐 Remote · Enterprise Healthcare</div>
+          <h3>Senior Back-end WordPress/PHP Developer</h3>
+          <div class="company">Teal Media</div>
+          <div class="location">Remote (Global — work from anywhere) · Mission-driven Agency</div>
         </div>
         <div class="job-card-right">
-          <span class="score-badge score-yellow">76/100</span>
-          <div class="salary-range">$95,000–$135,000</div>
-          <div class="salary-label">Estimated range</div>
+          <span class="score-badge score-yellow">78/100</span>
+          <div class="salary-range">$115,000–$135,000</div>
+          <div class="salary-label">Posted salary range</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          Manage web operations for an enterprise-scale CMS environment (Adobe Experience Manager). Requires 3-5+ years in web operations, CMS management, or digital production. Hands-on experience with enterprise content management systems and SEO fundamentals.
+          Lead back-end development on custom web projects for mission-driven organizations. Own technical implementation, build scalable/secure digital experiences. Lead developer on new builds and ongoing support. Collaborate with senior developers and technical leadership. Mentor developers through code reviews and pairing. WordPress themes, plugins, systems integrations.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Don's experience managing enterprise-scale web operations with 100+ sites translates well. While the CMS is AEM rather than WordPress, his understanding of web governance, site performance, and content workflows is directly transferable.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> WordPress + PHP expertise is Don's core strength. The leadership/mentoring aspect maps to his experience leading a 3-person dev team at Signa Marketing. Great salary, global remote flexibility, generous PTO, and Fridays reserved for learning. Woman-founded, mission-driven firm — strong culture. Not healthcare/PE, but excellent compensation and growth.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ Web operations management</span>
-          <span class="skill-tag skill-match">✓ Enterprise CMS</span>
-          <span class="skill-tag skill-match">✓ SEO</span>
-          <span class="skill-tag skill-match">✓ Digital production</span>
-          <span class="skill-tag skill-miss">◦ AEM preferred (not WordPress)</span>
-          <span class="skill-tag skill-miss">◦ May require AEM certification</span>
+          <span class="skill-tag skill-match">✓ WordPress themes &amp; plugins</span>
+          <span class="skill-tag skill-match">✓ PHP development</span>
+          <span class="skill-tag skill-match">✓ Technical leadership</span>
+          <span class="skill-tag skill-match">✓ Team mentoring</span>
+          <span class="skill-tag skill-match">✓ Git workflows</span>
+          <span class="skill-tag skill-match">✓ Accessibility standards</span>
+          <span class="skill-tag skill-miss">◦ Agency (not corporate/PE)</span>
+          <span class="skill-tag skill-miss">◦ Back-end focus (Don is more full-stack)</span>
         </div>
-        <a class="apply-btn" href="https://www.remotejobleads.com/web-operations-manager-cms-aem/" target="_blank" rel="noopener">Apply on Remote Job Leads →</a>
+        <a class="apply-btn" href="https://job-boards.greenhouse.io/tealmedia/jobs/4101445009" target="_blank" rel="noopener">Apply on Greenhouse →</a>
       </div>
     </div>
 
     <!-- Job 6 -->
-    <div class="job-card" data-score="74" data-salary="90000" data-title="Remote Website Manager Drupal">
+    <div class="job-card" data-score="76" data-salary="81250" data-title="Associate Website Operations Manager">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-yellow">6</div>
         <div class="job-card-info">
-          <h3>Remote Website Manager (Drupal)</h3>
-          <div class="company">Piper Companies (Staffing for enterprise client)</div>
-          <div class="location">🌐 Remote · Enterprise Client</div>
+          <h3>Remote Associate Website Operations Manager</h3>
+          <div class="company">Intoxalock (CST Group / Mindr)</div>
+          <div class="location">Remote (US) · Multi-brand Web Portfolio</div>
         </div>
         <div class="job-card-right">
-          <span class="score-badge score-yellow">74/100</span>
-          <div class="salary-range">$85,000–$115,000</div>
-          <div class="salary-label">Estimated range</div>
+          <span class="score-badge score-yellow">76/100</span>
+          <div class="salary-range">$75,000–$87,500</div>
+          <div class="salary-label">Posted salary range</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          Manage web ecosystem for an enterprise client through Piper Companies, a niche IT staffing and consulting agency. The role involves managing Drupal-based web properties, content governance, and web operations for a large organizational client.
+          Manage web operations and oversee multiple websites within the CST portfolio. Own user experience, provide day-to-day operational support to internal customers, manage requests through ticket management system, troubleshoot website production issues, and own website quality and standards. Implement SEO strategies, conduct keyword research, and develop CRO strategies including A/B testing.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Don's website management experience is highly relevant. While Drupal differs from WordPress, the underlying concepts of CMS management, content governance, and web operations are transferable. His PHP skills are a plus since Drupal is PHP-based.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Multi-site web operations management with SEO, CRO, and UX ownership — very similar to Don's Gen4 role. The ticket-based request management and internal stakeholder communication parallel his experience. However, "Associate" title and salary are below Don's current level — he'd be more qualified for a senior version of this role. CMS is Kentico, not WordPress.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ Website management</span>
-          <span class="skill-tag skill-match">✓ CMS expertise</span>
-          <span class="skill-tag skill-match">✓ PHP</span>
-          <span class="skill-tag skill-match">✓ Content governance</span>
-          <span class="skill-tag skill-miss">◦ Drupal (not WordPress)</span>
-          <span class="skill-tag skill-miss">◦ Staffing/contract role</span>
+          <span class="skill-tag skill-match">✓ Multi-site web operations</span>
+          <span class="skill-tag skill-match">✓ SEO strategy &amp; implementation</span>
+          <span class="skill-tag skill-match">✓ UX ownership</span>
+          <span class="skill-tag skill-match">✓ Internal stakeholder management</span>
+          <span class="skill-tag skill-match">✓ Website quality &amp; standards</span>
+          <span class="skill-tag skill-miss">◦ Associate level — overqualified</span>
+          <span class="skill-tag skill-miss">◦ Kentico CMS (not WordPress)</span>
+          <span class="skill-tag skill-miss">◦ Salary below target range</span>
         </div>
-        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/remote-website-manager-drupal-at-piper-companies-3123495661" target="_blank" rel="noopener">Apply on LinkedIn →</a>
+        <a class="apply-btn" href="https://builtin.com/job/remote-associate-website-operations-manager/2169148" target="_blank" rel="noopener">Apply on Built In →</a>
       </div>
     </div>
 
     <!-- Job 7 -->
-    <div class="job-card" data-score="72" data-salary="85000" data-title="WordPress Web Manager Healthcare">
+    <div class="job-card" data-score="73" data-salary="57000" data-title="Digital Website Project Manager WordPress">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-yellow">7</div>
         <div class="job-card-info">
-          <h3>WordPress Web Manager — Healthcare</h3>
-          <div class="company">BewellConnect Corp</div>
-          <div class="location">🌐 Remote · Healthcare / Wellness · US Market</div>
+          <h3>Digital Website Project Manager (WordPress Redesigns)</h3>
+          <div class="company">WebFX</div>
+          <div class="location">Remote (Global) · Digital Marketing Agency · Named #1 Best Place to Work in PA x7</div>
         </div>
         <div class="job-card-right">
-          <span class="score-badge score-yellow">72/100</span>
-          <div class="salary-range">$75,000–$100,000</div>
-          <div class="salary-label">Estimated range</div>
+          <span class="score-badge score-yellow">73/100</span>
+          <div class="salary-range">$50,000–$75,000</div>
+          <div class="salary-label">Estimated (Glassdoor reported avg ~$57K)</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          Oversee web initiatives for the US market for a healthcare and wellness brand. Manage WordPress properties, content updates, performance optimization, and collaborate with marketing for digital campaigns. Support direct-to-consumer digital presence.
+          Manage WordPress website redesign projects for clients across multiple industries. WebFX is a large digital marketing agency known for its culture and growth opportunities. The role involves project management of website builds from start to finish, coordinating between designers, developers, and clients. Health insurance including dental, vision, and remote doctor services.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> WordPress + healthcare combination is Don's sweet spot. The D2C marketing collaboration is similar to his Gen4 work. Smaller scale than his current role, but a good fit if he wants a less complex environment.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Don's experience managing 50+ website development cycles at Gen4 maps directly to project managing WordPress redesigns. The global remote flexibility is a plus. However, salary is significantly below Don's target, and this is an agency role rather than corporate/PE. Could be a lateral move that sacrifices compensation for work-life balance.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ WordPress</span>
-          <span class="skill-tag skill-match">✓ Healthcare industry</span>
-          <span class="skill-tag skill-match">✓ Web management</span>
-          <span class="skill-tag skill-match">✓ Marketing collaboration</span>
-          <span class="skill-tag skill-miss">◦ Smaller scale than current role</span>
-          <span class="skill-tag skill-miss">◦ May not be PE-backed</span>
+          <span class="skill-tag skill-match">✓ WordPress project management</span>
+          <span class="skill-tag skill-match">✓ Website redesign experience</span>
+          <span class="skill-tag skill-match">✓ Client/stakeholder coordination</span>
+          <span class="skill-tag skill-match">✓ Multi-project management</span>
+          <span class="skill-tag skill-miss">◦ Agency role (not PE-backed)</span>
+          <span class="skill-tag skill-miss">◦ Salary well below target</span>
         </div>
-        <a class="apply-btn" href="https://www.indeed.com/q-website-manager-l-remote-jobs.html" target="_blank" rel="noopener">Search on Indeed →</a>
+        <a class="apply-btn" href="https://jobs.lever.co/webfx/e5cbe4d2-cf79-4fc4-82a2-f5d5a7c5ba22" target="_blank" rel="noopener">Apply on Lever →</a>
       </div>
     </div>
 
     <!-- Job 8 -->
-    <div class="job-card" data-score="70" data-salary="75000" data-title="Junior Web Developer Dental Marketing">
+    <div class="job-card" data-score="69" data-salary="110000" data-title="Senior Graphic Digital Designer">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-yellow">8</div>
         <div class="job-card-info">
-          <h3>Junior Web Developer</h3>
-          <div class="company">Firegang Dental Marketing</div>
-          <div class="location">🌐 Remote (US) · Dental Marketing Agency</div>
+          <h3>Senior Graphic &amp; Digital Designer</h3>
+          <div class="company">Aspen Dental (The Aspen Group / TAG)</div>
+          <div class="location">Remote · Multi-brand Healthcare DSO · PE-backed</div>
         </div>
         <div class="job-card-right">
-          <span class="score-badge score-yellow">70/100</span>
-          <div class="salary-range">$55,000–$75,000</div>
-          <div class="salary-label">Estimated range</div>
+          <span class="score-badge score-yellow">69/100</span>
+          <div class="salary-range">$110,000</div>
+          <div class="salary-label">Posted salary</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          Primary developer for Firegang.com improvements and maintenance. Implement content updates and style changes using WordPress, install and configure plugins, conduct cross-browser testing, troubleshoot bugs, and collaborate with designers. Requires HTML5, CSS3, JavaScript, jQuery, WordPress, PHP, and MySQL.
+          Design, develop, and produce marketing &amp; campaign materials including web, email/CRM, social, display, national/regional advertising, and collateral. Concept and develop integrated marketing solutions. Execute versioning, proof corrections, file prep, and hand-offs to development for website work. TAG powers 5 consumer brands: Aspen Dental, ClearChoice, WellNow Urgent Care, Chapter Aesthetic Studio, and AZPetVet.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Dental industry focus is perfect for Don's background. All listed technologies are in his stack. However, this is a junior-level role — Don is significantly overqualified. Could be a stepping stone if he's interested in the dental marketing agency side, but salary would likely be below his target.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> PE-backed multi-brand healthcare DSO — checks the industry boxes perfectly. TAG operates across dental, urgent care, aesthetics, and veterinary — giving Don cross-industry PE healthcare exposure. However, this is a <em>design</em> role, not a web management role. Don has Adobe Creative Suite and Figma skills, but this is a stretch from his core web management focus. Worth considering as a foot in the door at a major PE-backed healthcare company.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ WordPress</span>
-          <span class="skill-tag skill-match">✓ Dental industry</span>
-          <span class="skill-tag skill-match">✓ HTML/CSS/JS</span>
-          <span class="skill-tag skill-match">✓ PHP</span>
-          <span class="skill-tag skill-match">✓ Cross-browser testing</span>
-          <span class="skill-tag skill-miss">◦ Junior level — overqualified</span>
-          <span class="skill-tag skill-miss">◦ Lower salary range</span>
+          <span class="skill-tag skill-match">✓ DSO / PE-backed healthcare</span>
+          <span class="skill-tag skill-match">✓ Multi-brand portfolio</span>
+          <span class="skill-tag skill-match">✓ Adobe Creative Suite &amp; Figma</span>
+          <span class="skill-tag skill-match">✓ Web &amp; digital asset production</span>
+          <span class="skill-tag skill-miss">◦ Design-focused (not web management)</span>
+          <span class="skill-tag skill-miss">◦ Requires 6-12 years design experience</span>
         </div>
-        <a class="apply-btn" href="https://www.glassdoor.com/job-listing/junior-web-developer-firegang-dental-marketing-JV_KO0,20_KE21,46.htm?jl=1009911031794" target="_blank" rel="noopener">Apply on Glassdoor →</a>
+        <a class="apply-btn" href="https://careers.aspendental.com/us/en/job/R2026-001643/Senior-Graphic-Digital-Designer" target="_blank" rel="noopener">Apply at Aspen Dental →</a>
       </div>
     </div>
 
-    <!-- Job 9 (Secondary Interest) -->
-    <div class="job-card" data-score="52" data-salary="80000" data-title="Junior Game Developer Remote">
+    <!-- Job 9 (Gaming) -->
+    <div class="job-card" data-score="52" data-salary="70000" data-title="Game Programmer Phaser">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-orange">9</div>
         <div class="job-card-info">
-          <h3>🎮 Junior Game Developer — Web/JS Focus</h3>
-          <div class="company">Various Studios (Remote Game Jobs, Wellfound listings)</div>
-          <div class="location">🌐 Remote · Gaming · Entry Level</div>
+          <h3>Game Programmer (Phaser.io) — Secondary Interest</h3>
+          <div class="company">Melon Cube Studios</div>
+          <div class="location">Remote (Global) · Browser-based Pixel RPG</div>
         </div>
         <div class="job-card-right">
           <span class="score-badge score-orange">52/100</span>
-          <div class="salary-range">$67,000–$95,000</div>
-          <div class="salary-label">Market range for JS game devs</div>
+          <div class="salary-range">$55,000–$85,000</div>
+          <div class="salary-label">Posted salary range</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          <strong>Secondary Interest Role.</strong> Entry-level game development positions using JavaScript frameworks like Phaser, Three.js, or Babylon.js. Involves developing game mechanics, graphics, animations, and user interactions. Positions require strong problem-solving skills and knowledge of HTML5 and WebGL. 255+ junior game developer remote positions currently listed across major boards.
+          Join a team creating a pixel RPG browser-based game using Phaser.io. Involved in all aspects of development for a game leveraging web technologies. Experience and understanding of RPG games are highly desired. The team includes developers, creatives, and game strategists.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> Don's JavaScript and React skills are a foundation for web-based game development. His UI/UX design background is valuable for game UX. However, he'd need to build a portfolio with game-specific projects (Phaser, Three.js, Unity/C#). This is a career pivot, not a lateral move.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches (secondary interest):</strong> This is the most accessible game dev entry point for Don — Phaser.io is a JavaScript framework, so his JS skills transfer directly. Browser-based game development leverages HTML5, CSS, and JavaScript — all in his wheelhouse. The pixel art RPG genre is popular. However, this is a significant career pivot with a salary cut. Don should build 1-2 small Phaser.js games as portfolio pieces before applying.</p>
+        <p style="font-size:12px;color:var(--orange);margin-bottom:8px;"><strong>Note:</strong> This listing may have been filled — verify availability before applying.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ JavaScript</span>
-          <span class="skill-tag skill-match">✓ HTML5/CSS3</span>
-          <span class="skill-tag skill-match">✓ UI/UX Design</span>
-          <span class="skill-tag skill-match">✓ React (useful for web games)</span>
-          <span class="skill-tag skill-miss">◦ No game engine experience listed</span>
-          <span class="skill-tag skill-miss">◦ No C++/C# (common in gaming)</span>
-          <span class="skill-tag skill-miss">◦ No game portfolio yet</span>
+          <span class="skill-tag skill-match">✓ JavaScript (Phaser.io is JS-based)</span>
+          <span class="skill-tag skill-match">✓ HTML5/CSS</span>
+          <span class="skill-tag skill-match">✓ Browser-based (web dev skills apply)</span>
+          <span class="skill-tag skill-miss">◦ No game dev portfolio yet</span>
+          <span class="skill-tag skill-miss">◦ Phaser.io framework (learnable)</span>
+          <span class="skill-tag skill-miss">◦ GameFi/blockchain focus</span>
           <span class="skill-tag skill-miss">◦ Career pivot — significant ramp-up</span>
         </div>
-        <a class="apply-btn" href="https://remotegamejobs.com/" target="_blank" rel="noopener">Browse Remote Game Jobs →</a>
-        <a class="apply-btn" href="https://wellfound.com/role/r/game-developer" target="_blank" rel="noopener" style="margin-left:8px;background:var(--gray-600);">Browse Wellfound →</a>
+        <a class="apply-btn" href="https://weworkremotely.com/company/melon-cube-studios" target="_blank" rel="noopener">View on We Work Remotely →</a>
+        <a class="apply-btn secondary" href="https://remotegamejobs.com/" target="_blank" rel="noopener">Browse More Game Jobs →</a>
       </div>
     </div>
 
-    <!-- Job 10 (Secondary Interest) -->
-    <div class="job-card" data-score="48" data-salary="70000" data-title="Web Game Developer Phaser Three.js">
+    <!-- Job 10 (Gaming) -->
+    <div class="job-card" data-score="48" data-salary="80000" data-title="JavaScript HTML5 Game Developer">
       <div class="job-card-header" onclick="toggleDetails(this)">
         <div class="job-rank rank-orange">10</div>
         <div class="job-card-info">
-          <h3>🎮 Web Game Developer (Phaser / Three.js)</h3>
-          <div class="company">Various — Arc, Remote Rocketship listings</div>
-          <div class="location">🌐 Remote · Gaming / Interactive</div>
+          <h3>JavaScript / HTML5 Game Developer — Secondary Interest</h3>
+          <div class="company">Various Studios (Aggregate — ZipRecruiter, Indeed, Wellfound)</div>
+          <div class="location">Remote · Gaming / Interactive · Entry to Mid Level</div>
         </div>
         <div class="job-card-right">
           <span class="score-badge score-orange">48/100</span>
-          <div class="salary-range">$60,000–$90,000</div>
-          <div class="salary-label">Market range estimate</div>
+          <div class="salary-range">$67,000–$95,000</div>
+          <div class="salary-label">Market range (ZipRecruiter $81K–$200K range)</div>
         </div>
       </div>
       <div class="job-card-details">
         <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">
-          <strong>Secondary Interest Role.</strong> Web-based game development using JavaScript game frameworks. These roles specifically leverage HTML5, WebGL, and JavaScript frameworks rather than Unity/Unreal — making them the most accessible entry point for a web developer pivoting to gaming. Many are freelance or contract, with some full-time positions.
+          JavaScript/HTML5 game developer positions use web technologies (Phaser, Three.js, Babylon.js, PixiJS) rather than Unity/Unreal — making them the most natural bridge for a web developer pivoting to gaming. These roles involve developing game mechanics, graphics, animations, and user interactions. Requires strong problem-solving and HTML5/WebGL knowledge.
         </p>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches:</strong> This is the most natural bridge from Don's current skill set to gaming. His JavaScript mastery, design skills, and performance optimization experience all apply. Recommended path: build 2-3 web games as portfolio pieces using Phaser.js or Three.js before applying.</p>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:8px;"><strong>Why it matches (secondary interest):</strong> This is the recommended pivot path — web-based game development using JS frameworks Don already knows conceptually. His UI/UX design background, performance optimization skills, and JavaScript mastery are foundational. <strong>Recommended next steps:</strong> Build 2-3 small games using Phaser.js or Three.js, publish them on itch.io, then apply to these roles with a portfolio.</p>
         <div class="skill-tags">
-          <span class="skill-tag skill-match">✓ JavaScript (foundational)</span>
+          <span class="skill-tag skill-match">✓ JavaScript mastery</span>
+          <span class="skill-tag skill-match">✓ HTML5/CSS3</span>
+          <span class="skill-tag skill-match">✓ UI/UX design background</span>
           <span class="skill-tag skill-match">✓ Performance optimization</span>
-          <span class="skill-tag skill-match">✓ Design / animation</span>
-          <span class="skill-tag skill-miss">◦ Phaser / Three.js (learnable)</span>
-          <span class="skill-tag skill-miss">◦ WebGL experience needed</span>
-          <span class="skill-tag skill-miss">◦ Often contract/freelance</span>
+          <span class="skill-tag skill-miss">◦ Game frameworks (Phaser, Three.js)</span>
+          <span class="skill-tag skill-miss">◦ WebGL experience</span>
+          <span class="skill-tag skill-miss">◦ No game portfolio yet</span>
+          <span class="skill-tag skill-miss">◦ Many are contract/freelance</span>
         </div>
-        <a class="apply-btn" href="https://arc.dev/remote-jobs/game" target="_blank" rel="noopener">Browse Arc Game Jobs →</a>
-        <a class="apply-btn" href="https://www.remoterocketship.com/jobs/game-engineer/" target="_blank" rel="noopener" style="margin-left:8px;background:var(--gray-600);">Remote Rocketship →</a>
+        <a class="apply-btn" href="https://www.indeed.com/q-Javascript-Game-Developer-jobs.html" target="_blank" rel="noopener">Browse on Indeed →</a>
+        <a class="apply-btn secondary" href="https://wellfound.com/role/r/game-developer" target="_blank" rel="noopener">Browse on Wellfound →</a>
       </div>
     </div>
 
@@ -927,83 +583,77 @@ details[open] summary::before {
 
 <!-- Deep Dive: #1 Match -->
 <section id="deepdive" class="section">
-  <h2 class="section-title">Deep Dive: #1 Match — Baylor Scott &amp; White Health</h2>
-
+  <h2 class="section-title">Deep Dive: #1 — Included Health</h2>
   <div class="deep-dive">
     <h3>Why This Is the Top Match</h3>
     <p style="font-size:14px;line-height:1.8;color:var(--gray-700);">
-      Baylor Scott &amp; White Health is the largest not-for-profit healthcare system in Texas, operating 50+ hospitals and 800+ care sites. This Website Operations Manager role is essentially the same job Don does at Gen4 — managing enterprise-scale web operations for a multi-location healthcare organization — but at a significantly larger and more established institution. The role demands web governance, site performance management (99.9% uptime), agile sprint delivery, resource allocation, and cross-functional collaboration with marketing — all things Don does daily. While BSW uses Sitecore rather than WordPress, the underlying operational competencies are identical. This represents a clear career step up with substantially higher compensation.
+      Included Health is a PE-backed digital health company (investors include Andreessen Horowitz and Silver Lake) that operates marketing websites for its healthcare brands including Doctor On Demand. The Senior Manager of Web Experience &amp; Platform role is essentially Don's Gen4 job at the next level — owning web governance, CMS operations, SEO strategy, and site performance for a multi-stakeholder healthcare organization. The role explicitly requires WordPress proficiency and experience in healthcare/regulated industries where privacy, security, and compliance are critical — directly matching Don's HIPAA &amp; ADA compliance work at Gen4. The salary range ($128K–$235K) represents a significant step up. This checks every box: PE-backed, healthcare, multi-site web governance, CMS management, SEO, remote, and manager-level title.
     </p>
 
     <h3>Scoring Breakdown</h3>
     <table class="salary-table" style="margin-bottom:24px;">
       <tr><th>Criteria</th><th>Weight</th><th>Score</th><th>Notes</th></tr>
-      <tr><td>Title Match</td><td>20%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:90%"></div></div> 90</td><td>Website Operations Manager ≈ Website Manager</td></tr>
-      <tr><td>Skills Overlap</td><td>25%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:85%"></div></div> 85</td><td>Strong overlap; Sitecore vs WordPress is the gap</td></tr>
-      <tr><td>Industry Fit</td><td>15%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:90%"></div></div> 90</td><td>Healthcare → Healthcare (dental is healthcare subset)</td></tr>
-      <tr><td>Seniority Match</td><td>15%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:85%"></div></div> 85</td><td>Manager level — right fit for 8+ years experience</td></tr>
-      <tr><td>Remote Compatible</td><td>10%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:100%"></div></div> 100</td><td>Explicitly remote, nationwide</td></tr>
-      <tr><td>Growth Potential</td><td>10%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:85%"></div></div> 85</td><td>Large org with clear advancement path</td></tr>
-      <tr><td>Company Reputation</td><td>5%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:90%"></div></div> 90</td><td>Major Texas healthcare system, strong employer brand</td></tr>
+      <tr><td>Title Match</td><td>20%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:90%"></div></div> 90</td><td>Senior Manager of Web = Website Manager elevated</td></tr>
+      <tr><td>Skills Overlap</td><td>25%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:90%"></div></div> 90</td><td>WordPress required, SEO, CMS governance, compliance</td></tr>
+      <tr><td>Industry Fit</td><td>15%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:95%"></div></div> 95</td><td>PE-backed healthcare — exact target</td></tr>
+      <tr><td>Seniority Match</td><td>15%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:85%"></div></div> 85</td><td>Manager level — stretch but achievable with 8+ years</td></tr>
+      <tr><td>Remote Compatible</td><td>10%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:100%"></div></div> 100</td><td>Fully remote, US-based</td></tr>
+      <tr><td>Growth Potential</td><td>10%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:85%"></div></div> 85</td><td>High-growth company, Director path visible</td></tr>
+      <tr><td>Company Reputation</td><td>5%</td><td><div class="score-bar-wrapper"><div class="score-bar bar-green" style="width:90%"></div></div> 90</td><td>Well-funded, recognized healthtech brand</td></tr>
     </table>
-    <p style="font-size:14px;color:var(--gray-600);"><strong>Weighted Total: 88/100</strong></p>
+    <p style="font-size:14px;color:var(--gray-600);"><strong>Weighted Total: 90/100</strong></p>
   </div>
 </section>
 
 <!-- Resume Recommendations -->
 <section id="resume-recs" class="section">
-  <h2 class="section-title">Resume Optimization — Tailored for #1 Match</h2>
-
+  <h2 class="section-title">Resume Optimization — Tailored for Included Health</h2>
   <div class="deep-dive">
     <h3>High-Priority Changes</h3>
     <ul class="rec-list">
       <li>
-        <strong>Add "Agile" and "Sprint" language to Gen4 bullet points</strong> <span class="priority-high">HIGH</span><br>
-        The BSW role explicitly requires agile squad leadership. Under Gen4, rewrite "Managed the development cycle of 50+ websites" → <em>"Led agile development sprints for 50+ website launches, managing backlog prioritization, sprint planning, and delivery timelines across cross-functional teams."</em>
+        <strong>Add "Web Governance" as a prominent theme</strong> <span class="priority-high">HIGH</span><br>
+        The Included Health role requires "experience defining and managing web governance models (ownership, processes, documentation) for multi-stakeholder marketing organizations." Under Gen4, add: <em>"Defined and managed web governance framework across 100+ practice websites — including content ownership policies, brand standards enforcement, approval workflows, and compliance documentation for a multi-stakeholder marketing organization."</em>
       </li>
       <li>
-        <strong>Add a "Web Governance" bullet point under Gen4</strong> <span class="priority-high">HIGH</span><br>
-        BSW wants someone who owns web governance. Add: <em>"Established and enforced web governance policies across 100+ websites, including brand standards, content approval workflows, security protocols, and HIPAA/ADA compliance frameworks."</em>
+        <strong>Emphasize CMS governance &amp; publishing operations</strong> <span class="priority-high">HIGH</span><br>
+        The role owns "scalable CMS governance &amp; publishing operations." Rewrite the website management bullet to: <em>"Built scalable CMS publishing operations enabling marketing, regional, and practice-level stakeholders to request and receive web content updates through structured workflows — managing 100+ WordPress sites with consistent standards."</em>
       </li>
       <li>
-        <strong>Quantify site performance metrics</strong> <span class="priority-high">HIGH</span><br>
-        BSW requires 99.9% uptime and site speed management. Under Gen4, add: <em>"Maintained 99.9%+ uptime across all web properties; monitored and optimized Core Web Vitals, reducing average page load time by [X]% through server infrastructure optimization and caching strategies."</em>
+        <strong>Add technical SEO credentials</strong> <span class="priority-high">HIGH</span><br>
+        The role leads "technical SEO and AI-driven search." Expand your SEO bullet: <em>"Led enterprise-wide technical SEO initiative — created audit methodology and multi-phased optimization plan across 100+ sites covering site architecture, Core Web Vitals, schema markup, crawlability, and content optimization. Leveraged Google Search Console, Google Analytics, and Google Tag Manager for performance monitoring."</em>
       </li>
       <li>
-        <strong>Add "Product Management" or "Lead Product Manager" keywords</strong> <span class="priority-high">HIGH</span><br>
-        The role is titled "Lead Product Manager of the Website Content agile squad." In your summary or Gen4 bullets, weave in: <em>"Served as the product owner for website operations, defining requirements, managing stakeholder requests, and ensuring delivery aligned with business objectives."</em>
+        <strong>Add "conversion rate optimization" language</strong> <span class="priority-high">HIGH</span><br>
+        The role owns CRO. If you've done any A/B testing, conversion tracking, or landing page optimization at Gen4, add it explicitly. Even: <em>"Optimized website conversion paths for patient acquisition, collaborating with marketing on campaign landing pages and call-to-action placement across 100+ practice sites."</em>
       </li>
     </ul>
 
     <h3>Medium-Priority Changes</h3>
     <ul class="rec-list">
       <li>
-        <strong>Rewrite summary to target enterprise healthcare operations</strong> <span class="priority-med">MED</span><br>
-        Current summary mentions DSOs specifically. Broaden to: <em>"Website Operations Manager with 8+ years of experience leading enterprise-scale web operations for multi-location healthcare organizations. Proven track record managing 100+ websites, building internal infrastructure that reduced costs by 67%, and driving SEO and UX optimization across complex web portfolios. Skilled in web governance, agile delivery, and cross-functional team collaboration."</em>
+        <strong>Rewrite summary for senior manager positioning</strong> <span class="priority-med">MED</span><br>
+        <em>"Website Operations Leader with 8+ years managing enterprise-scale web platforms for multi-location healthcare organizations. Expert in web governance, CMS operations, technical SEO, and site performance optimization. Proven track record building scalable publishing workflows, reducing infrastructure costs by 67%, and maintaining HIPAA/ADA compliance across 100+ websites. Experienced in WordPress, React, and modern web technologies."</em>
       </li>
       <li>
-        <strong>Add a "Tools &amp; Platforms" section</strong> <span class="priority-med">MED</span><br>
-        Include: Google Analytics, Google Tag Manager, Google Search Console, SEO tools (SEMrush, Ahrefs, Screaming Frog — add any you use), project management tools (Jira, Asana, Trello — add any), and note "Enterprise CMS platforms" rather than just listing WordPress.
+        <strong>Add "platform modernization" language</strong> <span class="priority-med">MED</span><br>
+        The Included Health role focuses on "web platform modernization." Your internal server migration project is exactly this. Reframe: <em>"Led web platform modernization initiative — migrated 100+ sites from third-party hosting to custom internal infrastructure, reducing annual hosting costs by 67% while improving site performance, security, and operational control."</em>
       </li>
       <li>
-        <strong>Emphasize the internal server project with ROI metrics</strong> <span class="priority-med">MED</span><br>
-        Reframe: <em>"Designed, deployed, and managed internal web hosting infrastructure serving 100+ sites, reducing annual hosting costs by 67% ($X saved annually) while improving page load performance and gaining full operational control over the server environment."</em>
+        <strong>Include stakeholder democratization language</strong> <span class="priority-med">MED</span><br>
+        The role mentions "building systems that democratize web publishing for cross-functional partners." If you've enabled non-technical teams to update content, add it.
       </li>
     </ul>
 
     <h3>Lower-Priority Changes</h3>
     <ul class="rec-list">
       <li>
-        <strong>Add "B2C" and "B2B" terminology</strong> <span class="priority-low">LOW</span><br>
-        BSW mentions both patient (B2C) and provider (B2B) websites. Note if you've managed both internal/provider-facing and patient-facing web properties.
+        <strong>Add healthcare compliance as a dedicated skill</strong> <span class="priority-low">LOW</span><br>
+        List "HIPAA Web Compliance" and "ADA/WCAG Accessibility" as standalone skills rather than buried in a bullet point.
       </li>
       <li>
-        <strong>Include CMS migration or multi-platform experience</strong> <span class="priority-low">LOW</span><br>
-        If you've worked with any CMS beyond WordPress (even briefly), include it. This shows CMS-agnostic capability, which addresses the Sitecore preference.
-      </li>
-      <li>
-        <strong>Move Education to the bottom</strong> <span class="priority-low">LOW</span><br>
-        With 8+ years of experience, work history should be the lead. The Associate's degree and "Pursuing Bachelor's" are better positioned at the end.
+        <strong>Move education below work experience</strong> <span class="priority-low">LOW</span><br>
+        With 8+ years experience and targeting a Senior Manager role, work history should lead.
       </li>
     </ul>
   </div>
@@ -1012,68 +662,59 @@ details[open] summary::before {
 <!-- LinkedIn Recommendations -->
 <section id="linkedin-recs" class="section">
   <h2 class="section-title">LinkedIn Profile Optimization</h2>
-
   <div class="deep-dive">
     <h3>Headline</h3>
     <p style="font-size:14px;color:var(--gray-600);margin-bottom:8px;"><strong>Current (likely):</strong> Website Manager at Gen4 Dental Partners</p>
-    <p style="font-size:14px;color:var(--gray-600);margin-bottom:16px;"><strong>Suggested:</strong> <em>Website Operations Manager | Multi-Site Web Strategy for PE-Backed Healthcare Organizations | 100+ Sites Managed | SEO, Web Governance &amp; Infrastructure</em></p>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:16px;"><strong>Suggested:</strong> <em>Website Operations Leader | Enterprise Web Governance for Multi-Location Healthcare Orgs | 100+ Sites Managed | CMS, SEO, Compliance &amp; Infrastructure</em></p>
 
     <h3>About Section Key Points</h3>
     <ul class="rec-list">
-      <li><strong>Open with scale:</strong> "I manage the digital infrastructure for 100+ healthcare practice websites, ensuring every site is optimized for patient acquisition, SEO performance, and regulatory compliance."</li>
-      <li><strong>Highlight the cost savings story:</strong> "Built internal hosting infrastructure that cut web hosting costs by 67% while improving performance — the kind of operational efficiency that PE-backed organizations depend on."</li>
-      <li><strong>Include target keywords:</strong> Web governance, enterprise CMS, agile web operations, multi-site management, HIPAA compliance, ADA compliance, digital marketing operations, site performance optimization.</li>
-      <li><strong>Close with value proposition:</strong> "I help multi-location healthcare organizations scale their web presence efficiently — fewer vendors, lower costs, better performance, and consistent compliance across every location."</li>
-    </ul>
-
-    <h3>Experience Section Enhancements</h3>
-    <ul class="rec-list">
-      <li>Add <strong>media/links</strong> to the Gen4 section: screenshots of website improvements, before/after performance metrics, any case studies.</li>
-      <li>Add <strong>2-3 more bullet points</strong> to Gen4 covering: analytics reporting, stakeholder communication, vendor management, and budget management.</li>
-      <li>Reorder bullets to lead with <strong>scale (100+ sites)</strong> and <strong>cost savings (67%)</strong> — these are the most compelling proof points.</li>
+      <li><strong>Open with scale and impact:</strong> "I manage the web operations for 100+ healthcare practice websites — building governance frameworks, optimizing for SEO and patient conversion, and maintaining strict HIPAA &amp; ADA compliance across every site."</li>
+      <li><strong>Tell the infrastructure story:</strong> "When I saw our hosting costs scaling linearly with every acquisition, I built internal infrastructure from scratch that cut costs by 67% while improving performance. That's the kind of operational thinking I bring to enterprise web management."</li>
+      <li><strong>Target keywords to weave in:</strong> Web governance, CMS operations, enterprise web management, technical SEO, conversion rate optimization, web platform modernization, HIPAA compliance, ADA/WCAG accessibility, multi-stakeholder publishing, site performance</li>
+      <li><strong>Close with value proposition:</strong> "I help PE-backed healthcare organizations scale their web presence efficiently — building governance systems that empower marketing teams while maintaining quality, compliance, and performance across every location."</li>
     </ul>
 
     <h3>Skills to Add &amp; Prioritize</h3>
     <ul class="rec-list">
-      <li><strong>Add:</strong> Web Governance, Enterprise Content Management, Agile Project Management, Product Management, Site Reliability, Performance Optimization, Cross-functional Team Leadership</li>
-      <li><strong>Move to top:</strong> Website Management, SEO, WordPress, Web Development, HTML/CSS</li>
-      <li><strong>Request endorsements</strong> from Gen4 colleagues for: Website Management, SEO, WordPress, Team Leadership</li>
+      <li><strong>Add:</strong> Web Governance, Enterprise CMS Management, Conversion Rate Optimization, Web Platform Strategy, Healthcare Compliance (HIPAA), Accessibility (WCAG/ADA), Agile Project Management, Cross-functional Leadership</li>
+      <li><strong>Top 5 skills:</strong> Website Management, WordPress, Technical SEO, Web Development, HIPAA Compliance</li>
+      <li><strong>Request endorsements</strong> from Gen4 colleagues for the top 5</li>
     </ul>
 
     <h3>Activity &amp; Engagement</h3>
     <ul class="rec-list">
-      <li>Post 1-2x per week about multi-site web management challenges and solutions</li>
-      <li>Comment on posts from healthcare marketing leaders and DSO industry groups</li>
-      <li>Share articles about healthcare digital transformation, HIPAA web compliance, or web performance optimization with your own take</li>
-      <li>Follow and engage with: PE-backed healthcare companies, DSO industry leaders, healthcare marketing communities</li>
+      <li>Post 1-2x/week about multi-site web management, healthcare digital transformation, or web governance challenges</li>
+      <li>Engage with content from Included Health, Heartland Dental, and other PE-backed healthcare companies</li>
+      <li>Comment on posts about SEO, web performance, and CMS strategy from industry leaders</li>
+      <li>Share your perspective on HIPAA web compliance — this is a rare expertise that positions you as a thought leader</li>
     </ul>
 
     <h3>Recommendations to Request</h3>
     <ul class="rec-list">
-      <li>A <strong>marketing leader at Gen4</strong> who can speak to your collaboration and impact on campaigns</li>
-      <li>A <strong>direct report or peer developer</strong> who can speak to your technical leadership</li>
-      <li>A <strong>client from freelance days</strong> who can speak to your project management and delivery</li>
+      <li>A <strong>marketing leader at Gen4</strong> who can speak to cross-functional collaboration and campaign impact</li>
+      <li>A <strong>peer or report from Signa Marketing</strong> who can speak to technical leadership and mentoring</li>
+      <li>A <strong>stakeholder at Gen4</strong> (practice manager, regional director) who can speak to Don's responsiveness and quality standards</li>
     </ul>
   </div>
 </section>
 
 <!-- Cover Letter -->
 <section id="cover-letter" class="section">
-  <h2 class="section-title">Cover Letter — BSW Website Operations Manager</h2>
-
+  <h2 class="section-title">Cover Letter — Included Health</h2>
   <div class="deep-dive" style="position:relative;">
-    <button class="copy-btn" onclick="copyLetter()">📋 Copy to Clipboard</button>
-    <div class="cover-letter-box" id="coverLetterText">Dear Hiring Team,
+    <button class="copy-btn" onclick="copyLetter()">Copy to Clipboard</button>
+    <div class="cover-letter-box" id="coverLetterText">Dear Included Health Hiring Team,
 
-Managing 100+ healthcare websites simultaneously teaches you something most web professionals never learn: how to build systems that scale without breaking, and how to maintain quality when every site has different stakeholders, content needs, and compliance requirements.
+When you manage 100+ healthcare websites simultaneously, you learn quickly that the real challenge isn't the technology — it's building governance systems that let dozens of stakeholders publish confidently without sacrificing quality, compliance, or performance.
 
-That's exactly what I've been doing for the past four years as Website Manager at Gen4 Dental Partners, one of the fastest-growing dental service organizations in the country. When I joined, we had fragmented web infrastructure, inconsistent branding, and hosting costs that scaled linearly with every acquisition. I built internal server infrastructure that cut hosting costs by 67%, established web governance standards across the entire portfolio, and led a multi-phased SEO and UX optimization initiative that touched every one of our 100+ practice websites — all while maintaining strict HIPAA and ADA compliance.
+That's the problem I've been solving for the past four years as Website Manager at Gen4 Dental Partners, a PE-backed dental service organization. I built the web governance framework from scratch: content ownership policies, brand standards enforcement, approval workflows, and compliance documentation that enabled our marketing team and 100+ practice locations to operate within a scalable publishing model. When hosting costs threatened to scale linearly with acquisitions, I designed and deployed internal infrastructure that cut costs by 67% while improving performance. I led a multi-phased technical SEO initiative that touched every site in our portfolio — all while maintaining strict HIPAA and ADA compliance.
 
-The Website Operations Manager role at Baylor Scott & White Health feels like the natural next chapter. Your need for someone who can serve as the lead product manager of a content squad, own web governance across a massive multi-site ecosystem, and maintain 99.9% uptime aligns precisely with what I do today. I'm excited about the scale — moving from 100+ dental practice sites to 800+ care delivery points — and I'm drawn to BSW's reputation as a mission-driven organization that invests in digital excellence.
+The Senior Manager of Web Experience & Platform role at Included Health reads like the next chapter of this work. Your focus on web platform modernization, scalable CMS governance, technical SEO, and building systems that democratize web publishing for cross-functional partners — this is exactly what I do, and what I want to do at a larger scale for a mission-driven healthcare company.
 
-I bring a rare combination: hands-on technical skills (HTML, CSS, JavaScript, PHP, React, Node.js), deep CMS expertise, and the operational leadership to manage web infrastructure at enterprise scale. I've managed 130+ domain transfers, led cross-functional marketing campaigns, and I know how to keep complex web ecosystems running smoothly without letting anything fall through the cracks.
+I bring deep WordPress expertise, a full modern development stack (React, Node.js, JavaScript, PHP), and something harder to find: the operational leadership to run enterprise web platforms in a regulated healthcare environment. I understand what it means to balance speed with compliance, and to build systems where marketing teams feel empowered rather than bottlenecked.
 
-I would welcome the opportunity to discuss how my experience can contribute to BSW's digital strategy. Thank you for your time and consideration.
+I'd welcome the chance to discuss how my experience scaling web operations for a PE-backed healthcare organization can contribute to Included Health's growth. Thank you for your consideration.
 
 Best regards,
 Don Clark</div>
@@ -1082,63 +723,64 @@ Don Clark</div>
 
 <!-- Interview Prep -->
 <section id="interview" class="section">
-  <h2 class="section-title">Interview Preparation — BSW</h2>
-
+  <h2 class="section-title">Interview Preparation — Included Health</h2>
   <div class="deep-dive">
     <h3>5 Likely Interview Questions &amp; Talking Points</h3>
 
     <details class="interview-q">
-      <summary>1. "Tell us about your experience managing websites at scale. How did you handle governance across 100+ sites?"</summary>
+      <summary>1. "Tell us about your experience building web governance models for multi-stakeholder organizations."</summary>
       <div class="answer">
-        <strong>Talking points:</strong> Walk through the Gen4 story chronologically — what the situation looked like when you arrived (fragmented, inconsistent), what you built (standards, audit framework, multi-phased optimization plan), and the outcomes (improved SEO, better patient experience, HIPAA/ADA compliance across all sites). Emphasize that you created the governance framework from scratch, didn't just inherit one. Mention specific processes: content approval workflows, brand consistency checks, compliance audits, and how you managed competing priorities across 100+ stakeholders.
+        <strong>Talking points:</strong> Walk through the Gen4 story — when you arrived, 100+ practices had no unified web governance. You built: content ownership policies defining who could request what, brand standards documentation, approval workflows (who signs off on content changes), compliance checklists for HIPAA/ADA, and quality standards for all sites. Describe how you balanced stakeholder autonomy with brand consistency. Emphasize that you created this from scratch, not inherited it. Quantify: "100+ sites, coordinating with marketing team and regional stakeholders."
       </div>
     </details>
 
     <details class="interview-q">
-      <summary>2. "Our CMS is Sitecore, not WordPress. How would you approach working with a new CMS platform?"</summary>
+      <summary>2. "How would you approach modernizing our web platform and technology stack?"</summary>
       <div class="answer">
-        <strong>Talking points:</strong> Acknowledge the difference, then pivot to transferable skills. Emphasize that your role at Gen4 was about web operations management, not just WordPress administration. The core competencies — content governance, site performance, agile delivery, SEO, compliance — are CMS-agnostic. Mention that you've worked across multiple CMS platforms (WordPress, Webflow, HubSpot) which demonstrates adaptability. Express eagerness to learn Sitecore and note that your understanding of CMS architecture and content management principles will accelerate the learning curve.
+        <strong>Talking points:</strong> Reference your internal server migration at Gen4 — you identified a scaling problem (hosting costs growing linearly), designed a solution (internal infrastructure), executed the migration, and delivered measurable results (67% cost reduction + performance improvement). Walk through your methodology: audit current state, identify pain points, build a phased roadmap, execute iteratively, measure results. Show that you think about platform decisions in terms of business impact, not just technology preferences.
       </div>
     </details>
 
     <details class="interview-q">
-      <summary>3. "Describe a time you had to manage competing priorities from multiple stakeholders across different departments."</summary>
+      <summary>3. "How do you approach technical SEO at enterprise scale?"</summary>
       <div class="answer">
-        <strong>Talking points:</strong> Talk about managing website requests from 100+ practices, each with their own marketing needs, while maintaining standards and hitting sprint deadlines. Describe your prioritization framework — how you balanced urgent campaign launches with ongoing maintenance and long-term SEO optimization. Mention collaborating with the marketing team to align website changes with campaign calendars. Highlight a specific example where you had to say "no" or "not yet" to a stakeholder request and how you handled it.
+        <strong>Talking points:</strong> Describe your multi-phased SEO optimization plan at Gen4. Explain your methodology: site-by-site audits using Google Search Console and Google Analytics, identifying common issues across the portfolio (site architecture, Core Web Vitals, meta data, content gaps), then creating standardized fixes that could be applied at scale. Mention tools you use: Google Search Console, Google Analytics, Google Tag Manager. Acknowledge the AI-driven search (AIO) aspect — express enthusiasm for learning this emerging area.
       </div>
     </details>
 
     <details class="interview-q">
-      <summary>4. "How do you ensure site uptime and performance at enterprise scale?"</summary>
+      <summary>4. "This role requires building systems that democratize web publishing. Tell us about a time you empowered non-technical teams to manage web content."</summary>
       <div class="answer">
-        <strong>Talking points:</strong> Walk through your internal server infrastructure project at Gen4 — you didn't just manage existing hosting, you built a new solution from scratch. Discuss monitoring practices, performance benchmarks, Core Web Vitals optimization, and incident response. Mention the 67% cost reduction alongside improved performance — showing you can balance budget consciousness with quality. If you use specific monitoring tools (Pingdom, New Relic, Google PageSpeed Insights), name them.
+        <strong>Talking points:</strong> Describe how at Gen4 you had to enable marketing teams and practice-level stakeholders to request and receive content updates efficiently. Talk about the systems you built: ticket management, templates, standardized request forms, documentation, and training. Emphasize that your goal was to remove yourself as a bottleneck while maintaining quality — that's exactly what "democratizing publishing" means.
       </div>
     </details>
 
     <details class="interview-q">
-      <summary>5. "Where do you see yourself in 3-5 years? How does this role fit into your career trajectory?"</summary>
+      <summary>5. "How do you ensure compliance (HIPAA, ADA/WCAG) at scale without slowing down the team?"</summary>
       <div class="answer">
-        <strong>Talking points:</strong> Express genuine interest in growing within a large healthcare system. Mention that you're pursuing a Bachelor's in Computer Science, which signals continuous learning. Position this role as a step from managing web operations for a growing DSO to managing them for one of the largest healthcare systems in Texas. In 3-5 years, you could see yourself leading a larger digital team, expanding into Director of Digital Operations, or taking on broader digital transformation initiatives across the organization.
+        <strong>Talking points:</strong> This is Don's secret weapon. Explain that at Gen4, HIPAA and ADA compliance weren't afterthoughts — they were built into the governance framework from the start. Describe your approach: compliance checklists integrated into the content workflow, automated accessibility testing where possible, regular audits, and training for stakeholders. The key message: compliance doesn't slow you down when it's baked into the process.
       </div>
     </details>
 
     <h3 style="margin-top:32px;">Questions to Ask the Interviewer</h3>
     <ul class="rec-list">
-      <li><strong>"How is the Website Content agile squad currently structured?"</strong> — Shows you've read the job description carefully and are thinking about team dynamics.</li>
-      <li><strong>"What does the current web governance model look like, and where do you see the biggest opportunities for improvement?"</strong> — Signals you're already thinking about adding value.</li>
-      <li><strong>"How do patient-facing (B2C) and provider-facing (B2B) web priorities get balanced when resources are constrained?"</strong> — Demonstrates understanding of the dual-audience challenge.</li>
-      <li><strong>"What's the technology roadmap for the web platform over the next 12-18 months?"</strong> — Shows long-term thinking and investment in the role.</li>
-      <li><strong>"How does this role interact with IT, Marketing, and Clinical leadership?"</strong> — Important for understanding cross-functional dynamics.</li>
+      <li><strong>"What does the current web governance model look like, and what are the biggest pain points?"</strong> — Shows you're already thinking about adding value on day one.</li>
+      <li><strong>"How are publishing responsibilities currently divided between marketing, product, and the web team?"</strong> — Demonstrates understanding of multi-stakeholder dynamics.</li>
+      <li><strong>"What's the vision for the web platform over the next 12-18 months?"</strong> — Shows long-term thinking.</li>
+      <li><strong>"How does this role interact with the engineering, product, and content teams?"</strong> — Important for understanding cross-functional dynamics.</li>
+      <li><strong>"What does success look like in the first 90 days?"</strong> — Shows action orientation.</li>
     </ul>
 
-    <h3 style="margin-top:32px;">Company Research Brief: Baylor Scott &amp; White Health</h3>
+    <h3 style="margin-top:32px;">Company Research Brief: Included Health</h3>
     <ul class="rec-list">
-      <li><strong>Size:</strong> Largest not-for-profit healthcare system in Texas; 50+ hospitals, 800+ care sites, ~52,000 employees</li>
-      <li><strong>Formed:</strong> 2013 merger of Baylor Health Care System and Scott &amp; White Healthcare</li>
-      <li><strong>Headquarters:</strong> Dallas, TX</li>
-      <li><strong>Mission:</strong> "Founded as a Christian ministry of healing, Baylor Scott &amp; White Health promotes the well-being of all individuals, families and communities."</li>
-      <li><strong>Digital Focus:</strong> Investing heavily in digital patient experience, telehealth, and web-based patient acquisition</li>
-      <li><strong>Employer Benefits:</strong> Competitive healthcare, retirement, tuition reimbursement, and professional development programs</li>
+      <li><strong>What they do:</strong> Technology-driven healthcare company offering virtual care, navigation, and mental health services to employers and health plans</li>
+      <li><strong>Notable brands:</strong> Included Health + Doctor On Demand (merged 2021)</li>
+      <li><strong>Investors:</strong> Andreessen Horowitz, Silver Lake, General Atlantic — PE/VC backed</li>
+      <li><strong>Valuation:</strong> Valued at ~$3.7B+ as of latest funding rounds</li>
+      <li><strong>Mission:</strong> "Raise the standard of healthcare for everyone"</li>
+      <li><strong>Size:</strong> ~7,000+ employees as of 2025</li>
+      <li><strong>Culture:</strong> Remote-first, mission-driven, technology-forward</li>
+      <li><strong>Benefits:</strong> Competitive healthcare, mental health support, flexible PTO, remote work</li>
     </ul>
   </div>
 </section>
@@ -1146,7 +788,6 @@ Don Clark</div>
 <!-- Salary Overview -->
 <section id="salary" class="section">
   <h2 class="section-title">Salary Benchmarking</h2>
-
   <div class="deep-dive">
     <table class="salary-table">
       <thead>
@@ -1162,83 +803,83 @@ Don Clark</div>
       <tbody>
         <tr>
           <td>1</td>
-          <td>Website Operations Manager</td>
-          <td>Baylor Scott &amp; White</td>
-          <td><strong>$89,200–$165,600</strong></td>
+          <td>Sr. Manager, Web Experience</td>
+          <td>Included Health</td>
+          <td><strong>$128,000–$235,000</strong></td>
           <td>Posted</td>
-          <td>Don's experience likely commands $100K–$130K range</td>
+          <td>Don's experience likely commands $128K–$160K</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Front-End Developer, Marketing</td>
+          <td>Frontend Developer, Marketing</td>
           <td>Heartland Dental</td>
           <td><strong>$80,000–$110,000</strong></td>
           <td class="est">Estimated</td>
-          <td>Based on Glassdoor data for similar Heartland IT roles</td>
+          <td>Based on Glassdoor data; DSO industry match</td>
         </tr>
         <tr>
           <td>3</td>
-          <td>Manager, SEO &amp; Digital Experience</td>
-          <td>Evidence In Motion</td>
-          <td><strong>$90,000–$120,000</strong></td>
-          <td class="est">Estimated</td>
-          <td>PE-backed healthcare; manager-level with SEO focus</td>
+          <td>Senior Website Manager</td>
+          <td>CALSTART</td>
+          <td><strong>$95,000–$113,000</strong></td>
+          <td>Posted</td>
+          <td>Mid-range; nonprofit may offer other benefits</td>
         </tr>
         <tr>
           <td>4</td>
-          <td>Sr. Web Developer / Project Lead</td>
-          <td>Hoskinson Health</td>
-          <td><strong>$95,000–$130,000</strong></td>
-          <td class="est">Estimated</td>
-          <td>Excellent benefits (100% health premium coverage)</td>
+          <td>Web Developer</td>
+          <td>Patch My PC</td>
+          <td><strong>$105,000–$120,000</strong></td>
+          <td>Posted</td>
+          <td>Exceptional benefits (200% 401k match, 99% health premium)</td>
         </tr>
         <tr>
           <td>5</td>
-          <td>Web Operations Manager (CMS)</td>
-          <td>Enterprise Healthcare Client</td>
-          <td><strong>$95,000–$135,000</strong></td>
-          <td class="est">Estimated</td>
-          <td>Enterprise AEM experience commands premium</td>
+          <td>Sr. WordPress/PHP Developer</td>
+          <td>Teal Media</td>
+          <td><strong>$115,000–$135,000</strong></td>
+          <td>Posted</td>
+          <td>Global remote; generous PTO and culture</td>
         </tr>
         <tr>
           <td>6</td>
-          <td>Website Manager (Drupal)</td>
-          <td>Piper Companies</td>
-          <td><strong>$85,000–$115,000</strong></td>
-          <td class="est">Estimated</td>
-          <td>Contract/staffing — may have benefits gap</td>
+          <td>Assoc. Website Ops Manager</td>
+          <td>Intoxalock</td>
+          <td><strong>$75,000–$87,500</strong></td>
+          <td>Posted</td>
+          <td>Below target — Don is overqualified for "Associate"</td>
         </tr>
         <tr>
           <td>7</td>
-          <td>WordPress Web Manager</td>
-          <td>BewellConnect Corp</td>
-          <td><strong>$75,000–$100,000</strong></td>
+          <td>Website Project Manager</td>
+          <td>WebFX</td>
+          <td><strong>$50,000–$75,000</strong></td>
           <td class="est">Estimated</td>
-          <td>Smaller company; may have equity/growth upside</td>
+          <td>Below target; agency culture focus</td>
         </tr>
         <tr>
           <td>8</td>
-          <td>Junior Web Developer</td>
-          <td>Firegang Dental Marketing</td>
-          <td><strong>$55,000–$75,000</strong></td>
-          <td class="est">Estimated</td>
-          <td>Below target — Don is overqualified</td>
+          <td>Sr. Graphic &amp; Digital Designer</td>
+          <td>Aspen Dental (TAG)</td>
+          <td><strong>$110,000</strong></td>
+          <td>Posted</td>
+          <td>Design-focused but PE-backed DSO industry</td>
         </tr>
         <tr>
           <td>9</td>
-          <td>Junior Game Developer (JS)</td>
-          <td>Various Studios</td>
-          <td><strong>$67,000–$95,000</strong></td>
-          <td class="est">Estimated</td>
-          <td>🎮 Secondary interest — career pivot role</td>
+          <td>Game Programmer (Phaser.io)</td>
+          <td>Melon Cube Studios</td>
+          <td><strong>$55,000–$85,000</strong></td>
+          <td>Posted</td>
+          <td>Secondary interest — career pivot role</td>
         </tr>
         <tr>
           <td>10</td>
-          <td>Web Game Developer</td>
-          <td>Various</td>
-          <td><strong>$60,000–$90,000</strong></td>
+          <td>JS/HTML5 Game Developer</td>
+          <td>Various Studios</td>
+          <td><strong>$67,000–$95,000</strong></td>
           <td class="est">Estimated</td>
-          <td>🎮 Secondary interest — freelance/contract common</td>
+          <td>Secondary interest — market range from ZipRecruiter</td>
         </tr>
       </tbody>
     </table>
@@ -1246,10 +887,10 @@ Don Clark</div>
     <div style="margin-top:24px;padding:16px;background:var(--blue-light);border-radius:8px;">
       <h4 style="font-size:15px;color:var(--navy);margin-bottom:8px;">Market Positioning</h4>
       <p style="font-size:14px;color:var(--gray-700);line-height:1.7;">
-        Based on 2026 salary data, the average Website Manager salary is <strong>$113,462/year</strong> nationally (Glassdoor). For candidates with 5-9 years experience, PayScale reports an average of <strong>$78,871</strong>, but Don's unique combination of multi-site management at enterprise scale, healthcare compliance expertise, and infrastructure engineering places him in the <strong>75th percentile ($115K–$151K)</strong> for web manager roles. His DSO-specific experience is rare and commands a premium in the healthcare web management space.
+        Based on 2026 salary data, the average Website Manager salary is <strong>$113,462/year</strong> nationally (Glassdoor). For senior-level web managers with 5-9 years experience, PayScale reports $78,871, but Don's combination of multi-site management at enterprise scale, healthcare compliance expertise, and infrastructure engineering places him in the <strong>75th–90th percentile ($115K–$165K)</strong> for web management roles. His DSO-specific experience is rare and commands a premium. The top-tier roles (#1, #4, #5) all exceed $100K and match his skill profile well.
       </p>
       <p style="font-size:13px;color:var(--gray-500);margin-top:8px;">
-        <em>Sources: Glassdoor Web Manager Salary Report 2026, PayScale Website Manager Data, ZipRecruiter Remote WordPress Manager ranges ($55K-$150K), Robert Half Web Content Manager salary data.</em>
+        <em>Sources: Glassdoor Web Manager Salary Report 2026, PayScale Website Manager Data, ZipRecruiter Remote WordPress Manager ranges ($55K-$150K), individual posted salary ranges from Lever and Greenhouse job postings.</em>
       </p>
     </div>
   </div>
@@ -1257,40 +898,28 @@ Don Clark</div>
 
 </div>
 
-<!-- Footer -->
 <footer class="report-footer">
   <p>Generated on March 24, 2026 — Re-run weekly for fresh results</p>
-  <p style="margin-top:4px;">Job availability changes frequently. Listings may expire. Salary estimates are based on market data and may vary.</p>
-  <p style="margin-top:8px;">Searched across: LinkedIn Jobs, Indeed, Glassdoor, ZipRecruiter, Built In, FlexJobs, Arc, WP Remote Work, Remote Rocketship, Wellfound, Remote Game Jobs</p>
+  <p style="margin-top:4px;">Job availability changes frequently. Verify listings are still active before applying. Salary estimates are based on market data and may vary.</p>
+  <p style="margin-top:8px;">Searched across: LinkedIn Jobs, Indeed, Glassdoor, ZipRecruiter, Built In, Lever, Greenhouse, FlexJobs, We Work Remotely, Wellfound, Remote Game Jobs</p>
 </footer>
 
 <script>
-// Toggle job card details
 function toggleDetails(header) {
   const details = header.nextElementSibling;
   details.classList.toggle('open');
 }
 
-// Sort jobs
 function sortJobs(criteria) {
   const container = document.getElementById('jobList');
   const cards = Array.from(container.children);
-
-  // Update active button
   document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
   event.target.classList.add('active');
-
   cards.sort((a, b) => {
-    if (criteria === 'score') {
-      return parseInt(b.dataset.score) - parseInt(a.dataset.score);
-    } else if (criteria === 'salary') {
-      return parseInt(b.dataset.salary) - parseInt(a.dataset.salary);
-    } else if (criteria === 'title') {
-      return a.dataset.title.localeCompare(b.dataset.title);
-    }
+    if (criteria === 'score') return parseInt(b.dataset.score) - parseInt(a.dataset.score);
+    if (criteria === 'salary') return parseInt(b.dataset.salary) - parseInt(a.dataset.salary);
+    if (criteria === 'title') return a.dataset.title.localeCompare(b.dataset.title);
   });
-
-  // Re-number ranks
   cards.forEach((card, i) => {
     container.appendChild(card);
     const rank = card.querySelector('.job-rank');
@@ -1300,13 +929,12 @@ function sortJobs(criteria) {
   });
 }
 
-// Copy cover letter
 function copyLetter() {
   const text = document.getElementById('coverLetterText').innerText;
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.querySelector('.copy-btn');
-    btn.textContent = '✅ Copied!';
-    setTimeout(() => { btn.textContent = '📋 Copy to Clipboard'; }, 2000);
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy to Clipboard'; }, 2000);
   });
 }
 </script>
