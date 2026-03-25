@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCCD Content Engine: Strategic Content Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a2332;
+            --gold: #c9a84c;
+            --light-navy: #2d3e52;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray-dark: #4a5f7a;
+            --accent-text: #1a2332;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--accent-text);
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--light-navy) 100%);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            color: var(--gold);
+            font-weight: 300;
+        }
+
+        .header .date-generated {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
+            margin-top: 10px;
+        }
+
+        /* Navigation */
+        .nav-sidebar {
+            position: fixed;
+            left: 0;
+            top: 180px;
+            width: 220px;
+            background: var(--white);
+            border-right: 2px solid var(--gold);
+            padding: 20px 0;
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+            display: none;
+            z-index: 99;
+        }
+
+        .nav-sidebar.active {
+            display: block;
+        }
+
+        .nav-sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--navy);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .nav-sidebar a:hover {
+            background-color: var(--gray-light);
+            border-left-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .nav-toggle {
+            position: fixed;
+            top: 190px;
+            left: 10px;
+            z-index: 98;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            padding: 10px 12px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            display: none;
+        }
+
+        .nav-toggle.show {
+            display: block;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Section styling */
+        .section {
+            background: var(--white);
+            margin-bottom: 40px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--gold);
+        }
+
+        .section h2 {
+            font-size: 2em;
+            color: var(--navy);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+        }
+
+        .section h2::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .section h3 {
+            font-size: 1.5em;
+            color: var(--light-navy);
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section h4 {
+            font-size: 1.2em;
+            color: var(--navy);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .card-content {
+            color: var(--accent-text);
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+
+        /* Priority badges */
+        .priority {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .priority.critical {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #c0392b;
+        }
+
+        .priority.high {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: #d68910;
+        }
+
+        .priority.medium {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #27ae60;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        /* Table styling */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th {
+            background-color: var(--navy);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background-color: var(--gray-light);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(245, 245, 245, 0.5);
+        }
+
+        /* Collapsible sections */
+        .collapsible {
+            background-color: var(--gray-light);
+            color: var(--navy);
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-left: 4px solid var(--gold);
+            text-align: left;
+            outline: none;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .collapsible:hover {
+            background-color: #e8e8e8;
+        }
+
+        .collapsible.active {
+            background-color: var(--navy);
+            color: var(--white);
+            border-left-color: var(--gold);
+        }
+
+        .collapsible::after {
+            content: '▶';
+            float: right;
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible.active::after {
+            transform: rotate(90deg);
+        }
+
+        .content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: #fafafa;
+        }
+
+        .content.active {
+            padding: 15px;
+            max-height: 2000px;
+        }
+
+        /* Status indicators */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .status-gap {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: #c0392b;
+        }
+
+        .status-opportunity {
+            background-color: rgba(46, 204, 113, 0.15);
+            color: #27ae60;
+        }
+
+        .status-in-progress {
+            background-color: rgba(243, 156, 18, 0.15);
+            color: #d68910;
+        }
+
+        /* Grid layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Stats box */
+        .stats-box {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--light-navy) 100%);
+            color: var(--white);
+            padding: 25px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .stats-box .number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .stats-box .label {
+            font-size: 0.95em;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* CTA button */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--navy);
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-sidebar {
+                width: 180px;
+            }
+
+            .table-wrapper {
+                font-size: 0.85em;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .nav-sidebar, .nav-toggle {
+                display: none !important;
+            }
+
+            .header {
+                position: relative;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            .collapsible {
+                display: none;
+            }
+
+            .content {
+                display: block !important;
+                max-height: none !important;
+                padding: 15px !important;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray-dark);
+            font-size: 0.9em;
+            border-top: 2px solid var(--gold);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>PCCD Content Engine</h1>
+        <p class="subtitle">Strategic Content & Marketing Framework for Peninsula Center of Cosmetic Dentistry</p>
+        <div class="date-generated">Dr. Joseph Field, DDS | Los Altos & Mountain View, CA | March 2026</div>
+    </div>
+
+    <!-- Navigation Toggle -->
+    <button class="nav-toggle show" id="navToggle">☰ Menu</button>
+
+    <!-- Navigation Sidebar -->
+    <nav class="nav-sidebar" id="navSidebar">
+        <a href="#executive-summary">Executive Summary</a>
+        <a href="#key-gaps">Key Gaps & Opportunities</a>
+        <a href="#brand-architecture">Brand Architecture</a>
+        <a href="#website-content">Website Recommendations</a>
+        <a href="#content-calendar">3-Month Calendar</a>
+        <a href="#hero-case">Hero Case System</a>
+        <a href="#ugc-workflow">UGC Capture Workflow</a>
+        <a href="#execution-plan">Weekly Execution</a>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- SECTION 1: EXECUTIVE SUMMARY -->
+        <div class="section" id="executive-summary">
+            <h2>Executive Summary</h2>
+
+            <h3>Ecosystem Overview</h3>
+            <p>Peninsula Center of Cosmetic Dentistry (PCCD) operates as a premium, fee-for-service practice targeting the top 10% patient base in the Bay Area. Dr. Joseph Field brings exceptional credentials (DABOI/ID Diplomate, USC faculty, 20+ years experience) and PCCD has established strong social proof (4.9 stars, 210 Yelp + 295 Birdeye reviews, 35K Instagram followers). The practice is positioned as the Bay Area's ONLY Digital Smile Design (DSD) Certified provider—a powerful differentiation mechanism.</p>
+
+            <h3>Current Strengths</h3>
+            <div class="grid-3">
+                <div class="stats-box">
+                    <div class="number">4.9</div>
+                    <div class="label">Star Rating (510 Reviews)</div>
+                </div>
+                <div class="stats-box">
+                    <div class="number">35K</div>
+                    <div class="label">Instagram Followers</div>
+                </div>
+                <div class="stats-box">
+                    <div class="number">1</div>
+                    <div class="label">DSD Certified in Bay Area</div>
+                </div>
+            </div>
+
+            <p>Key assets include: established patient gallery (86 Yelp photos), strong practice brand recognition, active social presence, location-specific service pages, and media features (NewBeauty, Authority Magazine, Dentaltown podcast). Dr. Field's credentials are exceptional but underleveled in personal brand marketing.</p>
+
+            <h3>Top 3 Strategic Priorities</h3>
+            <ol>
+                <li><strong>Activate YouTube & Thought Leadership Channels:</strong> Dr. Field's credentials (DABOI/ID, USC faculty status, speaking engagements) are severely underutilized. YouTube and expanded blog content will drive awareness, establish authority, and create high-intent traffic. This is the #1 lever for demand creation.</li>
+                <li><strong>Build Hero Case Content System:</strong> Transform the practice's best case outcomes into repeatable multi-channel content assets (video, carousel, blog, testimonial). This bridges awareness and conversion, addresses objection-handling, and creates compelling before/after storytelling that resonates with premium patients.</li>
+                <li><strong>Systematize UGC Capture & Doctor Personal Brand:</strong> Implement in-office workflows to capture patient testimonials, doctor commentary videos, and transformation stories. Simultaneously, activate @dr_joseph_field Instagram and expand doctor-centric authority content to separate demand creation (doctor brand) from demand conversion (practice brand).</li>
+            </ol>
+
+            <h3>Why This Matters</h3>
+            <p>The practice has strong conversion infrastructure (service pages, reviews, gallery) but weak awareness-stage demand generation. Cosmetic case acceptance is high-consideration (patients research extensively, seek authority validation, fear overly-aggressive outcomes). A premium patient targeting the top 10% is unlikely to book based solely on practice reviews—they want to see the doctor's credentials, philosophy, case selection, and patient results at scale. The content engine shifts investment toward long-form authority, case storytelling, and doctor-led demand creation.</p>
+
+        </div>
+
+        <!-- SECTION 2: KEY GAPS AND OPPORTUNITIES -->
+        <div class="section" id="key-gaps">
+            <h2>Key Gaps & Opportunities</h2>
+
+            <p>Below is a prioritized gap analysis covering all critical content and marketing levers. Gaps are ranked by impact on cosmetic case demand, premium positioning, case acceptance, trust, and conversion.</p>
+
+            <h3>Critical Gaps (Immediate Impact)</h3>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority critical">CRITICAL</span>
+                    YouTube Channel Severely Underutilized
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> Dr. Field has exceptional credentials (DABOI/ID, USC teaching faculty, speaking engagements with Howard Farran, Catapult Education reviewer) but YouTube presence is minimal to non-existent. YouTube is the #2 search engine (after Google) and the primary platform where high-intent cosmetic patients research dentists.</p>
+                    <p><strong>Impact:</strong> Missing 40-60% of awareness-stage demand. Cosmetic patients watch before/after transformations, implant process videos, veneers education, and doctor commentary. This is a high-leverage demand creation channel.</p>
+                    <p><strong>Opportunity:</strong> Launch YouTube content hub with 2-4 videos/month: hero case transformations, educational "Day in the Life," Q&A with Dr. Field, patient testimonials, smile makeover processes, comparisons (veneers vs. bonding, implants vs. bridges). Promote USC faculty credentials and DABOI/ID authority.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority critical">CRITICAL</span>
+                    No Systematic Hero Case Content Production
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> Practice has a strong before/after gallery but no repeatable system for turning individual cases into multi-channel content (video, carousel, blog, testimonial). Each case is a 5-10 minute conversation, not a 5-channel asset pipeline.</p>
+                    <p><strong>Impact:</strong> Undermonetizing the practice's best marketing asset. One premium case could generate 10-15 pieces of content across YouTube, Instagram, blog, email, and doctor's personal brand channels. Instead, it's posted once and forgotten.</p>
+                    <p><strong>Opportunity:</strong> Implement Hero Case System (see Section 6): monthly featured patient transformation captured as video, carousel, blog article, doctor commentary, and testimonial clip. This creates a repeatable production workflow.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority critical">CRITICAL</span>
+                    Doctor Personal Brand Underdeveloped vs. Practice Brand
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> @dr_joseph_field Instagram exists but appears dormant or minimally active. Dr. Field's credentials (DABOI/ID, USC faculty, 20+ years, media features) are not featured as a distinct personal brand. Most content is funneled through @peninsulacosmeticdentistry (practice account).</p>
+                    <p><strong>Impact:</strong> Missing opportunity to leverage doctor credibility as independent demand-creation asset. High-end cosmetic patients often follow the doctor (not just the practice) to validate expertise. Personal brand = authority validation. Practice brand = conversion proof.</p>
+                    <p><strong>Opportunity:</strong> Activate @dr_joseph_field with distinct content: credentials & credentials breakdown, speaking/teaching highlights, case commentary, patient education, thought leadership. Cross-link to practice account for booking. This is demand creation; practice account is demand conversion.</p>
+                </div>
+            </div>
+
+            <h3>High-Impact Gaps (Strong Opportunity)</h3>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority high">HIGH</span>
+                    Facebook Engagement & Reach Are Low
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> Facebook page has ~1,313 likes for a practice founded in 1986 with 4.9 star reputation and 35K Instagram followers. This indicates low engagement, limited organic reach, and likely minimal paid investment.</p>
+                    <p><strong>Impact:</strong> Facebook is still crucial for local discovery, event promotion, and community positioning (especially in affluent Bay Area demographics). Low engagement signals weak community connection and limits retargeting/conversion funnel.</p>
+                    <p><strong>Opportunity:</strong> Revitalize Facebook with: patient testimonial highlights, community event coverage, local partnership announcements, financing options, before/afters, patient success stories. Use Facebook ads to retarget website visitors and Instagram followers. Target affluent Los Altos/Mountain View zip codes.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority high">HIGH</span>
+                    No Visible Patient Video Testimonial Strategy
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> Practice has strong written reviews (510 total) but no systematic video testimonial content from patients. Video testimonials are 5-10x more persuasive than written reviews for cosmetic procedures.</p>
+                    <p><strong>Impact:</strong> Potential patients want to hear real patients (not scripted doctor messaging) describe results, recovery, confidence boost, and doctor's approach. Text reviews don't convey emotional transformation or patient comfort level.</p>
+                    <p><strong>Opportunity:</strong> Implement monthly video testimonial capture (1-2 patients/month). Short clips (30-60 seconds): 3-6 month smile results, "before/after confidence," "what to expect" walkthrough. Feature on YouTube, Instagram Reels, practice website homepage, and blog articles.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority high">HIGH</span>
+                    Blog Content Thin on Doctor Site
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> drjosephfield.com has a blog section, but content is sparse (only 1-2 visible articles, likely about reconstructive dentistry). Premium-positioned practice should publish 2-3 thought leadership articles/month covering cosmetic dentistry philosophy, case selection, common patient concerns, smile design process, etc.</p>
+                    <p><strong>Impact:</strong> Missing SEO opportunity for high-intent keywords ("porcelain veneers Bay Area," "smile makeover consultation," "dental implant expert," etc.). Blog is primary demand-generation channel for organic search.</p>
+                    <p><strong>Opportunity:</strong> Establish 2-3 monthly blog posts on doctor site covering: cosmetic philosophy, case studies, patient journey content, objection-handling (risks, costs, recovery), smile design process, patient success metrics. Cross-promote to practice site. Target high-intent keywords.</p>
+                </div>
+            </div>
+
+            <h3>Medium-Impact Gaps (Strategic Opportunity)</h3>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority medium">MEDIUM</span>
+                    Missing "Why Choose PCCD" Comparison & Authority Content
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> Website lacks clear differentiation framework vs. competitors. "Bay Area's ONLY DSD Certified practice" is mentioned but not deeply explained. No content addressing "why veneers at PCCD vs. another cosmetic dentist?"</p>
+                    <p><strong>Impact:</strong> Reduces premium positioning power. Affluent patients want to understand what makes a practice unique and worth premium fees.</p>
+                    <p><strong>Opportunity:</strong> Create authority content: "What is DSD and why it matters," "Our cosmetic philosophy," "How we select cases," "Our credentials breakdown," "Patient success metrics."</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority medium">MEDIUM</span>
+                    No Patient Journey Content (Expectations & Education)
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> Limited content addressing "what to expect" for veneers, implants, smile makeovers, recovery timelines, investment, care instructions, etc.</p>
+                    <p><strong>Impact:</strong> High-consideration patients need reassurance and education. Missing content increases consultation friction and case objection rates.</p>
+                    <p><strong>Opportunity:</strong> Create video & blog "patient journey" content for top 3 services: veneers (prep, placement, care), implants (consultation to final crown), smile makeover (process, timeline, investment). Include recovery, risks, and realistic timeline.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority medium">MEDIUM</span>
+                    UGC Capture Not Systematized
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> No documented in-office workflow for capturing patient testimonials, video content, consent, and file organization. Content capture is ad-hoc.</p>
+                    <p><strong>Impact:</strong> Missed opportunities for authentic patient content. Inconsistent quality and consent management.</p>
+                    <p><strong>Opportunity:</strong> Implement formal UGC capture workflow (see Section 7): assign team member, use specific prompts, document consent, organize in shared folder. 4-6 UGC captures/month.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="priority medium">MEDIUM</span>
+                    Silicon Valley Premium Lifestyle Positioning Missing
+                </div>
+                <div class="card-content">
+                    <p><strong>Gap:</strong> Content doesn't emphasize affluent Los Altos lifestyle, premium patient base, or investment value proposition. Posts are generic dental content, not premium cosmetic positioning.</p>
+                    <p><strong>Impact:</strong> Reduces appeal to top 10% patient target. Premium positioning requires lifestyle integration, luxury angle, and confidence in high-price positioning.</p>
+                    <p><strong>Opportunity:</strong> Integrate lifestyle messaging in content: "Investment in your smile," "confidence for success," "designed for professionals," emphasize choice/control in smile design, highlight premium patient base and Smile Test Drive experience.</p>
+                </div>
+            </div>
+
+            <h3>Gap Priority Matrix</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gap</th>
+                        <th>Impact on Demand</th>
+                        <th>Impact on Premium Positioning</th>
+                        <th>Effort to Fix</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>YouTube underutilized</td>
+                        <td>Very High</td>
+                        <td>Very High</td>
+                        <td>Medium</td>
+                        <td><span class="priority critical">CRITICAL</span></td>
+                    </tr>
+                    <tr>
+                        <td>No Hero Case system</td>
+                        <td>Very High</td>
+                        <td>High</td>
+                        <td>Low</td>
+                        <td><span class="priority critical">CRITICAL</span></td>
+                    </tr>
+                    <tr>
+                        <td>Doctor personal brand dormant</td>
+                        <td>High</td>
+                        <td>Very High</td>
+                        <td>Low</td>
+                        <td><span class="priority critical">CRITICAL</span></td>
+                    </tr>
+                    <tr>
+                        <td>Facebook low engagement</td>
+                        <td>Medium</td>
+                        <td>Medium</td>
+                        <td>Low</td>
+                        <td><span class="priority high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>No video testimonials</td>
+                        <td>High</td>
+                        <td>High</td>
+                        <td>Low</td>
+                        <td><span class="priority high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>Blog content thin</td>
+                        <td>High</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                        <td><span class="priority high">HIGH</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- SECTION 3: BRAND ARCHITECTURE -->
+        <div class="section" id="brand-architecture">
+            <h2>Brand Architecture: Doctor Brand vs. Practice Brand</h2>
+
+            <p>Effective content marketing for premium cosmetic dentistry requires clear separation of two distinct brands with different strategic purposes, content types, and audience journeys.</p>
+
+            <h3>Strategic Framework</h3>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Doctor Brand (@dr_joseph_field)</div>
+                    <div class="card-content">
+                        <p><strong>Primary Purpose:</strong> Demand Creation</p>
+                        <p><strong>Audience:</strong> High-intent patients researching cosmetic dentistry, industry peers, referral sources</p>
+                        <p><strong>Messaging:</strong> Authority, expertise, philosophy, education, credentials, thought leadership</p>
+                        <p><strong>Content Types:</strong> Educational videos, case commentary, speaking highlights, credentialing explanation, patient education, Q&A, industry insights</p>
+                        <p><strong>Tone:</strong> Authoritative, educational, confident, sophisticated</p>
+                        <p><strong>Platforms:</strong> YouTube (primary), Instagram (@dr_joseph_field), LinkedIn, blog on drjosephfield.com, Catapult Education content</p>
+                        <p><strong>Conversion Mechanism:</strong> "I trust this doctor's credentials and approach" → link to practice site for booking</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Practice Brand (@peninsulacosmeticdentistry)</div>
+                    <div class="card-content">
+                        <p><strong>Primary Purpose:</strong> Demand Conversion</p>
+                        <p><strong>Audience:</strong> Qualified prospects ready to book, existing patients, local community, insurance/referral sources</p>
+                        <p><strong>Messaging:</strong> Social proof, convenience, outcomes, patient success stories, smile gallery, service options, financing</p>
+                        <p><strong>Content Types:</strong> Before/afters, patient testimonials, service pages, location info, financing options, gallery highlights, community events</p>
+                        <p><strong>Tone:</strong> Approachable, friendly, results-focused, community-oriented</p>
+                        <p><strong>Platforms:</strong> Instagram (primary), Facebook, TikTok, website, Google Business, Yelp</p>
+                        <p><strong>Conversion Mechanism:</strong> "I see results, patients are happy, I trust them to book" → booking link, consultation CTA</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Content Mapping: What Goes Where</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Content Type</th>
+                        <th>Doctor Brand Owner</th>
+                        <th>Practice Brand Owner</th>
+                        <th>Rationale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hero Case Videos (doctor commentary)</td>
+                        <td>YouTube, @dr_joseph_field</td>
+                        <td>Clip to Instagram Reels</td>
+                        <td>Doctor authority + practice conversion funnel</td>
+                    </tr>
+                    <tr>
+                        <td>Before/After Carousel Posts</td>
+                        <td>Cross-post with doctor link</td>
+                        <td>Primary: @peninsulacosmeticdentistry</td>
+                        <td>Practice owns conversion, doctor adds authority</td>
+                    </tr>
+                    <tr>
+                        <td>Educational Videos (veneers 101, implants explained)</td>
+                        <td>YouTube, @dr_joseph_field</td>
+                        <td>Link/share on practice accounts</td>
+                        <td>Doctor drives awareness and demand</td>
+                    </tr>
+                    <tr>
+                        <td>Patient Testimonials (video clips)</td>
+                        <td>Clip to YouTube</td>
+                        <td>Primary: Instagram, TikTok, Facebook</td>
+                        <td>Social proof drives conversion</td>
+                    </tr>
+                    <tr>
+                        <td>Smile Gallery/Portfolio</td>
+                        <td>Link from doctor site</td>
+                        <td>Primary: Practice website, Instagram</td>
+                        <td>Practice owns conversion evidence</td>
+                    </tr>
+                    <tr>
+                        <td>Speaking/Teaching Content</td>
+                        <td>YouTube, @dr_joseph_field</td>
+                        <td>Link from practice site</td>
+                        <td>Doctor establishes authority</td>
+                    </tr>
+                    <tr>
+                        <td>Blog Articles (SEO-focused, educational)</td>
+                        <td>drjosephfield.com (long-form)</td>
+                        <td>pccdsmiles.com (service-focused)</td>
+                        <td>Doctor owns awareness/education; practice owns local/service info</td>
+                    </tr>
+                    <tr>
+                        <td>Patient Success Metrics & Community</td>
+                        <td>Mentions in blogs</td>
+                        <td>Primary: Instagram, Facebook, local listings</td>
+                        <td>Practice builds community trust</td>
+                    </tr>
+                    <tr>
+                        <td>Smile Test Drive & DSD Explanation</td>
+                        <td>Educational video on YouTube</td>
+                        <td>Primary: Service page, Instagram, practice site</td>
+                        <td>Doctor explains why; practice drives adoption</td>
+                    </tr>
+                    <tr>
+                        <td>Location/Logistics/Hours</td>
+                        <td>N/A</td>
+                        <td>Primary: Practice site, Google, Facebook</td>
+                        <td>Practice owns local conversion</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>The Handoff: From Demand Creation to Demand Conversion</h3>
+
+            <p><strong>Doctor Brand → Practice Brand Funnel:</strong></p>
+            <ol>
+                <li><strong>Awareness:</strong> Patient discovers @dr_joseph_field YouTube video on "Porcelain Veneers: What to Expect" (educational content, DSD explanation, before/after commentary)</li>
+                <li><strong>Authority Validation:</strong> Patient sees Dr. Field's DABOI/ID credentials, USC faculty status, 20+ year experience, speaking history. Video links to biography on drjosephfield.com</li>
+                <li><strong>Practice Discovery:</strong> Patient clicks through to pccdsmiles.com, sees DSD Certified badge, patient gallery (86 Yelp photos), 4.9 star rating, location/hours</li>
+                <li><strong>Social Proof:</strong> Patient browses @peninsulacosmeticdentistry Instagram, reads patient testimonials, sees before/afters, verifies Yelp reviews (210 reviews, 4.9 stars)</li>
+                <li><strong>Conversion:</strong> Patient books consultation via practice site or calls directly</li>
+            </ol>
+
+            <p>Both brands amplify the other. Doctor brand creates demand; practice brand converts it.</p>
+
+            <h3>Content Cross-Promotion Strategy</h3>
+
+            <ul>
+                <li><strong>Doctor Site (drjosephfield.com):</strong> Link to practice website in bio, footer, and key articles. Blog posts link to relevant service pages on practice site.</li>
+                <li><strong>Practice Site (pccdsmiles.com):</strong> Embed YouTube videos from @dr_joseph_field. Link to doctor's credentials page. Include blog excerpts from drjosephfield.com.</li>
+                <li><strong>Doctor Instagram (@dr_joseph_field):</strong> Bio link to drjosephfield.com. Stories link to practice website for booking. Captions include practice location.</li>
+                <li><strong>Practice Instagram (@peninsulacosmeticdentistry):</strong> Cross-promote @dr_joseph_field in captions ("Watch Dr. Field's commentary on this case"). Stories link to doctor's YouTube channel.</li>
+                <li><strong>YouTube:</strong> Dr. Field channel includes practice branding in channel header, video descriptions link to pccdsmiles.com and practice social accounts. Practice social embeds relevant YouTube videos.</li>
+            </ul>
+
+        </div>
+
+        <!-- SECTION 4: WEBSITE CONTENT RECOMMENDATIONS -->
+        <div class="section" id="website-content">
+            <h2>Website Content Recommendations</h2>
+
+            <p>Below are specific pages and content enhancements for both drjosephfield.com (doctor brand, demand creation) and pccdsmiles.com (practice brand, demand conversion).</p>
+
+            <h3>Dr. Joseph Field Website (drjosephfield.com)</h3>
+
+            <p><strong>Purpose:</strong> Establish doctor authority, educate patients, drive interest in cosmetic dentistry, and hand off to practice website for booking.</p>
+
+            <h4>Pages to Create/Expand</h4>
+
+            <div class="card">
+                <div class="card-title">Credentials & Authority Page (NEW)</div>
+                <div class="card-content">
+                    <p><strong>Content:</strong> Detailed breakdown of Dr. Field's credentials, affiliations, and recognition.</p>
+                    <ul>
+                        <li>DABOI/ID Diplomate (highest credential in implant dentistry)—explain what this means and why it matters</li>
+                        <li>USC School of Dentistry education, awards, and previous president role</li>
+                        <li>Current USC teaching faculty status (full mouth rehabilitation, IV sedation)</li>
+                        <li>Media features (NewBeauty, Authority Magazine, Dentaltown podcast, VeneerConsult)</li>
+                        <li>Speaking engagements and professional involvement</li>
+                        <li>Catapult Education role (educator/reviewer)</li>
+                        <li>20+ years Bay Area cosmetic dentistry experience</li>
+                    </ul>
+                    <p><strong>Why:</strong> High-intent patients want proof of expertise. This page becomes anchor content for SEO ("cosmetic dentist credentials," "DABOI/ID," "USC faculty").</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Expanded Blog (2-3 articles/month)</div>
+                <div class="card-content">
+                    <p><strong>Current State:</strong> 1-2 sparse articles visible.</p>
+                    <p><strong>Recommendation:</strong> Establish consistent publishing schedule covering:</p>
+                    <ul>
+                        <li>Cosmetic philosophy & case selection: "How I Choose Cosmetic Cases," "The Art & Science of Smile Design"</li>
+                        <li>Procedural deep-dives: "Porcelain Veneers: Prep vs. No-Prep," "Smile Makeover Consultation," "Implant Success Factors"</li>
+                        <li>Patient concerns: "Veneer Longevity & Cost," "Implant Recovery Expectations," "Smile Design for Your Face Shape"</li>
+                        <li>Thought leadership: "Digital Smile Design Explained," "Why Cosmetic Dentistry Requires Expertise," "The Psychology of Smile Confidence"</li>
+                        <li>Case studies: "Complex Full Mouth Restoration," "Smile Makeover in 6 Weeks," "Implant Solution for Missing Teeth"</li>
+                    </ul>
+                    <p><strong>Format:</strong> 1,500-2,500 words per article. Include before/afters when relevant, video embeds, internal links to practice site services.</p>
+                    <p><strong>Why:</strong> Blog drives organic search traffic for high-intent keywords. Establishes thought leadership and educates prospects.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Expanded Portfolio with Case Commentary (ENHANCE)</div>
+                <div class="card-content">
+                    <p><strong>Current State:</strong> Portfolio likely exists but minimal case-level commentary.</p>
+                    <p><strong>Recommendation:</strong> Add detailed case notes to 20-30 signature cases covering:</p>
+                    <ul>
+                        <li>Patient goals and smile design approach</li>
+                        <li>Technical decisions (veneers vs. bonding, prep method, material choice)</li>
+                        <li>Challenges solved and clinical reasoning</li>
+                        <li>Before/after high-res images</li>
+                        <li>Patient testimonial or quote (if available)</li>
+                        <li>Time to completion and follow-up results</li>
+                    </ul>
+                    <p><strong>Why:</strong> Demonstrates depth of expertise. Helps prospects understand Dr. Field's case selection and philosophy.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Speaking & Media Page (ENHANCE)</div>
+                <div class="card-content">
+                    <p><strong>Current State:</strong> Page likely exists but may be thin on detail and links.</p>
+                    <p><strong>Recommendation:</strong></p>
+                    <ul>
+                        <li>Embed YouTube links to Dentaltown podcast appearance with Howard Farran</li>
+                        <li>Link to NewBeauty and Authority Magazine features with author byline and publication date</li>
+                        <li>List upcoming speaking engagements and continuing education teaching (if public)</li>
+                        <li>Link to any recorded webinars or presentations (Catapult Education content)</li>
+                        <li>News/PR section with recent features and media mentions</li>
+                    </ul>
+                    <p><strong>Why:</strong> Reinforces authority and makes credentials tangible (patients can listen/read directly).</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Service Pages with Doctor Philosophy (ENHANCE)</div>
+                <div class="card-content">
+                    <p><strong>Current State:</strong> Service pages exist (porcelain veneers, no-prep veneers, cosmetic bonding, smile makeovers).</p>
+                    <p><strong>Recommendation:</strong> Each service page should include:</p>
+                    <ul>
+                        <li>Dr. Field's approach and philosophy for that service</li>
+                        <li>Before/after gallery specific to that service (3-5 cases)</li>
+                        <li>Video walkthrough or explanation (embedded from YouTube)</li>
+                        <li>Patient success metrics (satisfaction, longevity, patient feedback themes)</li>
+                        <li>Why Dr. Field's approach is different/superior</li>
+                        <li>Link to practice site for booking/consultation</li>
+                    </ul>
+                    <p><strong>Why:</strong> Gives doctor voice to clinical explanations. Drives awareness and differentiates from competitors.</p>
+                </div>
+            </div>
+
+            <h3>PCCD Practice Website (pccdsmiles.com)</h3>
+
+            <p><strong>Purpose:</strong> Convert qualified prospects into booked consultations. Focus on social proof, service clarity, convenience, and local trust.</p>
+
+            <h4>Pages to Create/Expand</h4>
+
+            <div class="card">
+                <div class="card-title">Enhanced Service Pages for Top 3 Priorities</div>
+                <div class="card-content">
+                    <p><strong>Pages:</strong> Porcelain Veneers, Dental Implants, Smile Makeovers</p>
+                    <p><strong>Each page should include:</strong></p>
+                    <ul>
+                        <li>Hero section: High-quality before/after image with value proposition ("Smile Confidence in 2 Weeks")</li>
+                        <li>Patient video testimonial (30-60 seconds) embedded at top</li>
+                        <li>Explanation of the procedure with step-by-step visuals or video walkthrough</li>
+                        <li>Before/after gallery specific to that service (8-12 cases)</li>
+                        <li>What to expect timeline (consultation → procedure → results → follow-up)</li>
+                        <li>Cost/investment range and financing options</li>
+                        <li>FAQ addressing key objections (recovery, risks, longevity, pain, cost)</li>
+                        <li>Patient success metrics ("94% report smile confidence boost," "average lifespan 15 years," etc.)</li>
+                        <li>Link to Dr. Field's authority content on same topic</li>
+                        <li>Clear CTA: "Book Smile Consultation," "Schedule Smile Test Drive"</li>
+                    </ul>
+                    <p><strong>Why:</strong> High-consideration cosmetic patients need detailed education and reassurance before booking. These pages reduce objection friction and increase conversion.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Patient Journey Pages (NEW)</div>
+                <div class="card-content">
+                    <p><strong>Pages:</strong></p>
+                    <ul>
+                        <li>"What to Expect: Your First Consultation"</li>
+                        <li>"From Start to Smile: Your Veneers Timeline"</li>
+                        <li>"Implant Journey: From Tooth Loss to Smile Confidence"</li>
+                        <li>"Your Smile Makeover Experience" (includes Smile Test Drive explanation)</li>
+                    </ul>
+                    <p><strong>Content:</strong> Step-by-step walkthrough with video clips, timelines, photos, and patient testimonials at each stage. Address common concerns at each stage (cost, recovery, pain, aesthetic worries).</p>
+                    <p><strong>Why:</strong> Reduces consultation anxiety. Converts fence-sitters by showing clear process and positive patient outcomes.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">"Why Choose PCCD" Authority Page (NEW)</div>
+                <div class="card-content">
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Digital Smile Design (DSD) Certified—only practice in Bay Area: explain what DSD is, why it matters, how it improves outcomes</li>
+                        <li>Dr. Field's credentials: DABOI/ID Diplomate, USC faculty, 20+ years</li>
+                        <li>Proven outcomes: 4.9 stars, 510 reviews, 86 Yelp photos, percentage of patients who report satisfaction</li>
+                        <li>Approach to cosmetic dentistry: case selection, smile design philosophy, technology used, patient-centered process</li>
+                        <li>Unique offerings: Smile Test Drive, Digital Smile Design consultation, multiple location convenience, IV sedation option</li>
+                        <li>Comparison table (optional): PCCD approach vs. typical cosmetic practices</li>
+                    </ul>
+                    <p><strong>Why:</strong> Premium patients want clear differentiation. This page justifies premium pricing and builds confidence in choice.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Premium Positioning & Investment Page (NEW)</div>
+                <div class="card-content">
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>"Investment in Your Smile": Frame cosmetic dentistry as investment in confidence, career, relationships, self-esteem</li>
+                        <li>Financing options: Clear explanation of payment plans, financing partners, no-interest options</li>
+                        <li>Value positioning: Why premium costs reflect expertise, materials, outcomes, personalized approach</li>
+                        <li>Patient quotes on ROI: Testimonials addressing cost concerns ("Best money I've spent," "Worth every penny," "Changed my life")</li>
+                        <li>Case studies showing complex cases and investment (full mouth restoration, multiple implants, full smile makeover)</li>
+                    </ul>
+                    <p><strong>Why:</strong> Top 10% patients are price-insensitive but value-conscious. This page normalizes premium pricing and emphasizes ROI.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Blog Content Strategy (ENHANCE)</div>
+                <div class="card-content">
+                    <p><strong>Current State:</strong> Blog likely exists but may be thin on practice-specific content.</p>
+                    <p><strong>Recommendation:</strong> 1-2 posts/month covering:</p>
+                    <ul>
+                        <li>Local content: "Cosmetic Dentistry Trends in Silicon Valley," "Meet Our Team," "Community Events & Sponsorships"</li>
+                        <li>Objection-handling: "Veneers vs. Bonding: Which is Right for You?", "Implant vs. Bridge: Weighing Your Options", "Smile Makeover Investment ROI"</li>
+                        <li>Service explanations: "Digital Smile Design Explained," "What is the Smile Test Drive?", "No-Prep Veneers: Benefits & Limitations"</li>
+                        <li>Patient stories: "Patient Spotlight" featuring real transformations and testimonials (with consent)</li>
+                        <li>Care & maintenance: "How to Care for Your Veneers," "Implant Care Guide," "Smile Maintenance Tips"</li>
+                    </ul>
+                    <p><strong>Why:</strong> Practice blog focuses on local trust, service clarity, and conversion objection-handling. Doctor blog focuses on authority and awareness.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Video Integration Across All Pages (ENHANCE)</div>
+                <div class="card-content">
+                    <p><strong>Current State:</strong> Website may have limited video content.</p>
+                    <p><strong>Recommendation:</strong></p>
+                    <ul>
+                        <li>Homepage: 30-second practice overview or hero patient transformation</li>
+                        <li>Service pages: Procedure walkthrough or Dr. Field commentary video</li>
+                        <li>Patient testimonials: 2-3 video clips (30-60 seconds each) from real patients</li>
+                        <li>Smile Gallery: Option to watch before/after transformations with commentary</li>
+                        <li>Consultation page: "What to expect" video walkthrough</li>
+                    </ul>
+                    <p><strong>Why:</strong> Video increases engagement, trust, and conversion. Cosmetic patients want to see movement and hear real patient voices.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECTION 5: 3-MONTH CONTENT CALENDAR -->
+        <div class="section" id="content-calendar">
+            <h2>3-Month Content Calendar: April—June 2026</h2>
+
+            <p>A month-by-month editorial calendar with weekly posting schedule, content types, strategic goals, and UGC capture requirements. Each month builds on prior messaging and reinforces strategic themes.</p>
+
+            <h3>Calendar Overview</h3>
+
+            <div class="grid-3">
+                <div class="stats-box">
+                    <div class="number">April</div>
+                    <div class="label">Awareness & Transformation</div>
+                </div>
+                <div class="stats-box">
+                    <div class="number">May</div>
+                    <div class="label">Decision & Trust</div>
+                </div>
+                <div class="stats-box">
+                    <div class="number">June</div>
+                    <div class="label">Premium Positioning</div>
+                </div>
+            </div>
+
+            <h3>April 2026: Awareness & Transformation</h3>
+            <p><strong>Theme:</strong> Drive awareness of cosmetic dentistry outcomes through before/after transformations, patient storytelling, and educational content on smile design. Position Dr. Field as authority.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Publish Date</th>
+                            <th>Content Title</th>
+                            <th>Content Type</th>
+                            <th>Platform</th>
+                            <th>Brand Owner</th>
+                            <th>Strategic Goal</th>
+                            <th>Hook/Angle</th>
+                            <th>UGC Needed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Apr 6</td>
+                            <td>Hero Case: Full Smile Makeover Transformation</td>
+                            <td>Before/After Post + Carousel (5-7 slides)</td>
+                            <td>Instagram</td>
+                            <td>Practice</td>
+                            <td>Awareness, Desire</td>
+                            <td>"This patient's confidence transformed in 4 weeks"</td>
+                            <td>High-res before/afters, patient quote</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Apr 8</td>
+                            <td>Hero Case: Doctor Commentary Video</td>
+                            <td>Video (YouTube + Reels)</td>
+                            <td>YouTube, Instagram</td>
+                            <td>Doctor</td>
+                            <td>Authority, Education</td>
+                            <td>Dr. Field walks through smile design decisions for same case</td>
+                            <td>Doctor talking head video (2-3 min)</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Apr 10</td>
+                            <td>Digital Smile Design 101</td>
+                            <td>Blog Article (1,500 words)</td>
+                            <td>Practice Blog</td>
+                            <td>Practice</td>
+                            <td>Education, SEO</td>
+                            <td>"What is DSD and why it matters for your smile"</td>
+                            <td>Case examples, infographic (optional)</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Apr 13</td>
+                            <td>Porcelain Veneers: Prep vs. No-Prep</td>
+                            <td>Instagram Post (Carousel)</td>
+                            <td>Instagram</td>
+                            <td>Practice</td>
+                            <td>Education, Objection-Handling</td>
+                            <td>Visual comparison: Which is right for you?</td>
+                            <td>Before/afters of prep and no-prep cases</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Apr 15</td>
+                            <td>Patient Testimonial Video Clip #1</td>
+                            <td>Video (Reels + TikTok)</td>
+                            <td>Instagram, TikTok, Facebook</td>
+                            <td>Practice</td>
+                            <td>Trust, Social Proof</td>
+                            <td>Patient talks about smile confidence boost (30 sec)</td>
+                            <td>Patient video interview (1-2 min raw)</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Apr 17</td>
+                            <td>Smile Test Drive Experience</td>
+                            <td>Blog Article (1,200 words)</td>
+                            <td>Doctor Blog</td>
+                            <td>Doctor</td>
+                            <td>Education, Differentiation</td>
+                            <td>"How I use digital smile design to help patients see their future smile"</td>
+                            <td>Process photos, patient story (if available)</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Apr 20</td>
+                            <td>Implant Success Story</td>
+                            <td>Before/After Post + Video</td>
+                            <td>Instagram</td>
+                            <td>Practice</td>
+                            <td>Awareness, Trust</td>
+                            <td>"From missing tooth to confident smile" (patient journey video)</td>
+                            <td>Before/after images, patient testimonial quote</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Apr 22</td>
+                            <td>Dr. Field's Cosmetic Philosophy</td>
+                            <td>Video (YouTube)</td>
+                            <td>YouTube</td>
+                            <td>Doctor</td>
+                            <td>Authority, Brand Differentiation</td>
+                            <td>"How I approach cosmetic case selection and smile design"</td>
+                            <td>Doctor talking head video (3-4 min)</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Apr 24</td>
+                            <td>Smile Gallery Refresh Post</td>
+                            <td>Instagram Post (Grid)</td>
+                            <td>Instagram</td>
+                            <td>Practice</td>
+                            <td>Social Proof</td>
+                            <td>Highlight 6-9 of our best before/afters from this month</td>
+                            <td>None (repurposed)</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Apr 27</td>
+                            <td>Recovery & Results Timeline</td>
+                            <td>Blog Article (1,000 words)</td>
+                            <td>Practice Blog</td>
+                            <td>Practice</td>
+                            <td>Objection-Handling, Education</td>
+                            <td>"What to expect after veneers, implants, and smile makeovers"</td>
+                            <td>Timeline graphics, patient testimonials on recovery</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Apr 29</td>
+                            <td>Behind-the-Scenes Day in Life</td>
+                            <td>Instagram Stories/Reels Series</td>
+                            <td>Instagram Stories</td>
+                            <td>Practice</td>
+                            <td>Community, Familiarity</td>
+                            <td>Quick snippets of consultation, team, office culture</td>
+                            <td>Team photos/videos (informal)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>May 2026: Decision & Trust</h3>
+            <p><strong>Theme:</strong> Build trust through patient success stories, credibility markers (reviews, media features), and objection-handling content. Position Dr. Field's credentials and PCCD's proven outcomes.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Publish Date</th>
+                            <th>Content Title</th>
+                            <th>Content Type</th>
+                            <th>Platform</th>
+                            <th>Brand Owner</th>
+                            <th>Strategic Goal</th>
+                            <th>Hook/Angle</th>
+                            <th>UGC Needed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>May 4</td>
+                            <td>Hero Case: Complex Full Mouth Restoration</td>
+                            <td>Before/After + Video Commentary</td>
+                            <td>Instagram + YouTube</td>
+                            <td>Doctor/Practice</td>
+                            <td>Trust, Authority</td>
+                            <td>"How DABOI/ID expertise transforms complex smiles"</td>
+                            <td>High-res before/afters, doctor commentary video (3 min)</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>May 6</td>
+                            <td>Patient Spotlight: "My Smile Changed My Career"</td>
+                            <td>Blog Article + Video Testimonial</td>
+                            <td>Practice Blog + Instagram</td>
+                            <td>Practice</td>
+                            <td>Trust, Desire</td>
+                            <td>Real patient story on confidence impact</td>
+                            <td>Patient interview video (2-3 min), written quote</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>May 8</td>
+                            <td>Dr. Field's Media Features Roundup</td>
+                            <td>Social Post + Blog</td>
+                            <td>Instagram + Doctor Blog</td>
+                            <td>Doctor</td>
+                            <td>Authority, Credibility</td>
+                            <td>"As featured in NewBeauty, Authority Magazine, Dentaltown Podcast"</td>
+                            <td>Links to media, quotable excerpts</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>May 11</td>
+                            <td>Veneers vs. Bonding Deep Dive</td>
+                            <td>Blog Article (1,500 words) + Video</td>
+                            <td>Doctor Blog + YouTube</td>
+                            <td>Doctor</td>
+                            <td>Education, Objection-Handling</td>
+                            <td>"Which is right for your smile? A clinical perspective"</td>
+                            <td>Case comparisons, doctor explanation video (4 min)</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>May 13</td>
+                            <td>Patient Testimonial Video Clip #2</td>
+                            <td>Video Reel (30-60 sec)</td>
+                            <td>Instagram, TikTok, Facebook</td>
+                            <td>Practice</td>
+                            <td>Trust, Social Proof</td>
+                            <td>Patient talks about consultation experience and results</td>
+                            <td>Patient video (1-2 min raw)</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>May 15</td>
+                            <td>Why PCCD Comparison Page Promotion</td>
+                            <td>Instagram Carousel + Blog Link</td>
+                            <td>Instagram</td>
+                            <td>Practice</td>
+                            <td>Premium Positioning</td>
+                            <td>"Here's why we stand out in cosmetic dentistry" (6-part carousel)</td>
+                            <td>Infographics comparing PCCD to typical practices</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>May 18</td>
+                            <td>DABOI/ID Diplomate Explained</td>
+                            <td>Video + Blog</td>
+                            <td>YouTube + Doctor Blog</td>
+                            <td>Doctor</td>
+                            <td>Authority, Education</td>
+                            <td>"What does DABOI/ID really mean and why it matters"</td>
+                            <td>Doctor explanation video (3-4 min)</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>May 20</td>
+                            <td>Financing Options & Investment Frame</td>
+                            <td>Instagram Post + Blog</td>
+                            <td>Instagram + Practice Blog</td>
+                            <td>Practice</td>
+                            <td>Conversion, Objection-Handling</td>
+                            <td>"Invest in your smile: Flexible financing available"</td>
+                            <td>Financing partner logos, testimonials on value</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>May 22</td>
+                            <td>Patient Spotlight #2: Confidence Story</td>
+                            <td>Instagram Post + Blog</td>
+                            <td>Instagram + Practice Blog</td>
+                            <td>Practice</td>
+                            <td>Trust, Desire</td>
+                            <td>Another real patient journey with before/after</td>
+                            <td>Patient story interview, before/afters</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>May 25</td>
+                            <td>USC Faculty Highlight</td>
+                            <td>Blog Article + Social Post</td>
+                            <td>Doctor Blog + Instagram</td>
+                            <td>Doctor</td>
+                            <td>Authority, Credibility</td>
+                            <td>"Teaching the next generation of cosmetic dentists at USC"</td>
+                            <td>USC affiliation content, teaching highlights</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>May 27</td>
+                            <td>Patient Video Reviews Compilation</td>
+                            <td>Video (Reels series)</td>
+                            <td>Instagram, TikTok</td>
+                            <td>Practice</td>
+                            <td>Trust, Social Proof</td>
+                            <td>3-4 short video clips of patient testimonials (30 sec each)</td>
+                            <td>Video testimonials (compiled from UGC)</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>May 29</td>
+                            <td>Review Highlight & Community Trust</td>
+                            <td>Instagram Post</td>
+                            <td>Instagram</td>
+                            <td>Practice</td>
+                            <td>Social Proof</td>
+                            <td>"4.9 stars, 510 reviews—here's what our patients say"</td>
+                            <td>Quotes from top Yelp/Birdeye reviews</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>June 2026: Premium Positioning</h3>
+            <p><strong>Theme:</strong> Solidify premium positioning through lifestyle integration, investment ROI, and complex case showcase. Drive conversions through premium patient targeting and exclusivity positioning.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Publish Date</th>
+                            <th>Content Title</th>
+                            <th>Content Type</th>
+                            <th>Platform</th>
+                            <th>Brand Owner</th>
+                            <th>Strategic Goal</th>
+                            <th>Hook/Angle</th>
+                            <th>UGC Needed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Jun 1</td>
+                            <td>Hero Case: Executive Smile Makeover</td>
+                            <td>Before/After + Video Story</td>
+                            <td>Instagram + YouTube</td>
+                            <td>Practice</td>
+                            <td>Premium Positioning, Aspiration</td>
+                            <td>"This C-suite executive's confidence transformation" (subtle lifestyle angle)</td>
+                            <td>High-res before/afters, testimonial quote</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Jun 3</td>
+                            <td>Silicon Valley Success Story</td>
+                            <td>Blog Article (1,500 words)</td>
+                            <td>Practice Blog</td>
+                            <td>Practice</td>
+                            <td>Premium Positioning, Local Relevance</td>
+                            <td>"Why Bay Area professionals choose PCCD for smile transformations"</td>
+                            <td>Patient testimonials, lifestyle angle</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Jun 5</td>
+                            <td>Dr. Field Speaking Highlight Reel</td>
+                            <td>Video (YouTube Shorts + Reels)</td>
+                            <td>YouTube, Instagram, TikTok</td>
+                            <td>Doctor</td>
+                            <td>Authority, Credibility</td>
+                            <td>Quick clips from Dr. Field speaking/teaching (total 60 sec)</td>
+                            <td>Speaking engagement footage (if available)</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jun 8</td>
+                            <td>Full Mouth Restoration Case Study</td>
+                            <td>Blog Article (2,000 words) + Video</td>
+                            <td>Doctor Blog + YouTube</td>
+                            <td>Doctor</td>
+                            <td>Authority, Premium Positioning</td>
+                            <td>"Complex implant and cosmetic rehabilitation case: The clinical journey"</td>
+                            <td>Before/afters, doctor commentary video (5 min), treatment plan graphics</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jun 10</td>
+                            <td>Patient Testimonial Video Clip #3</td>
+                            <td>Video Reel (30-60 sec)</td>
+                            <td>Instagram, TikTok, Facebook</td>
+                            <td>Practice</td>
+                            <td>Trust, Social Proof</td>
+                            <td>Patient discusses investment and ROI of smile transformation</td>
+                            <td>Patient video (1-2 min raw)</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jun 12</td>
+                            <td>Investment in Your Smile Guide</td>
+                            <td>Blog Article (1,200 words) + Social Posts</td>
+                            <td>Practice Blog + Instagram Carousel</td>
+                            <td>Practice</td>
+                            <td>Premium Positioning, Objection-Handling</td>
+                            <td>"Why premium cosmetic dentistry delivers ROI in confidence and success"</td>
+                            <td>Patient testimonials on value, financing options</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Jun 15</td>
+                            <td>20+ Years of Excellence Retrospective</td>
+                            <td>Instagram Post + Blog</td>
+                            <td>Instagram + Practice Blog</td>
+                            <td>Practice</td>
+                            <td>Trust, Authority</td>
+                            <td>"Celebrating 40+ years of PCCD: A legacy of smile transformations"</td>
+                            <td>Historical before/afters, patient stories from different decades (if available)</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Jun 17</td>
+                            <td>Catapult Education Educator Profile</td>
+                            <td>Video + Blog</td>
+                            <td>YouTube + Doctor Blog</td>
+                            <td>Doctor</td>
+                            <td>Authority, Thought Leadership</td>
+                            <td>"How I educate and review cosmetic dentistry with Catapult Education"</td>
+                            <td>Doctor explanation video (3-4 min), Catapult Education highlights</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Jun 19</td>
+                            <td>Patient Spotlight #3: Transformation Impact</td>
+                            <td>Instagram Post + Blog</td>
+                            <td>Instagram + Practice Blog</td>
+                            <td>Practice</td>
+                            <td>Premium Positioning, Aspiration</td>
+                            <td>Real patient story emphasizing confidence and life impact</td>
+                            <td>Patient interview, before/afters, lifestyle angle</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Jun 22</td>
+                            <td>DSD Certification & Competitive Advantage</td>
+                            <td>Blog Article (1,500 words)</td>
+                            <td>Practice Blog</td>
+                            <td>Practice</td>
+                            <td>Premium Positioning, Differentiation</td>
+                            <td>"The only DSD certified practice in Bay Area—here's why it matters"</td>
+                            <td>DSD process graphics, case examples</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Jun 24</td>
+                            <td>Behind-the-Scenes Technology & Excellence</td>
+                            <td>Instagram Reels Series</td>
+                            <td>Instagram, TikTok</td>
+                            <td>Practice</td>
+                            <td>Premium Positioning</td>
+                            <td>Quick clips of CEREC technology, DSD consultation, lab partnerships</td>
+                            <td>Office/technology photos/videos</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Jun 26</td>
+                            <td>Mid-Year Recap & Patient Impact Stories</td>
+                            <td>Instagram Post + Video Compilation</td>
+                            <td>Instagram + YouTube</td>
+                            <td>Practice</td>
+                            <td>Trust, Community, Conversion</td>
+                            <td>"The smiles we've transformed in the first half of 2026"</td>
+                            <td>Compilation of before/afters and patient testimonials from Q1-Q2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- SECTION 6: HERO CASE CONTENT SYSTEM -->
+        <div class="section" id="hero-case">
+            <h2>Hero Case Content System</h2>
+
+            <p>A repeatable, efficient system for turning one outstanding patient transformation into 8-12 pieces of multi-channel content. One hero case (monthly) yields: before/after post, carousel, doctor commentary video, blog article, patient testimonial clip, email content, and multiple repurposed assets.</p>
+
+            <h3>Why This Matters</h3>
+
+            <p>Premium cosmetic patients are high-consideration buyers. They research extensively, seek multiple forms of validation, and want to see outcomes at scale across different channels. One exceptional transformation documented comprehensively creates:</p>
+            <ul>
+                <li><strong>Awareness:</strong> YouTube video of doctor explaining clinical decisions reaches new prospects</li>
+                <li><strong>Social proof:</strong> Before/after post and carousel on Instagram drives engagement and credibility</li>
+                <li><strong>Trust:</strong> Patient testimonial video shows real emotional transformation</li>
+                <li><strong>Authority:</strong> Blog article establishes doctor's approach and case selection philosophy</li>
+                <li><strong>Education:</strong> Multiple pieces address objections and educate prospects on smile design process</li>
+            </ul>
+
+            <h3>Step-by-Step Hero Case Workflow</h3>
+
+            <h4>Step 1: Case Selection (Ongoing)</h4>
+            <p>Monthly, identify one "hero case" that meets criteria:</p>
+            <ul>
+                <li>Exceptional before/after transformation (dramatic improvement, difficult case successfully solved)</li>
+                <li>Patient willing to participate in content (testimonial, before/after photo usage, etc.)</li>
+                <li>Completed within last 3-6 months (fresh results, patient still engaged)</li>
+                <li>Fits monthly theme (April = awareness/transformation, May = trust/decision, June = premium positioning)</li>
+                <li>Aligns with top 3 priorities (veneers, implants, or smile makeover preferred)</li>
+            </ul>
+
+            <h4>Step 2: Patient Interview & Capture (Week 1 of content month)</h4>
+            <p><strong>Timing:</strong> Schedule 30-60 minutes with patient during follow-up appointment or dedicated content session.</p>
+
+            <p><strong>Content Capture Checklist:</strong></p>
+            <ul>
+                <li><input type="checkbox"> High-resolution before/after photos (at least 5-6 angles: full smile, close-up, 3/4 view, open smile, profile, lifestyle)</li>
+                <li><input type="checkbox"> Patient testimonial video (1.5-2 minutes): Ask open-ended questions from UGC prompts (Section 7)</li>
+                <li><input type="checkbox"> Patient story notes: Written answers to prompts ("What was holding you back?" "How do you feel now?" "What surprised you?")</li>
+                <li><input type="checkbox"> Patient consent & usage rights signed (for photos, testimonial, name/initials in content)</li>
+            </ul>
+
+            <p><strong>Doctor Commentary Preparation:</strong></p>
+            <ul>
+                <li><input type="checkbox"> Dr. Field reviews before/afters and patient file before recording</li>
+                <li><input type="checkbox"> Identify 3-5 key clinical talking points: "Why this case was complex," "Our approach," "Design decisions," "Results and longevity"</li>
+                <li><input type="checkbox"> Write 1-2 sentence summary of clinical narrative</li>
+            </ul>
+
+            <h4>Step 3: Doctor Commentary Video Recording (Week 1)</h4>
+            <p><strong>Format:</strong> 2-4 minute talking head video with before/after photos in background or displayed during video.</p>
+
+            <p><strong>Recording Setup:</strong></p>
+            <ul>
+                <li>Professional background (clinical setting or branded backdrop)</li>
+                <li>Good lighting (natural or softbox)</li>
+                <li>High-quality audio (lavalier mic or external mic)</li>
+                <li>Phone or camera on tripod or handheld (stabilized)</li>
+            </ul>
+
+            <p><strong>Doctor Commentary Script Prompts:</strong></p>
+            <div class="card">
+                <div class="card-content">
+                    <p>"Today I want to show you a transformation we're really proud of. This patient came to us with [CLINICAL CHALLENGE]. Our approach was to [TREATMENT PLAN]. Here's what we achieved:"</p>
+                    <p>"What made this case interesting was [CLINICAL DETAIL]. We decided to [SPECIFIC DECISION] because [REASONING]."</p>
+                    <p>"The results speak for themselves. This patient now has [BENEFIT/OUTCOME]. If you have similar concerns, I'd love to discuss how we can help."</p>
+                    <p>"The beauty of [PROCEDURE/APPROACH] is that it's customizable to each patient's goals. This case is a great example of how personalization leads to exceptional outcomes."</p>
+                </div>
+            </div>
+
+            <p><strong>Video Editing:</strong> Cut down to 2-4 minutes for YouTube; create shorter 30-60 second clips for Instagram Reels/TikTok.</p>
+
+            <h4>Step 4: Content Production (Week 2)</h4>
+
+            <button class="collapsible" id="content-1">Before/After Social Media Post (Instagram Feed)</button>
+            <div class="content" id="content-1-body">
+                <p><strong>Format:</strong> Single image or 2-slide carousel with before/after side-by-side.</p>
+                <p><strong>Caption Hook:</strong> "This patient's confidence transformed in [TIMEFRAME]." or "From [CONCERN] to [OUTCOME]."</p>
+                <p><strong>Caption Body:</strong> 2-3 sentences describing transformation + patient quote (if available).</p>
+                <p><strong>Call-to-Action:</strong> "Ready to transform your smile? Book your smile consultation today. Link in bio."</p>
+                <p><strong>Hashtags:</strong> #SmileMakeover #VeneersDone #ImplantSmile #DentalTransformation #PeninsulaCosmetic #DSDDesign #SmileDesign #ConfidenceBoost #CosmeticDentistry</p>
+            </div>
+
+            <button class="collapsible" id="content-2">Before/After Carousel (5-7 slides)</button>
+            <div class="content" id="content-2-body">
+                <p><strong>Format:</strong> Multi-slide Instagram carousel telling transformation story.</p>
+                <p><strong>Slide Structure:</strong></p>
+                <ol>
+                    <li><strong>Hook:</strong> "Swipe to see this patient's transformation" (before image)</li>
+                    <li><strong>Before:</strong> Full view of starting point</li>
+                    <li><strong>Process:</strong> 1-2 images showing procedure or mid-point (if applicable)</li>
+                    <li><strong>After:</strong> Final result (full smile)</li>
+                    <li><strong>Close-up After:</strong> Detailed view of final result</li>
+                    <li><strong>Lifestyle/Confidence:</strong> Patient smiling naturally (if available)</li>
+                    <li><strong>CTA:</strong> "This could be your smile" + booking link</li>
+                </ol>
+                <p><strong>Copy:</strong> Conversational, benefits-focused. Include patient quote if available.</p>
+            </div>
+
+            <button class="collapsible" id="content-3">Blog Article (1,500-2,000 words)</button>
+            <div class="content" id="content-3-body">
+                <p><strong>Title Options:</strong></p>
+                <ul>
+                    <li>"Case Study: [Patient Name/Initials] Smile Makeover Transformation"</li>
+                    <li>"From [CONCERN] to [OUTCOME]: A Patient's Journey"</li>
+                    <li>"How [PROCEDURE] Transformed [Patient's] Smile and Confidence"</li>
+                </ul>
+                <p><strong>Structure:</strong></p>
+                <ol>
+                    <li><strong>Introduction (200 words):</strong> Hook with transformation outcome. Introduce patient's starting point and goals.</li>
+                    <li><strong>Patient's Story (300-400 words):</strong> What brought them in? What were they concerned about? What were their smile goals? Patient quote/testimonial integrated.</li>
+                    <li><strong>Clinical Approach (400-500 words):</strong> Dr. Field's assessment, treatment plan, why certain decisions were made, technology/materials used, timeline. Educational tone explaining clinical reasoning.</li>
+                    <li><strong>Results & Impact (300-400 words):</strong> Outcome, patient satisfaction, confidence improvement, before/after analysis. Patient testimonial and quote.</li>
+                    <li><strong>Key Takeaways (200-300 words):</strong> What this case demonstrates about cosmetic dentistry, smile design, personalization. Educational value for prospects with similar concerns.</li>
+                    <li><strong>Call-to-Action:</strong> "Ready to transform your smile? Book your digital smile design consultation."</li>
+                </ol>
+                <p><strong>Visual Integration:</strong> 3-5 high-quality before/after images embedded throughout article. Optional: infographic of clinical process or timeline.</p>
+                <p><strong>Keywords (SEO):</strong> Incorporate relevant terms based on procedure: "porcelain veneers Bay Area," "smile makeover consultation," "dental transformation," "cosmetic dentistry success," etc.</p>
+            </div>
+
+            <button class="collapsible" id="content-4">Patient Testimonial Video Clip (30-60 seconds)</button>
+            <div class="content" id="content-4-body">
+                <p><strong>Purpose:</strong> Authentic voice from real patient describing transformation, confidence boost, and/or experience.</p>
+                <p><strong>Recording:</strong> Edit down from longer patient interview (1.5-2 minutes) to punchy 30-60 second clip.</p>
+                <p><strong>Best Quotes to Extract:</strong></p>
+                <ul>
+                    <li>"I couldn't smile in photos before, now I smile all the time."</li>
+                    <li>"I feel so much more confident in meetings/social situations."</li>
+                    <li>"Dr. Field really listened to what I wanted and delivered."</li>
+                    <li>"It's the best investment I've made in myself."</li>
+                    <li>"The process was easier than I expected."</li>
+                </ul>
+                <p><strong>Captions/Text Overlay:</strong> Name, procedure/service (optional), key quote or benefit.</p>
+                <p><strong>Repurposing:</strong> Post as Instagram Reels, TikTok, Facebook Video, YouTube Shorts. Create 2-3 different cuts for different platforms.</p>
+            </div>
+
+            <button class="collapsible" id="content-5">Doctor Commentary Video (YouTube)</button>
+            <div class="content" id="content-5-body">
+                <p><strong>Format:</strong> 2-4 minute YouTube video with before/after images and doctor commentary.</p>
+                <p><strong>Title:</strong> "Case Study: [Patient's] Smile Makeover Transformation | Dr. Joseph Field"</p>
+                <p><strong>Description:</strong> Clinical summary + patient before/after images + link to practice website + booking CTA.</p>
+                <p><strong>Video Elements:</strong></p>
+                <ul>
+                    <li>Opening hook: "Today I want to show you a transformation we're really proud of."</li>
+                    <li>Before/after images displayed throughout</li>
+                    <li>Doctor explains clinical decisions, challenges, and approach</li>
+                    <li>Closing with CTA: "If you have similar concerns, book a consultation with us."</li>
+                </ul>
+                <p><strong>Tags:</strong> DSD, cosmetic dentistry, smile design, veneers, implants, smile makeover, transformation, etc.</p>
+            </div>
+
+            <button class="collapsible" id="content-6">Doctor Personal Brand Post (@dr_joseph_field)</button>
+            <div class="content" id="content-6-body">
+                <p><strong>Purpose:</strong> Showcase Dr. Field's clinical expertise and case selection philosophy.</p>
+                <p><strong>Format:</strong> Instagram post (carousel or single image) + detailed caption.</p>
+                <p><strong>Caption:</strong> Dr. Field writes personal commentary on this case, technical decisions, and patient outcome. More detailed and educational than practice account post.</p>
+                <p><strong>Example Caption:</strong> "This case exemplifies why case selection matters in cosmetic dentistry. When [PATIENT'S CONCERN], many practitioners would [TYPICAL APPROACH], but we chose [OUR APPROACH] because [REASONING]. The result is a smile that's not only beautiful but built to last. Swipe to see the transformation. #CosmeticDentistry #SmileDesign #DABOID #DSD"</p>
+            </div>
+
+        </div>
+
+        <!-- SECTION 7: UGC CAPTURE WORKFLOW -->
+        <div class="section" id="ugc-workflow">
+            <h2>UGC Capture Workflow</h2>
+
+            <p>A systematized in-office process for capturing authentic user-generated content (patient testimonials, before/afters, candid videos) to fuel monthly content production and maintain consistent, authentic social proof.</p>
+
+            <h3>Why UGC Matters</h3>
+
+            <p>Branded content created by the practice is important for messaging control and professionalism. But authentic patient content—testimonials, candid videos, real before/afters—drives higher trust and engagement. Patients trust other patients more than they trust marketing messages. A systematized UGC capture workflow ensures consistent flow of authentic, high-quality patient content.</p>
+
+            <h3>Team Roles & Responsibilities</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Responsibility</th>
+                        <th>Frequency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Front Desk / Patient Coordinator</td>
+                        <td>Initial patient qualification (identify good candidates), send pre-appointment reminder/invitation, brief patients on content request, facilitate scheduling of content session</td>
+                        <td>Ongoing</td>
+                    </tr>
+                    <tr>
+                        <td>Hygiene or Doctor (During Appointment)</td>
+                        <td>Ask patients informally about satisfaction and mention content opportunity, initiate conversation for verbal testimonial</td>
+                        <td>Every appointment (identify candidates)</td>
+                    </tr>
+                    <tr>
+                        <td>Designated Content Coordinator (or Practice Manager)</td>
+                        <td>Schedule dedicated content sessions (15-30 min), conduct interviews using prompts, record video/audio, photograph before/afters, capture consent forms, organize files, upload to shared folder</td>
+                        <td>2-3 times/week (4-6 UGC captures/month)</td>
+                    </tr>
+                    <tr>
+                        <td>Doctor (Optional)</td>
+                        <td>Appear in some patient testimonial videos (brief intro/outro), provide commentary on cases for additional credibility layer</td>
+                        <td>Monthly (1-2 times/month)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Patient Identification & Qualification</h3>
+
+            <p><strong>Ideal UGC Candidates:</strong></p>
+            <ul>
+                <li>Completed cosmetic procedure (veneers, implants, smile makeover) 1-6 months ago</li>
+                <li>Exceptional satisfaction and visible confidence boost</li>
+                <li>Willing to be photographed/videotaped (verbal or written consent)</li>
+                <li>Can articulate their transformation and experience</li>
+                <li>Comfortable on camera (or willing to try)</li>
+                <li>Professional appearance/setting preference (not required, but can help)</li>
+            </ul>
+
+            <p><strong>Disqualify If:</strong></p>
+            <ul>
+                <li>Patient expresses discomfort with being filmed or named</li>
+                <li>Patient has ongoing concerns or complications</li>
+                <li>Patient lacks clarity on their transformation experience</li>
+            </ul>
+
+            <h3>Patient Recruitment Script</h3>
+
+            <button class="collapsible" id="recruit-script">Front Desk / Hygiene Team Script for Patient Invitation</button>
+            <div class="content" id="recruit-script-body">
+                <p><strong>Timing:</strong> During appointment follow-up or when patient is visibly happy with results.</p>
+                <p><strong>Script:</strong></p>
+                <p>"We love how happy you look with your new smile! Our patients are our best marketing—would you be interested in sharing your story? It would just be a quick video (a few minutes) where you talk about your experience and how your smile has changed your confidence. We'd feature it on our Instagram and YouTube to help other people considering smile transformations. You'd be helping real people make the decision to transform their own smiles."</p>
+                <p><strong>If Yes:</strong> "Great! We'll schedule a short 15-minute session with our team—super casual, just come in and chat about your experience. Can we get you on the calendar?"</p>
+                <p><strong>If No or Unsure:</strong> "No problem! If you change your mind, just let us know. We always respect patient privacy first."</p>
+            </div>
+
+            <h3>Content Capture Session Workflow</h3>
+
+            <p><strong>Duration:</strong> 15-30 minutes per session.</p>
+
+            <p><strong>Setup:</strong></p>
+            <ul>
+                <li>Quiet space (office, conference room, or clinical area—background doesn't need to be perfect, but should be clean)</li>
+                <li>Good natural lighting (near window) or softbox/ring light</li>
+                <li>Phone or camera on tripod or handheld (stabilized)</li>
+                <li>Lavalier mic or external mic for audio quality (optional, but improves quality)</li>
+                <li>High-res camera for before/after photos</li>
+            </ul>
+
+            <p><strong>Content to Capture:</strong></p>
+            <ol>
+                <li><strong>High-resolution before/after photos (5 min):</strong> Multiple angles (full smile, close-up, 3/4 view, open smile, profile, candid/natural smile). Use phone camera on portrait mode or DSLR.</li>
+                <li><strong>Patient interview video (10-15 min):</strong> Record 1.5-2 minutes of patient answering open-ended questions from prompts below. Let them talk naturally; you'll edit down later.</li>
+                <li><strong>Optional: Doctor cameo (2-3 min):</strong> If patient is comfortable, have doctor join for final 1-2 minutes to congratulate patient or add brief commentary.</li>
+                <li><strong>Consent form (2 min):</strong> Patient signs consent allowing use of photos/video in marketing. Keep simple and clear.</li>
+            </ol>
+
+            <h3>UGC Interview Prompts (Patient Testimonials)</h3>
+
+            <p><strong>Use these prompts as conversation starters. Let patient talk naturally; don't read verbatim.</strong></p>
+
+            <div class="card">
+                <div class="card-title">Confidence & Transformation</div>
+                <div class="card-content">
+                    <ul>
+                        <li>"Tell me about your smile before we did this work. What were you concerned about?"</li>
+                        <li>"How has your confidence changed since your procedure?"</li>
+                        <li>"What do you notice yourself doing differently now? (Smiling more, taking photos, speaking up in meetings?)"</li>
+                        <li>"Has this impacted your personal or professional life?"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Experience & Process</div>
+                <div class="card-content">
+                    <ul>
+                        <li>"What was your expectation when you first came in? How did the process compare?"</li>
+                        <li>"Tell me about your consultation experience. How did Dr. Field help you decide on your smile design?"</li>
+                        <li>"How was the procedure itself? Any surprises?"</li>
+                        <li>"What about recovery? Was it what you expected?"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Results & Satisfaction</div>
+                <div class="card-content">
+                    <ul>
+                        <li>"When you first saw the final result, what was your reaction?"</li>
+                        <li>"How happy are you with the outcome?"</li>
+                        <li>"If you had a friend considering this same procedure, what would you tell them?"</li>
+                        <li>"Is this what you were hoping for?"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Lifestyle & Aspiration</div>
+                <div class="card-content">
+                    <ul>
+                        <li>"Tell me about a moment since the procedure when you were really happy with your smile."</li>
+                        <li>"What does having a great smile mean to you?"</li>
+                        <li>"Has this changed how you feel about yourself?"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Technical / Premium Positioning</div>
+                <div class="card-content">
+                    <ul>
+                        <li>"Did Dr. Field explain the approach and why it was right for you? How did that help you feel confident?"</li>
+                        <li>"What did you think about the Smile Test Drive / Digital Smile Design?"</li>
+                        <li>"How does your new smile look compared to what you imagined?"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>File Organization & Storage</h3>
+
+            <p><strong>Folder Structure (Google Drive or Dropbox):</strong></p>
+
+            <pre>
+PCCD Content Assets
+├── UGC Content
+│   ├── 2026 Q1
+│   │   ├── Patient 1 - [Name or Initials]
+│   │   │   ├── Before-After Photos (high res)
+│   │   │   ├── Interview Video Raw (full recording)
+│   │   │   ├── Interview Video - Edit Clips (short 30-60 sec versions)
+│   │   │   ├── Consent Form (signed)
+│   │   │   └── Notes (procedure, key quotes, best moments)
+│   │   ├── Patient 2...
+│   ├── 2026 Q2...
+├── Hero Case Content
+│   ├── April - [Case Name]
+│   ├── May - [Case Name]
+│   ├── June - [Case Name]
+└── Repurposed Assets
+    ├── Instagram Posts (exported)
+    ├── YouTube Videos (links)
+    └── Blog Images (optimized)
+            </pre>
+
+            <p><strong>Metadata (in spreadsheet):</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>Procedure</th>
+                        <th>Capture Date</th>
+                        <th>Interview Length</th>
+                        <th>Best Quotes</th>
+                        <th>Consent Status</th>
+                        <th>Folder Link</th>
+                        <th>Status (Ready to Use / Editing / Posted)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>P001</td>
+                        <td>Smile Makeover (Veneers + Whitening)</td>
+                        <td>3/15/2026</td>
+                        <td>2:05 min</td>
+                        <td>"My confidence is completely different," "Best money I've spent"</td>
+                        <td>✓ Signed</td>
+                        <td>[Drive Link]</td>
+                        <td>Ready to Use</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Video Editing & Repurposing</h3>
+
+            <p><strong>From one 2-minute patient interview, create:</strong></p>
+            <ul>
+                <li><strong>30-second Instagram Reel clip:</strong> Extract most compelling quote or moment. Add captions, music, graphics.</li>
+                <li><strong>60-second Facebook/TikTok clip:</strong> Slightly longer version with intro text.</li>
+                <li><strong>Longer 60-90 second YouTube testimonial:</strong> Full quote or two, more context, link to service page.</li>
+                <li><strong>Multiple platform versions:</strong> Vertical (Instagram/TikTok), horizontal (YouTube), square (Facebook).</li>
+            </ul>
+
+            <p><strong>Tools:</strong> Use free editing software (CapCut, DaVinci Resolve, Canva Pro) or hire freelance editor ($50-200 per video).</p>
+
+            <h3>Content Capture Calendar</h3>
+
+            <p><strong>Monthly Target:</strong> 4-6 UGC captures (testimonials, before/afters, or interviews).</p>
+
+            <p><strong>Suggested Schedule:</strong></p>
+            <ul>
+                <li><strong>Week 1:</strong> Capture session with 1-2 patients (during follow-up appointments or dedicated time)</li>
+                <li><strong>Week 2:</strong> Begin editing videos and uploading photos to storage; identify next candidates</li>
+                <li><strong>Week 3:</strong> Publish 1-2 UGC clips on Instagram/TikTok; start second round of captures</li>
+                <li><strong>Week 4:</strong> Publish additional clips; organize files; plan next month's captures</li>
+            </ul>
+
+        </div>
+
+        <!-- SECTION 8: WEEKLY EXECUTION PLAN -->
+        <div class="section" id="execution-plan">
+            <h2>Weekly Execution Plan</h2>
+
+            <p>A practical, realistic monthly operating rhythm for a dental office with limited content creation capacity. This plan integrates capture, production, publishing, and authority content into a manageable weekly cadence.</p>
+
+            <h3>Monthly Cadence Overview</h3>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Week 1: Capture & Planning</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Conduct 1-2 UGC interviews with patients</li>
+                            <li>Capture before/afters for hero case</li>
+                            <li>Doctor records case commentary video</li>
+                            <li>Review content calendar for month</li>
+                            <li>Prep blog outline for publication mid-month</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Week 2: Production & Publishing (Transformation Content)</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Edit doctor commentary video (2-4 min)</li>
+                            <li>Edit patient testimonial clips (30-60 sec versions)</li>
+                            <li>Design before/after carousel (5-7 slides)</li>
+                            <li>Write hero case social copy</li>
+                            <li>Publish: Hero case carousel post (Wed/Thu)</li>
+                            <li>Publish: Doctor commentary video to YouTube (Mon)</li>
+                            <li>Publish: Patient testimonial clip to Instagram (Fri)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Week 3: Authority & Education Content</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Finalize blog article (1,500-2,000 words)</li>
+                            <li>Optimize for SEO (keywords, headings, meta description)</li>
+                            <li>Create blog graphics/featured image</li>
+                            <li>Publish blog post (Tue/Wed)</li>
+                            <li>Publish second social post (education, objection-handling)</li>
+                            <li>Cross-promote blog on social accounts</li>
+                            <li>Plan next round of UGC captures</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Week 4: Conversion & Engagement</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Engage with comments on weekly posts</li>
+                            <li>Repost/share user comments and reviews</li>
+                            <li>Publish objection-handling or financing content</li>
+                            <li>Review analytics (engagement, clicks, signups)</li>
+                            <li>Plan next month's content themes</li>
+                            <li>Identify next hero case</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Daily / Weekly Responsibilities</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Frequency</th>
+                        <th>Task</th>
+                        <th>Owner</th>
+                        <th>Time Estimate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Daily</td>
+                        <td>Monitor Instagram/Facebook comments & DMs; respond to inquiries</td>
+                        <td>Front desk / Social media manager</td>
+                        <td>15-20 min</td>
+                    </tr>
+                    <tr>
+                        <td>Daily</td>
+                        <td>Identify and recruit UGC candidates during appointments</td>
+                        <td>Hygiene / Doctor</td>
+                        <td>2-3 min per appointment</td>
+                    </tr>
+                    <tr>
+                        <td>2-3x/week</td>
+                        <td>UGC capture sessions (15-30 min per session)</td>
+                        <td>Designated coordinator</td>
+                        <td>30-60 min</td>
+                    </tr>
+                    <tr>
+                        <td>1x/week</td>
+                        <td>Publish scheduled social post (Instagram/Facebook)</td>
+                        <td>Social media manager</td>
+                        <td>10 min</td>
+                    </tr>
+                    <tr>
+                        <td>1x/week</td>
+                        <td>YouTube video publication</td>
+                        <td>Social media manager / Editor</td>
+                        <td>15 min</td>
+                    </tr>
+                    <tr>
+                        <td>1x/week</td>
+                        <td>Blog post publication (with SEO optimization)</td>
+                        <td>Content writer / Manager</td>
+                        <td>20 min</td>
+                    </tr>
+                    <tr>
+                        <td>1x/week</td>
+                        <td>Video editing (testimonials, shorts, clips)</td>
+                        <td>Video editor (internal or freelance)</td>
+                        <td>60-90 min</td>
+                    </tr>
+                    <tr>
+                        <td>2x/month</td>
+                        <td>Analytics review and optimization</td>
+                        <td>Manager / Digital lead</td>
+                        <td>30 min</td>
+                    </tr>
+                    <tr>
+                        <td>1x/month</td>
+                        <td>Content calendar planning and strategy review</td>
+                        <td>Manager / Digital lead / Doctor</td>
+                        <td>60 min</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Tools & Resources Needed</h3>
+
+            <div class="card">
+                <div class="card-title">Content Creation & Editing</div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>Video:</strong> CapCut (free), DaVinci Resolve (free), Adobe Premiere (paid)</li>
+                        <li><strong>Graphics & Social:</strong> Canva Pro ($120/year), Adobe Express (free)</li>
+                        <li><strong>Blog/Writing:</strong> Google Docs (free), Grammarly (free/paid)</li>
+                        <li><strong>Photography:</strong> Phone camera (adequate), external lighting kit ($50-150), tripod ($20-50)</li>
+                        <li><strong>Audio:</strong> Lavalier mic ($30-100), external mic ($50-200)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Publishing & Analytics</div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>Social Scheduling:</strong> Later.com, Buffer, Hootsuite (free/paid tiers)</li>
+                        <li><strong>YouTube:</strong> YouTube Studio (free)</li>
+                        <li><strong>Blog:</strong> WordPress (self-hosted or managed), Wix, Squarespace</li>
+                        <li><strong>Analytics:</strong> Google Analytics (free), Instagram Insights (free), YouTube Analytics (free)</li>
+                        <li><strong>File Storage:</strong> Google Drive, Dropbox (free/paid)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Team Capacity & Recommendations</h3>
+
+            <p><strong>Option 1: Lean Internal Team (Minimal Cost)</strong></p>
+            <ul>
+                <li><strong>Content Coordinator (part-time or allocated time):</strong> 10-15 hrs/week managing scheduling, UGC capture, file organization, social posting</li>
+                <li><strong>Video Editor (freelance):</strong> 5-10 hrs/week @ $25-50/hr. Can outsource to Fiverr, Upwork, or local freelancer</li>
+                <li><strong>Blog Writer (freelance or internal):</strong> 1 article/month @ $300-800 per article (2,000 words). Or allocate practice manager 3-5 hrs/month</li>
+                <li><strong>Doctor Input:</strong> 2-4 hours/month (video commentary, interviews, strategy review)</li>
+                <li><strong>Total Monthly Cost:</strong> $1,000-2,500 (video editor + freelance writer) or $0-500 (if using internal team only)</li>
+            </ul>
+
+            <p><strong>Option 2: Hybrid with Agency Support</strong></p>
+            <ul>
+                <li>Partner with local content/digital agency for 5-10 hours/month of strategic support, editing, and optimization</li>
+                <li>Cost: $2,000-5,000/month but reduces internal burden</li>
+                <li>Recommended if practice wants higher production quality or faster ramp</li>
+            </ul>
+
+            <p><strong>Recommendation:</strong> Start with Option 1 (lean internal team). This is realistic for a dental office. Allocate one team member 10-15 hrs/week and outsource editing. As you scale, consider agency support or hire dedicated content manager.</p>
+
+            <h3>First 30 Days: Startup Checklist</h3>
+
+            <button class="collapsible" id="startup">Click to expand startup checklist</button>
+            <div class="content" id="startup-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Owner</th>
+                            <th>Deadline</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Designate content coordinator and assign responsibilities</td>
+                            <td>Practice Manager</td>
+                            <td>Day 1</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Create file structure (Google Drive/Dropbox) for UGC and content assets</td>
+                            <td>Content Coordinator</td>
+                            <td>Day 2</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Draft simple patient consent form for testimonials/before-afters</td>
+                            <td>Manager / Legal</td>
+                            <td>Day 3</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Identify freelance video editor (Fiverr, Upwork, local)</td>
+                            <td>Manager</td>
+                            <td>Day 5</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Source basic video equipment (tripod, external mic, lighting—optional)</td>
+                            <td>Content Coordinator</td>
+                            <td>Week 1</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Brief team on UGC capture process and patient recruitment script</td>
+                            <td>Manager / Coordinator</td>
+                            <td>Week 1</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Activate @dr_joseph_field Instagram account (if dormant)</td>
+                            <td>Social Manager</td>
+                            <td>Week 1</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Conduct first UGC capture session (1-2 patients)</td>
+                            <td>Content Coordinator</td>
+                            <td>Week 2</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Record first doctor commentary video for hero case</td>
+                            <td>Doctor / Coordinator</td>
+                            <td>Week 2</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Publish first YouTube video (hero case commentary)</td>
+                            <td>Social Manager</td>
+                            <td>Week 3</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Publish first hero case social post (Instagram carousel)</td>
+                            <td>Social Manager</td>
+                            <td>Week 3</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Publish first blog article on doctor site</td>
+                            <td>Content Writer</td>
+                            <td>Week 3</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Set up social scheduling tool (Later, Buffer, Hootsuite)</td>
+                            <td>Social Manager</td>
+                            <td>Week 4</td>
+                            <td>☐</td>
+                        </tr>
+                        <tr>
+                            <td>Plan May content calendar and themes with team</td>
+                            <td>Manager / Doctor</td>
+                            <td>Week 4</td>
+                            <td>☐</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Success Metrics to Track</h3>
+
+            <p>Monitor these KPIs monthly to assess content effectiveness and adjust strategy:</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Awareness Metrics</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>YouTube subscriber growth (target: +50-100/month)</li>
+                            <li>@dr_joseph_field follower growth (target: +200-300/month)</li>
+                            <li>Blog organic traffic (Google Analytics, target: +20-30% month-over-month)</li>
+                            <li>Video views (YouTube, Reels, target: 500-2,000 per video)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Engagement & Trust Metrics</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Instagram engagement rate (likes, comments, shares, target: 3-5%)</li>
+                            <li>YouTube watch time (target: +200-300 min/month)</li>
+                            <li>Blog comments and shares (target: 2-5 per post)</li>
+                            <li>Testimonial/UGC video views (target: 500-1,500 per clip)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Conversion Metrics</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Website traffic from social (target: +15-25% month-over-month)</li>
+                            <li>Consultation booking form submissions (attribution: social/blog, target: +5-10/month)</li>
+                            <li>Click-through rate on CTAs (target: 2-4%)</li>
+                            <li>Email signups from blog (target: 20-50/month)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Brand Metrics</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Google search visibility for brand keywords (track rankings in Google Search Console)</li>
+                            <li>Yelp/Google reviews growth (target: +5-10 new reviews/month)</li>
+                            <li>Social follower sentiment (engagement quality, comment tone)</li>
+                            <li>Doctor vs. Practice brand awareness (survey or polls)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>PCCD Content Engine Framework</strong></p>
+            <p>Peninsula Center of Cosmetic Dentistry | Dr. Joseph Field, DDS, FAAID, FICOI, FAGD, DABOI/ID</p>
+            <p>Los Altos & Mountain View, CA | March 2026</p>
+            <p style="margin-top: 20px; font-size: 0.85em; color: #999;">This document is a strategic framework intended for internal use by PCCD. All recommendations are subject to execution capacity, patient privacy, and compliance with platform guidelines. Regular review and optimization recommended quarterly.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Navigation toggle
+        const navToggle = document.getElementById('navToggle');
+        const navSidebar = document.getElementById('navSidebar');
+
+        navToggle.addEventListener('click', function() {
+            navSidebar.classList.toggle('active');
+            navToggle.textContent = navSidebar.classList.contains('active') ? '✕ Close' : '☰ Menu';
+        });
+
+        // Collapsible sections
+        const collapsibles = document.querySelectorAll('.collapsible');
+        collapsibles.forEach(collapsible => {
+            collapsible.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const content = document.getElementById(this.id + '-body');
+                if (content) {
+                    content.classList.toggle('active');
+                }
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-sidebar a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    navSidebar.classList.remove('active');
+                    navToggle.textContent = '☰ Menu';
+                }
+            });
+        });
+
+        // Close nav when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navSidebar.contains(e.target) && !navToggle.contains(e.target)) {
+                navSidebar.classList.remove('active');
+                navToggle.textContent = '☰ Menu';
+            }
+        });
+    </script>
+</body>
+</html>
