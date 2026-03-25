@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Search Report — Josh F.</title>
+<style>
+:root {
+  --navy: #1e293b;
+  --slate: #475569;
+  --light: #f8fafc;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --green: #16a34a;
+  --green-bg: #dcfce7;
+  --yellow: #ca8a04;
+  --yellow-bg: #fef9c3;
+  --orange: #ea580c;
+  --orange-bg: #fff7ed;
+  --red: #dc2626;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--navy); background: var(--light); line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Sticky Nav */
+.top-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--navy); color: white;
+  padding: 0.75rem 1.5rem;
+  display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.top-nav a { color: #cbd5e1; font-size: 0.85rem; padding: 0.25rem 0.75rem; border-radius: 4px; transition: all 0.2s; }
+.top-nav a:hover { color: white; background: rgba(255,255,255,0.1); text-decoration: none; }
+.nav-brand { font-weight: 700; font-size: 1rem; color: white; margin-right: auto; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+
+/* Header */
+.header { text-align: center; padding: 2.5rem 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; border-radius: 12px; margin-bottom: 2rem; }
+.header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.header .subtitle { color: #94a3b8; font-size: 1rem; }
+.header .meta { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+.header .meta span { font-size: 0.85rem; color: #cbd5e1; }
+
+/* Cards */
+.card { background: white; border-radius: 10px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 1.5rem; overflow: hidden; }
+.card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+.card-header h2 { font-size: 1.25rem; color: var(--navy); }
+.card-body { padding: 1.5rem; }
+
+/* Score Badge */
+.score-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; border-radius: 50%; font-weight: 800; font-size: 1.1rem; color: white; flex-shrink: 0;
+}
+.score-high { background: var(--green); }
+.score-med { background: var(--yellow); }
+.score-low { background: var(--orange); }
+
+/* Job Cards */
+.job-card {
+  background: white; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.25rem 1.5rem; margin-bottom: 1rem; transition: box-shadow 0.2s;
+}
+.job-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.job-top { display: flex; align-items: flex-start; gap: 1rem; }
+.job-rank { font-size: 0.75rem; font-weight: 700; color: var(--slate); background: #f1f5f9; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; }
+.job-info { flex: 1; }
+.job-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+.job-company { font-size: 0.95rem; color: var(--slate); }
+.job-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.job-tag { font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; background: #f1f5f9; color: var(--slate); }
+.job-tag.remote { background: #dbeafe; color: #1d4ed8; }
+.job-tag.utah { background: #dcfce7; color: #166534; }
+.job-tag.salary { background: #fef3c7; color: #92400e; }
+.job-skills { margin-top: 0.75rem; }
+.skill-match { display: inline-block; font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 4px; margin: 0.15rem; background: var(--green-bg); color: var(--green); }
+.skill-gap { display: inline-block; font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 4px; margin: 0.15rem; background: var(--orange-bg); color: var(--orange); }
+.apply-btn {
+  display: inline-block; margin-top: 0.75rem; padding: 0.5rem 1.25rem;
+  background: var(--accent); color: white; border-radius: 6px; font-weight: 600; font-size: 0.85rem;
+  transition: background 0.2s;
+}
+.apply-btn:hover { background: #1d4ed8; color: white; text-decoration: none; }
+
+/* Score Bar */
+.score-bar-wrap { width: 100px; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+.score-bar { height: 100%; border-radius: 4px; }
+.score-bar.high { background: var(--green); }
+.score-bar.med { background: var(--yellow); }
+.score-bar.low { background: var(--orange); }
+
+/* Details/Summary */
+details { margin-bottom: 0.75rem; }
+summary { cursor: pointer; font-weight: 600; color: var(--navy); padding: 0.5rem 0; user-select: none; }
+summary:hover { color: var(--accent); }
+details .detail-content { padding: 0.75rem 0 0.75rem 1rem; border-left: 3px solid var(--accent-light); margin-top: 0.25rem; }
+
+/* Priority Tags */
+.priority { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; text-transform: uppercase; margin-right: 0.5rem; }
+.priority.high { background: #fef2f2; color: var(--red); }
+.priority.medium { background: var(--yellow-bg); color: var(--yellow); }
+.priority.low { background: #f0fdf4; color: var(--green); }
+
+/* Cover Letter */
+.cover-letter-box {
+  background: #fafaf9; border: 1px solid #d6d3d1; border-radius: 8px; padding: 1.5rem;
+  font-family: Georgia, 'Times New Roman', serif; line-height: 1.8; position: relative;
+}
+.copy-btn {
+  position: absolute; top: 0.75rem; right: 0.75rem; background: var(--accent); color: white;
+  border: none; padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600;
+}
+.copy-btn:hover { background: #1d4ed8; }
+
+/* Salary Table */
+.salary-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.salary-table th { background: var(--navy); color: white; padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+.salary-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); }
+.salary-table tr:hover { background: #f8fafc; }
+.salary-source { font-size: 0.7rem; color: var(--slate); }
+
+/* Q&A */
+.qa-item { margin-bottom: 1rem; }
+.qa-q { font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+.qa-a { color: var(--slate); padding-left: 1rem; border-left: 3px solid var(--accent-light); }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .header h1 { font-size: 1.5rem; }
+  .top-nav { padding: 0.5rem; }
+  .top-nav a { font-size: 0.75rem; padding: 0.2rem 0.5rem; }
+  .job-top { flex-direction: column; }
+  .container { padding: 1rem; }
+}
+
+/* Print */
+@media print {
+  .top-nav { display: none; }
+  .card { break-inside: avoid; }
+  .apply-btn { border: 1px solid #333; }
+  body { background: white; }
+}
+
+ul { padding-left: 1.25rem; }
+li { margin-bottom: 0.35rem; }
+.section-icon { font-size: 1.25rem; }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <span class="nav-brand">Josh F. — Job Search Report</span>
+  <a href="#snapshot">Snapshot</a>
+  <a href="#jobs">Top 10 Jobs</a>
+  <a href="#deepdive">Deep Dive</a>
+  <a href="#resume-recs">Resume</a>
+  <a href="#linkedin-recs">LinkedIn</a>
+  <a href="#cover-letter">Cover Letter</a>
+  <a href="#interview">Interview</a>
+  <a href="#salary">Salary</a>
+</nav>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Job Search Report for Josh F.</h1>
+  <p class="subtitle">Transitioning from Plumbing/HVAC Owner → Management &amp; SaaS Roles</p>
+  <div class="meta">
+    <span>Generated: March 24, 2026</span>
+    <span>Target: Utah On-Site &amp; Remote SaaS</span>
+    <span>Sources: LinkedIn, Indeed, ZipRecruiter, Glassdoor, Company Careers</span>
+  </div>
+</div>
+
+<!-- CANDIDATE SNAPSHOT -->
+<div class="card" id="snapshot">
+  <div class="card-header">
+    <span class="section-icon">👤</span>
+    <h2>Candidate Snapshot</h2>
+  </div>
+  <div class="card-body">
+    <details open>
+      <summary>Professional Summary</summary>
+      <div class="detail-content">
+        <p>Seasoned professional with <strong>18+ years</strong> of combined experience in plumbing/HVAC, operations management, security operations, and military leadership. Business owner who scaled Evolution Plumbing, Heating &amp; Air to <strong>&gt;$1M annual revenue</strong>. U.S. Marine Corps veteran (Sergeant, Military Police). Holds a BS in Information Technology and multiple contractor licenses. Bilingual (English/Spanish). Currently pursuing <strong>PMP certification</strong> and holds a <strong>General Contractor license</strong>.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Key Strengths</summary>
+      <div class="detail-content">
+        <ul>
+          <li><strong>P&amp;L Ownership:</strong> Built and ran a $1M+ revenue business — budgeting, procurement, scheduling, hiring</li>
+          <li><strong>Leadership:</strong> Marine Corps NCO + operations manager + business owner = deep team leadership experience</li>
+          <li><strong>Technical Depth:</strong> Plumbing, HVAC, boiler, pipeline, gas — plus IT fundamentals</li>
+          <li><strong>Licensing:</strong> General Contractor, Plumbing Contractor, HVAC Contractor, RMGA Gas, Boiler/Pipeline/Wastewater</li>
+          <li><strong>Bilingual:</strong> Fluent English and Spanish — valuable in construction and SaaS serving contractors</li>
+          <li><strong>Career Trajectory:</strong> Moving from hands-on trades into management — PMP in progress signals commitment</li>
+        </ul>
+      </div>
+    </details>
+    <details>
+      <summary>Target Role Profile</summary>
+      <div class="detail-content">
+        <p><strong>Primary targets:</strong> Construction Project Manager, Operations Manager, Facilities Director (Utah-based)</p>
+        <p><strong>Secondary targets:</strong> Account Executive, Customer Success Manager, or Implementation Specialist at construction/home-services SaaS companies (remote)</p>
+        <p><strong>Location:</strong> Utah (on-site/hybrid) or fully remote (US)</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- TOP 10 JOBS -->
+<div class="card" id="jobs">
+  <div class="card-header">
+    <span class="section-icon">🎯</span>
+    <h2>Top 10 Job Matches</h2>
+  </div>
+  <div class="card-body">
+    <p style="color:var(--slate);margin-bottom:1rem;font-size:0.9rem;">Ranked by overall match score. Click "Apply Now" to go directly to the listing.</p>
+
+    <!-- JOB 1 -->
+    <div class="job-card" style="border-left: 4px solid var(--green);">
+      <div class="job-top">
+        <div class="job-rank">1</div>
+        <div class="job-info">
+          <div class="job-title">Project Manager</div>
+          <div class="job-company">Hughes General Contractors — North Salt Lake, UT</div>
+          <div class="job-meta">
+            <span class="job-tag utah">Utah On-Site</span>
+            <span class="job-tag salary">$75K–$118K</span>
+            <span class="job-tag">Full-Time</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-high">88</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ Project Leadership</span>
+        <span class="skill-match">✓ Budget Management</span>
+        <span class="skill-match">✓ Scheduling</span>
+        <span class="skill-match">✓ Subcontractor Coord.</span>
+        <span class="skill-match">✓ GC License</span>
+        <span class="skill-match">✓ Team Management</span>
+        <span class="skill-gap">△ Commercial Construction</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">Family-owned firm with 65+ years in Utah. Oversee project execution, budgets, scheduling, and subcontractor coordination for commercial construction. Josh's GC license, leadership, and budget management experience are a strong fit.</p>
+      <a href="https://www.ziprecruiter.com/c/Hughes-General-Contractors/Job/Project-Manager/-in-North-Salt-Lake,UT?jid=d2de1e993c22cb8b" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 2 -->
+    <div class="job-card" style="border-left: 4px solid var(--green);">
+      <div class="job-top">
+        <div class="job-rank">2</div>
+        <div class="job-info">
+          <div class="job-title">Account Executive, Pro Products</div>
+          <div class="job-company">ServiceTitan — US Remote</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag salary">$93K–$100K + Commission</span>
+            <span class="job-tag">SaaS</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-high">85</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ Deep Trade Knowledge</span>
+        <span class="skill-match">✓ Business Owner Perspective</span>
+        <span class="skill-match">✓ Spanish Bilingual</span>
+        <span class="skill-match">✓ Contractor Relationships</span>
+        <span class="skill-gap">△ SaaS Sales Experience</span>
+        <span class="skill-gap">△ CRM Proficiency</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">ServiceTitan is the #1 software for home services. As a former plumbing/HVAC business owner, Josh has lived the pain points that ServiceTitan solves — a massive advantage in consultative sales to contractors.</p>
+      <a href="https://www.servicetitan.com/job-openings" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 3 -->
+    <div class="job-card" style="border-left: 4px solid var(--green);">
+      <div class="job-top">
+        <div class="job-rank">3</div>
+        <div class="job-info">
+          <div class="job-title">Account Executive, Strategic Customer Sales</div>
+          <div class="job-company">ServiceTitan — US Remote</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag salary">$115K–$123K + Commission</span>
+            <span class="job-tag">SaaS</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-high">82</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ Deep Trade Knowledge</span>
+        <span class="skill-match">✓ Business Strategy</span>
+        <span class="skill-match">✓ Revenue Growth</span>
+        <span class="skill-match">✓ Bilingual Spanish</span>
+        <span class="skill-gap">△ 5-7 Years Sales Required</span>
+        <span class="skill-gap">△ Enterprise SaaS Selling</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">Higher-tier strategic sales role at ServiceTitan targeting larger accounts. Stretch role requiring 5-7 years of sales experience, but Josh's entrepreneurial background and deep industry knowledge make a compelling case. Higher base salary.</p>
+      <a href="https://www.servicetitan.com/job-openings" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 4 -->
+    <div class="job-card" style="border-left: 4px solid var(--green);">
+      <div class="job-top">
+        <div class="job-rank">4</div>
+        <div class="job-info">
+          <div class="job-title">Customer Success Manager</div>
+          <div class="job-company">Kojo — US Remote</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag salary">$70K–$85K</span>
+            <span class="job-tag">Construction Tech</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-high">80</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ Construction Industry</span>
+        <span class="skill-match">✓ Procurement Knowledge</span>
+        <span class="skill-match">✓ Client Relationship</span>
+        <span class="skill-match">✓ Problem Solving</span>
+        <span class="skill-gap">△ SaaS/Tech CS Experience</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">Kojo is one of the fastest-growing construction tech companies, transforming how contractors buy materials. Josh's hands-on procurement and contractor experience is a direct match for helping customers succeed on the platform.</p>
+      <a href="https://www.usekojo.com/careers" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 5 -->
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-rank">5</div>
+        <div class="job-info">
+          <div class="job-title">Field Service Software Integration Specialist</div>
+          <div class="job-company">Business Development Resources (BDR) — Remote</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag salary">$80K–$100K</span>
+            <span class="job-tag">HVAC/Plumbing SaaS</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-med">78</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ HVAC/Plumbing Expertise</span>
+        <span class="skill-match">✓ Operations Knowledge</span>
+        <span class="skill-match">✓ Training &amp; Mentoring</span>
+        <span class="skill-match">✓ IT Background</span>
+        <span class="skill-gap">△ ServiceTitan Proficiency</span>
+        <span class="skill-gap">△ FieldEdge/Zuper Experience</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">Implement and configure field service software (ServiceTitan, FieldEdge, Zuper) for HVAC and plumbing contractors. Josh's real-world contractor experience + IT degree is a rare and valuable combo for this role.</p>
+      <a href="https://www.indeed.com/q-remote-hvac-jobs.html" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 6 -->
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-rank">6</div>
+        <div class="job-info">
+          <div class="job-title">Construction Project Manager</div>
+          <div class="job-company">Big-D Construction — Salt Lake City, UT</div>
+          <div class="job-meta">
+            <span class="job-tag utah">Utah On-Site</span>
+            <span class="job-tag salary">$85K–$130K (est.)</span>
+            <span class="job-tag">Full-Time</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-med">76</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ GC License</span>
+        <span class="skill-match">✓ Budget &amp; Scheduling</span>
+        <span class="skill-match">✓ Team Leadership</span>
+        <span class="skill-match">✓ Trade Knowledge</span>
+        <span class="skill-gap">△ Commercial PM Experience</span>
+        <span class="skill-gap">△ Large-Scale Projects</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">One of Utah's premier construction firms offering training, mentorship, and career growth. Strong culture with diverse project types across the western US.</p>
+      <a href="https://www.big-d.com/careers" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 7 -->
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-rank">7</div>
+        <div class="job-info">
+          <div class="job-title">Customer Success Specialist</div>
+          <div class="job-company">Housecall Pro — US Remote</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag salary">$55K–$75K (est.)</span>
+            <span class="job-tag">Home Services SaaS</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-med">74</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ Home Services Industry</span>
+        <span class="skill-match">✓ Contractor Empathy</span>
+        <span class="skill-match">✓ Customer Relations</span>
+        <span class="skill-gap">△ SaaS CS Experience</span>
+        <span class="skill-gap">△ Specific Tool Proficiency</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">Remote-first company building software for plumbing, HVAC, and electrical pros. Josh would bring real operational perspective that most CS reps lack. Great benefits and flexible PTO.</p>
+      <a href="https://www.housecallpro.com/careers/open-positions/" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 8 -->
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-rank">8</div>
+        <div class="job-info">
+          <div class="job-title">Concrete Project Manager</div>
+          <div class="job-company">Okland Construction — Salt Lake City, UT</div>
+          <div class="job-meta">
+            <span class="job-tag utah">Utah On-Site</span>
+            <span class="job-tag salary">$69K–$109K</span>
+            <span class="job-tag">Full-Time</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-med">72</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ Project Management</span>
+        <span class="skill-match">✓ Budget &amp; Revenue Mgmt</span>
+        <span class="skill-match">✓ Subcontractor Coord.</span>
+        <span class="skill-gap">△ Concrete Specialization</span>
+        <span class="skill-gap">△ $45M+ Project Scale</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">Leads administration of large-scale commercial projects ($45M+ revenue). Reputable Utah firm. The concrete specialization is a stretch, but Josh's GC license and management experience make it worth applying.</p>
+      <a href="https://www.ziprecruiter.com/c/Okland-Construction/Job/Concrete-Project-Manager/-in-Salt-Lake-City,UT?jid=e2bde4ddaf002f60" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 9 -->
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-rank">9</div>
+        <div class="job-info">
+          <div class="job-title">Construction Project Manager</div>
+          <div class="job-company">Jacobsen Construction — Salt Lake City, UT</div>
+          <div class="job-meta">
+            <span class="job-tag utah">Utah On-Site</span>
+            <span class="job-tag salary">$80K–$120K (est.)</span>
+            <span class="job-tag">Employee-Owned</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-med">70</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ GC License</span>
+        <span class="skill-match">✓ Team Leadership</span>
+        <span class="skill-match">✓ Budget Management</span>
+        <span class="skill-gap">△ Commercial PM Track Record</span>
+        <span class="skill-gap">△ Specific Sector (Healthcare, Civic)</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">Employee-owned firm since 1922 specializing in civic, commercial, healthcare, and education projects. Equity ownership opportunity is a standout benefit. Strong culture and established presence in Utah.</p>
+      <a href="https://www.jacobsenconstruction.com/careers/" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+    <!-- JOB 10 -->
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-rank">10</div>
+        <div class="job-info">
+          <div class="job-title">Construction Superintendent</div>
+          <div class="job-company">KNP Construction — West Jordan, UT</div>
+          <div class="job-meta">
+            <span class="job-tag utah">Utah On-Site</span>
+            <span class="job-tag salary">$90K–$125K (est.)</span>
+            <span class="job-tag">Full-Time</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="score-badge score-med">68</div>
+          <div style="font-size:0.7rem;color:var(--slate);margin-top:0.25rem;">Match</div>
+        </div>
+      </div>
+      <div class="job-skills">
+        <span class="skill-match">✓ Field Leadership</span>
+        <span class="skill-match">✓ Safety Compliance</span>
+        <span class="skill-match">✓ Trade Knowledge</span>
+        <span class="skill-match">✓ Local to West Jordan</span>
+        <span class="skill-gap">△ Commercial Building Experience</span>
+      </div>
+      <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--slate);">Seeking experienced superintendents for commercial projects near Josh's home base in South Jordan. Good stepping stone into construction management with hands-on experience transition. Posted March 15, 2026.</p>
+      <a href="https://www.indeed.com/q-construction-superintendent-l-salt-lake-city,-ut-jobs.html" target="_blank" class="apply-btn">Apply Now →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- DEEP DIVE: #1 MATCH -->
+<div class="card" id="deepdive">
+  <div class="card-header">
+    <span class="section-icon">🔍</span>
+    <h2>Deep Dive: #1 Match — Project Manager at Hughes General Contractors</h2>
+  </div>
+  <div class="card-body">
+    <h3 style="margin-bottom:0.75rem;">Why This Is the Top Match</h3>
+    <p style="color:var(--slate);margin-bottom:1rem;">Hughes General Contractors is a 65-year family-owned Utah firm that values long-term career growth. The Project Manager role aligns with Josh's trajectory from hands-on plumbing into construction management. His GC license, budget management skills (proven by running a $1M+ business), team leadership (Marine Corps NCO + business owner), and deep trade knowledge make him a strong candidate. The role is in North Salt Lake — a short commute from South Jordan. The salary range ($75K–$118K) offers room to grow, and Hughes' culture of mentorship is ideal for someone making this transition.</p>
+
+    <details open>
+      <summary>Key Requirements vs. Josh's Experience</summary>
+      <div class="detail-content">
+        <ul>
+          <li><strong>Project Leadership & Execution:</strong> ✅ Managed all operations at Evolution Plumbing — scheduling, budgets, procurement, quality</li>
+          <li><strong>Budget & Resource Planning:</strong> ✅ Grew business to $1M+ revenue through strategic financial management</li>
+          <li><strong>Subcontractor Coordination:</strong> ✅ Years of working with contractors and tradespeople on residential/commercial projects</li>
+          <li><strong>Risk & Change Management:</strong> ✅ Military risk management background + regulatory compliance across multiple trades</li>
+          <li><strong>Client & Stakeholder Communication:</strong> ✅ Direct customer-facing business owner + bilingual advantage</li>
+          <li><strong>Commercial Construction Depth:</strong> ⚠️ Primarily residential/small commercial — will need to emphasize larger-scope work and GC license</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- RESUME RECOMMENDATIONS -->
+<div class="card" id="resume-recs">
+  <div class="card-header">
+    <span class="section-icon">📄</span>
+    <h2>Resume Optimization Recommendations</h2>
+  </div>
+  <div class="card-body">
+    <p style="color:var(--slate);margin-bottom:1rem;">Targeted for the #1 match (Hughes GC Project Manager) but applicable across all Utah construction PM roles.</p>
+
+    <details open>
+      <summary><span class="priority high">High</span> Reposition Title &amp; Summary for Management</summary>
+      <div class="detail-content">
+        <p>Current title reads "Facilities Management Specialist" — change to <strong>"Construction &amp; Operations Manager"</strong> or <strong>"Construction Project Manager"</strong>. The summary should lead with project management and business leadership, not plumbing/HVAC technical skills.</p>
+        <p><strong>Suggested summary opener:</strong> "Results-driven Construction and Operations Manager with 18+ years of progressive experience in project leadership, P&amp;L management, and team development across plumbing, HVAC, and general construction. Built and scaled a $1.3M annual-revenue contracting firm while maintaining exceptional safety and quality standards."</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority high">High</span> Quantify Achievements at Evolution Plumbing</summary>
+      <div class="detail-content">
+        <ul>
+          <li>Change "$1M annual revenue" to "$1.3M annual revenue" (per cover letter — use the higher number consistently)</li>
+          <li>Add: "Managed annual project pipeline of 200+ residential and commercial jobs"</li>
+          <li>Add: "Recruited, trained, and supervised team of X technicians" (fill in actual number)</li>
+          <li>Add: "Maintained X% customer satisfaction rating" (if trackable)</li>
+          <li>Add: "Managed procurement budgets of $X annually for materials and equipment"</li>
+          <li>Add: "Achieved zero OSHA-reportable incidents across X years of field operations"</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority high">High</span> Add PMP Certification Progress</summary>
+      <div class="detail-content">
+        <p>Under Certifications, add: <strong>"PMP Certification — In Progress (Expected [Month] 2026)"</strong>. This is critical for PM roles and shows commitment to the transition. Move it to the top of the certifications list.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority high">High</span> Add a "Key Projects" Section</summary>
+      <div class="detail-content">
+        <p>Create a new section listing 3–5 notable projects with scope, budget, and outcome. Example format:</p>
+        <p><em>"[Project Type] — [Location] | Budget: $X | Duration: X months | Led team of X for full-scope plumbing/HVAC installation including blueprint analysis, subcontractor coordination, and final inspection sign-off."</em></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority medium">Medium</span> Add Missing Keywords for ATS</summary>
+      <div class="detail-content">
+        <p>Include these keywords naturally throughout the resume: <strong>project management, construction management, change orders, RFIs, submittals, closeout, punch list, Procore, scheduling software, Gantt charts, stakeholder management, scope management, value engineering, quality assurance</strong>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority medium">Medium</span> Restructure Skills Section</summary>
+      <div class="detail-content">
+        <p>Split into three clear categories:</p>
+        <ul>
+          <li><strong>Management:</strong> Project Management, P&amp;L Oversight, Strategic Planning, Team Leadership, Budgeting, Scheduling, Procurement, Risk Management, Contract Administration</li>
+          <li><strong>Technical:</strong> Blueprint Reading, HVAC Systems, Plumbing Systems, Building Codes, Safety Compliance (OSHA), General Contracting</li>
+          <li><strong>Tools &amp; Certifications:</strong> PMP (In Progress), GC License, HVAC License, RMGA Gas, Microsoft Office, [any scheduling/PM software used]</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority medium">Medium</span> Expand Operations Manager Role (2004–2008)</summary>
+      <div class="detail-content">
+        <p>This role at Total Watch Security is <em>highly relevant</em> — it shows pure management experience outside of trades. Add details about team size, operational KPIs, budget managed, and any systems/processes implemented. This bridges the gap between field work and management.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority low">Low</span> Update General Contractor License Date</summary>
+      <div class="detail-content">
+        <p>Resume says "Completing in February 2024" — update to show it's completed (since it should be by now). If complete, change to "General Contractor License — Obtained 2024".</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- LINKEDIN RECOMMENDATIONS -->
+<div class="card" id="linkedin-recs">
+  <div class="card-header">
+    <span class="section-icon">💼</span>
+    <h2>LinkedIn Profile Optimization</h2>
+  </div>
+  <div class="card-body">
+    <p style="color:var(--slate);margin-bottom:1rem;">Based on Josh's profile at <a href="https://www.linkedin.com/in/josh-fuit-68ba9546/" target="_blank">linkedin.com/in/josh-fuit-68ba9546/</a></p>
+
+    <details open>
+      <summary><span class="priority high">High</span> Update Headline</summary>
+      <div class="detail-content">
+        <p><strong>Current:</strong> "Owner at Evolution Plumbing"</p>
+        <p><strong>Suggested:</strong> "Construction &amp; Operations Leader | GC Licensed | PMP In Progress | Plumbing/HVAC Business Owner | USMC Veteran"</p>
+        <p>This headline signals the management transition while showcasing differentiators. It will surface in recruiter searches for "construction project manager" and "operations manager."</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority high">High</span> Write a Compelling About Section</summary>
+      <div class="detail-content">
+        <p>The current profile appears to have no About section. Add one that tells Josh's story and speaks to his transition:</p>
+        <p><em>"I've spent the last 18 years building things — from plumbing systems to a $1.3M business to high-performing teams. After running my own contracting company, serving as an Operations Manager, and leading Marines in the USMC, I'm channeling that experience into construction project management.</em></p>
+        <p><em>What I bring: hands-on trade knowledge (plumbing, HVAC, general contracting), proven P&amp;L management, a General Contractor license, and a PMP certification in progress. I speak fluent Spanish and understand projects from the ground up — literally.</em></p>
+        <p><em>I'm actively seeking project management and operations leadership roles in Utah or remote positions in construction technology / home services SaaS. Open to connecting."</em></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority high">High</span> Complete Experience Descriptions</summary>
+      <div class="detail-content">
+        <p>Add the same detailed bullet points from the optimized resume to each LinkedIn experience section. LinkedIn allows rich formatting — use it. Focus on results and numbers.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority medium">Medium</span> Add Skills &amp; Request Endorsements</summary>
+      <div class="detail-content">
+        <p>Add these skills: Project Management, Construction Management, Budgeting, HVAC, Plumbing, Team Leadership, General Contracting, Business Operations, Safety Management, Spanish</p>
+        <p>Request endorsements from: former clients, subcontractors, fellow Marines, Total Watch Security colleagues</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority medium">Medium</span> Add Certifications Section</summary>
+      <div class="detail-content">
+        <p>List every license and certification with issuing body and date. Add "PMP — In Progress" with expected completion date. This section is heavily indexed by LinkedIn's recruiter search.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority medium">Medium</span> Add Featured Section</summary>
+      <div class="detail-content">
+        <p>Feature: project photos, any media mentions, a short video introduction, or a post about the career transition. This makes the profile stand out visually.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="priority low">Low</span> Engage with Industry Content</summary>
+      <div class="detail-content">
+        <p>Follow and engage with: ServiceTitan, Procore, Big-D Construction, Hughes GC, Utah AGC chapter, and PMP-related pages. Comment thoughtfully on construction industry posts. This signals engagement to recruiters and builds visibility.</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- COVER LETTER -->
+<div class="card" id="cover-letter">
+  <div class="card-header">
+    <span class="section-icon">✉️</span>
+    <h2>Cover Letter — Hughes General Contractors, Project Manager</h2>
+  </div>
+  <div class="card-body">
+    <div class="cover-letter-box" id="coverLetterText">
+      <button class="copy-btn" onclick="copyLetter()">Copy to Clipboard</button>
+      <p style="margin-bottom:1rem;">Dear Hiring Team at Hughes General Contractors,</p>
+
+      <p style="margin-bottom:1rem;">Running a plumbing and HVAC company from the ground up taught me something that most project managers learn the hard way: a project's success is decided long before the first nail is driven — it's won in the planning, the budgeting, and the relationships you build with every person on the job site.</p>
+
+      <p style="margin-bottom:1rem;">Over the past seven years as Owner of Evolution Plumbing, Heating &amp; Air, I grew the business to over $1.3 million in annual revenue while managing every facet of operations — from estimating and procurement to scheduling crews and ensuring code compliance across plumbing, HVAC, boiler, and gas systems. I've led teams in the field, managed subcontractor relationships, and maintained rigorous safety standards, all while keeping projects on budget and on schedule.</p>
+
+      <p style="margin-bottom:1rem;">Before that, I managed installation and service operations for a security systems company, and I served nine years as a Sergeant in the United States Marine Corps — experiences that forged my approach to leadership, risk management, and executing under pressure. I hold a General Contractor license, multiple trade licenses, and I'm currently completing my PMP certification to formalize the project management skills I've been practicing for nearly two decades.</p>
+
+      <p style="margin-bottom:1rem;">Hughes General Contractors' reputation for quality and its 65-year legacy of excellence in Utah is exactly the kind of organization where I want to build the next chapter of my career. I'm drawn to the opportunity to manage complex commercial projects, mentor teams, and contribute to a company that values doing things right.</p>
+
+      <p style="margin-bottom:1rem;">I would welcome the chance to discuss how my combination of hands-on construction knowledge, business management experience, and military leadership can contribute to Hughes' continued success.</p>
+
+      <p style="margin-bottom:0.5rem;">Respectfully,</p>
+      <p><strong>Joshua Fuit</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- INTERVIEW PREP -->
+<div class="card" id="interview">
+  <div class="card-header">
+    <span class="section-icon">🎤</span>
+    <h2>Interview Preparation — Hughes General Contractors</h2>
+  </div>
+  <div class="card-body">
+    <h3 style="margin-bottom:0.75rem;">5 Likely Interview Questions</h3>
+
+    <div class="qa-item">
+      <div class="qa-q">1. "Tell us about your experience managing construction projects from start to finish."</div>
+      <div class="qa-a">
+        <p><strong>Talking points:</strong> Walk through Evolution Plumbing's project lifecycle — from initial estimate and blueprint analysis through procurement, crew scheduling, field execution, inspections, and closeout. Emphasize the business owner perspective: you owned the budget, the timeline, and the client relationship. Mention specific project types and scales. Close with how this translates to commercial construction management at a larger scale.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">2. "How do you handle subcontractor coordination when things go wrong on a job site?"</div>
+      <div class="qa-a">
+        <p><strong>Talking points:</strong> Draw from real examples — emergency calls, schedule conflicts, weather delays. Emphasize proactive communication, documented change orders, and maintaining relationships even during conflict. Reference Marine Corps training in crisis management and rapid decision-making. Show you prioritize solutions over blame.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">3. "What's your approach to managing project budgets and avoiding cost overruns?"</div>
+      <div class="qa-a">
+        <p><strong>Talking points:</strong> Describe how you managed P&amp;L at Evolution — tracking materials costs, labor hours, and overhead. Discuss procurement strategies, vendor negotiations, and how you made decisions when costs exceeded estimates. Mention specific tools used for financial tracking. Quantify: "$1.3M revenue managed with X% profit margins."</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">4. "You're transitioning from running your own company to a PM role. Why this move, and why Hughes?"</div>
+      <div class="qa-a">
+        <p><strong>Talking points:</strong> Be honest and strategic. Frame it as a deliberate career evolution: "I've proven I can build and run a business. Now I want to apply those skills to larger, more complex projects with a team that's been doing it at the highest level for 65 years." Show you've researched Hughes — mention specific project types or values that attracted you. Note the PMP certification as evidence of intentional growth.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">5. "How do you ensure safety compliance across a large job site with multiple trades?"</div>
+      <div class="qa-a">
+        <p><strong>Talking points:</strong> Draw from both military and construction experience. Discuss pre-job safety meetings, OSHA compliance, trade-specific hazard awareness (plumbing, gas, HVAC systems), and how you trained your own technicians. Mention specific certifications (RMGA Gas, multiple contractor licenses) as evidence of safety-first mindset. Reference Marines safety protocols for high-stakes environments.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:1.5rem;margin-bottom:0.75rem;">Questions Josh Should Ask the Interviewer</h3>
+    <ul>
+      <li>"What does the career path look like for a Project Manager here — and what does success look like in the first 6 months?"</li>
+      <li>"What types of projects would I be managing initially, and what's the typical project size and timeline?"</li>
+      <li>"How does Hughes support professional development — especially for someone completing their PMP?"</li>
+      <li>"What PM tools and software does the team use day-to-day (Procore, MS Project, etc.)?"</li>
+      <li>"Can you tell me about the team I'd be working with and the company culture?"</li>
+    </ul>
+
+    <h3 style="margin-top:1.5rem;margin-bottom:0.75rem;">Company Research Brief</h3>
+    <ul>
+      <li><strong>Founded:</strong> ~1960 — 65+ years in business</li>
+      <li><strong>Type:</strong> Family-owned, regional general contractor &amp; construction management firm</li>
+      <li><strong>Headquarters:</strong> 900 North Redwood Road, North Salt Lake, UT 84054</li>
+      <li><strong>Specialties:</strong> Commercial construction — tilt-up concrete, schools, offices, industrial, medical, parks/recreational</li>
+      <li><strong>Memberships:</strong> AGC-Utah, Tilt-Up Concrete Association</li>
+      <li><strong>Reputation:</strong> Consistently ranked among top Utah construction firms</li>
+      <li><strong>Culture:</strong> Values mentorship, long-term career growth, and quality craftsmanship</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SALARY BENCHMARKING -->
+<div class="card" id="salary">
+  <div class="card-header">
+    <span class="section-icon">💰</span>
+    <h2>Salary Overview</h2>
+  </div>
+  <div class="card-body">
+    <p style="color:var(--slate);margin-bottom:1rem;">Salary ranges marked as "Posted" come directly from job listings. "Estimated" ranges are derived from Glassdoor, PayScale, ZipRecruiter, and Indeed salary data for comparable roles in the same market.</p>
+    <div style="overflow-x:auto;">
+      <table class="salary-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Role / Company</th>
+            <th>Salary Range</th>
+            <th>Source</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>PM — Hughes GC</td>
+            <td>$75,100 – $117,700</td>
+            <td><span class="salary-source">Posted (ZipRecruiter)</span></td>
+            <td>Josh's experience warrants mid-to-high range</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>AE, Pro Products — ServiceTitan</td>
+            <td>$93,000 – $100,000 + comm.</td>
+            <td><span class="salary-source">Posted (Careers Page)</span></td>
+            <td>OTE likely $130K–$160K with commission</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>AE, Strategic Sales — ServiceTitan</td>
+            <td>$115,000 – $123,000 + comm.</td>
+            <td><span class="salary-source">Posted (Careers Page)</span></td>
+            <td>OTE likely $170K+ with commission</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>CSM — Kojo</td>
+            <td>$70,000 – $85,000</td>
+            <td><span class="salary-source">Posted (Careers Page)</span></td>
+            <td>May include equity in fast-growing startup</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Integration Specialist — BDR</td>
+            <td>$80,000 – $100,000</td>
+            <td><span class="salary-source">Posted (Indeed)</span></td>
+            <td>Remote with some travel</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>PM — Big-D Construction</td>
+            <td>$85,000 – $130,000</td>
+            <td><span class="salary-source">Estimated (Glassdoor/PayScale)</span></td>
+            <td>Top Utah firm; premium compensation</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>CS Specialist — Housecall Pro</td>
+            <td>$55,000 – $75,000</td>
+            <td><span class="salary-source">Estimated (Glassdoor)</span></td>
+            <td>Lower base but strong benefits + equity</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>PM — Okland Construction</td>
+            <td>$68,900 – $109,300</td>
+            <td><span class="salary-source">Posted (ZipRecruiter)</span></td>
+            <td>Concrete specialization may adjust range</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>PM — Jacobsen Construction</td>
+            <td>$80,000 – $120,000</td>
+            <td><span class="salary-source">Estimated (Glassdoor)</span></td>
+            <td>Employee-owned = equity upside</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Superintendent — KNP Construction</td>
+            <td>$90,000 – $125,000</td>
+            <td><span class="salary-source">Estimated (ZipRecruiter)</span></td>
+            <td>Field leadership premium; posted 3/15/26</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:1.25rem;padding:1rem;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;">
+      <strong>Market Positioning:</strong> The average Construction Project Manager salary in Utah is $94K–$106K (sources: Glassdoor, PayScale, Indeed). With Josh's GC license, PMP in progress, 18+ years of experience, and bilingual skills, he should target the <strong>75th percentile or above ($105K–$125K)</strong> for Utah construction PM roles. For remote SaaS roles, the OTE range for account executives with domain expertise is typically <strong>$120K–$170K</strong> including commission.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:2rem 1rem;color:var(--slate);font-size:0.85rem;">
+  <p>Generated on March 24, 2026 — Re-run weekly for fresh results</p>
+  <p style="margin-top:0.5rem;">Job availability changes frequently. Apply promptly to listings of interest.</p>
+  <p style="margin-top:0.5rem;color:#94a3b8;">Powered by Gen4 Dental Job Search Assistant</p>
+</div>
+
+</div><!-- /container -->
+
+<script>
+function copyLetter() {
+  const el = document.getElementById('coverLetterText');
+  const text = el.innerText.replace('Copy to Clipboard', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy to Clipboard'; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
