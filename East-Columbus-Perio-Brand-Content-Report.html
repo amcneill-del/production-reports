@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Content Report - East Columbus Periodontic & Implant Dentistry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(135deg, #0f8860 0%, #1ba875 100%);
+            color: white;
+            padding: 20px 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Summary Dashboard */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 700;
+            color: #0f8860;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Business Info Section */
+        .business-info {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #0f8860;
+        }
+
+        .business-info h2 {
+            color: #0f8860;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .info-value a {
+            color: #0f8860;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-value a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section Title */
+        h2 {
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 30px;
+            margin-top: 40px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #0f8860;
+        }
+
+        /* Platform Cards */
+        .platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .platform-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .platform-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+        }
+
+        .platform-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-active {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge-minimal {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .badge-notfound {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        /* Platform Icons */
+        .platform-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+
+        .platform-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Platform Colors */
+        .instagram-color { color: #E4405F; }
+        .facebook-color { color: #1877F2; }
+        .website-color { color: #34A853; }
+        .linkedin-color { color: #0A66C2; }
+        .youtube-color { color: #FF0000; }
+        .tiktok-color { color: #000000; }
+        .twitter-color { color: #1DA1F2; }
+
+        .platform-content {
+            padding: 20px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .stat-row strong {
+            color: #333;
+        }
+
+        .stat-row span {
+            color: #0f8860;
+            font-weight: 600;
+        }
+
+        .url-box {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+
+        .url-box a {
+            color: #0f8860;
+            text-decoration: none;
+            word-break: break-all;
+            font-weight: 500;
+        }
+
+        .url-box a:hover {
+            text-decoration: underline;
+        }
+
+        .platform-notes {
+            background: #f0f4f8;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #555;
+            margin-top: 15px;
+            border-left: 3px solid #0f8860;
+        }
+
+        /* Opportunities Section */
+        .opportunities {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe8cc 100%);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid #ffa500;
+            margin-bottom: 40px;
+        }
+
+        .opportunities h3 {
+            color: #e65100;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .opportunities ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .opportunities li {
+            padding: 10px 0;
+            color: #555;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(230, 81, 0, 0.1);
+        }
+
+        .opportunities li:last-child {
+            border-bottom: none;
+        }
+
+        .opportunities li:before {
+            content: "▸ ";
+            color: #ffa500;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            font-size: 12px;
+        }
+
+        footer a {
+            color: #0f8860;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 22px;
+            }
+
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .platforms {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+
+            .stat-number {
+                font-size: 32px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            header {
+                position: relative;
+            }
+
+            .platform-card,
+            .stat-card,
+            .business-info,
+            .opportunities {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            a {
+                color: #0f8860;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>East Columbus Periodontic & Implant Dentistry</h1>
+        <p>Brand Content Audit Report</p>
+    </header>
+
+    <div class="container">
+        <!-- Summary Dashboard -->
+        <div class="dashboard">
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Active Platforms</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Platforms Tracked</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1</div>
+                <div class="stat-label">Social Posts Found</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Website Pages</div>
+            </div>
+        </div>
+
+        <!-- Business Information -->
+        <div class="business-info">
+            <h2 style="margin-top: 0; border-bottom: none;">Practice Overview</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Practice Name</div>
+                    <div class="info-value">East Columbus Periodontic & Implant Dentistry</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Formerly Known As</div>
+                    <div class="info-value">Blank & Levy</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Founded</div>
+                    <div class="info-value">March 2020</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Primary Address</div>
+                    <div class="info-value">1600 Brice Rd, Suite 1<br>Reynoldsburg, OH 43068</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Secondary Address</div>
+                    <div class="info-value">5180 E. Main St., Suite A<br>Columbus, OH 43213</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Contact</div>
+                    <div class="info-value"><a href="tel:6148642561">(614) 864-2561</a></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Website</div>
+                    <div class="info-value"><a href="https://www.eastcolumbusperio.com" target="_blank">eastcolumbusperio.com</a></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Key Doctors</div>
+                    <div class="info-value">Dr. Michael K. Kreitzer, DMD (Owner)<br>Dr. Maria Cristina Ferriol, DMD</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Specialties</div>
+                    <div class="info-value">Dental Implants, Periodontics, Gum Surgery, TMJ Treatment</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Report Generated</div>
+                    <div class="info-value">March 24, 2026</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platform Analysis -->
+        <h2>Social Media & Digital Presence</h2>
+        <div class="platforms">
+            <!-- Instagram -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-title-wrapper">
+                        <span class="platform-icon instagram-color">📷</span>
+                        <span class="platform-name">Instagram</span>
+                    </div>
+                    <span class="platform-badge badge-minimal">Minimal</span>
+                </div>
+                <div class="platform-content">
+                    <div class="stat-row">
+                        <strong>Handle:</strong>
+                        <span>@eastcolumbusperio</span>
+                    </div>
+                    <div class="stat-row">
+                        <strong>Followers:</strong>
+                        <span>17</span>
+                    </div>
+                    <div class="stat-row">
+                        <strong>Posts:</strong>
+                        <span>1</span>
+                    </div>
+                    <div class="url-box">
+                        <a href="https://www.instagram.com/eastcolumbusperio/" target="_blank">instagram.com/eastcolumbusperio</a>
+                    </div>
+                    <div class="platform-notes">
+                        <strong>Bio:</strong> "Periodontal practice serving the greater Columbus area located on the East Side of Columbus"
+                    </div>
+                    <div class="platform-notes">
+                        Account exists with minimal activity. Significant growth opportunity.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facebook -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-title-wrapper">
+                        <span class="platform-icon facebook-color">f</span>
+                        <span class="platform-name">Facebook</span>
+                    </div>
+                    <span class="platform-badge badge-minimal">Minimal</span>
+                </div>
+                <div class="platform-content">
+                    <div class="stat-row">
+                        <strong>Page Likes:</strong>
+                        <span>47</span>
+                    </div>
+                    <div class="stat-row">
+                        <strong>Reviews:</strong>
+                        <span>6 (100% recommend)</span>
+                    </div>
+                    <div class="stat-row">
+                        <strong>Check-ins:</strong>
+                        <span>1</span>
+                    </div>
+                    <div class="url-box">
+                        <a href="https://www.facebook.com/EastColumbusPerio/" target="_blank">facebook.com/EastColumbusPerio</a>
+                    </div>
+                    <div class="platform-notes">
+                        Has photo albums with practice images. Low posting activity with room for content development.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Website -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-title-wrapper">
+                        <span class="platform-icon website-color">🌐</span>
+                        <span class="platform-name">Website</span>
+                    </div>
+                    <span class="platform-badge badge-active">Active</span>
+                </div>
+                <div class="platform-content">
+                    <div class="stat-row">
+                        <strong>Domain:</strong>
+                        <span>eastcolumbusperio.com</span>
+                    </div>
+                    <div class="stat-row">
+                        <strong>Pages Found:</strong>
+                        <span>7</span>
+                    </div>
+                    <div class="url-box">
+                        <a href="https://www.eastcolumbusperio.com/" target="_blank">Home</a> |
+                        <a href="https://www.eastcolumbusperio.com/dental-implants/" target="_blank">Implants</a> |
+                        <a href="https://www.eastcolumbusperio.com/full-mouth-dental-implants/" target="_blank">Full-Mouth</a> |
+                        <a href="https://www.eastcolumbusperio.com/gum-surgery/" target="_blank">Gum Surgery</a>
+                    </div>
+                    <div class="url-box">
+                        <a href="https://www.eastcolumbusperio.com/tmj-treatment/" target="_blank">TMJ Treatment</a> |
+                        <a href="https://www.eastcolumbusperio.com/our-team/" target="_blank">Our Team</a> |
+                        <a href="https://www.eastcolumbusperio.com/contact-us/" target="_blank">Contact</a>
+                    </div>
+                    <div class="platform-notes">
+                        Well-structured service pages and team bios. No blog or news section found.
+                    </div>
+                </div>
+            </div>
+
+            <!-- LinkedIn -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-title-wrapper">
+                        <span class="platform-icon linkedin-color">in</span>
+                        <span class="platform-name">LinkedIn</span>
+                    </div>
+                    <span class="platform-badge badge-minimal">Minimal</span>
+                </div>
+                <div class="platform-content">
+                    <div class="stat-row">
+                        <strong>Presence:</strong>
+                        <span>Individual Profiles Only</span>
+                    </div>
+                    <div class="url-box">
+                        <a href="https://www.linkedin.com/in/michael-k-kreitzer-265a3316/" target="_blank">Dr. Michael K. Kreitzer</a>
+                    </div>
+                    <div class="url-box">
+                        <a href="https://www.linkedin.com/in/maria-cristina-ferriol-9b93a5112" target="_blank">Dr. Maria Cristina Ferriol</a>
+                    </div>
+                    <div class="url-box">
+                        <a href="https://www.linkedin.com/in/brittany-cornwell-a1955748/" target="_blank">Brittany Cornwell (Staff)</a>
+                    </div>
+                    <div class="platform-notes">
+                        No company page found. Individual doctor profiles exist but not connected as company entity.
+                    </div>
+                </div>
+            </div>
+
+            <!-- YouTube -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-title-wrapper">
+                        <span class="platform-icon youtube-color">▶</span>
+                        <span class="platform-name">YouTube</span>
+                    </div>
+                    <span class="platform-badge badge-notfound">Not Found</span>
+                </div>
+                <div class="platform-content">
+                    <div class="platform-notes">
+                        No YouTube channel found. Educational video content could enhance patient education and SEO.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TikTok -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-title-wrapper">
+                        <span class="platform-icon tiktok-color">♪</span>
+                        <span class="platform-name">TikTok</span>
+                    </div>
+                    <span class="platform-badge badge-notfound">Not Found</span>
+                </div>
+                <div class="platform-content">
+                    <div class="platform-notes">
+                        No TikTok presence found. Growing platform for healthcare education and patient engagement, particularly with younger demographics.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Twitter/X -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-title-wrapper">
+                        <span class="platform-icon twitter-color">𝕏</span>
+                        <span class="platform-name">Twitter / X</span>
+                    </div>
+                    <span class="platform-badge badge-notfound">Not Found</span>
+                </div>
+                <div class="platform-content">
+                    <div class="platform-notes">
+                        No Twitter/X presence found. Could be used for professional announcements and industry news sharing.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Gaps & Opportunities -->
+        <div class="opportunities">
+            <h3>Content Gaps & Strategic Opportunities</h3>
+            <ul>
+                <li><strong>Blog/News Section:</strong> Website lacks a blog or news area. Consider adding patient education articles, treatment guides, and practice updates to improve SEO and patient engagement.</li>
+                <li><strong>Video Content:</strong> No YouTube channel. Educational videos about implant procedures, before/after galleries, and patient testimonials could significantly boost credibility and reach.</li>
+                <li><strong>Social Media Strategy:</strong> Instagram has 17 followers with only 1 post. Develop a consistent content calendar with before/after case studies, team spotlights, patient tips, and engagement campaigns.</li>
+                <li><strong>LinkedIn Company Page:</strong> Create an official company LinkedIn page to establish professional credibility and connect doctor profiles. Ideal for sharing practice news and industry insights.</li>
+                <li><strong>Email Marketing:</strong> No email newsletter identified. Consider building patient email lists for newsletters, appointment reminders, and promotions.</li>
+                <li><strong>Patient Testimonials:</strong> While 100% positive Facebook reviews exist, collect and showcase more detailed patient testimonials across web and social platforms.</li>
+                <li><strong>Emerging Platforms:</strong> Consider TikTok for reaching younger audiences with engaging, educational dental health content. Growing platform for healthcare professionals.</li>
+                <li><strong>Content Consistency:</strong> Establish regular posting schedule across all platforms. Minimal activity suggests need for dedicated content calendar and social media management.</li>
+                <li><strong>Local SEO:</strong> Leverage Google My Business and local directory listings to improve visibility for "periodontics near me" type searches.</li>
+                <li><strong>Team Spotlight Content:</strong> Highlight Dr. Ferriol, Dr. Kreitzer, and hygienist Jody through profiles, patient stories, and behind-the-scenes content.</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Generated by Content Scout — March 24, 2026</p>
+            <p>This report documents all brand content found across owned and social channels for East Columbus Periodontic & Implant Dentistry.</p>
+        </footer>
+    </div>
+</body>
+</html>

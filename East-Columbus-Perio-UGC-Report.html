@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGC Report - East Columbus Periodontic & Implant Dentistry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #d4a574 0%, #c89564 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .scan-info {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 4px solid #d4a574;
+        }
+
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #d4a574;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .label {
+            font-size: 0.95em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            margin-top: 35px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #d4a574;
+            display: inline-block;
+        }
+
+        .section-subtitle {
+            font-size: 1.3em;
+            color: #34495e;
+            margin-bottom: 20px;
+            margin-top: 25px;
+            padding-left: 10px;
+            border-left: 4px solid #d4a574;
+        }
+
+        /* Top Reshare Candidates */
+        .reshare-candidates {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid #d4a574;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .reshare-candidates h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .reshare-candidates h3::before {
+            content: "⭐";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .reshare-list {
+            list-style: none;
+        }
+
+        .reshare-list li {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #d4a574;
+            display: flex;
+            align-items: center;
+        }
+
+        .reshare-list li::before {
+            content: counter(item);
+            counter-increment: item;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: #d4a574;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .reshare-list {
+            counter-reset: item;
+        }
+
+        /* UGC Cards */
+        .ugc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .ugc-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ugc-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .ugc-header {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .ugc-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            flex: 1;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+
+        .platform-facebook { background: #1877f2; }
+        .platform-yelp { background: #af0606; }
+        .platform-web { background: #667eea; }
+        .platform-youtube { background: #ff0000; }
+        .platform-blog { background: #ff6b6b; }
+        .platform-directory { background: #6c757d; }
+
+        .reshare-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .reshare-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .reshare-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .reshare-low {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .ugc-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ugc-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .meta-item strong {
+            color: #333;
+            margin-right: 5px;
+        }
+
+        .date-flag {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .ugc-description {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .ugc-action {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #2c3e50;
+            font-style: italic;
+            border-left: 3px solid #d4a574;
+        }
+
+        .ugc-url {
+            display: block;
+            margin-top: 15px;
+            word-break: break-all;
+        }
+
+        .ugc-url a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.85em;
+            transition: color 0.3s ease;
+        }
+
+        .ugc-url a:hover {
+            color: #d4a574;
+            text-decoration: underline;
+        }
+
+        /* Hashtag Section */
+        .hashtag-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .hashtag-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .hashtag-group {
+            margin-bottom: 20px;
+        }
+
+        .hashtag-group-title {
+            font-weight: 700;
+            color: #34495e;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .hashtag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hashtag {
+            background: #e8f4f8;
+            color: #0c5460;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid #b8daff;
+        }
+
+        /* Best Practices Section */
+        .best-practices {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .best-practices h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .practice-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #d4a574;
+        }
+
+        .practice-item strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .practice-item p {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Older Mentions Section */
+        .older-mentions {
+            background: #fff3cd;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin-bottom: 30px;
+        }
+
+        .older-mentions h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+
+        .footer strong {
+            color: #2c3e50;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .ugc-card {
+                page-break-inside: avoid;
+            }
+
+            .container {
+                padding: 0;
+            }
+
+            .header {
+                margin-bottom: 20px;
+            }
+
+            .stats-grid {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .badge-container {
+                flex-direction: column;
+            }
+
+            .badge {
+                width: 100%;
+                text-align: center;
+            }
+
+            .ugc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ugc-header {
+                flex-direction: column;
+            }
+
+            .platform-badge {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .reshare-badge {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .practices-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .text-muted {
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .highlight {
+            background: #fff8dc;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>User-Generated Content Report</h1>
+            <p>East Columbus Periodontic & Implant Dentistry</p>
+            <div class="scan-info">
+                <strong>Scan Window:</strong> November 24, 2025 — March 24, 2026 (120 days)<br>
+                <strong>Scan Date:</strong> March 24, 2026
+            </div>
+            <div class="badge-container">
+                <div class="badge">✓ FIRST RUN — 120 Day Baseline</div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">19</div>
+                <div class="label">UGC Items Found</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">5</div>
+                <div class="label">High Reshare Potential</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">5</div>
+                <div class="label">Medium Reshare Potential</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">9</div>
+                <div class="label">Directory Listings</div>
+            </div>
+        </div>
+
+        <!-- Top Reshare Candidates -->
+        <div class="reshare-candidates">
+            <h3>Top 5 Reshare Candidates</h3>
+            <ol class="reshare-list">
+                <li>Herrick Dental thank-you video — referral partner appreciation</li>
+                <li>Yelp reviews — patient voice content</li>
+                <li>Dental Country Top 5 ranking — credibility & social proof</li>
+                <li>Vince Nardone blog — founding story & origin narrative</li>
+                <li>BestProsInTown 4.8 star rating — aggregated social proof</li>
+            </ol>
+        </div>
+
+        <!-- High Reshare Potential Section -->
+        <h2 class="section-title">High Reshare Potential</h2>
+        <div class="ugc-grid">
+            <!-- Item 1: Herrick Dental Video -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Herrick Dental Facebook Video</div>
+                        <span class="platform-badge platform-facebook">Facebook</span>
+                    </div>
+                    <span class="reshare-badge reshare-high">HIGH</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Creator:</strong> Herrick Dental</div>
+                        <div class="meta-item"><strong>Type:</strong> Referral Partner Video</div>
+                    </div>
+                    <div class="ugc-description">
+                        Herrick Dental posted a thank-you video mentioning East Columbus Periodontic & Implant Dentistry, showcasing the strength of your referral partnership.
+                    </div>
+                    <div class="ugc-action">💡 Reshare on Facebook with thank-you caption; great for showing referral relationships</div>
+                    <div class="ugc-url">
+                        <a href="https://www.facebook.com/herrickdental/videos/thank-you-so-much-to-east-columbus-periodontic-implant-dentistry-for-the-delicio/1332499510533086/" target="_blank">
+                            facebook.com/herrickdental/videos/...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2: Yelp Reviews -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Yelp Reviews & Photos</div>
+                        <span class="platform-badge platform-yelp">Yelp</span>
+                    </div>
+                    <span class="reshare-badge reshare-high">HIGH</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Stats:</strong> 4 reviews, 10 photos</div>
+                        <div class="meta-item"><strong>Updated:</strong> March 2026</div>
+                    </div>
+                    <div class="ugc-description">
+                        Patient reviews highlight welcoming atmosphere, Dr. Kreitzer's thorough reviews and clear explanations, and exceptional staff. Patients consistently feel heard and valued.
+                    </div>
+                    <div class="ugc-action">💡 Create review spotlight graphics; respond to all reviews</div>
+                    <div class="ugc-url">
+                        <a href="https://www.yelp.com/biz/east-columbus-periodontic-and-implant-dentistry-reynoldsburg" target="_blank">
+                            yelp.com/biz/east-columbus-periodontic-and-implant-dentistry-reynoldsburg
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3: Dental Country Ranking -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">"Top 5 Periodontists in Columbus"</div>
+                        <span class="platform-badge platform-web">Web</span>
+                    </div>
+                    <span class="reshare-badge reshare-high">HIGH</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Source:</strong> Dental Country</div>
+                        <div class="meta-item"><strong>Type:</strong> Industry Ranking</div>
+                    </div>
+                    <div class="ugc-description">
+                        East Columbus Periodontic & Implant Dentistry recognized as one of the top 5 periodontists in Columbus — a significant credibility endorsement from an industry authority.
+                    </div>
+                    <div class="ugc-action">💡 Share as social proof — "We're honored to be recognized!"</div>
+                    <div class="ugc-url">
+                        <a href="https://dentalcountry.com/public/top-doctors/top-5-periodontists-in-columbus-ohio/" target="_blank">
+                            dentalcountry.com/public/top-doctors/top-5-periodontists-in-columbus-ohio/
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4: Yelp Best Ranking -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">"Best 10 Periodontists in Columbus"</div>
+                        <span class="platform-badge platform-yelp">Yelp</span>
+                    </div>
+                    <span class="reshare-badge reshare-high">HIGH</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Type:</strong> Platform Ranking</div>
+                    </div>
+                    <div class="ugc-description">
+                        Featured in Yelp's best periodontists list for Columbus, OH — algorithmic recognition of patient satisfaction and service quality.
+                    </div>
+                    <div class="ugc-action">💡 Share as social proof on social media</div>
+                    <div class="ugc-url">
+                        <a href="https://www.yelp.com/search?cflt=periodontists&find_loc=Columbus,+OH" target="_blank">
+                            yelp.com/search?cflt=periodontists&find_loc=Columbus,+OH
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5: Vince Nardone Blog -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Vince Nardone Blog: "Dr. Stoner & Dr. Kreitzer Expand"</div>
+                        <span class="platform-badge platform-blog">Blog</span>
+                    </div>
+                    <span class="reshare-badge reshare-high">HIGH</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Type:</strong> Press/Blog Coverage</div>
+                        <div class="meta-item"><span class="date-flag">Older Mention: Sept 2020</span></div>
+                    </div>
+                    <div class="ugc-description">
+                        Press coverage documenting the expansion and growth of your practice leadership — an excellent origin story and founding narrative for brand building.
+                    </div>
+                    <div class="ugc-action">💡 Reshare for #ThrowbackThursday or founding anniversary content</div>
+                    <div class="ugc-url">
+                        <a href="https://www.vincentjnardone.com/healthcare-blog/2020/09/dr-stoner-and-dr-kreitzer-expand-their-reach/" target="_blank">
+                            vincentjnardone.com/healthcare-blog/2020/09/dr-stoner-and-dr-kreitzer-expand-their-reach/
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medium Reshare Potential Section -->
+        <h2 class="section-title">Medium Reshare Potential</h2>
+        <div class="ugc-grid">
+            <!-- Item 6: BestProsInTown -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">BestProsInTown Reviews</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-medium">MEDIUM</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Stats:</strong> 4.8★ from 221 reviews</div>
+                    </div>
+                    <div class="ugc-description">
+                        59 reviews and 21 photos on this aggregated review platform demonstrate consistent patient satisfaction and service quality across multiple data points.
+                    </div>
+                    <div class="ugc-action">💡 Use star rating as social proof graphic</div>
+                    <div class="ugc-url">
+                        <a href="https://www.bestprosintown.com/oh/reynoldsburg/east-columbus-periodontic-and-implant-dentistry-formerly-blank-and-levy-/" target="_blank">
+                            bestprosintown.com/oh/reynoldsburg/east-columbus-periodontic...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 7: Chamber of Commerce -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Chamber of Commerce Listing</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-medium">MEDIUM</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Stats:</strong> 4.8★ from 102 reviews</div>
+                    </div>
+                    <div class="ugc-description">
+                        Community business directory listing with strong community endorsement and professional standing recognition.
+                    </div>
+                    <div class="ugc-action">💡 Reference in community outreach materials</div>
+                    <div class="ugc-url">
+                        <a href="https://www.chamberofcommerce.com/business-directory/ohio/reynoldsburg/dentist/2023339570-east-columbus-periodontic-implant-dentistry-formerly-blank-levy" target="_blank">
+                            chamberofcommerce.com/business-directory/ohio/reynoldsburg/...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 8: StellaLife Video -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">StellaLife Video: Dr. Ferriol at AAP 2017</div>
+                        <span class="platform-badge platform-youtube">YouTube</span>
+                    </div>
+                    <span class="reshare-badge reshare-medium">MEDIUM</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Type:</strong> Conference Speaking</div>
+                        <div class="meta-item"><span class="date-flag">Older Mention: 2017</span></div>
+                    </div>
+                    <div class="ugc-description">
+                        Dr. Maria C. Ferriol speaking at the American Academy of Periodontology annual conference — professional credibility and thought leadership recognition.
+                    </div>
+                    <div class="ugc-action">💡 Highlight professional expertise and conference participation</div>
+                    <div class="ugc-url">
+                        <a href="https://stellalife.com/blogs/clinician-videos/dr-maria-c-ferriol-at-aap-2017-in-boston" target="_blank">
+                            stellalife.com/blogs/clinician-videos/dr-maria-c-ferriol-at-aap-2017-in-boston
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 9: Buckeye Lifestyle -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Buckeye Lifestyle Magazine</div>
+                        <span class="platform-badge platform-blog">Magazine</span>
+                    </div>
+                    <span class="reshare-badge reshare-medium">MEDIUM</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Type:</strong> Press/Magazine Feature</div>
+                        <div class="meta-item"><strong>Features:</strong> Dr. Ferriol</div>
+                    </div>
+                    <div class="ugc-description">
+                        Featured in local lifestyle magazine as part of Stoner Periodontic Implant Specialists coverage — local media credibility and community presence.
+                    </div>
+                    <div class="ugc-action">💡 Link from website "As Featured In" section</div>
+                    <div class="ugc-url">
+                        <a href="https://www.buckeyelifestyle.com/stoner-periodontic-implant-specialists/" target="_blank">
+                            buckeyelifestyle.com/stoner-periodontic-implant-specialists/
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 10: US News Doctors -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">US News & World Report: Dr. Ferriol</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-medium">MEDIUM</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Type:</strong> Professional Directory</div>
+                        <div class="meta-item"><strong>Provider:</strong> Dr. Maria C. Ferriol</div>
+                    </div>
+                    <div class="ugc-description">
+                        Profile on the prestigious US News & World Report doctor directory — national medical credibility and professional recognition.
+                    </div>
+                    <div class="ugc-action">💡 Reference in credentials and about sections</div>
+                    <div class="ugc-url">
+                        <a href="https://health.usnews.com/dentists/maria-ferriol-1647971" target="_blank">
+                            health.usnews.com/dentists/maria-ferriol-1647971
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Low Reshare Potential Section -->
+        <h2 class="section-title">Low Reshare Potential (Directory Listings)</h2>
+        <p style="color: #666; margin-bottom: 20px;">The following are foundational directory listings that provide local SEO value but have lower social media reshare potential. Ensure these are claimed and up-to-date.</p>
+
+        <div class="ugc-grid">
+            <!-- Item 11: BBB -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Better Business Bureau (BBB)</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-description">
+                        Foundational business directory listing for credibility and consumer trust.
+                    </div>
+                    <div class="ugc-url">
+                        <a href="https://www.bbb.org/us/oh/reynoldsburg/profile/dentist/east-columbus-periodontic-implant-dentistry-0302-70150685" target="_blank">
+                            bbb.org/us/oh/reynoldsburg/profile/dentist/...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 12: CareCredit -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">CareCredit Provider Listing</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-description">
+                        Payment option directory for patients seeking financing solutions.
+                    </div>
+                    <div class="ugc-url">
+                        <a href="https://www.carecredit.com/doctor-locator/reynoldsburg-oh/east-columbus-periodontics-447vfj/" target="_blank">
+                            carecredit.com/doctor-locator/reynoldsburg-oh/...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 13: Momentum Plans -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Momentum Plans Listing</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-description">
+                        Membership plan provider directory for patient affordability options.
+                    </div>
+                    <div class="ugc-url">
+                        <a href="https://www.momentumplans.com/store/east-columbus-periodontics-implants-perio/" target="_blank">
+                            momentumplans.com/store/east-columbus-periodontics-implants-perio/
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 14: Wheree -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Wheree Business Directory</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-description">
+                        Local business directory listing for geographic discovery.
+                    </div>
+                    <div class="ugc-url">
+                        <a href="https://east-columbus-periodontic-implant-dentistry-formerly-blank-l.wheree.com/" target="_blank">
+                            wheree.com/east-columbus-periodontic-implant-dentistry...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 15: Dental.page -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Dental.page Directory</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-description">
+                        Specialized dental practice directory for professional discovery.
+                    </div>
+                    <div class="ugc-url">
+                        <a href="https://dental.page/o/east-columbus-periodontic-implant-dentistry-formerly-blank-levy-columbus-oh/" target="_blank">
+                            dental.page/o/east-columbus-periodontic-implant-dentistry...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 16: Ohio-DDS -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Ohio-DDS Directory</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-description">
+                        State-level dental provider directory for local SEO and practice visibility.
+                    </div>
+                    <div class="ugc-url">
+                        <a href="https://ohio-dds.com/o/east-columbus-periodontic-implant-dentistry-formerly-blank-levy-columbus-oh/" target="_blank">
+                            ohio-dds.com/o/east-columbus-periodontic-implant-dentistry...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 17: Yahoo Local -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Yahoo Local: Dr. Ferriol</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Provider:</strong> Dr. Maria Ferriol</div>
+                    </div>
+                    <div class="ugc-description">
+                        Local business directory with doctor profile for geographic discovery.
+                    </div>
+                    <div class="ugc-url">
+                        <a href="https://local.yahoo.com/info-234235444-ferriol-maria-east-columbus-periodontics-and-implant-dentistry-reynoldsburg/" target="_blank">
+                            local.yahoo.com/info-234235444-ferriol-maria-east-columbus-periodontics...
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 18: Vitals -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Vitals: Dr. Ferriol</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><strong>Provider:</strong> Dr. Maria Ferriol</div>
+                    </div>
+                    <div class="ugc-description">
+                        Doctor review site directory listing for patient discovery and credibility.
+                    </div>
+                    <div class="ugc-url">
+                        <a href="https://www.vitals.com/dentists/Dr_Maria_Ferriol" target="_blank">
+                            vitals.com/dentists/Dr_Maria_Ferriol
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 19: Birdeye -->
+            <div class="ugc-card">
+                <div class="ugc-header">
+                    <div>
+                        <div class="ugc-title">Birdeye Review Platform</div>
+                        <span class="platform-badge platform-directory">Directory</span>
+                    </div>
+                    <span class="reshare-badge reshare-low">LOW</span>
+                </div>
+                <div class="ugc-content">
+                    <div class="ugc-meta">
+                        <div class="meta-item"><span class="date-flag">Unclaimed Profile</span></div>
+                    </div>
+                    <div class="ugc-description">
+                        Review platform listing (currently unclaimed). Consider claiming and activating for managed reputation.
+                    </div>
+                    <div class="ugc-action">💡 Action: Claim profile and activate</div>
+                    <div class="ugc-url">
+                        <a href="https://reviews.birdeye.com/east-columbus-periodontic-implant-dentistry-formerly-blank-levy-176910892728632" target="_blank">
+                            reviews.birdeye.com/east-columbus-periodontic-implant-dentistry...
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hashtag Strategy Section -->
+        <h2 class="section-title">Hashtag Strategy</h2>
+        <div class="hashtag-section">
+            <h3>Branded Hashtags (Create & Promote)</h3>
+            <div class="hashtag-group">
+                <div class="hashtag-list">
+                    <span class="hashtag">#EastColumbusPerio</span>
+                    <span class="hashtag">#EastColumbusPeriodontics</span>
+                    <span class="hashtag">#ReynoldsburgPerio</span>
+                </div>
+                <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Encourage patients to use these when sharing their experiences and transformations.</p>
+            </div>
+
+            <h3 style="margin-top: 25px;">Complementary Hashtags (10-15 for Organic Reach)</h3>
+            <div class="hashtag-group">
+                <div class="hashtag-list">
+                    <span class="hashtag">#ColumbusOhioDentist</span>
+                    <span class="hashtag">#ReynoldsburgOH</span>
+                    <span class="hashtag">#DentalImplants</span>
+                    <span class="hashtag">#Periodontics</span>
+                    <span class="hashtag">#GumHealth</span>
+                    <span class="hashtag">#SmileTransformation</span>
+                    <span class="hashtag">#OralHealth</span>
+                    <span class="hashtag">#ColumbusPerio</span>
+                    <span class="hashtag">#BoardCertifiedPeriodontist</span>
+                    <span class="hashtag">#DentalImplantsColumbus</span>
+                    <span class="hashtag">#PeriodontalCare</span>
+                    <span class="hashtag">#HealthyGums</span>
+                    <span class="hashtag">#ColumbusDental</span>
+                    <span class="hashtag">#OhioDentist</span>
+                </div>
+                <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Mix these hashtags in your social posts for broader discovery and community engagement.</p>
+            </div>
+
+            <h3 style="margin-top: 25px;">Customer Encouragement</h3>
+            <p style="color: #666; line-height: 1.6;">Encourage patients to share their experiences using your branded hashtags. Include CTAs in appointment confirmation emails, waiting room signage, and follow-up thank-you cards: "Share your smile transformation with us using #EastColumbusPerio!"</p>
+        </div>
+
+        <!-- Best Practices Section -->
+        <h2 class="section-title">UGC Resharing Best Practices</h2>
+        <div class="best-practices">
+            <div class="practices-grid">
+                <div class="practice-item">
+                    <strong>1. Always Credit the Creator</strong>
+                    <p>Tag the original poster and mention them in your caption. This builds community and shows respect for their content.</p>
+                </div>
+                <div class="practice-item">
+                    <strong>2. Ask Permission First</strong>
+                    <p>For feed posts, DM or comment to request permission before resharing. Most creators are thrilled to be featured.</p>
+                </div>
+                <div class="practice-item">
+                    <strong>3. Don't Edit Beyond Basic Cropping</strong>
+                    <p>Keep the original content authentic. Minor adjustments are fine, but avoid heavy editing or filters that change the creator's intent.</p>
+                </div>
+                <div class="practice-item">
+                    <strong>4. Engage Before You Reshare</strong>
+                    <p>Like and comment on the original content first. This warms the relationship and shows genuine interest.</p>
+                </div>
+                <div class="practice-item">
+                    <strong>5. Keep a UGC Permission Log</strong>
+                    <p>Document all permissions obtained. Include date, creator name, platform, and content URL for compliance and future reference.</p>
+                </div>
+                <div class="practice-item">
+                    <strong>6. Thank the Creator After Resharing</strong>
+                    <p>Send a follow-up message thanking them for the opportunity. Include metrics if impressive (e.g., "reached 2K people").</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Findings Summary -->
+        <div style="background: #f0f7ff; padding: 25px; border-radius: 8px; border-left: 5px solid #667eea; margin-bottom: 30px;">
+            <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.2em;">Key Findings Summary</h3>
+            <ul style="list-style: none; color: #555;">
+                <li style="margin-bottom: 10px;"><strong style="color: #2c3e50;">✓ Strong Social Proof:</strong> 4.8-star ratings across multiple platforms (Yelp, BestProsInTown, Chamber of Commerce)</li>
+                <li style="margin-bottom: 10px;"><strong style="color: #2c3e50;">✓ Active Patient Reviews:</strong> Consistent feedback on welcoming atmosphere and Dr. Kreitzer's expertise across 4+ reviews with 10+ photos</li>
+                <li style="margin-bottom: 10px;"><strong style="color: #2c3e50;">✓ Industry Recognition:</strong> Ranked in Top 5 periodontists by Dental Country and included in Yelp's best list</li>
+                <li style="margin-bottom: 10px;"><strong style="color: #2c3e50;">✓ Professional Credibility:</strong> Dr. Ferriol's AAP conference speaking and US News & World Report listing demonstrate thought leadership</li>
+                <li style="margin-bottom: 10px;"><strong style="color: #2c3e50;">✓ Referral Partnerships:</strong> Herrick Dental thank-you video shows strong business-to-business relationships</li>
+                <li style="margin-bottom: 10px;"><strong style="color: #2c3e50;">⚠️ Action Items:</strong> Claim Birdeye profile, respond to all Yelp reviews, activate branded hashtag strategy, implement UGC resharing program</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Generated by Content Scout</strong> — March 24, 2026</p>
+            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">This User-Generated Content Report documents all online mentions, reviews, and references to East Columbus Periodontic & Implant Dentistry found during the 120-day baseline scan window (Nov 24, 2025 — Mar 24, 2026). Use this report to inform your social media resharing strategy and identify high-value content opportunities.</p>
+        </div>
+    </div>
+</body>
+</html>
