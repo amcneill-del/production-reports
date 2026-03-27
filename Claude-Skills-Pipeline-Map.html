@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Skills &rarr; Pipeline &amp; Platform Map</title>
+<style>
+  :root {
+    --harvest: #F59E0B;
+    --integrate: #3B82F6;
+    --test: #8B5CF6;
+    --live: #10B981;
+    --ws1: #2563EB;
+    --ws2: #D97706;
+    --ws3: #059669;
+    --dept: #6366F1;
+    --bg: #0F172A;
+    --card: #1E293B;
+    --card-hover: #334155;
+    --text: #F1F5F9;
+    --muted: #94A3B8;
+    --border: #334155;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+
+  /* Header */
+  .header { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border-bottom: 1px solid var(--border); padding: 32px 40px 24px; position: sticky; top: 0; z-index: 100; }
+  .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .header h1 span { color: var(--harvest); }
+  .header p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+  .header-meta { display: flex; gap: 24px; margin-top: 12px; }
+  .header-meta .stat { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+  .header-meta .stat strong { color: var(--text); font-size: 15px; }
+
+  /* Nav tabs */
+  .nav { display: flex; gap: 2px; background: var(--card); border-bottom: 1px solid var(--border); padding: 0 40px; overflow-x: auto; }
+  .nav button { background: none; border: none; color: var(--muted); font-size: 13px; font-weight: 600; padding: 14px 20px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav button:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .nav button.active { color: var(--text); border-bottom-color: var(--harvest); }
+
+  /* Main content */
+  .main { padding: 32px 40px; max-width: 1400px; margin: 0 auto; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* Kanban */
+  .kanban { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px; }
+  .kanban-col { background: var(--card); border-radius: 12px; padding: 16px; border-top: 3px solid var(--border); }
+  .kanban-col.harvest { border-top-color: var(--harvest); }
+  .kanban-col.integrate { border-top-color: var(--integrate); }
+  .kanban-col.test { border-top-color: var(--test); }
+  .kanban-col.live-col { border-top-color: var(--live); }
+  .kanban-col h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .kanban-col.harvest h3 { color: var(--harvest); }
+  .kanban-col.integrate h3 { color: var(--integrate); }
+  .kanban-col.test h3 { color: var(--test); }
+  .kanban-col.live-col h3 { color: var(--live); }
+  .kanban-col .col-desc { font-size: 12px; color: var(--muted); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .skill-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
+  .skill-card:hover { background: var(--card-hover); border-color: rgba(255,255,255,0.15); transform: translateY(-1px); }
+  .skill-card.expanded .card-detail { display: block; }
+  .skill-card .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .skill-card .card-title { font-size: 13px; font-weight: 600; }
+  .skill-card .card-badge { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; margin-left: 8px; }
+  .badge-ws1 { background: rgba(37,99,235,0.2); color: #60A5FA; }
+  .badge-ws2 { background: rgba(217,119,6,0.2); color: #FBBF24; }
+  .badge-ws3 { background: rgba(5,150,105,0.2); color: #34D399; }
+  .badge-dept { background: rgba(99,102,241,0.2); color: #A5B4FC; }
+  .card-reports { font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .card-detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .card-detail strong { color: var(--text); }
+  .card-detail a { color: #60A5FA; text-decoration: none; font-size: 11px; word-break: break-all; }
+  .card-detail a:hover { text-decoration: underline; }
+  .card-detail .feeds-into { margin-top: 8px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+  .card-detail .feeds-into .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--harvest); font-weight: 700; margin-bottom: 4px; }
+
+  /* Persona mapping */
+  .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 20px; }
+  .persona-card { background: var(--card); border-radius: 12px; padding: 20px; border-left: 3px solid var(--border); }
+  .persona-card .persona-name { font-size: 15px; font-weight: 700; }
+  .persona-card .persona-role { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .persona-card .persona-screen { font-size: 13px; font-weight: 600; color: #60A5FA; margin-bottom: 8px; }
+  .persona-card ul { list-style: none; padding: 0; }
+  .persona-card li { font-size: 12px; color: var(--muted); padding: 4px 0 4px 16px; position: relative; }
+  .persona-card li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; }
+  .persona-card.angela { border-left-color: var(--harvest); }
+  .persona-card.angela li::before { background: var(--harvest); }
+  .persona-card.chen { border-left-color: var(--integrate); }
+  .persona-card.chen li::before { background: var(--integrate); }
+  .persona-card.marcus { border-left-color: var(--test); }
+  .persona-card.marcus li::before { background: var(--test); }
+  .persona-card.lisa { border-left-color: var(--live); }
+  .persona-card.lisa li::before { background: var(--live); }
+
+  /* Workstream view */
+  .ws-section { margin-top: 24px; }
+  .ws-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .ws-header .ws-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .ws-header h3 { font-size: 16px; font-weight: 700; }
+  .ws-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
+  .ws-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); padding: 12px 16px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); }
+  .ws-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
+  .ws-table tr:last-child td { border-bottom: none; }
+  .ws-table .interface { font-weight: 600; }
+  .ws-table .skill-tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin: 2px 2px; background: rgba(245,158,11,0.15); color: #FBBF24; }
+  .ws-table .phase-tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  .phase-a { background: rgba(16,185,129,0.15); color: #34D399; }
+  .phase-b { background: rgba(239,68,68,0.15); color: #F87171; }
+
+  /* Gap analysis */
+  .gap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
+  .gap-card { background: var(--card); border-radius: 12px; padding: 20px; }
+  .gap-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .gap-card .gap-status { font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+  .gap-card .gap-status.covered { color: #34D399; }
+  .gap-card .gap-status.partial { color: #FBBF24; }
+  .gap-card .gap-status.gap { color: #F87171; }
+  .gap-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .coverage-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; margin: 12px 0 8px; overflow: hidden; }
+  .coverage-bar .fill { height: 100%; border-radius: 3px; }
+  .coverage-bar .fill.green { background: linear-gradient(90deg, #059669, #34D399); }
+  .coverage-bar .fill.yellow { background: linear-gradient(90deg, #D97706, #FBBF24); }
+  .coverage-bar .fill.red { background: linear-gradient(90deg, #DC2626, #F87171); }
+  .coverage-pct { font-size: 11px; color: var(--muted); }
+
+  /* Summary bar */
+  .summary-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .summary-card { background: var(--card); border-radius: 10px; padding: 16px; text-align: center; }
+  .summary-card .num { font-size: 28px; font-weight: 800; }
+  .summary-card .num.harvest-c { color: var(--harvest); }
+  .summary-card .num.integrate-c { color: var(--integrate); }
+  .summary-card .num.test-c { color: var(--test); }
+  .summary-card .num.live-c { color: var(--live); }
+  .summary-card .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* Link list */
+  .link-list { margin-top: 6px; }
+  .link-list a { display: block; font-size: 11px; color: #60A5FA; text-decoration: none; padding: 2px 0; word-break: break-all; }
+  .link-list a:hover { text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .kanban { grid-template-columns: 1fr; }
+    .header { padding: 20px; }
+    .main { padding: 20px; }
+    .nav { padding: 0 20px; }
+    .summary-bar { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Claude Skills <span>&rarr;</span> Pipeline &amp; Platform Map</h1>
+  <p>Mapping existing Claude Skill outputs to the SGA PHI-Free User Journey &mdash; Enrollment Pipeline through Executive Visibility</p>
+  <div class="header-meta">
+    <div class="stat"><strong>26</strong> linked reports</div>
+    <div class="stat"><strong>7</strong> skill categories</div>
+    <div class="stat"><strong>4</strong> pipeline stages</div>
+    <div class="stat"><strong>3</strong> workstreams</div>
+    <div class="stat"><strong>4</strong> personas served</div>
+  </div>
+</div>
+
+<div class="nav">
+  <button class="active" onclick="showSection('pipeline')">Pipeline Kanban</button>
+  <button onclick="showSection('personas')">Persona Mapping</button>
+  <button onclick="showSection('workstreams')">Workstream View</button>
+  <button onclick="showSection('gaps')">Coverage &amp; Gaps</button>
+</div>
+
+<div class="main">
+
+  <!-- PIPELINE KANBAN VIEW -->
+  <div id="pipeline" class="section active">
+    <div class="summary-bar">
+      <div class="summary-card"><div class="num harvest-c">16</div><div class="lbl">Harvesting Reports</div></div>
+      <div class="summary-card"><div class="num integrate-c">4</div><div class="lbl">Integrating Inputs</div></div>
+      <div class="summary-card"><div class="num test-c">2</div><div class="lbl">Testing Validators</div></div>
+      <div class="summary-card"><div class="num live-c">4</div><div class="lbl">Live Monitors</div></div>
+    </div>
+
+    <div class="kanban">
+      <!-- HARVESTING -->
+      <div class="kanban-col harvest">
+        <h3>Harvesting</h3>
+        <div class="col-desc">Intake intelligence. Baseline assessments that populate "data completeness scores" on each Kanban card before a practice moves to Integrating.</div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Digital Storefront Audits</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">5 reports + 1 Conversion Priority</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> 50+ criteria website scores across conversion strategy, UX, SEO, service lines, trust-building, NAP, insurance/financing, content, technical performance, and tracking.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>Angela's Kanban card</strong> &mdash; data completeness score<br>
+              <strong>Practice Deep Dive &rarr; Profile tab</strong> &mdash; initial storefront health<br>
+              <strong>Portfolio Heatmap</strong> &mdash; brand health layer
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/LSPD_03_2026_Digital_Storefront_Audit.html" target="_blank">LSPD Audit</a>
+              <a href="https://amcneill-del.github.io/production-reports/PCCD_Smiles_Audit_Phase1.html" target="_blank">PCCD Smiles Audit</a>
+              <a href="https://amcneill-del.github.io/production-reports/PEX%20website-audit-report.html" target="_blank">PEX Website Audit</a>
+              <a href="https://amcneill-del.github.io/production-reports/Peach_Family_Dental_Group_Audit_Phase1.html" target="_blank">Peach Family Audit</a>
+              <a href="https://amcneill-del.github.io/production-reports/Storefront_Audit_Conversion_Priority_Report.html" target="_blank">Conversion Priority Report</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">GBP Audit</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">1 report</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> Google Business Profile optimization scoring &mdash; local SEO, review signals, photo quality, category accuracy, post activity.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>Portfolio Heatmap</strong> &mdash; brand health layer (local SEO)<br>
+              <strong>Practice Deep Dive &rarr; Content &amp; Brand tab</strong> &mdash; local search baseline
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/Moskowitz_Wordsworth_GBP_Audit.html" target="_blank">Moskowitz Wordsworth GBP Audit</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Brand Content Reports</div>
+            <div class="card-badge badge-ws2">WS2</div>
+          </div>
+          <div class="card-reports">6 reports</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> Doctor brand vs. practice brand architecture, content gaps, social presence audit, brand health scoring, engagement metrics.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>WS2 Capture Bot</strong> &mdash; content gaps become capture missions/brand briefs<br>
+              <strong>Practice Deep Dive &rarr; Content &amp; Brand tab</strong> &mdash; brand health score, social engagement<br>
+              <strong>Executive Dashboard</strong> &mdash; Average Brand Health KPI
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/East-Columbus-Perio-Brand-Content-Report.html" target="_blank">East Columbus Perio</a>
+              <a href="https://amcneill-del.github.io/production-reports/LSPD_03_2026_Brand_Content_Report.html" target="_blank">LSPD Brand Content</a>
+              <a href="https://amcneill-del.github.io/production-reports/PCCD_Content_Engine.html" target="_blank">PCCD Content Engine</a>
+              <a href="https://amcneill-del.github.io/production-reports/PEX_brand-content-report.html" target="_blank">PEX Brand Content</a>
+              <a href="https://amcneill-del.github.io/production-reports/PeakFamilyDentalCare_Brand_Content_Report.html" target="_blank">Peak Family Brand Content</a>
+              <a href="https://amcneill-del.github.io/production-reports/brand-content-report.html" target="_blank">Generic Brand Content</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">UGC Reports</div>
+            <div class="card-badge badge-ws2">WS2</div>
+          </div>
+          <div class="card-reports">4 reports</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> Discovered user-generated content across social, reviews, and web. Resharing opportunities, branded hashtag tracking, content curation.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>WS2 Asset Registry</strong> &mdash; discoverable content catalog<br>
+              <strong>WS2 Editorial Queue</strong> &mdash; resharing candidates<br>
+              <strong>Distribution Monitor</strong> &mdash; IG, FB, GMB baseline social presence
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/East-Columbus-Perio-UGC-Report.html" target="_blank">East Columbus Perio UGC</a>
+              <a href="https://amcneill-del.github.io/production-reports/LSPD_03_2026_UGC_Report.html" target="_blank">LSPD UGC</a>
+              <a href="https://amcneill-del.github.io/production-reports/PEX_ugc-report.html" target="_blank">PEX UGC</a>
+              <a href="https://amcneill-del.github.io/production-reports/PeakFamilyDentalCare_UGC_Report.html" target="_blank">Peak Family UGC</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Practice Performance</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">6 GP + 2 Perio reports</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> Production analysis, scorecards (CPA, ROI, call conversion, attrition), production waterfalls, marketing readiness. Perio variants add referral program ROI and surgical/maintenance mix.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>Angela's Kanban card</strong> &mdash; operational health baseline for data completeness<br>
+              <strong>Executive Dashboard</strong> &mdash; Average Brand Health, H-Score signals<br>
+              <strong>Intervention Queue</strong> &mdash; low phone scores = culture-risk signal<br>
+              <strong>Phase B: Practice Deep Dive &rarr; Performance tab</strong>
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/Cottonwood%20Production%20Analysis.html" target="_blank">Cottonwood</a>
+              <a href="https://amcneill-del.github.io/production-reports/Flagstaff%20Production%20Analysis.html" target="_blank">Flagstaff</a>
+              <a href="https://amcneill-del.github.io/production-reports/LSPD_03_2026_Marketing_Performance.html" target="_blank">LSPD Marketing Performance</a>
+              <a href="https://amcneill-del.github.io/production-reports/PEX%20marketing-performance-report.html" target="_blank">PEX Marketing Performance</a>
+              <a href="https://amcneill-del.github.io/production-reports/Peak%20Family%20Dentistry%20-%20Combined%20Production%20Summary.html" target="_blank">Peak Family Combined</a>
+              <a href="https://amcneill-del.github.io/production-reports/Sedona%20Production%20Analysis.html" target="_blank">Sedona</a>
+              <a href="https://amcneill-del.github.io/production-reports/woodyard-perio-performance-report-v2.html" target="_blank">Woodyard Perio v2</a>
+              <a href="https://amcneill-del.github.io/production-reports/woodyard-perio-performance-report.html" target="_blank">Woodyard Perio v1</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTEGRATING -->
+      <div class="kanban-col integrate">
+        <h3>Integrating</h3>
+        <div class="col-desc">Harvested intelligence consumed to build the storefront, content pipeline, and strategic playbook. Storefront Generation Engine fires here.</div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Marketing Strategy</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">1 report</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> Prioritized strategic recommendations synthesized from audit + content + UGC reports. The blueprint that drives storefront generation and content pipeline setup.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>Storefront Generation Engine</strong> &mdash; strategic instruction set for what gets built<br>
+              <strong>Playbook Library</strong> &mdash; prioritized actions become playbook entries<br>
+              <strong>Practice Daily Agenda</strong> &mdash; action cards (storefront health, content focus)
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/LSPD_03_2026_Marketing_Strategy.html" target="_blank">LSPD Marketing Strategy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Social Media Calendar</div>
+            <div class="card-badge badge-ws2">WS2</div>
+          </div>
+          <div class="card-reports">1 report</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> Scheduled content across practices &mdash; post types, dates, platforms, copy. The operational output of the content strategy.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>WS2 Distribution Monitor</strong> &mdash; scheduled content for IG + FB + GMB<br>
+              <strong>WS2 Capture Bot</strong> &mdash; upcoming content needs trigger capture missions<br>
+              <strong>Lisa's PWA &rarr; Today screen</strong> &mdash; content capture brief
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/April-2026-Dental-Calendars.html" target="_blank">April 2026 Dental Calendars</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Content Engine (Cosmetic)</div>
+            <div class="card-badge badge-ws2">WS2</div>
+          </div>
+          <div class="card-reports">1 report (PCCD)</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> 3-month content strategy with doctor brand / practice brand architecture, UGC workflows, hero case systems.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>WS2 Editorial Queue</strong> &mdash; content production roadmap<br>
+              <strong>WS2 Studio Request Portal</strong> &mdash; asset production queue<br>
+              <strong>WS2 Brand Review</strong> &mdash; brand guidelines for 58-sec approve workflow
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/PCCD_Content_Engine.html" target="_blank">PCCD Content Engine</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Perio Referral Lab Playbook</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">1 report</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> Enterprise referral data, multi-office perio scorecards, per-office action plans across Marketing/Operations/Clinical/Office Staff.<br><br>
+            <div class="feeds-into">
+              <div class="label">Feeds Into</div>
+              <strong>H-Score Dashboard</strong> &mdash; referral program health signals (specialty vertical)<br>
+              <strong>Playbook Library</strong> &mdash; per-office action plans<br>
+              <strong>Intervention Queue</strong> &mdash; perio-specific risk indicators
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/Perio-Referral-Lab-Playbook.html" target="_blank">Perio Referral Lab Playbook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TESTING -->
+      <div class="kanban-col test">
+        <h3>Testing</h3>
+        <div class="col-desc">Validation before go-live. Re-run audits against generated storefronts. Verify booking links work. Confirm strategy alignment.</div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Storefront Re-Audit</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">Same skill, new target</div>
+          <div class="card-detail">
+            <strong>What it does:</strong> Re-runs the Digital Storefront Audit against the <em>generated</em> site to validate it meets Gen4 standards before Angela deploys. Acts as the per-practice QC gate (analogous to Gate A3).<br><br>
+            <div class="feeds-into">
+              <div class="label">Validates</div>
+              <strong>Storefront Generation output</strong> &mdash; conversion strategy, UX, SEO, service lines, trust<br>
+              <strong>Angela's deploy decision</strong> &mdash; "confirms accuracy" step in the journey
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Scheduling Link Scanner</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">Validation tool</div>
+          <div class="card-detail">
+            <strong>What it does:</strong> Deep-scans the generated site to verify the "Book Now" button actually resolves to a live NexHealth-hosted scheduling page. Extracts booking URL, platform name, and scheduling type.<br><br>
+            <div class="feeds-into">
+              <div class="label">Validates</div>
+              <strong>NexHealth booking link</strong> &mdash; the journey spec says site includes "booking link to the NexHealth-hosted scheduling page"<br>
+              <strong>Storefront completeness</strong> &mdash; critical conversion element before go-live
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIVE -->
+      <div class="kanban-col live-col">
+        <h3>Live</h3>
+        <div class="col-desc">Practice is deployed. These reports feed ongoing monitoring for executives, VP ops, and office managers.</div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Ongoing Performance</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">Same skills, recurring runs</div>
+          <div class="card-detail">
+            <strong>What it does:</strong> Practice Performance + Perio Performance reports run on a recurring basis post-launch to power ongoing dashboards.<br><br>
+            <div class="feeds-into">
+              <div class="label">Powers</div>
+              <strong>Dr. Chen's Executive Dashboard</strong> &mdash; KPI cards, sparkline trends<br>
+              <strong>Portfolio Heatmap</strong> &mdash; color-coded practice health<br>
+              <strong>Marcus's Intervention Queue</strong> &mdash; culture-risk ranking
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Content Monitoring</div>
+            <div class="card-badge badge-ws2">WS2</div>
+          </div>
+          <div class="card-reports">Brand + UGC + Calendar recurring</div>
+          <div class="card-detail">
+            <strong>What it does:</strong> Brand Content, UGC, and Social Calendar reports continue running to feed the live content pipeline and brand health tracking.<br><br>
+            <div class="feeds-into">
+              <div class="label">Powers</div>
+              <strong>WS2 Distribution Monitor</strong> &mdash; ongoing IG + FB + GMB tracking<br>
+              <strong>Practice Deep Dive &rarr; Content &amp; Brand tab</strong> &mdash; updated brand health scores<br>
+              <strong>Executive Dashboard</strong> &mdash; Content Captures MTD KPI
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Department Reporting</div>
+            <div class="card-badge badge-dept">DEPT</div>
+          </div>
+          <div class="card-reports">3 reports</div>
+          <div class="card-detail">
+            <strong>What it captures:</strong> Marketing task analysis, 90-day digital integration action plans, gap analysis. Sits above the pipeline &mdash; tracks how the marketing team executes across all enrolled practices.<br><br>
+            <div class="feeds-into">
+              <div class="label">Powers</div>
+              <strong>HQ Standup Board</strong> &mdash; cross-practice operational tracking<br>
+              <strong>Compliance Readiness Dashboard</strong> &mdash; organizational readiness signals
+            </div>
+            <div class="link-list">
+              <a href="https://amcneill-del.github.io/production-reports/Marketing-Task-Analysis.html" target="_blank">Marketing Task Analysis</a>
+              <a href="https://amcneill-del.github.io/production-reports/SGA_90_Day_Digital_Integration_Action_Plan.html" target="_blank">90-Day Action Plan</a>
+              <a href="https://amcneill-del.github.io/production-reports/SGA_Gen4_Gap_Analysis.html" target="_blank">Gen4 Gap Analysis</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card" onclick="this.classList.toggle('expanded')">
+          <div class="card-header">
+            <div class="card-title">Perio Vertical (Specialty)</div>
+            <div class="card-badge badge-ws1">WS1</div>
+          </div>
+          <div class="card-reports">Referral Lab Playbook recurring</div>
+          <div class="card-detail">
+            <strong>What it does:</strong> Ongoing Referral Lab playbook analysis feeds specialty-vertical monitoring for perio practices across the network.<br><br>
+            <div class="feeds-into">
+              <div class="label">Powers</div>
+              <strong>Marcus's Intervention Queue</strong> &mdash; specialty risk indicators<br>
+              <strong>Dr. Chen's Practice Deep Dive</strong> &mdash; perio-specific culture &amp; performance signals<br>
+              <strong>H-Score Dashboard</strong> &mdash; referral program health
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONA MAPPING VIEW -->
+  <div id="personas" class="section">
+    <div class="summary-bar">
+      <div class="summary-card"><div class="num harvest-c">Angela</div><div class="lbl">HQ Operations</div></div>
+      <div class="summary-card"><div class="num integrate-c">Dr. Chen</div><div class="lbl">CEO / Executive</div></div>
+      <div class="summary-card"><div class="num test-c">Marcus</div><div class="lbl">VP Operations</div></div>
+      <div class="summary-card"><div class="num live-c">Lisa</div><div class="lbl">Office Manager</div></div>
+    </div>
+
+    <div class="persona-grid">
+      <div class="persona-card angela">
+        <div class="persona-name">Angela Rivera</div>
+        <div class="persona-role">HQ Operations Specialist</div>
+        <div class="persona-screen">Enrollment Pipeline + Storefront Generation</div>
+        <ul>
+          <li><strong>Digital Storefront Audits</strong> &mdash; populate data completeness scores on Kanban cards</li>
+          <li><strong>Practice Performance</strong> &mdash; operational health baseline for each enrolling practice</li>
+          <li><strong>GBP Audit</strong> &mdash; local SEO completeness indicator</li>
+          <li><strong>Brand Content + UGC Reports</strong> &mdash; content readiness signal before storefront generation</li>
+          <li><strong>Scheduling Link Scanner</strong> &mdash; validates NexHealth booking link on generated storefronts</li>
+          <li><strong>Marketing Strategy</strong> &mdash; strategic blueprint consumed by Storefront Generation Engine</li>
+        </ul>
+      </div>
+
+      <div class="persona-card chen">
+        <div class="persona-name">Dr. Sarah Chen</div>
+        <div class="persona-role">CEO / Executive</div>
+        <div class="persona-screen">Executive Dashboard + Practice Deep Dive</div>
+        <ul>
+          <li><strong>Practice Performance (all)</strong> &mdash; powers Active Practices count, H-Score trends, AI Alerts</li>
+          <li><strong>Brand Content Reports</strong> &mdash; feeds Average Brand Health KPI card (68) + Practice Deep Dive Content &amp; Brand tab</li>
+          <li><strong>UGC Reports</strong> &mdash; contributes to Content Captures MTD KPI (342)</li>
+          <li><strong>Department Reporting</strong> &mdash; Enrollment Pipeline KPI (13 in progress)</li>
+          <li><strong>Digital Storefront Audits</strong> &mdash; Portfolio Heatmap brand health layer</li>
+          <li><strong>Perio Referral Lab</strong> &mdash; Practice Deep Dive for specialty practices</li>
+        </ul>
+      </div>
+
+      <div class="persona-card marcus">
+        <div class="persona-name">Marcus Williams</div>
+        <div class="persona-role">VP Operations</div>
+        <div class="persona-screen">Intervention Queue (Culture-Risk Ranked)</div>
+        <ul>
+          <li><strong>Practice Performance</strong> &mdash; low phone scores, missed metrics feed culture-risk algorithm</li>
+          <li><strong>Brand Content Reports</strong> &mdash; brand health degradation = risk signal</li>
+          <li><strong>Perio Referral Lab</strong> &mdash; specialty-vertical risk indicators</li>
+          <li><strong>Department Reporting (Gap Analysis)</strong> &mdash; informs root cause analysis panel</li>
+        </ul>
+      </div>
+
+      <div class="persona-card lisa">
+        <div class="persona-name">Lisa Torres</div>
+        <div class="persona-role">Office Manager</div>
+        <div class="persona-screen">Practice Operations PWA</div>
+        <ul>
+          <li><strong>Social Media Calendar</strong> &mdash; content capture brief on Today screen</li>
+          <li><strong>Brand Content Reports</strong> &mdash; Practice Briefing &rarr; storefront health action card</li>
+          <li><strong>Marketing Strategy</strong> &mdash; playbook updates action card derived from strategy priorities</li>
+          <li><strong>Practice Performance</strong> &mdash; H-Score widget trend data</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSTREAM VIEW -->
+  <div id="workstreams" class="section">
+
+    <div class="ws-section">
+      <div class="ws-header">
+        <div class="ws-dot" style="background:var(--ws1)"></div>
+        <h3>WS1: Practice Platform (14 Phase A Interfaces)</h3>
+      </div>
+      <table class="ws-table">
+        <thead><tr><th>Interface</th><th>Phase</th><th>Claude Skills That Feed It</th></tr></thead>
+        <tbody>
+          <tr><td class="interface">Enrollment Pipeline &amp; Invitation System</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Storefront Audit</span><span class="skill-tag">GBP Audit</span><span class="skill-tag">Practice Performance</span><span class="skill-tag">Brand Content</span><span class="skill-tag">UGC Report</span></td></tr>
+          <tr><td class="interface">Storefront Manager &amp; Generation</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Marketing Strategy</span><span class="skill-tag">Content Engine</span><span class="skill-tag">Storefront Audit</span></td></tr>
+          <tr><td class="interface">Executive Dashboard (5 KPIs)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Practice Performance</span><span class="skill-tag">Brand Content</span><span class="skill-tag">UGC Report</span><span class="skill-tag">Dept Reporting</span></td></tr>
+          <tr><td class="interface">Portfolio Heatmap (5 layers)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Storefront Audit</span><span class="skill-tag">GBP Audit</span><span class="skill-tag">Brand Content</span><span class="skill-tag">Practice Performance</span></td></tr>
+          <tr><td class="interface">Intervention Queue (culture-risk)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Practice Performance</span><span class="skill-tag">Brand Content</span><span class="skill-tag">Perio Referral Lab</span></td></tr>
+          <tr><td class="interface">Practice Deep Dive (4 tabs)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Storefront Audit</span><span class="skill-tag">Brand Content</span><span class="skill-tag">UGC Report</span><span class="skill-tag">Practice Performance</span><span class="skill-tag">Perio Referral Lab</span></td></tr>
+          <tr><td class="interface">HQ Standup Board</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Dept Reporting</span><span class="skill-tag">Marketing Task Analysis</span></td></tr>
+          <tr><td class="interface">Practice Daily Agenda</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Marketing Strategy</span><span class="skill-tag">Social Calendar</span></td></tr>
+          <tr><td class="interface">Playbook Viewer &amp; Manager</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Marketing Strategy</span><span class="skill-tag">Perio Referral Lab</span></td></tr>
+          <tr><td class="interface">Compliance Readiness Dashboard</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Dept Reporting</span><span class="skill-tag">Gap Analysis</span></td></tr>
+          <tr><td class="interface">Practice Website (basic)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Storefront Audit</span><span class="skill-tag">Scheduling Scanner</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ws-section">
+      <div class="ws-header">
+        <div class="ws-dot" style="background:var(--ws2)"></div>
+        <h3>WS2: Content Engine (8 Phase A Interfaces)</h3>
+      </div>
+      <table class="ws-table">
+        <thead><tr><th>Interface</th><th>Phase</th><th>Claude Skills That Feed It</th></tr></thead>
+        <tbody>
+          <tr><td class="interface">Capture Bot (brand briefs)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Brand Content</span><span class="skill-tag">Social Calendar</span></td></tr>
+          <tr><td class="interface">Editorial Queue</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">UGC Report</span><span class="skill-tag">Content Engine</span></td></tr>
+          <tr><td class="interface">Studio Request Portal</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Content Engine</span><span class="skill-tag">Brand Content</span></td></tr>
+          <tr><td class="interface">Brand Review (58-sec approve)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Brand Content</span><span class="skill-tag">Content Engine</span></td></tr>
+          <tr><td class="interface">Asset Registry</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">UGC Report</span><span class="skill-tag">Brand Content</span></td></tr>
+          <tr><td class="interface">Dashboard</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Practice Performance</span><span class="skill-tag">Brand Content</span></td></tr>
+          <tr><td class="interface">Distribution Monitor (IG, FB, GMB)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Social Calendar</span><span class="skill-tag">UGC Report</span><span class="skill-tag">Brand Content</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ws-section">
+      <div class="ws-header">
+        <div class="ws-dot" style="background:var(--ws3)"></div>
+        <h3>WS3: Culture OS (8 Phase A Interfaces)</h3>
+      </div>
+      <table class="ws-table">
+        <thead><tr><th>Interface</th><th>Phase</th><th>Claude Skills That Feed It</th></tr></thead>
+        <tbody>
+          <tr><td class="interface">H-Score Dashboard</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Practice Performance</span><span class="skill-tag">Perio Referral Lab</span></td></tr>
+          <tr><td class="interface">Trust Transfer Tracker (aggregate)</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Practice Performance</span></td></tr>
+          <tr><td class="interface">Champion Hub &amp; Scorecard</td><td><span class="phase-tag phase-a">A</span></td><td><em style="color:var(--muted)">Platform-native (no current skill)</em></td></tr>
+          <tr><td class="interface">CCA Academy</td><td><span class="phase-tag phase-a">A</span></td><td><em style="color:var(--muted)">Platform-native (no current skill)</em></td></tr>
+          <tr><td class="interface">Morning Huddle Display</td><td><span class="phase-tag phase-a">A</span></td><td><em style="color:var(--muted)">Platform-native (no current skill)</em></td></tr>
+          <tr><td class="interface">Recognition &amp; Rewards Feed</td><td><span class="phase-tag phase-a">A</span></td><td><em style="color:var(--muted)">Platform-native (no current skill)</em></td></tr>
+          <tr><td class="interface">Playbook Library</td><td><span class="phase-tag phase-a">A</span></td><td><span class="skill-tag">Marketing Strategy</span><span class="skill-tag">Perio Referral Lab</span></td></tr>
+          <tr><td class="interface">Culture Admin Console</td><td><span class="phase-tag phase-a">A</span></td><td><em style="color:var(--muted)">Platform-native (no current skill)</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- COVERAGE & GAPS VIEW -->
+  <div id="gaps" class="section">
+    <div class="summary-bar">
+      <div class="summary-card"><div class="num" style="color:#34D399">19</div><div class="lbl">Interfaces Covered</div></div>
+      <div class="summary-card"><div class="num" style="color:#FBBF24">7</div><div class="lbl">Partial Coverage</div></div>
+      <div class="summary-card"><div class="num" style="color:#F87171">4</div><div class="lbl">No Skill Coverage</div></div>
+      <div class="summary-card"><div class="num" style="color:#60A5FA">63%</div><div class="lbl">Phase A Coverage</div></div>
+    </div>
+
+    <div class="gap-grid">
+      <div class="gap-card">
+        <h4>Harvesting Stage</h4>
+        <div class="gap-status covered">STRONG COVERAGE</div>
+        <div class="coverage-bar"><div class="fill green" style="width:95%"></div></div>
+        <div class="coverage-pct">95% &mdash; 5 skill categories produce intake intelligence</div>
+        <p>Digital Storefront Audit, GBP Audit, Brand Content, UGC, and Practice Performance skills comprehensively cover intake assessment. The only gap: no automated practice profile data extraction (name, address, staff roster) &mdash; that's manual entry or PMS-sourced.</p>
+      </div>
+
+      <div class="gap-card">
+        <h4>Integrating Stage</h4>
+        <div class="gap-status covered">GOOD COVERAGE</div>
+        <div class="coverage-bar"><div class="fill green" style="width:80%"></div></div>
+        <div class="coverage-pct">80% &mdash; Strategy, Calendar, Content Engine, Referral Lab</div>
+        <p>Marketing Strategy provides the storefront blueprint. Social Calendar + Content Engine power the content pipeline. Gap: no skill currently generates the actual storefront template or provider bio cards &mdash; that's the Storefront Generation Engine (platform-native).</p>
+      </div>
+
+      <div class="gap-card">
+        <h4>Testing Stage</h4>
+        <div class="gap-status partial">IDENTIFIED GAP</div>
+        <div class="coverage-bar"><div class="fill yellow" style="width:40%"></div></div>
+        <div class="coverage-pct">40% &mdash; Re-audit + Scheduling Scanner available, but no dedicated post-build QC skill</div>
+        <p>The Storefront Audit can re-run against generated sites, and the Scheduling Link Scanner validates booking links. But there's no dedicated "post-build validation" skill that checks Gen4-specific template compliance, brand asset accuracy, or provider bio correctness. <strong>Recommendation: create a Storefront QC skill.</strong></p>
+      </div>
+
+      <div class="gap-card">
+        <h4>Live / Monitoring Stage</h4>
+        <div class="gap-status covered">GOOD COVERAGE</div>
+        <div class="coverage-bar"><div class="fill green" style="width:75%"></div></div>
+        <div class="coverage-pct">75% &mdash; Performance + Content + Dept Reporting cover ongoing monitoring</div>
+        <p>Practice Performance powers executive dashboards. Content skills power ongoing brand monitoring. Department Reporting covers HQ operations. Gap: no skill currently produces H-Score composite calculations or CCA certification tracking &mdash; those are platform-native WS3 functions.</p>
+      </div>
+
+      <div class="gap-card">
+        <h4>WS3: Culture OS</h4>
+        <div class="gap-status gap">LOWEST SKILL COVERAGE</div>
+        <div class="coverage-bar"><div class="fill red" style="width:25%"></div></div>
+        <div class="coverage-pct">25% &mdash; Only H-Score + Playbook fed by skills; 6 interfaces are platform-native only</div>
+        <p>Culture OS was designed around aggregate vendor scores (Cinnamon, Swell, Dental Intel), not practice-level content analysis. Morning Huddle, Champion Hub, CCA Academy, Recognition Feed, and Culture Admin Console have no Claude Skill inputs. This is by design &mdash; these are interactive platform features, not report-driven.</p>
+      </div>
+
+      <div class="gap-card">
+        <h4>Phase B Readiness</h4>
+        <div class="gap-status partial">FUTURE OPPORTUNITY</div>
+        <div class="coverage-bar"><div class="fill yellow" style="width:10%"></div></div>
+        <div class="coverage-pct">10% &mdash; Phase B interfaces (Nerve Center, Concierge, Voice AI) require PHI; no skills today</div>
+        <p>All 12 Phase B interfaces require patient health information. Current Claude Skills are PHI-free by design, which aligns perfectly with Phase A. Phase B skills would need to integrate with PMS data post-BAA &mdash; a fundamentally different architecture. The HIPAA PHI Scrubber skill is the bridge.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
