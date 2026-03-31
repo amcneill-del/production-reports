@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Enablement — Strategic Assessment</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3340;
+    --text: #e2e4e9;
+    --text-muted: #8b8fa3;
+    --accent: #6c8cff;
+    --accent-dim: rgba(108,140,255,0.12);
+    --green: #34d399;
+    --green-dim: rgba(52,211,153,0.12);
+    --amber: #fbbf24;
+    --amber-dim: rgba(251,191,36,0.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(15,17,23,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; }
+  nav .inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; overflow-x: auto; }
+  nav a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 0.9rem 0; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  nav a:hover, nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+  nav .logo { font-weight: 700; color: var(--text); font-size: 0.9rem; margin-right: 1rem; padding: 0.9rem 0; letter-spacing: -0.02em; }
+
+  /* Layout */
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+  section { margin-bottom: 3rem; scroll-margin-top: 4rem; }
+
+  /* Hero */
+  .hero { padding: 3rem 0 2rem; }
+  .hero h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+  .hero .subtitle { color: var(--text-muted); font-size: 1.05rem; max-width: 700px; }
+  .hero .meta { display: flex; gap: 2rem; margin-top: 1.5rem; }
+  .hero .meta-item { font-size: 0.8rem; color: var(--text-muted); }
+  .hero .meta-item span { display: block; font-size: 1.3rem; font-weight: 700; color: var(--text); }
+
+  /* Cards */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .card p { color: var(--text-muted); font-size: 0.9rem; }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* Section headers */
+  .section-header { margin-bottom: 1.5rem; }
+  .section-header h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+  .section-header p { color: var(--text-muted); font-size: 0.9rem; }
+  .section-num { font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+
+  /* Tags */
+  .tag { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .tag-green { background: var(--green-dim); color: var(--green); }
+  .tag-amber { background: var(--amber-dim); color: var(--amber); }
+  .tag-red { background: var(--red-dim); color: var(--red); }
+  .tag-accent { background: var(--accent-dim); color: var(--accent); }
+  .tag-purple { background: var(--purple-dim); color: var(--purple); }
+
+  /* Comparison table */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .compare-table th { text-align: left; font-weight: 600; padding: 0.75rem 1rem; border-bottom: 2px solid var(--border); color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .compare-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .skill-name { font-weight: 600; color: var(--text); white-space: nowrap; }
+
+  /* Alignment map */
+  .alignment-row { display: grid; grid-template-columns: 200px 1fr 1fr 60px; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); align-items: start; font-size: 0.85rem; }
+  .alignment-row:last-child { border-bottom: none; }
+  .alignment-header { font-weight: 600; color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .alignment-row .ws-tag { font-size: 0.7rem; display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; }
+
+  /* Maturity bar */
+  .maturity-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .maturity-bar .label { width: 120px; font-size: 0.82rem; font-weight: 500; flex-shrink: 0; }
+  .maturity-bar .track { flex: 1; height: 8px; background: var(--surface2); border-radius: 100px; overflow: hidden; }
+  .maturity-bar .fill { height: 100%; border-radius: 100px; transition: width 0.6s ease; }
+  .maturity-bar .pct { font-size: 0.8rem; font-weight: 600; width: 40px; text-align: right; flex-shrink: 0; }
+
+  /* Callout */
+  .callout { border-left: 3px solid var(--accent); background: var(--accent-dim); padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+  .callout.warning { border-left-color: var(--amber); background: var(--amber-dim); }
+  .callout.success { border-left-color: var(--green); background: var(--green-dim); }
+  .callout p { font-size: 0.9rem; color: var(--text); }
+  .callout strong { color: var(--text); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 2rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -2rem; top: 6px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); z-index: 1; }
+  .timeline-item.active::before { background: var(--accent); }
+  .timeline-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .timeline-item .time { font-size: 0.78rem; color: var(--accent); font-weight: 600; margin-bottom: 0.4rem; }
+  .timeline-item p { font-size: 0.85rem; color: var(--text-muted); }
+  .timeline-item ul { list-style: none; margin-top: 0.5rem; }
+  .timeline-item li { font-size: 0.85rem; color: var(--text-muted); padding: 0.2rem 0; padding-left: 1rem; position: relative; }
+  .timeline-item li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+  /* Tabs */
+  .tab-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .tab-bar { display: flex; border-bottom: 1px solid var(--border); overflow-x: auto; }
+  .tab-btn { padding: 0.75rem 1.25rem; font-size: 0.82rem; font-weight: 500; background: none; border: none; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; padding: 1.5rem; }
+  .tab-content.active { display: block; }
+
+  /* Verdict boxes */
+  .verdict { display: flex; gap: 1.5rem; margin: 1rem 0; }
+  .verdict-box { flex: 1; padding: 1.25rem; border-radius: 10px; text-align: center; }
+  .verdict-box.good { background: var(--green-dim); border: 1px solid rgba(52,211,153,0.2); }
+  .verdict-box.caution { background: var(--amber-dim); border: 1px solid rgba(251,191,36,0.2); }
+  .verdict-box.gap { background: var(--red-dim); border: 1px solid rgba(248,113,113,0.2); }
+  .verdict-box .v-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 0.5rem; }
+  .verdict-box.good .v-label { color: var(--green); }
+  .verdict-box.caution .v-label { color: var(--amber); }
+  .verdict-box.gap .v-label { color: var(--red); }
+  .verdict-box .v-num { font-size: 1.8rem; font-weight: 700; }
+  .verdict-box.good .v-num { color: var(--green); }
+  .verdict-box.caution .v-num { color: var(--amber); }
+  .verdict-box.gap .v-num { color: var(--red); }
+  .verdict-box .v-desc { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+  /* Collapsible */
+  details { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 0.75rem; }
+  details summary { padding: 1rem 1.25rem; cursor: pointer; font-weight: 600; font-size: 0.9rem; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  details summary::after { content: '+'; color: var(--text-muted); font-size: 1.1rem; font-weight: 400; }
+  details[open] summary::after { content: '−'; }
+  details summary::-webkit-details-marker { display: none; }
+  details .detail-body { padding: 0 1.25rem 1.25rem; font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+  .highlight { color: var(--accent); font-weight: 600; }
+  .divider { height: 1px; background: var(--border); margin: 2rem 0; }
+  .small-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <span class="logo">Gen4 Dental</span>
+    <a href="#executive" class="active">Executive Summary</a>
+    <a href="#inventory">Skill Inventory</a>
+    <a href="#alignment">Alignment Map</a>
+    <a href="#gaps">Gap Analysis</a>
+    <a href="#positioning">Strategic Position</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#talking-points">Talking Points</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<section class="hero" id="executive">
+  <div class="section-num">Strategic Assessment</div>
+  <h1>AI Enablement: Skills → System</h1>
+  <p class="subtitle">An honest assessment of where Gen4's existing Claude skills stand relative to the SGA Full Plan — and the strategic path forward.</p>
+  <div class="meta">
+    <div class="meta-item">Prepared for<span>Sarah, Dakota & Leadership</span></div>
+    <div class="meta-item">Skills Assessed<span>15</span></div>
+    <div class="meta-item">Full Plan Interfaces<span>42</span></div>
+    <div class="meta-item">Date<span>March 2026</span></div>
+  </div>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section>
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <h2>The Honest Picture</h2>
+    <p>What we have, what the Full Plan describes, and the real relationship between them.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>What We've Built <span class="tag tag-green">Working Today</span></h3>
+      <p>15 Claude-powered automation skills that generate real, actionable intelligence — website audits, GBP analysis, content strategies, performance scorecards, scheduling scans, and more. These run on demand and produce polished deliverables (HTML dashboards, Word reports, Excel files). They are proven, repeatable, and in active use across field operations.</p>
+    </div>
+    <div class="card">
+      <h3>What the Full Plan Describes <span class="tag tag-purple">Proposal Stage</span></h3>
+      <p>A 42-interface enterprise software platform with a 24-week build timeline, 15–20 person engineering team, AWS infrastructure (ECS, Cognito, MSK, Temporal), PHI/HIPAA compliance gates, and persistent data across 260+ practices. It's a serious architecture document from Citizen & Partners / bilt.studio — but it has not entered active development.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 1.5rem;">
+    <p><strong>The key insight:</strong> These are fundamentally different categories of thing. Our skills are prompt-driven automation workflows that generate point-in-time intelligence. The Full Plan is a persistent enterprise application. One doesn't simply "become" the other — but they can be powerfully complementary. Our skills are the only part of this vision that actually works today.</p>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-box good">
+      <div class="v-label">Working Now</div>
+      <div class="v-num">15</div>
+      <div class="v-desc">Skills delivering value today</div>
+    </div>
+    <div class="verdict-box caution">
+      <div class="v-label">Partial Overlap</div>
+      <div class="v-num">~30%</div>
+      <div class="v-desc">Functional coverage of Full Plan scope</div>
+    </div>
+    <div class="verdict-box gap">
+      <div class="v-label">Not Yet Built</div>
+      <div class="v-num">70%</div>
+      <div class="v-desc">Requires persistent infrastructure</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILL INVENTORY -->
+<section id="inventory">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <h2>Skill Inventory</h2>
+    <p>What each skill actually does — categorized by function.</p>
+  </div>
+
+  <div class="tab-container">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showTab('diag')">Diagnostics (6)</button>
+      <button class="tab-btn" onclick="showTab('content')">Content & Brand (3)</button>
+      <button class="tab-btn" onclick="showTab('perf')">Performance (3)</button>
+      <button class="tab-btn" onclick="showTab('strat')">Strategy & Planning (2)</button>
+      <button class="tab-btn" onclick="showTab('infra')">Infrastructure (1)</button>
+    </div>
+
+    <div class="tab-content active" id="tab-diag">
+      <table class="compare-table">
+        <tr><th>Skill</th><th>What It Does</th><th>Output</th></tr>
+        <tr><td class="skill-name">Website Audit</td><td>Scores a dental website against 50+ criteria across 10 categories (conversion, UX, SEO, trust, NAP, etc.)</td><td>DOCX report + HTML dashboard</td></tr>
+        <tr><td class="skill-name">Website Comparison</td><td>Side-by-side audit of two dental websites against Gen4 framework</td><td>DOCX report + HTML dashboard</td></tr>
+        <tr><td class="skill-name">GBP Audit</td><td>Evaluates Google Business Profile optimization for local search visibility</td><td>Scored audit report</td></tr>
+        <tr><td class="skill-name">Scheduling Scan</td><td>Deep-scans a website to find and validate live online scheduling systems</td><td>Booking URL, platform, type</td></tr>
+        <tr><td class="skill-name">Instagram Scanner</td><td>Extracts linked Instagram profiles from dental websites with handle classification</td><td>Excel report</td></tr>
+        <tr><td class="skill-name">Website Location Scan</td><td>Identifies city/state for each input website URL</td><td>Excel file</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-content" id="tab-content">
+      <table class="compare-table">
+        <tr><th>Skill</th><th>What It Does</th><th>Output</th></tr>
+        <tr><td class="skill-name">Content Engine</td><td>Audits doctor + practice digital presence, builds 3-month content strategy with brand architecture and UGC workflows</td><td>HTML report + Excel calendar</td></tr>
+        <tr><td class="skill-name">Content Scout</td><td>Discovers public content about a business across social media, review sites, blogs, and web</td><td>Content discovery report</td></tr>
+        <tr><td class="skill-name">Practice Letterhead</td><td>Creates branded Word letterhead files with logo header and contact footer</td><td>DOCX template</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-content" id="tab-perf">
+      <table class="compare-table">
+        <tr><th>Skill</th><th>What It Does</th><th>Output</th></tr>
+        <tr><td class="skill-name">Marketing Performance</td><td>Analyzes dental marketing data with scorecards, ROI waterfalls, and team-based action plans</td><td>HTML report with scorecards</td></tr>
+        <tr><td class="skill-name">Marketing Performance (Perio)</td><td>Specialized analysis for periodontal practices with referral program ROI and surgical/maintenance mix</td><td>HTML report</td></tr>
+        <tr><td class="skill-name">Referral Lab Playbook</td><td>Enterprise multi-office perio analysis with per-office scorecards and pipeline analysis</td><td>Tabbed HTML dashboard</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-content" id="tab-strat">
+      <table class="compare-table">
+        <tr><th>Skill</th><th>What It Does</th><th>Output</th></tr>
+        <tr><td class="skill-name">Marketing Strategy</td><td>Generates prioritized marketing strategy from audit and content discovery reports</td><td>Strategy document</td></tr>
+        <tr><td class="skill-name">Action Plan</td><td>Creates interactive phased action plans with RACI matrices, Gantt timelines, and KPI cards</td><td>Interactive HTML report</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-content" id="tab-infra">
+      <table class="compare-table">
+        <tr><th>Skill</th><th>What It Does</th><th>Output</th></tr>
+        <tr><td class="skill-name">HIPAA PHI Scrubber</td><td>Automatically sanitizes patient health information from any uploaded data before analysis</td><td>Scrubbed data file</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ALIGNMENT MAP -->
+<section id="alignment">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <h2>Alignment Map — Skills vs. Full Plan</h2>
+    <p>Where each skill genuinely maps to the Full Plan's workstreams — and where the gaps are real.</p>
+  </div>
+
+  <div class="card" style="overflow-x: auto;">
+    <div class="alignment-row alignment-header">
+      <div>Your Skill</div>
+      <div>Full Plan Interface</div>
+      <div>Honest Overlap</div>
+      <div></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">Website Audit</div>
+      <div>WS1 → Storefront Manager<br><span style="color:var(--text-muted);font-size:0.8rem;">Full Plan: persistent, auto-generated sites with CDN deployment, live updates, before/after galleries</span></div>
+      <div>Your skill <em>evaluates</em> storefronts. The Full Plan <em>generates and manages</em> them. You provide the diagnostic intelligence the platform would act on — but you don't replace the manager itself.</div>
+      <div><span class="tag tag-amber">Partial</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">GBP Audit</div>
+      <div>WS1 → Compliance Readiness Dashboard<br><span style="color:var(--text-muted);font-size:0.8rem;">Full Plan: continuous monitoring, auto-alerts, compliance scoring across 260 locations</span></div>
+      <div>Strong functional match for the <em>assessment</em> layer. Missing: persistent tracking, longitudinal change detection, auto-alerting when scores degrade.</div>
+      <div><span class="tag tag-amber">Partial</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">Scheduling Scan</div>
+      <div>WS1 → Practice Deep Dive (Access tab)</div>
+      <div>Direct input — this is exactly the kind of data that populates the Access score in the platform. Clean match as a data source.</div>
+      <div><span class="tag tag-green">Strong</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">Content Engine</div>
+      <div>WS2 → Editorial Queue + Studio Agent<br><span style="color:var(--text-muted);font-size:0.8rem;">Full Plan: persistent queue with 58-sec approval flow, AI pipeline, asset integration</span></div>
+      <div>Your engine <em>plans</em> content (calendars, brand architecture). The Full Plan's WS2 <em>captures, queues, approves, distributes, and monitors</em> it through a persistent pipeline. You're strong on strategy — the platform handles operations.</div>
+      <div><span class="tag tag-amber">Partial</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">Content Scout</div>
+      <div>WS2 → Capture Bot + Distribution Monitor</div>
+      <div>Good conceptual alignment with the discovery/capture layer. Missing: persistent ingestion, auto-curation, feedback loops on what content performed.</div>
+      <div><span class="tag tag-amber">Partial</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">IG Scanner</div>
+      <div>WS2 → Distribution Monitor</div>
+      <div>Useful extraction utility. The platform's distribution monitor tracks ongoing engagement metrics — your scanner provides a point-in-time snapshot.</div>
+      <div><span class="tag tag-amber">Partial</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">Marketing Performance</div>
+      <div>WS3 → H-Score Dashboard + Champion Scorecard</div>
+      <div>Strong analytical overlap. Your scorecards measure the same kinds of signals (ROI, CPA, review velocity). Missing: integration with Cinnamon/Swell/Dental Intel vendor APIs for live data.</div>
+      <div><span class="tag tag-amber">Partial</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">Referral Lab</div>
+      <div>WS3 → H-Score + Trust Transfer Tracker</div>
+      <div>Enterprise-level reporting that directly parallels the Culture OS scoring concept. One of your most "platform-ready" skills.</div>
+      <div><span class="tag tag-green">Strong</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">Action Plan</div>
+      <div>WS1 → Intervention Queue</div>
+      <div>Your action plans are the <em>output</em> the Intervention Queue would generate. Strong conceptual match — the platform automates the triggering; your skill handles the deliverable.</div>
+      <div><span class="tag tag-green">Strong</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">Marketing Strategy</div>
+      <div>WS1 → AI Alerts + Intervention logic</div>
+      <div>The strategy generator is your "thinking layer" — it prioritizes what to fix. In the platform, this logic lives in the AI Alerts and auto-prioritization engine.</div>
+      <div><span class="tag tag-green">Strong</span></div>
+    </div>
+
+    <div class="alignment-row">
+      <div class="skill-name">HIPAA Scrubber</div>
+      <div>Infra → Compliance Middleware</div>
+      <div>Direct conceptual parallel. The Full Plan's Compliance Middleware does this at the infrastructure level (PHI detection, encryption, audit logs). Your scrubber handles it at the file level. Both solve the same problem at different scales.</div>
+      <div><span class="tag tag-green">Strong</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GAP ANALYSIS -->
+<section id="gaps">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <h2>Gap Analysis</h2>
+    <p>The honest difference between what skills can do and what the Full Plan requires.</p>
+  </div>
+
+  <div class="callout warning">
+    <p><strong>What the ChatGPT conversation got wrong:</strong> It claimed you've built "70–80% of WS2" and suggested adding Airtable + triggers to close the gap. That undersells the Full Plan and oversells the skills. The Full Plan's WS2 alone includes a Capture Bot PWA with SMS, a Studio Request Portal, a 58-second Brand Review approval flow, an Asset Registry on S3/CloudFront, and platform-integrated distribution monitoring. These are persistent application features — not things you can approximate with a spreadsheet layer.</p>
+  </div>
+
+  <details>
+    <summary>Your skills generate intelligence. The Full Plan stores and acts on it. <span class="tag tag-red" style="margin-left:auto;">Core Gap</span></summary>
+    <div class="detail-body">
+      <p>Every one of your skills follows the same pattern: Input → Analysis → Output file → Done. The Full Plan requires: Input → Stored in Practice Data Hub → Scored → Compared over time → Triggers generated → Actions assigned → Outcomes measured → Feedback loop.</p>
+      <p style="margin-top:0.75rem;">This isn't a criticism — it's the nature of what these tools are. Claude skills are excellent at the "analysis → output" step. But they don't persist data, track changes longitudinally, or trigger automated workflows. That requires application infrastructure.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>No persistent Practice Profile exists <span class="tag tag-red" style="margin-left:auto;">Infrastructure</span></summary>
+    <div class="detail-body">
+      <p>The Full Plan's entire WS1 centers on a Practice Data Hub — a database seeded with 260 practices, CRUD API, RBAC, and event bus. Every interface reads from and writes to this hub. Your skills each generate standalone reports with no shared data layer. Running a Website Audit today doesn't inform next week's Marketing Strategy unless someone manually connects them.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>No automation or trigger logic <span class="tag tag-amber" style="margin-left:auto;">Orchestration</span></summary>
+    <div class="detail-body">
+      <p>The Full Plan's Intervention Queue uses AI-generated composite risk scores to automatically surface practices that need attention and assign actions. Your skills require a human to decide which skill to run, for which practice, and when. The "trigger logic" suggested in the ChatGPT conversation (if score &lt; 70 → run skill) sounds simple but actually requires persistent scoring + monitoring infrastructure to implement.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>No vendor API integrations <span class="tag tag-amber" style="margin-left:auto;">Data</span></summary>
+    <div class="detail-body">
+      <p>The Full Plan pulls live data from Cinnamon (phone scoring), Swell (reviews), Dental Intel (production/clinical), and NexHealth (scheduling) via API integrations. Your skills work from manually uploaded CSVs or by scanning public-facing websites. Both approaches produce useful analysis, but the platform approach enables continuous monitoring while yours provides snapshots.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>WS3 Culture OS has minimal coverage <span class="tag tag-amber" style="margin-left:auto;">Coverage</span></summary>
+    <div class="detail-body">
+      <p>WS3 is the Full Plan's cleanest workstream — all 8 interfaces ship in Phase A. It includes Morning Huddle displays, Champion Hub, CCA Academy (Bronze–Gold certification), Recognition & Rewards, and a Culture Admin Console. Your performance reporting tools (Marketing Performance, Referral Lab) touch the scoring/measurement aspect but don't address the behavior change, training, or daily workflow components.</p>
+    </div>
+  </details>
+</section>
+
+<!-- STRATEGIC POSITIONING -->
+<section id="positioning">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <h2>Strategic Positioning</h2>
+    <p>How to frame what you've built — without overclaiming or underselling.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="border-left: 3px solid var(--red);">
+      <h3>Don't Say This</h3>
+      <p style="margin-bottom: 0.75rem;">"We've already built 70–80% of the Content Engine workstream."</p>
+      <p style="margin-bottom: 0.75rem;">"We just need Airtable to connect everything."</p>
+      <p>"Our skills are early versions of the platform interfaces."</p>
+      <p style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--red);">These overclaim the relationship and will erode credibility with anyone who reads the Full Plan closely.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--green);">
+      <h3>Say This Instead</h3>
+      <p style="margin-bottom: 0.75rem;">"We have working field intelligence tools that deliver value to Market Managers today — right now — while the platform is still in planning."</p>
+      <p style="margin-bottom: 0.75rem;">"Our skills prove the use cases the Full Plan is designed to systematize."</p>
+      <p>"Every skill we've built is a validated requirement for the platform. We're not guessing what the field needs — we've already built it and tested it."</p>
+      <p style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--green);">This is honest, strong, and positions you as the person who validated the demand.</p>
+    </div>
+  </div>
+
+  <div class="callout success" style="margin-top: 1.5rem;">
+    <p><strong>Your real strategic edge:</strong> The Full Plan is a proposal. Your skills are working software. In any organization, the person who has already built the thing that works has more leverage than the person with the best blueprint. Your skills are proof that the use cases in WS1, WS2, and WS3 are real — because people are already using them.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1rem;">
+    <h3>The Three Roles Your Skills Play</h3>
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+      <div>
+        <div class="small-label" style="color: var(--green);">1. Immediate Value</div>
+        <p style="font-size: 0.85rem; margin-top: 0.4rem;">Market Managers and field teams get actionable intelligence today without waiting for a 24-week platform build. This is the "what works right now" story.</p>
+      </div>
+      <div>
+        <div class="small-label" style="color: var(--accent);">2. Requirements Validation</div>
+        <p style="font-size: 0.85rem; margin-top: 0.4rem;">Every skill you've built and tested is a proven use case. When the platform gets built, you've already validated what the field actually needs vs. what looks good on a spec sheet.</p>
+      </div>
+      <div>
+        <div class="small-label" style="color: var(--purple);">3. Future Data Source</div>
+        <p style="font-size: 0.85rem; margin-top: 0.4rem;">When the Practice Data Hub exists, your skills can pipe their outputs into it. Website Audit scores become the Storefront Health metric. Content Engine calendars feed the Editorial Queue. The skills become input layers for the platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <h2>Realistic Roadmap</h2>
+    <p>What you can actually do in the next 90 days — without pretending you're building a platform.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item active">
+      <div class="time">Now → 30 Days</div>
+      <h4>Standardize & Document</h4>
+      <p>Make what you have legible to the rest of the organization.</p>
+      <ul>
+        <li>Create a skill catalog with clear descriptions, inputs, outputs, and use cases for each of the 15 skills</li>
+        <li>Define a consistent scoring framework (Access, Experience, Content, Growth) that every diagnostic skill maps to</li>
+        <li>Run 5–10 practices through a "full stack" workflow (Website Audit → GBP Audit → Content Engine → Strategy → Action Plan) to prove the end-to-end value chain</li>
+        <li>Document the results as case studies for leadership</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">30 → 60 Days</div>
+      <h4>Build the "Practice Snapshot"</h4>
+      <p>Not a database — a repeatable process that creates a composite view of any practice.</p>
+      <ul>
+        <li>Design a standard Practice Snapshot template (HTML or PPTX) that aggregates outputs from Website Audit + GBP Audit + Scheduling Scan + Content Scout into a single view</li>
+        <li>Create a skill (or workflow) that chains these together and produces the snapshot automatically</li>
+        <li>Pilot with Market Managers on 20 practices to test utility and adoption</li>
+        <li>This is your "Practice Deep Dive lite" — a working version of what WS1 envisions, delivered through skills instead of infrastructure</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">60 → 90 Days</div>
+      <h4>Prove the Prioritization Logic</h4>
+      <p>Show that AI-driven prioritization works — even without an Intervention Queue.</p>
+      <ul>
+        <li>Run Practice Snapshots across 50+ locations and rank them by composite score</li>
+        <li>Generate a "Weekly Priority Brief" that surfaces the bottom 10 practices and recommends specific skill-driven actions for each</li>
+        <li>Track whether the recommended actions were taken and what changed — this creates the feedback data the platform will eventually need</li>
+        <li>Present results to leadership as proof-of-concept for the Full Plan's Intervention Queue</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">90+ Days — Decision Point</div>
+      <h4>Platform Build vs. Skill Scaling</h4>
+      <p>By now you'll have the data to make the real strategic call.</p>
+      <ul>
+        <li><strong>If the Full Plan gets greenlit:</strong> Your skills become the requirements spec and your field data becomes the baseline. You've de-risked the build by proving demand.</li>
+        <li><strong>If the Full Plan stays on hold:</strong> You've built a working field intelligence operation that delivers real value. Continue scaling skills, add lightweight persistence (shared spreadsheet, Airtable), and keep compounding.</li>
+        <li>Either way, you win — because you built the thing that works while the plan was still a proposal.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MATURITY VIEW -->
+<section>
+  <div class="section-header">
+    <div class="section-num">06b</div>
+    <h2>Capability Maturity</h2>
+    <p>Where your skills sit on the path from extraction to system.</p>
+  </div>
+
+  <div class="card">
+    <div style="margin-bottom: 1.5rem;">
+      <div class="maturity-bar">
+        <div class="label">Extraction</div>
+        <div class="track"><div class="fill" style="width:95%; background: var(--green);"></div></div>
+        <div class="pct" style="color:var(--green)">95%</div>
+      </div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-left: 130px; margin-top:-4px;">IG Scanner, Scheduling Scan, Content Scout, Location Scan — mastered</div>
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <div class="maturity-bar">
+        <div class="label">Analysis</div>
+        <div class="track"><div class="fill" style="width:90%; background: var(--green);"></div></div>
+        <div class="pct" style="color:var(--green)">90%</div>
+      </div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-left: 130px; margin-top:-4px;">Website Audit, GBP Audit, Performance Reporting, Comparisons — strong</div>
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <div class="maturity-bar">
+        <div class="label">Strategy</div>
+        <div class="track"><div class="fill" style="width:80%; background: var(--accent);"></div></div>
+        <div class="pct" style="color:var(--accent)">80%</div>
+      </div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-left: 130px; margin-top:-4px;">Marketing Strategy, Action Plan, Content Engine — strong, could be more connected</div>
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <div class="maturity-bar">
+        <div class="label">Persistence</div>
+        <div class="track"><div class="fill" style="width:10%; background: var(--amber);"></div></div>
+        <div class="pct" style="color:var(--amber)">10%</div>
+      </div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-left: 130px; margin-top:-4px;">No shared data layer, no longitudinal tracking, no practice memory</div>
+    </div>
+    <div style="margin-bottom: 0.5rem;">
+      <div class="maturity-bar">
+        <div class="label">Orchestration</div>
+        <div class="track"><div class="fill" style="width:5%; background: var(--red);"></div></div>
+        <div class="pct" style="color:var(--red)">5%</div>
+      </div>
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-left: 130px; margin-top:-4px;">No triggers, no automation, no continuous monitoring — requires platform infrastructure</div>
+    </div>
+  </div>
+</section>
+
+<!-- TALKING POINTS -->
+<section id="talking-points">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <h2>Leadership Talking Points</h2>
+    <p>Tailored framing for each audience.</p>
+  </div>
+
+  <details open>
+    <summary>For Sarah (CGO) — Enterprise Scale & ROI</summary>
+    <div class="detail-body">
+      <p style="margin-bottom:0.75rem;">"We've built and tested 15 AI-powered field intelligence tools that are working today. They're not the platform — they're the proof that the platform's use cases are real."</p>
+      <p style="margin-bottom:0.75rem;">"Every skill we run with a Market Manager is a validated requirement. When we audit a website, we're not just fixing a site — we're proving that Storefront Health scoring drives action. That de-risks the platform investment."</p>
+      <p>"The Full Plan describes what the system looks like at scale. Our skills show what the system needs to do — because we've already built the intelligence layer and tested it in the field."</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>For Dakota (Growth Systems) — Technical & Operational</summary>
+    <div class="detail-body">
+      <p style="margin-bottom:0.75rem;">"Our skills currently generate point-in-time outputs. The next step is standardizing their scoring into a shared framework (Access, Experience, Content, Growth) so every output speaks the same language."</p>
+      <p style="margin-bottom:0.75rem;">"We don't need to build a platform to start creating Practice Snapshots. We can chain skills together today and produce a composite view for any practice. The data layer comes later — the intelligence layer exists now."</p>
+      <p>"When the Practice Data Hub gets built, our skills become API-integrated input sources. Website Audit → Storefront Health Score. GBP Audit → Local Visibility Score. Content Engine → Editorial Queue input. The architecture is additive — nothing we've built gets thrown away."</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>For Broader Leadership — The Strategic Narrative</summary>
+    <div class="detail-body">
+      <p style="margin-bottom:0.75rem;">"We're not waiting for a platform to deliver AI-powered intelligence to the field. We've built 15 working tools that Market Managers use today to audit practices, build content strategies, and generate action plans."</p>
+      <p style="margin-bottom:0.75rem;">"The Full Plan is the right long-term vision. Our skills are the working proof that the vision is worth investing in — because the use cases are already validated."</p>
+      <p style="margin-bottom:0.75rem;">"In the next 90 days, we'll standardize these tools into a repeatable Practice Snapshot workflow and prove that AI-driven prioritization works across 50+ locations. That gives leadership the data to make a confident platform investment decision."</p>
+      <p><strong>The line to remember:</strong> "The Full Plan is the blueprint. Our skills are the working prototype. One doesn't replace the other — they prove each other."</p>
+    </div>
+  </details>
+
+  <div class="divider"></div>
+
+  <div class="card" style="text-align: center; padding: 2rem;">
+    <div class="small-label" style="margin-bottom: 0.5rem;">The Bottom Line</div>
+    <p style="font-size: 1.15rem; font-weight: 600; max-width: 700px; margin: 0 auto; line-height: 1.5;">You don't need permission to build a platform to deliver value today. The skills work. The question isn't whether they're "enough" — it's how to make them visible, repeatable, and connected while the bigger investment decision gets made.</p>
+  </div>
+</section>
+
+<div style="text-align: center; padding: 2rem 0; color: var(--text-muted); font-size: 0.78rem;">
+  Gen4 Dental — AI Enablement Strategic Assessment — March 2026<br>
+  Prepared by Claude
+</div>
+
+</div>
+
+<script>
+// Tab switching
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Active nav highlighting
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    if (scrollY >= sectionTop - 120) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
