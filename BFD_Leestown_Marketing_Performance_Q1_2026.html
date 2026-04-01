@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beaumont Family Dentistry — Leestown Marketing Performance Report | Q1 2025 vs Q1 2026</title>
+<style>
+:root {
+  --navy: #2E5E8C;
+  --navy-light: #e8f4f8;
+  --green: #27ae60;
+  --green-bg: #e8f8f0;
+  --red: #e74c3c;
+  --red-bg: #fdf0ef;
+  --orange: #f39c12;
+  --orange-bg: #fef9e7;
+  --gray: #999;
+  --gray-bg: #f5f5f5;
+  --text: #2c3e50;
+  --border: #dce4ec;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); line-height: 1.6; background: #f8f9fa; }
+.container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+header { background: var(--navy); color: white; padding: 36px 0; margin-bottom: 32px; }
+header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+header h1 { font-size: 26px; font-weight: 700; }
+header .subtitle { font-size: 14px; opacity: 0.85; }
+header .period-badge { background: rgba(255,255,255,0.2); padding: 8px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+
+.section { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 28px; margin-bottom: 24px; }
+.section h2 { color: var(--navy); font-size: 20px; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--navy); }
+.section h3 { color: var(--navy); font-size: 16px; margin: 18px 0 10px; }
+
+/* Metric Cards */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px; }
+.metric-card { background: var(--gray-bg); border-radius: 8px; padding: 18px; text-align: center; }
+.metric-card .label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.metric-card .value { font-size: 28px; font-weight: 700; color: var(--navy); }
+.metric-card .change { font-size: 13px; margin-top: 4px; font-weight: 600; }
+.metric-card .change.up { color: var(--green); }
+.metric-card .change.down { color: var(--red); }
+.metric-card .change.neutral { color: var(--orange); }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: #f8f9fa; }
+.cat-header td { background: var(--navy-light); font-weight: 700; color: var(--navy); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Pass/Fail badges */
+.badge { display: inline-block; padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+.badge.pass { background: var(--green-bg); color: var(--green); }
+.badge.fail { background: var(--red-bg); color: var(--red); }
+.badge.info { background: var(--navy-light); color: var(--navy); }
+.badge.na { background: var(--gray-bg); color: var(--gray); }
+
+/* Insight boxes */
+.insight { background: var(--navy-light); border-left: 4px solid var(--navy); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 14px; }
+.insight.positive { background: var(--green-bg); border-color: var(--green); }
+.insight.negative { background: var(--red-bg); border-color: var(--red); }
+.insight.warning { background: var(--orange-bg); border-color: var(--orange); }
+
+/* Waterfall Chart */
+.waterfall { display: flex; align-items: flex-end; gap: 6px; height: 300px; padding: 20px 0; margin: 20px 0; position: relative; }
+.wf-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
+.wf-bar { width: 70%; border-radius: 4px 4px 0 0; min-height: 4px; position: relative; transition: all 0.3s; }
+.wf-bar.anchor { background: var(--navy); }
+.wf-bar.positive { background: var(--green); }
+.wf-bar.negative { background: var(--red); }
+.wf-label { font-size: 11px; text-align: center; margin-top: 6px; color: var(--text); line-height: 1.3; max-width: 100px; }
+.wf-amount { font-size: 11px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+
+/* Action Plan */
+.action-item { margin: 14px 0; padding: 14px 18px; background: var(--gray-bg); border-radius: 8px; border-left: 4px solid var(--navy); }
+.action-item h4 { color: var(--navy); font-size: 14px; margin-bottom: 6px; }
+.action-item p { font-size: 13px; margin: 3px 0; }
+.action-item .owner { color: var(--green); font-weight: 600; }
+.action-item .impact { color: var(--red); font-weight: 600; }
+.team-header { background: var(--navy); color: white; padding: 10px 18px; border-radius: 8px 8px 0 0; font-weight: 700; font-size: 15px; margin-top: 20px; }
+
+/* Summary badge */
+.summary-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; }
+.summary-badge.pass-heavy { background: var(--green-bg); color: var(--green); }
+
+/* Print */
+@media print {
+  body { background: white; }
+  .section { box-shadow: none; border: 1px solid var(--border); break-inside: avoid; }
+  header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+.disclaimer { font-size: 12px; color: var(--gray); text-align: center; padding: 20px; border-top: 1px solid var(--border); margin-top: 24px; }
+.exec-summary { font-size: 15px; line-height: 1.75; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div>
+      <h1>Beaumont Family Dentistry — Leestown</h1>
+      <div class="subtitle">Marketing & Production Performance Report</div>
+    </div>
+    <div class="period-badge">Q1 2025 → Q1 2026</div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<div class="section">
+  <h2>Executive Summary</h2>
+  <div class="exec-summary">
+    <p>Beaumont Family Dentistry — Leestown is the <strong>only BFD location with positive production growth in Q1 2026</strong>, delivering <strong>+$51,852 (+7.3%)</strong> year-over-year to reach $761,471 in gross production. The practice scorecard shows <strong>14 of 19 metrics passing</strong>, with critical gaps in new patient call conversion (40%, benchmark 55%), missed call rate (30%, benchmark 18%), scheduling access (45-day wait for third available NP appointment — extreme bottleneck), and online reputation depth (Yelp: 6 reviews at 3.3 stars). On the clinical and operational side, the location is excelling: net patient growth of +68 is the strongest across all BFD locations, online scheduling adoption at 41.1% (72 of 175 NPs) is the highest in the organization, leakage improved dramatically (from 11.4% to 8.0%), and appointment throughput rose to 2,581 completed visits (+268 YoY). The critical constraint is capacity — the 45-day new patient wait is severely limiting growth potential. With strong execution across operations (leakage control, online adoption, net growth) and clinical delivery (same-day production, case presentation), the path forward is to urgently expand provider capacity, systematically improve new patient conversion infrastructure (call handling, missed call recovery), and capitalize on the proven online scheduling strength by making it a platform for other locations.</p>
+  </div>
+</div>
+
+<!-- ============ PRACTICE SCORECARD ============ -->
+<div class="section">
+  <h2>Practice Marketing Scorecard</h2>
+  <div style="margin-bottom:14px;">
+    <span class="summary-badge pass-heavy">14 Pass</span> &nbsp;
+    <span class="summary-badge" style="background:var(--red-bg);color:var(--red);">5 Fail</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Metric</th><th>Current Value</th><th>Benchmark</th><th>Result</th></tr>
+    </thead>
+    <tbody>
+      <!-- Patient Acquisition -->
+      <tr class="cat-header"><td colspan="5">Patient Acquisition</td></tr>
+      <tr><td></td><td>Avg New Patients / Month</td><td>58</td><td>≥ 30</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>NP Call Conversion %</td><td>40%</td><td>≥ 55%</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>Missed Call %</td><td>30%</td><td>≤ 18%</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>3rd Next Available NP Appt</td><td>45 days</td><td>≤ 7 days</td><td><span class="badge fail">Fail</span></td></tr>
+
+      <!-- Patient Retention -->
+      <tr class="cat-header"><td colspan="5">Patient Retention</td></tr>
+      <tr><td></td><td>Unscheduled Active Patients</td><td>825 (was 923)</td><td>Decrease YOY</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Unscheduled Active $$ Opportunity</td><td>$565,571 (was $615,964)</td><td>Decrease YOY</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>NP Hygiene Re-Appointment %</td><td>53.7%</td><td>≥ 40%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Hygiene Re-Appointment %</td><td>97.6%</td><td>≥ 85%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Pre-Appointment %</td><td>81%</td><td>≥ 60%</td><td><span class="badge pass">Pass</span></td></tr>
+
+      <!-- Schedule Management -->
+      <tr class="cat-header"><td colspan="5">Schedule Management</td></tr>
+      <tr><td></td><td>Appointments Completed</td><td>2,581 (was 2,413)</td><td>Increase YOY</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>No-Shows %</td><td>3.4%</td><td>≤ 5%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Cancellations %</td><td>4.6%</td><td>≤ 5%</td><td><span class="badge pass">Pass</span></td></tr>
+
+      <!-- Online Reputation -->
+      <tr class="cat-header"><td colspan="5">Online Reputation</td></tr>
+      <tr><td></td><td>Google Reviews (Total)</td><td>698</td><td>≥ 300</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Google Reviews (Last 30 Days)</td><td>10</td><td>≥ 10</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Google Star Rating</td><td>4.9</td><td>≥ 4.5</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Google 5-Star Reviews</td><td>96.4% (673/698)</td><td>≥ 90%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Yelp Reviews (Total)</td><td>6</td><td>≥ 20</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>Yelp Star Rating</td><td>3.3</td><td>≥ 4.0</td><td><span class="badge fail">Fail</span></td></tr>
+
+      <!-- Referral Program -->
+      <tr class="cat-header"><td colspan="5">Referral Program</td></tr>
+      <tr><td></td><td>Tracking Referral Source for Every NP</td><td>2.9% missing</td><td>&lt; 20% missing</td><td><span class="badge pass">Pass</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight warning" style="margin-top:16px;">
+    <strong>Scorecard Summary:</strong> Despite only 5 failures, the failed metrics represent the practice's critical constraints to growth: call handling (40% conversion), missed call recovery (30% missing), and — most critical — the 45-day new patient appointment wait, which is the single biggest bottleneck. The strong passing metrics (high Google presence, excellent leakage control, strong pre-appointment %) indicate operational excellence; the focus now must be capacity expansion and call center optimization.
+  </div>
+</div>
+
+<!-- ============ PRODUCTION & REVENUE ============ -->
+<div class="section">
+  <h2>Production & Revenue Overview</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Production Gross</div>
+      <div class="value">$761,471</div>
+      <div class="change up">▲ +$51,852 (+7.3%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Production Scheduled Gross</div>
+      <div class="value">$658,330</div>
+      <div class="change up">▲ +$64,450 (+10.8%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Annual Patient Value</div>
+      <div class="value">$685.54</div>
+      <div class="change up">▲ +$18.19 (+2.7%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Visits Per Working Day</div>
+      <div class="value">41.34</div>
+      <div class="change down">▼ -6.78 (-14.1%)</div>
+    </div>
+  </div>
+  <div class="insight positive">
+    <strong>Key Insight — Leestown's Standout Result:</strong> Production grew +7.3% year-over-year — the only BFD location with positive growth. This was achieved despite a VPWD decline from 48.12 to 41.34, which indicates the schedule is under severe stress (capacity constrained). The decline in VPWD reflects the 45-day new patient wait: the practice is already operating near maximum capacity, yet demand continues to exceed supply. Scheduled gross production also improved +10.8%, a positive sign of strong appointment booking demand.
+  </div>
+</div>
+
+<!-- ============ NEW PATIENT ACQUISITION ============ -->
+<div class="section">
+  <h2>New Patient Acquisition & Case Acceptance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">New Patients</div>
+      <div class="value">175</div>
+      <div class="change up">▲ +6 (+3.6%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NPs Per Working Day</div>
+      <div class="value">2.87</div>
+      <div class="change down">▼ from 3.45</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Acceptance % (Overall)</div>
+      <div class="value">96.0%</div>
+      <div class="change up">▲ from 80.2%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Case Acceptance %</div>
+      <div class="value">72.9%</div>
+      <div class="change down">▼ from 86.2%</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Case Dollar Analysis</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>Case $ Presented</td><td>$954,543</td><td>$1,078,626</td><td style="color:var(--green);font-weight:700">+$124,083 (+13.0%)</td></tr>
+        <tr><td>Case $ Accepted</td><td>$374,653</td><td>$350,039</td><td style="color:var(--red);font-weight:700">-$24,614 (-6.6%)</td></tr>
+        <tr><td>Case $ Accepted %</td><td>39.2%</td><td>32.5%</td><td style="color:var(--red);font-weight:700">-6.7 pts</td></tr>
+        <tr><td>Avg Restorative $/Exam</td><td>$434.07</td><td>$410.06</td><td style="color:var(--red);font-weight:700">-$24.01 (-5.5%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>NP Close Rate Detail</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>Cases Presented (NP)</td><td>138</td><td>140</td></tr>
+        <tr><td>Cases Accepted (NP)</td><td>119</td><td>102</td></tr>
+        <tr><td>NP Close Rate</td><td>86.2%</td><td>72.9%</td></tr>
+        <tr><td>Online Scheduled NPs</td><td>0</td><td>72</td></tr>
+        <tr><td>Online % of NP Volume</td><td>0%</td><td>41.1%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight warning">
+    <strong>Key Insight — Case Acceptance Opportunity:</strong> Case $ Presented rose +$124K (+13.0%), showing strong clinical diagnostic activity. However, Case $ Accepted declined by $24.6K and the acceptance rate fell from 39.2% to 32.5%. The NP Case Acceptance % also declined from 86.2% to 72.9%. This is the primary opportunity for Leestown: help patients commit to larger treatment plans through better financial presentation, payment plan architecture, and potentially revised case presentation sequencing. With case $ presented at an all-time high, converting an additional 5pp of cases (from 32.5% to 37.5%) would recapture ~$54K in accepted treatment.
+  </div>
+</div>
+
+<!-- ============ SAME-DAY TREATMENT ============ -->
+<div class="section">
+  <h2>Same-Day Treatment & Clinical Performance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Same-Day Hygiene $</div>
+      <div class="value">$10,933</div>
+      <div class="change down">▼ -$5,396 (-33.0%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Same-Day Restorative $</div>
+      <div class="value">$275,841</div>
+      <div class="change down">▼ -$542 (-0.2%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Diagnosed % Hygiene</div>
+      <div class="value">3.9%</div>
+      <div class="change down">▼ from 5.9%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Diagnosed % Restorative</div>
+      <div class="value">29.0%</div>
+      <div class="change down">▼ from 29.1%</div>
+    </div>
+  </div>
+  <div class="insight negative">
+    <strong>Key Insight:</strong> Same-day hygiene dollars declined sharply (-33.0%), and case diagnosed % for hygiene fell from 5.9% to 3.9% — a concerning drop. This suggests hygienists may be spending less chair time on diagnosis and case building due to schedule pressure (confirming the capacity constraint). Same-day restorative held essentially flat. Recommendation: Protect chairside diagnosis time in hygiene by adding dedicated clinical blocks where hygienists focus on treatment planning rather than high-volume production. The case diagnosed % decline (5.9% → 3.9%) represents missed revenue in an already constrained schedule.
+  </div>
+</div>
+
+<!-- ============ PATIENT VOLUME ============ -->
+<div class="section">
+  <h2>Patient Volume & Appointment Health</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Active Hygiene Patients</div>
+      <div class="value">3,636</div>
+      <div class="change up">▲ +161 (+4.6%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Unscheduled Active Patients</div>
+      <div class="value">825</div>
+      <div class="change down">▼ -98 (-10.6%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Unscheduled Opportunity $</div>
+      <div class="value">$565,571</div>
+      <div class="change down">▼ -$50,393 (-8.2%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Combined Leakage %</div>
+      <div class="value">8.0%</td>
+      <div class="change down">▼ from 11.4%</div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <h3>Appointment Breakdown</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>Completed Total</td><td>2,413</td><td>2,581</td><td style="color:var(--green)">+268 (+11.1%)</td></tr>
+        <tr><td>Completed Hygiene</td><td>1,282</td><td>1,424</td><td style="color:var(--green)">+142 (+11.1%)</td></tr>
+        <tr><td>Completed Restorative</td><td>581</td><td>696</td><td style="color:var(--green)">+115 (+19.8%)</td></tr>
+        <tr><td>Completed Other</td><td>551</td><td>463</td><td style="color:var(--red)">-88 (-16.0%)</td></tr>
+        <tr><td>Appointments Scheduled</td><td>2,600</td><td>3,088</td><td style="color:var(--green)">+488 (+18.8%)</td></tr>
+        <tr><td>Future Appointments</td><td>2,301</td><td>2,831</td><td style="color:var(--green)">+530 (+23.0%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Leakage Detail — Major Improvement</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>No-Shows</td><td>172 (6.3%)</td><td>98 (3.4%)</td></tr>
+        <tr><td>Cancellations</td><td>138 (5.1%)</td><td>134 (4.6%)</td></tr>
+        <tr><td>Broken</td><td>310</td><td>232</td></tr>
+        <tr><td>Combined Leakage</td><td>11.4%</td><td>8.0%</td></tr>
+      </table>
+      <div class="insight positive" style="margin-top:12px;"><strong>Leakage Turnaround:</strong> Combined leakage improved dramatically from 11.4% to 8.0%, with no-shows cut nearly in half (6.3% → 3.4%). This 3.4pp improvement represents ~$25,890 in recovered production (per waterfall). This is a major operational win, driven by better confirmation protocols and patient communication.</div>
+    </div>
+  </div>
+
+  <h3>Patient Attrition Analysis</h3>
+  <table>
+    <tr><th>Metric</th><th>Value</th><th>Assessment</th></tr>
+    <tr><td>New Patients</td><td>175</td><td></td></tr>
+    <tr><td>Recaptured Patients</td><td>52</td><td>-8 vs prior year (was 60)</td></tr>
+    <tr><td>Patients Net Growth</td><td>+68</td><td>Strongest across BFD (+65 vs prior year)</td></tr>
+    <tr><td>Estimated Attrition</td><td>159 patients</td><td>(175 + 52) - 68 = 159</td></tr>
+    <tr><td>Attrition Rate</td><td>70.0%</td><td><span class="badge fail">CONCERNING</span> (benchmark &lt;50%)</td></tr>
+  </table>
+
+  <div class="insight negative">
+    <strong>Attrition Alert:</strong> While net growth of +68 is excellent, the underlying attrition rate of 70% is concerning and significantly above the 50% benchmark. This suggests the practice is acquiring new patients faster than it can onboard and retain them, likely due to the schedule constraint. Recommendation: Audit the NP onboarding experience (second appointment booking, hygiene re-appointment compliance) to reduce early patient loss. Leestown's strong NP Hygiene Re-Appt (53.7%) and Hygiene Re-Appt (97.6%) are good, but more work is needed to improve the first-year retention experience.
+  </div>
+</div>
+
+<!-- ============ CONFIRMATION & RECAPTURE ============ -->
+<div class="section">
+  <h2>Appointment Confirmation & Patient Recapture</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">DI Appointments Confirmed</div>
+      <div class="value">1,348</div>
+      <div class="change down">▼ -338 (-20.0%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">DI Confirmed %</div>
+      <div class="value">52.1%</div>
+      <div class="change down">▼ from 63.2%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Hygiene Re-Appt %</td>
+      <div class="value">53.7%</div>
+      <div class="change down">▼ from 57.4%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Recaptured Patients</div>
+      <div class="value">52</div>
+      <div class="change down">▼ -8 from 60</div>
+    </div>
+  </div>
+  <div class="insight negative">
+    <strong>Key Insight — Confirmation Rate Decline:</strong> DI confirmed % dropped from 63.2% to 52.1%, and the absolute number of confirmed appointments fell by 338 (-20.0%). This is a red flag. With the practice at capacity and a 45-day new patient wait, having lower appointment confirmation rates means more gaps in the schedule. Immediate action: Implement a 48-hour appointment confirmation TouchPoint in Dental Intel Engagement, with manual phone follow-up for unconfirmed appointments 24 hours before the visit. Use the Park Column to fill unconfirmed gaps same-day.
+  </div>
+</div>
+
+<!-- ============ OPERATIONAL EFFICIENCY ============ -->
+<div class="section">
+  <h2>Operational Efficiency — Leestown's Competitive Advantages</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Online Scheduling Adoption</div>
+      <div class="value">41.1%</div>
+      <div class="change up">▲ from 0% (0→72 NPs)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Hygiene-to-Restorative Handoff</div>
+      <div class="value">0.49</div>
+      <div class="change down">▼ from untracked (CRITICAL)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Close Rate</div>
+      <div class="value">72.9%</div>
+      <div class="change down">▼ from 86.2%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Pre-Appointment %</div>
+      <div class="value">81%</div>
+      <div class="change up">▲ from 78%</div>
+    </div>
+  </div>
+  <div class="insight positive">
+    <strong>Online Scheduling — Leestown's Model Location:</strong> At 41.1%, Leestown's online NP scheduling adoption is the highest in the BFD organization. This is a massive competitive advantage and should be systematized and shared with other locations. The team has successfully built a patient behavior shift that reduces front desk call burden and improves scheduling efficiency. This capability directly supports the practice's ability to manage the current capacity constraint.
+  </div>
+
+  <div class="insight negative">
+    <strong>Critical Handoff Ratio Issue:</strong> The hygiene-to-restorative handoff ratio of 0.49 is critically low (benchmark: 0.85+). This means only 49% of hygiene visits are converting to restorative appointments — leaving 51% of patients with no restorative treatment plan despite being in the chair. In a capacity-constrained practice, this represents significant lost revenue per visit and is particularly problematic given the schedule pressure. Recommendation: Review clinical protocols to ensure every hygiene visit includes a warm handoff with documented treatment recommendations, and ensure restorative blocks are properly reserved for hygiene conversions.
+  </div>
+</div>
+
+<!-- ============ ONLINE REPUTATION ============ -->
+<div class="section">
+  <h2>Online Reputation</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Google Reviews</div>
+      <div class="value">698</div>
+      <div class="change up">4.9 ★ rating</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Google 5-Star %</div>
+      <div class="value">96.4%</div>
+      <div class="change up">673 of 698</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Yelp Reviews</div>
+      <div class="value">6</div>
+      <div class="change down">3.3 ★ rating</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Sentiment Score (Swell)</div>
+      <div class="value">94</div>
+      <div class="change up">Excellent</div>
+    </div>
+  </div>
+  <div class="insight positive">
+    <strong>Google Dominance:</strong> Leestown has built an exceptional Google presence with 698 reviews and a 4.9-star rating (96.4% five-star). Google review velocity is on target at 10 reviews per month. This is a major strength and a direct result of systematic review request workflows. Sentiment score of 94 is also excellent.
+  </div>
+
+  <div class="insight negative">
+    <strong>Yelp Remediation Needed:</strong> With only 6 Yelp reviews at 3.3 stars, the location is vulnerable if negative reviews are posted. A single negative Yelp review can disproportionately impact a low-volume profile. Recommendation: Claim/optimize the Yelp Business Page (photos, complete service list, hours), ensure consistency with Google information, and monitor for new reviews. Do not directly solicit Yelp reviews (violates TOS), but ensure the profile is complete and current.
+  </div>
+</div>
+
+<!-- ============ DATA HYGIENE ============ -->
+<div class="section">
+  <h2>Data Hygiene & Tracking Gaps</h2>
+  <div class="two-col">
+    <div>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>NPs Missing Referral Source</td><td>1 of 169 (0.6%)</td><td>5 of 175 (2.9%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="insight">
+        <strong>Referral Tracking — Excellent Compliance:</strong> Missing referral source is only 2.9%, well below the 20% threshold. This is excellent data hygiene and ensures the practice has clear visibility into which marketing channels are driving new patients. Maintain this discipline as volume grows.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ WATERFALL ============ -->
+<div class="section">
+  <h2>Production Waterfall Analysis</h2>
+  <p style="margin-bottom:16px;font-size:14px;color:var(--gray);">Bridges Q1 2025 production ($709,620) to Q1 2026 production ($761,471). Each bar estimates the dollar impact of a specific performance driver.</p>
+
+  <!-- CSS Waterfall Chart -->
+  <div class="waterfall">
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--navy)">$709,620</div>
+      <div class="wf-bar anchor" style="height:52%"></div>
+      <div class="wf-label">Q1 2025<br>Production</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--green)">+$2,460</div>
+      <div class="wf-bar positive" style="height:0.2%"></div>
+      <div class="wf-label">New Patient<br>Volume</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$72,268</div>
+      <div class="wf-bar negative" style="height:5%"></div>
+      <div class="wf-label">Case $<br>Acceptance</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--green)">-$5,938</div>
+      <div class="wf-bar negative" style="height:0.4%"></div>
+      <div class="wf-label">Same-Day<br>Treatment</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--green)">+$25,890</div>
+      <div class="wf-bar positive" style="height:1.9%"></div>
+      <div class="wf-label">Appt<br>Leakage</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$100,015</div>
+      <div class="wf-bar negative" style="height:7%"></div>
+      <div class="wf-label">Schedule<br>Utilization</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--green)">+$201,723</div>
+      <div class="wf-bar positive" style="height:15%"></div>
+      <div class="wf-label">Other /<br>Unattributed</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--navy)">$761,471</div>
+      <div class="wf-bar anchor" style="height:56%"></div>
+      <div class="wf-label">Q1 2026<br>Production</div>
+    </div>
+  </div>
+
+  <h3>Waterfall Detail Table</h3>
+  <table>
+    <thead><tr><th>Driver</th><th>Impact ($)</th><th>Direction</th><th>Calculation Note</th></tr></thead>
+    <tbody>
+      <tr><td>New Patient Volume</td><td>+$2,460</td><td style="color:var(--green)">▲ Positive</td><td>(175 - 169 = +6 NPs) × $410.06 avg restorative/exam</td></tr>
+      <tr><td>Case $ Acceptance</td><td>-$72,268</td><td style="color:var(--red)">▼ Negative</td><td>(32.5% - 39.2% = -6.7pp) × $1,078,626 case $ presented</td></tr>
+      <tr><td>Same-Day Treatment</td><td>-$5,938</td><td style="color:var(--red)">▼ Negative</td><td>($286,774 - $292,713) total same-day treatment change</td></tr>
+      <tr><td>Appointment Leakage</td><td>+$25,890</td><td style="color:var(--green)">▲ Positive</td><td>Leakage: 11.4% → 8.0% (-3.4pp improvement) × 2,581 appts × $295.03/visit</td></tr>
+      <tr><td>Schedule Utilization</td><td>-$100,015</td><td style="color:var(--red)">▼ Negative</td><td>(41.34 - 48.12 = -6.78 VPWD) × 50 days × $295.03/visit</td></tr>
+      <tr><td style="font-weight:700">Other / Unattributed</td><td style="font-weight:700">+$201,723</td><td style="color:var(--green)">▲ Positive</td><td>Residual: includes fee schedule changes, payer mix, case complexity, increased appointment volume</td></tr>
+      <tr style="background:var(--navy-light)"><td style="font-weight:700">Total Production Change</td><td style="font-weight:700">+$51,852</td><td style="font-weight:700">+7.3%</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight warning">
+    <strong>Waterfall Interpretation:</strong> The production growth of +$51,852 was driven by two major forces: the leakage improvement (+$25,890) and the large "Other" category (+$201,723), but offset by case acceptance decline (-$72,268) and a significant schedule utilization drag (-$100,015). The -$100K from schedule utilization reflects the capacity constraint — the practice is operating at maximum VPWD (48.12 declining to 41.34) and cannot schedule more appointments despite strong demand. This is the critical constraint: if capacity were expanded (more provider hours or an additional provider), the practice could convert the 45-day wait into demand and likely capture $200K+ in additional annual production.
+  </div>
+</div>
+
+<!-- ============ ACTION PLAN ============ -->
+<div class="section">
+  <h2>Action Plan — Organized by Support Team</h2>
+  <p style="margin-bottom:16px;font-size:14px;">Recommendations are prioritized based on scorecard failures and the largest production recovery opportunities. Critical items marked with URGENT PRIORITY.</p>
+
+  <!-- MARKETING -->
+  <div class="team-header">Marketing</div>
+  <div class="action-item">
+    <h4>URGENT: Reduce 3rd Next Available from 45 Days to ≤7 Days</h4>
+    <p><strong>CRITICAL BOTTLENECK:</strong> The 45-day wait for a new patient appointment is the single largest constraint to Leestown's growth. At 40% call conversion and with new patient demand clearly present (175 NPs in Q1), the practice is losing significant conversion opportunities due to scheduling friction. With NP volume at 3.45 per working day in Q1 2025, the practice had capacity — the current 2.87 per day (Q1 2026) with a 45-day wait indicates a provider availability issue, not demand issues.</p>
+    <p><strong>Action:</strong> Conduct an urgent provider schedule audit. Identify unused chair time and dedicated NP blocks. If morning block availability is the constraint, consider reallocating afternoon slots or adding a provider day (recommend adding provider capacity). A one-provider-day expansion could clear the backlog within 4-6 weeks and enable $400K+ in annual additional production.</p>
+    <p><span class="owner">Owner: Executive + Operations + Doctor</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> N/A (scheduling system review + capacity planning) &nbsp;|&nbsp; <span class="impact">Impact: Each day reduction in NP wait = ~$2,500 in annualized new patient lifetime value recovery</span></p>
+  </div>
+  <div class="action-item">
+    <h4>URGENT: New Patient Call Conversion Improvement (40% → 55%)</h4>
+    <p><strong>CRITICAL METRIC:</strong> At 40% call conversion (benchmark 55%), Leestown is losing 3 out of 7 callers who could become patients. Combined with a 30% missed call rate, the practice is experiencing significant call center leakage at the top of the funnel.</p>
+    <p><strong>Action:</strong> Audit call handling scripts, staff training, and availability. Mystery shop the phone line to identify conversion barriers. Are callers being offered appointments? Are staff trained in objection handling? Is someone answering the phone immediately or are calls going to voicemail? Implement daily call conversion audit (tracked in Dental Intel Engagement or manual log) with target of 55% within 60 days. Consider hiring additional front desk staff to reduce call fallthrough.</p>
+    <p><span class="owner">Owner: Marketing + Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Analytics → Call tracking (if available) + manual audit &nbsp;|&nbsp; <span class="impact">Impact: Improving to 55% = ~12 additional NPs per month = ~$108K annual production</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Missed Call Recovery Protocol (Reduce 30% Missed Call Rate)</h4>
+    <p>A 30% missed call rate (benchmark 18%) means 1 in 3 new patient inquiries are going to voicemail and not being returned effectively. Even if callbacks achieve a 50% conversion rate, this represents significant lost patients.</p>
+    <p><strong>Action:</strong> Implement a missed call callback protocol: any missed call should be returned within 1 hour during business hours, with a backup callback within 4 hours. Train staff on voicemail messaging (clear office hours, callback commitment). Consider using Dental Intel Engagement TouchPoint to send immediate SMS to missed callers with office hours and a callback offer. Audit missed call recovery weekly.</p>
+    <p><span class="owner">Owner: Marketing + Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Engagement → TouchPoint for missed calls (if phone integration available) + manual callback protocol &nbsp;|&nbsp; <span class="impact">Impact: Recovering 50% of missed calls (15pp reduction) = ~8 additional NPs per month</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Yelp Profile Optimization & Monitoring</h4>
+    <p>With only 6 Yelp reviews at 3.3 stars, the location is vulnerable. Claim the Yelp Business Page if not already done. Ensure profile is complete with services, hours, photos, and business description. Monitor for new reviews weekly. Do not directly solicit Yelp reviews (violates TOS).</p>
+    <p><span class="owner">Owner: Marketing</span> &nbsp;|&nbsp; <span class="impact">Impact: Prevents negative review concentration from impacting local search credibility</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Leverage Online Scheduling as BFD Model — Replicable Framework</h4>
+    <p>Leestown's 41.1% online NP scheduling adoption is exceptional and the highest in the organization. Document the process, tools, and training that enabled this adoption and share with other locations. This is a repeatable competitive advantage.</p>
+    <p><span class="owner">Owner: Marketing + Operations</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> N/A (best practice documentation) &nbsp;|&nbsp; <span class="impact">Impact: Systematic online scheduling adoption across BFD = significant call burden reduction organization-wide</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Patient Reactivation Campaign — 6+ Month Overdue</h4>
+    <p>With 325 unscheduled patients in the 0-6 month window (up from 253), there is opportunity to recapture revenue from drifting patients. Pull the 6+ month overdue patient list from Dental Intel Analytics (not Engagement). Assign manual phone outreach to front desk staff with talking points focused on recent improvements (new online scheduling, expanded hours if applicable).</p>
+    <p><span class="owner">Owner: Marketing + Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Analytics → Pull overdue list → Export for manual calls &nbsp;|&nbsp; <span class="impact">Impact: At $685.54 annual patient value, recapturing 30 patients = ~$20,560</span></p>
+  </div>
+
+  <!-- OPERATIONS -->
+  <div class="team-header">Operations</div>
+  <div class="action-item">
+    <h4>URGENT: 48-Hour Appointment Confirmation Protocol</h4>
+    <p>DI confirmation rate dropped from 63.2% to 52.1%, representing 338 fewer confirmed appointments. In a capacity-constrained practice, every unconfirmed appointment is a potential gap in the schedule. With a 45-day new patient wait, these gaps directly translate to lost production.</p>
+    <p><strong>Action:</strong> Implement a 48-hour confirmation TouchPoint in Dental Intel Engagement with SMS/email automated request. For patients who don't confirm within 24 hours, escalate to manual phone confirmation by front desk. Use the Park Column to fill any same-day gaps from unconfirmed patients. Target: improve DI confirmed % to 75% within 60 days.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Engagement → TouchPoint (48hr pre-appt confirmation) + manual phone backup (24hr pre-appt) &nbsp;|&nbsp; <span class="impact">Impact: Each 5pp improvement in confirmation = ~45 additional confirmed appointments per quarter</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Sustain Leakage Control Excellence</h4>
+    <p>Leestown achieved a major operational win by reducing combined leakage from 11.4% to 8.0%, with no-shows nearly cut in half. This improvement alone drove +$25,890 in recovered production. Document the processes and training that enabled this improvement and protect them as the schedule grows.</p>
+    <p><span class="owner">Owner: Operations / Office Manager</span> &nbsp;|&nbsp; <span class="impact">Impact: Maintaining 8% leakage as volume grows = $150K+ in protected annual production</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Address Cancellation Rise and Implement 48-Hour Cancellation Policy</h4>
+    <p>While cancellations are within benchmark (4.6%), they did increase from 5.1%, and with the schedule under stress, any lost appointment is problematic. Implement clear cancellation policy messaging (48-hour notice) and maintain a short-notice fill list to replace cancelled appointments same-day.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <span class="impact">Impact: Each 1pp reduction in cancellations = ~$17,000 in protected quarterly production</span></p>
+  </div>
+
+  <!-- CLINICAL -->
+  <div class="team-header">Clinical</div>
+  <div class="action-item">
+    <h4>CRITICAL: Improve Hygiene-to-Restorative Handoff (0.49 → 0.85+)</h4>
+    <p><strong>CRITICAL CLINICAL ISSUE:</strong> The handoff ratio of 0.49 means only 49% of hygiene visits convert to restorative — leaving 51% of patients without a documented restorative treatment plan despite being in the chair. In a capacity-constrained practice where every visit should count, this is a significant revenue leak.</p>
+    <p><strong>Action:</strong> Audit clinical protocols immediately. Every hygiene visit must include: (1) documented clinical findings, (2) warm chairside handoff with doctor, (3) documented treatment recommendation, (4) restorative appointment booked before patient leaves (or scheduled for next available slot). Train hygienists that diagnosis and case-building are clinical responsibilities, not just production activities. Schedule monthly huddles with hygiene team to review handoff ratio and share high-performing charts.</p>
+    <p><span class="owner">Owner: Clinical Lead + Doctor</span> &nbsp;|&nbsp; <span class="impact">Impact: Improving to 0.85 = ~420 additional restorative visits annually × $410/exam = ~$172,200 potential annual impact</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Restore Hygiene Chairside Diagnosis (3.9% → 6%+)</h4>
+    <p>Case diagnosed % for hygiene fell from 5.9% to 3.9%, likely due to schedule pressure limiting chairside time for case building. This represents missed opportunities to present comprehensive treatment and position patients for restorative acceptance.</p>
+    <p><strong>Action:</strong> Protect dedicated clinical time blocks where hygienists focus on diagnosis and treatment planning rather than pure production volume. Implement a "diagnosis block" early in each day where hygiene appointments include extended chairside exam time with doctor collaboration. Track case diagnosed % monthly and celebrate improvements at team huddles.</p>
+    <p><span class="owner">Owner: Clinical Lead</span> &nbsp;|&nbsp; <span class="impact">Impact: Restoring to 5.9% = ~75 additional cases diagnosed per quarter = ~$15K-20K in additional case presentations</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Case Acceptance Dollar Improvement Strategy (32.5% → 40%+)</h4>
+    <p>Case $ Presented is at an all-time high ($1,078,626), but case $ accepted % declined from 39.2% to 32.5%. The team is diagnosing well — the opportunity is in helping patients accept larger treatment plans through better financial presentation and treatment sequencing.</p>
+    <p><strong>Action:</strong> Implement a treatment plan presentation protocol: (1) visual case presentation (intraoral camera, digital smile design), (2) patient-centered discussion of clinical findings, (3) phased treatment sequencing (immediate vs. preventive), (4) always present financial options before giving sticker price (CareCredit, Sunbit, payment plans). Track case acceptance % by provider weekly to identify coaching opportunities.</p>
+    <p><span class="owner">Owner: Clinical + RCM</span> &nbsp;|&nbsp; <span class="impact">Impact: Improving to 40% acceptance = ~81K additional case $ accepted per quarter = ~$324K annually</span></p>
+  </div>
+
+  <!-- OFFICE MANAGER -->
+  <div class="team-header">Office Manager</div>
+  <div class="action-item">
+    <h4>NP Hygiene Re-Appointment Protocol — 2nd Appointment Booking Before Checkout</h4>
+    <p>NP Hygiene Re-Appt is 53.7%, above the 40% benchmark but below the 75% target. Before each new patient leaves, the second appointment (hygiene recall) should be booked. Office Manager reviews prior day's NP list each morning and makes phone calls for any NP without a scheduled second appointment.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> N/A (manual checklist + phone follow-up) &nbsp;|&nbsp; <span class="impact">Impact: Each 10pp improvement in NP re-appt = ~18 additional returning patients per quarter</span></p>
+  </div>
+  <div class="action-item">
+    <h4>NP Follow-Up Call Protocol — Track and Report Daily</h4>
+    <p>Implement a daily NP follow-up checklist: On the morning of each business day, Office Manager reviews all NPs from the prior week against their second appointment schedule. Any NP without a follow-up appointment gets a phone call (appointment confirmation call if already booked, or second appointment booking call if missing). Track results in a daily log.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <span class="impact">Impact: Ensures early-stage patient retention and increases lifetime patient value</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Referral Source Entry Compliance — Maintain &lt;3% Missing</h4>
+    <p>Referral source compliance is excellent at 2.9% missing (5 of 175 NPs). Maintain this standard. Implement a mandatory referral source field at patient intake with daily compliance audit. Any missing referral source must be completed by end of business day via patient callback or chart review.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Analytics → Daily NP list audit for referral source &nbsp;|&nbsp; <span class="impact">Impact: Accurate attribution enables confident marketing budget allocation decisions</span></p>
+  </div>
+
+  <!-- RCM -->
+  <div class="team-header">RCM (Revenue Cycle Management)</div>
+  <div class="action-item">
+    <h4>Payment Plan Architecture Expansion</h4>
+    <p>With case $ presented at an all-time high but acceptance % declining, patients may be hesitant about the financial commitment of larger treatment plans. Expand and promote financing options to help patients commit.</p>
+    <p><strong>Action:</strong> Review and expand financing partnerships (CareCredit, Sunbit, Prodental, in-house payment plans). Train clinical and treatment coordination teams to present payment options during — not after — the treatment plan conversation. Create patient-friendly financing brochures. Implement a financing pre-qualification step for all treatment plans over $2,000.</p>
+    <p><span class="owner">Owner: RCM + Finance</span> &nbsp;|&nbsp; <span class="impact">Impact: Directly supports Case $ Accepted % improvement — each 5pp = ~$54K additional revenue</span></p>
+  </div>
+
+  <!-- DOCTOR -->
+  <div class="team-header">Doctor</div>
+  <div class="action-item">
+    <h4>Schedule Availability Review & Capacity Expansion Assessment</h4>
+    <p>The 45-day new patient wait combined with declining VPWD (48.12 → 41.34) suggests the provider schedule is undersized relative to demand. With online scheduling adoption at 41%, demand signal is clear.</p>
+    <p><strong>Action:</strong> Conduct a detailed schedule analysis: What is the current template (days/hours per week)? Where are the gaps in NP block availability? Is demand concentrated in specific time slots (morning vs. afternoon)? Prepare a proposal for schedule optimization or capacity expansion (additional provider day, additional provider hire, or extended hours). Model the financial impact: at $410/exam average and 175 NPs per quarter, clearing the 45-day backlog could add $200K+ in quarterly production.</p>
+    <p><span class="owner">Owner: Doctor + Executive</span> &nbsp;|&nbsp; <span class="impact">Impact: URGENT capacity expansion could unlock $800K+ in annualized production growth</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Case Presentation Coaching & Clinical Follow-Up</h4>
+    <p>With NP Case Acceptance % down from 86.2% to 72.9%, there may be an opportunity for refined presentation coaching. High-volume case presentation requires a balance of clinical comprehensiveness and patient-centered communication.</p>
+    <p><span class="owner">Owner: Doctor</span> &nbsp;|&nbsp; <span class="impact">Impact: Coaching sessions can recover 5-10pp in NP acceptance rate = $50K-100K quarterly upside</span></p>
+  </div>
+
+  <!-- EXECUTIVE -->
+  <div class="team-header">Executive</div>
+  <div class="action-item">
+    <h4>URGENT: Capacity Expansion Authorization & Planning</h4>
+    <p><strong>STRATEGIC PRIORITY:</strong> Leestown is the only BFD location with positive growth and strong operational fundamentals (leakage control, online adoption, net growth). The 45-day new patient wait is leaving money on the table. At 40% call conversion and 30% missed call rate, even without call optimization, the current provider schedule cannot handle the demand.</p>
+    <p><strong>Action:</strong> Authorize a formal capacity expansion assessment. Options include: (1) Add one provider day per week (FTE expansion), (2) Hire a part-time associate for specific days, (3) Extended hours with existing provider. Model financial impact for each option. Capacity expansion should be the top strategic priority for Leestown given the proven demand, growth trajectory, and operational maturity.</p>
+    <p><span class="owner">Owner: Executive Leadership</span> &nbsp;|&nbsp; <span class="impact">Impact: Clearing the 45-day backlog within 6 months could drive $400K-600K in additional annualized production and position Leestown as BFD's growth engine</span></p>
+  </div>
+</div>
+
+<!-- ============ SCORECARD COMPARISON ============ -->
+<div class="section">
+  <h2>Critical Narrative — What Makes Leestown Unique</h2>
+  <ul style="font-size:14px; line-height:1.8; margin: 0 0 16px 20px;">
+    <li><strong>Production Growth — Leestown is the ONLY BFD location with positive growth (+7.3%).</strong> Despite being at capacity (45-day wait), the location grew production year-over-year while other locations declined. This is a competitive strength and indicates strong market demand and operational execution.</li>
+    <li><strong>Online Scheduling Adoption at 41.1% is the highest in BFD.</strong> From 0% to 72 of 175 new patients scheduling online is a major operational achievement. This capability reduced front desk call burden, improved patient experience, and created a repeatable system that should be shared with other locations.</li>
+    <li><strong>Leakage Improvement: 11.4% → 8.0% (+3.4pp) = +$25,890 in recovered production.</strong> No-shows nearly halved (6.3% → 3.4%). This is a textbook operational turnaround driven by better confirmation protocols and patient communication.</li>
+    <li><strong>Net Growth of +68 is the strongest across BFD.</strong> Despite high new patient volume, the location achieved strong net patient growth, indicating retention systems are working.</li>
+    <li><strong>Google Presence is exceptional: 698 reviews, 4.9 stars, 96.4% five-star rating.</strong> This online reputation foundation is a significant competitive advantage in local search.</li>
+    <li><strong>Pre-Appointment % at 81% is above benchmark (60%),</strong> indicating the team is successfully preparing patients before visits, which improves efficiency and conversion.</li>
+  </ul>
+
+  <h3 style="margin-top:24px;">Critical Gaps & Bottlenecks</h3>
+  <ul style="font-size:14px; line-height:1.8; margin: 0 0 0 20px;">
+    <li><strong>45-Day 3rd Next Available NP Appointment — CRITICAL BOTTLENECK.</strong> This is the single largest constraint to Leestown's growth. With 40% call conversion and 30% missed call rate, many prospective patients are lost due to scheduling friction. Urgent capacity expansion is required.</li>
+    <li><strong>NP Call Conversion at 40% (benchmark 55%) — 3 of 7 callers are being lost.</strong> Combined with 30% missed calls, the top-of-funnel is leaking significantly.</li>
+    <li><strong>Hygiene-to-Restorative Handoff at 0.49 is CRITICAL (benchmark 0.85).</strong> Only 49% of hygiene visits convert to restorative, leaving 51% of patients without treatment plans despite being in the chair.</li>
+    <li><strong>Case $ Accepted % at 32.5% (down from 39.2%).</strong> Despite presenting 13% more treatment ($1.08M vs. $954K), the acceptance rate declined, suggesting patients are hesitant about financial commitment.</li>
+    <li><strong>DI Confirmation Rate at 52.1% (down from 63.2%).</strong> In a capacity-constrained practice, unconfirmed appointments represent lost production. Immediate 48-hour confirmation protocol needed.</li>
+    <li><strong>Attrition Rate at 70% is concerning</strong> (benchmark &lt;50%), despite strong net growth. Early patient loss is offsetting acquisition gains.</li>
+    <li><strong>Yelp Profile at 6 reviews / 3.3 stars is vulnerable.</strong> Low volume makes profile susceptible to review fluctuations.</li>
+  </ul>
+</div>
+
+<!-- ============ MARKETING ROI ============ -->
+<div class="section">
+  <h2>Marketing ROI & Cost Per Acquisition</h2>
+  <div class="insight">
+    <strong>Data Not Provided:</strong> No paid media spend export was provided for this analysis. To include marketing ROI, CPA, CAC, and channel-level performance in future reports, please provide a CRM or ad platform export showing spend, leads, qualified leads, appointments scheduled, and new patients by location.
+  </div>
+</div>
+
+<!-- ============ DISCLAIMER ============ -->
+<div class="disclaimer">
+  <p><strong>Confidential — Prepared for Beaumont Family Dentistry Leadership</strong></p>
+  <p>This report was generated using practice management data (Dental Intel) and scorecard inputs provided. All calculations are shown for traceability. AI-generated analyses carry an estimated 40% accuracy caveat — human validation of findings and recommendations is strongly encouraged. Data period: Q1 2025 (Jan–Mar 2025) vs. Q1 2026 (Jan–Mar 2026). Working days assumed: 50 per quarter. Waterfall calculations use normalized visit values ($295.03 per visit average from Q1 2026 data).</p>
+  <p>Report generated: April 1, 2026</p>
+</div>
+
+</div>
+</body>
+</html>

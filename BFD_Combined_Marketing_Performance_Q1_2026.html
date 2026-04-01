@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beaumont Family Dentistry — All Locations | Combined Marketing Performance Report | Q1 2025 vs Q1 2026</title>
+<style>
+:root {
+  --navy: #2E5E8C;
+  --navy-light: #e8f4f8;
+  --green: #27ae60;
+  --green-bg: #e8f8f0;
+  --red: #e74c3c;
+  --red-bg: #fdf0ef;
+  --orange: #f39c12;
+  --orange-bg: #fef9e7;
+  --gray: #999;
+  --gray-bg: #f5f5f5;
+  --text: #2c3e50;
+  --border: #dce4ec;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); line-height: 1.6; background: #f8f9fa; }
+.container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+header { background: var(--navy); color: white; padding: 36px 0; margin-bottom: 32px; }
+header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+header h1 { font-size: 26px; font-weight: 700; }
+header .subtitle { font-size: 14px; opacity: 0.85; }
+header .period-badge { background: rgba(255,255,255,0.2); padding: 8px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+
+.section { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 28px; margin-bottom: 24px; }
+.section h2 { color: var(--navy); font-size: 20px; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--navy); }
+.section h3 { color: var(--navy); font-size: 16px; margin: 18px 0 10px; }
+
+/* Metric Cards */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px; }
+.metric-card { background: var(--gray-bg); border-radius: 8px; padding: 18px; text-align: center; }
+.metric-card .label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.metric-card .value { font-size: 28px; font-weight: 700; color: var(--navy); }
+.metric-card .change { font-size: 13px; margin-top: 4px; font-weight: 600; }
+.metric-card .change.up { color: var(--green); }
+.metric-card .change.down { color: var(--red); }
+.metric-card .change.neutral { color: var(--orange); }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: #f8f9fa; }
+.cat-header td { background: var(--navy-light); font-weight: 700; color: var(--navy); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Pass/Fail badges */
+.badge { display: inline-block; padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+.badge.pass { background: var(--green-bg); color: var(--green); }
+.badge.fail { background: var(--red-bg); color: var(--red); }
+.badge.info { background: var(--navy-light); color: var(--navy); }
+.badge.na { background: var(--gray-bg); color: var(--gray); }
+
+/* Insight boxes */
+.insight { background: var(--navy-light); border-left: 4px solid var(--navy); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 14px; }
+.insight.positive { background: var(--green-bg); border-color: var(--green); }
+.insight.negative { background: var(--red-bg); border-color: var(--red); }
+.insight.warning { background: var(--orange-bg); border-color: var(--orange); }
+
+/* Waterfall Chart */
+.waterfall { display: flex; align-items: flex-end; gap: 6px; height: 300px; padding: 20px 0; margin: 20px 0; position: relative; }
+.wf-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
+.wf-bar { width: 70%; border-radius: 4px 4px 0 0; min-height: 4px; position: relative; transition: all 0.3s; }
+.wf-bar.anchor { background: var(--navy); }
+.wf-bar.positive { background: var(--green); }
+.wf-bar.negative { background: var(--red); }
+.wf-label { font-size: 11px; text-align: center; margin-top: 6px; color: var(--text); line-height: 1.3; max-width: 100px; }
+.wf-amount { font-size: 11px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+
+/* Action Plan */
+.action-item { margin: 14px 0; padding: 14px 18px; background: var(--gray-bg); border-radius: 8px; border-left: 4px solid var(--navy); }
+.action-item h4 { color: var(--navy); font-size: 14px; margin-bottom: 6px; }
+.action-item p { font-size: 13px; margin: 3px 0; }
+.action-item .owner { color: var(--green); font-weight: 600; }
+.action-item .impact { color: var(--red); font-weight: 600; }
+.team-header { background: var(--navy); color: white; padding: 10px 18px; border-radius: 8px 8px 0 0; font-weight: 700; font-size: 15px; margin-top: 20px; }
+
+/* Summary badge */
+.summary-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; }
+.summary-badge.pass-heavy { background: var(--green-bg); color: var(--green); }
+
+/* Print */
+@media print {
+  body { background: white; }
+  .section { box-shadow: none; border: 1px solid var(--border); break-inside: avoid; }
+  header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+.disclaimer { font-size: 12px; color: var(--gray); text-align: center; padding: 20px; border-top: 1px solid var(--border); margin-top: 24px; }
+.exec-summary { font-size: 15px; line-height: 1.75; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+/* Location cards */
+.location-card { background: var(--gray-bg); border-radius: 8px; padding: 16px; border-left: 4px solid var(--navy); margin-bottom: 12px; }
+.location-card h4 { color: var(--navy); margin-bottom: 8px; font-size: 15px; }
+.location-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px; }
+.location-stats strong { color: var(--navy); }
+
+/* Comparison table styling */
+.comparison-table { font-size: 13px; }
+.comparison-table td { padding: 8px 10px; }
+.comparison-table th { font-size: 12px; padding: 8px 10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div>
+      <h1>Beaumont Family Dentistry — All Locations</h1>
+      <div class="subtitle">Combined Marketing & Production Performance Report</div>
+    </div>
+    <div class="period-badge">Q1 2025 → Q1 2026</div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<div class="section">
+  <h2>Executive Summary</h2>
+  <div class="exec-summary">
+    <p>Beaumont Family Dentistry's combined operations delivered mixed results in Q1 2026 compared to Q1 2025. Organization-wide production declined <strong>-$188,357 (-5.5%)</strong> to $3.24M gross production. New patient volume dropped <strong>-11.3% (-86 patients)</strong> to 678 total, driven almost entirely by BFD Main's -103 NP decline. However, <strong>Leestown is the only location with positive production growth (+7.3%, +$51.9K)</strong>, suggesting that operational improvements at this location warrant replication across the organization.</p>
+
+    <p style="margin-top: 14px;">On a positive note, hygiene re-appointment rates remain excellent across all locations (95%+), same-day treatment volume is stable, and appointment throughput remains consistent (9,785 appointments completed, only -40 YoY). However, the organization faces critical systemic challenges: <strong>Case Dollar Acceptance is extremely low across all locations (38.2%, 31.4%, 32.5%)</strong>, attrition rates are dangerously high (Main at 118.9%, Hamburg at 90.4%, Leestown at 70.0%), handoff ratios are well below optimal (0.43-0.57), and call center performance (40% conversion, 30% missed calls) continues to leak new patient opportunities. Yelp presence remains weak across the board. The combination of declining new patient acquisition, extremely low case acceptance, and high attrition suggests the organization is losing momentum in patient flow and treatment acceptance — core drivers of production.</p>
+
+    <p style="margin-top: 14px;"><strong>Key Action Priorities:</strong> Implement organization-wide case acceptance and financial presentation training, address systemic call center performance gaps, standardize hygiene-to-restorative handoff protocols, expand Leestown's online scheduling model, and launch a retention initiative to combat attrition. The scorecard data shows 13-14 metrics passing at each location, but the failures are in high-leverage areas (patient acquisition, case acceptance, attrition).</p>
+  </div>
+</div>
+
+<!-- ============ COMBINED SCORECARD ============ -->
+<div class="section">
+  <h2>Organization-Wide Practice Scorecard Summary</h2>
+  <table>
+    <thead>
+      <tr><th>Location</th><th>Pass</th><th>Fail</th><th>N/A</th><th>Overall Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>BFD Main</strong></td><td><span class="badge pass">13</span></td><td><span class="badge fail">5</span></td><td><span class="badge na">0</span></td><td>13 Pass / 5 Fail</td></tr>
+      <tr><td><strong>BFD Hamburg</strong></td><td><span class="badge pass">13</span></td><td><span class="badge fail">5</span></td><td><span class="badge na">0</span></td><td>13 Pass / 5 Fail</td></tr>
+      <tr><td><strong>BFD Leestown</strong></td><td><span class="badge pass">14</span></td><td><span class="badge fail">5</span></td><td><span class="badge na">0</span></td><td>14 Pass / 5 Fail</td></tr>
+    </tbody>
+  </table>
+  <div class="insight warning" style="margin-top: 14px;">
+    <strong>Key Insight:</strong> Leestown is the standout performer with 14 metrics passing (vs. 13 at Main and Hamburg). However, all three locations fail in the same critical categories: patient acquisition infrastructure (call conversion, missed calls, scheduling access), case acceptance, and attrition management. These are systemic organizational issues requiring standardized solutions across all locations.
+  </div>
+</div>
+
+<!-- ============ PRODUCTION & REVENUE ============ -->
+<div class="section">
+  <h2>Combined Production & Revenue Overview</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Production Gross</div>
+      <div class="value">$3,240,250</div>
+      <div class="change down">▼ -$188,357 (-5.5%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Production Scheduled Gross</div>
+      <div class="value">$2,755,264</div>
+      <div class="change down">▼ -$297,548 (-9.7%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Same-Day Treatment Total</div>
+      <div class="value">$1,307,685</div>
+      <div class="change down">▼ -$86,534 (-6.2%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Visits Per Working Day</div>
+      <div class="value">56.19</div>
+      <div class="change neutral">3-location average</div>
+    </div>
+  </div>
+  <div class="insight negative">
+    <strong>Critical Insight:</strong> Organization-wide production declined 5.5% despite stable appointment throughput, indicating lower-value appointments are being completed. Scheduled production dropped nearly 10%, suggesting appointment gaps or lower-priced services. Same-day treatment declined 6.2% across the board. Main location accounts for most of the production decline (-$169.5K, -9.6%), while Leestown posted the rare positive growth (+$51.9K, +7.3%). This divergence suggests operational issues at Main require immediate investigation.
+  </div>
+</div>
+
+<!-- ============ LOCATION COMPARISON TABLE ============ -->
+<div class="section">
+  <h2>Location Comparison Table — Q1 2026 Performance</h2>
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>BFD Main</th>
+        <th>BFD Hamburg</th>
+        <th>BFD Leestown</th>
+        <th>Organization Avg</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Production -->
+      <tr class="cat-header"><td colspan="5">Production & Revenue</td></tr>
+      <tr><td><strong>Production Q1 2026</strong></td><td>$1,604,828</td><td>$873,952</td><td>$761,471</td><td>$1,080,084</td></tr>
+      <tr><td><strong>Production Change</strong></td><td>-$169,552 (-9.6%)</td><td>-$70,656 (-7.5%)</td><td>+$51,852 (+7.3%)</td><td>-$188,357 (-5.5%)</td></tr>
+      <tr><td>Same-Day $ Total</td><td>$675,006</td><td>$345,842</td><td>$286,837</td><td>$435,895</td></tr>
+
+      <!-- Patient Acquisition -->
+      <tr class="cat-header"><td colspan="5">Patient Acquisition</td></tr>
+      <tr><td><strong>New Patients Q1 2026</strong></td><td>269 (90/mo)</td><td>234 (78/mo)</td><td>175 (58/mo)</td><td>226/mo avg</td></tr>
+      <tr><td><strong>NP Change</strong></td><td>-103 (-27.7%)</td><td>+11 (+4.9%)</td><td>+6 (+3.6%)</td><td>-86 (-11.3%)</td></tr>
+      <tr><td>Case $ Accepted %</td><td>38.2%</td><td>31.4%</td><td>32.5%</td><td>34.0% avg</td></tr>
+
+      <!-- Handoff & Clinical -->
+      <tr class="cat-header"><td colspan="5">Clinical & Handoff Performance</td></tr>
+      <tr><td>Handoff Ratio</td><td>0.43</td><td>0.57</td><td>0.49</td><td>0.50 avg</td></tr>
+      <tr><td>NP Hygiene Re-Appt %</td><td>59.9%</td><td>46.2%</td><td>53.7%</td><td>53.3% avg</td></tr>
+      <tr><td>Hygiene Re-Appt %</td><td>95.3%</td><td>95.4%</td><td>97.6%</td><td>96.1% avg</td></tr>
+      <tr><td>Combined Leakage %</td><td>7.3%</td><td>8.8%</td><td>8.0%</td><td>8.0% avg</td></tr>
+
+      <!-- Online & Digital -->
+      <tr class="cat-header"><td colspan="5">Digital & Online</td></tr>
+      <tr><td>Online Scheduling %</td><td>0%</td><td>0%</td><td>41.1%</td><td>13.7% avg</td></tr>
+      <tr><td>Google Rating (# reviews)</td><td>4.9 (1,242)</td><td>4.9 (645)</td><td>4.9 (698)</td><td>4.9 avg</td></tr>
+      <tr><td>Yelp Rating (# reviews)</td><td>2.9 (19)</td><td>2.4 (12)</td><td>3.3 (6)</td><td>2.9 avg</td></tr>
+
+      <!-- Patient Base -->
+      <tr class="cat-header"><td colspan="5">Patient Base & Retention</td></tr>
+      <tr><td>Active Hygiene Patients</td><td>6,840</td><td>3,694</td><td>3,460</td><td>4,665 avg</td></tr>
+      <tr><td>Unscheduled Active Patients</td><td>1,950</td><td>1,084</td><td>933</td><td>1,322 avg</td></tr>
+      <tr><td>Unsched Opp $ (Q1 2026)</td><td>$1,515,789</td><td>$820,436</td><td>$734,021</td><td>$1,023,415 avg</td></tr>
+      <tr><td>Net Growth (Recaptured - Attrition)</td><td>-72</td><td>+29</td><td>+68</td><td>+8 avg</td></tr>
+      <tr><td>Recaptured Patients</td><td>111</td><td>69</td><td>52</td><td>77 avg</td></tr>
+      <tr><td>Attrition Rate</td><td>118.9%</td><td>90.4%</td><td>70.0%</td><td>93.1% avg</td></tr>
+
+      <!-- Diag & Confirmation -->
+      <tr class="cat-header"><td colspan="5">Diagnosis & Confirmation</td></tr>
+      <tr><td>DI Confirmed %</td><td>52.0%</td><td>49.4%</td><td>52.1%</td><td>51.2% avg</td></tr>
+      <tr><td>Pre-Appt %</td><td>73%</td><td>77%</td><td>81%</td><td>77% avg</td></tr>
+      <tr><td>Missing Referral %</td><td>1.5%</td><td>4.3%</td><td>2.9%</td><td>2.9% avg</td></tr>
+
+      <!-- Volume -->
+      <tr class="cat-header"><td colspan="5">Appointment Volume</td></tr>
+      <tr><td>VPWD</td><td>74.49</td><td>40.36</td><td>41.34</td><td>52.06 avg</td></tr>
+      <tr><td>Appts Completed (Hyg/Rest/Other)</td><td>2550/1097/1037</td><td>1396/792/341</td><td>1424/696/463</td><td>1790/862/614 avg</td></tr>
+
+      <!-- Scorecard -->
+      <tr class="cat-header"><td colspan="5">Scorecard Summary</td></tr>
+      <tr><td>Pass / Fail</td><td>13P / 5F</td><td>13P / 5F</td><td>14P / 5F</td><td>13.3P / 5F avg</td></tr>
+    </tbody>
+  </table>
+  <div class="insight negative" style="margin-top: 14px;">
+    <strong>Key Comparison Insights:</strong>
+    <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+      <li><strong>Production Divergence:</strong> Main is down 9.6% (-$169.5K), Hamburg is down 7.5% (-$70.7K), but Leestown is up 7.3% (+$51.9K). Leestown's success model should be analyzed and replicated.</li>
+      <li><strong>New Patient Crisis at Main:</strong> Main lost 103 new patients (-27.7%), while Hamburg and Leestown remained relatively stable. This is the primary driver of organization-wide decline.</li>
+      <li><strong>Case Acceptance Systemic Failure:</strong> All three locations show dangerously low case acceptance (38.2%, 31.4%, 32.5% vs. 60%+ benchmark). This is not a location-specific issue — it's an organization-wide clinical/presentation problem.</li>
+      <li><strong>Attrition Crisis at Main:</strong> Main's attrition rate is 118.9% (losing more patients than acquiring), Hamburg at 90.4%, Leestown at 70.0%. Even Leestown's "best" 70% attrition is double healthy benchmarks.</li>
+      <li><strong>Handoff Ratios Dangerously Low:</strong> All locations (0.43-0.57) are below the 0.70+ benchmark, indicating hygiene is not flowing to restorative as expected. Systemic issue.</li>
+      <li><strong>Leestown Digital Leader:</strong> Leestown's 41.1% online scheduling adoption is a bright spot; Main and Hamburg at 0% represent a major untapped opportunity.</li>
+      <li><strong>Yelp Across the Board Weak:</strong> All locations have very low Yelp review counts (6-19 reviews) and ratings (2.4-3.3), vs. Google's 4.9 across the board. Strategic opportunity.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ NEW PATIENT ACQUISITION ============ -->
+<div class="section">
+  <h2>New Patient Acquisition & Case Acceptance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Combined New Patients</div>
+      <div class="value">678</div>
+      <div class="change down">▼ -86 (-11.3%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">New Patients Per Month</div>
+      <div class="value">226</div>
+      <div class="change down">▼ -29 (-11.3%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case $ Acceptance % (Org Avg)</div>
+      <div class="value">34.0%</div>
+      <div class="change down">▼ Critical Low</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Active Hygiene Patients</div>
+      <div class="value">13,994</div>
+      <div class="change up">▲ +146 (+1.1%)</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Organization-Wide Patient Flow</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>New Patients (Total)</td><td>764</td><td>678</td><td style="color:var(--red);font-weight:700">-86 (-11.3%)</td></tr>
+        <tr><td>New Patients / Month</td><td>255</td><td>226</td><td style="color:var(--red);font-weight:700">-29 (-11.3%)</td></tr>
+        <tr><td>Active Hygiene</td><td>13,848</td><td>13,994</td><td style="color:var(--green);font-weight:700">+146 (+1.1%)</td></tr>
+        <tr><td>Unscheduled Active</td><td>5,222</td><td>3,967</td><td style="color:var(--green);font-weight:700">-1,255 (-24.0%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Case Acceptance Analysis</h3>
+      <table>
+        <tr><th>Location</th><th>Case $ Acc %</th><th>Performance</th></tr>
+        <tr><td><strong>BFD Main</strong></td><td>38.2%</td><td><span class="badge fail">Critical</span></td></tr>
+        <tr><td><strong>BFD Hamburg</strong></td><td>31.4%</td><td><span class="badge fail">Critical</span></td></tr>
+        <tr><td><strong>BFD Leestown</strong></td><td>32.5%</td><td><span class="badge fail">Critical</span></tr>
+        <tr><td><strong>Org Average</strong></td><td>34.0%</td><td><span class="badge fail">Systemic</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight negative">
+    <strong>Critical Insight — Case Acceptance Crisis:</strong> Organization-wide case acceptance is 34%, compared to a healthy benchmark of 60%+. This represents a $1.2M+ annual revenue opportunity if acceptance rates could be normalized. The issue is systemic across all three locations (ranging 31.4% to 38.2%), suggesting the root causes are clinical presentation training, financial presentation, and patient psychographics — not location-specific factors. This is the single highest-leverage opportunity for revenue recovery and should be the #1 priority for the clinical and RCM teams.
+  </div>
+</div>
+
+<!-- ============ PATIENT RETENTION & ATTRITION ============ -->
+<div class="section">
+  <h2>Patient Retention & Attrition Analysis</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Net Growth (Combined)</div>
+      <div class="value">+25</div>
+      <div class="change down">▼ from +64 (down 61%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Recaptured Patients</div>
+      <div class="value">232</div>
+      <div class="change down">▼ -63 (-21.4%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Organization Attrition Rate</div>
+      <div class="value">93.1% avg</div>
+      <div class="change down">▼ Critical High</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Unsched Active $ Opp</div>
+      <div class="value">$3.07M</div>
+      <div class="change down">▼ -$1.12M (-26.6%)</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Attrition by Location</h3>
+      <table>
+        <tr><th>Location</th><th>Attrition Rate</th><th>Status</th></tr>
+        <tr><td><strong>BFD Main</strong></td><td>118.9%</td><td><span class="badge fail">Critical</span></td></tr>
+        <tr><td><strong>BFD Hamburg</strong></td><td>90.4%</td><td><span class="badge fail">Very High</span></td></tr>
+        <tr><td><strong>BFD Leestown</strong></td><td>70.0%</td><td><span class="badge fail">High</span></td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Net Growth Detail</h3>
+      <table>
+        <tr><th>Location</th><th>Recaptured</th><th>Attrition</th><th>Net</th></tr>
+        <tr><td><strong>Main</strong></td><td>111</td><td>183</td><td>-72</td></tr>
+        <tr><td><strong>Hamburg</strong></td><td>69</td><td>40</td><td>+29</td></tr>
+        <tr><td><strong>Leestown</strong></td><td>52</td><td>36</td><td>+68</td></tr>
+        <tr><td><strong>Total</strong></td><td>232</td><td>259</td><td>+25</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight negative">
+    <strong>Critical Insight — Attrition Destroying Patient Base:</strong> Main location is in a patient loss spiral with 118.9% attrition — losing more patients than acquiring. Even Leestown's "best" 70% attrition is double the benchmark of 30-35%. Combined, the organization is losing momentum faster than it can recapture patients. Unscheduled active patients dropped 24% (-1,255 patients), representing a massive loss in future revenue opportunity ($1.12M opportunity decrease). This retention crisis is directly driving production decline. A systematic retention initiative (reactivation campaigns, loyalty programs, exit surveys) must be deployed immediately across all locations.
+  </div>
+</div>
+
+<!-- ============ PRODUCTION WATERFALL ============ -->
+<div class="section">
+  <h2>Combined Production Waterfall Analysis</h2>
+  <p style="margin-bottom: 16px; font-size: 14px;">This waterfall shows the drivers of the organization's -$188,357 production decline from Q1 2025 to Q1 2026 (sum of individual location waterfalls):</p>
+
+  <div class="waterfall">
+    <div class="wf-bar-wrap">
+      <div class="wf-amount">+3,428.6K</div>
+      <div class="wf-bar anchor" style="height: 75%;"></div>
+      <div class="wf-label">Q1 2025 Start</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount">-51.9K</div>
+      <div class="wf-bar negative" style="height: 8%;"></div>
+      <div class="wf-label">NP Volume</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount">-471.6K</div>
+      <div class="wf-bar negative" style="height: 45%;"></div>
+      <div class="wf-label">Case $ Accept</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount">-86.5K</div>
+      <div class="wf-bar negative" style="height: 15%;"></div>
+      <div class="wf-label">Same-Day</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount">-112.9K</div>
+      <div class="wf-bar negative" style="height: 18%;"></div>
+      <div class="wf-label">Appt Leakage</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount">-161.4K</div>
+      <div class="wf-bar negative" style="height: 25%;"></div>
+      <div class="wf-label">Schedule Util</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount">+696.0K</div>
+      <div class="wf-bar positive" style="height: 65%;"></div>
+      <div class="wf-label">Other/Unattr</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount">3,240.2K</div>
+      <div class="wf-bar anchor" style="height: 72%;"></div>
+      <div class="wf-label">Q1 2026 End</div>
+    </div>
+  </div>
+
+  <table style="margin-top: 24px; font-size: 13px;">
+    <thead>
+      <tr><th>Driver</th><th>Impact</th><th>Interpretation</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Case $ Acceptance</strong></td><td>-$471.6K</td><td>The largest single driver of decline. Combined case acceptance dropped across all locations due to case $ acceptance % decline and/or reduced case presented values. Critical systemic issue.</td></tr>
+      <tr><td><strong>Schedule Utilization</strong></td><td>-$161.4K</td><td>Combination of reduced new patient flow (Main -103 NPs), lower utilization rates, or mix shift to lower-value services. Reflects lower VPWD or fewer available appointment slots.</td></tr>
+      <tr><td><strong>Appointment Leakage</strong></td><td>-$112.9K</td><td>Patients not showing up, canceling, or failing to accept treatment at appointment. Combined leakage rate is ~8% across locations — modest but meaningful.</td></tr>
+      <tr><td><strong>Same-Day Treatment</strong></td><td>-$86.5K</td><td>Declined across all three locations. May reflect lower diagnostic activity or reduced chair-side treatment acceptance.</td></tr>
+      <tr><td><strong>New Patient Volume</strong></td><td>-$51.9K</td><td>Smaller driver than expected, as new patients represent smaller cases. Main's -103 NP decline is concerning but offset by lower average NP case values.</td></tr>
+      <tr><td><strong>Other / Unattributed</strong></td><td>+$696.0K</td><td>This positive bucket includes favorable case mix, higher-value services, adjustments in production categories, and/or data reconciliation factors. Suggests underlying strength in certain service lines.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight warning" style="margin-top: 16px;">
+    <strong>Waterfall Interpretation:</strong> The waterfall reveals that the organization's production decline is driven by four controllable factors: (1) Case $ Acceptance down $471.6K (biggest lever), (2) Schedule Utilization down $161.4K, (3) Appointment Leakage down $112.9K, and (4) Same-Day Treatment down $86.5K. Combined, these total -$772.8K in headwinds. However, a +$696.0K "Other" bucket (likely mix, service line adjustments, or data reclassifications) partially offsets the decline. The net result is -$188.4K decline. To return to Q1 2025 production levels, the organization needs to recover case acceptance (most critical), reduce schedule gaps, improve appointment show rates, and expand same-day treatment — all operationally executable without new patient growth.
+  </div>
+</div>
+
+<!-- ============ SAME-DAY TREATMENT ============ -->
+<div class="section">
+  <h2>Same-Day Treatment & Clinical Performance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Same-Day Treatment Total</div>
+      <div class="value">$1,307,685</div>
+      <div class="change down">▼ -$86,534 (-6.2%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Appointment Completion Rate</div>
+      <div class="value">9,785 appts</div>
+      <div class="change down">▼ -40 (-0.4%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Hygiene Re-Appointment %</div>
+      <div class="value">96.1% avg</div>
+      <div class="change up">▲ Excellent</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">DI Confirmation %</div>
+      <div class="value">51.2% avg</div>
+      <div class="change down">▼ Below Benchmark</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Same-Day Volume by Service</h3>
+      <table>
+        <tr><th>Category</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>Same-Day Hygiene $</td><td>$141,319</td><td>$25,007</td><td style="color:var(--red);font-weight:700">-$116,312 (-82.3%)</td></tr>
+        <tr><td>Same-Day Restorative $</td><td>$1,043,234</td><td>$979,330</td><td style="color:var(--red);font-weight:700">-$63,904 (-6.1%)</td></tr>
+        <tr><td>Same-Day Other $</td><td>$209,665</td><td>$303,348</td><td style="color:var(--green);font-weight:700">+$93,683 (+44.7%)</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>$1,394,218</strong></td><td><strong>$1,307,685</strong></td><td style="color:var(--red);font-weight:700"><strong>-$86,534 (-6.2%)</strong></td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Appointment Completion by Type</h3>
+      <table>
+        <tr><th>Type</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>Hygiene Appts</td><td>5,166</td><td>5,370</td><td style="color:var(--green);font-weight:700">+204 (+4.0%)</td></tr>
+        <tr><td>Restorative Appts</td><td>2,482</td><td>2,585</td><td style="color:var(--green);font-weight:700">+103 (+4.1%)</td></tr>
+        <tr><td>Other Appts</td><td>2,185</td><td>1,841</td><td style="color:var(--red);font-weight:700">-344 (-15.7%)</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>9,825</strong></td><td><strong>9,785</strong></td><td style="color:var(--red);font-weight:700"><strong>-40 (-0.4%)</strong></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight negative" style="margin-top: 16px;">
+    <strong>Key Insight — Same-Day Decline & Clinical Opportunity:</strong> Same-day treatment revenue dropped 6.2% (-$86.5K), driven primarily by a dramatic 82.3% collapse in same-day hygiene dollars (-$116.3K). Restorative same-day revenue also declined 6.1% (-$63.9K). However, appointment volume is stable (9,785 total, only -40 YoY), suggesting the issue is not throughput but lower-value same-day services being completed. Hygiene re-appointment rates remain excellent (96.1% average), but the practice is not translating hygiene appointments into as much same-day diagnostic or restorative work. This may reflect reduced DI presentations in hygiene (only 51.2% DI confirmation rate across all locations, below the 60% benchmark), or lower case acceptance on hygiene-detected needs. The "Other" category surged 44.7% (+$93.7K), which may reflect equipment service or non-clinical revenue. Focus area: improve DI confirmation and same-day case acceptance in hygiene departments.
+  </div>
+</div>
+
+<!-- ============ APPOINTMENT HEALTH ============ -->
+<div class="section">
+  <h2>Appointment Health & Handoff Performance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Org Avg Handoff Ratio</div>
+      <div class="value">0.50</div>
+      <div class="change down">▼ Below 0.70 Benchmark</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Org Avg Combined Leakage</div>
+      <div class="value">8.0%</div>
+      <div class="change down">▼ Below 5% Benchmark</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Pre-Appt % (Org Avg)</div>
+      <div class="value">77%</div>
+      <div class="change up">▲ Solid</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Missing Referral % (Org Avg)</div>
+      <div class="value">2.9%</div>
+      <div class="change neutral">Improving</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Handoff & Leakage by Location</h3>
+      <table>
+        <tr><th>Location</th><th>Handoff Ratio</th><th>Combined Leakage</th></tr>
+        <tr><td><strong>BFD Main</strong></td><td>0.43</td><td>7.3%</td></tr>
+        <tr><td><strong>BFD Hamburg</strong></td><td>0.57</td><td>8.8%</td></tr>
+        <tr><td><strong>BFD Leestown</strong></td><td>0.49</td><td>8.0%</td></tr>
+        <tr><td><strong>Organization</strong></td><td>0.50</td><td>8.0%</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Clinical Confirmation Metrics</h3>
+      <table>
+        <tr><th>Metric</th><th>BFD Main</th><th>Hamburg</th><th>Leestown</th></tr>
+        <tr><td>DI Confirmed %</td><td>52.0%</td><td>49.4%</td><td>52.1%</td></tr>
+        <tr><td>Pre-Appt %</td><td>73%</td><td>77%</td><td>81%</td></tr>
+        <tr><td>Missing Referral %</td><td>1.5%</td><td>4.3%</td><td>2.9%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight warning" style="margin-top: 16px;">
+    <strong>Critical Insight — Handoff & Leakage Systemic Issues:</strong> All three locations show dangerously low handoff ratios (0.43-0.57 vs. 0.70+ benchmark), meaning that for every patient treated in hygiene, only 43-57% are being handed off to restorative for treatment or follow-up. This is the primary driver of low case acceptance and underutilized schedule capacity. Combined appointment leakage (8.0% average, vs. 5% benchmark) compounds the problem — patients booked are not showing up or completing treatment. Pre-appointment calling is solid (77% average, Leestown 81%), and missing referral tracking is reasonable (2.9% average), but DI confirmation across all locations is stuck at ~51%, below the 60% benchmark. These are systemic clinical workflow and training issues that require standardization across all locations: improve DI presentation protocols in hygiene, strengthen handoff communication with clinical teams, and implement no-show/cancellation prevention tactics.
+  </div>
+</div>
+
+<!-- ============ ONLINE REPUTATION ============ -->
+<div class="section">
+  <h2>Online Reputation & Digital Performance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Google Rating (All Locations)</div>
+      <div class="value">4.9</div>
+      <div class="change up">▲ Excellent</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Google Review Count (Combined)</div>
+      <div class="value">2,585</div>
+      <div class="change neutral">Strong Base</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Yelp Rating (Organization)</div>
+      <div class="value">2.9</div>
+      <div class="change down">▼ Weak</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Yelp Review Count (Combined)</div>
+      <div class="value">37</div>
+      <div class="change down">▼ Very Low</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Google Business Profile</h3>
+      <table>
+        <tr><th>Location</th><th>Rating</th><th>Reviews</th><th>Status</th></tr>
+        <tr><td><strong>BFD Main</strong></td><td>4.9</td><td>1,242</td><td><span class="badge pass">Strong</span></td></tr>
+        <tr><td><strong>BFD Hamburg</strong></td><td>4.9</td><td>645</td><td><span class="badge pass">Strong</span></td></tr>
+        <tr><td><strong>BFD Leestown</strong></td><td>4.9</td><td>698</td><td><span class="badge pass">Strong</span></td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Yelp Performance</h3>
+      <table>
+        <tr><th>Location</th><th>Rating</th><th>Reviews</th><th>Status</th></tr>
+        <tr><td><strong>BFD Main</strong></td><td>2.9</td><td>19</td><td><span class="badge fail">Critical</span></td></tr>
+        <tr><td><strong>BFD Hamburg</strong></td><td>2.4</td><td>12</td><td><span class="badge fail">Critical</span></td></tr>
+        <tr><td><strong>BFD Leestown</strong></td><td>3.3</td><td>6</td><td><span class="badge fail">Critical</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight negative" style="margin-top: 16px;">
+    <strong>Key Insight — Google Strength, Yelp Crisis:</strong> The organization has excellent Google presence across all three locations (4.9 stars, 2,585 combined reviews), which is a major strength. However, Yelp is a critical weakness: only 37 combined reviews across all locations, with ratings ranging from 2.4 (Hamburg) to 3.3 (Leestown). Yelp is a key search platform for dental services and competitors likely have stronger presence. Immediate action: implement Yelp review request campaign, respond to negative reviews professionally, and monitor Yelp metrics monthly. Google review velocity should also be tracked — the goal is to maintain the 4.9 rating while growing review count. Leestown's higher Yelp rating (3.3) suggests some operational advantage worth studying.
+  </div>
+</div>
+
+<!-- ============ TEAM ACTION PLANS ============ -->
+<div class="section">
+  <h2>Organization-Wide Action Plan by Team</h2>
+
+  <div class="team-header">Clinical Team</div>
+  <div class="action-item">
+    <h4>Case Acceptance Training Standardization (Org-Wide Priority #1)</h4>
+    <p><span class="owner">Owner: Doctor + Clinical Director</span></p>
+    <p>Implement standardized clinical presentation protocols across all three locations. Current case $ acceptance is critically low (34% org average, vs. 60%+ benchmark). Root causes may include: (1) insufficient comprehensive treatment planning in exams, (2) weak patient education on treatment necessity, (3) inconsistent chairside presentation by clinical team members, (4) lack of visual aids/intraoral cameras. Immediate action: audit current presentation scripts/protocols at each location, identify best-performing clinician(s), standardize their approach across all offices, implement case acceptance dashboard tracking by provider, and schedule monthly clinical huddles to discuss complex cases and acceptance barriers. Expected impact: $300-400K annual revenue recovery if acceptance climbs to 50%+.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +$300-400K annual production if case acceptance recovers to 50%</span></p>
+  </div>
+
+  <div class="action-item">
+    <h4>Hygiene-to-Restorative Handoff Protocol (Systemic Issue)</h4>
+    <p><span class="owner">Owner: Hygiene Director + Doctor</span></p>
+    <p>All three locations have critically low handoff ratios (0.43-0.57 vs. 0.70+ benchmark). Implement a standardized handoff system: (1) DI presentation must happen on 70%+ of hygiene patients (currently only 51%), (2) create a formal handoff checklist (patient educated, case explained, radiographs reviewed with patient, restorative appointment scheduled before leaving), (3) training all hygienists on motivational interviewing and case presentation, (4) implement a handoff efficiency dashboard. DI confirmation is the gating factor — if hygienists find problems, they must present them to the patient with visual support. Expected impact: increasing handoff ratio from 0.50 to 0.65+ could drive $150-200K additional production from better scheduling of restorative work.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +$150-200K annual production through improved schedule utilization</span></p>
+  </div>
+
+  <div class="action-item">
+    <h4>Same-Day Treatment Expansion in Hygiene</h4>
+    <p><span class="owner">Owner: Doctor + Hygiene Director</span></p>
+    <p>Same-day hygiene revenue collapsed 82% (-$116K), while restorative same-day dropped 6%. The issue is not throughput (hygiene appointments actually increased +204), but reduced diagnostics and treatment acceptance. Action: review the 51% DI confirmation rate — every hygiene patient should have a clear diagnostic assessment, with appropriate same-day or booked treatment. Audit why hygienists are not presenting diagnostic findings, implement a diagnostic workflow (sealed ultrasonic scaling, SRP diagnosis, periodontal case detection), and empower hygienists to schedule same-day treatment or book restorative cases. Combined with improved handoff protocols, this can recover the $116K same-day hygiene loss and increase case acceptance.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +$100-150K annual same-day treatment recovery</span></p>
+  </div>
+
+  <div class="action-item">
+    <h4>Attrition & Retention Initiative (Critical at Main)</h4>
+    <p><span class="owner">Owner: Office Manager + Front Desk</span></p>
+    <p>Main location is losing more patients than acquiring (118.9% attrition) — a patient loss spiral. Hamburg at 90.4% and Leestown at 70% are both above healthy 30-35% benchmarks. Immediate actions: (1) conduct patient exit interviews with patients who last visited 12+ months ago (understanding why they left), (2) implement reactivation campaign targeting unscheduled active patients (3,967 org-wide), (3) review cancellation and no-show data for patterns, (4) strengthen recall system to ensure no patient falls through the cracks, (5) implement a loyalty/appreciation program for long-term patients. Unscheduled active patients represent $3.07M in future opportunity revenue — this should be a major focus. Expected impact: reducing attrition to 50% across the board could recover 50+ patients per quarter, representing $80-100K+ additional production.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +$80-120K annual production through improved retention</span></p>
+  </div>
+
+  <div class="team-header">Marketing & Patient Acquisition</div>
+  <div class="action-item">
+    <h4>Address Call Center Performance Crisis (Systemic)</h4>
+    <p><span class="owner">Owner: Office Manager + Scheduling Director</span></p>
+    <p>Organization is losing significant new patient opportunities due to call center performance: 40% conversion rate (should be 60%+) and 30% missed call rate (should be under 10%). These figures apply across all three locations. Actions: (1) audit current call answering scripts and train staff on solution-focused questioning, (2) implement call recording review process (monthly sample of 10-20 calls per location), (3) add a second line or implement virtual receptionist to reduce missed calls during busy periods, (4) track wait time metrics and conversion by time-of-day, (5) create a "best practices" standard from the highest-performing location/individual. This will directly impact new patient flow. Expected impact: improving conversion to 55%+ and reducing missed calls to under 15% could recover 40-60 new patients per quarter (+$150-200K annual).</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +$150-200K annual production through improved call conversion</span></p>
+  </div>
+
+  <div class="action-item">
+    <h4>Yelp Strategic Initiative (Organization-Wide)</h4>
+    <p><span class="owner">Owner: Marketing Director</span></p>
+    <p>Yelp performance is weak across all locations (only 37 reviews, ratings 2.4-3.3 vs. 4.9 on Google). While Google is strong, Yelp is a critical review platform for local search. Actions: (1) launch a targeted Yelp review request campaign (email, text, in-app prompts after appointments), (2) assign responsibility for responding to all Yelp reviews within 48 hours, (3) create a Yelp monitoring dashboard and set a goal of 100+ reviews per location within 12 months, (4) analyze negative Yelp reviews to identify service gaps, (5) consider a small budget for Yelp advertising to boost visibility. Expected impact: stronger Yelp presence will improve local search ranking and new patient inquiry volume, estimated +20-30 NP per quarter.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +20-30 new patient inquiries per quarter</span></p>
+  </div>
+
+  <div class="action-item">
+    <h4>Expand Online Scheduling Model (Leestown Best Practice)</h4>
+    <p><span class="owner">Owner: IT + Office Managers</span></p>
+    <p>Leestown has achieved 41.1% online scheduling adoption, while Main and Hamburg are at 0%. This represents a major accessibility improvement and reduced call center burden. Actions: (1) audit Leestown's online scheduling implementation (platform, promotion strategy, patient acceptance), (2) replicate the same platform and workflow at Main and Hamburg, (3) set aggressive adoption targets (aim for 30%+ online scheduling within 6 months), (4) promote online scheduling in all marketing channels and patient communications. This will also reduce call center load and improve new patient appointment capture. Expected impact: 20-30% online scheduling adoption could reduce missed calls by 15-20% and improve conversion by allowing extended booking hours.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: Improved scheduling accessibility and call center efficiency</span></p>
+  </div>
+
+  <div class="action-item">
+    <h4>Analyze Main Location NP Decline (Critical)</h4>
+    <p><span class="owner">Owner: Practice Owner + Marketing Director</span></p>
+    <p>Main location lost 103 new patients (-27.7%), accounting for nearly all of the organization's -86 NP decline. This is not a marketing problem alone — may reflect local competition, staff turnover, quality perception changes, or operational issues. Actions: (1) conduct exit interview analysis on Main patients who didn't return, (2) review Google/Yelp sentiment specifically for Main location, (3) audit Main's new patient onboarding process for gaps vs. Hamburg/Leestown, (4) assess staff morale and turnover at Main, (5) consider a localized marketing push (direct mail, community events) to rebuild brand perception. This is a critical deep-dive needed immediately.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: Recovering 50+ lost new patients could add $150K+ annual production</span></p>
+  </div>
+
+  <div class="team-header">Operations & RCM</div>
+  <div class="action-item">
+    <h4>Schedule Utilization Optimization</h4>
+    <p><span class="owner">Owner: Office Manager + Scheduling Director</span></p>
+    <p>Schedule utilization dropped $161.4K (waterfall analysis). This may reflect: gaps in the schedule from missed appointments/cancellations, lower VPWD, or reduced new patient capacity. Actions: (1) review schedule compliance and no-show/cancellation rates by location (current data shows low rates, so gaps may be elsewhere), (2) audit provider availability and schedule templates — are all available chairs/providers being utilized?, (3) implement a weekly schedule utilization report by location, (4) identify patterns in gaps (specific days/times/providers) and address root causes, (5) optimize recall scheduling to fill gaps. Expected impact: tightening schedule utilization could recover $100-150K in annual production.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +$100-150K annual production through better schedule fill</span></p>
+  </div>
+
+  <div class="action-item">
+    <h4>Appointment Leakage Reduction (8% vs. 5% Benchmark)</h4>
+    <p><span class="owner">Owner: Front Desk + Office Manager</span></p>
+    <p>Organization-wide combined leakage is 8.0% (patient scheduled but doesn't complete for any reason), vs. 5% benchmark. With 9,785 completed appointments, this represents ~490 leakage events. Actions: (1) audit leakage by category: no-shows (2.4% reported, acceptable), cancellations (4.5% reported, acceptable), versus incomplete treatment/diagnosis. (2) implement pre-appointment confirmation calls 24 hours prior, (3) track and report leakage metrics daily, (4) assign accountability to office managers for leakage reduction, (5) review cancellation reasons and address operational barriers (waiting room comfort, provider behavior, cost concerns). Expected impact: reducing leakage to 5% could recover ~80-100 additional appointment completions, representing $50-75K production.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +$50-75K annual production through reduced leakage</span></p>
+  </div>
+
+  <div class="team-header">Office Manager / Front Desk</div>
+  <div class="action-item">
+    <h4>Unscheduled Active Patient Reactivation Campaign</h4>
+    <p><span class="owner">Owner: Front Desk + Office Manager</span></p>
+    <p>3,967 unscheduled active patients represent $3.07M in opportunity revenue. These patients haven't been seen recently but have an established relationship with the practice. Action: (1) segment by last visit date (3-6 mo, 6-12 mo, 12+ months), (2) create tiered outreach: email campaign for 3-6 month, phone calls for 6-12 month, combined phone + mailer for 12+ month, (3) offer incentives (exam special, cleaning special, small discount), (4) track reactivation rate and production recovered. Even reactivating 20% of these patients (794 patients, averaging $300+ each) could generate $240K+ revenue. This should be an ongoing program, not one-time.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: +$200-300K annual production from reactivation</span></p>
+  </div>
+
+  <div class="action-item">
+    <h4>Monthly Metrics Dashboard & Accountability</h4>
+    <p><span class="owner">Owner: Practice Owner / Operations Manager</span></p>
+    <p>Implement a centralized monthly reporting dashboard visible to all location managers, showing: (1) production vs. target by location, (2) new patient volume and conversion rate, (3) case acceptance %, (4) attrition and net growth, (5) handoff ratio, (6) schedule utilization, (7) call metrics (conversion, missed calls), (8) Yelp/Google review trends. This creates transparency, accountability, and allows rapid identification of location-specific issues. Conduct monthly review meetings with location managers to discuss variances and action plans.</p>
+    <p style="margin-top: 6px;"><span class="impact">Estimated Impact: Data visibility drives accountability and faster problem-solving</span></p>
+  </div>
+
+</div>
+
+<!-- ============ LOCATION SCORECARD DETAILS ============ -->
+<div class="section">
+  <h2>Location Performance Summary Cards</h2>
+
+  <div class="location-card">
+    <h4>BFD Main — Production Leader but Momentum Concern</h4>
+    <div class="location-stats">
+      <div><strong>Production:</strong> $1,604,828 (-9.6%)</div>
+      <div><strong>New Patients:</strong> 269 (-27.7%, -103)</div>
+      <div><strong>Case $ Accept %:</strong> 38.2%</div>
+      <div><strong>Net Growth:</strong> -72 (attrition crisis)</div>
+      <div><strong>Handoff Ratio:</strong> 0.43 (lowest)</div>
+      <div><strong>Scorecard:</strong> 13P / 5F</div>
+    </div>
+    <p style="margin-top: 10px; font-size: 13px;">BFD Main remains the largest location by production ($1.6M) but is in declining trajectory. New patient acquisition collapsed 27.7% (-103 NPs), the primary driver of org-wide decline. Attrition is at crisis level (118.9%) with net patient loss of -72. Handoff ratio is the lowest across all locations (0.43). Root causes need investigation: local competition, staff turnover, or market saturation. Focus on stabilizing new patient pipeline and addressing attrition through reactivation.</p>
+  </div>
+
+  <div class="location-card">
+    <h4>BFD Hamburg — Stable but Underperforming Case Acceptance</h4>
+    <div class="location-stats">
+      <div><strong>Production:</strong> $873,952 (-7.5%)</div>
+      <div><strong>New Patients:</strong> 234 (+4.9%, +11)</div>
+      <div><strong>Case $ Accept %:</strong> 31.4% (lowest)</div>
+      <div><strong>Net Growth:</strong> +29 (only positive new growth)</div>
+      <div><strong>Handoff Ratio:</strong> 0.57 (highest)</div>
+      <div><strong>Scorecard:</strong> 13P / 5F</div>
+    </div>
+    <p style="margin-top: 10px; font-size: 13px;">BFD Hamburg is stable in new patient volume (actually +11 NPs, +4.9%) and has the highest handoff ratio (0.57), showing good hygiene-to-restorative workflow. However, case acceptance is the weakest of all locations (31.4%), suggesting clinical presentation or financial barriers. Net growth is positive (+29), but production still declined 7.5%. Hamburg needs case acceptance training to recover $100K+ in lost production. Hamburg also has concerning Yelp presence (2.4 rating, only 12 reviews).</p>
+  </div>
+
+  <div class="location-card">
+    <h4>BFD Leestown — Only Growth Location, Digital Leader</h4>
+    <div class="location-stats">
+      <div><strong>Production:</strong> $761,471 (+7.3%, +$51.9K)</div>
+      <div><strong>New Patients:</strong> 175 (+3.6%, +6)</div>
+      <div><strong>Case $ Accept %:</strong> 32.5%</div>
+      <div><strong>Net Growth:</strong> +68 (strongest growth)</div>
+      <div><strong>Online Scheduling:</strong> 41.1% (vs. 0% at others)</div>
+      <div><strong>Scorecard:</strong> 14P / 5F (highest pass rate)</div>
+    </div>
+    <p style="margin-top: 10px; font-size: 13px;">BFD Leestown is the organization's bright spot: the ONLY location with positive production growth (+7.3%, +$51.9K). New patient acquisition is stable (+6 NPs, +3.6%), net growth is strongest (+68 net new patients), and scorecard is best (14 pass vs. 13 at others). Leestown has achieved 41.1% online scheduling adoption, a major differentiator. Attrition rate is also healthiest (70%, still high but manageable vs. others). Leestown's operational model should be studied and replicated at Main and Hamburg. Case acceptance is still below benchmark (32.5%), but the location is outperforming on other metrics.</p>
+  </div>
+
+</div>
+
+<!-- ============ KEY METRICS SUMMARY ============ -->
+<div class="section">
+  <h2>Consolidated Metrics — Q1 2025 vs Q1 2026</h2>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th><th>Benchmark</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <!-- PRODUCTION -->
+      <tr class="cat-header"><td colspan="7">Production & Revenue</td></tr>
+      <tr><td></td><td>Production Gross</td><td>$3,428,607</td><td>$3,240,250</td><td>-$188,357 (-5.5%)</td><td>Growth target</td><td><span class="badge fail">Decline</span></td></tr>
+      <tr><td></td><td>Production Scheduled</td><td>$3,052,812</td><td>$2,755,264</td><td>-$297,548 (-9.7%)</td><td>Growth target</td><td><span class="badge fail">Decline</span></td></tr>
+      <tr><td></td><td>Same-Day Treatment $</td><td>$1,394,218</td><td>$1,307,685</td><td>-$86,534 (-6.2%)</td><td>Growth target</td><td><span class="badge fail">Decline</span></td></tr>
+
+      <!-- PATIENT ACQUISITION -->
+      <tr class="cat-header"><td colspan="7">Patient Acquisition</td></tr>
+      <tr><td></td><td>New Patients (Total)</td><td>764</td><td>678</td><td>-86 (-11.3%)</td><td>Growth target</td><td><span class="badge fail">Decline</span></td></tr>
+      <tr><td></td><td>New Patients / Month</td><td>255</td><td>226</td><td>-29 (-11.3%)</td><td>250+ optimal</td><td><span class="badge fail">Below Target</span></td></tr>
+      <tr><td></td><td>Case $ Accepted %</td><td>N/A</td><td>34.0% avg</td><td>N/A</td><td>60%+ benchmark</td><td><span class="badge fail">Critical</span></td></tr>
+
+      <!-- PATIENT BASE -->
+      <tr class="cat-header"><td colspan="7">Patient Base & Retention</td></tr>
+      <tr><td></td><td>Active Hygiene Patients</td><td>13,848</td><td>13,994</td><td>+146 (+1.1%)</td><td>Growth target</td><td><span class="badge pass">Stable Growth</span></td></tr>
+      <tr><td></td><td>Unscheduled Active Patients</td><td>5,222</td><td>3,967</td><td>-1,255 (-24.0%)</td><td>Decrease target</td><td><span class="badge fail">Decline</span></td></tr>
+      <tr><td></td><td>Unscheduled Active $ Opp</td><td>$4,194,367</td><td>$3,070,246</td><td>-$1,124,121 (-26.8%)</td><td>Decrease target</td><td><span class="badge fail">Decline</span></td></tr>
+      <tr><td></td><td>Net Growth (Recaptured - Attrition)</td><td>+64</td><td>+25</td><td>-39 (-61%)</td><td>Positive growth</td><td><span class="badge fail">Declining</span></td></tr>
+      <tr><td></td><td>Attrition Rate (Org Avg)</td><td>N/A</td><td>93.1% avg</td><td>N/A</td><td>30-35% benchmark</td><td><span class="badge fail">Critical</span></td></tr>
+      <tr><td></td><td>Recaptured Patients</td><td>295</td><td>232</td><td>-63 (-21.4%)</td><td>Increase target</td><td><span class="badge fail">Decline</span></td></tr>
+
+      <!-- CLINICAL PERFORMANCE -->
+      <tr class="cat-header"><td colspan="7">Clinical Performance & Handoff</td></tr>
+      <tr><td></td><td>Appointments Completed</td><td>9,825</td><td>9,785</td><td>-40 (-0.4%)</td><td>Stable/Growth</td><td><span class="badge pass">Stable</span></td></tr>
+      <tr><td></td><td>Hygiene Appointments</td><td>5,166</td><td>5,370</td><td>+204 (+4.0%)</td><td>Increase</td><td><span class="badge pass">Growth</span></td></tr>
+      <tr><td></td><td>Restorative Appointments</td><td>2,482</td><td>2,585</td><td>+103 (+4.1%)</td><td>Increase</td><td><span class="badge pass">Growth</span></td></tr>
+      <tr><td></td><td>NP Hygiene Re-Appt %</td><td>N/A</td><td>53.3% avg</td><td>N/A</td><td>40%+ benchmark</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Hygiene Re-Appt %</td><td>N/A</td><td>96.1% avg</td><td>N/A</td><td>85%+ benchmark</td><td><span class="badge pass">Excellent</span></td></tr>
+      <tr><td></td><td>Handoff Ratio (Org Avg)</td><td>N/A</td><td>0.50</td><td>N/A</td><td>0.70+ benchmark</td><td><span class="badge fail">Critical</span></td></tr>
+      <tr><td></td><td>Combined Leakage %</td><td>N/A</td><td>8.0% avg</td><td>N/A</td><td>5% benchmark</td><td><span class="badge fail">High</span></td></tr>
+      <tr><td></td><td>DI Confirmed %</td><td>N/A</td><td>51.2% avg</td><td>N/A</td><td>60%+ benchmark</td><td><span class="badge fail">Below Target</span></td></tr>
+
+      <!-- DIGITAL & REPUTATION -->
+      <tr class="cat-header"><td colspan="7">Digital & Online Reputation</td></tr>
+      <tr><td></td><td>Online Scheduling % (Org Avg)</td><td>N/A</td><td>13.7% avg</td><td>N/A</td><td>25%+ target</td><td><span class="badge fail">Below Target</span></td></tr>
+      <tr><td></td><td>Google Rating (Org)</td><td>N/A</td><td>4.9</td><td>N/A</td><td>4.5+ benchmark</td><td><span class="badge pass">Excellent</span></td></tr>
+      <tr><td></td><td>Google Reviews (Combined)</td><td>N/A</td><td>2,585</td><td>N/A</td><td>Growth target</td><td><span class="badge pass">Strong</span></td></tr>
+      <tr><td></td><td>Yelp Rating (Org)</td><td>N/A</td><td>2.9</td><td>N/A</td><td>4.0+ benchmark</td><td><span class="badge fail">Weak</span></td></tr>
+      <tr><td></td><td>Yelp Reviews (Combined)</td><td>N/A</td><td>37</td><td>N/A</td><td>100+ per location</td><td><span class="badge fail">Critical</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ CRITICAL SUMMARY ============ -->
+<div class="section">
+  <h2>Critical Findings & Strategic Recommendations</h2>
+
+  <h3>Three Major Red Flags</h3>
+
+  <div class="insight negative">
+    <strong>1. Case Dollar Acceptance at Crisis Level (34% vs. 60% Benchmark)</strong><br/>
+    <br/>
+    All three locations show dangerously low case acceptance (38.2% Main, 31.4% Hamburg, 32.5% Leestown). This is a systemic organizational issue, not location-specific. The organization is presenting treatment plans worth $500K+ per quarter but accepting only 34% of the dollars. Root causes likely include: (1) insufficient comprehensive treatment planning, (2) weak patient education on treatment urgency, (3) inconsistent clinical presentation, (4) financial barriers not being addressed, (5) lack of visual aids or case acceptance tools. <strong>Immediate action:</strong> Conduct a clinical presentation audit, identify best-performing clinician(s), standardize their approach, and implement monthly case acceptance tracking by provider. Recovering case acceptance to 50% would add $300-400K annual production — the single highest-leverage opportunity for the organization.
+  </div>
+
+  <div class="insight negative">
+    <strong>2. Attrition Destroying Patient Base (70-119% vs. 30-35% Benchmark)</strong><br/>
+    <br/>
+    BFD Main is in a patient loss spiral with 118.9% attrition — losing more patients than acquiring. Even Leestown's "best" 70% attrition is double healthy benchmarks. Combined, the organization lost net +25 patients (down from +64 prior year). Unscheduled active patients dropped 24% (-1,255), representing a $1.1M loss in future opportunity revenue. Root causes need investigation: are patients leaving due to clinical quality concerns, staff turnover, cost, or simply scheduling access issues? <strong>Immediate action:</strong> Implement patient exit interviews, conduct reactivation campaigns targeting the 3,967 unscheduled active patients ($3.07M opportunity), review cancellation reasons, and strengthen recall systems. Even recovering 20% of unscheduled patients could generate $240K+ revenue. This is destroying the patient base and must be reversed.
+  </div>
+
+  <div class="insight negative">
+    <strong>3. New Patient Acquisition Declining (226/mo vs. 250+ target)</strong><br/>
+    <br/>
+    Organization-wide new patient volume dropped 11.3% (-86 patients), almost entirely due to BFD Main's -103 NP collapse (-27.7%). BFD Main's new patient crisis is not reflected in appointment volume — suggesting the issue is not provider availability but patient flow/marketing/call center performance. Call center metrics apply across all locations: 40% conversion (vs. 55%+ benchmark) and 30% missed calls (vs. <10% benchmark) are organizational leakage points. <strong>Immediate action:</strong> Deep-dive into Main's NP decline (exit interview analysis, local competition review, staff/quality assessment), fix call center performance across all locations (script audit, training, second line/virtual receptionist), expand online scheduling adoption (Leestown's 41.1% model to Main/Hamburg), and implement systematic Yelp review strategy (currently only 37 reviews combined vs. Google's 2,585). Recovering 40-60 NPs/quarter could add $150-200K annual production.
+  </div>
+
+  <h3>Three Major Bright Spots</h3>
+
+  <div class="insight positive">
+    <strong>1. Hygiene Re-Appointment Rates Excellent (96.1% Average)</strong><br/>
+    Across all three locations, hygiene re-appointment rates are 95%+, well above the 85% benchmark. This indicates that patients completing hygiene are returning for follow-up, and the hygiene program is stable. This is a foundation to build on — if handoff ratios and case acceptance can be improved, the existing hygiene base will drive additional restorative production.
+  </div>
+
+  <div class="insight positive">
+    <strong>2. Leestown Performance Model (Only Growth Location, Best Operational Metrics)</strong><br/>
+    BFD Leestown is the only location with positive production growth (+7.3%, +$51.9K), highest new patient net growth (+68), best scorecard (14P vs. 13P), highest online scheduling adoption (41.1%), and healthiest attrition (70%). Leestown's operational and digital strategy should be audited and replicated at Main and Hamburg. Questions to answer: What's different about Leestown's clinical team, office management, marketing, or patient experience that's driving superior results?
+  </div>
+
+  <div class="insight positive">
+    <strong>3. Google Presence Strong Across All Locations (4.9 Rating, 2,585 Reviews Combined)</strong><br/>
+    The organization has built excellent Google reputation across all three locations (4.9 stars). This is a major strength for local search visibility. The opportunity is to maintain this strength while building Yelp (currently weak) and leveraging the Google presence to drive scheduled appointments and online engagement.
+  </div>
+
+  <h3>Immediate Action Priorities (Next 30 Days)</h3>
+
+  <div style="margin-top: 14px;">
+    <ol style="padding-left: 20px; font-size: 14px;">
+      <li><strong>Clinical Presentation Audit:</strong> Conduct a clinical presentation audit at each location to identify gaps in case acceptance protocols. Observe 10-15 patient interactions at each location, identify best-performing clinician(s), and document their approach (how they present cases, use visual aids, discuss financial options, etc.). Standardize this approach across all locations through training and accountability.</li>
+
+      <li><strong>Call Center Performance Review:</strong> Implement call recording review process (20 recorded calls per location), analyze for conversion barriers, and develop standardized training. Deploy second line or virtual receptionist at Main and Hamburg to reduce missed calls. Track metrics weekly by location.</li>
+
+      <li><strong>Main Location Deep-Dive:</strong> Conduct exit interview analysis on 20-30 patients who didn't return to Main, review Google/Yelp sentiment specific to Main, audit patient onboarding process vs. Hamburg/Leestown, and assess staff morale/turnover. This will surface root causes of the -103 NP decline.</li>
+
+      <li><strong>Unscheduled Active Reactivation Campaign:</strong> Segment the 3,967 unscheduled active patients by last visit date and launch tiered outreach (email for 3-6 mo, phone for 6-12 mo, phone+mailer for 12+ mo). Even 20% reactivation generates $240K+ revenue.</li>
+
+      <li><strong>Leestown Best Practice Study:</strong> Document Leestown's operational differences: online scheduling process, front desk protocols, clinical workflows, marketing channels, and anything else that might explain superior performance. Create playbooks for Main/Hamburg replication.</li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- ============ METHODOLOGY & DISCLAIMER ============ -->
+<div class="section">
+  <h2>Methodology & Report Disclaimer</h2>
+  <div style="font-size: 13px; line-height: 1.7;">
+    <p><strong>Data Sources:</strong> This report is compiled from Dental Intel workflow data and individual location performance reports (BFD Main, BFD Hamburg, BFD Leestown) for Q1 2025 and Q1 2026. The analysis assumes data accuracy and completeness as of the report generation date. Combined totals are sums of individual location figures unless otherwise noted (averages are explicitly marked).</p>
+
+    <p><strong>Benchmarks & Standards:</strong> Performance benchmarks used in this report (case acceptance 60%, attrition 30-35%, handoff ratio 0.70+, call conversion 55%+, DI confirmation 60%+, online scheduling 25%+, Yelp rating 4.0+) are industry standards for mid-to-large dental practices. These may be adjusted based on practice-specific goals or market conditions.</p>
+
+    <p><strong>Waterfall Analysis:</strong> The production waterfall is derived by summing the individual impact drivers from each location's waterfall analysis. The "Other/Unattributed" bucket represents factors outside the primary drivers (case acceptance, new patient volume, same-day treatment, appointment leakage, schedule utilization) — which may include service line mix, production category reclassifications, or adjustments.</p>
+
+    <p><strong>Scorecard Methodology:</strong> Each location scorecard evaluates 19 metrics across six categories (Patient Acquisition, Retention, Schedule Management, Online Reputation, Referral Tracking). Pass = metric meets or exceeds benchmark; Fail = metric below benchmark; N/A = benchmark not applicable or data unavailable. The "3rd Next Available NP Appt" metric at each location may result in N/A if benchmark is not consistently tracked.</p>
+
+    <p><strong>Limitations & Caveats:</strong> (1) New patient acquisition metrics do not account for referral source attribution accuracy — missing referral data impacts analysis quality. (2) Production data is reported as "gross" (pre-insurance write-off) to show comprehensive case volume; adjustments may apply at write-off stage. (3) Case acceptance percentages are calculated from presented vs. accepted case dollars, but do not account for patient financial agreements (case splitting, payment plans) which may improve effective collection rates. (4) Attrition and net growth figures are based on active patient roster changes and may be influenced by patient database cleanup or definition changes. (5) Same-day treatment revenue includes chairside treatment, immediate services, and same-appointment closures; definition consistency across locations should be verified. (6) Benchmarks are industry standards and may not reflect practice-specific goals — thresholds should be reviewed with clinical and business leadership.</p>
+
+    <p><strong>Collaborative Workflow:</strong> This report is designed to facilitate collaborative discussion among the practice owner, clinical director, operations manager, and RCM director. Recommendations are structured by team (Clinical, Marketing, Operations, RCM) to enable parallel action planning. Individual location managers should use location-specific data to drive local accountability and action plans.</p>
+
+    <p><strong>Confidentiality:</strong> This report contains sensitive business performance data. Distribution should be limited to authorized team members and leadership. Avoid sharing raw data with staff not involved in strategic planning.</p>
+
+    <p style="margin-top: 12px; font-style: italic; color: var(--gray);"><strong>Report Generated:</strong> Q1 2026 Performance Analysis | <strong>Comparison Period:</strong> Q1 2025 vs Q1 2026 | <strong>Data Provider:</strong> Dental Intel | <strong>Disclaimer:</strong> This analysis is provided for business planning purposes and should not be construed as financial or clinical advice. Recommendations should be reviewed with qualified dental consultants, accountants, or clinical advisors prior to implementation. The report author makes no guarantees regarding projected outcomes or ROI estimates.</p>
+  </div>
+</div>
+
+<div class="disclaimer">
+  Report compiled from individual location data | Benchmarks are industry standards | Recommendations for collaborative team review | Dental Intel data integrity assumed | © 2026 Beaumont Family Dentistry
+</div>
+
+</div>
+
+</body>
+</html>

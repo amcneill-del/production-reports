@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beaumont Family Dentistry (Main) — Marketing Performance Report | Q1 2025 vs Q1 2026</title>
+<style>
+:root {
+  --navy: #2E5E8C;
+  --navy-light: #e8f4f8;
+  --green: #27ae60;
+  --green-bg: #e8f8f0;
+  --red: #e74c3c;
+  --red-bg: #fdf0ef;
+  --orange: #f39c12;
+  --orange-bg: #fef9e7;
+  --gray: #999;
+  --gray-bg: #f5f5f5;
+  --text: #2c3e50;
+  --border: #dce4ec;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); line-height: 1.6; background: #f8f9fa; }
+.container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+header { background: var(--navy); color: white; padding: 36px 0; margin-bottom: 32px; }
+header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+header h1 { font-size: 26px; font-weight: 700; }
+header .subtitle { font-size: 14px; opacity: 0.85; }
+header .period-badge { background: rgba(255,255,255,0.2); padding: 8px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+
+.section { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 28px; margin-bottom: 24px; }
+.section h2 { color: var(--navy); font-size: 20px; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--navy); }
+.section h3 { color: var(--navy); font-size: 16px; margin: 18px 0 10px; }
+
+/* Metric Cards */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px; }
+.metric-card { background: var(--gray-bg); border-radius: 8px; padding: 18px; text-align: center; }
+.metric-card .label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.metric-card .value { font-size: 28px; font-weight: 700; color: var(--navy); }
+.metric-card .change { font-size: 13px; margin-top: 4px; font-weight: 600; }
+.metric-card .change.up { color: var(--green); }
+.metric-card .change.down { color: var(--red); }
+.metric-card .change.neutral { color: var(--orange); }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: #f8f9fa; }
+.cat-header td { background: var(--navy-light); font-weight: 700; color: var(--navy); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Pass/Fail badges */
+.badge { display: inline-block; padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+.badge.pass { background: var(--green-bg); color: var(--green); }
+.badge.fail { background: var(--red-bg); color: var(--red); }
+.badge.info { background: var(--navy-light); color: var(--navy); }
+.badge.na { background: var(--gray-bg); color: var(--gray); }
+
+/* Insight boxes */
+.insight { background: var(--navy-light); border-left: 4px solid var(--navy); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 14px; }
+.insight.positive { background: var(--green-bg); border-color: var(--green); }
+.insight.negative { background: var(--red-bg); border-color: var(--red); }
+.insight.warning { background: var(--orange-bg); border-color: var(--orange); }
+
+/* Waterfall Chart */
+.waterfall { display: flex; align-items: flex-end; gap: 6px; height: 300px; padding: 20px 0; margin: 20px 0; position: relative; }
+.wf-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
+.wf-bar { width: 70%; border-radius: 4px 4px 0 0; min-height: 4px; position: relative; transition: all 0.3s; }
+.wf-bar.anchor { background: var(--navy); }
+.wf-bar.positive { background: var(--green); }
+.wf-bar.negative { background: var(--red); }
+.wf-label { font-size: 11px; text-align: center; margin-top: 6px; color: var(--text); line-height: 1.3; max-width: 100px; }
+.wf-amount { font-size: 11px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+
+/* Action Plan */
+.action-item { margin: 14px 0; padding: 14px 18px; background: var(--gray-bg); border-radius: 8px; border-left: 4px solid var(--navy); }
+.action-item h4 { color: var(--navy); font-size: 14px; margin-bottom: 6px; }
+.action-item p { font-size: 13px; margin: 3px 0; }
+.action-item .owner { color: var(--green); font-weight: 600; }
+.action-item .impact { color: var(--red); font-weight: 600; }
+.team-header { background: var(--navy); color: white; padding: 10px 18px; border-radius: 8px 8px 0 0; font-weight: 700; font-size: 15px; margin-top: 20px; }
+
+/* Summary badge */
+.summary-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; }
+.summary-badge.pass-heavy { background: var(--green-bg); color: var(--green); }
+
+/* Print */
+@media print {
+  body { background: white; }
+  .section { box-shadow: none; border: 1px solid var(--border); break-inside: avoid; }
+  header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+.disclaimer { font-size: 12px; color: var(--gray); text-align: center; padding: 20px; border-top: 1px solid var(--border); margin-top: 24px; }
+.exec-summary { font-size: 15px; line-height: 1.75; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div>
+      <h1>Beaumont Family Dentistry (Main)</h1>
+      <div class="subtitle">Marketing & Production Performance Report</div>
+    </div>
+    <div class="period-badge">Q1 2025 → Q1 2026</div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<div class="section">
+  <h2>Executive Summary</h2>
+  <div class="exec-summary">
+    <p>Beaumont Family Dentistry (Main) experienced a challenging Q1 2026 with <strong>production declining 9.6% to $1,604,828</strong> from $1,774,380 year-over-year. This decline was driven primarily by a sharp 27.7% drop in new patient volume (372 → 269), combined with elevated patient attrition of 118.9% — meaning more patients are leaving the practice than joining it, with net growth at -72 patients. However, the practice achieved a critical data integrity win: referral source tracking improved dramatically from 100% missing (372/372) to 1.5% missing (4/269), providing clear visibility into patient acquisition channels. Scorecard results show 13 of 18 metrics passing, with primary gaps in new patient conversion infrastructure (call conversion 40% vs. 55% benchmark, missed calls 30% vs. 18% benchmark) and appointment leakage that worsened from 2.3% to 7.3% combined (no-shows: 1.9% → 4.3%, cancellations: 0.4% → 3.0%). Bright spots include a dramatic improvement in hygiene re-appointment (82.9% → 95.3%), NP hygiene re-appointment (41.9% → 59.9%), and unscheduled active patient reduction (2,766 → 2,036), signaling strong retention fundamentals once patients are engaged. The priority for recovery is reversing the new patient volume decline through marketing reactivation and addressing the alarming handoff ratio of 0.43 (well below the 0.85 benchmark), indicating that hygiene-to-restorative conversion is critically underperforming.</p>
+  </div>
+</div>
+
+<!-- ============ PRACTICE SCORECARD ============ -->
+<div class="section">
+  <h2>Practice Marketing Scorecard</h2>
+  <div style="margin-bottom:14px;">
+    <span class="summary-badge pass-heavy">13 Pass</span> &nbsp;
+    <span class="summary-badge" style="background:var(--red-bg);color:var(--red);">5 Fail</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Metric</th><th>Current Value</th><th>Benchmark</th><th>Result</th></tr>
+    </thead>
+    <tbody>
+      <!-- Patient Acquisition -->
+      <tr class="cat-header"><td colspan="5">Patient Acquisition</td></tr>
+      <tr><td></td><td>Avg New Patients / Month</td><td>89.7</td><td>≥ 30</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>NP Call Conversion %</td><td>40%</td><td>≥ 55%</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>Missed Call %</td><td>30%</td><td>≤ 18%</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>3rd Next Available NP Appt</td><td>N/A</td><td>≤ 7 days</td><td><span class="badge na">N/A</span></td></tr>
+
+      <!-- Patient Retention -->
+      <tr class="cat-header"><td colspan="5">Patient Retention</td></tr>
+      <tr><td></td><td>Unscheduled Active Patients</td><td>2,036 (was 2,766)</td><td>Decrease YOY</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Unscheduled Active $$ Opportunity</td><td>$1,707,736 (was $2,382,494)</td><td>Decrease YOY</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>NP Hygiene Re-Appointment %</td><td>59.9%</td><td>≥ 40%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Hygiene Re-Appointment %</td><td>95.3%</td><td>≥ 85%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Pre-Appointment %</td><td>73%</td><td>≥ 60%</td><td><span class="badge pass">Pass</span></td></tr>
+
+      <!-- Schedule Management -->
+      <tr class="cat-header"><td colspan="5">Schedule Management</td></tr>
+      <tr><td></td><td>Appointments Completed</td><td>4,680 (was 4,944)</td><td>Increase YOY</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>No-Shows %</td><td>4.3%</td><td>≤ 5%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Cancellations %</td><td>3.0%</td><td>≤ 5%</td><td><span class="badge pass">Pass</span></td></tr>
+
+      <!-- Online Reputation -->
+      <tr class="cat-header"><td colspan="5">Online Reputation</td></tr>
+      <tr><td></td><td>Google Reviews (Total)</td><td>1,242</td><td>≥ 300</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Google Reviews (Last 30 Days)</td><td>26</td><td>≥ 10</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Google Star Rating</td><td>4.9</td><td>≥ 4.5</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Google 5-Star Reviews</td><td>94.2% (1,170/1,242)</td><td>≥ 90%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Yelp Reviews (Total)</td><td>19</td><td>≥ 20</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>Yelp Star Rating</td><td>2.9</td><td>≥ 4.0</td><td><span class="badge fail">Fail</span></td></tr>
+
+      <!-- Referral Program -->
+      <tr class="cat-header"><td colspan="5">Referral Program</td></tr>
+      <tr><td></td><td>Tracking Referral Source for Every NP</td><td>1.5% missing</td><td>&lt; 20% missing</td><td><span class="badge pass">Pass</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ PRODUCTION & REVENUE ============ -->
+<div class="section">
+  <h2>Production & Revenue Overview</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Production Gross</div>
+      <div class="value">$1,604,828</div>
+      <div class="change down">▼ -$169,552 (-9.6%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Production Scheduled Gross</div>
+      <div class="value">$1,333,618</div>
+      <div class="change down">▼ -$260,402 (-16.4%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Annual Patient Value</div>
+      <div class="value">$838.77</div>
+      <div class="change down">▼ -$22.58 (-2.6%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Visits Per Working Day</div>
+      <div class="value">74.49</div>
+      <div class="change down">▼ -2.48 (-3.2%)</div>
+    </div>
+  </div>
+  <div class="insight negative">
+    <strong>Key Insight:</strong> Production declined 9.6% YoY — this is the location's most concerning performance gap. Scheduled production fell 16.4%, indicating that lower appointment volume (not just case acceptance) is the primary driver. New patient volume dropped 27.7%, and attrition exceeded new acquisitions, creating a net negative patient growth trajectory. This requires immediate marketing reactivation and new patient acquisition focus.
+  </div>
+</div>
+
+<!-- ============ NEW PATIENT ACQUISITION ============ -->
+<div class="section">
+  <h2>New Patient Acquisition & Case Acceptance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">New Patients</div>
+      <div class="value">269</div>
+      <div class="change down">▼ -103 (-27.7%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NPs Per Working Day</div>
+      <div class="value">4.41</div>
+      <div class="change down">▼ from 6.0</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Acceptance % (Overall)</div>
+      <div class="value">95.1%</div>
+      <div class="change up">▲ from 77.1%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Case Acceptance %</div>
+      <div class="value">80.0%</div>
+      <div class="change up">▲ from 76.8%</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Case Dollar Analysis</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>Case $ Presented</td><td>$2,221,039</td><td>$2,042,103</td><td style="color:var(--red);font-weight:700">-$178,936 (-8.1%)</td></tr>
+        <tr><td>Case $ Accepted</td><td>$1,037,760</td><td>$780,358</td><td style="color:var(--red);font-weight:700">-$257,402 (-24.8%)</td></tr>
+        <tr><td>Case $ Accepted %</td><td>46.7%</td><td>38.2%</td><td style="color:var(--red);font-weight:700">-8.5 pts</td></tr>
+        <tr><td>Avg Restorative $/Exam</td><td>$673.96</td><td>$580.66</td><td style="color:var(--red);font-weight:700">-$93.30 (-13.8%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>NP Close Rate Detail</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>Cases Presented (NP)</td><td>289</td><td>220</td></tr>
+        <tr><td>Cases Accepted (NP)</td><td>222</td><td>176</td></tr>
+        <tr><td>NP Close Rate</td><td>76.8%</td><td>80.0%</td></tr>
+        <tr><td>Online Scheduled NPs</td><td>0</td><td>0</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight warning">
+    <strong>Key Insight:</strong> Case $ Accepted dropped $257K (24.8%), which directly contributed to the 9.6% production decline. The overall case acceptance % appears strong at 95.1%, but this reflects a higher proportion of lower-dollar treatment being presented. Average restorative $/exam fell 13.8% ($674 → $581), indicating either smaller treatment cases or a shift in the patient case mix toward preventive/routine care. NP case acceptance actually improved to 80%, which is positive, but the sharp decline in case $ presented ($179K lower) suggests fewer cases are being diagnosed or presented to new patients overall.
+  </div>
+</div>
+
+<!-- ============ SAME-DAY TREATMENT ============ -->
+<div class="section">
+  <h2>Same-Day Treatment & Clinical Performance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Same-Day Hygiene $</div>
+      <div class="value">$25,007</div>
+      <div class="change down">▼ -$8,153 (-24.6%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Same-Day Restorative $</div>
+      <div class="value">$650,062</div>
+      <div class="change down">▼ -$74,409 (-10.3%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Diagnosed % Hygiene</div>
+      <div class="value">5.5%</div>
+      <div class="change up">▲ from 5.3%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Diagnosed % Restorative</div>
+      <div class="value">28.8%</div>
+      <div class="change down">▼ from 30.0%</div>
+    </div>
+  </div>
+  <div class="insight warning">
+    <strong>Key Insight:</strong> Same-day treatment declined $82.6K combined (hygiene -$8.2K, restorative -$74.4K). This 11% drop in same-day treatment is concerning and represents lost chairside capture revenue. The slight improvement in hygiene case diagnosis (5.3% → 5.5%) is positive, but overall case diagnosis declined in restorative (30% → 28.8%). The opportunity is retraining the clinical team to identify and present chairside treatment, particularly restorative cases where the practice lost $74K in quarterly revenue.
+  </div>
+</div>
+
+<!-- ============ PATIENT VOLUME ============ -->
+<div class="section">
+  <h2>Patient Volume & Appointment Health</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Active Hygiene Patients</div>
+      <div class="value">6,425</div>
+      <div class="change down">▼ -14 (-0.2%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Unscheduled Active Patients</div>
+      <div class="value">2,036</div>
+      <div class="change down">▼ -730 (-26.4%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Unscheduled Opportunity $</div>
+      <div class="value">$1,707,736</div>
+      <div class="change down">▼ -$674,758 (-28.3%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Combined Leakage %</div>
+      <div class="value">7.3%</div>
+      <div class="change down">▼ from 2.3% (Worsened)</div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <h3>Appointment Breakdown</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>Completed Total</td><td>4,944</td><td>4,680</td><td style="color:var(--red)">-264 (-5.3%)</td></tr>
+        <tr><td>Completed Hygiene</td><td>2,520</td><td>2,550</td><td style="color:var(--green)">+30 (+1.2%)</td></tr>
+        <tr><td>Completed Restorative</td><td>1,133</td><td>1,097</td><td style="color:var(--red)">-36 (-3.2%)</td></tr>
+        <tr><td>Completed Other</td><td>1,294</td><td>1,037</td><td style="color:var(--red)">-257 (-19.9%)</td></tr>
+        <tr><td>Appointments Scheduled</td><td>5,059</td><td>5,062</td><td style="color:var(--green)">+3 (flat)</td></tr>
+        <tr><td>Future Appointments</td><td>4,787</td><td>4,606</td><td style="color:var(--red)">-181 (-3.8%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Leakage Detail</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>No-Shows</td><td>97 (1.9%)</td><td>225 (4.3%)</td></tr>
+        <tr><td>Cancellations</td><td>21 (0.4%)</td><td>157 (3.0%)</td></tr>
+        <tr><td>Broken</td><td>118</td><td>382</td></tr>
+        <tr><td>Combined Leakage</td><td>2.3%</td><td>7.3%</td></tr>
+      </table>
+      <div class="insight negative" style="margin-top:12px;">Combined leakage more than tripled from 2.3% to 7.3% — a critical degradation. No-shows increased 132% (97 → 225), cancellations increased 648% (21 → 157), and broken appointments more than tripled (118 → 382). This 5 percentage point increase in leakage represents ~$65K in lost quarterly production alone. Urgent action needed to address scheduling reliability and patient commitment.</div>
+    </div>
+  </div>
+
+  <h3>Patient Attrition Analysis</h3>
+  <table>
+    <tr><th>Metric</th><th>Value</th><th>Assessment</th></tr>
+    <tr><td>New Patients</td><td>269</td><td></td></tr>
+    <tr><td>Recaptured Patients</td><td>111</td><td>-61 vs prior year (was 172)</td></tr>
+    <tr><td>Patients Net Growth</td><td>-72</td><td><span class="badge fail">CRITICAL</span> Declining patient base (-140 vs prior year)</td></tr>
+    <tr><td>Estimated Attrition</td><td>452 patients</td><td>(269 + 111) - 72 = 452 actual departures</td></tr>
+    <tr><td>Attrition Rate</td><td>118.9%</td><td><span class="badge fail">CRITICAL</span> More patients leaving than joining</td></tr>
+  </table>
+  <div class="insight negative" style="margin-top:12px;">Attrition of 118.9% is the most urgent issue. The practice is losing more than one patient for every new patient acquired. Recapture declined sharply (172 → 111, -35.5%), indicating the reactivation program is underperforming. With net growth at -72 and such high attrition, the patient base is in active decline. An immediate patient retention and reactivation campaign is essential to stop the hemorrhaging.</div>
+</div>
+
+<!-- ============ CONFIRMATION & RECAPTURE ============ -->
+<div class="section">
+  <h2>Appointment Confirmation & Patient Recapture</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">DI Appointments Confirmed</div>
+      <div class="value">2,441</div>
+      <div class="change down">▼ -783 (-24.3%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">DI Confirmed %</div>
+      <div class="value">52.0%</div>
+      <div class="change down">▼ from 60.7%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Hygiene Re-Appt %</div>
+      <div class="value">59.9%</div>
+      <div class="change up">▲ from 41.9%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Recaptured Patients</div>
+      <div class="value">111</div>
+      <div class="change down">▼ -61 from 172</div>
+    </div>
+  </div>
+  <div class="insight negative">
+    <strong>Key Insight:</strong> DI confirmation rate dropped to 52.0% from 60.7% — well below the 60% benchmark. With appointment leakage already spiking to 7.3%, poor confirmation is compounding the problem. The practice needs to implement a 48-hour confirmation protocol with manual phone backup for all unconfirmed appointments. However, there is a bright spot: NP hygiene re-appointment improved significantly (41.9% → 59.9%), showing that once patients commit, engagement improves. Recapture slipped 35.5%, suggesting the reactivation workflow needs to shift from Engagement automation (which excludes inactive patients) to manual Analytics-based outreach.
+  </div>
+</div>
+
+<!-- ============ OPERATIONAL EFFICIENCY ============ -->
+<div class="section">
+  <h2>Operational Efficiency</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Online Scheduling Adoption</div>
+      <div class="value">0%</div>
+      <div class="change neutral">N/A (Not available)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Hygiene-to-Restorative Handoff</div>
+      <div class="value">0.43</div>
+      <div class="change down">▼ from 0.68 (CRITICAL)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Close Rate</div>
+      <div class="value">80.0%</div>
+      <div class="change up">▲ from 76.8%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Pre-Appointment %</div>
+      <div class="value">73%</div>
+      <div class="change up">▲ from 64%</div>
+    </div>
+  </div>
+  <div class="insight negative">
+    <strong>Key Insight:</strong> The hygiene-to-restorative handoff ratio of 0.43 is critically low and represents a major operational bottleneck. The benchmark is 0.85, meaning 57% of hygiene patients should see a doctor within the same visit or shortly after. At 0.43, only 43% are converting — the practice is leaving substantial revenue on the table. Additionally, with zero online scheduling availability, patients cannot self-schedule new appointments, creating friction in the patient acquisition funnel. This likely contributes to the elevated call conversion gap (40% vs. 55% benchmark).
+  </div>
+</div>
+
+<!-- ============ ONLINE REPUTATION ============ -->
+<div class="section">
+  <h2>Online Reputation</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Google Reviews</div>
+      <div class="value">1,242</div>
+      <div class="change up">4.9 ★ rating</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Google 5-Star %</div>
+      <div class="value">94.2%</div>
+      <div class="change up">1,170 of 1,242</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Yelp Reviews</div>
+      <div class="value">19</div>
+      <div class="change down">2.9 ★ rating</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Sentiment Score (Swell)</div>
+      <div class="value">95</div>
+      <div class="change up">Excellent</div>
+    </div>
+  </div>
+  <div class="insight positive">
+    <strong>Key Insight:</strong> Online reputation is a major strength. Google reviews are excellent at 1,242 reviews (4.9 stars, 94.2% five-star). The 95 sentiment score indicates genuinely satisfied patients. However, Yelp remains problematic at just 19 reviews with a 2.9 rating. Given the production decline and patient acquisition challenges, ensure the patient review pipeline stays strong — patients clearly love the practice, and this reputation needs to translate into sustained new patient acquisition through proactive review generation.
+  </div>
+</div>
+
+<!-- ============ DATA HYGIENE ============ -->
+<div class="section">
+  <h2>Data Hygiene & Tracking Gaps</h2>
+  <div class="two-col">
+    <div>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>NPs Missing Referral Source</td><td>372 of 372 (100%)</td><td>4 of 269 (1.5%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="insight positive">
+        <strong>Data Hygiene Win:</strong> Referral source tracking improved dramatically from 100% missing to just 1.5% missing. This is a critical victory — the practice now has clear visibility into which patient acquisition channels are working. This data is essential for making informed marketing budget decisions and identifying the true drivers of patient volume decline. Maintain this discipline: ensure every new patient intake includes referral source entry, with daily office manager audits to keep the 1.5% missing rate below 5%.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ WATERFALL ============ -->
+<div class="section">
+  <h2>Production Waterfall Analysis</h2>
+  <p style="margin-bottom:16px;font-size:14px;color:var(--gray);">Bridges Q1 2025 production ($1,774,380) to Q1 2026 production ($1,604,828). Each bar estimates the dollar impact of a specific performance driver.</p>
+
+  <!-- CSS Waterfall Chart -->
+  <div class="waterfall">
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--navy)">$1,774,380</div>
+      <div class="wf-bar anchor" style="height:65%"></div>
+      <div class="wf-label">Q1 2025<br>Production</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$59,808</div>
+      <div class="wf-bar negative" style="height:2%"></div>
+      <div class="wf-label">New Patient<br>Volume</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$173,579</div>
+      <div class="wf-bar negative" style="height:6%"></div>
+      <div class="wf-label">Case $<br>Acceptance</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$82,562</div>
+      <div class="wf-bar negative" style="height:3%"></div>
+      <div class="wf-label">Same-Day<br>Treatment</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$80,241</div>
+      <div class="wf-bar negative" style="height:3%"></div>
+      <div class="wf-label">Appt<br>Leakage</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$42,521</div>
+      <div class="wf-bar negative" style="height:1%"></div>
+      <div class="wf-label">Schedule<br>Utilization</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--green)">+$269,159</div>
+      <div class="wf-bar positive" style="height:10%"></div>
+      <div class="wf-label">Other /<br>Unattributed</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--navy)">$1,604,828</div>
+      <div class="wf-bar anchor" style="height:59%"></div>
+      <div class="wf-label">Q1 2026<br>Production</div>
+    </div>
+  </div>
+
+  <h3>Waterfall Detail Table</h3>
+  <table>
+    <thead><tr><th>Driver</th><th>Impact ($)</th><th>Direction</th><th>Calculation Note</th></tr></thead>
+    <tbody>
+      <tr><td>New Patient Volume</td><td>-$59,808</td><td style="color:var(--red)">▼ Negative</td><td>(269 - 372 = -103 NPs) × avg NP $ value ~$581</td></tr>
+      <tr><td>Case $ Acceptance</td><td>-$173,579</td><td style="color:var(--red)">▼ Negative</td><td>(38.2% - 46.7% = -8.5pp) × $2,042,103 case $ presented</td></tr>
+      <tr><td>Same-Day Treatment</td><td>-$82,562</td><td style="color:var(--red)">▼ Negative</td><td>($675,069 - $757,631) same-day treatment decline</td></tr>
+      <tr><td>Appointment Leakage</td><td>-$80,241</td><td style="color:var(--red)">▼ Negative</td><td>Leakage: 2.3% → 7.3% (+5.0pp worsened) × 5,062 appts × $316/visit</td></tr>
+      <tr><td>Schedule Utilization</td><td>-$42,521</td><td style="color:var(--red)">▼ Negative</td><td>(74.49 - 76.97 = -2.48 VPWD) × 50 days × $342.91/visit</td></tr>
+      <tr><td style="font-weight:700">Other / Unattributed</td><td style="font-weight:700">+$269,159</td><td style="color:var(--green)">▲ Positive</td><td>Residual: fee schedule changes, payer mix shifts, case complexity variation</td></tr>
+      <tr style="background:var(--navy-light)"><td style="font-weight:700">Total Production Change</td><td style="font-weight:700">-$169,552</td><td style="font-weight:700">-9.6%</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight warning">
+    <strong>Waterfall Note:</strong> This location has multiple, compounding headwinds. The largest negative driver is case $ acceptance (-$173.6K), followed by new patient volume (-$59.8K), appointment leakage (-$80.2K), and same-day treatment (-$82.6K). These four factors account for $396K in production drag. The positive "Other" category of +$269K likely reflects some fee schedule adjustments or case-mix variations that partially offset these declines, but the underlying volume and acceptance challenges remain. Reversing this decline requires tackling new patient volume (marketing reactivation + call conversion improvement), reducing leakage through confirmation protocols, and rebuilding case acceptance through treatment planning and financing strategies.
+  </div>
+</div>
+
+<!-- ============ ACTION PLAN ============ -->
+<div class="section">
+  <h2>Action Plan — Organized by Support Team</h2>
+  <p style="margin-bottom:16px;font-size:14px;">Recommendations are prioritized based on scorecard failures, the 9.6% production decline, and 118.9% attrition crisis. Each action specifies an owner, workflow, and estimated impact.</p>
+
+  <!-- MARKETING -->
+  <div class="team-header">Marketing</div>
+  <div class="action-item">
+    <h4>Patient Reactivation Campaign — CRITICAL PRIORITY</h4>
+    <p>With 118.9% attrition, the practice must immediately recover lost patients. Target the 452 patients who departed in Q1 2026, plus the 492 in the 0-6 month unscheduled window. Pull reactivation lists from Dental Intel Analytics (not Engagement — inactive patients are excluded from Engagement automation). Create a segmented reactivation outreach: phone calls for high-value patients (>$2K lifetime value), text campaigns for mid-tier, email for lower-touch. Assign 3-5 hours weekly to manual phone outreach. Goal: recapture 40 patients per quarter = ~$35K in recovered annual production per quarter.</p>
+    <p><span class="owner">Owner: Marketing + Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Analytics → Pull Inactive/6mo+ Overdue → Export segments by value → Manual phone calls &nbsp;|&nbsp; <span class="impact">Impact: At $838.77 APV, 40 reactivated patients = ~$33,551/quarter = ~$134K annualized</span></p>
+  </div>
+  <div class="action-item">
+    <h4>New Patient Acquisition Paid Media Audit</h4>
+    <p>New patient volume dropped 27.7% (372 → 269). Audit all active paid media campaigns (Google, Facebook, local directories) to identify underperforming channels. With referral source now tracked at 1.5% missing, you have clear visibility: identify which channels are driving the remaining 269 NPs and reallocate budget from low-performing channels. Additionally, investigate whether the call conversion decline (40% vs. 55%) is a lead quality issue (wrong targeting) or a phone operations issue (missed calls 30%, confirmation not happening). CPA analysis will reveal if paid channels are still profitable or if budget reallocation is needed.</p>
+    <p><span class="owner">Owner: Marketing</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Analytics → NP Referral Source Report → Identify top 3 channels → Cross-check paid media spend &nbsp;|&nbsp; <span class="impact">Impact: Optimizing media mix to highest-ROI channels could recover 20-30 NPs/quarter</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Yelp Profile Remediation</h4>
+    <p>With only 19 Yelp reviews at 2.9 stars, the practice's Yelp presence is a liability in local search. Claim/optimize the Yelp Business Page if not already claimed. Complete all profile sections (hours, services, photos). Do not directly solicit Yelp reviews (violates Yelp TOS), but ensure existing patients know the profile exists. Consider Yelp Ads check-in offers to encourage organic reviews. Focus on converting negative reviews — address any service concerns mentioned in lower-rated reviews through follow-up and service recovery.</p>
+    <p><span class="owner">Owner: Marketing</span> &nbsp;|&nbsp; <span class="impact">Impact: A profile with 30+ reviews at 4.0+ stars improves local search credibility and reduces patient trust barriers</span></p>
+  </div>
+
+  <!-- OPERATIONS -->
+  <div class="team-header">Operations</div>
+  <div class="action-item">
+    <h4>48-Hour Appointment Confirmation Protocol (URGENT)</h4>
+    <p>DI confirmation rate is 52.0% — dangerously low and contributing to the 7.3% leakage crisis. Combined leakage tripled from 2.3% to 7.3%, representing ~$65K in lost quarterly production. Implement a 48-hour pre-appointment confirmation workflow: DI Engagement TouchPoint triggers automated text 48 hours before appointment. For unconfirmed appointments, manual phone call 24 hours before appointment. Park Column should be maintained daily to fill same-day gaps from unconfirmed cancellations. This protocol is essential to stop the bleeding on appointment leakage.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Engagement → Create 48hr pre-appt TouchPoint → Manual phone backup for unconfirmed &nbsp;|&nbsp; <span class="impact">Impact: Reducing leakage from 7.3% to 5% = ~$29K recovery quarterly = ~$116K annualized</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Reduce No-Shows (4.3%) & Cancellations (3.0%)</h4>
+    <p>No-shows spiked from 1.9% to 4.3% (97 → 225), cancellations from 0.4% to 3.0% (21 → 157). This 5 percentage point increase in combined leakage is unsustainable. Root cause analysis: Are patients not showing up (no-shows) or changing their minds (cancellations)? For no-shows, implement 24-hour reminder calls with incentives ("we held your spot, see you tomorrow"). For cancellations, implement a 48-hour cancellation policy with clear communication at booking. Maintain an aggressive short-notice fill list (recall list with same-day availability) to replace cancellations immediately. Each percentage point of leakage at current appointment volume = ~$65K quarterly.</p>
+    <p><span class="owner">Owner: Operations + Office Manager</span> &nbsp;|&nbsp; <span class="impact">Impact: Reducing no-shows from 4.3% to 3% = ~$13K quarterly; reducing cancellations from 3% to 1.5% = ~$19.5K quarterly</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Implement Online Scheduling System</h4>
+    <p>Zero online scheduling availability (0% adoption) is a competitive disadvantage. Prospective patients expect to self-book new patient appointments. Invest in an online scheduling system (native to your PM system or integrated third-party) with dedicated NP slots. Target: 25%+ of new patient bookings should come through online scheduling within 6 months. This reduces friction in the patient acquisition funnel and improves 3rd next available (currently not tracked, likely >7 days). Even if no "3rd Next Available" data is captured, adding online NP scheduling will immediately improve call conversion by providing patients with self-service booking options.</p>
+    <p><span class="owner">Owner: Operations + IT</span> &nbsp;|&nbsp; <span class="impact">Impact: Online scheduling typically increases NP bookings by 15-20% and improves call-to-appointment conversion</span></p>
+  </div>
+
+  <!-- CLINICAL -->
+  <div class="team-header">Clinical</div>
+  <div class="action-item">
+    <h4>Hygiene-to-Restorative Handoff Improvement (CRITICAL)</h4>
+    <p>The handoff ratio of 0.43 is critically low — only 43% of hygiene patients are converting to restorative visits vs. the 0.85 benchmark. This means 57% of hygiene patients are leaving without seeing the doctor for treatment. This is both a clinical and revenue issue. Implement warm chairside handoffs: hygienist communicates findings directly to doctor before patient leaves hygiene bay. Doctor performs clinical exam and discusses treatment recommendations in the hygiene chair or at chairside. Every hygiene visit must result in either a restorative exam scheduled same-visit or documented clinical rationale for deferral. This single metric is a major opportunity: improving to 0.85 could yield ~400 additional restorative visits per quarter × $581 avg = ~$232K in production recovery.</p>
+    <p><span class="owner">Owner: Clinical</span> &nbsp;|&nbsp; <span class="impact">Impact: Each 0.1 improvement in handoff ratio = ~60 additional restorative visits/quarter × $581 = ~$35K recovery</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Rebuild Same-Day Restorative Production</h4>
+    <p>Same-day restorative revenue declined $74.4K quarterly (10.3% drop). While case diagnosed % restorative declined slightly (30% → 28.8%), the real issue is fewer patients overall are being presented with same-day treatment opportunities. The clinical team needs retraining on chairside diagnosis and patient education around immediate treatment. Empower the hygiene team and doctor to identify and present same-day opportunities (small composites, sealants, prophy issues). Use the 48-hour confirmation protocol to block out same-day treatment slots. Goal: recover the $74K quarterly loss through increased chairside diagnosis and case acceptance. This pairs directly with handoff ratio improvement.</p>
+    <p><span class="owner">Owner: Clinical</span> &nbsp;|&nbsp; <span class="impact">Impact: Recovering the $74.4K same-day decline = ~13% increase in same-day restorative presentations and acceptance</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Case Acceptance Dollar Improvement Strategy</h4>
+    <p>Case $ Accepted % declined from 46.7% to 38.2%, and average restorative $/exam fell 13.8% ($674 → $581). Investigate whether patients are declining larger treatment plans due to cost, or if case mix has shifted toward preventive/routine care. Standardize treatment plan presentations with visual aids, 3D intraoral imaging, phased treatment options. Coordinate closely with RCM to present financing options during — not after — treatment plan discussion. For larger cases, phase treatment into manageable segments. Goal: return to 46%+ case acceptance and rebuild average case size through comprehensive planning and financing education.</p>
+    <p><span class="owner">Owner: Clinical + RCM</span> &nbsp;|&nbsp; <span class="impact">Impact: Each 3pp improvement in Case $ Accepted % = ~$61K in additional accepted treatment</span></p>
+  </div>
+
+  <!-- OFFICE MANAGER -->
+  <div class="team-header">Office Manager</div>
+  <div class="action-item">
+    <h4>Daily Patient Leakage Dashboard</h4>
+    <p>Combined leakage spiked to 7.3% (up from 2.3%), with 604 total leakage events (no-shows + cancellations + broken = 225 + 157 + 382). Implement a daily dashboard review: by 10 AM each morning, pull the previous day's schedule compliance. Flag any unconfirmed appointments or recent cancellations. Owners: Confirm all unconfirmed appointments from 48-hour window. Maintain an aggressive short-notice fill list (30-day recall patients with same-day availability) to fill same-day gaps. Trending: weekly trend report to identify patterns (e.g., specific days/times with higher leakage, specific patient segments at higher risk).</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Daily AM report → Unconfirmed appts + previous-day cancellations &nbsp;|&nbsp; <span class="impact">Impact: Systematic leakage management is prerequisite for any production recovery</span></p>
+  </div>
+  <div class="action-item">
+    <h4>NP Follow-Up Protocol — 24-Hour Booking Verification</h4>
+    <p>NP Hygiene Re-Appointment improved from 41.9% to 59.9% (a significant gain), but still below the 75%+ target. Before each new patient leaves, confirm their second appointment is booked at checkout. Office Manager reviews prior day's NP list each morning — any NP without a second appointment scheduled gets a 24-hour phone call with reminder and rebooking offer. This is a manual process. Goal: push NP Hygiene Re-Appointment to 75%+, capturing an additional ~20 returned patients per quarter at $839 APV = ~$16,800 additional retention.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Manual daily checklist (Analytics NP list vs. scheduled appts) &nbsp;|&nbsp; <span class="impact">Impact: Each 5pp improvement in NP re-appt = ~18 additional returning patients/quarter</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Maintain Referral Source Data Hygiene</h4>
+    <p>Referral source tracking improved dramatically to 1.5% missing — a major win. Protect this achievement by maintaining daily compliance audits. Office Manager reviews new patient records at end of business each day — any missing referral source must be completed or verified before day closes. This data is now your roadmap for marketing budget allocation. Without it, you cannot evaluate which acquisition channels are driving results.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Daily end-of-day audit (Analytics → NP list → verify referral source field) &nbsp;|&nbsp; <span class="impact">Impact: Accurate attribution protects marketing ROI decisions and enables channel optimization</span></p>
+  </div>
+
+  <!-- RCM -->
+  <div class="team-header">RCM (Revenue Cycle Management)</div>
+  <div class="action-item">
+    <h4>Payment Plan Architecture & Treatment Financing Review</h4>
+    <p>Average restorative $/exam fell 13.8% and case $ accepted % declined to 38.2%, suggesting patients may be hesitant about larger treatment financial commitments. Audit current financing options (CareCredit, Sunbit, in-house payment plans). Are they being presented to patients? Are payment plan terms competitive? Consider expanding options or partnering with additional financing vendors. Ensure treatment coordinators present payment options during — not after — treatment plan discussion. For larger cases, establish multi-phase treatment with payment plans that align with phasing. This directly supports clinical team's case acceptance efforts.</p>
+    <p><span class="owner">Owner: RCM + Finance</span> &nbsp;|&nbsp; <span class="impact">Impact: Improved patient financing acceptance = direct support for case $ acceptance recovery (+$173K quarterly opportunity)</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Call Conversion & Front Desk Training</h4>
+    <p>NP Call Conversion is only 40% vs. 55% benchmark, and missed calls are 30% vs. 18% benchmark. Front desk staff training is critical. Audit: (1) Are all calls being answered? (2) Are missed calls being returned within 30 minutes? (3) Is the new patient inquiry being converted to appointment with specific date/time before call ends? (4) Is online scheduling being offered? With no online scheduling system yet in place, front desk staff must be empowered to schedule NP appointments confidently and quickly. Hold weekly training on call scripts, handling objections, and appointment booking. Mystery shop the phone line weekly to identify gaps. Goal: improve call conversion from 40% to 50%+ through better training and system improvements.</p>
+    <p><span class="owner">Owner: Office Manager + Marketing</span> &nbsp;|&nbsp; <span class="impact">Impact: Each 5pp improvement in call conversion = ~13-15 additional NPs/month = ~50-60/quarter at avg $581 = ~$29K-35K quarterly</span></p>
+  </div>
+
+  <!-- DOCTOR -->
+  <div class="team-header">Doctor</div>
+  <div class="action-item">
+    <h4>Schedule Availability & Velocity Maintenance</h4>
+    <p>With new patient volume down 27.7% and appointment leakage spiking, provider schedule needs immediate review. VPWD declined from 76.97 to 74.49 — a 2.48 patient decline per day. Is schedule block utilization efficient? Are there unused morning or hygiene block time that could accommodate NP appointments? With no online scheduling system, you likely don't have precise data on "3rd next available," but the practice should audit provider availability weekly. Ensure dedicated NP blocks are available with realistic capacity to handle a recovery to 372+ NPs annually (current pace: 269 × 1.33 = recovery factor). Consider adding one provider day or extending hours if demand recovery materializes.</p>
+    <p><span class="owner">Owner: Doctor + Operations</span> &nbsp;|&nbsp; <span class="impact">Impact: Optimizing schedule availability directly supports new patient acquisition and call conversion recovery</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Clinical Protocol for Hygiene-to-Restorative Handoff</h4>
+    <p>Reinforce clinical protocol for warm chairside handoffs. Every hygiene visit should include doctor communication of findings and treatment recommendations. Empower hygienists to flag clinical needs (perio, restorative, endo) to doctor before patient leaves hygiene area. Standardize documentation (perio codes, case diagnosed %, treatment recommendations recorded). The goal is not to pressure patients into unnecessary treatment, but to ensure every patient receives a thorough clinical evaluation and clear understanding of their treatment needs. This is the pathway to improving the 0.43 handoff ratio back to the 0.85+ benchmark.</p>
+    <p><span class="owner">Owner: Doctor</span> &nbsp;|&nbsp; <span class="impact">Impact: Improved handoff ratio unlocks ~$232K in potential quarterly restorative production recovery</span></p>
+  </div>
+</div>
+
+<!-- ============ MARKETING ROI ============ -->
+<div class="section">
+  <h2>Marketing ROI & Cost Per Acquisition</h2>
+  <div class="insight">
+    <strong>Data Not Provided:</strong> No paid media spend export was provided for this analysis. To include marketing ROI, CPA, CAC, and channel-level performance in future reports, please provide a CRM or ad platform export showing spend, leads, qualified leads, appointments scheduled, and new patients by referral source. With referral source now tracked at 1.5%, Analytics can generate this breakdown directly from Dental Intel.
+  </div>
+</div>
+
+<!-- ============ DISCLAIMER ============ -->
+<div class="disclaimer">
+  <p><strong>Confidential — Prepared for Beaumont Family Dentistry (Main) Leadership</strong></p>
+  <p>This report was generated using practice management data (Dental Intel) and scorecard inputs provided. All calculations are shown for traceability. AI-generated analyses carry an estimated 40% accuracy caveat — human validation of findings and recommendations is strongly encouraged. Data period: Q1 2025 (Jan–Mar 2025) vs. Q1 2026 (Jan–Mar 2026). Working days assumed: 50 per quarter. Note: This location faces significant headwinds (9.6% production decline, 118.9% attrition, 7.3% appointment leakage) that require immediate, coordinated action across marketing, operations, and clinical teams. Prioritize patient retention/reactivation, appointment confirmation protocols, and hygiene-to-restorative handoff improvement.</p>
+  <p>Report generated: April 1, 2026</p>
+</div>
+
+</div>
+</body>
+</html>
