@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Search Report — Louise J. | April 1, 2026</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f4f8; color: #1a2433; line-height: 1.6; }
+
+  /* ===== NAV ===== */
+  #top-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #0f2540; color: #fff;
+    padding: 0 1.5rem; display: flex; align-items: center; gap: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    flex-wrap: wrap;
+  }
+  #top-nav .nav-brand { font-size: 0.85rem; font-weight: 700; color: #7dd3fc; padding: 0.75rem 1.5rem 0.75rem 0; border-right: 1px solid #1e3a5f; white-space: nowrap; }
+  #top-nav a { color: #cbd5e1; text-decoration: none; font-size: 0.8rem; padding: 0.75rem 0.85rem; transition: color 0.2s; white-space: nowrap; }
+  #top-nav a:hover { color: #7dd3fc; }
+
+  /* ===== LAYOUT ===== */
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* ===== HEADER ===== */
+  .report-header {
+    background: linear-gradient(135deg, #0f2540 0%, #1e4976 60%, #1a6bb5 100%);
+    color: #fff; padding: 3rem 2rem 2.5rem; border-radius: 12px; margin-bottom: 2rem;
+    position: relative; overflow: hidden;
+  }
+  .report-header::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: rgba(125,211,252,0.08);
+  }
+  .report-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .report-header .subtitle { color: #93c5fd; font-size: 1rem; margin-bottom: 1.5rem; }
+  .meta-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .meta-tag { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 0.3rem 0.85rem; font-size: 0.78rem; color: #e0f2fe; }
+
+  /* ===== SECTION TITLES ===== */
+  .section { margin-bottom: 2rem; }
+  .section-title { font-size: 1.25rem; font-weight: 700; color: #0f2540; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid #3b82f6; display: flex; align-items: center; gap: 0.5rem; }
+  .section-title .icon { font-size: 1.1rem; }
+
+  /* ===== COLLAPSIBLE ===== */
+  details { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+  details summary {
+    cursor: pointer; padding: 1rem 1.25rem; font-weight: 600; font-size: 0.95rem;
+    list-style: none; display: flex; align-items: center; justify-content: space-between;
+    border-radius: 10px; transition: background 0.15s;
+  }
+  details summary:hover { background: #f0f9ff; }
+  details summary::after { content: '▸'; color: #64748b; font-size: 0.8rem; transition: transform 0.2s; }
+  details[open] summary::after { transform: rotate(90deg); }
+  details[open] summary { border-radius: 10px 10px 0 0; border-bottom: 1px solid #e2e8f0; }
+  .details-body { padding: 1.25rem; }
+
+  /* ===== CANDIDATE SNAPSHOT ===== */
+  .snapshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+  .snapshot-card { background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px; padding: 0.85rem 1rem; }
+  .snapshot-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 0.25rem; }
+  .snapshot-card .value { font-size: 0.9rem; font-weight: 600; color: #1e3a5f; }
+
+  .strengths-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .strength-badge { background: #dcfce7; color: #15803d; border-radius: 20px; padding: 0.3rem 0.8rem; font-size: 0.78rem; font-weight: 600; }
+
+  /* ===== FILTERS ===== */
+  .filter-bar {
+    background: #fff; border-radius: 10px; padding: 1rem 1.25rem;
+    display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
+    margin-bottom: 1.25rem; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .filter-bar label { font-size: 0.8rem; color: #64748b; font-weight: 600; }
+  .filter-bar select { border: 1px solid #d1d5db; border-radius: 6px; padding: 0.35rem 0.65rem; font-size: 0.82rem; cursor: pointer; background: #f8fafc; }
+  .filter-bar button { background: #3b82f6; color: #fff; border: none; border-radius: 6px; padding: 0.35rem 0.9rem; font-size: 0.82rem; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+  .filter-bar button:hover { background: #2563eb; }
+
+  /* ===== JOB CARDS ===== */
+  .jobs-grid { display: flex; flex-direction: column; gap: 1rem; }
+  .job-card { background: #fff; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden; transition: box-shadow 0.2s; }
+  .job-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.13); }
+  .job-card-header { padding: 1.1rem 1.25rem 0.75rem; display: flex; align-items: flex-start; gap: 1rem; }
+  .rank-badge { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; flex-shrink: 0; color: #fff; }
+  .rank-1 { background: linear-gradient(135deg, #059669, #10b981); }
+  .rank-2 { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+  .rank-3 { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
+  .rank-other { background: linear-gradient(135deg, #475569, #64748b); }
+
+  .job-info { flex: 1; }
+  .job-title { font-size: 1rem; font-weight: 700; color: #0f2540; }
+  .job-company { font-size: 0.88rem; color: #475569; margin-top: 0.1rem; }
+  .job-meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+  .job-tag { display: inline-flex; align-items: center; gap: 0.25rem; background: #f1f5f9; color: #475569; border-radius: 20px; padding: 0.2rem 0.65rem; font-size: 0.74rem; }
+  .job-tag.remote { background: #dcfce7; color: #15803d; }
+  .job-tag.hybrid { background: #fef9c3; color: #854d0e; }
+  .job-tag.onsite { background: #fce7f3; color: #9d174d; }
+  .job-tag.nc { background: #ede9fe; color: #6d28d9; }
+  .job-tag.flag { background: #fef3c7; color: #92400e; }
+
+  .score-area { display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; }
+  .score-badge { border-radius: 8px; padding: 0.25rem 0.75rem; font-size: 0.82rem; font-weight: 800; }
+  .score-green { background: #dcfce7; color: #15803d; }
+  .score-yellow { background: #fef9c3; color: #854d0e; }
+  .score-orange { background: #ffedd5; color: #9a3412; }
+  .score-bar-wrap { width: 80px; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 3px; }
+  .fill-green { background: #10b981; }
+  .fill-yellow { background: #f59e0b; }
+  .fill-orange { background: #f97316; }
+
+  .job-card-body { padding: 0 1.25rem 1rem; }
+  .salary-line { font-size: 0.85rem; color: #059669; font-weight: 700; margin-bottom: 0.5rem; }
+  .salary-line .salary-note { font-weight: 400; color: #64748b; font-size: 0.78rem; margin-left: 0.35rem; }
+
+  .skills-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
+  .skill-match { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 4px; padding: 0.15rem 0.55rem; font-size: 0.73rem; }
+  .skill-gap { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; border-radius: 4px; padding: 0.15rem 0.55rem; font-size: 0.73rem; }
+
+  .job-card-footer { padding: 0.75rem 1.25rem; border-top: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+  .apply-btn { background: #0f2540; color: #fff; text-decoration: none; border-radius: 7px; padding: 0.45rem 1.1rem; font-size: 0.82rem; font-weight: 700; transition: background 0.2s; }
+  .apply-btn:hover { background: #1e4976; }
+  .apply-btn.top { background: linear-gradient(135deg, #059669, #10b981); }
+  .apply-btn.top:hover { background: #047857; }
+  .expand-toggle { background: none; border: 1px solid #d1d5db; color: #64748b; border-radius: 6px; padding: 0.35rem 0.75rem; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
+  .expand-toggle:hover { background: #f0f9ff; border-color: #3b82f6; color: #3b82f6; }
+
+  .job-details-panel { padding: 0 1.25rem 1.25rem; border-top: 1px solid #f1f5f9; display: none; }
+  .job-details-panel.open { display: block; }
+  .job-details-panel h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin: 0.75rem 0 0.35rem; }
+  .job-details-panel p { font-size: 0.87rem; color: #374151; }
+  .job-details-panel ul { font-size: 0.87rem; color: #374151; padding-left: 1.2rem; }
+  .job-details-panel ul li { margin-bottom: 0.2rem; }
+
+  /* ===== DEEP DIVE ===== */
+  .deep-dive { background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%); border: 1px solid #bfdbfe; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+  .deep-dive-badge { display: inline-block; background: linear-gradient(135deg, #059669, #10b981); color: #fff; border-radius: 20px; padding: 0.25rem 0.9rem; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: 0.03em; }
+  .deep-dive h2 { font-size: 1.4rem; font-weight: 800; color: #0f2540; margin-bottom: 0.25rem; }
+  .deep-dive .deep-company { color: #1d4ed8; font-weight: 600; font-size: 1rem; margin-bottom: 0.75rem; }
+  .deep-dive .why-match { background: #fff; border-left: 4px solid #10b981; border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 1.25rem; font-size: 0.9rem; color: #374151; }
+
+  /* ===== RECS TABLES ===== */
+  .rec-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin-top: 0.75rem; }
+  .rec-table th { background: #0f2540; color: #fff; padding: 0.55rem 0.85rem; text-align: left; font-size: 0.78rem; }
+  .rec-table td { padding: 0.55rem 0.85rem; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  .rec-table tr:last-child td { border-bottom: none; }
+  .rec-table tr:nth-child(even) td { background: #f8fafc; }
+  .priority-high { display: inline-block; background: #fce7f3; color: #be185d; border-radius: 4px; padding: 0.1rem 0.5rem; font-size: 0.72rem; font-weight: 700; }
+  .priority-med { display: inline-block; background: #fef9c3; color: #854d0e; border-radius: 4px; padding: 0.1rem 0.5rem; font-size: 0.72rem; font-weight: 700; }
+  .priority-low { display: inline-block; background: #dcfce7; color: #15803d; border-radius: 4px; padding: 0.1rem 0.5rem; font-size: 0.72rem; font-weight: 700; }
+
+  /* ===== COVER LETTER ===== */
+  .cover-letter-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; position: relative; white-space: pre-wrap; font-size: 0.88rem; line-height: 1.75; color: #374151; }
+  .copy-btn { position: absolute; top: 1rem; right: 1rem; background: #3b82f6; color: #fff; border: none; border-radius: 6px; padding: 0.35rem 0.85rem; font-size: 0.78rem; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+  .copy-btn:hover { background: #2563eb; }
+  .copy-btn.copied { background: #059669; }
+
+  /* ===== INTERVIEW PREP ===== */
+  .interview-card { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
+  .q-num { display: inline-block; background: #0f2540; color: #fff; border-radius: 6px; padding: 0.1rem 0.55rem; font-size: 0.75rem; font-weight: 700; margin-right: 0.5rem; }
+  .q-text { font-weight: 600; font-size: 0.9rem; color: #0f2540; }
+  .q-answer { margin-top: 0.6rem; font-size: 0.85rem; color: #475569; padding-left: 1rem; border-left: 3px solid #3b82f6; }
+
+  .company-brief { background: #eff6ff; border-radius: 10px; padding: 1.1rem 1.25rem; margin-top: 1rem; }
+  .company-brief h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; color: #1d4ed8; margin-bottom: 0.5rem; }
+  .company-brief ul { font-size: 0.86rem; color: #374151; padding-left: 1.2rem; }
+  .company-brief ul li { margin-bottom: 0.3rem; }
+
+  .ask-qs { background: #f0fdf4; border-radius: 10px; padding: 1rem 1.25rem; margin-top: 1rem; }
+  .ask-qs h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; color: #059669; margin-bottom: 0.5rem; }
+  .ask-qs ul { font-size: 0.86rem; color: #374151; padding-left: 1.2rem; }
+  .ask-qs ul li { margin-bottom: 0.3rem; }
+
+  /* ===== SALARY TABLE ===== */
+  .salary-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .salary-table th { background: #0f2540; color: #fff; padding: 0.65rem 1rem; text-align: left; font-size: 0.8rem; }
+  .salary-table td { padding: 0.65rem 1rem; border-bottom: 1px solid #e2e8f0; }
+  .salary-table tr:last-child td { border-bottom: none; }
+  .salary-table tr:nth-child(even) td { background: #f8fafc; }
+  .sal-posted { color: #059669; font-weight: 600; }
+  .sal-est { color: #6366f1; font-weight: 600; }
+  .sal-note { font-size: 0.73rem; color: #94a3b8; }
+
+  /* ===== FOOTER ===== */
+  .report-footer { text-align: center; padding: 2rem; color: #94a3b8; font-size: 0.8rem; border-top: 1px solid #e2e8f0; margin-top: 2rem; }
+  .report-footer strong { color: #64748b; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    #top-nav { display: none; }
+    body { background: #fff; }
+    .job-card, details { box-shadow: none; border: 1px solid #e2e8f0; }
+    .apply-btn { background: #0f2540 !important; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .report-header h1 { font-size: 1.5rem; }
+    .score-bar-wrap { display: none; }
+    #top-nav a { padding: 0.65rem 0.5rem; font-size: 0.72rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav id="top-nav">
+  <div class="nav-brand">🔍 Job Search Report</div>
+  <a href="#snapshot">Snapshot</a>
+  <a href="#top10">Top 10 Jobs</a>
+  <a href="#deepdive">Deep Dive</a>
+  <a href="#resume">Resume</a>
+  <a href="#linkedin">LinkedIn</a>
+  <a href="#coverletter">Cover Letter</a>
+  <a href="#interview">Interview</a>
+  <a href="#salary">Salary</a>
+</nav>
+
+<!-- REPORT HEADER -->
+<div class="container">
+  <div class="report-header">
+    <h1>Job Search Report for Louise J.</h1>
+    <div class="subtitle">Weekly automated search — April 1, 2026</div>
+    <div class="meta-tags">
+      <span class="meta-tag">🎯 Target: Executive Assistant / EA to CEO</span>
+      <span class="meta-tag">📍 Remote + North Carolina</span>
+      <span class="meta-tag">💼 10+ Years C-Suite Experience</span>
+      <span class="meta-tag">🏥 Healthcare | Finance | Tech</span>
+      <span class="meta-tag">📋 10 Active Matches Found</span>
+      <span class="meta-tag">⏰ Re-runs Weekly</span>
+    </div>
+  </div>
+
+  <!-- CANDIDATE SNAPSHOT -->
+  <div class="section" id="snapshot">
+    <div class="section-title"><span class="icon">👤</span> Candidate Snapshot</div>
+    <details open>
+      <summary>Louise J. — Senior Executive Assistant Profile</summary>
+      <div class="details-body">
+        <div class="snapshot-grid">
+          <div class="snapshot-card">
+            <div class="label">Current Title</div>
+            <div class="value">EA to CEO, Gen4 Dental Partners</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="label">Experience Level</div>
+            <div class="value">Senior / 10+ Years</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="label">Location</div>
+            <div class="value">North Carolina (Remote-Capable)</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="label">Industries Spanned</div>
+            <div class="value">Dental/Healthcare, FinTech, Banking, Manufacturing</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="label">Target Salary</div>
+            <div class="value">$75,000 – $145,000+</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="label">Work Preference</div>
+            <div class="value">Remote or NC-Based Hybrid</div>
+          </div>
+        </div>
+        <p style="font-size:0.88rem; color:#374151; margin-bottom:0.75rem;">
+          Louise is a highly experienced Executive Assistant with a multi-industry track record of C-suite support. Her career spans dental service organizations (Gen4 Dental), contingent workforce management technology (Magnit), investment banking (Barclays), futures trading (TRX Futures), and investment management (UBS, Merrill). She has directly supported CEOs, CCOs, and Managing Directors across sectors, bringing both deep administrative expertise and business acumen. Her international experience at Barclays and cross-sector versatility make her a standout candidate in today's EA market.
+        </p>
+        <div class="strengths-list">
+          <span class="strength-badge">✓ C-Suite EA Specialist</span>
+          <span class="strength-badge">✓ Healthcare / DSO Background</span>
+          <span class="strength-badge">✓ Investment Banking Experience</span>
+          <span class="strength-badge">✓ International / Global Support</span>
+          <span class="strength-badge">✓ Cross-Industry Versatility</span>
+          <span class="strength-badge">✓ Office Management Skills</span>
+          <span class="strength-badge">✓ Client Onboarding Experience</span>
+          <span class="strength-badge">✓ Financial Services Fluency</span>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- TOP 10 JOBS -->
+  <div class="section" id="top10">
+    <div class="section-title"><span class="icon">🏆</span> Top 10 Matching Jobs</div>
+
+    <div class="filter-bar">
+      <label>Sort by:</label>
+      <select id="sort-select">
+        <option value="score">Match Score</option>
+        <option value="salary">Salary (High→Low)</option>
+        <option value="rank">Rank</option>
+      </select>
+      <label>Filter:</label>
+      <select id="filter-select">
+        <option value="all">All Locations</option>
+        <option value="remote">Remote Only</option>
+        <option value="nc">North Carolina</option>
+      </select>
+      <button onclick="resetFilters()">Reset</button>
+    </div>
+
+    <div class="jobs-grid" id="jobs-grid">
+
+      <!-- JOB 1: Hello Heart -->
+      <div class="job-card" data-score="90" data-rank="1" data-loc="remote" data-salary-sort="137500">
+        <div class="job-card-header">
+          <div class="rank-badge rank-1">1</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant</div>
+            <div class="job-company">Hello Heart &nbsp;·&nbsp; Digital Cardiovascular Health</div>
+            <div class="job-meta-row">
+              <span class="job-tag remote">🟢 Fully Remote (US)</span>
+              <span class="job-tag">💰 $130K–$145K posted</span>
+              <span class="job-tag">🏥 Health Tech</span>
+              <span class="job-tag">604 employees · Series D</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-green">90 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-green" style="width:90%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$130,000 – $145,000/yr <span class="salary-note">(posted · salary only, equity & benefits additional)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">C-Suite Support</span>
+            <span class="skill-match">Calendar Management</span>
+            <span class="skill-match">Healthcare Industry</span>
+            <span class="skill-match">Travel Coordination</span>
+            <span class="skill-match">Expense Reporting</span>
+            <span class="skill-match">Remote Work</span>
+            <span class="skill-gap">Salesforce (partial gap)</span>
+            <span class="skill-gap">Asana (up-skill opportunity)</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          </div>
+          <a href="https://www.helloheart.com/about/careers" target="_blank" class="apply-btn top">⭐ Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>You will be a trusted partner enabling focus, clarity, and execution across a fast-moving revenue organization, reporting into the <strong>Commercial President</strong> and managing priorities, communication, and coordination for the GTM leadership team. This role is fully remote across the US.</p>
+          <h4>Key Responsibilities</h4>
+          <ul>
+            <li>Complex calendar management for the Commercial President and GTM leadership team</li>
+            <li>Travel coordination and expense reporting</li>
+            <li>Meeting preparation and follow-through on action items</li>
+            <li>Cross-functional coordination with product, clinical, and operations teams</li>
+            <li>Managing communications and inbox on behalf of leaders</li>
+          </ul>
+          <h4>Requirements</h4>
+          <ul>
+            <li>Highly organized, proactive, comfortable with discretion in dynamic environments</li>
+            <li>Experience with Google Workspace, Slack, and project management tools (Asana)</li>
+            <li>Familiarity with Salesforce is a plus</li>
+            <li>Proven ability to manage multiple priorities in fast-paced environments</li>
+          </ul>
+          <h4>Why This Is a Strong Match</h4>
+          <p>Louise's healthcare background at Gen4 Dental DSO translates directly to Hello Heart's health-tech space. Her C-suite support experience at Magnit (CCO) and Gen4 (CEO) aligns perfectly with supporting a Commercial President. The salary is the highest confirmed range among all 10 matches, and the role is fully remote — ideal for her North Carolina location.</p>
+        </div>
+      </div>
+
+      <!-- JOB 2: Sparrow -->
+      <div class="job-card" data-score="89" data-rank="2" data-loc="remote" data-salary-sort="110000">
+        <div class="job-card-header">
+          <div class="rank-badge rank-2">2</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant to the CEO</div>
+            <div class="job-company">Sparrow &nbsp;·&nbsp; Employee Leave Management (HR Tech)</div>
+            <div class="job-meta-row">
+              <span class="job-tag remote">🟢 Fully Remote (25% travel)</span>
+              <span class="job-tag">💰 $80K–$140K posted</span>
+              <span class="job-tag">🚀 High-Growth Startup</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-green">89 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-green" style="width:89%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$80,000 – $140,000/yr <span class="salary-note">(posted · depends on experience and location)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">CEO Support</span>
+            <span class="skill-match">5+ Years EA</span>
+            <span class="skill-match">Process Creation</span>
+            <span class="skill-match">Written Communication</span>
+            <span class="skill-match">Remote Work</span>
+            <span class="skill-match">Executive Partnership</span>
+            <span class="skill-gap">HR/Leave Tech (new domain)</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://sparrow.com/careers/" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>Partner closely with Sparrow's CEO during a critical phase of growth. This role is 90% Executive Assistant, 10% Personal Assistant. The CEO is focused on setting Sparrow's vision and building a high-performing executive team. You will create systems and manage both professional and limited personal logistics so she can operate at her highest level.</p>
+          <h4>Key Requirements</h4>
+          <ul>
+            <li>5+ years supporting senior executives (ideally CEOs or founders in high-growth environments)</li>
+            <li>Exceptional written communication skills, including the ability to write in another person's voice</li>
+            <li>Strong judgment and prioritization instincts</li>
+            <li>High-ownership mindset and comfort operating independently</li>
+            <li>Experience creating, improving, and maintaining processes</li>
+          </ul>
+          <h4>Notes</h4>
+          <p>Requires up to 25% travel to the Bay Area. This is the highest-fit role for CEO direct support based on Louise's current title. The salary range is broad — her experience level should command the upper end ($120K–$140K).</p>
+        </div>
+      </div>
+
+      <!-- JOB 3: Oliver Wyman -->
+      <div class="job-card" data-score="88" data-rank="3" data-loc="nc" data-salary-sort="67500">
+        <div class="job-card-header">
+          <div class="rank-badge rank-3">3</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant — Actuarial Consulting</div>
+            <div class="job-company">Oliver Wyman (Marsh McLennan) &nbsp;·&nbsp; Professional Services</div>
+            <div class="job-meta-row">
+              <span class="job-tag nc">📍 Raleigh, NC (Hybrid-Remote)</span>
+              <span class="job-tag">💰 $57K–$75K est.</span>
+              <span class="job-tag">🏛️ Top-Tier Firm</span>
+              <span class="job-tag hybrid">Hybrid</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-green">88 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-green" style="width:88%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$57,000 – $75,000/yr est. <span class="salary-note">(estimated · avg EA salary at Oliver Wyman Raleigh is ~$57K; senior candidates typically higher)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">Partner/Executive Support</span>
+            <span class="skill-match">Calendar Management</span>
+            <span class="skill-match">Financial Services Industry</span>
+            <span class="skill-match">Travel Coordination</span>
+            <span class="skill-match">Expense Reports</span>
+            <span class="skill-match">CRM Management</span>
+            <span class="skill-gap">Actuarial context (minor)</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://mmc.wd1.myworkdayjobs.com/en-US/MMC/job/Oliver-Wyman---Executive-Assistant---Raleigh--NC_R_276094-1" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>Support 2–4 Partners and Principals at Oliver Wyman's Raleigh office, working primarily remotely with periodic in-office requirements for meetings, trainings, and community events. Oliver Wyman is part of Marsh McLennan, a global professional services firm.</p>
+          <h4>Key Responsibilities</h4>
+          <ul>
+            <li>Managing extremely detailed and intricate calendars for multiple Partners</li>
+            <li>Booking business travel and appointments</li>
+            <li>Organizing video conferences and in-person meetings</li>
+            <li>Processing expense reports and vendor invoices</li>
+            <li>Maintaining CRM data</li>
+          </ul>
+          <h4>Why This Works for Louise</h4>
+          <p>Oliver Wyman is a blue-chip firm in the professional services/financial sector — directly aligned with Louise's Barclays and UBS background. The Raleigh, NC location is ideal if she wants local presence. The salary reflects a hybrid/regional role and may be negotiable given her experience level.</p>
+        </div>
+      </div>
+
+      <!-- JOB 4: Milliman -->
+      <div class="job-card" data-score="87" data-rank="4" data-loc="remote" data-salary-sort="111965">
+        <div class="job-card-header">
+          <div class="rank-badge rank-other">4</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant — IntelliScript (Remote)</div>
+            <div class="job-company">Milliman &nbsp;·&nbsp; Actuarial / Insurance Technology</div>
+            <div class="job-meta-row">
+              <span class="job-tag remote">🟢 Remote (Chicago/Milwaukee area preferred)</span>
+              <span class="job-tag">💰 $78.8K–$145K posted</span>
+              <span class="job-tag flag">⚠️ Apply by Apr 30, 2026</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-green">87 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-green" style="width:87%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$78,800 – $145,130/yr <span class="salary-note">(posted · IL range $90.6K–$145.1K; WI range $78.8K–$126.2K)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">Multi-Executive Support</span>
+            <span class="skill-match">Calendar Management</span>
+            <span class="skill-match">Meeting Coordination</span>
+            <span class="skill-match">Travel Coordination</span>
+            <span class="skill-match">AI Tools (valued)</span>
+            <span class="skill-gap">Chicago/Milwaukee area preferred (flag for NC applicants)</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://www.talentify.io/job/executive-assistant-intelliscript-remote-chicago-illinois-us-milliman-execu010233" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>Trusted, high-discretion partner to three Executive Leaders at Milliman IntelliScript (data-driven SaaS for insurance, health IT, and life sciences). The role combines best-in-class executive support with operational coordination — protecting each Executive's time, orchestrating calendars, and leveraging AI tools to elevate deliverables.</p>
+          <h4>Key Responsibilities</h4>
+          <ul>
+            <li>Supporting three Executive Leaders simultaneously</li>
+            <li>Complex calendar management and conflict resolution</li>
+            <li>Meeting orchestration and follow-through</li>
+            <li>Drafting and designing presentations and documents</li>
+            <li>Leveraging AI tools for efficiency</li>
+            <li>Benefits: Medical/Dental/Vision, 401(k) match, 15+ days PTO, discretionary bonus</li>
+          </ul>
+          <h4>Important Note</h4>
+          <p>The posting states candidates "may work remotely out of the Chicago, IL or Milwaukee, WI area." This may present a geographic friction point for NC-based Louise. However, it is worth applying and clarifying whether remote work from NC is acceptable — many companies are flexible despite geographic language in postings. Deadline is April 30, 2026.</p>
+        </div>
+      </div>
+
+      <!-- JOB 5: Ontinue -->
+      <div class="job-card" data-score="87" data-rank="5" data-loc="remote" data-salary-sort="90000">
+        <div class="job-card-header">
+          <div class="rank-badge rank-other">5</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant – CEO</div>
+            <div class="job-company">Ontinue &nbsp;·&nbsp; Cybersecurity (AI-Powered MXDR)</div>
+            <div class="job-meta-row">
+              <span class="job-tag remote">🟢 Fully Remote (US)</span>
+              <span class="job-tag">💰 $75K–$105K est.</span>
+              <span class="job-tag">🔐 Cybersecurity</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-green">87 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-green" style="width:87%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$75,000 – $105,000/yr <span class="salary-note">(estimated · salary not posted; estimate based on company size and role level)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">CEO Direct Support</span>
+            <span class="skill-match">Global Scheduling</span>
+            <span class="skill-match">International Travel</span>
+            <span class="skill-match">Complex Calendar</span>
+            <span class="skill-match">Liaison Role</span>
+            <span class="skill-gap">Cybersecurity industry (new domain)</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://www.remoterocketship.com/company/ontinue/jobs/executive-assistant-ceo-united-states-remote/" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>EA to the CEO of Ontinue, a cybersecurity company providing AI-powered managed detection and response (MXDR) services. The role serves multiple industries including financial services, healthcare, and high tech — all sectors in Louise's background.</p>
+          <h4>Key Requirements</h4>
+          <ul>
+            <li>5+ years in a global EA role supporting C-suite executives in a fast-paced environment</li>
+            <li>Extensive experience with complex schedules and international travel arrangements</li>
+            <li>Managing and maintaining a constantly evolving CEO calendar</li>
+            <li>Serving as liaison with internal staff and external partners at all levels</li>
+            <li>Booking domestic and international travel with visa coordination</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- JOB 6: Siemens Healthineers -->
+      <div class="job-card" data-score="86" data-rank="6" data-loc="remote" data-salary-sort="63956">
+        <div class="job-card-header">
+          <div class="rank-badge rank-other">6</div>
+          <div class="job-info">
+            <div class="job-title">Executive Administrative Assistant</div>
+            <div class="job-company">Siemens Healthineers &nbsp;·&nbsp; Medical Technology</div>
+            <div class="job-meta-row">
+              <span class="job-tag remote">🟢 Fully Remote (US)</span>
+              <span class="job-tag">💰 $53.9K–$74.1K posted</span>
+              <span class="job-tag">🏥 Medical Devices / Healthcare</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-green">86 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-green" style="width:86%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$53,860 – $74,052/yr <span class="salary-note">(posted · compensation range listed in job description)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">Senior Executive Support</span>
+            <span class="skill-match">Global Time Zone Scheduling</span>
+            <span class="skill-match">International Travel + Visas</span>
+            <span class="skill-match">Healthcare Industry</span>
+            <span class="skill-match">Electronic Filing</span>
+            <span class="skill-gap">Regulated industry context (minor)</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://jobs.siemens-healthineers.com/" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>Reports directly to the <strong>Global Head of Government Affairs</strong> at Siemens Healthineers. Serves as primary point of contact for internal and external constituencies on all matters pertaining to the Global Government Affairs office. Siemens Healthineers is one of the world's largest medical technology companies.</p>
+          <h4>Key Requirements</h4>
+          <ul>
+            <li>Associate's degree required; Bachelor's or equivalent preferred</li>
+            <li>5+ years supporting senior executives in a matrixed organization</li>
+            <li>Prior experience in healthcare, medical devices, life sciences, or regulated industry strongly preferred</li>
+            <li>Scheduling across global time zones; international travel coordination with visa applications</li>
+          </ul>
+          <h4>Notes</h4>
+          <p>The salary is on the lower end relative to Louise's experience level, but Siemens Healthineers is a prestigious, global brand with excellent stability and benefits. Her healthcare background from Gen4 Dental and international experience from Barclays are direct matches for this role's requirements.</p>
+        </div>
+      </div>
+
+      <!-- JOB 7: Match Group -->
+      <div class="job-card" data-score="82" data-rank="7" data-loc="remote" data-salary-sort="149500">
+        <div class="job-card-header">
+          <div class="rank-badge rank-other">7</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant, CEO</div>
+            <div class="job-company">Match Group &nbsp;·&nbsp; Technology / Consumer Internet</div>
+            <div class="job-meta-row">
+              <span class="job-tag">📍 Los Angeles-Based (Geographic Adj. Available)</span>
+              <span class="job-tag">💰 $143.5K–$155.5K posted</span>
+              <span class="job-tag flag">⚠️ In-Person Presence Required</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-yellow">82 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-yellow" style="width:82%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$143,500 – $155,500/yr <span class="salary-note">(posted · based in Los Angeles with geographic adjustments)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">CEO Support</span>
+            <span class="skill-match">7+ Years Experience</span>
+            <span class="skill-match">Google Suite</span>
+            <span class="skill-match">Microsoft Office</span>
+            <span class="skill-gap">LA-based presence required</span>
+            <span class="skill-gap">Consumer tech industry (new domain)</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://join.matchgroupcareers.com/careers" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>Executive Assistant to the CEO at Match Group (Tinder, Hinge, Match.com, OkCupid). The role requires 7+ years of C-level EA experience. This is the highest-posted salary on this list — but requires being LA-based or willing to relocate/travel frequently. Geographic salary adjustments may be available for NC-based candidates who can make it work remotely.</p>
+          <h4>Key Requirements</h4>
+          <ul>
+            <li>Bachelor's degree required</li>
+            <li>7+ years in senior EA role supporting C-level executives</li>
+            <li>Advanced proficiency in Google Suite and Microsoft Office</li>
+            <li>Flexibility in working hours based on CEO's business needs</li>
+          </ul>
+          <h4>Notes</h4>
+          <p>This is a stretch geographically but the highest salary on this list. If Louise is open to occasional LA travel or exploring a relocation discussion, this role is worth a conversation. The requirement aligns perfectly with her experience level.</p>
+        </div>
+      </div>
+
+      <!-- JOB 8: ArmorCode -->
+      <div class="job-card" data-score="81" data-rank="8" data-loc="remote" data-salary-sort="87500">
+        <div class="job-card-header">
+          <div class="rank-badge rank-other">8</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant</div>
+            <div class="job-company">ArmorCode Inc. &nbsp;·&nbsp; Application Security / DevSecOps</div>
+            <div class="job-meta-row">
+              <span class="job-tag remote">🟢 Remote (US West preferred)</span>
+              <span class="job-tag">💰 $75K–$100K est.</span>
+              <span class="job-tag">🔐 Security Tech Startup</span>
+              <span class="job-tag flag">⚠️ US West preferred</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-yellow">81 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-yellow" style="width:81%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$75,000 – $100,000/yr <span class="salary-note">(estimated · salary not posted; estimated from company size and market data)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">CEO + Multi-Exec Support</span>
+            <span class="skill-match">Cross-Timezone Coordination</span>
+            <span class="skill-match">Microsoft/Google Suite</span>
+            <span class="skill-match">Travel Coordination</span>
+            <span class="skill-gap">US West time zone preferred</span>
+            <span class="skill-gap">DevSecOps/tech startup context</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://www.armorcode.com/careers" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>Supporting the CEO and 2 additional senior executives at ArmorCode. The role requires managing complex calendars across US and India time zones, coordinating domestic/international travel, and serving as primary point of contact between executives and vendors.</p>
+          <h4>Key Requirements</h4>
+          <ul>
+            <li>6+ years EA experience, ideally supporting C-suite at technology or high-growth startup</li>
+            <li>Proficiency in Microsoft Office and Google Suite</li>
+            <li>Discretion in handling confidential information</li>
+            <li>Ability to work in a fast-paced, dynamic environment</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- JOB 9: Interdependence -->
+      <div class="job-card" data-score="80" data-rank="9" data-loc="remote" data-salary-sort="85000">
+        <div class="job-card-header">
+          <div class="rank-badge rank-other">9</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant (to Chairman)</div>
+            <div class="job-company">Interdependence &nbsp;·&nbsp; Diversified Portfolio Holding</div>
+            <div class="job-meta-row">
+              <span class="job-tag remote">🟢 Fully Remote (US)</span>
+              <span class="job-tag">💰 $70K–$100K est.</span>
+              <span class="job-tag">🤖 AI-Forward Role</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-yellow">80 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-yellow" style="width:80%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$70,000 – $100,000/yr <span class="salary-note">(estimated · salary not posted)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">C-Suite Support</span>
+            <span class="skill-match">Execution Focus</span>
+            <span class="skill-match">Remote Work</span>
+            <span class="skill-match">Process Building</span>
+            <span class="skill-gap">AI workflow automation (up-skill)</span>
+            <span class="skill-gap">Diverse portfolio context</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://www.remoterocketship.com/company/interdependence-2/jobs/executive-assistant-united-states-remote/" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>Executive Assistant to the Chairman of Interdependence, a diverse portfolio of businesses and investments. This role goes beyond traditional administrative support — acting as both an execution engine and architect of AI-enabled systems that increase speed, leverage, and operational efficiency across multiple business lines.</p>
+          <h4>Key Requirements</h4>
+          <ul>
+            <li>Experience in AI workflow automation and process design</li>
+            <li>High-impact operations mindset</li>
+            <li>Ability to manage priorities across a diverse portfolio of businesses and investments</li>
+            <li>Willingness to embed AI tools (like Claude, ChatGPT) into daily workflows</li>
+          </ul>
+          <h4>Notes</h4>
+          <p>This is a modern, AI-forward EA role — good for someone interested in expanding into operational/systems roles. If Louise is interested in developing AI workflow skills, this could be an excellent career accelerant.</p>
+        </div>
+      </div>
+
+      <!-- JOB 10: Assist World -->
+      <div class="job-card" data-score="76" data-rank="10" data-loc="remote" data-salary-sort="70000">
+        <div class="job-card-header">
+          <div class="rank-badge rank-other">10</div>
+          <div class="job-info">
+            <div class="job-title">Executive Assistant to CEO</div>
+            <div class="job-company">Assist World &nbsp;·&nbsp; Virtual Executive Assistant Services</div>
+            <div class="job-meta-row">
+              <span class="job-tag remote">🟢 Fully Remote (Pacific Time Hours)</span>
+              <span class="job-tag">💰 $60K–$80K est.</span>
+              <span class="job-tag flag">⚠️ 9–5 PT hours (from NC)</span>
+            </div>
+          </div>
+          <div class="score-area">
+            <span class="score-badge score-yellow">76 / 100</span>
+            <div class="score-bar-wrap"><div class="score-bar-fill fill-yellow" style="width:76%"></div></div>
+          </div>
+        </div>
+        <div class="job-card-body">
+          <div class="salary-line">$60,000 – $80,000/yr <span class="salary-note">(estimated · salary not posted; estimated for this role level)</span></div>
+          <div style="font-size:0.78rem; color:#64748b; margin-bottom:0.5rem;"><strong>Matching Skills:</strong></div>
+          <div class="skills-row">
+            <span class="skill-match">CEO Direct Support</span>
+            <span class="skill-match">Calendar Management</span>
+            <span class="skill-match">Travel Booking</span>
+            <span class="skill-match">Remote Work</span>
+            <span class="skill-gap">Pacific Time (6–2 ET from NC)</span>
+            <span class="skill-gap">Slightly under-levels Louise</span>
+          </div>
+        </div>
+        <div class="job-card-footer">
+          <button class="expand-toggle" onclick="toggleDetails(this)">▸ View Details</button>
+          <a href="https://assistworld.com/" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-details-panel">
+          <h4>Role Overview</h4>
+          <p>Full-time remote EA to CEO at Assist World (40 hrs/week), supporting CEO's calendar, inbox, projects, and travel. Hours are 9:00 AM–5:00 PM Pacific Time, which translates to 12:00 PM–8:00 PM Eastern — an unusual shift from NC. The role requires 3–5+ years of CEO/C-level EA experience.</p>
+          <h4>Notes</h4>
+          <p>Louise's experience level exceeds the stated requirements (3–5+ years vs. her 10+), which could work in her favor for negotiating salary but also flags this as potentially below her level. The Pacific Time hours are a practical consideration from North Carolina. Worth applying if the hours are workable.</p>
+        </div>
+      </div>
+
+    </div><!-- /jobs-grid -->
+  </div>
+
+  <!-- DEEP DIVE: HELLO HEART -->
+  <div class="section" id="deepdive">
+    <div class="section-title"><span class="icon">⭐</span> #1 Match Deep Dive — Hello Heart</div>
+    <div class="deep-dive">
+      <div class="deep-dive-badge">⭐ TOP MATCH — Score: 90/100</div>
+      <h2>Executive Assistant</h2>
+      <div class="deep-company">Hello Heart &nbsp;·&nbsp; Digital Cardiovascular Health Platform &nbsp;·&nbsp; Fully Remote (US)</div>
+      <div class="why-match">
+        <strong>Why this is the top match:</strong> Hello Heart combines Louise's two strongest background threads — healthcare (Gen4 Dental) and C-suite executive support (CEO at Gen4, CCO at Magnit, MD at Barclays). The role is 100% remote in the US, the salary ($130K–$145K) is the highest posted range on this entire list, and the company has serious institutional backing ($137M in funding, Fortune 500 clients). Hello Heart's mission-driven cardiovascular health work provides purpose alongside compensation. The Commercial President role maps directly to Louise's experience supporting Chief Client Officers and C-suite commercial leaders.
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUME RECOMMENDATIONS -->
+  <div class="section" id="resume">
+    <div class="section-title"><span class="icon">📄</span> Resume Recommendations for Hello Heart</div>
+    <details open>
+      <summary>Resume Optimization — Priority Action Items</summary>
+      <div class="details-body">
+        <table class="rec-table">
+          <thead>
+            <tr><th>Priority</th><th>Section</th><th>Recommendation</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="priority-high">HIGH</span></td>
+              <td>Summary / Header</td>
+              <td>Add a professional summary that leads with healthcare and commercial leadership support. Example: <em>"Senior Executive Assistant with 10+ years supporting C-suite leaders across healthcare DSOs, investment banking, and technology. Proven expertise in commercial operations, GTM team support, and multi-industry executive partnership."</em></td>
+            </tr>
+            <tr>
+              <td><span class="priority-high">HIGH</span></td>
+              <td>Keywords / ATS</td>
+              <td>Insert these exact keywords from the Hello Heart JD into your resume: <strong>"commercial operations," "Go-To-Market," "GTM leadership," "revenue organization," "Google Workspace," "Asana," "Slack."</strong> ATS systems scan for exact phrase matches.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-high">HIGH</span></td>
+              <td>Gen4 Dental Role</td>
+              <td>Expand this section — Hello Heart is health-tech and your dental DSO experience is a differentiator. Add bullets about the scale of the organization, number of locations, and specific examples of supporting executive decision-making. Use "healthcare operations" and "health services" language.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-high">HIGH</span></td>
+              <td>Magnit Role</td>
+              <td>Under your Magnit CCO role, add: <em>"Managed cross-functional priorities for Chief Client Officer supporting a global SaaS revenue team of [X] — coordinating GTM planning sessions, quarterly business reviews, and pipeline reporting."</em> This maps directly to Hello Heart's commercial team structure.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-med">MEDIUM</span></td>
+              <td>Skills Section</td>
+              <td>Add: <strong>Google Workspace, Slack, Asana, Microsoft 365, Salesforce (mention familiarity even if limited), Zoom, DocuSign.</strong> Hello Heart's JD mentions these tools explicitly.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-med">MEDIUM</span></td>
+              <td>Barclays Role</td>
+              <td>Highlight international/global meeting coordination, complex multi-timezone scheduling, and any board-level or investor meeting support. Hello Heart has investors across multiple geographies — this experience is directly valuable.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-med">MEDIUM</span></td>
+              <td>Quantify Achievements</td>
+              <td>Add numbers where possible: <em>"Managed calendars for executive team of [X], coordinating [Y]+ meetings monthly across [Z] time zones"</em> or <em>"Coordinated travel for [X]+ annual trips including international itineraries."</em> Even estimates demonstrate scale.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-low">LOW</span></td>
+              <td>UBS / Merrill Roles</td>
+              <td>These are strong brand names — keep them brief but ensure they show client relationship management language. They reinforce the financial services sophistication that Hello Heart (Fortune 500 B2B sales) will appreciate.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-low">LOW</span></td>
+              <td>Format</td>
+              <td>Ensure your resume uses a clean, modern format with consistent section headers. If applying via ATS, use a simple single-column layout without tables or graphics. Save as both .docx and .pdf.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+
+  <!-- LINKEDIN RECOMMENDATIONS -->
+  <div class="section" id="linkedin">
+    <div class="section-title"><span class="icon">💼</span> LinkedIn Profile Recommendations</div>
+    <details>
+      <summary>LinkedIn Optimization — Section by Section</summary>
+      <div class="details-body">
+        <table class="rec-table">
+          <thead>
+            <tr><th>Priority</th><th>LinkedIn Section</th><th>Recommendation</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="priority-high">HIGH</span></td>
+              <td>Headline</td>
+              <td>Update from current title to: <strong>"Senior Executive Assistant | C-Suite & Commercial Leadership Support | Healthcare · Finance · Tech | Remote-Ready"</strong> — This surfaces you in keyword searches for EA, C-suite, healthcare, remote, and technology roles simultaneously.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-high">HIGH</span></td>
+              <td>About Section</td>
+              <td>Rewrite to include: your 10+ year journey across industries, emphasis on supporting CEOs/C-suite at scale, specific mention of healthcare (Gen4), financial services (Barclays, UBS), and technology (Magnit). End with: <em>"Currently exploring senior EA and chief-of-staff-adjacent opportunities, particularly in health tech, fintech, or professional services."</em></td>
+            </tr>
+            <tr>
+              <td><span class="priority-high">HIGH</span></td>
+              <td>Skills Section</td>
+              <td>Add and reorder skills to put these at the top: <strong>Executive Administrative Assistance, Calendar Management, C-Suite Support, Google Workspace, Microsoft Office 365, Slack, Asana, Travel Management, Stakeholder Management, Process Improvement.</strong></td>
+            </tr>
+            <tr>
+              <td><span class="priority-med">MEDIUM</span></td>
+              <td>Gen4 Dental Experience</td>
+              <td>Expand bullet points to mention DSO (Dental Service Organization) scale, partnership with CEO on strategic initiatives, and any cross-functional work with marketing, operations, or clinical teams.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-med">MEDIUM</span></td>
+              <td>Recommendations</td>
+              <td>Request a recommendation from your current or recent manager at Gen4 focused on: executive partnership, reliability, discretion, and healthcare operations context. Also ask a contact from Magnit or Barclays to speak to your cross-industry adaptability.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-med">MEDIUM</span></td>
+              <td>Featured Section</td>
+              <td>Add a featured section with: a brief document or post about "What I've Learned Supporting CEOs Across Industries" — this positions you as a thoughtful practitioner, not just a transactional EA, which hello Heart's role requires.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-low">LOW</span></td>
+              <td>Activity / Content</td>
+              <td>Post or comment on 2–3 articles about: digital health trends, executive productivity, or AI tools for EAs. Hello Heart is a health-tech company — showing interest in the intersection of health and technology signals cultural alignment.</td>
+            </tr>
+            <tr>
+              <td><span class="priority-low">LOW</span></td>
+              <td>Open to Work</td>
+              <td>Turn on the green "Open to Work" banner (visible to recruiters only if preferred) and set job titles to: Executive Assistant, Senior Executive Assistant, EA to CEO, Executive Coordinator, Chief of Staff (adjacent).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+
+  <!-- COVER LETTER -->
+  <div class="section" id="coverletter">
+    <div class="section-title"><span class="icon">✉️</span> Cover Letter — Hello Heart (Ready to Send)</div>
+    <div style="position:relative;">
+      <button class="copy-btn" id="copy-btn" onclick="copyCoverLetter()">📋 Copy to Clipboard</button>
+      <div class="cover-letter-box" id="cover-letter-text">Dear Hello Heart Hiring Team,
+
+When your mission is helping people understand and actively manage their heart health, the executive team driving commercial growth deserves a partner who brings the same level of care and precision to their day-to-day operations. That's the kind of support I've built my career on.
+
+For over a decade, I've served as a trusted executive partner to C-suite leaders across healthcare, financial services, and technology — including my current role as Executive Assistant to the CEO at Gen4 Dental Partners, one of the nation's fastest-growing dental service organizations. In each role, I've functioned as the operational backbone for leaders whose time is one of their most valuable assets: managing complex calendars, anticipating organizational needs, orchestrating cross-functional communications, and ensuring nothing falls through the cracks.
+
+What draws me to Hello Heart specifically is the intersection of mission and commercial scale. You're not just building a product — you're partnering with Fortune 500 companies and government employers to address one of the most significant public health challenges of our time. Supporting the Commercial President and GTM leadership team in this context is exactly the kind of high-impact work I'm looking for: meaningful, fast-moving, and requiring the kind of proactive partnership that goes well beyond scheduling.
+
+My experience spans Google Workspace, Slack, and project coordination across distributed, fast-moving teams. I bring discretion with sensitive information, calm under pressure, and a genuine investment in the success of the leaders I support.
+
+I'd welcome the opportunity to discuss how I can help Hello Heart's commercial team operate at its best.
+
+Warmly,
+Louise Jacovou</div>
+    </div>
+  </div>
+
+  <!-- INTERVIEW PREP -->
+  <div class="section" id="interview">
+    <div class="section-title"><span class="icon">🎤</span> Interview Prep — Hello Heart</div>
+    <details open>
+      <summary>5 Likely Interview Questions + Talking Points</summary>
+      <div class="details-body">
+
+        <div class="interview-card">
+          <div><span class="q-num">Q1</span><span class="q-text">Tell me about your experience supporting commercial or revenue-focused leaders. How did you adapt to the pace of a GTM or sales organization?</span></div>
+          <div class="q-answer"><strong>Talking points:</strong> Reference your Magnit CCO role — Chief Client Officer is literally the commercial/revenue leader at a SaaS company. Discuss how you managed their calendar around client meetings, QBRs, sales cycles, and pipeline reviews. Mention that at Gen4 Dental, you worked closely with the CEO who oversaw commercial growth of the DSO network. Emphasize your comfort with fast-moving environments and shifting priorities.</div>
+        </div>
+
+        <div class="interview-card">
+          <div><span class="q-num">Q2</span><span class="q-text">Describe a time you had to manage competing priorities from multiple senior leaders simultaneously. How did you handle it?</span></div>
+          <div class="q-answer"><strong>Talking points:</strong> Use your TRX Futures or Barclays experience where you managed multiple executives in a high-stakes financial environment. Describe your triage system for calendar conflicts, how you communicated trade-offs to executives, and the outcome. Emphasize your judgment in deciding what rises to the top vs. what can wait — this signals strategic partnership, not just task execution.</div>
+        </div>
+
+        <div class="interview-card">
+          <div><span class="q-num">Q3</span><span class="q-text">How have you used tools like Google Workspace, Slack, or project management software in your current or past roles? What's your comfort level with Asana or Salesforce?</span></div>
+          <div class="q-answer"><strong>Talking points:</strong> Be honest about your primary tools at Gen4 and Magnit. If you've used any project management software, mention it. For Salesforce — even if you've only had light exposure (running reports, logging contacts), mention it and frame any gaps as "I'm highly adaptable and have a track record of picking up new tools quickly." Google Workspace is expected — speak fluently about Drive, Docs, Sheets, Gmail, and Calendar.</div>
+        </div>
+
+        <div class="interview-card">
+          <div><span class="q-num">Q4</span><span class="q-text">What does exceptional executive support look like to you? How do you define success in this role?</span></div>
+          <div class="q-answer"><strong>Talking points:</strong> Lead with anticipation vs. reaction — the best EAs don't wait to be told, they anticipate what the executive needs before they know they need it. Mention building trust through discretion, consistency, and follow-through. Reference specific examples: how you learned a leader's priorities well enough to filter their calendar without asking, or how you identified a conflict weeks ahead and resolved it quietly. This is your chance to demonstrate executive partnership philosophy.</div>
+        </div>
+
+        <div class="interview-card">
+          <div><span class="q-num">Q5</span><span class="q-text">Tell me about your experience in the healthcare space and why you're drawn to Hello Heart's mission.</span></div>
+          <div class="q-answer"><strong>Talking points:</strong> Lean into your Gen4 Dental experience — supporting a CEO at a dental service organization that operates clinical offices means you understand the intersection of healthcare operations, patient outcomes, and business growth. Then connect personally: cardiovascular disease affects every family, and Hello Heart's work with employers to give people tools to monitor and improve their heart health is a powerful mission. Authentic enthusiasm for the sector is what sets you apart from a candidate with a purely tech or finance background.</div>
+        </div>
+
+        <div class="company-brief">
+          <h4>📚 Company Research Brief</h4>
+          <ul>
+            <li><strong>What they do:</strong> FDA-cleared blood pressure monitor + AI-powered app that helps users track cardiovascular health and connect with physicians proactively</li>
+            <li><strong>Funding:</strong> $137M+ total; most recent was $70M Series D led by Stripes growth equity</li>
+            <li><strong>Scale:</strong> 605 employees; serving 130+ Fortune 500 companies, government employers, national health plans, and labor organizations</li>
+            <li><strong>Headquarters:</strong> Tel Aviv, Israel (with US commercial operations — role is US remote)</li>
+            <li><strong>Mission:</strong> "Enable people to be active participants in their own heart health journey"</li>
+            <li><strong>Market:</strong> Employer digital health benefits — growing significantly as companies invest in preventive health tools for workforces</li>
+            <li><strong>Leadership:</strong> Look up current CEO and Commercial President on LinkedIn before your interview — know their names, their backgrounds, and any recent company news</li>
+          </ul>
+        </div>
+
+        <div class="ask-qs">
+          <h4>❓ Questions to Ask the Interviewer</h4>
+          <ul>
+            <li>"What does success look like for this role in the first 60–90 days, and how will you measure it?"</li>
+            <li>"How does the Commercial President prefer to receive information — verbal briefings, written summaries, a combination? What communication style has worked best with previous EAs?"</li>
+            <li>"What are the biggest operational challenges facing the commercial team right now that this role can help address?"</li>
+            <li>"How does the EA role intersect with the Chief of Staff or Operations function, if any?"</li>
+            <li>"What tools and systems does the commercial team primarily run on — and are there any new tools being introduced this year?"</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- SALARY OVERVIEW -->
+  <div class="section" id="salary">
+    <div class="section-title"><span class="icon">💰</span> Salary Overview — All 10 Matches</div>
+    <p style="font-size:0.85rem; color:#64748b; margin-bottom:1rem;">
+      Market benchmark: Remote EA to CEO in the US averages $64,456/yr; senior-level (10+ years, C-suite) typically commands $80,000–$140,000. North Carolina EA salaries average $59,462–$79,143 (Raleigh-Durham). Louise's experience level should target the upper quartile in all cases.
+    </p>
+    <table class="salary-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Company / Role</th>
+          <th>Location</th>
+          <th>Salary Range</th>
+          <th>Type</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td><td>Hello Heart — EA</td><td>Remote US</td>
+          <td class="sal-posted">$130,000 – $145,000</td><td>Posted</td>
+          <td>Highest confirmed posted range. Salary only; equity + benefits additional.</td>
+        </tr>
+        <tr>
+          <td>2</td><td>Sparrow — EA to CEO</td><td>Remote (25% travel)</td>
+          <td class="sal-posted">$80,000 – $140,000</td><td>Posted</td>
+          <td>Wide range; Louise's experience level should command upper end ($120K–$140K).</td>
+        </tr>
+        <tr>
+          <td>3</td><td>Oliver Wyman — EA</td><td>Raleigh, NC (Hybrid)</td>
+          <td class="sal-est">$57,000 – $75,000</td><td>Estimated</td>
+          <td>Based on posted avg of ~$57.7K for EA at Oliver Wyman Raleigh. Senior candidates may negotiate higher.</td>
+        </tr>
+        <tr>
+          <td>4</td><td>Milliman — EA (IntelliScript)</td><td>Remote (IL/WI preferred)</td>
+          <td class="sal-posted">$78,800 – $145,130</td><td>Posted</td>
+          <td>IL range $90.6K–$145.1K. Strong range; NC applicant should confirm remote eligibility.</td>
+        </tr>
+        <tr>
+          <td>5</td><td>Ontinue — EA to CEO</td><td>Remote US</td>
+          <td class="sal-est">$75,000 – $105,000</td><td>Estimated</td>
+          <td>Salary not posted. Estimate based on company size (startup), role level, and market data.</td>
+        </tr>
+        <tr>
+          <td>6</td><td>Siemens Healthineers — EA Admin</td><td>Remote US</td>
+          <td class="sal-posted">$53,860 – $74,052</td><td>Posted</td>
+          <td>Below market for Louise's experience level. Siemens brand and stability may compensate.</td>
+        </tr>
+        <tr>
+          <td>7</td><td>Match Group — EA to CEO</td><td>Los Angeles-Based</td>
+          <td class="sal-posted">$143,500 – $155,500</td><td>Posted</td>
+          <td>Highest posted salary. LA-based role may receive geographic adjustment for remote; verify.</td>
+        </tr>
+        <tr>
+          <td>8</td><td>ArmorCode Inc. — EA</td><td>Remote (US West pref.)</td>
+          <td class="sal-est">$75,000 – $100,000</td><td>Estimated</td>
+          <td>Salary not posted. Estimate based on startup stage (Series B) and role scope.</td>
+        </tr>
+        <tr>
+          <td>9</td><td>Interdependence — EA to Chairman</td><td>Remote US</td>
+          <td class="sal-est">$70,000 – $100,000</td><td>Estimated</td>
+          <td>Salary not posted. AI-forward role may offer equity/performance upside.</td>
+        </tr>
+        <tr>
+          <td>10</td><td>Assist World — EA to CEO</td><td>Remote (Pacific Time)</td>
+          <td class="sal-est">$60,000 – $80,000</td><td>Estimated</td>
+          <td>Salary not posted. Pacific Time hours from NC = 12PM–8PM ET shift. Lower ceiling than other roles.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.78rem; color:#94a3b8; margin-top:0.75rem;">
+      Salary data sourced from: posted job descriptions, ZipRecruiter (March 2026), Glassdoor (March 2026), Salary.com, and market estimates based on role, company stage, and location. "Estimated" salaries are clearly labeled and should be verified during the interview process.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    <p><strong>Generated April 1, 2026</strong> — Re-run weekly for fresh results</p>
+    <p style="margin-top:0.4rem;">⚠️ Job availability changes frequently. All listings were identified as active at the time of this search. Verify current status before applying. Apply URLs link to company career pages or verified job boards.</p>
+    <p style="margin-top:0.4rem; color:#cbd5e1;">This report is confidential and intended for Louise J. only. Privacy: no phone number, email, or home address is included in this document.</p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // Toggle job detail panels
+  function toggleDetails(btn) {
+    const card = btn.closest('.job-card');
+    const panel = card.querySelector('.job-details-panel');
+    const isOpen = panel.classList.contains('open');
+    panel.classList.toggle('open', !isOpen);
+    btn.textContent = isOpen ? '▸ View Details' : '▾ Hide Details';
+  }
+
+  // Copy cover letter
+  function copyCoverLetter() {
+    const text = document.getElementById('cover-letter-text').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '📋 Copy to Clipboard';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  }
+
+  // Sort/Filter jobs
+  function resetFilters() {
+    document.getElementById('sort-select').value = 'score';
+    document.getElementById('filter-select').value = 'all';
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const sortBy = document.getElementById('sort-select').value;
+    const filterLoc = document.getElementById('filter-select').value;
+    const grid = document.getElementById('jobs-grid');
+    const cards = Array.from(grid.querySelectorAll('.job-card'));
+
+    // Filter
+    cards.forEach(card => {
+      const loc = card.dataset.loc;
+      if (filterLoc === 'all') {
+        card.style.display = '';
+      } else if (filterLoc === 'remote') {
+        card.style.display = loc === 'remote' ? '' : 'none';
+      } else if (filterLoc === 'nc') {
+        card.style.display = loc === 'nc' ? '' : 'none';
+      }
+    });
+
+    // Sort
+    const visible = cards.filter(c => c.style.display !== 'none');
+    visible.sort((a, b) => {
+      if (sortBy === 'score') return parseInt(b.dataset.score) - parseInt(a.dataset.score);
+      if (sortBy === 'salary') return parseInt(b.dataset.salarySort) - parseInt(a.dataset.salarySort);
+      if (sortBy === 'rank') return parseInt(a.dataset.rank) - parseInt(b.dataset.rank);
+      return 0;
+    });
+    visible.forEach(card => grid.appendChild(card));
+  }
+
+  document.getElementById('sort-select').addEventListener('change', applyFilters);
+  document.getElementById('filter-select').addEventListener('change', applyFilters);
+</script>
+
+</body>
+</html>
