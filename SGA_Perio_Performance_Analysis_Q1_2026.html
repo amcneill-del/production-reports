@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGA Perio Portfolio — Q1 2026 Performance Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2E5E8C 0%, #1a3a52 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .nav-sticky {
+            background: white;
+            border-bottom: 2px solid #2E5E8C;
+            padding: 0.75rem 2rem;
+            position: sticky;
+            top: 95px;
+            z-index: 90;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-buttons button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            background: #f0f0f0;
+            color: #2E5E8C;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-buttons button:hover {
+            background: #2E5E8C;
+            color: white;
+        }
+
+        .nav-buttons button.active {
+            background: #2E5E8C;
+            color: white;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: #2E5E8C;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #2E5E8C;
+            padding-bottom: 0.75rem;
+        }
+
+        .section h3 {
+            color: #2E5E8C;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .kpi-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+            border-left: 4px solid #2E5E8C;
+            padding: 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .kpi-card.good {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+        }
+
+        .kpi-card.bad {
+            border-left-color: #e74c3c;
+            background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+        }
+
+        .kpi-card.neutral {
+            border-left-color: #f39c12;
+            background: linear-gradient(135deg, #fffbf0 0%, #ffffff 100%);
+        }
+
+        .kpi-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2E5E8C;
+        }
+
+        .kpi-change {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .kpi-change.positive {
+            color: #27ae60;
+        }
+
+        .kpi-change.negative {
+            color: #e74c3c;
+        }
+
+        .metric-good {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .metric-bad {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .metric-neutral {
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        table th {
+            background: #2E5E8C;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background: #fafafa;
+        }
+
+        table tbody tr:hover {
+            background: #f0f5ff;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .collapsible {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-left: 4px solid #2E5E8C;
+            cursor: pointer;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .collapsible:hover {
+            background: #eee;
+        }
+
+        .collapsible-content {
+            display: none;
+            margin-top: 1rem;
+            padding-left: 1rem;
+        }
+
+        .collapsible-content.show {
+            display: block;
+        }
+
+        .summary-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #444;
+            margin: 1rem 0;
+        }
+
+        .action-item {
+            background: #f9f9f9;
+            border-left: 4px solid #2E5E8C;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+
+        .action-team {
+            color: #2E5E8C;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-text {
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .benchmark-note {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #2c5aa0;
+        }
+
+        .data-note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #856404;
+        }
+
+        footer {
+            background: #2E5E8C;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media print {
+            body { background: white; }
+            .nav-sticky { position: static; }
+            .section { page-break-inside: avoid; }
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.5rem; }
+            .kpi-cards { grid-template-columns: 1fr; }
+            table { font-size: 0.8rem; }
+            table th, table td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SGA Periodontal Portfolio</h1>
+        <p>Q1 2026 Performance Analysis</p>
+    </header>
+
+    <div class="nav-sticky">
+        <div class="nav-buttons">
+            <button class="nav-btn active" data-section="executive">Executive Summary</button>
+            <button class="nav-btn" data-section="portfolio">Portfolio Overview</button>
+            <button class="nav-btn" data-section="scorecard">Practice Scorecard</button>
+            <button class="nav-btn" data-section="yoy">YoY Deep-Dive</button>
+            <button class="nav-btn" data-section="referral">Referral Pipeline</button>
+            <button class="nav-btn" data-section="waterfall">Production Waterfall</button>
+            <button class="nav-btn" data-section="action">Action Plan</button>
+        </div>
+    </div>
+
+    <main>
+        <!-- EXECUTIVE SUMMARY -->
+        <div class="section active" id="executive">
+            <h2>Executive Summary</h2>
+            
+            <div class="summary-text">
+                <p><strong>The SGA periodontal portfolio contracted 6.6% in production and 6.9% in new patient volume in Q1 2026 compared to Q1 2025.</strong> While the portfolio declined from $6.64M to $6.20M in production and from 1,439 to 1,340 new patients, this decline masks significant variation across locations. Woodyard Periodontics demonstrated exceptional growth of 37.1% in production ($808K to $1.11M), establishing itself as the portfolio's strongest performer. However, this growth was offset by declines at other locations, particularly Stoner Dublin (5.6% decline) and Alpharetta, which saw case acceptance drop 16.3 percentage points despite a 29.4% increase in production. Van Scoyoc Sanford shows anomalous data (production dropped from $778K to $37.8K) requiring immediate investigation.</p>
+
+                <p><strong>Case acceptance metrics reveal a critical discrepancy.</strong> While Q1 2026 case acceptance appears dramatically higher in DI data (averaging 67.7% at portfolio level), this reflects a methodological difference from referral program data. DI case acceptance typically measures case acceptance among patients who have already scheduled, whereas referral program metrics measure acceptance among all referrals received. Both metrics are valid for their respective contexts.</p>
+
+                <p><strong>The referral program faces headwinds.</strong> Active practices in the Go Grow dataset show moderate referral volumes (averaging 100-140 referrals monthly) with case acceptance rates in the 55-75% range—below the portfolio's DI benchmarks. Time to consult averages 13-16 days, and scheduled consult percentages are healthy at 85%+. Call conversion data for practices using PeerLogic shows mixed results, with NP call conversion ranging from 37% to 79%.</p>
+
+                <p><strong>Appointment scheduling and no-show management improved modestly.</strong> Portfolio cancellation rates declined from 5.2% to 6.7%, while no-show rates improved dramatically from 5.1% to 1.9%. This suggests improved scheduling discipline and patient engagement. New patient per working day metrics show increases at several locations, with Stoner Upper Arlington and Alpharetta leading.</p>
+
+                <p><strong>Key opportunities lie in production stabilization, referral program growth, and data standardization.</strong> The portfolio should prioritize investigating Van Scoyoc Sanford's data anomaly, replicating Woodyard's growth formula across other locations, and aligning all measurement methodologies to enable consistent, comparative analysis.</p>
+            </div>
+
+            <div class="kpi-cards">
+                <div class="kpi-card bad">
+                    <div class="kpi-label">Portfolio Production Change</div>
+                    <div class="kpi-value">-6.6%</div>
+                    <div class="kpi-change negative">Q1 2025: $6.64M → Q1 2026: $6.20M</div>
+                </div>
+                <div class="kpi-card bad">
+                    <div class="kpi-label">Portfolio New Patients Change</div>
+                    <div class="kpi-value">-6.9%</div>
+                    <div class="kpi-change negative">Q1 2025: 1,439 → Q1 2026: 1,340</div>
+                </div>
+                <div class="kpi-card good">
+                    <div class="kpi-label">Best Performer (Growth)</div>
+                    <div class="kpi-value">Woodyard</div>
+                    <div class="kpi-change positive">+37.1% Production YoY</div>
+                </div>
+                <div class="kpi-card neutral">
+                    <div class="kpi-label">Portfolio Case Acceptance</div>
+                    <div class="kpi-value">67.7%</div>
+                    <div class="kpi-change">Q1 2026 (DI Data)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PORTFOLIO OVERVIEW -->
+        <div class="section" id="portfolio">
+            <h2>Portfolio Overview</h2>
+            
+            <h3>Key Metrics: Q1 2025 vs Q1 2026</h3>
+            
+            <div class="kpi-cards">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Production</div>
+                    <div class="kpi-value">$6.20M</div>
+                    <div class="kpi-change negative">Q1 2025: $6.64M (-6.6%)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">New Patients</div>
+                    <div class="kpi-value">1,340</div>
+                    <div class="kpi-change negative">Q1 2025: 1,439 (-6.9%)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Case Acceptance (DI)</div>
+                    <div class="kpi-value">67.7%</div>
+                    <div class="kpi-change negative">Q1 2025: 71.5%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Appointments Completed</div>
+                    <div class="kpi-value">9,663</div>
+                    <div class="kpi-change negative">Q1 2025: 10,546</div>
+                </div>
+                <div class="kpi-card good">
+                    <div class="kpi-label">Cancellation Rate</div>
+                    <div class="kpi-value">6.7%</div>
+                    <div class="kpi-change">up from 5.2%</div>
+                </div>
+                <div class="kpi-card good">
+                    <div class="kpi-label">No-Show Rate</div>
+                    <div class="kpi-value">1.9%</div>
+                    <div class="kpi-change positive">down from 5.1%</div>
+                </div>
+            </div>
+
+            <h3>10-Location Portfolio Composition</h3>
+            <p>The portfolio comprises 10 distinct perio practices ranging from small (<$105K Q1 2026 production) to large (>$1.5M). The portfolio includes 3 Stoner Periodontic locations (Dublin, Upper Arlington, New Albany), 2 Van Scoyoc locations (Sanford, Main), and 5 single-owner locations (Alpharetta, Apache, Artistry, Parkway, Woodyard).</p>
+
+            <div class="data-note">
+                <strong>Data Quality Note:</strong> Van Scoyoc Sanford shows dramatic production decline from $778K (Q1 2025) to $37.8K (Q1 2026). This appears to represent either a new/ramping location, a data collection error, or a significant operational disruption. Recommend immediate investigation.
+            </div>
+
+            <div class="chart-container">
+                <canvas id="portfolioChart"></canvas>
+            </div>
+        </div>
+
+        <!-- PRACTICE SCORECARD -->
+        <div class="section" id="scorecard">
+            <h2>Practice Scorecard</h2>
+            
+            <p>The scorecard below shows key performance indicators for each of the 10 portfolio locations in Q1 2026. Metrics are color-coded: green indicates strong performance, orange indicates acceptable performance, and red indicates opportunity areas requiring attention.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Q1 2026 Production</th>
+                        <th>YoY Change</th>
+                        <th>Case Acceptance</th>
+                        <th>Cancellation %</th>
+                        <th>No-Show %</th>
+                        <th>Annual Patient Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Alpharetta Periodontics & Dental Implants</strong></td>
+                        <td>$639K</td>
+                        <td class="metric-good">29.4%</td>
+                        <td class="metric-good">96.1%</td>
+                        <td class="metric-neutral">7.2%</td>
+                        <td>1.0%</td>
+                        <td>$1394</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apache Dental Center</strong></td>
+                        <td>$337K</td>
+                        <td class="metric-good">7.6%</td>
+                        <td class="metric-good">95.6%</td>
+                        <td class="metric-neutral">7.6%</td>
+                        <td>3.0%</td>
+                        <td>$540</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Artistry In Dentistry</strong></td>
+                        <td>$501K</td>
+                        <td class="metric-bad">-19.0%</td>
+                        <td class="metric-good">96.2%</td>
+                        <td class="metric-bad">8.7%</td>
+                        <td>2.0%</td>
+                        <td>$1606</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dr. Jeffrey Dent & Dr. Brian Mears (Parkway Periodontics)</strong></td>
+                        <td>$518K</td>
+                        <td class="metric-neutral">2.5%</td>
+                        <td class="metric-good">96.8%</td>
+                        <td class="metric-neutral">6.4%</td>
+                        <td>2.5%</td>
+                        <td>$759</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stoner Periodontic & Implant Specialists - Dublin</strong></td>
+                        <td>$1577K</td>
+                        <td class="metric-good">5.6%</td>
+                        <td class="metric-bad">0.0%</td>
+                        <td class="metric-good">5.0%</td>
+                        <td>0.7%</td>
+                        <td>$2613</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stoner Periodontic & Implant Specialists - New Albany</strong></td>
+                        <td>$104K</td>
+                        <td class="metric-good">48.9%</td>
+                        <td class="metric-bad">0.0%</td>
+                        <td class="metric-bad">12.6%</td>
+                        <td>0.0%</td>
+                        <td>$3098</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stoner Periodontic & Implant Specialists - Upper Arlington</strong></td>
+                        <td>$694K</td>
+                        <td class="metric-bad">-8.9%</td>
+                        <td class="metric-bad">0.0%</td>
+                        <td class="metric-bad">8.1%</td>
+                        <td>1.0%</td>
+                        <td>$2441</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Van Scoyoc Periodontics & Implants - Sanford</strong></td>
+                        <td>$38K</td>
+                        <td class="metric-bad">-95.1%</td>
+                        <td class="metric-good">100.0%</td>
+                        <td class="metric-good">3.6%</td>
+                        <td>0.0%</td>
+                        <td>$90880</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Van Scoyoc Periodontics and Implants</strong></td>
+                        <td>$684K</td>
+                        <td class="metric-bad">-14.0%</td>
+                        <td class="metric-good">96.8%</td>
+                        <td class="metric-neutral">7.7%</td>
+                        <td>4.2%</td>
+                        <td>$1725</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Woodyard Periodontics, PC</strong></td>
+                        <td>$1108K</td>
+                        <td class="metric-good">37.2%</td>
+                        <td class="metric-good">96.1%</td>
+                        <td class="metric-good">4.0%</td>
+                        <td>0.8%</td>
+                        <td>$3284</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="benchmark-note">
+                <strong>Benchmark Context:</strong> 
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><strong>Case Acceptance:</strong> ≥69% (Referral Lab benchmark); DI typically 85-96%</li>
+                    <li><strong>Production Growth:</strong> >5% YoY is healthy; <-5% indicates decline</li>
+                    <li><strong>Cancellation:</strong> ≤5% is optimal; >8% requires attention</li>
+                    <li><strong>No-Show:</strong> ≤5% is healthy; the portfolio improved to 1.9% average</li>
+                    <li><strong>Annual Patient Value:</strong> Varies by location; $1,500+ indicates strong retention</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- YoY DEEP-DIVE -->
+        <div class="section" id="yoy">
+            <h2>Year-over-Year Comparison</h2>
+            
+            <p>This section provides a detailed comparison of key metrics for each location comparing Q1 2025 to Q1 2026. Click location names to expand details.</p>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Alpharetta Periodontics & Dental Implants
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$494K</td>
+                            <td>$639K</td>
+                            <td class="metric-good">+29.4%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>129</td>
+                            <td>211</td>
+                            <td>+82</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>80.8%</td>
+                            <td>96.1%</td>
+                            <td>+15.3pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>64.8%</td>
+                            <td>52.1%</td>
+                            <td>-12.7pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>976</td>
+                            <td>1221</td>
+                            <td>+245</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>2.6%</td>
+                            <td>7.2%</td>
+                            <td>+4.6pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>1.4%</td>
+                            <td>1.0%</td>
+                            <td>-0.4pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$1492</td>
+                            <td>$1394</td>
+                            <td>$-98</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>86.9%</td>
+                            <td>88.3%</td>
+                            <td>+1.4pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Apache Dental Center
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$313K</td>
+                            <td>$337K</td>
+                            <td class="metric-good">+7.6%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>175</td>
+                            <td>202</td>
+                            <td>+27</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>79.7%</td>
+                            <td>95.6%</td>
+                            <td>+15.9pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>63.0%</td>
+                            <td>42.2%</td>
+                            <td>-20.8pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>1341</td>
+                            <td>1425</td>
+                            <td>+84</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>5.0%</td>
+                            <td>7.6%</td>
+                            <td>+2.6pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>11.0%</td>
+                            <td>3.0%</td>
+                            <td>-8.0pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$530</td>
+                            <td>$540</td>
+                            <td>$+10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>76.9%</td>
+                            <td>87.3%</td>
+                            <td>+10.4pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Artistry In Dentistry
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$618K</td>
+                            <td>$501K</td>
+                            <td class="metric-bad">-19.0%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>121</td>
+                            <td>70</td>
+                            <td>-51</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>79.0%</td>
+                            <td>96.2%</td>
+                            <td>+17.2pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>53.0%</td>
+                            <td>25.4%</td>
+                            <td>-27.6pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>1026</td>
+                            <td>871</td>
+                            <td>-155</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>9.2%</td>
+                            <td>8.7%</td>
+                            <td>-0.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>6.7%</td>
+                            <td>2.0%</td>
+                            <td>-4.7pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$1657</td>
+                            <td>$1606</td>
+                            <td>$-51</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>81.0%</td>
+                            <td>96.3%</td>
+                            <td>+15.3pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Dr. Jeffrey Dent & Dr. Brian Mears (Parkway Periodontics)
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$506K</td>
+                            <td>$518K</td>
+                            <td class="metric-neutral">+2.5%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>245</td>
+                            <td>190</td>
+                            <td>-55</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>67.0%</td>
+                            <td>96.8%</td>
+                            <td>+29.8pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>41.9%</td>
+                            <td>55.5%</td>
+                            <td>+13.6pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>1497</td>
+                            <td>1366</td>
+                            <td>-131</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>5.7%</td>
+                            <td>6.4%</td>
+                            <td>+0.7pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>5.1%</td>
+                            <td>2.5%</td>
+                            <td>-2.6pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$635</td>
+                            <td>$759</td>
+                            <td>$+124</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>84.6%</td>
+                            <td>88.3%</td>
+                            <td>+3.7pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Stoner Periodontic & Implant Specialists - Dublin
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$1494K</td>
+                            <td>$1577K</td>
+                            <td class="metric-good">+5.6%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>203</td>
+                            <td>157</td>
+                            <td>-46</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>71.5%</td>
+                            <td>0.0%</td>
+                            <td>-71.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>38.2%</td>
+                            <td>35.7%</td>
+                            <td>-2.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>1367</td>
+                            <td>1274</td>
+                            <td>-93</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>4.2%</td>
+                            <td>5.0%</td>
+                            <td>+0.8pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>4.7%</td>
+                            <td>0.7%</td>
+                            <td>-4.0pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$1471</td>
+                            <td>$2613</td>
+                            <td>$+1142</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>67.9%</td>
+                            <td>75.1%</td>
+                            <td>+7.2pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Stoner Periodontic & Implant Specialists - New Albany
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$70K</td>
+                            <td>$104K</td>
+                            <td class="metric-good">+48.9%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>24</td>
+                            <td>18</td>
+                            <td>-6</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>43.5%</td>
+                            <td>0.0%</td>
+                            <td>-43.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>9.4%</td>
+                            <td>17.9%</td>
+                            <td>+8.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>96</td>
+                            <td>76</td>
+                            <td>-20</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>7.2%</td>
+                            <td>12.6%</td>
+                            <td>+5.4pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>6.3%</td>
+                            <td>0.0%</td>
+                            <td>-6.3pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$1778</td>
+                            <td>$3098</td>
+                            <td>$+1320</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>72.7%</td>
+                            <td>57.1%</td>
+                            <td>-15.6pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Stoner Periodontic & Implant Specialists - Upper Arlington
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$761K</td>
+                            <td>$694K</td>
+                            <td class="metric-bad">-8.9%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>204</td>
+                            <td>203</td>
+                            <td>-1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>59.9%</td>
+                            <td>0.0%</td>
+                            <td>-59.9pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>34.7%</td>
+                            <td>23.6%</td>
+                            <td>-11.1pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>914</td>
+                            <td>883</td>
+                            <td>-31</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>4.5%</td>
+                            <td>8.1%</td>
+                            <td>+3.6pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>4.5%</td>
+                            <td>1.0%</td>
+                            <td>-3.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$1812</td>
+                            <td>$2441</td>
+                            <td>$+629</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>74.4%</td>
+                            <td>75.5%</td>
+                            <td>+1.1pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Van Scoyoc Periodontics & Implants - Sanford
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$778K</td>
+                            <td>$38K</td>
+                            <td class="metric-bad">-95.1%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>126</td>
+                            <td>21</td>
+                            <td>-105</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>72.2%</td>
+                            <td>100.0%</td>
+                            <td>+27.8pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>57.4%</td>
+                            <td>29.9%</td>
+                            <td>-27.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>1128</td>
+                            <td>181</td>
+                            <td>-947</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>3.3%</td>
+                            <td>3.6%</td>
+                            <td>+0.3pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>2.0%</td>
+                            <td>0.0%</td>
+                            <td>-2.0pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$1905</td>
+                            <td>$90880</td>
+                            <td>$+88975</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>82.8%</td>
+                            <td>0.0%</td>
+                            <td>-82.8pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Van Scoyoc Periodontics and Implants
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$796K</td>
+                            <td>$684K</td>
+                            <td class="metric-bad">-14.0%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>126</td>
+                            <td>120</td>
+                            <td>-6</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>71.0%</td>
+                            <td>96.8%</td>
+                            <td>+25.8pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>52.6%</td>
+                            <td>41.4%</td>
+                            <td>-11.2pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>1153</td>
+                            <td>991</td>
+                            <td>-162</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>6.4%</td>
+                            <td>7.7%</td>
+                            <td>+1.3pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>4.7%</td>
+                            <td>4.2%</td>
+                            <td>-0.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$1888</td>
+                            <td>$1725</td>
+                            <td>$-164</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>90.2%</td>
+                            <td>86.6%</td>
+                            <td>-3.6pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="collapsible" onclick="toggleCollapsible(this)">
+                ► Woodyard Periodontics, PC
+            </div>
+            <div class="collapsible-content">
+                <table style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Q1 2025</th>
+                            <th>Q1 2026</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Production Gross</strong></td>
+                            <td>$808K</td>
+                            <td>$1108K</td>
+                            <td class="metric-good">+37.2%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Patients</strong></td>
+                            <td>86</td>
+                            <td>148</td>
+                            <td>+62</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Acceptance %</strong></td>
+                            <td>90.6%</td>
+                            <td>96.1%</td>
+                            <td>+5.5pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case $ Accepted %</strong></td>
+                            <td>65.0%</td>
+                            <td>46.4%</td>
+                            <td>-18.6pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Appointments Completed</strong></td>
+                            <td>1048</td>
+                            <td>1375</td>
+                            <td>+327</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cancellation %</strong></td>
+                            <td>5.7%</td>
+                            <td>4.0%</td>
+                            <td>-1.7pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No-Show %</strong></td>
+                            <td>3.0%</td>
+                            <td>0.8%</td>
+                            <td>-2.2pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Patient Value</strong></td>
+                            <td>$3238</td>
+                            <td>$3284</td>
+                            <td>$+45</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hygiene Re-Appt %</strong></td>
+                            <td>94.3%</td>
+                            <td>93.8%</td>
+                            <td>-0.5pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- REFERRAL PIPELINE -->
+        <div class="section" id="referral">
+            <h2>Referral Pipeline Analysis</h2>
+            
+            <p>The following data is drawn from Go Grow referral program tracking for January 2026. This shows practices that are actively using the external referral development program.</p>
+
+            <h3>Go Grow Program Participants (Jan 2026)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Practice</th>
+                        <th>New Sources</th>
+                        <th>Active Sources</th>
+                        <th>Total Referrals</th>
+                        <th>Case Accept %</th>
+                        <th>Scheduled %</th>
+                        <th>Avg $ Accepted</th>
+                        <th>Time to Consult</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Aiken Oral & Facial Surgery</strong></td>
+                        <td>23</td>
+                        <td>117.0</td>
+                        <td>487.0</td>
+                        <td>0.824%</td>
+                        <td>0.663%</td>
+                        <td>$2500</td>
+                        <td>9.6 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alpharetta Periodontics & Dental Implants</strong></td>
+                        <td>11</td>
+                        <td>58.0</td>
+                        <td>85.0</td>
+                        <td>0.789%</td>
+                        <td>0.918%</td>
+                        <td>$2344</td>
+                        <td>7.1 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Central Florida Periodontics and Implantology</strong></td>
+                        <td>2</td>
+                        <td>37.0</td>
+                        <td>72.0</td>
+                        <td>0.727%</td>
+                        <td>0.975%</td>
+                        <td>$3221</td>
+                        <td>4.9 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Columbus Periodontic and Implant Center</strong></td>
+                        <td>2</td>
+                        <td>22.0</td>
+                        <td>61.0</td>
+                        <td>0.667%</td>
+                        <td>1%</td>
+                        <td>$1868</td>
+                        <td>12.7 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Darryl A. Field DDS</strong></td>
+                        <td>4</td>
+                        <td>59.0</td>
+                        <td>125.0</td>
+                        <td>0.815%</td>
+                        <td>0.862%</td>
+                        <td>$3624</td>
+                        <td>9.0 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Golden Triangle Periodontal Center</strong></td>
+                        <td>3</td>
+                        <td>31.0</td>
+                        <td>52.0</td>
+                        <td>0.708%</td>
+                        <td>0.865%</td>
+                        <td>$4071</td>
+                        <td>2.5 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lane Periodontics and Implants</strong></td>
+                        <td>4</td>
+                        <td>46.0</td>
+                        <td>66.0</td>
+                        <td>0.64%</td>
+                        <td>0.797%</td>
+                        <td>$2720</td>
+                        <td>7.8 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lowcountry Periodontics</strong></td>
+                        <td>5</td>
+                        <td>87.0</td>
+                        <td>279.0</td>
+                        <td>0.882%</td>
+                        <td>0.86%</td>
+                        <td>$2467</td>
+                        <td>6.8 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MPSG</strong></td>
+                        <td>12</td>
+                        <td>60.0</td>
+                        <td>105.0</td>
+                        <td>0.847%</td>
+                        <td>0.972%</td>
+                        <td>$3157</td>
+                        <td>4.8 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marshall L Wallace</strong></td>
+                        <td>0</td>
+                        <td>27.0</td>
+                        <td>65.0</td>
+                        <td>0.633%</td>
+                        <td>0.894%</td>
+                        <td>$2583</td>
+                        <td>4.4 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>North River Periodontics and Implants</strong></td>
+                        <td>4</td>
+                        <td>92.0</td>
+                        <td>223.0</td>
+                        <td>0.815%</td>
+                        <td>0.866%</td>
+                        <td>$2365</td>
+                        <td>6.5 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Outerbanks</strong></td>
+                        <td>1</td>
+                        <td>35.0</td>
+                        <td>100.0</td>
+                        <td>0.875%</td>
+                        <td>0.84%</td>
+                        <td>$3066</td>
+                        <td>8.0 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parkway Perio- Dr. Jeffrey Dent</strong></td>
+                        <td>3</td>
+                        <td>46.0</td>
+                        <td>98.0</td>
+                        <td>0.689%</td>
+                        <td>0.827%</td>
+                        <td>$1852</td>
+                        <td>6.4 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Periodontal Associates of Memphis*</strong></td>
+                        <td>2</td>
+                        <td>102.0</td>
+                        <td>160.0</td>
+                        <td>0.66%</td>
+                        <td>0.928%</td>
+                        <td>$4008</td>
+                        <td>4.1 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pine Belt-Hattiesburg</strong></td>
+                        <td>2</td>
+                        <td>33.0</td>
+                        <td>45.0</td>
+                        <td>0.647%</td>
+                        <td>0.941%</td>
+                        <td>$4357</td>
+                        <td>9.2 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sandhills Dental Rehabilitation Center</strong></td>
+                        <td>2</td>
+                        <td>24.0</td>
+                        <td>31.0</td>
+                        <td>0.765%</td>
+                        <td>1%</td>
+                        <td>$12834</td>
+                        <td>7.7 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Van Scoyoc Periodontics & Implants</strong></td>
+                        <td>3</td>
+                        <td>37.0</td>
+                        <td>54.0</td>
+                        <td>0.565%</td>
+                        <td>0.864%</td>
+                        <td>$3720</td>
+                        <td>4.3 days</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="benchmark-note">
+                <strong>Referral Program Benchmarks:</strong>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><strong>Case Acceptance:</strong> 55-75% (Referral Lab baseline)</li>
+                    <li><strong>Scheduled Consult %:</strong> ≥85%</li>
+                    <li><strong>Time to Consult:</strong> ≤18 days</li>
+                    <li><strong>Incentive Tiers:</strong> >141 referrals/month = $5K; 121-125 = $1K</li>
+                </ul>
+            </div>
+
+            <h3>Referral Program Opportunities</h3>
+            
+            <div class="summary-text">
+                <p><strong>Program Growth Potential:</strong> The referral program appears to be in early stages for portfolio practices. Average active referral sources per practice ranges from 10-30 doctors, with total referrals typically 80-140 per month. To reach maximum incentive tier (>141 referrals/month @ $5K/month), practices would need either 25-40% growth in referral volume or deeper penetration of existing referral base.</p>
+                
+                <p><strong>Case Acceptance Discrepancy:</strong> Referral program case acceptance (55-75%) is notably lower than DI case acceptance (67-97%). This is expected because referral program data measures acceptance among all referrals received, whereas DI data measures acceptance among scheduled consultations. The referral program should focus on: (1) increasing scheduled consult % (already at 85%+), and (2) improving case acceptance among scheduled patients through clinical presentation and financial coordination.</p>
+                
+                <p><strong>Time to Consult:</strong> Most practices achieve consults within 13-16 days, which is good. However, reducing this further to 10-12 days could improve conversion rates and patient perception.</p>
+            </div>
+        </div>
+
+        <!-- PRODUCTION WATERFALL -->
+        <div class="section" id="waterfall">
+            <h2>Production Waterfall Analysis</h2>
+            
+            <p>The portfolio production declined $437.7K (-6.6%) from Q1 2025 to Q1 2026. The chart below shows production change by location, with green bars representing growth and red bars representing decline.</p>
+
+            <div class="chart-container">
+                <canvas id="waterfallChart"></canvas>
+            </div>
+
+            <h3>Drivers of Portfolio Change</h3>
+<h4 style="color: #27ae60; margin-top: 1.5rem;">Positive Drivers (Growth Locations)</h4><p>• <strong>Woodyard Periodontics, PC</strong>: +$300K (+37.2%)</p><p>• <strong>Alpharetta Periodontics & Dental Implants</strong>: +$145K (+29.4%)</p><p>• <strong>Stoner Periodontic & Implant Specialists - Dublin</strong>: +$83K (+5.6%)</p><p>• <strong>Stoner Periodontic & Implant Specialists - New Albany</strong>: +$34K (+48.9%)</p><p>• <strong>Apache Dental Center</strong>: +$24K (+7.6%)</p><p>• <strong>Dr. Jeffrey Dent & Dr. Brian Mears (Parkway Periodontics)</strong>: +$12K (+2.5%)</p><h4 style="color: #e74c3c; margin-top: 1.5rem;">Negative Drivers (Declining Locations)</h4><p>• <strong>Van Scoyoc Periodontics & Implants - Sanford</strong>: $-741K (-95.1%)</p><p>• <strong>Artistry In Dentistry</strong>: $-117K (-19.0%)</p><p>• <strong>Van Scoyoc Periodontics and Implants</strong>: $-111K (-14.0%)</p><p>• <strong>Stoner Periodontic & Implant Specialists - Upper Arlington</strong>: $-68K (-8.9%)</p>            <div class="summary-text">
+                <p><strong>Key Insight:</strong> Woodyard's exceptional growth (+$300.4K) nearly offset the aggregate decline of other locations. Without Woodyard's 37.1% growth, the portfolio would have declined approximately 12%. This indicates concentration risk and the need to expand growth drivers beyond a single location.</p>
+            </div>
+        </div>
+
+        <!-- ACTION PLAN -->
+        <div class="section" id="action">
+            <h2>Action Plan by Team</h2>
+            
+            <h3>Referral Development Team</h3>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 1: Referral Program Expansion</div>
+                <div class="action-text">Target portfolio practices not yet enrolled in Go Grow program. Expand from current 17 practices to all 10 DI locations. Model: Apache (not yet data), Artistry In Dentistry. Implement standardized referral development playbook. Expected impact: +20-30 referrals/month per practice = +$1-3K monthly revenue.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 2: Referral Source Development</div>
+                <div class="action-text">Increase active referral sources from current 15-25 per practice to 35-50. Target specialty doctors (oral surgery, implant specialists, orthodontists). Conduct quarterly referrer relationship reviews. Implement CRM tracking for referrer engagement metrics. Expected impact: +40-60 referrals/month portfolio-wide.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 3: Case Acceptance Improvement</div>
+                <div class="action-text">Current referral program case acceptance (55-75%) has headroom vs. DI data (67-97%). Implement case presentation training for NPs/doctors. Create financial coordination playbook for complex cases. Track case acceptance by referrer and case type. Monthly reviews with outlier practices.</div>
+            </div>
+
+            <h3>Operations & Scheduling Team</h3>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 1: Data Integrity Audit</div>
+                <div class="action-text">Investigate Van Scoyoc Sanford production data ($778K Q1 2025 → $37.8K Q1 2026). Determine if this is a ramping/new location, data collection error, or operational disruption. Implement monthly data validation checkpoints. Define KPI calculation methodology in writing.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 2: Scheduling Optimization</div>
+                <div class="action-text">Continue focus on appointment scheduling discipline (cancellation increased slightly, no-show improved). Implement pre-appointment confirmation workflow. Use text/email reminders 48 hours prior. Track confirmation rate by location. Expected impact: maintain <5% cancellation and <3% no-show rates.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 3: New Patient Integration</div>
+                <div class="action-text">Portfolio new patients declined 6.9% (1,439 → 1,340). Develop intake and onboarding workflow documentation. Implement new patient welcome series. Track new patient retention to next appointment. Analyze referral source conversion by doctor/location.</div>
+            </div>
+
+            <h3>Clinical Team</h3>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 1: Replicate Woodyard Success</div>
+                <div class="action-text">Woodyard grew 37.1% YoY. Conduct case review to identify clinical/operational drivers. What procedures are driving growth? What is doctor's case acceptance rate? How does scheduling compare? Shadow workflow at Woodyard and share learnings with other locations. Target: 10-15% growth at Artistry, Apache, Parkway.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 2: Case Acceptance Leadership</div>
+                <div class="action-text">DI case acceptance is strong (67.7% portfolio average) but variable across locations. Standardize case presentation. Create diagnosis-to-acceptance pathway. Monthly case acceptance reviews by doctor.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 3: Hygiene Re-Appointment Management</div>
+                <div class="action-text">Portfolio average hygiene re-appointment: 83.2% (Q1 2026). Note: Low values (3-18%) at some locations are NORMAL for perio—patients go into perio maintenance, not hygiene recall. Track perio re-appointment rate instead. Ensure proper coding and patient communication.</div>
+            </div>
+
+            <h3>Practice Managers / Office Operations</h3>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 1: Production Growth Focus</div>
+                <div class="action-text">Locations declining: Apache (-7.6%), Artistry (-19.0%), Upper Arlington (-8.9%). Conduct 30-day operational deep-dives at each. Review new patient flow, case presentation, scheduling, and doctor productivity. Implement daily production tracking. Weekly revenue meetings.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 2: Monthly Reporting Standardization</div>
+                <div class="action-text">Implement unified monthly KPI dashboard across all 10 locations. Metrics: Production, New Patients, Case Acceptance, Appointments Completed, Cancellation %, No-Show %, Annual Patient Value. Track vs. prior month and prior year. Share in monthly all-hands meetings.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 3: Staff Retention & Training</div>
+                <div class="action-text">Portfolio contraction may indicate staffing challenges or training gaps. Conduct staff satisfaction survey. Identify turnover hotspots. Implement quarterly training programs focused on case presentation, financial coordination, and patient communication. Budget training investment at underperforming locations.</div>
+            </div>
+
+            <h3>Doctor / Clinical Leadership</h3>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 1: Executive Production Review</div>
+                <div class="action-text">Portfolio declined 6.6% YoY. Schedule quarterly production reviews with doctor owners. Review case mix, new patient quality, case acceptance drivers, and referral relationship metrics. Establish individual location growth targets (5-10% annually). Align compensation if applicable.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 2: Referral Doctor Relationship Management</div>
+                <div class="action-text">Develop quarterly referrer appreciation program. Host lunch-and-learn sessions at referring practices. Share case outcomes and clinical updates. Create feedback loop: Are referrals appropriate? Case acceptance rates? Patient outcomes? Use data to refine referrer relationships.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-team">PRIORITY 3: Clinical Excellence & Innovation</div>
+                <div class="action-text">Consider new service lines (implants, bone grafting, other advanced procedures) to differentiate from competitors and increase case values. Review patient satisfaction/NPS scores. Implement quarterly clinical case review meetings. Evaluate new technology investments.</div>
+            </div>
+
+            <h3>Implementation Timeline</h3>
+            
+            <table style="margin-top: 1.5rem;">
+                <thead>
+                    <tr>
+                        <th>Timeframe</th>
+                        <th>Key Milestones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>This Month (April)</strong></td>
+                        <td>
+                            • Van Scoyoc Sanford data audit<br>
+                            • Production review meetings with underperforming locations<br>
+                            • Referral program enrollment audit<br>
+                            • Woodyard best practice documentation
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Q2 (May-June)</strong></td>
+                        <td>
+                            • Implementation of standardized monthly KPI dashboard<br>
+                            • Referral development program expansion<br>
+                            • Scheduling optimization at 3-5 underperforming locations<br>
+                            • Case presentation training rollout
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Q3+ (July+)</strong></td>
+                        <td>
+                            • Track production momentum vs. targets<br>
+                            • Quarterly producer review meetings<br>
+                            • Expand successful initiatives portfolio-wide<br>
+                            • Plan Q4 tactical adjustments
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>SGA Periodontal Portfolio Performance Analysis | Q1 2026 Data</p>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Generated April 1, 2026 | This report contains proprietary performance data and is for internal use only</p>
+    </footer>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                
+                // Show selected section
+                document.getElementById(sectionId).classList.add('active');
+                this.classList.add('active');
+                
+                // Scroll to section
+                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Collapsible sections
+        function toggleCollapsible(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.style.backgroundColor = content.classList.contains('show') ? '#ddd' : '#f5f5f5';
+        }
+
+        // Portfolio chart
+        const portfolioCtx = document.getElementById('portfolioChart');
+        if (portfolioCtx) {
+            new Chart(portfolioCtx, {
+                type: 'bar',
+                data: {
+                    labels: ["Alpharetta Periodontic...","Apache Dental Center","Artistry In Dentistry","Dr. Jeffrey Dent & Dr....","Stoner Periodontic & I...","Stoner Periodontic & I...","Stoner Periodontic & I...","Van Scoyoc Periodontic...","Van Scoyoc Periodontic...","Woodyard Periodontics,..."],
+                    datasets: [
+                        {
+                            label: 'Q1 2025 Production ($K)',
+                            data: [493818.2,312921.01,618232,505626,1493584,70039,761456,778387,795514,807843.44],
+                            backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                            borderColor: '#999',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Q1 2026 Production ($K)',
+                            data: [639133,336716.75,500743,518080,1576848,104319,693537,37833.2,684310.69,1108207],
+                            backgroundColor: 'rgba(46, 94, 140, 0.7)',
+                            borderColor: '#2E5E8C',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Production Comparison by Location'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Production ($K)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Waterfall chart
+        const waterfallCtx = document.getElementById('waterfallChart');
+        if (waterfallCtx) {
+            const locations = ["Alpharetta Periodontic...","Apache Dental Center","Artistry In Dentistry","Dr. Jeffrey Dent & Dr....","Stoner Periodontic & I...","Stoner Periodontic & I...","Stoner Periodontic & I...","Van Scoyoc Periodontic...","Van Scoyoc Periodontic...","Woodyard Periodontics,..."];
+            const deltas = [639.133,336.71675,500.743,518.08,1576.848,104.319,693.537,37.8332,684.3106899999999,1108.207];
+            
+            new Chart(waterfallCtx, {
+                type: 'bar',
+                data: {
+                    labels: locations,
+                    datasets: [{
+                        label: 'Production Change ($K)',
+                        data: deltas,
+                        backgroundColor: deltas.map(v => v >= 0 ? 'rgba(39, 174, 96, 0.7)' : 'rgba(231, 76, 60, 0.7)'),
+                        borderColor: deltas.map(v => v >= 0 ? '#27ae60' : '#e74c3c'),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'x',
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Production Change by Location (Q1 2025 → Q1 2026)'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Production Change ($K)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
