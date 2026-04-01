@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Location Onboarding — Marketing Action Plan</title>
+<style>
+  /* ===== THEME VARIABLES ===== */
+  :root {
+    --navy: #1a2744;
+    --dark-blue: #2c3e6b;
+    --accent: #4a90d9;
+    --accent-light: #e8f0fe;
+    --green: #27ae60;
+    --green-light: #eafaf1;
+    --orange: #f39c12;
+    --orange-light: #fef9e7;
+    --red: #e74c3c;
+    --red-light: #fdedec;
+    --purple: #8e44ad;
+    --purple-light: #f4ecf7;
+    --teal: #00897b;
+    --teal-light: #e0f2f1;
+    --gray-50: #f8f9fa;
+    --gray-100: #f1f3f5;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-500: #868e96;
+    --gray-700: #495057;
+    --gray-900: #212529;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    --radius: 12px;
+  }
+
+  /* ===== RESET & BASE ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.6; }
+
+  /* ===== HEADER ===== */
+  .header { background: linear-gradient(135deg, var(--navy) 0%, var(--dark-blue) 100%); color: white; padding: 48px 0 40px; }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  .header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 18px; opacity: 0.85; font-weight: 400; }
+  .header-meta { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
+  .header-meta .meta-item { display: flex; align-items: center; gap: 8px; font-size: 14px; opacity: 0.8; }
+  .header-meta .meta-icon { width: 20px; height: 20px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+  /* ===== STICKY NAV ===== */
+  .phase-nav { background: white; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
+  .phase-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; gap: 0; overflow-x: auto; }
+  .phase-tab { padding: 16px 24px; font-size: 14px; font-weight: 600; color: var(--gray-500); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; text-decoration: none; }
+  .phase-tab:hover { color: var(--gray-900); background: var(--gray-50); }
+  .phase-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ===== CONTAINER ===== */
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px; }
+
+  /* ===== EXECUTIVE SUMMARY ===== */
+  .exec-summary { background: white; border-radius: var(--radius); padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow); }
+  .exec-summary h2 { font-size: 22px; color: var(--navy); margin-bottom: 20px; }
+  .exec-summary p { color: var(--gray-700); margin-bottom: 16px; font-size: 15px; }
+
+  /* ===== KPI CARDS ===== */
+  .kpi-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .kpi-card { background: white; border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); text-align: center; }
+  .kpi-card .kpi-value { font-size: 36px; font-weight: 800; color: var(--navy); }
+  .kpi-card .kpi-label { font-size: 13px; color: var(--gray-500); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi-card.green { border-top: 4px solid var(--green); }
+  .kpi-card.blue { border-top: 4px solid var(--accent); }
+  .kpi-card.orange { border-top: 4px solid var(--orange); }
+  .kpi-card.purple { border-top: 4px solid var(--purple); }
+  .kpi-card.teal { border-top: 4px solid var(--teal); }
+
+  /* ===== PHASE SECTIONS ===== */
+  .phase-section { margin-bottom: 48px; }
+  .phase-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--gray-200); }
+  .phase-badge { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; font-weight: 800; font-size: 18px; color: white; flex-shrink: 0; }
+  .phase-badge.p1 { background: var(--green); }
+  .phase-badge.p2 { background: var(--accent); }
+  .phase-badge.p3 { background: var(--purple); }
+  .phase-header h2 { font-size: 24px; color: var(--navy); }
+  .phase-header .phase-dates { font-size: 14px; color: var(--gray-500); font-weight: 500; }
+
+  /* ===== WORKSTREAMS (Collapsible) ===== */
+  .workstream { background: white; border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow); overflow: hidden; }
+  .workstream-header { padding: 20px 24px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+  .workstream-header h3 { font-size: 17px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+  .workstream-header .ws-icon { font-size: 20px; }
+  .workstream-header .ws-toggle { font-size: 18px; color: var(--gray-500); transition: transform 0.3s; }
+  .workstream.open .ws-toggle { transform: rotate(180deg); }
+  .workstream-body { padding: 0 24px 24px; display: none; }
+  .workstream.open .workstream-body { display: block; }
+  .workstream-body p { color: var(--gray-700); font-size: 14px; margin-bottom: 12px; }
+
+  /* ===== TASK TABLES ===== */
+  .task-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  .task-table th { background: var(--gray-100); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--gray-700); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .task-table td { padding: 12px 14px; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+  .task-table tr:last-child td { border-bottom: none; }
+  .task-table .task-name { font-weight: 500; }
+
+  /* ===== OWNER BADGES ===== */
+  .owner { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .owner.mktg { background: #e8f0fe; color: #1a73e8; }
+  .owner.studio { background: #fce4ec; color: #c62828; }
+  .owner.mm { background: #fef9e7; color: #b7950b; }
+  .owner.ops { background: #eafaf1; color: #1e8449; }
+  .owner.exec { background: #e0f2f1; color: #00695c; }
+  .owner.data { background: #f3e5f5; color: #6a1b9a; }
+  .owner.prac { background: #fff3e0; color: #e65100; }
+
+  /* ===== PRIORITY INDICATORS ===== */
+  .priority { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; }
+  .priority.high { color: var(--red); }
+  .priority.med { color: var(--orange); }
+  .priority.low { color: var(--green); }
+  .priority::before { content: ''; width: 8px; height: 8px; border-radius: 50%; }
+  .priority.high::before { background: var(--red); }
+  .priority.med::before { background: var(--orange); }
+  .priority.low::before { background: var(--green); }
+
+  /* ===== CALLOUT BOXES ===== */
+  .benchmark-box { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
+  .benchmark-box h4 { font-size: 14px; color: var(--dark-blue); margin-bottom: 8px; }
+  .benchmark-box ul { list-style: none; padding: 0; }
+  .benchmark-box li { font-size: 14px; color: var(--gray-700); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+  .benchmark-box li::before { content: '🎯'; font-size: 12px; }
+
+  .decision-box { background: var(--orange-light); border-left: 4px solid var(--orange); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
+  .decision-box h4 { font-size: 14px; color: #7d6608; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .decision-box p { font-size: 14px; color: var(--gray-700); margin-top: 6px; }
+
+  .resolved-box { background: var(--green-light); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
+  .resolved-box h4 { font-size: 14px; color: #1e8449; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .resolved-box p { font-size: 14px; color: var(--gray-700); margin-top: 6px; }
+
+  .callout { background: var(--green-light); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
+  .callout.purple { background: var(--purple-light); border-left-color: var(--purple); }
+  .callout.red { background: var(--red-light); border-left-color: var(--red); }
+  .callout.blue { background: var(--accent-light); border-left-color: var(--accent); }
+  .callout h4 { font-size: 14px; margin-bottom: 6px; }
+  .callout p, .callout li { font-size: 14px; color: var(--gray-700); }
+  .callout ul { padding-left: 18px; margin-top: 6px; }
+
+  /* ===== DIRECTIVE BOX ===== */
+  .directive { background: #e0f2f1; border-left: 4px solid #00897b; border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
+  .directive h4 { font-size: 14px; color: #00695c; margin-bottom: 8px; }
+  .directive p { font-size: 14px; color: var(--gray-700); }
+
+  /* ===== SKILL / TOOL TAGS ===== */
+  .skill-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; background: var(--navy); color: white; border-radius: 4px; font-size: 11px; font-weight: 600; font-family: 'SF Mono', Monaco, Consolas, monospace; }
+
+  /* ===== WORKFLOW DIAGRAMS ===== */
+  .workflow-row { display: flex; align-items: center; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+  .wf-box { background: white; border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 500; text-align: center; min-width: 120px; }
+  .wf-box.tool { background: var(--accent-light); border-color: var(--accent); color: var(--dark-blue); }
+  .wf-box.team { background: var(--green-light); border-color: var(--green); color: #1e8449; }
+  .wf-box.vendor { background: var(--orange-light); border-color: var(--orange); color: #7d6608; }
+  .wf-box.decision { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
+  .wf-arrow { font-size: 18px; color: var(--gray-500); }
+
+  /* ===== GANTT TIMELINE ===== */
+  .gantt { width: 100%; margin: 24px 0; border-collapse: collapse; }
+  .gantt th { font-size: 11px; color: var(--gray-500); font-weight: 600; padding: 8px 4px; text-align: center; border-bottom: 1px solid var(--gray-300); }
+  .gantt th:first-child { text-align: left; width: 280px; }
+  .gantt td { padding: 6px 2px; border-bottom: 1px solid var(--gray-100); position: relative; }
+  .gantt td:first-child { font-size: 13px; font-weight: 500; padding-left: 8px; }
+  .gantt-bar { height: 22px; border-radius: 4px; }
+  .gantt-bar.green { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+  .gantt-bar.blue { background: linear-gradient(90deg, #2980b9, #4a90d9); }
+  .gantt-bar.purple { background: linear-gradient(90deg, #8e44ad, #a569bd); }
+  .gantt-bar.orange { background: linear-gradient(90deg, #e67e22, #f39c12); }
+  .gantt-bar.teal { background: linear-gradient(90deg, #00897b, #26a69a); }
+
+  /* ===== GRADUATION PATH ===== */
+  .grad-path { display: flex; align-items: center; gap: 0; margin: 24px 0; flex-wrap: wrap; justify-content: center; }
+  .grad-step { background: white; border: 2px solid var(--gray-200); border-radius: 10px; padding: 16px 20px; text-align: center; min-width: 180px; max-width: 240px; }
+  .grad-step.active { border-color: var(--green); background: var(--green-light); }
+  .grad-step.blue-step { border-color: var(--accent); background: var(--accent-light); }
+  .grad-step.advanced { border-color: var(--purple); background: var(--purple-light); }
+  .grad-step h4 { font-size: 13px; color: var(--navy); }
+  .grad-step p { font-size: 11px; color: var(--gray-700); margin-top: 4px; }
+  .grad-arrow { font-size: 24px; color: var(--gray-300); padding: 0 8px; }
+
+  /* ===== CONDITIONAL PATH ===== */
+  .conditional-path { background: white; border-radius: var(--radius); border: 2px dashed var(--gray-300); padding: 24px; margin: 16px 0; }
+  .conditional-path h4 { font-size: 15px; color: var(--navy); margin-bottom: 12px; }
+  .path-option { border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; }
+  .path-option:last-child { margin-bottom: 0; }
+  .path-option.path-a { background: var(--green-light); border-left: 4px solid var(--green); }
+  .path-option.path-b { background: var(--orange-light); border-left: 4px solid var(--orange); }
+  .path-option h5 { font-size: 14px; margin-bottom: 4px; }
+  .path-option p { font-size: 13px; color: var(--gray-700); }
+
+  /* ===== RACI TABLE ===== */
+  .raci-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+  .raci-table th { background: var(--navy); color: white; padding: 10px 12px; text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .raci-table th:first-child { text-align: left; }
+  .raci-table td { padding: 10px 12px; border-bottom: 1px solid var(--gray-200); text-align: center; }
+  .raci-table td:first-child { text-align: left; font-weight: 500; }
+  .raci-r { color: var(--red); font-weight: 700; }
+  .raci-a { color: var(--accent); font-weight: 700; }
+  .raci-c { color: var(--orange); font-weight: 600; }
+  .raci-i { color: var(--gray-500); }
+
+  /* ===== FOOTER ===== */
+  .footer { text-align: center; padding: 40px 32px; color: var(--gray-500); font-size: 13px; border-top: 1px solid var(--gray-200); margin-top: 48px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .header h1 { font-size: 24px; }
+    .container { padding: 16px; }
+    .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+    .phase-tab { padding: 12px 16px; font-size: 13px; }
+    .exec-summary { padding: 24px; }
+    .task-table { font-size: 12px; }
+    .grad-path { flex-direction: column; }
+    .grad-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div class="header-inner">
+    <h1>New Location Marketing Onboarding Plan</h1>
+    <div class="subtitle">Welcome to Gen4 Dental — [Practice Name]</div>
+    <div class="header-meta">
+      <div class="meta-item"><div class="meta-icon">📅</div> [Onboarding Start Date]</div>
+      <div class="meta-item"><div class="meta-icon">👤</div> Prepared by [Market Manager]</div>
+      <div class="meta-item"><div class="meta-icon">🏢</div> Gen4 Dental Marketing</div>
+      <div class="meta-item"><div class="meta-icon">📍</div> [City, State]</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<div class="phase-nav">
+  <div class="phase-nav-inner">
+    <a class="phase-tab active" href="#summary">Welcome</a>
+    <a class="phase-tab" href="#phase1">Phase 1: Discovery</a>
+    <a class="phase-tab" href="#phase2">Phase 2: Digital Storefront</a>
+    <a class="phase-tab" href="#phase3">Phase 3: Marketing Performance</a>
+    <a class="phase-tab" href="#timeline">Timeline</a>
+    <a class="phase-tab" href="#raci">Roles</a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== EXECUTIVE SUMMARY ===== -->
+<section id="summary" class="exec-summary">
+  <h2>Welcome to Gen4 Dental</h2>
+  <p>We're excited to have <strong>[Practice Name]</strong> join the Gen4 family. This plan outlines how our marketing team will get to know your practice, evaluate your digital presence, and build a growth strategy tailored to your location. Our goal is simple: understand where you are today, identify the biggest opportunities, and give you a clear path to sustainable patient growth.</p>
+  <p>Over the next several weeks, we'll work through three phases together. First, we'll dig into your practice data to build your <strong>Revenue Growth Story</strong> — a snapshot of your capacity, patient mix, and growth potential. Then, we'll audit your digital storefront and determine whether your website, Google profile, and online presence are working for you. Finally, we'll analyze your marketing spend and patient acquisition costs to build a performance-driven plan going forward.</p>
+
+  <div class="kpi-strip" style="margin-top: 24px;">
+    <div class="kpi-card green">
+      <div class="kpi-value">3</div>
+      <div class="kpi-label">Phases</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-value">[X]%</div>
+      <div class="kpi-label">Doctor Capacity</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-value">[X]</div>
+      <div class="kpi-label">New Patients / Mo</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-value">[X]</div>
+      <div class="kpi-label">Weeks to Plan</div>
+    </div>
+  </div>
+
+  <div class="directive" style="margin-top: 8px;">
+    <h4>Our Approach</h4>
+    <p>Every practice in the Gen4 family goes through this same structured onboarding. We lead with data, not assumptions. By the end of this process, you'll have a clear picture of your growth levers and a marketing plan built specifically for your practice, your market, and your patient base.</p>
+  </div>
+</section>
+
+<!-- ===== PHASE 1: DISCOVERY & REVENUE GROWTH STORY ===== -->
+<section id="phase1" class="phase-section">
+  <div class="phase-header">
+    <div class="phase-badge p1">1</div>
+    <div>
+      <h2>Discovery &amp; Revenue Growth Story</h2>
+      <div class="phase-dates">Weeks 1–2 &nbsp;|&nbsp; [Date Range]</div>
+    </div>
+  </div>
+
+  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">
+    Before we recommend anything, we need to understand your practice. Phase 1 is about gathering the data that tells your Revenue Growth Story — how much capacity your doctors have, where your patients come from, and what types of care drive your production. This is the foundation everything else is built on.
+  </p>
+
+  <!-- 1.1 Doctor Capacity -->
+  <div class="workstream open">
+    <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="ws-icon">⏱️</span> 1.1 — Doctor Capacity Analysis</h3>
+      <span class="ws-toggle">▼</span>
+    </div>
+    <div class="workstream-body">
+      <p>We start by understanding how much room your practice has to grow. Doctor capacity is measured as a percentage of available clinical hours per month that are currently scheduled. This tells us whether growth means filling open chair time or expanding hours.</p>
+
+      <div class="benchmark-box">
+        <h4>What We're Measuring</h4>
+        <ul>
+          <li>Total available clinical hours per doctor per month</li>
+          <li>Currently scheduled hours per doctor per month</li>
+          <li>% of capacity utilized — the core metric in your Revenue Growth Story</li>
+          <li>Hygiene hours and recall rate as indicators of patient retention</li>
+        </ul>
+      </div>
+
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="task-name"><strong>Pull doctor schedules</strong> — extract hours/month per provider from PMS</td>
+            <td><span class="owner data">Data</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 1</td>
+          </tr>
+          <tr>
+            <td class="task-name">Calculate % of doctor capacity utilized across all providers</td>
+            <td><span class="owner mm">MM</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 1</td>
+          </tr>
+          <tr>
+            <td class="task-name">Identify open chair time windows and patterns (days of week, AM vs PM)</td>
+            <td><span class="owner mm">MM</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 1</td>
+          </tr>
+          <tr>
+            <td class="task-name">Document hygiene capacity and recall compliance rate</td>
+            <td><span class="owner data">Data</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 1.2 Patient Funnel Breakdown -->
+  <div class="workstream open">
+    <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="ws-icon">🔬</span> 1.2 — Patient Funnel Breakdown</h3>
+      <span class="ws-toggle">▼</span>
+    </div>
+    <div class="workstream-body">
+      <p>We categorize your patient base into three tiers to understand where production comes from and where the growth opportunities live. This breakdown drives everything from marketing messaging to referral strategy.</p>
+
+      <div class="benchmark-box">
+        <h4>The Three Funnel Categories</h4>
+        <ul>
+          <li><strong>General Care</strong> — preventive, restorative, hygiene recall (the base of the funnel)</li>
+          <li><strong>Advanced Care</strong> — implants, full-arch, complex restorative, ortho (high-value, high-production)</li>
+          <li><strong>Specialty</strong> — perio, endo, oral surgery, pediatric (referral-driven or in-house specialty)</li>
+        </ul>
+      </div>
+
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="task-name"><strong>Extract patient and production data</strong> — pull from PMS by procedure code category</td>
+            <td><span class="owner data">Data</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 1</td>
+          </tr>
+          <tr>
+            <td class="task-name">Categorize production into General / Advanced Care / Specialty tiers</td>
+            <td><span class="owner mm">MM</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 1</td>
+          </tr>
+          <tr>
+            <td class="task-name">Calculate new patient volume by funnel tier (monthly average, trailing 12 months)</td>
+            <td><span class="owner data">Data</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 1</td>
+          </tr>
+          <tr>
+            <td class="task-name">Map referral sources — which tiers are self-generated vs. referred?</td>
+            <td><span class="owner mm">MM</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td class="task-name">Identify case acceptance rates by funnel tier</td>
+            <td><span class="owner data">Data</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 1.3 Revenue Growth Story Compilation -->
+  <div class="workstream open">
+    <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="ws-icon">📊</span> 1.3 — Revenue Growth Story</h3>
+      <span class="ws-toggle">▼</span>
+    </div>
+    <div class="workstream-body">
+      <p>This is the deliverable from Phase 1 — a concise narrative that ties together doctor capacity, patient funnel, and production data into a clear picture of where the practice is today and where the growth opportunity lives. This story becomes the foundation for every marketing decision that follows.</p>
+
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="task-name"><strong>Build the Revenue Growth Story deck</strong> — capacity %, funnel breakdown, production trends</td>
+            <td><span class="owner mm">MM</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td class="task-name">Run the <span class="skill-tag">marketing-performance</span> scorecard for baseline metrics</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td class="task-name">Compare key metrics against org benchmarks (NP volume, case acceptance, production per visit)</td>
+            <td><span class="owner mm">MM</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 2</td>
+          </tr>
+          <tr>
+            <td class="task-name">Present Revenue Growth Story to practice leadership</td>
+            <td><span class="owner mm">MM</span> <span class="owner exec">Exec</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 2</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout" style="margin-top: 16px;">
+        <h4>What You'll See</h4>
+        <p>The Revenue Growth Story will include your doctor capacity utilization rate, a breakdown of your patient funnel across General, Advanced Care, and Specialty tiers, trailing 12-month production trends, and how your key metrics compare to the rest of the Gen4 portfolio. This becomes the "before" snapshot we measure all future progress against.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 1 Exit Criteria -->
+  <div class="callout" style="margin-top: 24px;">
+    <h4>Phase 1 Exit Criteria</h4>
+    <ul>
+      <li>Doctor capacity % calculated and documented for all providers</li>
+      <li>Patient funnel categorized into General / Advanced Care / Specialty with production values</li>
+      <li>Marketing performance scorecard generated with baseline metrics</li>
+      <li>Revenue Growth Story presented to practice leadership</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== PHASE 2: DIGITAL STOREFRONT ASSESSMENT ===== -->
+<section id="phase2" class="phase-section">
+  <div class="phase-header">
+    <div class="phase-badge p2">2</div>
+    <div>
+      <h2>Digital Storefront Assessment</h2>
+      <div class="phase-dates">Weeks 3–5 &nbsp;|&nbsp; [Date Range]</div>
+    </div>
+  </div>
+
+  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">
+    Your website and online presence are the first thing prospective patients see. Phase 2 is a thorough evaluation of your digital storefront — your website, Google Business Profile, and online reputation. We audit everything against 45+ criteria, score it, and determine the right path forward.
+  </p>
+
+  <!-- 2.1 Digital Storefront Audit -->
+  <div class="workstream open">
+    <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="ws-icon">🌐</span> 2.1 — Digital Storefront Audit</h3>
+      <span class="ws-toggle">▼</span>
+    </div>
+    <div class="workstream-body">
+      <p>We run your website through our comprehensive <span class="skill-tag">dental-website-audit</span> — a 45+ criteria evaluation covering conversion strategy, UX, SEO, service lines, trust signals, NAP consistency, insurance/financing visibility, content quality, and technical performance. The result is an interactive scored dashboard.</p>
+
+      <div class="benchmark-box">
+        <h4>Audit Categories</h4>
+        <ul>
+          <li><strong>Conversion Strategy</strong> — CTAs, scheduling access, phone visibility, mobile experience</li>
+          <li><strong>SEO & Discoverability</strong> — title tags, meta descriptions, schema markup, local SEO</li>
+          <li><strong>Trust & Reputation</strong> — reviews integration, team bios, before/after galleries, credentials</li>
+          <li><strong>Service Line Visibility</strong> — are your highest-value services easy to find and well-presented?</li>
+          <li><strong>Technical Performance</strong> — page speed, mobile responsiveness, security, accessibility</li>
+        </ul>
+      </div>
+
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="task-name"><strong>Run the Digital Storefront Audit</strong> on [practice-website.com]</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 3</td>
+          </tr>
+          <tr>
+            <td class="task-name">Audit Google Business Profile — completeness, categories, photos, reviews, Q&A</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 3</td>
+          </tr>
+          <tr>
+            <td class="task-name">Evaluate online scheduling — does a booking path exist? What platform?</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 3</td>
+          </tr>
+          <tr>
+            <td class="task-name">Check social media presence — Instagram, Facebook activity and linking</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority low">Low</span></td>
+            <td>Week 3</td>
+          </tr>
+          <tr>
+            <td class="task-name">Present audit results and scorecard to practice leadership</td>
+            <td><span class="owner mm">MM</span> <span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2.2 Website Decision Path -->
+  <div class="workstream open">
+    <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="ws-icon">🛤️</span> 2.2 — Website Path: Keep, Optimize, or Rebuild</h3>
+      <span class="ws-toggle">▼</span>
+    </div>
+    <div class="workstream-body">
+      <p>Based on audit results, we determine the right path for your website. Not every practice needs a new site — some need targeted fixes, others need a full rebuild. Here's how the decision works:</p>
+
+      <div class="conditional-path">
+        <h4>Website Decision Framework</h4>
+        <div class="path-option path-a">
+          <h5>Path A: Audit Score Passes — Optimize Current Site</h5>
+          <p>If the current website scores well across our key criteria, we move to targeted optimizations — improving CTAs, adding missing service pages, enhancing trust signals, and tightening SEO. This is faster and preserves your existing domain authority.</p>
+        </div>
+        <div class="path-option path-b">
+          <h5>Path B: Audit Score Fails — New Website from The Studio</h5>
+          <p>If the website has fundamental issues (poor mobile experience, missing conversion paths, outdated design, broken UX), we recommend a new site designed and built by The Studio. We'll share a design concept, provide a build timeline, and coordinate the transition so there's no downtime.</p>
+        </div>
+      </div>
+
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="task-name"><strong>Make the website recommendation</strong> — optimize or rebuild, based on audit score</td>
+            <td><span class="owner mm">MM</span> <span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 4</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path B:</em> Initiate new website project with The Studio</td>
+            <td><span class="owner studio">Studio</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 4</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path B:</em> Share design concept and gather practice feedback</td>
+            <td><span class="owner studio">Studio</span> <span class="owner prac">Practice</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 5</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path B:</em> Confirm launch timeline and transition plan</td>
+            <td><span class="owner studio">Studio</span> <span class="owner mm">MM</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 5</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path A:</em> Build optimization punch list from audit findings</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 4</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path A:</em> Execute top-priority website fixes (CTAs, speed, mobile)</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 5</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top: 16px;"><strong>The Studio Website Timeline (if applicable):</strong></p>
+      <div class="workflow-row">
+        <div class="wf-box tool">Audit Complete</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-box team">Studio Kickoff</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-box">Design Concept</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-box vendor">Practice Review</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-box tool">Build & QA</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-box team">Launch</div>
+      </div>
+      <p style="font-size: 12px; color: var(--gray-500); margin-top: 4px;">Typical Studio timeline: 4–6 weeks from kickoff to launch</p>
+    </div>
+  </div>
+
+  <!-- Phase 2 Exit Criteria -->
+  <div class="callout" style="margin-top: 24px;">
+    <h4>Phase 2 Exit Criteria</h4>
+    <ul>
+      <li>Digital Storefront Audit completed with scored dashboard delivered</li>
+      <li>Google Business Profile audited and optimization plan in place</li>
+      <li>Website path decided: optimize existing or rebuild with The Studio</li>
+      <li>If rebuild: Studio project initiated with design concept shared</li>
+      <li>If optimize: punch list created and top-priority fixes underway</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== PHASE 3: MARKETING PERFORMANCE & SPEND ===== -->
+<section id="phase3" class="phase-section">
+  <div class="phase-header">
+    <div class="phase-badge p3">3</div>
+    <div>
+      <h2>Marketing Performance &amp; Spend Analysis</h2>
+      <div class="phase-dates">Weeks 5–7 &nbsp;|&nbsp; [Date Range]</div>
+    </div>
+  </div>
+
+  <p style="color: var(--gray-700); margin-bottom: 24px; font-size: 15px;">
+    Now that we understand your practice (Phase 1) and your digital presence (Phase 2), we look at your marketing investment. How much are you spending, where is it going, and what's it producing? The depth of this analysis depends on what data is available from your current or prior marketing vendors.
+  </p>
+
+  <!-- 3.1 Marketing Spend — Conditional Path -->
+  <div class="workstream open">
+    <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="ws-icon">💰</span> 3.1 — Marketing Spend Analysis</h3>
+      <span class="ws-toggle">▼</span>
+    </div>
+    <div class="workstream-body">
+      <p>How deep we can go depends on what data exists. If you're working with a digital marketing firm (or recently were), we can pull full performance data. If not, we work with what we have.</p>
+
+      <div class="conditional-path">
+        <h4>Data Availability Determines the Approach</h4>
+        <div class="path-option path-a">
+          <h5>Path A: Digital Firm Data Available — Full Marketing Spend Performance Audit</h5>
+          <p>If we can access campaign data from your current or previous digital marketing firm (Google Ads, Meta Ads, call tracking, etc.), we run a full performance audit. This includes cost per lead, cost per new patient, channel-by-channel ROI, conversion rates at every stage of the funnel, and spend efficiency benchmarks. You'll see exactly what's working, what isn't, and where the waste is.</p>
+        </div>
+        <div class="path-option path-b">
+          <h5>Path B: No Firm Data — Promotional Spend / New Patient Benchmarking</h5>
+          <p>If detailed campaign data isn't available, we use your total promotional spend and new patient count to calculate a blended cost-per-new-patient. We then benchmark that against the rest of the Gen4 portfolio — showing where you fall relative to peer practices by market size, specialty mix, and maturity. This gives us a directional read even without granular data.</p>
+        </div>
+      </div>
+
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="task-name"><strong>Determine data availability</strong> — do we have digital firm access or not?</td>
+            <td><span class="owner mm">MM</span> <span class="owner prac">Practice</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 5</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path A:</em> Request access to ad platform accounts (Google Ads, Meta, call tracking)</td>
+            <td><span class="owner mktg">Mktg</span> <span class="owner prac">Practice</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 5</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path A:</em> Run full <span class="skill-tag">marketing-performance</span> audit with channel-level data</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 6</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path A:</em> Generate ROI scorecard with CPL, CPA, and conversion rates by channel</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 6</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path B:</em> Collect total promotional spend (trailing 12 months)</td>
+            <td><span class="owner mm">MM</span> <span class="owner prac">Practice</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 5</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path B:</em> Calculate Promotional Spend / New Patients ratio</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 6</td>
+          </tr>
+          <tr>
+            <td class="task-name"><em>If Path B:</em> Benchmark against org portfolio — percentile ranking vs. peers</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 6</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3.2 Growth Recommendations -->
+  <div class="workstream open">
+    <div class="workstream-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="ws-icon">🚀</span> 3.2 — Growth Plan & Recommendations</h3>
+      <span class="ws-toggle">▼</span>
+    </div>
+    <div class="workstream-body">
+      <p>Everything from Phases 1–3 comes together here. We synthesize the Revenue Growth Story, the Digital Storefront Audit, and the marketing spend analysis into a prioritized growth plan with clear next steps, timelines, and owners.</p>
+
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="task-name"><strong>Build the Marketing Growth Plan</strong> — prioritized recommendations tied to capacity gaps and funnel opportunities</td>
+            <td><span class="owner mm">MM</span> <span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 7</td>
+          </tr>
+          <tr>
+            <td class="task-name">Recommend organic growth engines — reviews, reactivation, referrals, social</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 7</td>
+          </tr>
+          <tr>
+            <td class="task-name">If applicable: recommend paid media strategy with projected CPL/CPA targets</td>
+            <td><span class="owner mktg">Mktg</span></td>
+            <td><span class="priority med">Medium</span></td>
+            <td>Week 7</td>
+          </tr>
+          <tr>
+            <td class="task-name"><strong>Present complete onboarding findings and growth plan to practice</strong></td>
+            <td><span class="owner mm">MM</span> <span class="owner exec">Exec</span> <span class="owner prac">Practice</span></td>
+            <td><span class="priority high">High</span></td>
+            <td>Week 7</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout blue" style="margin-top: 16px;">
+        <h4>What Your Growth Plan Includes</h4>
+        <ul>
+          <li>Revenue Growth Story summary (capacity %, funnel mix, production benchmarks)</li>
+          <li>Digital Storefront scorecard with prioritized fix list</li>
+          <li>Website status — optimization roadmap or Studio build timeline</li>
+          <li>Marketing spend efficiency analysis (full audit or portfolio benchmark)</li>
+          <li>Recommended growth engines with projected impact and timeline</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 3 Exit Criteria -->
+  <div class="callout" style="margin-top: 24px;">
+    <h4>Phase 3 Exit Criteria</h4>
+    <ul>
+      <li>Marketing spend analysis completed (full audit or benchmark comparison)</li>
+      <li>Growth plan built with prioritized recommendations</li>
+      <li>Final onboarding presentation delivered to practice leadership</li>
+      <li>Practice officially transitioned from onboarding to ongoing marketing support</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== TIMELINE ===== -->
+<section id="timeline" class="phase-section">
+  <div class="phase-header">
+    <div class="phase-badge" style="background: var(--gray-700);">📅</div>
+    <div>
+      <h2>Timeline Overview</h2>
+      <div class="phase-dates">7-Week Onboarding Window</div>
+    </div>
+  </div>
+
+  <table class="gantt">
+    <thead>
+      <tr><th>Workstream</th><th>W1</th><th>W2</th><th>W3</th><th>W4</th><th>W5</th><th>W6</th><th>W7</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.1 Doctor Capacity Analysis</td>
+        <td colspan="1"><div class="gantt-bar green"></div></td>
+        <td colspan="6"></td>
+      </tr>
+      <tr>
+        <td>1.2 Patient Funnel Breakdown</td>
+        <td colspan="2"><div class="gantt-bar green"></div></td>
+        <td colspan="5"></td>
+      </tr>
+      <tr>
+        <td>1.3 Revenue Growth Story</td>
+        <td colspan="1"></td>
+        <td colspan="1"><div class="gantt-bar green"></div></td>
+        <td colspan="5"></td>
+      </tr>
+      <tr>
+        <td>2.1 Digital Storefront Audit</td>
+        <td colspan="2"></td>
+        <td colspan="2"><div class="gantt-bar blue"></div></td>
+        <td colspan="3"></td>
+      </tr>
+      <tr>
+        <td>2.2 Website Path Decision</td>
+        <td colspan="3"></td>
+        <td colspan="2"><div class="gantt-bar blue"></div></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td style="padding-left: 20px; font-style: italic; color: var(--gray-500);">↳ Studio Build (if applicable)</td>
+        <td colspan="3"></td>
+        <td colspan="4"><div class="gantt-bar orange"></div></td>
+      </tr>
+      <tr>
+        <td>3.1 Marketing Spend Analysis</td>
+        <td colspan="4"></td>
+        <td colspan="2"><div class="gantt-bar purple"></div></td>
+        <td colspan="1"></td>
+      </tr>
+      <tr>
+        <td>3.2 Growth Plan & Presentation</td>
+        <td colspan="5"></td>
+        <td colspan="2"><div class="gantt-bar purple"></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="display: flex; gap: 24px; margin-top: 16px; font-size: 13px; flex-wrap: wrap;">
+    <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 3px; vertical-align: middle;"></span> Phase 1: Discovery</span>
+    <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #2980b9, #4a90d9); border-radius: 3px; vertical-align: middle;"></span> Phase 2: Digital Storefront</span>
+    <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #8e44ad, #a569bd); border-radius: 3px; vertical-align: middle;"></span> Phase 3: Marketing Performance</span>
+    <span><span style="display: inline-block; width: 16px; height: 12px; background: linear-gradient(90deg, #e67e22, #f39c12); border-radius: 3px; vertical-align: middle;"></span> Studio Website Build (conditional)</span>
+  </div>
+
+  <div class="directive" style="margin-top: 24px;">
+    <h4>A Note on Timing</h4>
+    <p>The 7-week timeline is a standard framework — your actual pace may vary based on data availability, practice responsiveness, and whether a new website is needed. The Studio build (if applicable) runs in parallel with Phase 3 and may extend beyond the initial 7-week window. Your Market Manager will keep you updated every step of the way.</p>
+  </div>
+</section>
+
+<!-- ===== RACI ===== -->
+<section id="raci" class="phase-section">
+  <div class="phase-header">
+    <div class="phase-badge" style="background: var(--teal);">👥</div>
+    <div>
+      <h2>Roles &amp; Responsibilities</h2>
+      <div class="phase-dates">Who does what throughout onboarding</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 16px; font-size: 14px; color: var(--gray-700);">
+    <p>Here's how our teams work together during onboarding. Your Market Manager is your primary point of contact and drives the process end to end.</p>
+  </div>
+
+  <div style="margin-bottom: 24px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px;">
+    <span><span class="owner mm">MM</span> Market Manager</span>
+    <span><span class="owner mktg">Mktg</span> Marketing Team</span>
+    <span><span class="owner data">Data</span> Data / Analytics</span>
+    <span><span class="owner studio">Studio</span> The Studio</span>
+    <span><span class="owner exec">Exec</span> Gen4 Leadership</span>
+    <span><span class="owner prac">Practice</span> Your Team</span>
+  </div>
+
+  <div style="margin-bottom: 24px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px;">
+    <span><span class="raci-r">R</span> = Responsible</span>
+    <span><span class="raci-a">A</span> = Accountable</span>
+    <span><span class="raci-c">C</span> = Consulted</span>
+    <span><span class="raci-i">I</span> = Informed</span>
+  </div>
+
+  <table class="raci-table">
+    <thead>
+      <tr><th>Activity</th><th>MM</th><th>Mktg</th><th>Data</th><th>Studio</th><th>Exec</th><th>Practice</th></tr>
+    </thead>
+    <tbody>
+      <tr style="background: var(--green-light);">
+        <td colspan="7" style="font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green); padding: 6px 12px;">Phase 1: Discovery</td>
+      </tr>
+      <tr>
+        <td>Doctor capacity extraction</td>
+        <td><span class="raci-a">A</span></td>
+        <td>—</td>
+        <td><span class="raci-r">R</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="raci-c">C</span></td>
+      </tr>
+      <tr>
+        <td>Patient funnel categorization</td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td><span class="raci-r">R</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+      <tr>
+        <td>Marketing performance scorecard</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+      <tr>
+        <td>Revenue Growth Story presentation</td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+
+      <tr style="background: var(--accent-light);">
+        <td colspan="7" style="font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); padding: 6px 12px;">Phase 2: Digital Storefront</td>
+      </tr>
+      <tr>
+        <td>Digital Storefront Audit</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-r">R</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+      <tr>
+        <td>Website path decision</td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td>—</td>
+        <td><span class="raci-c">C</span></td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+      <tr>
+        <td>New website build (if applicable)</td>
+        <td><span class="raci-c">C</span></td>
+        <td><span class="raci-i">I</span></td>
+        <td>—</td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-c">C</span></td>
+      </tr>
+
+      <tr style="background: var(--purple-light);">
+        <td colspan="7" style="font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--purple); padding: 6px 12px;">Phase 3: Marketing Performance</td>
+      </tr>
+      <tr>
+        <td>Marketing spend analysis</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="raci-c">C</span></td>
+      </tr>
+      <tr>
+        <td>Growth plan development</td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-r">R</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+      <tr>
+        <td>Final onboarding presentation</td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</div><!-- /container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>New Location Marketing Onboarding Plan &nbsp;|&nbsp; Gen4 Dental &nbsp;|&nbsp; Updated [Date]</p>
+  <p style="margin-top: 8px; opacity: 0.7;">Living document — updated as each location moves through the onboarding process. Placeholder fields marked with [brackets] are populated per practice.</p>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  // Smooth scroll navigation
+  document.querySelectorAll('.phase-tab').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      }
+    });
+  });
+
+  // Scroll spy
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.phase-section, .exec-summary');
+    let current = '';
+    sections.forEach(section => {
+      if (section.getBoundingClientRect().top < 200) current = section.id;
+    });
+    if (current) {
+      document.querySelectorAll('.phase-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.getAttribute('href') === '#' + current);
+      });
+    }
+  });
+</script>
+</body>
+</html>
