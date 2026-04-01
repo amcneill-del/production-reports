@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>David A. Slaughter, DDS - Digital Storefront Audit Phase 1</title>
+    <title>David A. Slaughter, DDS | Phase 1 Digital Storefront Audit</title>
     <style>
         * {
             margin: 0;
@@ -12,348 +12,364 @@
         }
 
         :root {
-            --color-primary: #1a2332;
-            --color-secondary: #2d3e52;
-            --color-accent: #0ea5e9;
-            --color-success: #22c55e;
-            --color-warning: #f59e0b;
-            --color-error: #ef4444;
-            --color-neutral: #6b7280;
-            --color-light: #f3f4f6;
-            --color-bg: #f9fafb;
-            --color-border: #e5e7eb;
-            --color-text: #1f2937;
-            --color-text-light: #6b7280;
-            --shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --navy: #1e3a5f;
+            --light-navy: #2d5a8c;
+            --white: #ffffff;
+            --gray-light: #f3f4f6;
+            --gray-medium: #9ca3af;
+            --gray-dark: #94a3b8;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --red: #ef4444;
+            --orange: #f97316;
+            --blue: #3b82f6;
+            --blue-light: #eff6ff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            color: var(--color-text);
-            background-color: var(--color-bg);
+            background-color: var(--gray-light);
+            color: var(--text-primary);
             line-height: 1.6;
         }
 
-        /* Header */
+        /* STICKY NAVIGATION */
         header {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-            color: white;
-            padding: 2rem 1rem;
-            box-shadow: var(--shadow-lg);
             position: sticky;
             top: 0;
-            z-index: 100;
+            background: var(--navy);
+            color: var(--white);
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
-        .header-container {
-            max-width: 1200px;
+        .header-top {
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 2rem;
         }
 
-        .header-title {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .header-title h1 {
-            font-size: 1.75rem;
+        .header-branding {
             font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .header-title p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .header-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        /* Navigation */
-        nav {
-            background: white;
-            border-bottom: 1px solid var(--color-border);
-            position: sticky;
-            top: 100%;
-            z-index: 99;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0;
+            font-size: 1.25rem;
             display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gen4-badge {
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+            flex-wrap: wrap;
+        }
+
+        .header-info div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .header-info span:first-child {
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        /* STICKY NAV MENU */
+        nav.sticky-nav {
+            background: var(--light-navy);
+            padding: 0;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
 
-        nav a {
-            flex: 1;
-            min-width: 120px;
-            padding: 1rem;
-            text-decoration: none;
-            color: var(--color-text);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        nav a:hover {
-            background: var(--color-light);
-            color: var(--color-accent);
-        }
-
-        nav a.active {
-            border-bottom-color: var(--color-accent);
-            color: var(--color-accent);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1200px;
+        nav.sticky-nav ul {
+            list-style: none;
+            display: flex;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 0;
+            gap: 0;
         }
 
-        /* Executive Summary */
+        nav.sticky-nav li {
+            flex: 0 0 auto;
+        }
+
+        nav.sticky-nav a {
+            display: block;
+            color: var(--white);
+            text-decoration: none;
+            padding: 1rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            opacity: 0.8;
+        }
+
+        nav.sticky-nav a:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        nav.sticky-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 1;
+            border-bottom-color: var(--orange);
+        }
+
+        /* MAIN CONTAINER */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        /* EXECUTIVE SUMMARY */
         .executive-summary {
-            background: white;
-            border-radius: 8px;
+            background: var(--white);
+            border-radius: 0.75rem;
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: var(--shadow);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .summary-grid {
+        .summary-header {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             align-items: center;
+            margin-bottom: 2rem;
         }
 
-        .score-ring {
+        .summary-left h1 {
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-left p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .summary-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        .summary-meta div {
+            background: var(--gray-light);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+        }
+
+        .summary-meta strong {
+            display: block;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .score-ring-container {
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        svg.score-svg {
+        .score-ring {
+            position: relative;
             width: 200px;
             height: 200px;
         }
 
-        .summary-text h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--color-primary);
+        .score-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
         }
 
-        .summary-stat {
-            margin-bottom: 1.5rem;
+        .score-ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
         }
 
-        .summary-stat strong {
-            display: block;
-            color: var(--color-accent);
-            margin-bottom: 0.25rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .score-ring-text .percentage {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy);
         }
 
-        .summary-stat p {
-            color: var(--color-text);
-            line-height: 1.5;
+        .score-ring-text .label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
         }
 
-        .summary-stat.strength {
-            border-left: 4px solid var(--color-success);
-            padding-left: 1rem;
+        .score-ring-text .status {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--orange);
+            margin-top: 0.5rem;
         }
 
-        .summary-stat.gap {
-            border-left: 4px solid var(--color-error);
-            padding-left: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .summary-grid {
-                grid-template-columns: 1fr;
-            }
-            svg.score-svg {
-                width: 150px;
-                height: 150px;
-            }
-        }
-
-        /* Section */
+        /* SECTION CARDS */
         .section {
-            background: white;
-            border-radius: 8px;
+            background: var(--white);
+            border-radius: 0.75rem;
+            padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .section-header {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-            color: white;
-            padding: 1.5rem;
-            cursor: pointer;
-            user-select: none;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            user-select: none;
         }
 
         .section-header:hover {
-            opacity: 0.9;
+            opacity: 0.8;
         }
 
-        .section-header.collapsed {
-            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+        .section-title-group h2 {
+            font-size: 1.375rem;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
         }
 
-        .section-title {
+        .section-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .section-badges {
             display: flex;
+            gap: 0.75rem;
             align-items: center;
-            gap: 1rem;
-            flex: 1;
         }
 
-        .section-title h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .section-score {
-            background: rgba(255,255,255,0.2);
+        .score-badge {
             padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
             font-weight: 600;
-            margin-right: 1rem;
+            white-space: nowrap;
         }
 
-        .grade-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .score-badge.strong {
+            background: #dcfce7;
+            color: #166534;
         }
 
-        .grade-badge.strong {
-            background: var(--color-success);
-            color: white;
+        .score-badge.good {
+            background: #fef3c7;
+            color: #92400e;
         }
 
-        .grade-badge.good {
-            background: var(--color-accent);
-            color: white;
+        .score-badge.needs-work {
+            background: #fed7aa;
+            color: #92400e;
         }
 
-        .grade-badge.needs-work {
-            background: var(--color-warning);
-            color: white;
+        .score-badge.critical {
+            background: #fecaca;
+            color: #991b1b;
         }
 
-        .grade-badge.critical {
-            background: var(--color-error);
-            color: white;
-        }
-
-        .section-toggle {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .expand-icon {
             font-size: 1.5rem;
+            color: var(--gray-medium);
             transition: transform 0.3s ease;
         }
 
-        .section.expanded .section-toggle {
+        .expand-icon.open {
             transform: rotate(180deg);
         }
 
-        .section-content {
-            padding: 2rem;
+        .section-details {
             display: none;
-            animation: slideDown 0.3s ease;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-light);
         }
 
-        .section.expanded .section-content {
+        .section-details.open {
             display: block;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Table */
+        /* AUDIT TABLE */
         .audit-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.95rem;
-        }
-
-        .audit-table thead {
-            background: var(--color-light);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
         }
 
         .audit-table th {
-            padding: 1rem;
+            background: var(--gray-light);
+            padding: 0.75rem;
             text-align: left;
-            font-weight: 700;
-            color: var(--color-primary);
-            border-bottom: 2px solid var(--color-border);
+            font-weight: 600;
+            color: var(--navy);
+            border-bottom: 2px solid var(--navy);
         }
 
         .audit-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--color-border);
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--gray-light);
         }
 
-        .audit-table tbody tr:hover {
-            background: var(--color-light);
+        .audit-table tr:hover {
+            background: var(--gray-light);
+        }
+
+        .item-id {
+            font-weight: 600;
+            color: var(--navy);
+            min-width: 60px;
+        }
+
+        .item-name {
+            font-weight: 500;
         }
 
         .status-pill {
             display: inline-block;
-            padding: 0.4rem 0.8rem;
-            border-radius: 16px;
-            font-size: 0.85rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            text-align: center;
-            min-width: 90px;
+            white-space: nowrap;
         }
 
         .status-pill.pass {
@@ -362,1201 +378,1211 @@
         }
 
         .status-pill.partial {
-            background: #fef3c7;
+            background: #fef08a;
             color: #92400e;
         }
 
         .status-pill.fail {
-            background: #fee2e2;
+            background: #fecaca;
             color: #991b1b;
         }
 
         .status-pill.na {
-            background: #f3f4f6;
-            color: #4b5563;
+            background: #e2e8f0;
+            color: #475569;
         }
 
-        .note {
-            color: var(--color-text-light);
-            font-size: 0.9rem;
+        .item-score {
+            text-align: right;
+            min-width: 50px;
+            font-weight: 600;
         }
 
-        /* Quick Wins */
+        .item-detail {
+            color: var(--text-secondary);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+        }
+
+        /* QUICK WINS */
         .quick-wins {
-            background: #dbeafe;
-            border-left: 4px solid var(--color-accent);
-            padding: 1.5rem;
-            border-radius: 4px;
-            margin-top: 1.5rem;
+            background: var(--blue-light);
+            border-left: 4px solid var(--blue);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
         }
 
-        .quick-wins h4 {
-            color: var(--color-accent);
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .quick-wins-title {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .quick-wins ul {
-            margin-left: 1.5rem;
-            color: var(--color-text);
+            list-style: none;
+            margin-left: 0;
         }
 
         .quick-wins li {
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
         }
 
-        /* Info Grids */
+        .quick-wins li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+            font-weight: bold;
+        }
+
+        /* INFO GRIDS */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
         .info-card {
-            background: var(--color-light);
-            padding: 1.5rem;
-            border-radius: 6px;
-            border-left: 4px solid var(--color-accent);
+            background: var(--gray-light);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 3px solid var(--blue);
         }
 
-        .info-card strong {
-            display: block;
-            color: var(--color-primary);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+        .info-card-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
         }
 
-        .info-card p {
-            color: var(--color-text);
-            word-break: break-word;
+        .info-card-value {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 500;
         }
 
-        /* Action Plan Table */
+        .info-card-value a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        .info-card-value a:hover {
+            text-decoration: underline;
+        }
+
+        /* ACTION PLAN TABLE */
         .action-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.95rem;
-            margin-top: 1.5rem;
-        }
-
-        .action-table thead {
-            background: var(--color-light);
+            font-size: 0.875rem;
+            margin: 1.5rem 0;
         }
 
         .action-table th {
-            padding: 1rem;
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.75rem;
             text-align: left;
-            font-weight: 700;
-            color: var(--color-primary);
-            border-bottom: 2px solid var(--color-border);
+            font-weight: 600;
         }
 
         .action-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--color-border);
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--gray-light);
         }
 
-        .action-table tbody tr:hover {
-            background: var(--color-light);
+        .action-table tr:hover {
+            background: var(--gray-light);
         }
 
-        .priority-badge {
-            background: var(--color-primary);
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
+        .action-priority {
             font-weight: 700;
-            font-size: 0.85rem;
-            text-align: center;
-            min-width: 40px;
+            min-width: 50px;
         }
 
-        .impact-high {
-            color: var(--color-success);
-            font-weight: 700;
+        .action-priority.p0 {
+            color: var(--red);
         }
 
-        .impact-medium {
-            color: var(--color-warning);
-            font-weight: 700;
+        .action-priority.p1 {
+            color: var(--orange);
         }
 
-        .impact-low {
-            color: var(--color-neutral);
-            font-weight: 700;
+        .action-priority.p2 {
+            color: var(--navy);
         }
 
-        .effort-low {
-            color: var(--color-success);
+        .effort-badge {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
-        .effort-medium {
-            color: var(--color-warning);
+        .effort-badge.low {
+            background: #dcfce7;
+            color: #166534;
         }
 
-        .effort-high {
-            color: var(--color-error);
+        .effort-badge.medium {
+            background: #fef08a;
+            color: #92400e;
         }
 
-        /* Footer */
-        footer {
-            background: var(--color-primary);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-            margin-top: 3rem;
-            font-size: 0.9rem;
+        .effort-badge.high {
+            background: #fecaca;
+            color: #991b1b;
         }
 
-        .footer-text {
-            margin-bottom: 0.5rem;
+        .impact-badge {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            background: #dcfce7;
+            color: #166534;
         }
 
-        .footer-brand {
-            font-weight: 700;
-            color: var(--color-accent);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .header-container {
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .header-top {
                 flex-direction: column;
+                gap: 1rem;
             }
 
-            .header-title h1 {
-                font-size: 1.4rem;
+            .header-info {
+                width: 100%;
+                gap: 1rem;
             }
 
-            .section-header {
+            .summary-header {
+                grid-template-columns: 1fr;
+            }
+
+            main {
                 padding: 1rem;
             }
 
-            .section-content {
+            .section {
                 padding: 1.5rem;
             }
 
-            .section-title {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+            nav.sticky-nav ul {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav.sticky-nav a {
+                padding: 0.75rem 0.875rem;
+                font-size: 0.75rem;
+            }
+
+            .section-badges {
+                flex-wrap: wrap;
+            }
+
+            .score-badge {
+                padding: 0.375rem 0.625rem;
+                font-size: 0.75rem;
             }
 
             .audit-table {
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
 
             .audit-table th,
             .audit-table td {
-                padding: 0.75rem;
+                padding: 0.5rem;
             }
 
-            .status-pill {
-                padding: 0.3rem 0.6rem;
+            .action-table {
                 font-size: 0.75rem;
-                min-width: 70px;
             }
 
-            .info-grid {
+            .action-table th,
+            .action-table td {
+                padding: 0.5rem;
+            }
+
+            .summary-meta {
                 grid-template-columns: 1fr;
             }
 
-            nav a {
-                min-width: 100px;
-                padding: 0.75rem 0.5rem;
-                font-size: 0.8rem;
+            .score-ring {
+                width: 150px;
+                height: 150px;
+            }
+
+            .score-ring-text .percentage {
+                font-size: 2rem;
             }
         }
 
-        /* Utilities */
-        .mt-2 {
-            margin-top: 2rem;
+        /* FOOTER */
+        footer {
+            background: var(--navy);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.875rem;
+        }
+
+        footer p {
+            margin: 0.25rem 0;
+        }
+
+        /* UTILITY */
+        .mt {
+            margin-top: 1.5rem;
         }
 
         .text-muted {
-            color: var(--color-text-light);
+            color: var(--text-secondary);
         }
 
-        .text-center {
-            text-align: center;
+        .highlight {
+            background: #fffacd;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
-        <div class="header-container">
-            <div class="header-title">
-                <h1>David A. Slaughter, DDS</h1>
-                <p>Digital Storefront Audit - Phase 1</p>
+        <div class="header-top">
+            <div class="header-branding">
+                🦷 David A. Slaughter, DDS <span class="gen4-badge">GEN4 DENTAL</span>
             </div>
-            <div class="header-badge">Gen4 Dental Marketing</div>
+            <div class="header-info">
+                <div>
+                    <span>LOCATION</span>
+                    <span>15004 Avery Ranch Blvd, Suite 100, Austin, TX 78717</span>
+                </div>
+                <div>
+                    <span>PHONE</span>
+                    <span><a href="tel:5122582233" style="color: inherit; text-decoration: none;">(512) 258-2233</a></span>
+                </div>
+                <div>
+                    <span>HOURS</span>
+                    <span>Mon/Tue/Thu 7am–4pm | Wed 7am–12pm</span>
+                </div>
+            </div>
         </div>
+        <nav class="sticky-nav">
+            <ul>
+                <li><a href="#summary" class="nav-link active">Executive Summary</a></li>
+                <li><a href="#section-1-1" class="nav-link">1.1 Conversion</a></li>
+                <li><a href="#section-1-2" class="nav-link">1.2 UX</a></li>
+                <li><a href="#section-1-3" class="nav-link">1.3 SEO</a></li>
+                <li><a href="#section-1-4" class="nav-link">1.4 Services</a></li>
+                <li><a href="#section-1-5" class="nav-link">1.5 Trust</a></li>
+                <li><a href="#section-1-6" class="nav-link">1.6 Location/NAP</a></li>
+                <li><a href="#section-1-7" class="nav-link">1.7 Insurance</a></li>
+                <li><a href="#section-1-8" class="nav-link">1.8 Content</a></li>
+                <li><a href="#section-1-9" class="nav-link">1.9 Technical</a></li>
+                <li><a href="#gbp" class="nav-link">GBP Summary</a></li>
+                <li><a href="#social" class="nav-link">Social Media</a></li>
+                <li><a href="#action-plan" class="nav-link">Action Plan</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#executive" class="nav-link active">Executive Summary</a>
-            <a href="#conversion" class="nav-link">Conversion</a>
-            <a href="#ux" class="nav-link">User Experience</a>
-            <a href="#seo" class="nav-link">SEO</a>
-            <a href="#services" class="nav-link">Services</a>
-            <a href="#trust" class="nav-link">Trust Building</a>
-            <a href="#location" class="nav-link">Location & NAP</a>
-            <a href="#financing" class="nav-link">Financing</a>
-            <a href="#content" class="nav-link">Content</a>
-            <a href="#technical" class="nav-link">Technical</a>
-            <a href="#tracking" class="nav-link">Tracking</a>
-            <a href="#actionplan" class="nav-link">Action Plan</a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Executive Summary -->
-        <section class="section expanded" id="executive">
-            <div class="section-header">
-                <div class="section-title">
-                    <h3>Executive Summary</h3>
-                </div>
-                <div class="section-toggle">▼</div>
-            </div>
-            <div class="section-content">
-                <div class="summary-grid">
-                    <div class="score-ring">
-                        <svg class="score-svg" viewBox="0 0 200 200">
-                            <!-- Background circle -->
-                            <circle cx="100" cy="100" r="90" fill="none" stroke="#e5e7eb" stroke-width="8"/>
-                            <!-- Score circle (182 degrees for 45.6%) -->
-                            <circle cx="100" cy="100" r="90" fill="none" stroke="#0ea5e9" stroke-width="8"
-                                stroke-dasharray="228.6 628.3" stroke-dashoffset="0" stroke-linecap="round"
-                                transform="rotate(-90 100 100)"/>
-                            <!-- Center text -->
-                            <text x="100" y="95" text-anchor="middle" font-size="48" font-weight="bold" fill="#1a2332">46%</text>
-                            <text x="100" y="120" text-anchor="middle" font-size="14" fill="#6b7280">20.5 / 45 items</text>
-                        </svg>
-                    </div>
-                    <div class="summary-text">
-                        <h2>Overall Assessment</h2>
-                        <div class="summary-stat">
-                            <strong>Overall Score: 20.5 / 45 (45.6%)</strong>
-                            <p>The website shows solid foundational elements but needs strategic enhancements in conversion optimization, content quality, and performance tracking.</p>
-                        </div>
-                        <div class="summary-stat strength">
-                            <strong>Top Strength</strong>
-                            <p>Strong doctor credentialing and trust signals — Dr. Slaughter's bio page, awards, and professional affiliations are well-presented.</p>
-                        </div>
-                        <div class="summary-stat gap">
-                            <strong>Biggest Gap</strong>
-                            <p>No online booking system, no new patient offer, no financing information, and no active blog — the site is missing key conversion and content drivers.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
-                    <h3 style="margin-bottom: 1.5rem;">Practice Information</h3>
-                    <div class="info-grid">
-                        <div class="info-card">
-                            <strong>Practice Name</strong>
-                            <p>David A. Slaughter, DDS</p>
-                        </div>
-                        <div class="info-card">
-                            <strong>Website</strong>
-                            <p><a href="https://www.austindentist.net" target="_blank" style="color: #0ea5e9; text-decoration: none;">austindentist.net</a></p>
-                        </div>
-                        <div class="info-card">
-                            <strong>Location</strong>
-                            <p>15004 Avery Ranch Blvd Bldg C, Suite 100<br>Austin, TX 78717</p>
-                        </div>
-                        <div class="info-card">
-                            <strong>Phone</strong>
-                            <p>(512) 258-2233</p>
-                        </div>
-                        <div class="info-card">
-                            <strong>Hours</strong>
-                            <p>Mon/Tue/Thu: 7:00AM – 4:00PM<br>Wed: 7:00AM – 12:00PM</p>
-                        </div>
-                        <div class="info-card">
+    <main>
+        <!-- EXECUTIVE SUMMARY -->
+        <section id="summary" class="executive-summary">
+            <div class="summary-header">
+                <div class="summary-left">
+                    <h1>Phase 1 Digital Storefront Audit</h1>
+                    <p><strong>Practice:</strong> David A. Slaughter, DDS</p>
+                    <p><strong>Website:</strong> <a href="https://www.austindentist.net/" target="_blank" style="color: var(--blue); text-decoration: none;">https://www.austindentist.net/</a></p>
+                    <p><strong>Audit Date:</strong> March 31, 2026</p>
+                    <div class="summary-meta">
+                        <div>
                             <strong>Platform</strong>
-                            <p>WordPress + Elementor</p>
+                            WordPress + Elementor
+                        </div>
+                        <div>
+                            <strong>Built By</strong>
+                            My Social Practice
+                        </div>
+                        <div>
+                            <strong>Doctor</strong>
+                            Dr. David A. Slaughter (25 yrs)
+                        </div>
+                        <div>
+                            <strong>Credentials</strong>
+                            Spear, Kois, Nobel Biocare
                         </div>
                     </div>
                 </div>
-
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
-                    <h3 style="margin-bottom: 1rem;">Audit Metadata</h3>
-                    <p><strong>Audit Date:</strong> March 31, 2026 | <strong>Audited By:</strong> Claude (Gen4 Dental Marketing Framework)</p>
+                <div class="score-ring-container">
+                    <div class="score-ring">
+                        <svg viewBox="0 0 100 100">
+                            <!-- Background circle -->
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb" stroke-width="8" />
+                            <!-- Progress circle (55% = 198 degrees = 0.55 * 360) -->
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#f97316" stroke-width="8" stroke-dasharray="155.1 282.7" stroke-linecap="round" />
+                        </svg>
+                        <div class="score-ring-text">
+                            <div class="percentage">55%</div>
+                            <div class="label">Overall Score</div>
+                            <div class="status">Needs Work</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 1.1 Conversion Strategy -->
-        <section class="section" id="conversion">
+        <!-- 1.1 CONVERSION STRATEGY -->
+        <section id="section-1-1" class="section">
             <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">3/6 (50%)</div>
-                    <div>
-                        <h3>Conversion Strategy</h3>
-                    </div>
-                    <div class="grade-badge needs-work">Needs Work</div>
+                <div class="section-title-group">
+                    <h2>1.1 Conversion Strategy</h2>
+                    <p class="section-subtitle">3.5/6 (58%) • Primary CTAs, booking, contact methods, offers</p>
                 </div>
-                <div class="section-toggle">▼</div>
+                <div class="section-badges">
+                    <span class="score-badge needs-work">Needs Work</span>
+                    <span class="expand-icon">⌄</span>
+                </div>
             </div>
-            <div class="section-content">
+            <div class="section-details">
                 <table class="audit-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
+                            <th>Item</th>
+                            <th>Criteria</th>
                             <th>Status</th>
-                            <th>Note</th>
+                            <th>Score</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1.1.1</td>
-                            <td>Primary CTA above fold</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">"Request an Appointment" and "Contact Us" buttons visible in hero, but links to a contact form — not real-time booking. Language is decent but not action-compelling.</td>
-                        </tr>
-                        <tr>
-                            <td>1.1.2</td>
-                            <td>Click-to-call phone</td>
+                            <td class="item-id">1.1.1</td>
+                            <td class="item-name">Primary CTA above fold</td>
                             <td><span class="status-pill pass">Pass</span></td>
-                            <td class="note">tel: link in header bar (512) 258-2233, visible without scrolling. Also in footer and contact section.</td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">"Request an Appointment" prominently in sticky header with contrasting color</td>
                         </tr>
                         <tr>
-                            <td>1.1.3</td>
-                            <td>Online appointment booking</td>
-                            <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No real-time booking widget anywhere on site. "Request an Appointment" is just a contact form. Patient Portal (Oryx) exists but is for existing patients only.</td>
-                        </tr>
-                        <tr>
-                            <td>1.1.4</td>
-                            <td>Contact form short (≤5 fields)</td>
+                            <td class="item-id">1.1.2</td>
+                            <td class="item-name">Click-to-call phone</td>
                             <td><span class="status-pill pass">Pass</span></td>
-                            <td class="note">Form has 5 fields: First Name, Last Name, Email, Phone, Message/Reason + consent checkbox. Clean and simple.</td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">tel:5122582233 link in header, visible without scrolling</td>
                         </tr>
                         <tr>
-                            <td>1.1.5</td>
-                            <td>New patient offer visible</td>
+                            <td class="item-id">1.1.3</td>
+                            <td class="item-name">Online booking available</td>
                             <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No new patient special, no dollar-amount offer, no mention of any promotional pricing anywhere on the site.</td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No real-time booking widget — only Gravity Forms contact forms for appointment requests</td>
                         </tr>
                         <tr>
-                            <td>1.1.6</td>
-                            <td>Multiple contact methods</td>
+                            <td class="item-id">1.1.4</td>
+                            <td class="item-name">Form ≤5 fields</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">5 visible fields: First Name, Last Name, Email, Phone, Message + consent checkbox</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.1.5</td>
+                            <td class="item-name">New patient offer visible</td>
+                            <td><span class="status-pill fail">Fail</span></td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No new patient special/offer anywhere on the website</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.1.6</td>
+                            <td class="item-name">Multiple contact methods</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Phone + contact form + Google Maps link + email link. No live chat or chatbot.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Phone + contact form available; no live chat or chatbot</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <div class="quick-wins">
-                    <h4>Quick Wins</h4>
+                    <div class="quick-wins-title">💡 Quick Wins</div>
                     <ul>
-                        <li>Add online booking widget (e.g., LocalMed, NexHealth)</li>
-                        <li>Create a new patient offer ($99 exam + X-ray)</li>
-                        <li>Add live chat (e.g., Podium, Birdeye)</li>
+                        <li>Add online scheduling widget (LocalMed, Weave, etc.)</li>
+                        <li>Create a new patient special ($99 exam + X-rays)</li>
+                        <li>Add chat widget (Podium, Weave)</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 1.2 User Experience -->
-        <section class="section" id="ux">
+        <!-- 1.2 USER EXPERIENCE -->
+        <section id="section-1-2" class="section">
             <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">1.5/3 (50%)</div>
-                    <div>
-                        <h3>User Experience</h3>
-                    </div>
-                    <div class="grade-badge needs-work">Needs Work</div>
+                <div class="section-title-group">
+                    <h2>1.2 User Experience</h2>
+                    <p class="section-subtitle">3.0/4 (75%) • Mobile, navigation, accessibility, 404 page</p>
                 </div>
-                <div class="section-toggle">▼</div>
+                <div class="section-badges">
+                    <span class="score-badge good">Good</span>
+                    <span class="expand-icon">⌄</span>
+                </div>
             </div>
-            <div class="section-content">
+            <div class="section-details">
                 <table class="audit-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
+                            <th>Item</th>
+                            <th>Criteria</th>
                             <th>Status</th>
-                            <th>Note</th>
+                            <th>Score</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1.2.1</td>
-                            <td>Mobile responsive</td>
+                            <td class="item-id">1.2.1</td>
+                            <td class="item-name">Mobile responsive</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">Elementor responsive design with viewport meta tag present</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.2.3</td>
+                            <td class="item-name">Navigation clear</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">Clean 4-item nav (About, Services, Patient Info, Contact) with "Request an Appointment" CTA</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.2.4</td>
+                            <td class="item-name">Accessibility</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Viewport meta tag present, Elementor responsive breakpoints configured. Site appears responsive but couldn't fully test mobile UX. Multiple nav repetitions in HTML suggest some mobile/desktop toggle patterns.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Alt text present on images but generic ("Dentist in Austin" on all); Accessibility Notice page exists</td>
                         </tr>
                         <tr>
-                            <td>1.2.2</td>
-                            <td>Page load speed</td>
-                            <td><span class="status-pill na">N/A</span></td>
-                            <td class="note">PageSpeed API unavailable during audit. Recommend manual testing.</td>
-                        </tr>
-                        <tr>
-                            <td>1.2.3</td>
-                            <td>Navigation clear</td>
+                            <td class="item-id">1.2.5</td>
+                            <td class="item-name">404 page branded</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">4 main nav items (About, Services, Patient Info, Contact) — clean count. However, no dedicated "New Patients" tab. Services dropdown has 7+ items. Nav is repeated multiple times in HTML (desktop/mobile/sticky).</td>
-                        </tr>
-                        <tr>
-                            <td>1.2.4</td>
-                            <td>Basic accessibility</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Skip-to-content link present. Accessibility notice in footer. But image alt text is generic — nearly all images use "Dentist in Austin" instead of descriptive text.</td>
-                        </tr>
-                        <tr>
-                            <td>1.2.5</td>
-                            <td>404 page branded</td>
-                            <td><span class="status-pill na">N/A</span></td>
-                            <td class="note">Not tested during this audit.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Custom branded with nav + Home/Contact links but no search bar</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <div class="quick-wins">
-                    <h4>Quick Wins</h4>
+                    <div class="quick-wins-title">💡 Quick Wins</div>
                     <ul>
-                        <li>Add a "New Patients" nav item</li>
-                        <li>Fix alt text on images to be descriptive</li>
-                        <li>Run PageSpeed and address issues</li>
+                        <li>Add descriptive alt text to all images</li>
+                        <li>Add search functionality to 404 page</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 1.3 SEO Fundamentals -->
-        <section class="section" id="seo">
+        <!-- 1.3 SEO FUNDAMENTALS -->
+        <section id="section-1-3" class="section">
             <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">3/6 (50%)</div>
-                    <div>
-                        <h3>SEO Fundamentals</h3>
-                    </div>
-                    <div class="grade-badge needs-work">Needs Work</div>
+                <div class="section-title-group">
+                    <h2>1.3 SEO Fundamentals</h2>
+                    <p class="section-subtitle">4.0/7 (57%) • Title, meta, H1, schema, sitemaps</p>
                 </div>
-                <div class="section-toggle">▼</div>
+                <div class="section-badges">
+                    <span class="score-badge needs-work">Needs Work</span>
+                    <span class="expand-icon">⌄</span>
+                </div>
             </div>
-            <div class="section-content">
+            <div class="section-details">
                 <table class="audit-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
+                            <th>Item</th>
+                            <th>Criteria</th>
                             <th>Status</th>
-                            <th>Note</th>
+                            <th>Score</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1.3.1</td>
-                            <td>Location unique page</td>
+                            <td class="item-id">1.3.1</td>
+                            <td class="item-name">Unique location page</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">Single location; homepage has 500+ words with local references to Austin, Avery Ranch</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.3.2</td>
+                            <td class="item-name">Title tag optimized</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Homepage has local references and "Areas We Serve" page exists, but no dedicated /locations/austin-tx/ page with 500+ words of unique local content.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">"Homepage - Dentist in Austin-David A Slaughter, DDS Dentist in Austin" — too long, redundant, starts with "Homepage"</td>
                         </tr>
                         <tr>
-                            <td>1.3.2</td>
-                            <td>Title tag optimized</td>
+                            <td class="item-id">1.3.3</td>
+                            <td class="item-name">Meta description</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Title reads "Homepage - Dentist in Austin-David A Slaughter, DDS Dentist in Austin" — includes keyword + city but wastes space with "Homepage" prefix and is repetitive. Over 65 characters.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Likely exists via Yoast SEO but quality could not be confirmed during audit</td>
                         </tr>
                         <tr>
-                            <td>1.3.3</td>
-                            <td>Meta description</td>
+                            <td class="item-id">1.3.4</td>
+                            <td class="item-name">H1 tag</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Could not fully extract meta description. Title tag issues suggest meta may need work too.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">"Choose your dentist's favorite dentist" — creative but missing location and service keywords</td>
                         </tr>
                         <tr>
-                            <td>1.3.4</td>
-                            <td>H1 keyword-rich</td>
+                            <td class="item-id">1.3.5</td>
+                            <td class="item-name">Individual service pages</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">Dedicated pages for implants, veneers, whitening, dentures, cosmetic dentistry with unique URLs</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.3.6</td>
+                            <td class="item-name">Local schema markup</td>
+                            <td><span class="status-pill fail">Fail</span></td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No JSON-LD LocalBusiness or Dentist schema detected</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.3.7</td>
+                            <td class="item-name">Internal linking</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">H1 is "Choose your dentist's favorite dentist" — creative but lacks city name and dental keywords. Not SEO-optimized.</td>
-                        </tr>
-                        <tr>
-                            <td>1.3.5</td>
-                            <td>Individual service pages</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Dedicated pages exist for Implants, Veneers, Whitening, Dentures, Cosmetic Dentistry, Scaling/Root Planing, Sealants. But no dedicated Invisalign page (despite patients mentioning it in reviews), no Crowns page, no Emergency page.</td>
-                        </tr>
-                        <tr>
-                            <td>1.3.6</td>
-                            <td>Local schema markup</td>
-                            <td><span class="status-pill na">N/A</span></td>
-                            <td class="note">Could not verify JSON-LD from browser. Recommend manual check.</td>
-                        </tr>
-                        <tr>
-                            <td>1.3.7</td>
-                            <td>Search Console connected</td>
-                            <td><span class="status-pill na">N/A</span></td>
-                            <td class="note">Cannot verify externally.</td>
-                        </tr>
-                        <tr>
-                            <td>1.3.8</td>
-                            <td>Internal linking</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Homepage links to key services and about pages. Service pages link back. But no cross-linking between service pages, no blog content to link to.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Homepage links to service pages and footer has cross-links, but limited deep cross-linking between service pages</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <div class="quick-wins">
-                    <h4>Quick Wins</h4>
+                    <div class="quick-wins-title">💡 Quick Wins</div>
                     <ul>
                         <li>Fix title tag to "Dentist in Austin, TX | David A. Slaughter, DDS"</li>
-                        <li>Update H1 to include "Austin Dentist" keyword</li>
-                        <li>Create Invisalign service page</li>
+                        <li>Add JSON-LD Dentist schema</li>
+                        <li>Optimize H1 with keywords ("Dentist in Austin, Texas — Premier Cosmetic & General Dentistry")</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 1.4 Service Line Clarity -->
-        <section class="section" id="services">
+        <!-- 1.4 SERVICE LINE CLARITY -->
+        <section id="section-1-4" class="section">
             <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">1.5/4 (37.5%)</div>
-                    <div>
-                        <h3>Service Line Clarity</h3>
-                    </div>
-                    <div class="grade-badge critical">Critical</div>
+                <div class="section-title-group">
+                    <h2>1.4 Service Line Clarity</h2>
+                    <p class="section-subtitle">2.0/4 (50%) • Patient language, procedure pages, emergency, cosmetic</p>
                 </div>
-                <div class="section-toggle">▼</div>
+                <div class="section-badges">
+                    <span class="score-badge needs-work">Needs Work</span>
+                    <span class="expand-icon">⌄</span>
+                </div>
             </div>
-            <div class="section-content">
+            <div class="section-details">
                 <table class="audit-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
+                            <th>Item</th>
+                            <th>Criteria</th>
                             <th>Status</th>
-                            <th>Note</th>
+                            <th>Score</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1.4.1</td>
-                            <td>General services in patient language</td>
+                            <td class="item-id">1.4.1</td>
+                            <td class="item-name">Services in patient-friendly language</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Services listed (Crowns, Bridges, Implants, Fillings, Dentures, Cosmetic, Veneers, Whitening, Extractions, Gum Treatment, Root Canal) but language is clinical/textbook — reads like a dental manual, not patient-friendly copy.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Services listed but some in clinical language (e.g., "Scaling and Root Planing" vs "Deep Cleaning")</td>
                         </tr>
                         <tr>
-                            <td>1.4.2</td>
-                            <td>High-value procedure pages</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Implants, Veneers, Whitening have dedicated pages under /cosmetic-dentistry/. No dedicated Invisalign, Crowns, or Emergency page.</td>
+                            <td class="item-id">1.4.2</td>
+                            <td class="item-name">High-value procedures have pages</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">Individual pages for implants, veneers, whitening, dentures under /dental-services/</td>
                         </tr>
                         <tr>
-                            <td>1.4.3</td>
-                            <td>Emergency dental promoted</td>
+                            <td class="item-id">1.4.3</td>
+                            <td class="item-name">Emergency services promoted</td>
                             <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">Zero emergency dental content anywhere on the site. No "same-day" messaging, no emergency page, no phone prominence for emergencies.</td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No emergency dentistry content or same-day messaging found on the site</td>
                         </tr>
                         <tr>
-                            <td>1.4.4</td>
-                            <td>Cosmetic uses aspirational language</td>
+                            <td class="item-id">1.4.4</td>
+                            <td class="item-name">Cosmetic services use aspirational language</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Cosmetic services listed but no before/after gallery. No "transform your smile" outcome-focused language. Service descriptions are clinical.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Services listed with descriptions but no before/after gallery and limited aspirational language</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <div class="quick-wins">
-                    <h4>Quick Wins</h4>
+                    <div class="quick-wins-title">💡 Quick Wins</div>
                     <ul>
-                        <li>Rewrite service descriptions in patient-friendly language</li>
-                        <li>Add an Emergency Dentistry page</li>
-                        <li>Create before/after photo gallery</li>
+                        <li>Add emergency dentistry page with prominent messaging</li>
+                        <li>Rewrite service names in patient-friendly language ("Deep Cleaning" vs "Scaling and Root Planing")</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 1.5 Trust-Building Elements -->
-        <section class="section" id="trust">
+        <!-- 1.5 TRUST-BUILDING ELEMENTS -->
+        <section id="section-1-5" class="section">
             <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">4/6 (66.7%)</div>
-                    <div>
-                        <h3>Trust-Building Elements</h3>
-                    </div>
-                    <div class="grade-badge good">Good</div>
+                <div class="section-title-group">
+                    <h2>1.5 Trust-Building Elements</h2>
+                    <p class="section-subtitle">3.5/6 (58%) • Doctor bio, reviews, before/after, technology, awards</p>
                 </div>
-                <div class="section-toggle">▼</div>
+                <div class="section-badges">
+                    <span class="score-badge needs-work">Needs Work</span>
+                    <span class="expand-icon">⌄</span>
+                </div>
             </div>
-            <div class="section-content">
+            <div class="section-details">
                 <table class="audit-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
+                            <th>Item</th>
+                            <th>Criteria</th>
                             <th>Status</th>
-                            <th>Note</th>
+                            <th>Score</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1.5.1</td>
-                            <td>Doctor bio with real photo</td>
+                            <td class="item-id">1.5.1</td>
+                            <td class="item-name">Doctor bio with photo/credentials</td>
                             <td><span class="status-pill pass">Pass</span></td>
-                            <td class="note">Excellent bio page — education (BA Biology WTSU 1997, DDS UTDB 2001), Spear Education & Kois Center training, memberships (ADA, TDA, CADS, AGD), personal info (wife Kim, Golden Retrievers), accomplishments listed. Professional photo appears present.</td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">Detailed bio: credentials (ADA, TDA, Spear, Kois), personal story (wife Kim, golden retrievers), education</td>
                         </tr>
                         <tr>
-                            <td>1.5.2</td>
-                            <td>Patient reviews on website</td>
+                            <td class="item-id">1.5.2</td>
+                            <td class="item-name">Patient reviews displayed</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">3 testimonials in rotating slider on homepage (Maggie T., Terry S., Gina T.) with star images. Links to Google for more reviews. But no embedded Google review widget, only 3 reviews shown.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">3 testimonials in homepage slider linking to Google reviews, but not an embedded widget and fewer than 10 on site</td>
                         </tr>
                         <tr>
-                            <td>1.5.3</td>
-                            <td>Before/after gallery</td>
+                            <td class="item-id">1.5.3</td>
+                            <td class="item-name">Before/after gallery</td>
                             <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No before/after photos anywhere on the site despite offering cosmetic dentistry, veneers, whitening, and implants.</td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No before/after photos found anywhere on the website</td>
                         </tr>
                         <tr>
-                            <td>1.5.4</td>
-                            <td>Technology featured</td>
+                            <td class="item-id">1.5.4</td>
+                            <td class="item-name">Technology featured</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Homepage mentions digital X-rays, intraoral cameras, chairside computers, smile preview imaging, "AI technology." But no dedicated technology page with photos.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Technology mentioned in homepage copy (digital X-rays, intraoral cameras, AI) but no dedicated technology page with photos</td>
                         </tr>
                         <tr>
-                            <td>1.5.5</td>
-                            <td>Awards & affiliations displayed</td>
-                            <td><span class="status-pill pass">Pass</span></td>
-                            <td class="note">ADA, TDA, CADS, AGD memberships. Top dentist in Texas 5 consecutive years. Consumer Research Council "Americas Best Dentists" 7 years. Nobel Biocare implant training. Kois Center and Spear Education. 100+ CE hours annually.</td>
+                            <td class="item-id">1.5.5</td>
+                            <td class="item-name">Awards/certifications displayed</td>
+                            <td><span class="status-pill partial">Partial</span></td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Credentials mentioned in bio text (ADA, TDA, Spear, Kois, "Top Dentist in Texas 5 years") but no visual logo badges</td>
                         </tr>
                         <tr>
-                            <td>1.5.6</td>
-                            <td>HIPAA/Privacy Policy</td>
+                            <td class="item-id">1.5.6</td>
+                            <td class="item-name">HIPAA/Privacy Policy</td>
                             <td><span class="status-pill pass">Pass</span></td>
-                            <td class="note">"HIPAA Notice of Privacy Practice" link in footer. Accessibility Notice also present.</td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">"HIPAA Notice of Privacy Practice" link in footer</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <div class="quick-wins">
-                    <h4>Quick Wins</h4>
+                    <div class="quick-wins-title">💡 Quick Wins</div>
                     <ul>
                         <li>Embed Google Reviews widget (10+ reviews)</li>
-                        <li>Create before/after gallery for cosmetic cases</li>
-                        <li>Add technology page with photos</li>
+                        <li>Create before/after photo gallery for cosmetic cases</li>
+                        <li>Add credential logo badges to About page (ADA, TDA, Spear, Kois, Nobel)</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 1.6 Location & NAP -->
-        <section class="section" id="location">
+        <!-- 1.6 LOCATION & NAP -->
+        <section id="section-1-6" class="section">
             <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">2.5/4 (62.5%)</div>
-                    <div>
-                        <h3>Location & NAP</h3>
-                    </div>
-                    <div class="grade-badge good">Good</div>
+                <div class="section-title-group">
+                    <h2>1.6 Location & NAP Consistency</h2>
+                    <p class="section-subtitle">2.0/3 (67%) • NAP consistency, location URL, Google Map, hours</p>
                 </div>
-                <div class="section-toggle">▼</div>
+                <div class="section-badges">
+                    <span class="score-badge good">Good</span>
+                    <span class="expand-icon">⌄</span>
+                </div>
             </div>
-            <div class="section-content">
+            <div class="section-details">
                 <table class="audit-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
+                            <th>Item</th>
+                            <th>Criteria</th>
                             <th>Status</th>
-                            <th>Note</th>
+                            <th>Score</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1.6.1</td>
-                            <td>NAP consistent</td>
+                            <td class="item-id">1.6.1</td>
+                            <td class="item-name">NAP consistent</td>
                             <td><span class="status-pill pass">Pass</span></td>
-                            <td class="note">"David A. Slaughter, DDS — 15004 Avery Ranch Blvd Bldg C, Suite 100 Austin, TX 78717 — (512) 258-2233" consistent in header bar, footer, contact section, and bottom of page.</td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">"David A. Slaughter, DDS, 15004 Avery Ranch Blvd Bldg C, Suite 100, Austin, TX 78717, (512) 258-2233"</td>
                         </tr>
                         <tr>
-                            <td>1.6.2</td>
-                            <td>Location unique URL</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">No dedicated /locations/ URL. Contact page and "Areas We Serve" page exist but are not location-specific landing pages.</td>
-                        </tr>
-                        <tr>
-                            <td>1.6.3</td>
-                            <td>Embedded Google Map</td>
-                            <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">"Find Us On Google Maps" is a link to Google Maps, not an embedded map iframe on the page. Users must leave the site to see the map.</td>
-                        </tr>
-                        <tr>
-                            <td>1.6.4</td>
-                            <td>Hours displayed prominently</td>
-                            <td><span class="status-pill pass">Pass</span></td>
-                            <td class="note">Hours shown in top bar: "Mon/Tue/Thu: 7:00AM – 4:00PM, Wed: 7:00AM – 12:00PM". Also repeated in footer.</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="quick-wins">
-                    <h4>Quick Wins</h4>
-                    <ul>
-                        <li>Embed a Google Map on the contact page</li>
-                        <li>Create a dedicated location landing page</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 1.7 Insurance, Financing & Offers -->
-        <section class="section" id="financing">
-            <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">0.5/4 (12.5%)</div>
-                    <div>
-                        <h3>Insurance, Financing & Offers</h3>
-                    </div>
-                    <div class="grade-badge critical">Critical</div>
-                </div>
-                <div class="section-toggle">▼</div>
-            </div>
-            <div class="section-content">
-                <table class="audit-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
-                            <th>Status</th>
-                            <th>Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1.7.1</td>
-                            <td>Insurance accepted list</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Page states "out of network with all insurance companies" but "accept all PPO plans and will gladly file your dental claims." No named insurance plans listed. Payment methods: Cash, Check, Amex, Discover, MC, Visa.</td>
-                        </tr>
-                        <tr>
-                            <td>1.7.2</td>
-                            <td>Financing options</td>
-                            <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No CareCredit, Sunbit, or any financing mentioned on the website — despite CareCredit listing them externally. No financing page, no logos, no payment calculator.</td>
-                        </tr>
-                        <tr>
-                            <td>1.7.3</td>
-                            <td>New patient special</td>
-                            <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No new patient offer anywhere on the site. No dollar amount, no expiration, no promotional pricing.</td>
-                        </tr>
-                        <tr>
-                            <td>1.7.4</td>
-                            <td>Membership/savings plan</td>
-                            <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No in-house membership or savings plan for uninsured patients.</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="quick-wins">
-                    <h4>Quick Wins</h4>
-                    <ul>
-                        <li>Add CareCredit logo and financing page</li>
-                        <li>Create a $99 or $149 new patient special</li>
-                        <li>Develop an in-house membership plan</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 1.8 Content Quality -->
-        <section class="section" id="content">
-            <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">1/4 (25%)</div>
-                    <div>
-                        <h3>Content Quality</h3>
-                    </div>
-                    <div class="grade-badge critical">Critical</div>
-                </div>
-                <div class="section-toggle">▼</div>
-            </div>
-            <div class="section-content">
-                <table class="audit-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
-                            <th>Status</th>
-                            <th>Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1.8.1</td>
-                            <td>Patient-centric homepage copy</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Homepage has strong Dr. Slaughter brand messaging ("dentist's dentist," concierge care, natural restorations). But service pages use generic textbook language with no emotional or outcome-focused copy.</td>
-                        </tr>
-                        <tr>
-                            <td>1.8.2</td>
-                            <td>Active blog</td>
-                            <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">Only a default WordPress "Hello World" post exists. No blog content, no educational articles, no locally relevant content.</td>
-                        </tr>
-                        <tr>
-                            <td>1.8.3</td>
-                            <td>FAQs on service pages</td>
-                            <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No FAQs anywhere on the site — not on homepage, not on service pages.</td>
-                        </tr>
-                        <tr>
-                            <td>1.8.4</td>
-                            <td>Consistent brand messaging</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Homepage has strong Gen4/concierge brand voice but service pages revert to generic clinical copy — significant inconsistency.</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="quick-wins">
-                    <h4>Quick Wins</h4>
-                    <ul>
-                        <li>Start a blog with monthly posts</li>
-                        <li>Add FAQ sections to top service pages</li>
-                        <li>Rewrite service page copy to match homepage brand voice</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 1.9 Technical Performance -->
-        <section class="section" id="technical">
-            <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">2/3 (66.7%)</div>
-                    <div>
-                        <h3>Technical Performance</h3>
-                    </div>
-                    <div class="grade-badge good">Good</div>
-                </div>
-                <div class="section-toggle">▼</div>
-            </div>
-            <div class="section-content">
-                <table class="audit-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
-                            <th>Status</th>
-                            <th>Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1.9.1</td>
-                            <td>Core Web Vitals</td>
+                            <td class="item-id">1.6.2</td>
+                            <td class="item-name">Location unique URL</td>
                             <td><span class="status-pill na">N/A</span></td>
-                            <td class="note">Could not run PageSpeed during audit.</td>
+                            <td class="item-score">—</td>
+                            <td class="item-detail">Single-location practice</td>
                         </tr>
                         <tr>
-                            <td>1.9.2</td>
-                            <td>HTTPS with valid SSL</td>
+                            <td class="item-id">1.6.3</td>
+                            <td class="item-name">Embedded Google Map</td>
+                            <td><span class="status-pill fail">Fail</span></td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No embedded map on contact page — only a link to Google Maps</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.6.4</td>
+                            <td class="item-name">Hours prominently displayed</td>
                             <td><span class="status-pill pass">Pass</span></td>
-                            <td class="note">Site loads fully on HTTPS.</td>
-                        </tr>
-                        <tr>
-                            <td>1.9.3</td>
-                            <td>XML sitemap</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">WordPress typically generates sitemap. Couldn't confirm submission to GSC.</td>
-                        </tr>
-                        <tr>
-                            <td>1.9.4</td>
-                            <td>No broken links</td>
-                            <td><span class="status-pill na">N/A</span></td>
-                            <td class="note">Not fully tested.</td>
-                        </tr>
-                        <tr>
-                            <td>1.9.5</td>
-                            <td>No duplicate content</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Main services page has full text descriptions for services that also have their own dedicated pages, creating potential duplication.</td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">Hours shown in sticky top bar across all pages</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <div class="quick-wins">
-                    <h4>Quick Wins</h4>
+                    <div class="quick-wins-title">💡 Quick Wins</div>
                     <ul>
-                        <li>Submit sitemap to Google Search Console</li>
-                        <li>Run a broken link check</li>
-                        <li>Deduplicate service page content</li>
+                        <li>Embed Google Maps iframe on contact page</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- 1.10 Tracking & Analytics -->
-        <section class="section" id="tracking">
+        <!-- 1.7 INSURANCE, FINANCING & OFFERS -->
+        <section id="section-1-7" class="section">
             <div class="section-header">
-                <div class="section-title">
-                    <div class="section-score">1/5 (20%)</div>
-                    <div>
-                        <h3>Tracking & Analytics</h3>
-                    </div>
-                    <div class="grade-badge critical">Critical</div>
+                <div class="section-title-group">
+                    <h2>1.7 Insurance, Financing & Offers</h2>
+                    <p class="section-subtitle">0.5/4 (13%) • Insurance list, financing, new patient offer, membership</p>
                 </div>
-                <div class="section-toggle">▼</div>
+                <div class="section-badges">
+                    <span class="score-badge critical">Critical</span>
+                    <span class="expand-icon">⌄</span>
+                </div>
             </div>
-            <div class="section-content">
+            <div class="section-details">
                 <table class="audit-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Checkpoint</th>
+                            <th>Item</th>
+                            <th>Criteria</th>
                             <th>Status</th>
-                            <th>Note</th>
+                            <th>Score</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1.10.1</td>
-                            <td>GA4 installed</td>
+                            <td class="item-id">1.7.1</td>
+                            <td class="item-name">Insurance list visible</td>
                             <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Some tracking infrastructure visible (WordPress/Elementor ajax URLs, form tracking via Gravity Forms). Could not confirm GA4 specifically.</td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">States "out of network with all insurance companies; accept all PPO plans" — no named plan list</td>
                         </tr>
                         <tr>
-                            <td>1.10.2</td>
-                            <td>Call tracking</td>
+                            <td class="item-id">1.7.2</td>
+                            <td class="item-name">Financing options featured</td>
                             <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No CallRail, CallTrackingMetrics, or similar DNI (dynamic number insertion) detected. Raw phone number used throughout.</td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No financing information found (no CareCredit, Sunbit, in-house plans, etc.)</td>
                         </tr>
                         <tr>
-                            <td>1.10.3</td>
-                            <td>GTM deployed</td>
-                            <td><span class="status-pill partial">Partial</span></td>
-                            <td class="note">Could not fully confirm Google Tag Manager presence. Some tag management infrastructure may exist.</td>
-                        </tr>
-                        <tr>
-                            <td>1.10.4</td>
-                            <td>Conversion goals defined</td>
+                            <td class="item-id">1.7.3</td>
+                            <td class="item-name">New patient special</td>
                             <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No confirmed conversion tracking for form submissions, calls, or bookings.</td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No new patient special or offer with dollar amount</td>
                         </tr>
                         <tr>
-                            <td>1.10.5</td>
-                            <td>Heatmapping active</td>
+                            <td class="item-id">1.7.4</td>
+                            <td class="item-name">Membership/savings plan</td>
                             <td><span class="status-pill fail">Fail</span></td>
-                            <td class="note">No Microsoft Clarity, Hotjar, or similar session recording tool detected.</td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No membership or savings plan for uninsured patients</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <div class="quick-wins">
-                    <h4>Quick Wins</h4>
+                    <div class="quick-wins-title">💡 Quick Wins</div>
                     <ul>
-                        <li>Install Google Tag Manager</li>
-                        <li>Set up CallRail for call tracking</li>
-                        <li>Install Microsoft Clarity (free) for heatmapping</li>
+                        <li>Create a new patient special ($99 exam/cleaning/X-rays)</li>
+                        <li>Add financing page with CareCredit and Sunbit options</li>
+                        <li>Create in-house membership plan (e.g., $149/year for 2 cleanings + exams)</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Google Business Profile Summary -->
-        <section class="section expanded">
+        <!-- 1.8 CONTENT QUALITY -->
+        <section id="section-1-8" class="section">
             <div class="section-header">
-                <div class="section-title">
-                    <h3>Google Business Profile Summary</h3>
+                <div class="section-title-group">
+                    <h2>1.8 Content Quality</h2>
+                    <p class="section-subtitle">1.5/4 (38%) • Patient-centric, blog, FAQs, consistency</p>
                 </div>
-                <div class="section-toggle">▼</div>
-            </div>
-            <div class="section-content">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <strong>GBP Status</strong>
-                        <p>Active - Google Maps link on website confirms listing</p>
-                    </div>
-                    <div class="info-card">
-                        <strong>Business Name</strong>
-                        <p>David A. Slaughter, DDS</p>
-                    </div>
-                    <div class="info-card">
-                        <strong>Address Match</strong>
-                        <p>Consistent with website NAP</p>
-                    </div>
-                    <div class="info-card">
-                        <strong>Yelp Reviews</strong>
-                        <p>18 reviews</p>
-                    </div>
-                    <div class="info-card">
-                        <strong>Healthgrades</strong>
-                        <p>3.0 stars / 4 reviews</p>
-                    </div>
-                    <div class="info-card">
-                        <strong>Womply</strong>
-                        <p>87 ratings/reviews aggregated</p>
-                    </div>
-                </div>
-                <p style="margin-top: 1.5rem; color: #6b7280; font-size: 0.95rem;"><strong>Note:</strong> Exact Google star rating and review count not confirmed during audit. Practice is part of Gen4 Dental network. CareCredit accepted per external directory.</p>
-            </div>
-        </section>
-
-        <!-- Social Media Summary -->
-        <section class="section expanded">
-            <div class="section-header">
-                <div class="section-title">
-                    <h3>Social Media Summary</h3>
-                </div>
-                <div class="section-toggle">▼</div>
-            </div>
-            <div class="section-content">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <strong>Facebook</strong>
-                        <p><a href="https://www.facebook.com/people/David-A-Slaughter-DDS/100064769014219/" target="_blank" style="color: #0ea5e9; text-decoration: none;">David A. Slaughter, DDS</a></p>
-                    </div>
-                    <div class="info-card">
-                        <strong>Instagram</strong>
-                        <p><a href="https://www.instagram.com/davidslaughterdds/" target="_blank" style="color: #0ea5e9; text-decoration: none;">@davidslaughterdds</a></p>
-                    </div>
-                    <div class="info-card">
-                        <strong>YouTube</strong>
-                        <p>Not detected</p>
-                    </div>
-                    <div class="info-card">
-                        <strong>TikTok</strong>
-                        <p>Not detected</p>
-                    </div>
-                    <div class="info-card">
-                        <strong>LinkedIn</strong>
-                        <p>Not detected</p>
-                    </div>
-                    <div class="info-card">
-                        <strong>Cadence Assessment</strong>
-                        <p>Not assessed during audit</p>
-                    </div>
+                <div class="section-badges">
+                    <span class="score-badge critical">Critical</span>
+                    <span class="expand-icon">⌄</span>
                 </div>
             </div>
-        </section>
-
-        <!-- Top 10 Action Plan -->
-        <section class="section expanded" id="actionplan">
-            <div class="section-header">
-                <div class="section-title">
-                    <h3>Top 10 Prioritized Action Plan</h3>
-                </div>
-                <div class="section-toggle">▼</div>
-            </div>
-            <div class="section-content">
-                <table class="action-table">
+            <div class="section-details">
+                <table class="audit-table">
                     <thead>
                         <tr>
-                            <th style="width: 60px;">Priority</th>
-                            <th>Action</th>
-                            <th style="width: 120px;">Effort</th>
-                            <th style="width: 100px;">Impact</th>
+                            <th>Item</th>
+                            <th>Criteria</th>
+                            <th>Status</th>
+                            <th>Score</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><span class="priority-badge">1</span></td>
-                            <td>Add real-time online booking (LocalMed, NexHealth, or similar)</td>
-                            <td class="effort-medium">Medium</td>
-                            <td class="impact-high">High</td>
+                            <td class="item-id">1.8.1</td>
+                            <td class="item-name">Homepage patient-centric</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">"Choose your dentist's favorite dentist", "Concierge Patient Care", outcome-focused language</td>
                         </tr>
                         <tr>
-                            <td><span class="priority-badge">2</span></td>
-                            <td>Create compelling new patient offer ($99 or $149 exam special)</td>
-                            <td class="effort-low">Low</td>
-                            <td class="impact-high">High</td>
+                            <td class="item-id">1.8.2</td>
+                            <td class="item-name">Blog/resources active</td>
+                            <td><span class="status-pill fail">Fail</span></td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">Post sitemap last updated 2021; no blog visible in navigation</td>
                         </tr>
                         <tr>
-                            <td><span class="priority-badge">3</span></td>
-                            <td>Install call tracking (CallRail) with dynamic number insertion</td>
-                            <td class="effort-low">Low</td>
-                            <td class="impact-high">High</td>
+                            <td class="item-id">1.8.3</td>
+                            <td class="item-name">FAQs on service pages</td>
+                            <td><span class="status-pill fail">Fail</span></td>
+                            <td class="item-score">0.0</td>
+                            <td class="item-detail">No FAQ sections found on any page</td>
                         </tr>
                         <tr>
-                            <td><span class="priority-badge">4</span></td>
-                            <td>Add CareCredit/financing page with logos and payment calculator</td>
-                            <td class="effort-low">Low</td>
-                            <td class="impact-high">High</td>
-                        </tr>
-                        <tr>
-                            <td><span class="priority-badge">5</span></td>
-                            <td>Embed Google Reviews widget on homepage (10+ reviews)</td>
-                            <td class="effort-low">Low</td>
-                            <td class="impact-high">High</td>
-                        </tr>
-                        <tr>
-                            <td><span class="priority-badge">6</span></td>
-                            <td>Install GTM + GA4 with conversion events for forms and calls</td>
-                            <td class="effort-medium">Medium</td>
-                            <td class="impact-high">High</td>
-                        </tr>
-                        <tr>
-                            <td><span class="priority-badge">7</span></td>
-                            <td>Create before/after photo gallery for cosmetic procedures</td>
-                            <td class="effort-medium">Medium</td>
-                            <td class="impact-high">High</td>
-                        </tr>
-                        <tr>
-                            <td><span class="priority-badge">8</span></td>
-                            <td>Fix title tag and H1 for SEO (include "Austin" + keywords)</td>
-                            <td class="effort-low">Low</td>
-                            <td class="impact-medium">Medium</td>
-                        </tr>
-                        <tr>
-                            <td><span class="priority-badge">9</span></td>
-                            <td>Rewrite service pages in patient-friendly language</td>
-                            <td class="effort-medium">Medium</td>
-                            <td class="impact-medium">Medium</td>
-                        </tr>
-                        <tr>
-                            <td><span class="priority-badge">10</span></td>
-                            <td>Launch blog with monthly locally-relevant content</td>
-                            <td class="effort-medium">Medium</td>
-                            <td class="impact-medium">Medium</td>
+                            <td class="item-id">1.8.4</td>
+                            <td class="item-name">Messaging consistent</td>
+                            <td><span class="status-pill partial">Partial</span></td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Professional design via My Social Practice is consistent, but brand voice guidelines not strongly evident</td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="quick-wins">
+                    <div class="quick-wins-title">💡 Quick Wins</div>
+                    <ul>
+                        <li>Add FAQ sections to top service pages (Implants, Veneers, Whitening)</li>
+                        <li>Reactivate blog with monthly posts (dental health tips, patient stories, treatment education)</li>
+                    </ul>
+                </div>
             </div>
         </section>
-    </div>
 
-    <!-- Footer -->
+        <!-- 1.9 TECHNICAL PERFORMANCE -->
+        <section id="section-1-9" class="section">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <h2>1.9 Technical Performance</h2>
+                    <p class="section-subtitle">3.0/4 (75%) • HTTPS, sitemaps, broken links, duplicate content</p>
+                </div>
+                <div class="section-badges">
+                    <span class="score-badge good">Good</span>
+                    <span class="expand-icon">⌄</span>
+                </div>
+            </div>
+            <div class="section-details">
+                <table class="audit-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Criteria</th>
+                            <th>Status</th>
+                            <th>Score</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="item-id">1.9.2</td>
+                            <td class="item-name">HTTPS/SSL</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">HTTPS active across all pages</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.9.3</td>
+                            <td class="item-name">XML sitemap</td>
+                            <td><span class="status-pill partial">Partial</span></td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Sitemap exists at /sitemap_index.xml (Yoast) but /sitemap.xml returns 404; post sitemap outdated (2021)</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.9.4</td>
+                            <td class="item-name">No broken links</td>
+                            <td><span class="status-pill pass">Pass</span></td>
+                            <td class="item-score">1.0</td>
+                            <td class="item-detail">No broken links detected on homepage or key navigation pages</td>
+                        </tr>
+                        <tr>
+                            <td class="item-id">1.9.5</td>
+                            <td class="item-name">No duplicate content</td>
+                            <td><span class="status-pill partial">Partial</span></td>
+                            <td class="item-score">0.5</td>
+                            <td class="item-detail">Some services listed on both /dental-services/ catch-all page AND individual sub-pages</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="quick-wins">
+                    <div class="quick-wins-title">💡 Quick Wins</div>
+                    <ul>
+                        <li>Fix /sitemap.xml redirect to /sitemap_index.xml</li>
+                        <li>Clean up duplicate service content between catch-all and sub-pages</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- GBP SUMMARY -->
+        <section id="gbp" class="section">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <h2>Google Business Profile Summary</h2>
+                    <p class="section-subtitle">Directory presence and review status</p>
+                </div>
+                <div class="expand-icon" style="cursor: default;">📍</div>
+            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-label">Google Maps</div>
+                    <div class="info-card-value">Link present on website | Recommend: Claim/verify GBP profile</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Yelp</div>
+                    <div class="info-card-value">18 reviews | <a href="#" target="_blank">View profile</a></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Womply</div>
+                    <div class="info-card-value">87 ratings | Strong presence</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Healthgrades</div>
+                    <div class="info-card-value">4 reviews | <a href="#" target="_blank">View profile</a></div>
+                </div>
+            </div>
+            <div class="quick-wins" style="margin-top: 1.5rem;">
+                <div class="quick-wins-title">📋 Directory Action Items</div>
+                <ul>
+                    <li>Claim and optimize Google Business Profile (verify ownership, add photos, update hours)</li>
+                    <li>Respond to all reviews (positive and constructive feedback) within 24-48 hours</li>
+                    <li>Add 5–10 high-quality practice photos to GBP monthly</li>
+                    <li>Monitor review sentiment across all platforms (Google, Yelp, Womply, Healthgrades)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SOCIAL MEDIA SUMMARY -->
+        <section id="social" class="section">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <h2>Social Media Summary</h2>
+                    <p class="section-subtitle">Current presence and engagement opportunities</p>
+                </div>
+                <div class="expand-icon" style="cursor: default;">📱</div>
+            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-label">Facebook</div>
+                    <div class="info-card-value">
+                        <a href="https://www.facebook.com/people/David-A-Slaughter-DDS/100064769014219/" target="_blank">David A. Slaughter, DDS</a>
+                        <br><span style="font-size: 0.8rem; color: var(--text-secondary);">Linked from website header</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Instagram</div>
+                    <div class="info-card-value">
+                        @davidslaughterdds
+                        <br><span style="font-size: 0.8rem; color: var(--text-secondary);">Austin TX | General & Cosmetic Dentistry | Linked from website</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">YouTube</div>
+                    <div class="info-card-value"><span style="color: var(--text-secondary);">No channel detected</span></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">TikTok</div>
+                    <div class="info-card-value"><span style="color: var(--text-secondary);">No presence detected</span></div>
+                </div>
+            </div>
+            <div class="quick-wins" style="margin-top: 1.5rem;">
+                <div class="quick-wins-title">📲 Social Media Recommendations</div>
+                <ul>
+                    <li>Post to Facebook and Instagram 2–3 times per week (patient testimonials, treatment education, behind-the-scenes)</li>
+                    <li>Leverage before/after galleries on Instagram Stories and Reels for cosmetic cases</li>
+                    <li>Create YouTube channel for patient education videos (implant overview, cosmetic veneers process, post-op care)</li>
+                    <li>Consider TikTok for reaching younger demographics (dental myths, smile transformations, fun team content)</li>
+                    <li>Cross-promote content across all platforms</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ACTION PLAN -->
+        <section id="action-plan" class="section">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <h2>Top 10 Action Plan</h2>
+                    <p class="section-subtitle">Prioritized initiatives with effort and impact assessment</p>
+                </div>
+                <div class="expand-icon" style="cursor: default;">🎯</div>
+            </div>
+            <table class="action-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">Priority</th>
+                        <th style="width: 35%;">Action</th>
+                        <th style="width: 15%;">Effort</th>
+                        <th style="width: 15%;">Impact</th>
+                        <th style="width: 25%;">Owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="action-priority p0">P0</td>
+                        <td><strong>Add online scheduling widget</strong> (LocalMed, Weave, etc.)</td>
+                        <td><span class="effort-badge medium">Medium</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Web Developer / My Social Practice</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p0">P0</td>
+                        <td><strong>Create new patient special</strong> ($99 exam + X-rays)</td>
+                        <td><span class="effort-badge low">Low</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Marketing / Practice Manager</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p1">P1</td>
+                        <td><strong>Add JSON-LD schema markup</strong> (Dentist, LocalBusiness)</td>
+                        <td><span class="effort-badge low">Low</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Web Developer / Yoast</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p1">P1</td>
+                        <td><strong>Fix title tag and H1</strong> with keywords and city</td>
+                        <td><span class="effort-badge low">Low</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Web Developer / Yoast SEO</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p1">P1</td>
+                        <td><strong>Embed Google Reviews widget</strong> (10+ reviews)</td>
+                        <td><span class="effort-badge low">Low</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Web Developer / Podium or Weave</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p1">P1</td>
+                        <td><strong>Add financing page</strong> (CareCredit, Sunbit)</td>
+                        <td><span class="effort-badge medium">Medium</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Copywriter / Web Developer</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p1">P1</td>
+                        <td><strong>Create in-house membership plan</strong> for uninsured</td>
+                        <td><span class="effort-badge medium">Medium</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Practice Manager / Financial Advisor</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p2">P2</td>
+                        <td><strong>Create before/after photo gallery</strong> (cosmetic cases)</td>
+                        <td><span class="effort-badge medium">Medium</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Photography / Copywriter</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p2">P2</td>
+                        <td><strong>Add emergency dentistry page</strong> with same-day messaging</td>
+                        <td><span class="effort-badge low">Low</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Copywriter / Web Developer</td>
+                    </tr>
+                    <tr>
+                        <td class="action-priority p2">P2</td>
+                        <td><strong>Embed Google Maps iframe</strong> on contact page</td>
+                        <td><span class="effort-badge low">Low</span></td>
+                        <td><span class="impact-badge">High</span></td>
+                        <td>Web Developer</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="text-muted" style="margin-top: 1.5rem; font-size: 0.875rem;">
+                <strong>Legend:</strong> P0 = Critical/Revenue Impacting | P1 = High Priority | P2 = Medium Priority
+            </p>
+        </section>
+
+    </main>
+
     <footer>
-        <div class="footer-text">Gen4 Dental Marketing Framework | Digital Storefront Audit Phase 1</div>
-        <div class="footer-text">Austin, TX | March 31, 2026</div>
-        <div class="footer-text" style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.8;">This audit represents a comprehensive analysis of digital presence and conversion optimization opportunities. All recommendations are prioritized by impact and effort.</div>
+        <p><strong>David A. Slaughter, DDS | Phase 1 Digital Storefront Audit</strong></p>
+        <p>Audit Date: March 31, 2026 | Overall Score: <span class="highlight">23/42 (55%)</span> | Status: Needs Work</p>
+        <p>Part of Gen4 Dental Network | Website: <a href="https://www.austindentist.net/" target="_blank" style="color: inherit; text-decoration: underline;">https://www.austindentist.net/</a></p>
+        <p style="margin-top: 1rem; opacity: 0.8;">Generated by Digital Storefront Audit Framework v1.0</p>
     </footer>
 
     <script>
-        // Sticky nav scroll spy
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section[id]');
+        // SCROLL SPY & ACTIVE NAV
+        const navLinks = document.querySelectorAll('.sticky-nav a');
+        const sections = document.querySelectorAll('section');
 
         function updateActiveNav() {
             let current = '';
-            for (let section of sections) {
+
+            sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                if (window.pageYOffset >= sectionTop - 200) {
+                if (window.scrollY >= sectionTop - 100) {
                     current = section.getAttribute('id');
                 }
-            }
+            });
 
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -1566,30 +1592,45 @@
             });
         }
 
-        // Collapsible sections
+        window.addEventListener('scroll', updateActiveNav);
+
+        // COLLAPSIBLE SECTIONS
         const sectionHeaders = document.querySelectorAll('.section-header');
+
         sectionHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const section = header.closest('.section');
-                section.classList.toggle('expanded');
+            header.addEventListener('click', function() {
+                const section = this.closest('.section');
+                const details = section.querySelector('.section-details');
+                const icon = section.querySelector('.expand-icon');
+
+                if (details) {
+                    details.classList.toggle('open');
+                    icon.classList.toggle('open');
+                }
             });
         });
 
-        // Smooth scroll for nav links
+        // SMOOTH SCROLL FOR NAV LINKS
         navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
-                const targetId = link.getAttribute('href').slice(1);
+                const targetId = this.getAttribute('href').slice(1);
                 const targetSection = document.getElementById(targetId);
+
                 if (targetSection) {
                     targetSection.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         });
 
-        // Update active nav on scroll
-        window.addEventListener('scroll', updateActiveNav);
-        updateActiveNav();
+        // INITIALIZE: Expand first audit section by default
+        const firstAuditSection = document.getElementById('section-1-1');
+        if (firstAuditSection) {
+            const details = firstAuditSection.querySelector('.section-details');
+            const icon = firstAuditSection.querySelector('.expand-icon');
+            details.classList.add('open');
+            icon.classList.add('open');
+        }
     </script>
 </body>
 </html>
