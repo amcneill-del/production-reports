@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rossville Family Dental — Marketing Performance Report | Q1 2025 vs Q1 2026</title>
+<style>
+:root {
+  --navy: #2E5E8C;
+  --navy-light: #e8f4f8;
+  --green: #27ae60;
+  --green-bg: #e8f8f0;
+  --red: #e74c3c;
+  --red-bg: #fdf0ef;
+  --orange: #f39c12;
+  --orange-bg: #fef9e7;
+  --gray: #999;
+  --gray-bg: #f5f5f5;
+  --text: #2c3e50;
+  --border: #dce4ec;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); line-height: 1.6; background: #f8f9fa; }
+.container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+header { background: var(--navy); color: white; padding: 36px 0; margin-bottom: 32px; }
+header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+header h1 { font-size: 26px; font-weight: 700; }
+header .subtitle { font-size: 14px; opacity: 0.85; }
+header .period-badge { background: rgba(255,255,255,0.2); padding: 8px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+
+.section { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 28px; margin-bottom: 24px; }
+.section h2 { color: var(--navy); font-size: 20px; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--navy); }
+.section h3 { color: var(--navy); font-size: 16px; margin: 18px 0 10px; }
+
+/* Metric Cards */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px; }
+.metric-card { background: var(--gray-bg); border-radius: 8px; padding: 18px; text-align: center; }
+.metric-card .label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.metric-card .value { font-size: 28px; font-weight: 700; color: var(--navy); }
+.metric-card .change { font-size: 13px; margin-top: 4px; font-weight: 600; }
+.metric-card .change.up { color: var(--green); }
+.metric-card .change.down { color: var(--red); }
+.metric-card .change.neutral { color: var(--orange); }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: #f8f9fa; }
+.cat-header td { background: var(--navy-light); font-weight: 700; color: var(--navy); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Pass/Fail badges */
+.badge { display: inline-block; padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+.badge.pass { background: var(--green-bg); color: var(--green); }
+.badge.fail { background: var(--red-bg); color: var(--red); }
+.badge.info { background: var(--navy-light); color: var(--navy); }
+.badge.na { background: var(--gray-bg); color: var(--gray); }
+
+/* Insight boxes */
+.insight { background: var(--navy-light); border-left: 4px solid var(--navy); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 14px; }
+.insight.positive { background: var(--green-bg); border-color: var(--green); }
+.insight.negative { background: var(--red-bg); border-color: var(--red); }
+.insight.warning { background: var(--orange-bg); border-color: var(--orange); }
+
+/* Waterfall Chart */
+.waterfall { display: flex; align-items: flex-end; gap: 6px; height: 300px; padding: 20px 0; margin: 20px 0; position: relative; }
+.wf-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
+.wf-bar { width: 70%; border-radius: 4px 4px 0 0; min-height: 4px; position: relative; transition: all 0.3s; }
+.wf-bar.anchor { background: var(--navy); }
+.wf-bar.positive { background: var(--green); }
+.wf-bar.negative { background: var(--red); }
+.wf-label { font-size: 11px; text-align: center; margin-top: 6px; color: var(--text); line-height: 1.3; max-width: 100px; }
+.wf-amount { font-size: 11px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+
+/* Action Plan */
+.action-item { margin: 14px 0; padding: 14px 18px; background: var(--gray-bg); border-radius: 8px; border-left: 4px solid var(--navy); }
+.action-item h4 { color: var(--navy); font-size: 14px; margin-bottom: 6px; }
+.action-item p { font-size: 13px; margin: 3px 0; }
+.action-item .owner { color: var(--green); font-weight: 600; }
+.action-item .impact { color: var(--red); font-weight: 600; }
+.team-header { background: var(--navy); color: white; padding: 10px 18px; border-radius: 8px 8px 0 0; font-weight: 700; font-size: 15px; margin-top: 20px; }
+
+/* Summary badge */
+.summary-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; }
+.summary-badge.pass-heavy { background: var(--green-bg); color: var(--green); }
+
+/* Print */
+@media print {
+  body { background: white; }
+  .section { box-shadow: none; border: 1px solid var(--border); break-inside: avoid; }
+  header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+.disclaimer { font-size: 12px; color: var(--gray); text-align: center; padding: 20px; border-top: 1px solid var(--border); margin-top: 24px; }
+.exec-summary { font-size: 15px; line-height: 1.75; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div>
+      <h1>Rossville Family Dental</h1>
+      <div class="subtitle">Marketing & Production Performance Report</div>
+    </div>
+    <div class="period-badge">Q1 2025 → Q1 2026</div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<div class="section">
+  <h2>Executive Summary</h2>
+  <div class="exec-summary">
+    <p>Rossville Family Dental delivered strong production growth of <strong>+$124,759 (+29.2%)</strong> year-over-year in Q1 2026, reaching $551,826 in gross production. The practice scorecard shows <strong>12 of 19 metrics passing</strong>, with key gaps in patient acquisition infrastructure (call conversion, missed calls, scheduling access) and online reputation depth (Yelp presence, Google review velocity). New patient volume held steady at 129 (43/month), well above the 30/month benchmark, and the team achieved notable improvements in hygiene re-appointment (93%, up from 88.2%), NP hygiene re-appointment (59.7%, up from 55.2%), and appointment throughput (+334 completed appointments YoY). The primary opportunities for continued growth center on reducing the 37% missed call rate, improving the 12-day wait for a new patient appointment, and building Yelp review volume to strengthen the practice's local search visibility.</p>
+  </div>
+</div>
+
+<!-- ============ PRACTICE SCORECARD ============ -->
+<div class="section">
+  <h2>Practice Marketing Scorecard</h2>
+  <div style="margin-bottom:14px;">
+    <span class="summary-badge pass-heavy">12 Pass</span> &nbsp;
+    <span class="summary-badge" style="background:var(--red-bg);color:var(--red);">7 Fail</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Metric</th><th>Current Value</th><th>Benchmark</th><th>Result</th></tr>
+    </thead>
+    <tbody>
+      <!-- Patient Acquisition -->
+      <tr class="cat-header"><td colspan="5">Patient Acquisition</td></tr>
+      <tr><td></td><td>Avg New Patients / Month</td><td>43</td><td>≥ 30</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>NP Call Conversion %</td><td>50%</td><td>≥ 55%</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>Missed Call %</td><td>37%</td><td>≤ 18%</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>3rd Next Available NP Appt</td><td>12 days</td><td>≤ 7 days</td><td><span class="badge fail">Fail</span></td></tr>
+
+      <!-- Patient Retention -->
+      <tr class="cat-header"><td colspan="5">Patient Retention</td></tr>
+      <tr><td></td><td>Unscheduled Active Patients</td><td>534 (was 543)</td><td>Decrease YOY</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Unscheduled Active $$ Opportunity</td><td>$478,672 (was $478,302)</td><td>Decrease YOY</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>NP Hygiene Re-Appointment %</td><td>59.7%</td><td>≥ 40%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Hygiene Re-Appointment %</td><td>93.0%</td><td>≥ 85%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Pre-Appointment %</td><td>75%</td><td>≥ 60%</td><td><span class="badge pass">Pass</span></td></tr>
+
+      <!-- Schedule Management -->
+      <tr class="cat-header"><td colspan="5">Schedule Management</td></tr>
+      <tr><td></td><td>Appointments Completed</td><td>1,693 (was 1,359)</td><td>Increase YOY</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>No-Shows %</td><td>2.4%</td><td>≤ 5%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Cancellations %</td><td>4.5%</td><td>≤ 5%</td><td><span class="badge pass">Pass</span></td></tr>
+
+      <!-- Online Reputation -->
+      <tr class="cat-header"><td colspan="5">Online Reputation</td></tr>
+      <tr><td></td><td>Google Reviews (Total)</td><td>349</td><td>≥ 300</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Google Reviews (Last 30 Days)</td><td>5</td><td>≥ 10</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>Google Star Rating</td><td>4.8</td><td>≥ 4.5</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Google 5-Star Reviews</td><td>92.0% (321/349)</td><td>≥ 90%</td><td><span class="badge pass">Pass</span></td></tr>
+      <tr><td></td><td>Yelp Reviews (Total)</td><td>5</td><td>≥ 20</td><td><span class="badge fail">Fail</span></td></tr>
+      <tr><td></td><td>Yelp Star Rating</td><td>3.4</td><td>≥ 4.0</td><td><span class="badge fail">Fail</span></td></tr>
+
+      <!-- Referral Program -->
+      <tr class="cat-header"><td colspan="5">Referral Program</td></tr>
+      <tr><td></td><td>Tracking Referral Source for Every NP</td><td>17.8% missing</td><td>&lt; 20% missing</td><td><span class="badge pass">Pass</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ PRODUCTION & REVENUE ============ -->
+<div class="section">
+  <h2>Production & Revenue Overview</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Production Gross</div>
+      <div class="value">$551,826</div>
+      <div class="change up">▲ +$124,759 (+29.2%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Production Scheduled Gross</div>
+      <div class="value">$543,475</div>
+      <div class="change up">▲ +$115,036 (+26.8%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Annual Patient Value</div>
+      <div class="value">$896</div>
+      <div class="change up">▲ +$15.54 (+1.8%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Visits Per Working Day</div>
+      <div class="value">24.66</div>
+      <div class="change down">▼ -2.47 (-9.1%)</div>
+    </div>
+  </div>
+  <div class="insight positive">
+    <strong>Key Insight:</strong> Production grew nearly 30% YoY — a standout result. Annual patient value held steady near $896. The VPWD decline (27.13 → 24.66) may reflect changes in scheduling methodology or provider availability, but did not impede production growth, suggesting higher-value appointments are being completed.
+  </div>
+</div>
+
+<!-- ============ NEW PATIENT ACQUISITION ============ -->
+<div class="section">
+  <h2>New Patient Acquisition & Case Acceptance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">New Patients</div>
+      <div class="value">129</div>
+      <div class="change up">▲ +4 (+3.2%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NPs Per Working Day</div>
+      <div class="value">2.08</div>
+      <div class="change down">▼ from 2.78</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Acceptance % (Overall)</div>
+      <div class="value">96.3%</div>
+      <div class="change up">▲ from 85.5%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Case Acceptance %</div>
+      <div class="value">85.3%</div>
+      <div class="change down">▼ from 86.4%</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Case Dollar Analysis</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>Case $ Presented</td><td>$414,982</td><td>$782,563</td><td style="color:var(--green);font-weight:700">+$367,581 (+88.6%)</td></tr>
+        <tr><td>Case $ Accepted</td><td>$263,603</td><td>$315,546</td><td style="color:var(--green);font-weight:700">+$51,943 (+19.7%)</td></tr>
+        <tr><td>Case $ Accepted %</td><td>63.5%</td><td>40.3%</td><td style="color:var(--red);font-weight:700">-23.2 pts</td></tr>
+        <tr><td>Avg Restorative $/Exam</td><td>$497</td><td>$479</td><td style="color:var(--red);font-weight:700">-$18 (-3.6%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>NP Close Rate Detail</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>Cases Presented (NP)</td><td>88</td><td>95</td></tr>
+        <tr><td>Cases Accepted (NP)</td><td>76</td><td>81</td></tr>
+        <tr><td>NP Close Rate</td><td>86.4%</td><td>85.3%</td></tr>
+        <tr><td>Online Scheduled NPs</td><td>13</td><td>23</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight warning">
+    <strong>Key Insight:</strong> Case $ Presented nearly doubled (+$367K), which is a very positive sign — the clinical team is presenting more comprehensive treatment. However, Case $ Accepted % dropped from 63.5% to 40.3%. In absolute dollars, the practice still collected more ($315K vs. $264K), so the lower acceptance rate reflects the much larger denominator. This is an opportunity to explore financial presentation strategies that help patients commit to larger treatment plans.
+  </div>
+</div>
+
+<!-- ============ SAME-DAY TREATMENT ============ -->
+<div class="section">
+  <h2>Same-Day Treatment & Clinical Performance</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Same-Day Hygiene $</div>
+      <div class="value">$15,579</div>
+      <div class="change down">▼ -$7,344 (-32.0%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Same-Day Restorative $</div>
+      <div class="value">$202,279</div>
+      <div class="change up">▲ +$55,245 (+37.6%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Diagnosed % Hygiene</div>
+      <div class="value">7.8%</div>
+      <div class="change down">▼ from 8.9%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Case Diagnosed % Restorative</div>
+      <div class="value">46.5%</div>
+      <div class="change up">▲ from 33.0%</div>
+    </div>
+  </div>
+  <div class="insight positive">
+    <strong>Key Insight:</strong> Same-day restorative treatment surged +$55K (+37.6%), a significant clinical win. Case Diagnosed % Restorative jumped from 33% to 46.5%, showing the clinical team is finding and presenting more chairside treatment. The slight decline in hygiene same-day dollars is worth monitoring but is offset by the restorative gains. Total same-day treatment rose from $169,956 to $217,858 (+$47,902, +28.2%).
+  </div>
+</div>
+
+<!-- ============ PATIENT VOLUME ============ -->
+<div class="section">
+  <h2>Patient Volume & Appointment Health</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Active Hygiene Patients</div>
+      <div class="value">1,866</div>
+      <div class="change up">▲ +298 (+19.0%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Unscheduled Active Patients</div>
+      <div class="value">534</div>
+      <div class="change up">▼ -9 (-1.7%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Unscheduled Opportunity $</div>
+      <div class="value">$478,672</div>
+      <div class="change neutral">≈ flat (+$371)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Combined Leakage %</div>
+      <div class="value">6.9%</div>
+      <div class="change neutral">≈ flat (was 6.8%)</div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <h3>Appointment Breakdown</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th><th>Change</th></tr>
+        <tr><td>Completed Total</td><td>1,359</td><td>1,693</td><td style="color:var(--green)">+334 (+24.6%)</td></tr>
+        <tr><td>Completed Hygiene</td><td>699</td><td>873</td><td style="color:var(--green)">+174 (+24.9%)</td></tr>
+        <tr><td>Completed Restorative</td><td>472</td><td>623</td><td style="color:var(--green)">+151 (+32.0%)</td></tr>
+        <tr><td>Completed Other</td><td>188</td><td>198</td><td style="color:var(--green)">+10 (+5.3%)</td></tr>
+        <tr><td>Appointments Scheduled</td><td>1,455</td><td>1,905</td><td style="color:var(--green)">+450 (+30.9%)</td></tr>
+        <tr><td>Future Appointments</td><td>1,315</td><td>1,616</td><td style="color:var(--green)">+301 (+22.9%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Leakage Detail</h3>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>No-Shows</td><td>55 (3.8%)</td><td>45 (2.4%)</td></tr>
+        <tr><td>Cancellations</td><td>43 (3.0%)</td><td>85 (4.5%)</td></tr>
+        <tr><td>Broken</td><td>98</td><td>130</td></tr>
+        <tr><td>Combined Leakage</td><td>6.8%</td><td>6.9%</td></tr>
+      </table>
+      <div class="insight" style="margin-top:12px;">No-shows improved significantly (3.8% → 2.4%), while cancellations rose (3.0% → 4.5%). Net leakage remained essentially flat at 6.9% — within the healthy range (&lt;8%).</div>
+    </div>
+  </div>
+
+  <h3>Patient Attrition Analysis</h3>
+  <table>
+    <tr><th>Metric</th><th>Value</th><th>Assessment</th></tr>
+    <tr><td>New Patients</td><td>129</td><td></td></tr>
+    <tr><td>Recaptured Patients</td><td>46</td><td>+5 vs prior year (was 41)</td></tr>
+    <tr><td>Patients Net Growth</td><td>+94</td><td>Strong positive growth (+21 vs prior year)</td></tr>
+    <tr><td>Estimated Attrition</td><td>81 patients</td><td>(129 + 46) - 94 = 81</td></tr>
+    <tr><td>Attrition Rate</td><td>46.3%</td><td><span class="badge pass">Healthy</span> (&lt;50%)</td></tr>
+  </table>
+</div>
+
+<!-- ============ CONFIRMATION & RECAPTURE ============ -->
+<div class="section">
+  <h2>Appointment Confirmation & Patient Recapture</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">DI Appointments Confirmed</div>
+      <div class="value">925</div>
+      <div class="change up">▲ +120 (+14.9%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">DI Confirmed %</div>
+      <div class="value">54.3%</div>
+      <div class="change down">▼ from 55.5%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Hygiene Re-Appt %</div>
+      <div class="value">59.7%</div>
+      <div class="change up">▲ from 55.2%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Recaptured Patients</div>
+      <div class="value">46</div>
+      <div class="change up">▲ +5 from 41</div>
+    </div>
+  </div>
+  <div class="insight">
+    <strong>Key Insight:</strong> The DI confirmation rate (54.3%) is in the concerning range (benchmark: &gt;60%). With appointment volume growing significantly, this becomes more important to address. The team may benefit from a 48-hour confirmation protocol with manual phone backup for unconfirmed appointments.
+  </div>
+</div>
+
+<!-- ============ OPERATIONAL EFFICIENCY ============ -->
+<div class="section">
+  <h2>Operational Efficiency</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Online Scheduling Adoption</div>
+      <div class="value">17.8%</div>
+      <div class="change up">▲ from 10.4% (13→23 NPs)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Hygiene-to-Restorative Handoff</div>
+      <div class="value">0.71</div>
+      <div class="change up">▲ from 0.68</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">NP Close Rate</div>
+      <div class="value">85.3%</div>
+      <div class="change neutral">≈ flat (was 86.4%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Pre-Appointment %</div>
+      <div class="value">75%</div>
+      <div class="change up">▲ from 70%</div>
+    </div>
+  </div>
+  <div class="insight warning">
+    <strong>Key Insight:</strong> The hygiene-to-restorative handoff ratio of 0.71 is below the 0.85 benchmark, indicating that approximately 29% of hygiene patients are not converting to restorative visits. Improving this ratio could meaningfully increase production — each additional restorative conversion at the current average of $479/exam represents real revenue opportunity.
+  </div>
+</div>
+
+<!-- ============ ONLINE REPUTATION ============ -->
+<div class="section">
+  <h2>Online Reputation</h2>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="label">Google Reviews</div>
+      <div class="value">349</div>
+      <div class="change up">4.8 ★ rating</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Google 5-Star %</div>
+      <div class="value">92.0%</div>
+      <div class="change up">321 of 349</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Yelp Reviews</div>
+      <div class="value">5</div>
+      <div class="change down">3.4 ★ rating</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Sentiment Score (Swell)</div>
+      <div class="value">99</div>
+      <div class="change up">Excellent</div>
+    </div>
+  </div>
+  <div class="insight negative">
+    <strong>Key Insight:</strong> Google review velocity has slowed — only 5 reviews in the last 30 days vs. the 10/month benchmark. With a 99 sentiment score, patient satisfaction is clearly high; the gap is in systematically asking for reviews. Yelp remains critically underrepresented at just 5 reviews with a 3.4 rating. A small number of negative Yelp reviews can disproportionately affect a low-volume profile.
+  </div>
+</div>
+
+<!-- ============ DATA HYGIENE ============ -->
+<div class="section">
+  <h2>Data Hygiene & Tracking Gaps</h2>
+  <div class="two-col">
+    <div>
+      <table>
+        <tr><th>Metric</th><th>Q1 2025</th><th>Q1 2026</th></tr>
+        <tr><td>NPs Missing Referral Source</td><td>1 of 125 (0.8%)</td><td>23 of 129 (17.8%)</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="insight warning">
+        <strong>Referral source tracking has deteriorated</strong> from 0.8% missing to 17.8% missing. While still under the 20% threshold, the trend is concerning. If this rate continues to rise, the practice will lose visibility into which marketing channels are driving new patients. A daily check-in compliance audit at patient intake is recommended.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ WATERFALL ============ -->
+<div class="section">
+  <h2>Production Waterfall Analysis</h2>
+  <p style="margin-bottom:16px;font-size:14px;color:var(--gray);">Bridges Q1 2025 production ($427,067) to Q1 2026 production ($551,826). Each bar estimates the dollar impact of a specific performance driver.</p>
+
+  <!-- CSS Waterfall Chart -->
+  <div class="waterfall">
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--navy)">$427,067</div>
+      <div class="wf-bar anchor" style="height:55%"></div>
+      <div class="wf-label">Q1 2025<br>Production</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--green)">+$1,917</div>
+      <div class="wf-bar positive" style="height:1%"></div>
+      <div class="wf-label">New Patient<br>Volume</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$181,555</div>
+      <div class="wf-bar negative" style="height:23%"></div>
+      <div class="wf-label">Case $<br>Acceptance</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--green)">+$47,902</div>
+      <div class="wf-bar positive" style="height:6%"></div>
+      <div class="wf-label">Same-Day<br>Treatment</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$552</div>
+      <div class="wf-bar negative" style="height:1%"></div>
+      <div class="wf-label">Appt<br>Leakage</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--red)">-$40,254</div>
+      <div class="wf-bar negative" style="height:5%"></div>
+      <div class="wf-label">Schedule<br>Utilization</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--green)">+$297,301</div>
+      <div class="wf-bar positive" style="height:38%"></div>
+      <div class="wf-label">Other /<br>Unattributed</div>
+    </div>
+    <div class="wf-bar-wrap">
+      <div class="wf-amount" style="color:var(--navy)">$551,826</div>
+      <div class="wf-bar anchor" style="height:71%"></div>
+      <div class="wf-label">Q1 2026<br>Production</div>
+    </div>
+  </div>
+
+  <h3>Waterfall Detail Table</h3>
+  <table>
+    <thead><tr><th>Driver</th><th>Impact ($)</th><th>Direction</th><th>Calculation Note</th></tr></thead>
+    <tbody>
+      <tr><td>New Patient Volume</td><td>+$1,917</td><td style="color:var(--green)">▲ Positive</td><td>(129 - 125 = +4 NPs) × $479.17 avg restorative/exam</td></tr>
+      <tr><td>Case $ Acceptance</td><td>-$181,555</td><td style="color:var(--red)">▼ Negative</td><td>(40.3% - 63.5% = -23.2pp) × $782,563 case $ presented</td></tr>
+      <tr><td>Same-Day Treatment</td><td>+$47,902</td><td style="color:var(--green)">▲ Positive</td><td>($217,858 - $169,956) total same-day treatment change</td></tr>
+      <tr><td>Appointment Leakage</td><td>-$552</td><td style="color:var(--red)">▼ Negative</td><td>Leakage: 6.8% → 6.9% (+0.1pp worsened) × 1,693 appts × $325.95/visit</td></tr>
+      <tr><td>Schedule Utilization</td><td>-$40,254</td><td style="color:var(--red)">▼ Negative</td><td>(24.66 - 27.13 = -2.47 VPWD) × 50 days × $325.95/visit</td></tr>
+      <tr><td style="font-weight:700">Other / Unattributed</td><td style="font-weight:700">+$297,301</td><td style="color:var(--green)">▲ Positive</td><td>Residual: includes fee schedule changes, payer mix, increased case volume</td></tr>
+      <tr style="background:var(--navy-light)"><td style="font-weight:700">Total Production Change</td><td style="font-weight:700">+$124,759</td><td style="font-weight:700">+29.2%</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight warning">
+    <strong>Waterfall Note:</strong> The large "Other / Unattributed" category ($297K) reflects a pattern common when case $ presented increases dramatically (+88.6%) while case $ accepted % declines. The waterfall formula isolates the acceptance rate decline as a large negative (-$181K), but the practice's actual dollar collections increased because significantly more treatment was being presented. In practice, the clinical team is presenting more comprehensive care — the opportunity is helping patients accept a larger share of what's recommended, particularly through expanded payment options and treatment coordination.
+  </div>
+</div>
+
+<!-- ============ ACTION PLAN ============ -->
+<div class="section">
+  <h2>Action Plan — Organized by Support Team</h2>
+  <p style="margin-bottom:16px;font-size:14px;">Recommendations are prioritized based on scorecard failures and the largest production recovery opportunities. Each action specifies an owner, workflow, and estimated impact.</p>
+
+  <!-- MARKETING -->
+  <div class="team-header">Marketing</div>
+  <div class="action-item">
+    <h4>Accelerate Google Review Velocity</h4>
+    <p>Current pace is 5 reviews/month vs. the 10/month benchmark. With a 99 sentiment score, patient satisfaction is high — the gap is in systematic ask workflows. Implement post-visit review request via Swell/text automation within 2 hours of checkout. Target: 10+ Google reviews per month.</p>
+    <p><span class="owner">Owner: Marketing</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> N/A (Swell or manual) &nbsp;|&nbsp; <span class="impact">Impact: Improved local SEO ranking and trust signals</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Yelp Profile Remediation</h4>
+    <p>With only 5 Yelp reviews at 3.4 stars, a single positive or negative review swings the rating significantly. Claim/optimize the Yelp Business Page. Do not directly solicit Yelp reviews (violates Yelp TOS), but ensure the Yelp profile is complete with photos, services, and updated hours. Consider Yelp Ads check-in offers to encourage organic reviews.</p>
+    <p><span class="owner">Owner: Marketing</span> &nbsp;|&nbsp; <span class="impact">Impact: Local search credibility, especially for patients who cross-reference platforms</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Patient Reactivation Campaign — 6+ Month Overdue</h4>
+    <p>With 213 unscheduled patients in the 0-6 month window (up from 181), manual outreach can recapture production from patients who are drifting. Pull the 6+ month overdue patient list from Dental Intel Analytics (not Engagement — inactive patients are excluded from Engagement). Assign manual phone outreach to front desk staff.</p>
+    <p><span class="owner">Owner: Marketing + Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Analytics → Pull overdue list → Export for manual calls &nbsp;|&nbsp; <span class="impact">Impact: At $896 annual patient value, recapturing 20 patients = ~$17,920</span></p>
+  </div>
+
+  <!-- OPERATIONS -->
+  <div class="team-header">Operations</div>
+  <div class="action-item">
+    <h4>Reduce 3rd Next Available from 12 Days to ≤7 Days</h4>
+    <p>A 12-day wait for a new patient appointment creates friction and increases the chance of losing prospective patients to competitors. Conduct a weekly provider schedule audit to identify unused chair time. Consider adding dedicated NP slots in morning blocks. If demand consistently exceeds capacity, evaluate adding a provider day or expanding hours.</p>
+    <p><span class="owner">Owner: Operations / Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> N/A (scheduling system review) &nbsp;|&nbsp; <span class="impact">Impact: Faster access → higher NP conversion from phone inquiries</span></p>
+  </div>
+  <div class="action-item">
+    <h4>48-Hour Appointment Confirmation Protocol</h4>
+    <p>DI confirmation rate is 54.3% — below the 60% benchmark. Set up a confirmation TouchPoint in Dental Intel Engagement triggered 48 hours before appointment, with a day-of follow-up for unconfirmed. For appointments still unconfirmed within 24 hours, manual phone confirmation by front desk. Use the Park Column to fill any gaps from unconfirmed patients.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Engagement → TouchPoint (48hr pre-appt) + manual phone backup &nbsp;|&nbsp; <span class="impact">Impact: Reducing unconfirmed appointments protects scheduled production and reduces same-day gaps</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Address Rising Cancellation Rate</h4>
+    <p>Cancellations rose from 3.0% (43) to 4.5% (85) — still within benchmark but trending in the wrong direction with nearly double the volume. Review cancellation reasons, implement 48-hour cancellation policy communication, and maintain a short-notice fill list to replace cancelled appointments same-day.</p>
+    <p><span class="owner">Owner: Operations / Office Manager</span> &nbsp;|&nbsp; <span class="impact">Impact: Each percentage point of cancellation at current volume = ~$5,500 in at-risk production</span></p>
+  </div>
+
+  <!-- CLINICAL -->
+  <div class="team-header">Clinical</div>
+  <div class="action-item">
+    <h4>Case Acceptance Dollar Improvement Strategy</h4>
+    <p>Case $ Accepted % declined from 63.5% to 40.3% as the practice presented significantly more comprehensive treatment ($782K vs. $415K). The team is diagnosing well — the opportunity is in helping patients accept larger treatment plans. Standardize treatment plan presentation with visual aids, phase treatment into manageable segments, and connect patients with financing options before presenting the full plan.</p>
+    <p><span class="owner">Owner: Clinical + RCM</span> &nbsp;|&nbsp; <span class="impact">Impact: Each 5pp improvement in Case $ Accepted % = ~$39,128 in additional accepted treatment</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Hygiene-to-Restorative Handoff Improvement</h4>
+    <p>The handoff ratio of 0.71 (below 0.85 benchmark) means roughly 29% of hygiene patients are not converting to restorative visits. Focus on hygienist-to-doctor warm handoffs with specific findings communicated chairside. Ensure every hygiene visit includes a clinical exam with documented treatment recommendations.</p>
+    <p><span class="owner">Owner: Clinical</span> &nbsp;|&nbsp; <span class="impact">Impact: Improving to 0.85 = ~122 additional restorative visits × $479/exam = ~$58,438 potential</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Sustain Same-Day Restorative Momentum</h4>
+    <p>Same-day restorative treatment grew +$55K (+37.6%) and Case Diagnosed % Restorative jumped to 46.5%. This is a clinical strength to protect. Continue empowering the clinical team to identify and present chairside treatment. Monitor hygiene same-day $ (declined 32%) to ensure hygienists also maintain chairside diagnosis habits.</p>
+    <p><span class="owner">Owner: Clinical</span> &nbsp;|&nbsp; <span class="impact">Impact: Maintaining trajectory protects $202K+ in quarterly same-day restorative production</span></p>
+  </div>
+
+  <!-- OFFICE MANAGER -->
+  <div class="team-header">Office Manager</div>
+  <div class="action-item">
+    <h4>NP Follow-Up Protocol — 2nd Appointment Within 24 Hours</h4>
+    <p>NP Hygiene Re-Appointment improved to 59.7% (from 55.2%) but is still below the 75%+ target for retention. Before each new patient leaves, confirm their second appointment is booked. Office Manager reviews prior day's NP list each morning against scheduled appointments. Any NP without a second appointment gets a phone call within 24 hours. This is a manual process — Dental Intel Engagement cannot automate individual follow-up task creation.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> N/A (manual checklist) &nbsp;|&nbsp; <span class="impact">Impact: Each 10pp improvement in NP re-appt captures ~13 additional returning patients per quarter</span></p>
+  </div>
+  <div class="action-item">
+    <h4>Referral Source Entry Compliance Audit</h4>
+    <p>Missing referral source jumped from 0.8% to 17.8% (23 of 129 NPs). Implement a mandatory referral source field at patient intake. Office Manager conducts daily audit of new patient records — any missing referral source must be completed by end of business day. Without accurate referral data, it becomes impossible to evaluate which marketing channels are working.</p>
+    <p><span class="owner">Owner: Office Manager</span> &nbsp;|&nbsp; <strong>DI Workflow:</strong> Analytics → NP list → daily compliance check &nbsp;|&nbsp; <span class="impact">Impact: Accurate attribution protects marketing budget allocation decisions</span></p>
+  </div>
+
+  <!-- RCM -->
+  <div class="team-header">RCM (Revenue Cycle Management)</div>
+  <div class="action-item">
+    <h4>Payment Plan Architecture Review</h4>
+    <p>With Case $ Presented nearly doubling but acceptance % declining, patients may be hesitant about the financial commitment of larger treatment plans. Review and expand financing options (CareCredit, Sunbit, in-house payment plans). Ensure treatment coordinators present payment options during — not after — the treatment plan conversation.</p>
+    <p><span class="owner">Owner: RCM + Finance</span> &nbsp;|&nbsp; <span class="impact">Impact: Directly supports Case $ Accepted % improvement — each 5pp = ~$39K additional revenue</span></p>
+  </div>
+
+  <!-- DOCTOR -->
+  <div class="team-header">Doctor</div>
+  <div class="action-item">
+    <h4>Schedule Availability & Capacity Review</h4>
+    <p>With a 12-day wait for new patient appointments and VPWD declining (27.13 → 24.66), there may be an opportunity to realign provider schedule templates with patient demand patterns. Review weekly schedule utilization and consider reallocating blocks to maximize NP access while maintaining production per visit.</p>
+    <p><span class="owner">Owner: Doctor + Operations</span> &nbsp;|&nbsp; <span class="impact">Impact: Reducing wait time from 12 to ≤7 days directly supports new patient acquisition and call conversion</span></p>
+  </div>
+</div>
+
+<!-- ============ MARKETING ROI ============ -->
+<div class="section">
+  <h2>Marketing ROI & Cost Per Acquisition</h2>
+  <div class="insight">
+    <strong>Data Not Provided:</strong> No paid media spend export was provided for this analysis. To include marketing ROI, CPA, CAC, and channel-level performance in future reports, please provide a CRM or ad platform export showing spend, leads, qualified leads, appointments scheduled, and new patients by location.
+  </div>
+</div>
+
+<!-- ============ DISCLAIMER ============ -->
+<div class="disclaimer">
+  <p><strong>Confidential — Prepared for Rossville Family Dental Leadership</strong></p>
+  <p>This report was generated using practice management data (Dental Intel) and scorecard inputs provided by the market manager. All calculations are shown for traceability. AI-generated analyses carry an estimated 40% accuracy caveat — human validation of findings and recommendations is strongly encouraged. Data period: Q1 2025 (Jan–Mar 2025) vs. Q1 2026 (Jan–Mar 2026). Working days assumed: 50 per quarter.</p>
+  <p>Report generated: April 1, 2026</p>
+</div>
+
+</div>
+</body>
+</html>
