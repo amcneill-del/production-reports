@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beaches Periodontics — Supplemental Marketing Plan Insights</title>
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --teal: #2A9D8F;
+    --gold: #E9C46A;
+    --coral: #E76F51;
+    --sky: #4DA8DA;
+    --light-bg: #F7F9FC;
+    --card-bg: #FFFFFF;
+    --text: #2D3748;
+    --text-light: #718096;
+    --border: #E2E8F0;
+    --green: #38A169;
+    --red: #E53E3E;
+    --amber: #DD6B20;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--light-bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, #2C3E6B 100%);
+    color: white;
+    padding: 40px 0 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--gold), var(--coral));
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .header .subtitle {
+    font-size: 16px;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+  .header .meta {
+    margin-top: 16px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+
+  /* Sticky Nav */
+  .nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .nav a {
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav a:hover, .nav a.active {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+
+  /* Main container */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 32px;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-num {
+    background: var(--teal);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  /* Insight callout */
+  .insight {
+    background: linear-gradient(135deg, #EBF8FF 0%, #F0FFF4 100%);
+    border-left: 4px solid var(--teal);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 16px;
+  }
+  .insight .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+  .insight p {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .warning {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+    border-left: 4px solid var(--amber);
+  }
+  .warning .label { color: var(--amber); }
+
+  .opportunity {
+    background: linear-gradient(135deg, #F0FFF4 0%, #C6F6D5 100%);
+    border-left: 4px solid var(--green);
+  }
+  .opportunity .label { color: var(--green); }
+
+  /* KPI row */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .kpi {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 20px;
+    text-align: center;
+  }
+  .kpi .value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+  .kpi .value.green { color: var(--green); }
+  .kpi .value.red { color: var(--red); }
+  .kpi .value.amber { color: var(--amber); }
+  .kpi .metric {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .kpi .context {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 6px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:nth-child(even) { background: #F7FAFC; }
+  tr:hover { background: #EDF2F7; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-green { background: #C6F6D5; color: #276749; }
+  .badge-red { background: #FED7D7; color: #9B2C2C; }
+  .badge-amber { background: #FEEBC8; color: #9C4221; }
+  .badge-blue { background: #BEE3F8; color: #2A4365; }
+
+  /* Action items */
+  .action-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .action-item:last-child { border-bottom: none; }
+  .action-priority {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+    color: white;
+  }
+  .priority-high { background: var(--coral); }
+  .priority-med { background: var(--gold); color: var(--navy); }
+  .priority-low { background: var(--teal); }
+  .action-content { flex: 1; }
+  .action-content strong { font-size: 14px; display: block; margin-bottom: 3px; }
+  .action-content span { font-size: 13px; color: var(--text-light); }
+
+  /* Collapsible */
+  .collapsible {
+    cursor: pointer;
+    user-select: none;
+  }
+  .collapsible::after {
+    content: ' +';
+    font-weight: 700;
+    color: var(--teal);
+  }
+  .collapsible.open::after {
+    content: ' −';
+  }
+  .collapsible-content {
+    display: none;
+    padding-top: 12px;
+  }
+  .collapsible-content.show {
+    display: block;
+  }
+
+  /* Two-column grid */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 768px) {
+    .two-col { grid-template-columns: 1fr; }
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Beaches Periodontics — Supplemental Insights</h1>
+    <div class="subtitle">Additional context from cross-session analysis to strengthen the Referral Development & Marketing Plan</div>
+    <div class="meta">
+      <span>Practice: Beaches Periodontics | Jacksonville Beach, FL</span>
+      <span>Prepared by: Amy McNeill | Gen4 Dental</span>
+      <span>Date: April 2, 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="nav-inner">
+    <a href="#context" class="active">Portfolio Context</a>
+    <a href="#velgis">Velgis Lever</a>
+    <a href="#prd">PRD Efficiency</a>
+    <a href="#digital">Digital Storefront</a>
+    <a href="#case-value">Case Value</a>
+    <a href="#prospecting">Prospecting Intel</a>
+    <a href="#actions">New Action Items</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION 1: Portfolio Context -->
+  <div class="section" id="context">
+    <div class="section-title"><span class="section-num">1</span> Portfolio Context — Where Beaches Sits</div>
+
+    <div class="insight">
+      <div class="label">Cross-Session Insight — Go Grow Pipeline Analysis</div>
+      <p>In the most recent Go Grow Referral Pipeline Analysis across 17 SGA practices, <strong>"Darryl Field" (Beaches) was classified as Tier 3 — Sustain</strong>, meaning it is meeting or exceeding benchmarks. This is good news: Beaches is not a turnaround story. The plan should be framed as <em>acceleration from a position of strength</em>, not triage.</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="value green">Tier 3</div>
+        <div class="metric">Go Grow Classification</div>
+        <div class="context">Sustain — exceeding benchmarks</div>
+      </div>
+      <div class="kpi">
+        <div class="value green">+30.7%</div>
+        <div class="metric">YoY Referral Growth</div>
+        <div class="context">+367 referrals over prior year</div>
+      </div>
+      <div class="kpi">
+        <div class="value green">79%</div>
+        <div class="metric">Case Acceptance Rate</div>
+        <div class="context">Benchmark: ≥69%</div>
+      </div>
+      <div class="kpi">
+        <div class="value amber">$3,760</div>
+        <div class="metric">Avg $ Accepted</div>
+        <div class="context">Benchmark: ≥$4,800</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>What This Means for Plan Framing</h3>
+      <p>The current plan correctly identifies the gaps (Velgis ramp, PRD capacity, avg $ accepted), but the framing should explicitly anchor on the Tier 3 classification. When presenting to practice leadership, lead with what's working — Field's above-benchmark volume (+8.5/mo), the strong 79% case acceptance, and the 30.7% YoY growth — before pivoting to the acceleration opportunities. This builds trust and reduces defensiveness around the gaps.</p>
+    </div>
+
+    <div class="warning">
+      <div class="label">Portfolio-Wide Pattern — Case $ Accepted Declining</div>
+      <p>Across the broader 14-location perio portfolio, <strong>Case $ Accepted % declined from 47.0% to 38.4% YoY</strong> (Jan 1 – Mar 19). Beaches' gap ($3,760 vs. $4,800 benchmark) is not an isolated issue — it tracks a portfolio-wide trend of patients accepting less comprehensive treatment plans. The plan's lapsed referrer re-engagement strategy is the right lever, but consider also flagging this to the clinical team as a case presentation opportunity, not just a marketing problem.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Velgis Lever -->
+  <div class="section" id="velgis">
+    <div class="section-title"><span class="section-num">2</span> The Velgis Lever — More Than a Ramp Problem</div>
+
+    <div class="card">
+      <h3>Dr. Velgis Digital Presence: A Hidden Asset</h3>
+      <p>Web search reveals that <strong>Dr. Raziel "Raz" Velgis already has a dedicated bio page on beachesperiodontics.com</strong> (<code>/about/dr-raz/</code>), which is a strong start. His profile is compelling: dual degrees in Biology and Chemistry from Arkansas State (where he played collegiate football), DDS from Indiana University, and a completed Master of Science thesis on biologic agents for periodontal regeneration. He finished residency in 2024, making him current on the latest techniques.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="insight">
+        <div class="label">Insight — Velgis as a Differentiator</div>
+        <p>The current plan frames Velgis purely as a volume gap to close (-9/month). But his profile is a genuine differentiator for prospecting: <strong>he's young, research-trained, current on biologic regeneration techniques, and available for fast consults (13.4-day window)</strong>. The leave-behind one-pager should lean into his MS thesis work and modern training, not just his availability.</p>
+      </div>
+      <div class="opportunity">
+        <div class="label">New Action — Digital Velgis Campaign</div>
+        <p>Build Velgis' digital footprint beyond the practice website. He currently has <strong>minimal presence on third-party directories</strong> (Healthgrades, WebMD, etc.) compared to Dr. Field who has 20+ years of directory listings. Claim and optimize Velgis profiles on Healthgrades, Zocdoc, WebMD, and US News to capture patients who search for periodontists directly.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Velgis Benchmark Gap: The Real Math</h3>
+      <table>
+        <tr>
+          <th>Provider</th>
+          <th>Days/Wk</th>
+          <th>Expected/Mo</th>
+          <th>Actual/Mo</th>
+          <th>Gap</th>
+          <th>NP per PRD Hour*</th>
+        </tr>
+        <tr>
+          <td><strong>Darryl Field</strong></td>
+          <td>4.5</td>
+          <td>67.5</td>
+          <td>76</td>
+          <td><span class="badge badge-green">+8.5</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Raziel Velgis</strong></td>
+          <td>4.0</td>
+          <td>60</td>
+          <td>51</td>
+          <td><span class="badge badge-red">-9</span></td>
+          <td>—</td>
+        </tr>
+      </table>
+      <p style="font-size: 12px; color: var(--text-light);">*NP per PRD Hour is the key efficiency metric identified in the PRD Touchpoint Calculator work. Recommend adding this metric to the Beaches tracking framework — it captures both effort and outcome in a single number.</p>
+    </div>
+
+    <div class="warning">
+      <div class="label">From PRD Calculator Analysis — Insight on Yield vs. Volume</div>
+      <p>Cross-session analysis of three perio locations revealed that <strong>low NP per referring doctor may signal a conversion problem, not just a touchpoint volume problem</strong>. If Velgis' 51 referrals/month are coming from the same referrer base as Field but at lower volume per referrer, the issue may be referring offices not yet trusting the new provider with complex cases. The re-engagement one-pager should include Velgis case outcomes and patient testimonials, not just credentials.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: PRD Efficiency -->
+  <div class="section" id="prd">
+    <div class="section-title"><span class="section-num">3</span> PRD Touchpoint Efficiency — Apply the Formula</div>
+
+    <div class="insight">
+      <div class="label">Cross-Session Insight — PRD Touchpoint Calculator</div>
+      <p>The PRD Touchpoint Calculator we built established that the <strong>critical ratio to watch is NP per PRD Hour</strong>. Across the three locations analyzed, the best performer hit 8.0 NP/PRD hour while the worst was 2.0 — a 4x efficiency gap driven entirely by inflated in-person touchpoint time estimates eating all available hours.</p>
+    </div>
+
+    <div class="card">
+      <h3>Applying the Formula to Beaches</h3>
+      <table>
+        <tr>
+          <th>Metric</th>
+          <th>Current (Beaches)</th>
+          <th>Calculator Benchmark</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>PRD Hours / Week</td>
+          <td>20 hrs (hybrid OM)</td>
+          <td>Dedicated PRD</td>
+          <td><span class="badge badge-amber">Hybrid</span></td>
+        </tr>
+        <tr>
+          <td>Weekly Touchpoints Actual</td>
+          <td>5</td>
+          <td>10 (at 50% capacity)</td>
+          <td><span class="badge badge-red">50%</span></td>
+        </tr>
+        <tr>
+          <td>In-Person / Virtual Split</td>
+          <td>75% / 25% (plan default)</td>
+          <td>25% / 75% (calculator default)</td>
+          <td><span class="badge badge-amber">Review</span></td>
+        </tr>
+        <tr>
+          <td>Referring Partners</td>
+          <td>154</td>
+          <td>—</td>
+          <td><span class="badge badge-blue">Large Base</span></td>
+        </tr>
+        <tr>
+          <td>Weeks Between Touches (est.)</td>
+          <td>~30.8 weeks</td>
+          <td>2–4 weeks target</td>
+          <td><span class="badge badge-red">Critical</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="warning">
+      <div class="label">Critical Finding — Touch Frequency Is 8x Below Target</div>
+      <p>At 5 touchpoints/week across 154 referring partners, Michelle is touching each referrer roughly <strong>once every 31 weeks</strong> — nearly 8 months between contacts. The PRD Calculator target is 2–4 weeks. Even at full capacity (10/week), she'd only reach each referrer every ~15 weeks. This math reveals a structural problem: <strong>154 partners is too large a base for a single part-time PRD at any touchpoint cadence</strong>. The plan should explicitly tier the 154 into A/B/C segments and only target A-tier (top 30-40) for regular touchpoints.</p>
+    </div>
+
+    <div class="opportunity">
+      <div class="label">Recommendation — Shift the In-Person / Virtual Mix</div>
+      <p>The plan defaults to 75% in-person / 25% virtual. The PRD Calculator analysis found that <strong>locations using 25% in-person / 75% virtual produced 3x the touchpoint volume</strong> without adding PRD hours. For Beaches, shifting to a 50/50 split while maintaining the same 20 hrs/week would increase throughput from 5 to approximately 7-8 touchpoints/week — a 40-60% gain with zero additional cost. Reserve in-person visits for A-tier referrers and lapsed re-engagement; use virtual (text, email, quick calls) for B/C-tier maintenance.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Digital Storefront -->
+  <div class="section" id="digital">
+    <div class="section-title"><span class="section-num">4</span> Digital Storefront Gaps — Portfolio Pattern Applied</div>
+
+    <div class="insight">
+      <div class="label">Cross-Session Insight — Storefront Audit Conversion Analysis (32 Practices)</div>
+      <p>The portfolio-wide Storefront Audit Conversion Priority Report identified the top 5 conversion killers across SGA/Gen4 practices. <strong>These same gaps should be checked and addressed at Beaches</strong>, because referring doctors increasingly check the specialist's website before sending patients — a poor digital presence can quietly erode referral confidence.</p>
+    </div>
+
+    <div class="card">
+      <h3>Top 5 Portfolio-Wide Conversion Killers — Check Against Beaches</h3>
+      <table>
+        <tr>
+          <th>Issue</th>
+          <th>Portfolio Prevalence</th>
+          <th>Impact on Referral Practice</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>No before/after gallery</td>
+          <td><span class="badge badge-red">72% missing</span></td>
+          <td>Referring GPs can't show patients what to expect — lowers referral conversion</td>
+          <td>Add 8-10 perio/implant cases with photos</td>
+        </tr>
+        <tr>
+          <td>No new patient offer</td>
+          <td><span class="badge badge-red">69% missing</span></td>
+          <td>Less relevant for perio (referral-based), but direct-to-consumer implant patients need an incentive</td>
+          <td>Add complimentary implant consultation offer</td>
+        </tr>
+        <tr>
+          <td>No membership / savings plan</td>
+          <td><span class="badge badge-red">66% missing</span></td>
+          <td>Uninsured patients referred for perio treatment have no financial path — case acceptance drops</td>
+          <td>Create or promote a perio maintenance membership</td>
+        </tr>
+        <tr>
+          <td>Insurance plans not listed</td>
+          <td><span class="badge badge-amber">56% missing</span></td>
+          <td>GPs hesitate to refer if patients will call back asking about coverage</td>
+          <td>List accepted insurance plans on a dedicated page</td>
+        </tr>
+        <tr>
+          <td>No embedded reviews</td>
+          <td><span class="badge badge-amber">41% missing</span></td>
+          <td>Patients Google the specialist before booking — reviews on-site close the loop</td>
+          <td>Embed Google/Healthgrades reviews on homepage</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Beaches-Specific Digital Findings</h3>
+      <p>Web research confirms the following about the current beachesperiodontics.com presence:</p>
+      <div class="action-item">
+        <div class="action-priority priority-low">+</div>
+        <div class="action-content">
+          <strong>Dr. Velgis has a dedicated bio page (/about/dr-raz/)</strong>
+          <span>This is ahead of many practices. The page highlights his MS thesis, residency, and personal background (Arkansas State football). Good foundation for the one-pager.</span>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-priority priority-med">!</div>
+        <div class="action-content">
+          <strong>Website titles as "Darryl A. Field, DDS" — not practice-branded</strong>
+          <span>The site's title tag and meta descriptions center on Dr. Field individually. This works for Field's reputation but makes Velgis invisible to search engines and reinforces a single-provider identity.</span>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-priority priority-med">!</div>
+        <div class="action-content">
+          <strong>Dr. Field has strong third-party presence; Velgis has almost none</strong>
+          <span>Field appears on Healthgrades (16 reviews, 4.5 stars), WebMD (5 stars), Sharecare (15 reviews), US News. Velgis appears on very few directories with no reviews yet. This gap directly impacts the Velgis ramp.</span>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-priority priority-high">!</div>
+        <div class="action-content">
+          <strong>Practice also listed at jaxdentalhealth.com and ameliaperio.com</strong>
+          <span>Dr. Field appears on at least two other website domains (Jax Dental Health and Amelia Perio). Verify NAP consistency across all three domains and consolidate SEO authority where possible. Multiple domains can dilute search rankings and confuse referring offices.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning">
+      <div class="label">Why This Matters for a Referral-Based Practice</div>
+      <p>Beaches is referral-driven, so the website isn't the primary patient acquisition channel — but it <em>is</em> the credibility check. When Michelle visits a GP office and leaves a Velgis one-pager, the referring GP's front desk will Google "Dr. Velgis Jacksonville Beach" before sending a patient. If they find a thin profile with no reviews, that referral stalls. <strong>The digital storefront is the silent closer (or silent killer) of the referral program.</strong></p>
+    </div>
+  </div>
+
+  <!-- SECTION 5: Case Value -->
+  <div class="section" id="case-value">
+    <div class="section-title"><span class="section-num">5</span> Avg $ Accepted — A Clinical + Marketing Problem</div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="value red">$3,760</div>
+        <div class="metric">Current Avg $ Accepted</div>
+        <div class="context">Last 90 days</div>
+      </div>
+      <div class="kpi">
+        <div class="value">$4,800</div>
+        <div class="metric">Benchmark Target</div>
+        <div class="context">$1,040 gap to close</div>
+      </div>
+      <div class="kpi">
+        <div class="value red">38.4%</div>
+        <div class="metric">Portfolio Case $ Accepted %</div>
+        <div class="context">Down from 47.0% YoY</div>
+      </div>
+      <div class="kpi">
+        <div class="value">$11,000</div>
+        <div class="metric">Highest Lapsed Case</div>
+        <div class="context">Confirms high-value potential</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The Plan Covers Marketing — Add the Clinical Angle</h3>
+      <p>The current plan correctly targets lapsed referrer re-engagement to move avg $ accepted toward $4,800. This is the right marketing lever. But the portfolio-wide YoY decline (47.0% → 38.4% Case $ Accepted) suggests there's also a <strong>case presentation and financial arrangement component</strong> that the marketing plan alone can't solve.</p>
+
+      <p style="margin-top: 12px;"><strong>Recommended additions to the plan:</strong></p>
+
+      <div class="action-item">
+        <div class="action-priority priority-high">1</div>
+        <div class="action-content">
+          <strong>Audit the treatment presentation workflow</strong>
+          <span>Are comprehensive perio treatment plans being presented in full, or are providers breaking them into phases that lower the initial accepted amount? The $3,760 average could reflect phased presentation strategy rather than true patient decline.</span>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-priority priority-high">2</div>
+        <div class="action-content">
+          <strong>Review financial options presented at consult</strong>
+          <span>If Beaches lacks a membership plan or third-party financing (CareCredit, Sunbit, etc.), uninsured patients referred for $8K+ implant cases may accept only the extraction and decline the implant. Adding financing can lift avg $ accepted without changing referral volume.</span>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-priority priority-med">3</div>
+        <div class="action-content">
+          <strong>Track avg $ accepted by provider</strong>
+          <span>If Field's avg $ accepted is at benchmark but Velgis is pulling the number down (newer provider, possibly presenting less aggressive treatment plans), the fix is clinical mentorship, not marketing. Break this metric out by provider in the 30-day check-in.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: Prospecting Intel -->
+  <div class="section" id="prospecting">
+    <div class="section-title"><span class="section-num">6</span> Prospecting List Intelligence</div>
+
+    <div class="card">
+      <h3>Competitive Landscape Insight</h3>
+      <p>The plan identifies 20 prospective GP practices within 15 miles. Additional web research surfaces context that can sharpen prioritization:</p>
+
+      <div class="action-item">
+        <div class="action-priority priority-high">1</div>
+        <div class="action-content">
+          <strong>Ponte Vedra practices skew high-income demographics</strong>
+          <span>Ponte Vedra Beach is one of the highest-income zip codes in the Jacksonville metro. The 5 Ponte Vedra practices on the list (Complete Dentistry, Dental Group, Premier Dental, Sawgrass Complete, Family Dentistry) likely refer higher-value cases (implants, full-mouth rehab). These should be prioritized for the avg $ accepted goal specifically.</span>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-priority priority-med">2</div>
+        <div class="action-content">
+          <strong>Greenberg Dental is a DSO — different referral dynamics</strong>
+          <span>The plan flags Greenberg for "co-referral partnership discussion." Note that Greenberg Dental & Orthodontics is a large Florida DSO with 60+ locations. Referral decisions may not be made at the local level. Identify the regional clinical director, not just the local associate.</span>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-priority priority-med">3</div>
+        <div class="action-content">
+          <strong>High-rated practices (5.0 stars) may already have a perio referral partner</strong>
+          <span>Parker & Pennington (5.0), First Coast Dentistry (5.0), Ponte Vedra Complete (5.0), and Ponte Vedra Family (5.0) — practices with perfect ratings tend to be well-established and selective. Michelle should research who they currently refer to before visiting, so she can position Velgis as a complementary option, not a replacement.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="label">Insight — Multi-Domain Risk for Prospecting</div>
+      <p>Dr. Field's presence across beachesperiodontics.com, jaxdentalhealth.com, and ameliaperio.com (Amelia Perio covers Fernandina Beach/Amelia Island) means some prospective GPs may already know Field from a different brand. Michelle should verify which brand name each prospect associates with Field to avoid confusion during outreach.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 7: New Action Items -->
+  <div class="section" id="actions">
+    <div class="section-title"><span class="section-num">7</span> Recommended Additions to the Plan</div>
+
+    <p style="margin-bottom: 16px; font-size: 14px;">These action items supplement (not replace) the existing plan priorities. They are derived from cross-session analysis and web research not available at the time of the original plan's creation.</p>
+
+    <div class="card">
+      <h3 class="collapsible" onclick="toggle(this)">Priority A — Add to Week 1-2 Actions</h3>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <div class="action-priority priority-high">A1</div>
+          <div class="action-content">
+            <strong>Tier the 154 referrer base into A/B/C segments</strong>
+            <span><strong>Owner:</strong> Michelle | <strong>Why:</strong> At current capacity, Michelle can only maintain meaningful contact with ~30-40 partners. Tiering prevents the "Christmas card list" problem identified in PRD Calculator analysis. A-tier (top 30 by volume + lapsed high-value) get in-person visits. B-tier gets virtual touchpoints. C-tier gets quarterly digital outreach only.</span>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-priority priority-high">A2</div>
+          <div class="action-content">
+            <strong>Claim and optimize Velgis profiles on 5 key directories</strong>
+            <span><strong>Owner:</strong> Practice / OM | <strong>Why:</strong> Field has 20+ years of directory presence; Velgis has almost none. Target: Healthgrades, WebMD, Zocdoc, US News, Google Business Profile (ensure Velgis appears as a provider). This directly supports both the referral ramp and prospecting leave-behind credibility.</span>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-priority priority-high">A3</div>
+          <div class="action-content">
+            <strong>Shift touchpoint mix to 50% in-person / 50% virtual</strong>
+            <span><strong>Owner:</strong> Michelle | <strong>Why:</strong> PRD Calculator analysis shows this increases throughput by 40-60% with zero additional hours. In-person visits reserved for A-tier and lapsed re-engagement. Virtual (text, email, call) for B-tier maintenance.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="collapsible" onclick="toggle(this)">Priority B — Add to Week 2-4 Actions</h3>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <div class="action-priority priority-med">B1</div>
+          <div class="action-content">
+            <strong>Audit and consolidate multi-domain web presence</strong>
+            <span><strong>Owner:</strong> Marketing / Digital | <strong>Why:</strong> Dr. Field appears on beachesperiodontics.com, jaxdentalhealth.com, and ameliaperio.com. Verify NAP consistency, confirm SEO is not being diluted, and ensure referring offices know which URL to share with patients.</span>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-priority priority-med">B2</div>
+          <div class="action-content">
+            <strong>Add before/after gallery to beachesperiodontics.com</strong>
+            <span><strong>Owner:</strong> Practice + Digital | <strong>Why:</strong> 72% of portfolio practices lack this. For a perio/implant specialist, case photos are the most powerful conversion tool on the website — and the most powerful asset Michelle can pull up on her phone during GP office visits.</span>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-priority priority-med">B3</div>
+          <div class="action-content">
+            <strong>Break avg $ accepted out by provider</strong>
+            <span><strong>Owner:</strong> Practice Leadership | <strong>Why:</strong> If the $3,760 average masks a provider-level split (Field at $5K+ / Velgis at $2.5K), the fix is clinical mentorship, not more marketing touchpoints. Add this split to the 30-day check-in dashboard.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="collapsible" onclick="toggle(this)">Priority C — Add to 30-Day Check-In Milestones</h3>
+      <div class="collapsible-content">
+        <div class="action-item">
+          <div class="action-priority priority-low">C1</div>
+          <div class="action-content">
+            <strong>Add "NP per PRD Hour" to the tracking framework</strong>
+            <span><strong>Why:</strong> This single metric captures both effort and outcome. Baseline it at the 30-day check-in (est. current: 127 NPs ÷ 80 monthly PRD hours ≈ 1.6 NP/PRD hour). Target: 2.0+ by month 3.</span>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-priority priority-low">C2</div>
+          <div class="action-content">
+            <strong>Add "Velgis directory reviews collected" to milestones</strong>
+            <span><strong>Why:</strong> Target 5+ reviews on Healthgrades and Google within 60 days. Every Velgis patient who has a good experience should be prompted. This builds the digital credibility that makes the leave-behind one-pager stick.</span>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-priority priority-low">C3</div>
+          <div class="action-content">
+            <strong>Add "Ponte Vedra practice penetration" as a prospecting KPI</strong>
+            <span><strong>Why:</strong> The 5 Ponte Vedra practices represent the highest avg-$ opportunity on the prospect list. Track separately: visits made, first referral received, case value of Ponte Vedra referrals vs. overall average.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="card" style="background: linear-gradient(135deg, #EBF8FF 0%, #F0FFF4 100%); border: 2px solid var(--teal);">
+      <h3 style="color: var(--teal);">Bottom Line</h3>
+      <p>The existing Beaches marketing plan is well-constructed and correctly identifies the key levers. These supplemental insights don't change the strategy — they <strong>sharpen the execution</strong> by adding three dimensions the original plan doesn't cover:</p>
+      <p style="margin-top: 10px;"><strong>1. Efficiency math:</strong> The PRD Calculator work reveals that touchpoint frequency at Beaches is structurally insufficient for 154 partners, regardless of whether the open req gets filled. Tiering + virtual shift are immediate multipliers.</p>
+      <p style="margin-top: 8px;"><strong>2. Digital credibility:</strong> Velgis' thin directory presence is a silent drag on the ramp. Every lapsed visit and prospect visit is less effective if the GP's front desk Googles Velgis and finds nothing.</p>
+      <p style="margin-top: 8px;"><strong>3. Portfolio context:</strong> The avg $ accepted gap is a portfolio-wide trend, not a Beaches-specific failure. Framing it correctly (clinical + marketing, not just marketing) builds credibility with practice leadership and avoids misplacing blame on the referral program alone.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Beaches Periodontics — Supplemental Marketing Plan Insights | Gen4 Dental | April 2026<br>
+  Cross-session analysis powered by prior Go Grow Pipeline, PRD Touchpoint Calculator, Perio YOY Performance, and Storefront Audit Conversion reports.
+</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+  const content = el.nextElementSibling;
+  content.classList.toggle('show');
+}
+// Open all collapsibles by default
+document.querySelectorAll('.collapsible').forEach(el => {
+  el.classList.add('open');
+  el.nextElementSibling.classList.add('show');
+});
+// Sticky nav active state
+const navLinks = document.querySelectorAll('.nav a');
+const sections = document.querySelectorAll('.section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 80;
+    if (pageYOffset >= top) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
