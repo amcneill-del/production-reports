@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Go Grow Referral Pipeline Analysis — Q1 2026</title>
+<style>
+:root {
+    --navy: #2E5E8C; --navy-dark: #1a3a52; --green: #27ae60; --orange: #f39c12;
+    --red: #e74c3c; --white: #fff; --gray-bg: #f5f7fa; --gray-light: #f0f2f5;
+    --gray-med: #999; --text: #333;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background: var(--gray-bg); color: var(--text); line-height: 1.6; }
+header { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: white; padding: 2.5rem 2rem; text-align: center; }
+header h1 { font-size: 2rem; margin-bottom: 0.3rem; }
+header p { opacity: 0.85; font-size: 0.95rem; }
+nav { background: white; border-bottom: 2px solid var(--navy); padding: 0.6rem 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+nav ul { list-style: none; display: flex; gap: 0.5rem; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+nav a { display: block; padding: 0.4rem 0.8rem; background: var(--gray-light); color: var(--navy); text-decoration: none; border-radius: 4px; font-size: 0.82rem; font-weight: 600; transition: 0.2s; }
+nav a:hover { background: var(--navy); color: white; }
+.container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+section { background: white; border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+h2 { color: var(--navy); font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--navy); padding-bottom: 0.5rem; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.kpi-card { background: var(--gray-light); border-radius: 6px; padding: 1.2rem; text-align: center; border-top: 3px solid var(--navy); }
+.kpi-card .val { font-size: 1.8rem; font-weight: 700; color: var(--navy); }
+.kpi-card .label { font-size: 0.78rem; color: var(--gray-med); margin-top: 0.3rem; }
+.kpi-card .sub { font-size: 0.75rem; color: var(--gray-med); margin-top: 0.2rem; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 1rem 0; }
+th { background: var(--navy); color: white; padding: 10px 8px; text-align: left; font-weight: 600; position: sticky; top: 0; }
+td { padding: 8px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #fafbfc; }
+tr:hover { background: #f0f4f8; }
+.good { color: var(--green); font-weight: 600; }
+.ok { color: var(--orange); font-weight: 600; }
+.bad { color: var(--red); font-weight: 600; }
+.neutral { color: var(--gray-med); }
+.arrow-up { color: var(--green); font-size: 0.75rem; }
+.arrow-down { color: var(--red); font-size: 0.75rem; }
+.arrow-flat { color: var(--gray-med); font-size: 0.65rem; }
+.practice-card { background: white; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+.practice-card.tier-1 { border-left: 4px solid var(--red); }
+.practice-card.tier-2 { border-left: 4px solid var(--orange); }
+.practice-card.tier-3 { border-left: 4px solid var(--green); }
+.card-header { padding: 1rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--gray-light); transition: 0.2s; }
+.card-header:hover { background: #e8ecf0; }
+.card-header h3 { font-size: 1.1rem; color: var(--navy); margin: 0; }
+.card-header .tier-badge { padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: white; }
+.tier-badge.t1 { background: var(--red); }
+.tier-badge.t2 { background: var(--orange); }
+.tier-badge.t3 { background: var(--green); }
+.card-toggle { font-size: 1.2rem; color: var(--navy); transition: 0.3s; }
+.card-body { padding: 1.5rem; display: none; }
+.card-body.open { display: block; }
+.mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; margin: 1rem 0; }
+.mini-metric { background: var(--gray-light); padding: 0.6rem; border-radius: 4px; text-align: center; }
+.mini-metric .mv { font-size: 1.1rem; font-weight: 700; }
+.mini-metric .ml { font-size: 0.7rem; color: var(--gray-med); }
+.diagnosis { padding: 1rem; border-radius: 6px; margin: 1rem 0; font-weight: 500; }
+.diagnosis.diag-both { background: #fdf0ef; border-left: 4px solid var(--red); }
+.diagnosis.diag-yield { background: #fef9e7; border-left: 4px solid var(--orange); }
+.diagnosis.diag-sources { background: #fef9e7; border-left: 4px solid var(--orange); }
+.diagnosis.diag-sustain { background: #e8f8f0; border-left: 4px solid var(--green); }
+.rec-list { list-style: none; padding: 0; }
+.rec-list li { padding: 0.8rem 1rem; margin: 0.5rem 0; background: var(--gray-light); border-left: 3px solid var(--navy); border-radius: 0 4px 4px 0; line-height: 1.5; font-size: 0.88rem; }
+.rec-list li em { color: var(--navy); font-size: 0.82rem; }
+.tier-section { margin: 1.5rem 0; padding: 1.5rem; border-radius: 8px; }
+.tier-section.ts1 { background: #fdf0ef; border-left: 5px solid var(--red); }
+.tier-section.ts2 { background: #fef9e7; border-left: 5px solid var(--orange); }
+.tier-section.ts3 { background: #e8f8f0; border-left: 5px solid var(--green); }
+.tier-section h3 { margin-top: 0; margin-bottom: 0.8rem; }
+.tier-practices { font-size: 0.9rem; margin: 0.5rem 0; }
+.tier-action { padding: 0.8rem 1rem; background: rgba(255,255,255,0.7); border-radius: 4px; margin: 0.5rem 0; font-size: 0.88rem; border-left: 3px solid var(--navy); }
+.disclaimer { background: var(--gray-light); border-left: 4px solid var(--gray-med); padding: 1.2rem; border-radius: 4px; font-size: 0.82rem; color: #666; margin: 1.5rem 0; }
+.scorecard-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.3rem; margin: 0.3rem 0; font-size: 0.82rem; }
+.scorecard-row .sh { font-weight: 600; color: var(--navy); }
+@media print { nav { display: none; } .card-body { display: block !important; } section { page-break-inside: avoid; } }
+@media (max-width: 768px) { .kpi-grid { grid-template-columns: 1fr 1fr; } .mini-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<header>
+    <h1>Go Grow Referral Pipeline Analysis</h1>
+    <p>Q1 2026 Performance Review — Referring Doctor Capacity &amp; Recommendations</p>
+    <p style="font-size:0.8rem;opacity:0.7;">Generated April 1, 2026</p>
+</header>
+<nav><ul>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#kpis">Portfolio KPIs</a></li>
+    <li><a href="#yield-table">Referrer Yield</a></li>
+    <li><a href="#gap-table">Gap Calculator</a></li>
+    <li><a href="#practice-plans">Practice Action Plans</a></li>
+    <li><a href="#tiers">Priority Tiers</a></li>
+</ul></nav>
+<div class="container">
+
+<section id="summary">
+<h2>Executive Summary</h2>
+<p>The Go Grow referral portfolio comprises 20 baseline practices with 17 actively reporting monthly data in January and February 2026. Combined external referrals totaled <strong>2,108</strong> in January and <strong>2,081</strong> in February. Average portfolio case acceptance sits at <strong>73.8%</strong> (Jan) and <strong>76.3%</strong> (Feb), with time-to-consult averaging <strong>6.8</strong> and <strong>4.8 days</strong> respectively — a significant improvement from 2025 baselines that ranged from 7 to 37 days.</p>
+<p>Of the 17 tracked practices, <strong>7 are performing well</strong> (Tier 3), <strong>6 have targeted improvement opportunities</strong> (Tier 2), and <strong>4 require urgent attention</strong> (Tier 1) due to declining referral volume combined with case acceptance below the 69% benchmark. Referrer yield varies dramatically across the portfolio — from 0.29 to 1.55 referrals per source per month — making it the single largest lever for growth at the practice level.</p>
+</section>
+
+<section id="kpis">
+<h2>Portfolio KPI Dashboard</h2>
+<div class="kpi-grid">
+    <div class="kpi-card"><div class="val">2,108</div><div class="label">Total Ext Referrals — Jan</div></div>
+    <div class="kpi-card"><div class="val">2,081</div><div class="label">Total Ext Referrals — Feb</div></div>
+    <div class="kpi-card"><div class="val">73.8% → 76.3%</div><div class="label">Avg Case Acceptance</div><div class="sub">Jan → Feb</div></div>
+    <div class="kpi-card"><div class="val">6.8 → 4.8</div><div class="label">Avg Time to Consult (days)</div><div class="sub">Jan → Feb</div></div>
+    <div class="kpi-card"><div class="val">88.7% → 90.1%</div><div class="label">Avg Scheduled Consult %</div><div class="sub">Jan → Feb</div></div>
+    <div class="kpi-card"><div class="val">68.8% → 68.4%</div><div class="label">Avg Same-Day Acceptance</div><div class="sub">Jan → Feb</div></div>
+</div>
+</section>
+
+<section id="yield-table">
+<h2>Referrer Yield Analysis</h2>
+<p>Referrals per active source per month — the core productivity metric for the referral network.</p>
+<div style="overflow-x:auto;">
+<table>
+<thead><tr>
+<th>Practice</th><th>2025 Refs/Src/Mo</th>
+<th>Jan Refs</th><th>Jan Sources</th><th>Jan Yield</th>
+<th>Feb Refs</th><th>Feb Sources</th><th>Feb Yield</th>
+<th>Trend</th>
+</tr></thead><tbody>
+<tr><td><strong>Aiken Oral & Facial Surgery</strong></td><td>1.07</td><td>487</td><td>117</td><td class="good">4.16</td><td>383</td><td>115</td><td class="good">3.33</td><td><span class="arrow-down">▼</span></td></tr>
+<tr><td><strong>Lowcountry Periodontics</strong></td><td>1.39</td><td>279</td><td>87</td><td class="good">3.21</td><td>259</td><td>78</td><td class="good">3.32</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Outerbanks</strong></td><td>1.55</td><td>100</td><td>35</td><td class="good">2.86</td><td>116</td><td>41</td><td class="good">2.83</td><td><span class="arrow-flat">►</span></td></tr>
+<tr><td><strong>Marshall L Wallace</strong></td><td>1.45</td><td>65</td><td>27</td><td class="good">2.41</td><td>78</td><td>26</td><td class="good">3.00</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Columbus Periodontic and Implant Center</strong></td><td>0.85</td><td>61</td><td>22</td><td class="good">2.77</td><td>37</td><td>16</td><td class="good">2.31</td><td><span class="arrow-down">▼</span></td></tr>
+<tr><td><strong>North River Periodontics and Implants</strong></td><td>1.03</td><td>223</td><td>92</td><td class="good">2.42</td><td>238</td><td>95</td><td class="good">2.51</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Darryl A. Field DDS</strong></td><td>0.76</td><td>125</td><td>59</td><td class="good">2.12</td><td>120</td><td>52</td><td class="good">2.31</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Parkway Perio- Dr. Jeffrey Dent</strong></td><td>0.76</td><td>98</td><td>46</td><td class="good">2.13</td><td>120</td><td>56</td><td class="good">2.14</td><td><span class="arrow-flat">►</span></td></tr>
+<tr><td><strong>Central Florida Periodontics and Implantology</strong></td><td>0.46</td><td>72</td><td>37</td><td class="good">1.95</td><td>66</td><td>31</td><td class="good">2.13</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Golden Triangle Periodontal Center</strong></td><td>0.75</td><td>52</td><td>31</td><td class="good">1.68</td><td>56</td><td>30</td><td class="good">1.87</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>MPSG</strong></td><td>0.29</td><td>105</td><td>60</td><td class="good">1.75</td><td>128</td><td>72</td><td class="good">1.78</td><td><span class="arrow-flat">►</span></td></tr>
+<tr><td><strong>Van Scoyoc Periodontics & Implants</strong></td><td>0.73</td><td>54</td><td>37</td><td class="good">1.46</td><td>72</td><td>38</td><td class="good">1.89</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Periodontal Associates of Memphis*</strong></td><td>0.61</td><td>160</td><td>102</td><td class="good">1.57</td><td>168</td><td>96</td><td class="good">1.75</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Alpharetta Periodontics & Dental Implants</strong></td><td>0.42</td><td>85</td><td>58</td><td class="good">1.47</td><td>97</td><td>53</td><td class="good">1.83</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Sandhills Dental Rehabilitation Center</strong></td><td>0.36</td><td>31</td><td>24</td><td class="good">1.29</td><td>38</td><td>22</td><td class="good">1.73</td><td><span class="arrow-up">▲</span></td></tr>
+<tr><td><strong>Lane Periodontics and Implants</strong></td><td>0.37</td><td>66</td><td>46</td><td class="good">1.43</td><td>67</td><td>48</td><td class="good">1.40</td><td><span class="arrow-down">▼</span></td></tr>
+<tr><td><strong>Pine Belt-Hattiesburg</strong></td><td>0.30</td><td>45</td><td>33</td><td class="good">1.36</td><td>38</td><td>27</td><td class="good">1.41</td><td><span class="arrow-up">▲</span></td></tr>
+</tbody></table></div></section>
+
+<section id="gap-table">
+<h2>Referring Doctor Gap Calculator</h2>
+<p>How many active referring doctors each practice needs at current yield to match their 2025 baseline volume — and the dollar impact of any shortfall.</p>
+<div style="overflow-x:auto;">
+<table>
+<thead><tr>
+<th>Practice</th><th>2025 Target/Mo</th><th>Current Yield</th><th>Sources Needed</th>
+<th>Current Sources</th><th>Surplus / Deficit</th><th>Annual $ Impact</th>
+</tr></thead><tbody>
+<tr><td><strong>Periodontal Associates of Memphis*</strong></td><td>212.4</td><td>1.66</td><td>128</td><td>99</td><td><span class="bad">-29 deficit</span></td><td><span class="bad">$2,879,551</span></td></tr>
+<tr><td><strong>Columbus Periodontic and Implant Center</strong></td><td>60.3</td><td>2.54</td><td>24</td><td>19</td><td><span class="bad">-5 deficit</span></td><td><span class="bad">$338,430</span></td></tr>
+<tr><td><strong>Parkway Perio- Dr. Jeffrey Dent</strong></td><td>112.1</td><td>2.14</td><td>52</td><td>51</td><td><span class="bad">-1 deficit</span></td><td><span class="bad">$78,590</span></td></tr>
+<tr><td><strong>Lane Periodontics and Implants</strong></td><td>68.1</td><td>1.42</td><td>48</td><td>47</td><td><span class="bad">-1 deficit</span></td><td><span class="bad">$76,682</span></td></tr>
+<tr><td><strong>Van Scoyoc Periodontics & Implants</strong></td><td>64.2</td><td>1.68</td><td>38</td><td>38</td><td><span class="bad">-1 deficit</span></td><td><span class="bad">$54,781</span></td></tr>
+<tr><td><strong>North River Periodontics and Implants</strong></td><td>227.9</td><td>2.46</td><td>92</td><td>94</td><td><span class="good">+1 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Sandhills Dental Rehabilitation Center</strong></td><td>32.4</td><td>1.51</td><td>21</td><td>23</td><td><span class="good">+2 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Marshall L Wallace</strong></td><td>67.4</td><td>2.70</td><td>25</td><td>26</td><td><span class="good">+2 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Golden Triangle Periodontal Center</strong></td><td>49.6</td><td>1.77</td><td>28</td><td>30</td><td><span class="good">+3 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Outerbanks</strong></td><td>92.8</td><td>2.84</td><td>33</td><td>38</td><td><span class="good">+5 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Darryl A. Field DDS</strong></td><td>110.8</td><td>2.21</td><td>50</td><td>56</td><td><span class="good">+5 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Pine Belt-Hattiesburg</strong></td><td>31.7</td><td>1.39</td><td>23</td><td>30</td><td><span class="good">+7 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Alpharetta Periodontics & Dental Implants</strong></td><td>61.8</td><td>1.65</td><td>37</td><td>56</td><td><span class="good">+18 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Lowcountry Periodontics</strong></td><td>194.5</td><td>3.26</td><td>60</td><td>82</td><td><span class="good">+23 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>MPSG</strong></td><td>52.0</td><td>1.76</td><td>29</td><td>66</td><td><span class="good">+37 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Aiken Oral & Facial Surgery</strong></td><td>271.5</td><td>3.75</td><td>72</td><td>116</td><td><span class="good">+44 surplus</span></td><td><span class="good">—</span></td></tr>
+<tr><td><strong>Central Florida Periodontics and Implantology</strong></td><td>N/A</td><td>2.04</td><td>N/A</td><td>34</td><td>N/A</td><td>N/A</td></tr>
+</tbody></table></div></section>
+
+<section id="practice-plans">
+<h2>Practice-by-Practice Action Plans</h2>
+<p>Click each practice to expand its full analysis, diagnosis, and specific recommendations.</p>
+
+    <div class="practice-card tier-1">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Columbus Periodontic and Implant Center</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t1">Tier 1 — Urgent</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-yield">
+                <strong>Diagnosis:</strong> Yield Problem — adequate referral sources but declining production per source
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>61 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 49)</span></div><div>37 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 71)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>22 <span style="font-size:0.75rem;color:#999;">(SPLY: 21)</span></div><div>16 <span style="font-size:0.75rem;color:#999;">(SPLY: 19)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">2.77</div><div class="good">2.31</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="bad">66.7%</div><div class="bad">61.7%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="good">100.0%</div><div class="good">97.3%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">12.7 days</div><div class="good">1.3 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="bad">44.4%</div><div class="bad">42.9%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$1,868</div><div>$2,376</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>60.3 refs/mo | 0.85 yield | 91.8% sched | 9.3 days TTC | $2,346 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Rebuild Referral Volume</strong> — Referral volume is running below prior year (49 vs 60 avg monthly). Conduct a top-referrer audit — identify the 5 referring doctors with the largest volume decline and schedule personal outreach within 2 weeks. Consider hosting a CE lunch &amp; learn to re-engage the network. <em>Owner: PRD / Market Manager.</em></li>
+<li><strong>Nurture New Referral Sources</strong> — Active referral sources grew from 21 to 22 YoY (+1 doctors). Focus on nurturing these newer relationships to build per-doctor yield over time. Assign the PRD to make introductory touchpoints with each new source within 30 days. <em>Owner: PRD.</em></li>
+<li><strong>Strengthen Case Acceptance</strong> — Case acceptance at 64.2% is below the 69% perio benchmark. Recommend: (a) standardize full-scope treatment presentation for every consult, (b) present financial options (CareCredit, phased plans) before the treatment plan, (c) track case acceptance by provider to identify coaching opportunities. <em>Owner: Clinical Lead / Treatment Coordinator.</em></li>
+<li><strong>Investigate Case Acceptance Drop</strong> — Case acceptance dropped from 66.7% (Jan) to 61.7% (Feb). Investigate whether this reflects a case mix shift, a presentation consistency issue, or financial barriers. Pull Referral Lab data by referring doctor to isolate the trend. <em>Owner: Clinical Lead.</em></li>
+<li><strong>Maintain Strong Consult Compliance</strong> — Scheduled consult compliance at 98.6% is strong — patients are following through on their referrals. Maintain the confirmation and intake protocols driving this. <em>Owner: Office Manager.</em></li>
+<li><strong>Boost Same-Day Acceptance</strong> — Same-day acceptance at 43.6% suggests opportunities in treatment urgency and financial counseling. Ensure treatment coordinators are presenting phase-1 treatment options same day with clear financial pathways. <em>Owner: Treatment Coordinator.</em></li>
+<li><strong>Close the Referrer Gap</strong> — At the current yield of 2.54 referrals per source per month, this practice needs 23 active referrers to match 2025 baseline volume but only has 19. Close the 4-doctor deficit by targeting new referring GPs in underserved zip codes and re-engaging lapsed referrers. <em>Owner: PRD / Market Manager.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-1">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Lane Periodontics and Implants</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t1">Tier 1 — Urgent</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-both">
+                <strong>Diagnosis:</strong> Both Levers Need Attention — referral sources declining AND yield per source declining
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>66 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 68)</span></div><div>67 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 71)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>46 <span style="font-size:0.75rem;color:#999;">(SPLY: 49)</span></div><div>48 <span style="font-size:0.75rem;color:#999;">(SPLY: 50)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.43</div><div class="good">1.40</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="bad">64.0%</div><div class="bad">60.5%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="bad">79.7%</div><div class="ok">88.4%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">7.8 days</div><div class="good">6.8 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="bad">48.6%</div><div class="bad">57.1%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$2,720</div><div>$3,845</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>68.1 refs/mo | 0.37 yield | 75.1% sched | 36.7 days TTC | $4,086 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Rebuild Referral Volume</strong> — Referral volume is running below prior year (66 vs 70 avg monthly). Conduct a top-referrer audit — identify the 5 referring doctors with the largest volume decline and schedule personal outreach within 2 weeks. Consider hosting a CE lunch &amp; learn to re-engage the network. <em>Owner: PRD / Market Manager.</em></li>
+<li><strong>Re-Engage Lost Referral Sources</strong> — Active referring sources dropped from 49 to 46 YoY (approximately 3 doctors became inactive). Prioritize re-engagement: personal calls from the periodontist to the top 5 lapsed referrers, followed by CE event invitations and lunch &amp; learn scheduling. <em>Owner: Doctor + PRD.</em></li>
+<li><strong>Strengthen Case Acceptance</strong> — Case acceptance at 62.3% is below the 69% perio benchmark. Recommend: (a) standardize full-scope treatment presentation for every consult, (b) present financial options (CareCredit, phased plans) before the treatment plan, (c) track case acceptance by provider to identify coaching opportunities. <em>Owner: Clinical Lead / Treatment Coordinator.</em></li>
+<li><strong>Investigate Case Acceptance Drop</strong> — Case acceptance dropped from 64.0% (Jan) to 60.5% (Feb). Investigate whether this reflects a case mix shift, a presentation consistency issue, or financial barriers. Pull Referral Lab data by referring doctor to isolate the trend. <em>Owner: Clinical Lead.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 36.7 days (2025 baseline) to 7.3 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Improve Consult Show Rate</strong> — Only 84.0% of referred patients are making it to their consult. At 66 referrals/month and $3,282 avg case value, this represents approximately $417,800 in annual lost opportunity. Implement 48-hour pre-consult confirmation calls, patient welcome packets, and warm handoff calls from referring offices. <em>Owner: Office Manager.</em></li>
+<li><strong>Boost Same-Day Acceptance</strong> — Same-day acceptance at 52.8% suggests opportunities in treatment urgency and financial counseling. Ensure treatment coordinators are presenting phase-1 treatment options same day with clear financial pathways. <em>Owner: Treatment Coordinator.</em></li>
+<li><strong>Investigate Case Value Decline</strong> — Average case value dropped from $4,086 (2025) to $3,282. Investigate: (a) are referring doctors sending less complex cases? (b) are treatment plans being scoped down? (c) has insurance mix shifted? Pull data by referring doctor to isolate the trend. <em>Owner: Doctor / Clinical Lead.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-1">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Periodontal Associates of Memphis*</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t1">Tier 1 — Urgent</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-both">
+                <strong>Diagnosis:</strong> Both Levers Need Attention — referral sources declining AND yield per source declining
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>160 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 249)</span></div><div>168 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 209)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>102 <span style="font-size:0.75rem;color:#999;">(SPLY: 134)</span></div><div>96 <span style="font-size:0.75rem;color:#999;">(SPLY: 110)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.57</div><div class="good">1.75</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="bad">66.0%</div><div class="bad">68.0%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="good">92.8%</div><div class="good">93.0%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">4.1 days</div><div class="good">2.5 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="bad">54.0%</div><div class="ok">62.2%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$4,008</div><div>$4,694</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>212.4 refs/mo | 0.61 yield | 83.6% sched | 9.7 days TTC | $4,984 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Rebuild Referral Volume</strong> — Referral volume is running below prior year (164 vs 229 avg monthly). Conduct a top-referrer audit — identify the 5 referring doctors with the largest volume decline and schedule personal outreach within 2 weeks. Consider hosting a CE lunch &amp; learn to re-engage the network. <em>Owner: PRD / Market Manager.</em></li>
+<li><strong>Re-Engage Lost Referral Sources</strong> — Active referring sources dropped from 134 to 102 YoY (approximately 32 doctors became inactive). Prioritize re-engagement: personal calls from the periodontist to the top 5 lapsed referrers, followed by CE event invitations and lunch &amp; learn scheduling. <em>Owner: Doctor + PRD.</em></li>
+<li><strong>Strengthen Case Acceptance</strong> — Case acceptance at 67.0% is below the 69% perio benchmark. Recommend: (a) standardize full-scope treatment presentation for every consult, (b) present financial options (CareCredit, phased plans) before the treatment plan, (c) track case acceptance by provider to identify coaching opportunities. <em>Owner: Clinical Lead / Treatment Coordinator.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 9.7 days (2025 baseline) to 3.3 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Maintain Strong Consult Compliance</strong> — Scheduled consult compliance at 92.9% is strong — patients are following through on their referrals. Maintain the confirmation and intake protocols driving this. <em>Owner: Office Manager.</em></li>
+<li><strong>Boost Same-Day Acceptance</strong> — Same-day acceptance at 58.1% suggests opportunities in treatment urgency and financial counseling. Ensure treatment coordinators are presenting phase-1 treatment options same day with clear financial pathways. <em>Owner: Treatment Coordinator.</em></li>
+<li><strong>Close the Referrer Gap</strong> — At the current yield of 1.66 referrals per source per month, this practice needs 128 active referrers to match 2025 baseline volume but only has 99. Close the 29-doctor deficit by targeting new referring GPs in underserved zip codes and re-engaging lapsed referrers. <em>Owner: PRD / Market Manager.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-1">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Van Scoyoc Periodontics & Implants</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t1">Tier 1 — Urgent</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-both">
+                <strong>Diagnosis:</strong> Both Levers Need Attention — referral sources declining AND yield per source declining
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>54 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 70)</span></div><div>72 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 62)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>37 <span style="font-size:0.75rem;color:#999;">(SPLY: 44)</span></div><div>38 <span style="font-size:0.75rem;color:#999;">(SPLY: 37)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.46</div><div class="good">1.89</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="bad">56.5%</div><div class="good">76.7%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="ok">86.4%</div><div class="good">89.4%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">4.3 days</div><div class="good">4.8 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">75.0%</div><div class="bad">59.5%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$3,720</div><div>$3,268</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>64.2 refs/mo | 0.73 yield | 88.3% sched | 10.4 days TTC | $3,579 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Rebuild Referral Volume</strong> — Referral volume is running below prior year (63 vs 66 avg monthly). Conduct a top-referrer audit — identify the 5 referring doctors with the largest volume decline and schedule personal outreach within 2 weeks. Consider hosting a CE lunch &amp; learn to re-engage the network. <em>Owner: PRD / Market Manager.</em></li>
+<li><strong>Re-Engage Lost Referral Sources</strong> — Active referring sources dropped from 44 to 37 YoY (approximately 7 doctors became inactive). Prioritize re-engagement: personal calls from the periodontist to the top 5 lapsed referrers, followed by CE event invitations and lunch &amp; learn scheduling. <em>Owner: Doctor + PRD.</em></li>
+<li><strong>Strengthen Case Acceptance</strong> — Case acceptance at 66.6% is below the 69% perio benchmark. Recommend: (a) standardize full-scope treatment presentation for every consult, (b) present financial options (CareCredit, phased plans) before the treatment plan, (c) track case acceptance by provider to identify coaching opportunities. <em>Owner: Clinical Lead / Treatment Coordinator.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 10.4 days (2025 baseline) to 4.5 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-2">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Central Florida Periodontics and Implantology</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t2">Tier 2 — Opportunity</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-both">
+                <strong>Diagnosis:</strong> Both Levers Need Attention — referral sources declining AND yield per source declining
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>72 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 92)</span></div><div>66 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 84)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>37 <span style="font-size:0.75rem;color:#999;">(SPLY: 55)</span></div><div>31 <span style="font-size:0.75rem;color:#999;">(SPLY: 44)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.95</div><div class="good">2.13</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">72.7%</div><div class="bad">67.3%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="good">97.5%</div><div class="good">97.1%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">4.9 days</div><div class="good">6.1 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="bad">54.5%</div><div class="good">72.5%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$3,221</div><div>$3,463</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>N/A refs/mo | 0.46 yield | 87.1% sched | 35.1 days TTC | $3,263 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Rebuild Referral Volume</strong> — Referral volume is running below prior year (69 vs 88 avg monthly). Conduct a top-referrer audit — identify the 5 referring doctors with the largest volume decline and schedule personal outreach within 2 weeks. Consider hosting a CE lunch &amp; learn to re-engage the network. <em>Owner: PRD / Market Manager.</em></li>
+<li><strong>Re-Engage Lost Referral Sources</strong> — Active referring sources dropped from 55 to 37 YoY (approximately 18 doctors became inactive). Prioritize re-engagement: personal calls from the periodontist to the top 5 lapsed referrers, followed by CE event invitations and lunch &amp; learn scheduling. <em>Owner: Doctor + PRD.</em></li>
+<li><strong>Investigate Case Acceptance Drop</strong> — Case acceptance dropped from 72.7% (Jan) to 67.3% (Feb). Investigate whether this reflects a case mix shift, a presentation consistency issue, or financial barriers. Pull Referral Lab data by referring doctor to isolate the trend. <em>Owner: Clinical Lead.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 35.1 days (2025 baseline) to 5.5 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Maintain Strong Consult Compliance</strong> — Scheduled consult compliance at 97.3% is strong — patients are following through on their referrals. Maintain the confirmation and intake protocols driving this. <em>Owner: Office Manager.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-2">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Golden Triangle Periodontal Center</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t2">Tier 2 — Opportunity</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>52 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 42)</span></div><div>56 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 43)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>31 <span style="font-size:0.75rem;color:#999;">(SPLY: 25)</span></div><div>30 <span style="font-size:0.75rem;color:#999;">(SPLY: 27)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.68</div><div class="good">1.87</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="ok">70.8%</div><div class="bad">63.3%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="ok">86.5%</div><div class="bad">83.6%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">2.5 days</div><div class="good">4.0 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="bad">56.3%</div><div class="bad">46.4%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$4,071</div><div>$3,284</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>49.6 refs/mo | 0.75 yield | 82.8% sched | 13.8 days TTC | $3,995 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Nurture New Referral Sources</strong> — Active referral sources grew from 25 to 31 YoY (+6 doctors). Focus on nurturing these newer relationships to build per-doctor yield over time. Assign the PRD to make introductory touchpoints with each new source within 30 days. <em>Owner: PRD.</em></li>
+<li><strong>Strengthen Case Acceptance</strong> — Case acceptance at 67.0% is below the 69% perio benchmark. Recommend: (a) standardize full-scope treatment presentation for every consult, (b) present financial options (CareCredit, phased plans) before the treatment plan, (c) track case acceptance by provider to identify coaching opportunities. <em>Owner: Clinical Lead / Treatment Coordinator.</em></li>
+<li><strong>Investigate Case Acceptance Drop</strong> — Case acceptance dropped from 70.8% (Jan) to 63.3% (Feb). Investigate whether this reflects a case mix shift, a presentation consistency issue, or financial barriers. Pull Referral Lab data by referring doctor to isolate the trend. <em>Owner: Clinical Lead.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 13.8 days (2025 baseline) to 3.2 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Boost Same-Day Acceptance</strong> — Same-day acceptance at 51.3% suggests opportunities in treatment urgency and financial counseling. Ensure treatment coordinators are presenting phase-1 treatment options same day with clear financial pathways. <em>Owner: Treatment Coordinator.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-2">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Marshall L Wallace</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t2">Tier 2 — Opportunity</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>65 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 42)</span></div><div>78 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 90)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>27 <span style="font-size:0.75rem;color:#999;">(SPLY: 19)</span></div><div>26 <span style="font-size:0.75rem;color:#999;">(SPLY: 23)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">2.41</div><div class="good">3.00</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="bad">63.3%</div><div class="ok">71.4%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="good">89.4%</div><div class="good">99.0%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">4.4 days</div><div class="good">4.9 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">66.2%</div><div class="bad">59.2%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$2,583</div><div>$2,062</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>67.4 refs/mo | 1.45 yield | 89.5% sched | 10.7 days TTC | $2,625 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Nurture New Referral Sources</strong> — Active referral sources grew from 19 to 27 YoY (+8 doctors). Focus on nurturing these newer relationships to build per-doctor yield over time. Assign the PRD to make introductory touchpoints with each new source within 30 days. <em>Owner: PRD.</em></li>
+<li><strong>Strengthen Case Acceptance</strong> — Case acceptance at 67.3% is below the 69% perio benchmark. Recommend: (a) standardize full-scope treatment presentation for every consult, (b) present financial options (CareCredit, phased plans) before the treatment plan, (c) track case acceptance by provider to identify coaching opportunities. <em>Owner: Clinical Lead / Treatment Coordinator.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 10.7 days (2025 baseline) to 4.7 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Maintain Strong Consult Compliance</strong> — Scheduled consult compliance at 94.2% is strong — patients are following through on their referrals. Maintain the confirmation and intake protocols driving this. <em>Owner: Office Manager.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-2">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>North River Periodontics and Implants</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t2">Tier 2 — Opportunity</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sources">
+                <strong>Diagnosis:</strong> Source Problem — referral yield is healthy but the network is shrinking
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>223 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 236)</span></div><div>238 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 211)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>92 <span style="font-size:0.75rem;color:#999;">(SPLY: 94)</span></div><div>95 <span style="font-size:0.75rem;color:#999;">(SPLY: 87)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">2.42</div><div class="good">2.51</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">81.5%</div><div class="good">76.4%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="ok">86.6%</div><div class="ok">86.5%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">6.5 days</div><div class="good">4.3 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">78.6%</div><div class="good">76.8%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$2,365</div><div>$2,031</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>227.9 refs/mo | 1.03 yield | 88.2% sched | 14.5 days TTC | $2,673 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Re-Engage Lost Referral Sources</strong> — Active referring sources dropped from 94 to 92 YoY (approximately 2 doctors became inactive). Prioritize re-engagement: personal calls from the periodontist to the top 5 lapsed referrers, followed by CE event invitations and lunch &amp; learn scheduling. <em>Owner: Doctor + PRD.</em></li>
+<li><strong>Leverage Strong Case Acceptance</strong> — Case acceptance at 79.0% exceeds the 69% benchmark and is performing well. Share presentation techniques from this practice across the network as a best-practice model. <em>Owner: Market Manager.</em></li>
+<li><strong>Investigate Case Acceptance Drop</strong> — Case acceptance dropped from 81.5% (Jan) to 76.4% (Feb). Investigate whether this reflects a case mix shift, a presentation consistency issue, or financial barriers. Pull Referral Lab data by referring doctor to isolate the trend. <em>Owner: Clinical Lead.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 14.5 days (2025 baseline) to 5.4 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Investigate Case Value Decline</strong> — Average case value dropped from $2,673 (2025) to $2,198. Investigate: (a) are referring doctors sending less complex cases? (b) are treatment plans being scoped down? (c) has insurance mix shifted? Pull data by referring doctor to isolate the trend. <em>Owner: Doctor / Clinical Lead.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-2">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Parkway Perio- Dr. Jeffrey Dent</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t2">Tier 2 — Opportunity</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-yield">
+                <strong>Diagnosis:</strong> Yield Problem — adequate referral sources but declining production per source
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>98 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 90)</span></div><div>120 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 130)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>46 <span style="font-size:0.75rem;color:#999;">(SPLY: 42)</span></div><div>56 <span style="font-size:0.75rem;color:#999;">(SPLY: 49)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">2.13</div><div class="good">2.14</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="bad">68.9%</div><div class="good">80.6%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="bad">82.7%</div><div class="bad">84.2%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">6.4 days</div><div class="good">4.4 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">75.8%</div><div class="good">65.8%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$1,852</div><div>$2,122</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>112.1 refs/mo | 0.76 yield | 84.5% sched | 14.6 days TTC | $2,103 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Rebuild Referral Volume</strong> — Referral volume is running below prior year (109 vs 110 avg monthly). Conduct a top-referrer audit — identify the 5 referring doctors with the largest volume decline and schedule personal outreach within 2 weeks. Consider hosting a CE lunch &amp; learn to re-engage the network. <em>Owner: PRD / Market Manager.</em></li>
+<li><strong>Nurture New Referral Sources</strong> — Active referral sources grew from 42 to 46 YoY (+4 doctors). Focus on nurturing these newer relationships to build per-doctor yield over time. Assign the PRD to make introductory touchpoints with each new source within 30 days. <em>Owner: PRD.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 14.6 days (2025 baseline) to 5.4 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Improve Consult Show Rate</strong> — Only 83.5% of referred patients are making it to their consult. At 109 referrals/month and $1,987 avg case value, this represents approximately $430,134 in annual lost opportunity. Implement 48-hour pre-consult confirmation calls, patient welcome packets, and warm handoff calls from referring offices. <em>Owner: Office Manager.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-2">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Sandhills Dental Rehabilitation Center</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t2">Tier 2 — Opportunity</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-both">
+                <strong>Diagnosis:</strong> Both Levers Need Attention — referral sources declining AND yield per source declining
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>31 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 47)</span></div><div>38 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 23)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>24 <span style="font-size:0.75rem;color:#999;">(SPLY: 33)</span></div><div>22 <span style="font-size:0.75rem;color:#999;">(SPLY: 19)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.29</div><div class="good">1.73</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">76.5%</div><div class="good">78.3%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="good">100.0%</div><div class="bad">84.2%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">7.7 days</div><div class="good">3.8 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">77.3%</div><div class="good">66.7%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$12,834</div><div>$4,772</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>32.4 refs/mo | 0.36 yield | 80.8% sched | 22.5 days TTC | $9,167 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Rebuild Referral Volume</strong> — Referral volume is running below prior year (34 vs 35 avg monthly). Conduct a top-referrer audit — identify the 5 referring doctors with the largest volume decline and schedule personal outreach within 2 weeks. Consider hosting a CE lunch &amp; learn to re-engage the network. <em>Owner: PRD / Market Manager.</em></li>
+<li><strong>Re-Engage Lost Referral Sources</strong> — Active referring sources dropped from 33 to 24 YoY (approximately 9 doctors became inactive). Prioritize re-engagement: personal calls from the periodontist to the top 5 lapsed referrers, followed by CE event invitations and lunch &amp; learn scheduling. <em>Owner: Doctor + PRD.</em></li>
+<li><strong>Leverage Strong Case Acceptance</strong> — Case acceptance at 77.4% exceeds the 69% benchmark and is performing well. Share presentation techniques from this practice across the network as a best-practice model. <em>Owner: Market Manager.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 22.5 days (2025 baseline) to 5.8 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Maintain Strong Consult Compliance</strong> — Scheduled consult compliance at 92.1% is strong — patients are following through on their referrals. Maintain the confirmation and intake protocols driving this. <em>Owner: Office Manager.</em></li>
+<li><strong>Protect High Case Value</strong> — Average case value at $8,803 exceeds the $4,800 benchmark — this practice is converting high-value surgical cases. Ensure scheduling capacity can sustain this case mix. <em>Owner: Operations Manager.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-3">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Aiken Oral & Facial Surgery</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t3">Tier 3 — Sustain</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>487 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 185)</span></div><div>383 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 364)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>117 <span style="font-size:0.75rem;color:#999;">(SPLY: 58)</span></div><div>115 <span style="font-size:0.75rem;color:#999;">(SPLY: 89)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">4.16</div><div class="good">3.33</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">82.4%</div><div class="good">90.1%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="bad">66.3%</div><div class="good">93.7%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">9.6 days</div><div class="good">6.0 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">85.1%</div><div class="good">87.7%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$2,500</div><div>$2,500</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>271.5 refs/mo | 1.07 yield | 64.5% sched | 28.9 days TTC | $2,578 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Nurture New Referral Sources</strong> — Active referral sources grew from 58 to 117 YoY (+59 doctors). Focus on nurturing these newer relationships to build per-doctor yield over time. Assign the PRD to make introductory touchpoints with each new source within 30 days. <em>Owner: PRD.</em></li>
+<li><strong>Leverage Strong Case Acceptance</strong> — Case acceptance at 86.2% exceeds the 69% benchmark and is performing well. Share presentation techniques from this practice across the network as a best-practice model. <em>Owner: Market Manager.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 28.9 days (2025 baseline) to 7.8 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Improve Consult Show Rate</strong> — Only 80.0% of referred patients are making it to their consult. At 435 referrals/month and $2,500 avg case value, this represents approximately $2,610,000 in annual lost opportunity. Implement 48-hour pre-consult confirmation calls, patient welcome packets, and warm handoff calls from referring offices. <em>Owner: Office Manager.</em></li>
+<li><strong>Leverage Strong Same-Day Conversion</strong> — Same-day acceptance at 86.4% indicates effective treatment urgency and financial counseling. Document and share this workflow across locations. <em>Owner: Market Manager.</em></li>
+<li><strong>Deepen Existing Relationships</strong> — This practice has 43 more active referrers than needed at current yield to match baseline volume. The opportunity is deepening existing relationships rather than expanding the network. Increase touchpoint frequency for top 10 referrers. <em>Owner: PRD.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-3">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Alpharetta Periodontics & Dental Implants</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t3">Tier 3 — Sustain</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>85 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 25)</span></div><div>97 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 48)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>58 <span style="font-size:0.75rem;color:#999;">(SPLY: 18)</span></div><div>53 <span style="font-size:0.75rem;color:#999;">(SPLY: 30)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.47</div><div class="good">1.83</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">78.9%</div><div class="good">78.3%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="good">91.8%</div><div class="good">98.0%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">7.1 days</div><div class="good">2.2 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">69.0%</div><div class="good">67.7%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$2,344</div><div>$3,307</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>61.8 refs/mo | 0.42 yield | 91.8% sched | 11.4 days TTC | $2,224 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Nurture New Referral Sources</strong> — Active referral sources grew from 18 to 58 YoY (+40 doctors). Focus on nurturing these newer relationships to build per-doctor yield over time. Assign the PRD to make introductory touchpoints with each new source within 30 days. <em>Owner: PRD.</em></li>
+<li><strong>Leverage Strong Case Acceptance</strong> — Case acceptance at 78.6% exceeds the 69% benchmark and is performing well. Share presentation techniques from this practice across the network as a best-practice model. <em>Owner: Market Manager.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 11.4 days (2025 baseline) to 4.7 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Maintain Strong Consult Compliance</strong> — Scheduled consult compliance at 94.9% is strong — patients are following through on their referrals. Maintain the confirmation and intake protocols driving this. <em>Owner: Office Manager.</em></li>
+<li><strong>Deepen Existing Relationships</strong> — This practice has 18 more active referrers than needed at current yield to match baseline volume. The opportunity is deepening existing relationships rather than expanding the network. Increase touchpoint frequency for top 10 referrers. <em>Owner: PRD.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-3">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Darryl A. Field DDS</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t3">Tier 3 — Sustain</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>125 <span class="arrow-down">▼</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 131)</span></div><div>120 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 114)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>59 <span style="font-size:0.75rem;color:#999;">(SPLY: 53)</span></div><div>52 <span style="font-size:0.75rem;color:#999;">(SPLY: 56)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">2.12</div><div class="good">2.31</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">81.5%</div><div class="good">76.5%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="ok">86.2%</div><div class="bad">83.9%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">9.0 days</div><div class="good">7.5 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">68.9%</div><div class="good">78.4%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$3,624</div><div>$4,040</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>110.8 refs/mo | 0.76 yield | 89.2% sched | 16.5 days TTC | $4,199 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Nurture New Referral Sources</strong> — Active referral sources grew from 53 to 59 YoY (+6 doctors). Focus on nurturing these newer relationships to build per-doctor yield over time. Assign the PRD to make introductory touchpoints with each new source within 30 days. <em>Owner: PRD.</em></li>
+<li><strong>Leverage Strong Case Acceptance</strong> — Case acceptance at 79.0% exceeds the 69% benchmark and is performing well. Share presentation techniques from this practice across the network as a best-practice model. <em>Owner: Market Manager.</em></li>
+<li><strong>Investigate Case Acceptance Drop</strong> — Case acceptance dropped from 81.5% (Jan) to 76.5% (Feb). Investigate whether this reflects a case mix shift, a presentation consistency issue, or financial barriers. Pull Referral Lab data by referring doctor to isolate the trend. <em>Owner: Clinical Lead.</em></li>
+<li><strong>Deepen Existing Relationships</strong> — This practice has 5 more active referrers than needed at current yield to match baseline volume. The opportunity is deepening existing relationships rather than expanding the network. Increase touchpoint frequency for top 10 referrers. <em>Owner: PRD.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-3">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Lowcountry Periodontics</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t3">Tier 3 — Sustain</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>279  <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div><div>259  <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>87 <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div><div>78 <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">3.21</div><div class="good">3.32</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">88.2%</div><div class="good">88.2%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="ok">86.0%</div><div class="bad">82.2%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">6.8 days</div><div class="good">6.5 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">85.9%</div><div class="good">78.1%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$2,467</div><div>$3,008</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>194.5 refs/mo | 1.39 yield | 83.5% sched | 15.9 days TTC | $2,552 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Leverage Strong Case Acceptance</strong> — Case acceptance at 88.2% exceeds the 69% benchmark and is performing well. Share presentation techniques from this practice across the network as a best-practice model. <em>Owner: Market Manager.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 15.9 days (2025 baseline) to 6.7 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Improve Consult Show Rate</strong> — Only 84.1% of referred patients are making it to their consult. At 269 referrals/month and $2,738 avg case value, this represents approximately $1,405,027 in annual lost opportunity. Implement 48-hour pre-consult confirmation calls, patient welcome packets, and warm handoff calls from referring offices. <em>Owner: Office Manager.</em></li>
+<li><strong>Leverage Strong Same-Day Conversion</strong> — Same-day acceptance at 82.0% indicates effective treatment urgency and financial counseling. Document and share this workflow across locations. <em>Owner: Market Manager.</em></li>
+<li><strong>Deepen Existing Relationships</strong> — This practice has 22 more active referrers than needed at current yield to match baseline volume. The opportunity is deepening existing relationships rather than expanding the network. Increase touchpoint frequency for top 10 referrers. <em>Owner: PRD.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-3">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>MPSG</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t3">Tier 3 — Sustain</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>105  <span style="font-size:0.75rem;color:#999;">(SPLY: 0)</span></div><div>128  <span style="font-size:0.75rem;color:#999;">(SPLY: 0)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>60 <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div><div>72 <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.75</div><div class="good">1.78</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">84.7%</div><div class="good">87.1%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="good">97.2%</div><div class="good">98.4%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">4.8 days</div><div class="good">4.7 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">84.0%</div><div class="good">82.8%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$3,157</div><div>$2,497</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>52.0 refs/mo | 0.29 yield | 96.6% sched | 7.5 days TTC | $2,816 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Leverage Strong Case Acceptance</strong> — Case acceptance at 85.9% exceeds the 69% benchmark and is performing well. Share presentation techniques from this practice across the network as a best-practice model. <em>Owner: Market Manager.</em></li>
+<li><strong>Maintain Scheduling Speed</strong> — Time-to-consult at 4.8 days is excellent. Referred patients are getting seen quickly, which reinforces referring doctor confidence. Maintain this responsiveness and communicate it to referring offices as a differentiator. <em>Owner: Scheduling Coordinator.</em></li>
+<li><strong>Maintain Strong Consult Compliance</strong> — Scheduled consult compliance at 97.8% is strong — patients are following through on their referrals. Maintain the confirmation and intake protocols driving this. <em>Owner: Office Manager.</em></li>
+<li><strong>Leverage Strong Same-Day Conversion</strong> — Same-day acceptance at 83.4% indicates effective treatment urgency and financial counseling. Document and share this workflow across locations. <em>Owner: Market Manager.</em></li>
+<li><strong>Deepen Existing Relationships</strong> — This practice has 36 more active referrers than needed at current yield to match baseline volume. The opportunity is deepening existing relationships rather than expanding the network. Increase touchpoint frequency for top 10 referrers. <em>Owner: PRD.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-3">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Outerbanks</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t3">Tier 3 — Sustain</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>100  <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div><div>116  <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>35 <span style="font-size:0.75rem;color:#999;">(SPLY: 0)</span></div><div>41 <span style="font-size:0.75rem;color:#999;">(SPLY: 7)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">2.86</div><div class="good">2.83</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="good">87.5%</div><div class="good">88.5%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="bad">84.0%</div><div class="bad">78.4%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">8.0 days</div><div class="good">6.9 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">75.9%</div><div class="good">89.8%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$3,066</div><div>$3,333</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>92.8 refs/mo | 1.55 yield | 78.3% sched | 28.6 days TTC | $3,448 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Leverage Strong Case Acceptance</strong> — Case acceptance at 88.0% exceeds the 69% benchmark and is performing well. Share presentation techniques from this practice across the network as a best-practice model. <em>Owner: Market Manager.</em></li>
+<li><strong>Celebrate Time-to-Consult Improvement</strong> — Time-to-consult improved from 28.6 days (2025 baseline) to 7.5 days — a significant operational win. Document the process changes that drove this improvement and set monitoring alerts to sustain it. <em>Owner: Operations Manager.</em></li>
+<li><strong>Improve Consult Show Rate</strong> — Only 81.2% of referred patients are making it to their consult. At 108 referrals/month and $3,200 avg case value, this represents approximately $779,552 in annual lost opportunity. Implement 48-hour pre-consult confirmation calls, patient welcome packets, and warm handoff calls from referring offices. <em>Owner: Office Manager.</em></li>
+<li><strong>Leverage Strong Same-Day Conversion</strong> — Same-day acceptance at 82.8% indicates effective treatment urgency and financial counseling. Document and share this workflow across locations. <em>Owner: Market Manager.</em></li>
+<li><strong>Deepen Existing Relationships</strong> — This practice has 5 more active referrers than needed at current yield to match baseline volume. The opportunity is deepening existing relationships rather than expanding the network. Increase touchpoint frequency for top 10 referrers. <em>Owner: PRD.</em></li>
+</ul></div></div>
+
+    <div class="practice-card tier-3">
+        <div class="card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+            <div><h3>Pine Belt-Hattiesburg</h3></div>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+                <span class="tier-badge t3">Tier 3 — Sustain</span>
+                <span class="card-toggle">▼</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="diagnosis diag-sustain">
+                <strong>Diagnosis:</strong> On Track — key metrics trending favorably
+            </div>
+            
+            <h4 style="color:var(--navy);margin:1rem 0 0.5rem;">Key Metrics</h4>
+            <div class="scorecard-row"><div class="sh">Metric</div><div class="sh">January 2026</div><div class="sh">February 2026</div></div>
+            <div class="scorecard-row"><div>External Referrals</div><div>45  <span style="font-size:0.75rem;color:#999;">(SPLY: N/A)</span></div><div>38 <span class="arrow-up">▲</span> <span style="font-size:0.75rem;color:#999;">(SPLY: 21)</span></div></div>
+            <div class="scorecard-row"><div>Active Sources</div><div>33 <span style="font-size:0.75rem;color:#999;">(SPLY: 0)</span></div><div>27 <span style="font-size:0.75rem;color:#999;">(SPLY: 19)</span></div></div>
+            <div class="scorecard-row"><div>Yield (Refs/Source)</div><div class="good">1.36</div><div class="good">1.41</div></div>
+            <div class="scorecard-row"><div>Case Acceptance</div><div class="bad">64.7%</div><div class="good">84.8%</div></div>
+            <div class="scorecard-row"><div>Scheduled Consult %</div><div class="good">94.1%</div><div class="good">94.9%</div></div>
+            <div class="scorecard-row"><div>Time to Consult</div><div class="good">9.2 days</div><div class="good">5.1 days</div></div>
+            <div class="scorecard-row"><div>Same-Day Acceptance</div><div class="good">70.0%</div><div class="good">70.0%</div></div>
+            <div class="scorecard-row"><div>Avg $ Accepted</div><div>$4,357</div><div>$3,288</div></div>
+            <div class="scorecard-row" style="background:var(--gray-light);padding:0.3rem;border-radius:4px;margin-top:0.3rem;"><div><strong>2025 Baseline</strong></div><div colspan="2"><strong>31.7 refs/mo | 0.30 yield | 83.0% sched | 13.2 days TTC | $3,802 avg</strong></div><div></div></div>
+            
+            <h4 style="color:var(--navy);margin:1.2rem 0 0.5rem;">Recommendations</h4>
+            <ul class="rec-list">
+    <li><strong>Sustain Referral Growth</strong> — Referral volume is trending above prior year. This growth trajectory is strong — sustain it by deepening relationships with newly active referring doctors through quarterly progress reports on their referred patients. <em>Owner: PRD.</em></li>
+<li><strong>Maintain Strong Consult Compliance</strong> — Scheduled consult compliance at 94.5% is strong — patients are following through on their referrals. Maintain the confirmation and intake protocols driving this. <em>Owner: Office Manager.</em></li>
+<li><strong>Deepen Existing Relationships</strong> — This practice has 7 more active referrers than needed at current yield to match baseline volume. The opportunity is deepening existing relationships rather than expanding the network. Increase touchpoint frequency for top 10 referrers. <em>Owner: PRD.</em></li>
+</ul></div></div>
+</section>
+<section id="tiers"><h2>Portfolio Action Plan by Priority Tier</h2>
+<div class="tier-section ts1"><h3>Tier 1 — Urgent</h3>
+<div class="tier-practices"><strong>Practices (4):</strong> Columbus Periodontic and Implant Center, Lane Periodontics and Implants, Periodontal Associates of Memphis*, Van Scoyoc Periodontics & Implants</div>
+
+        <div class="tier-action"><strong>Action 1:</strong> Schedule 1:1 calls with practice leadership within 2 weeks. Review referral source data to identify which referring doctors stopped sending patients and prioritize personal re-engagement outreach.</div>
+        <div class="tier-action"><strong>Action 2:</strong> Conduct a treatment presentation audit — observe consult appointments and evaluate full-scope presentation consistency, financial counseling flow, and same-day treatment offering.</div>
+        <div class="tier-action"><strong>Action 3:</strong> Review the referrer gap calculation for each practice and set a 90-day target for adding new referring doctors to close the deficit. Assign PRD touchpoints accordingly.</div>
+        </div>
+<div class="tier-section ts2"><h3>Tier 2 — Opportunity</h3>
+<div class="tier-practices"><strong>Practices (6):</strong> Central Florida Periodontics and Implantology, Golden Triangle Periodontal Center, Marshall L Wallace, North River Periodontics and Implants, Parkway Perio- Dr. Jeffrey Dent, Sandhills Dental Rehabilitation Center</div>
+
+        <div class="tier-action"><strong>Action 1:</strong> Identify each practice's single weakest metric and build a focused 60-day improvement plan. Share best practices from Tier 3 practices addressing the same metric.</div>
+        <div class="tier-action"><strong>Action 2:</strong> Set up monthly peer group calls — pair each Tier 2 practice with a Tier 3 practice that excels in their gap area for cross-pollination of scheduling, presentation, and intake solutions.</div>
+        </div>
+<div class="tier-section ts3"><h3>Tier 3 — Sustain</h3>
+<div class="tier-practices"><strong>Practices (7):</strong> Aiken Oral & Facial Surgery, Alpharetta Periodontics & Dental Implants, Darryl A. Field DDS, Lowcountry Periodontics, MPSG, Outerbanks, Pine Belt-Hattiesburg</div>
+
+        <div class="tier-action"><strong>Action 1:</strong> Document and share best practices from these high-performing practices across the portfolio — what are they doing differently in case presentation, scheduling speed, and referrer engagement?</div>
+        <div class="tier-action"><strong>Action 2:</strong> Conduct quarterly business reviews with top referring doctors at each Tier 3 location. Protect these relationships and expand yield through deeper engagement rather than network breadth.</div>
+        </div>
+</section>
+
+<div class="disclaimer">
+<strong>Disclaimer:</strong> This analysis is based on Referral Lab and Go Grow program data for the periods indicated. Metrics should be validated against practice management system records. All recommendations should be reviewed by practice leadership before implementation. Data time windows may differ between sources — the 2025 baseline covers full-year YTD, while January and February 2026 are single-month snapshots.
+</div>
+</div>
+</body></html>
