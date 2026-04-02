@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Van Scoyoc Periodontics — Supplemental Marketing Plan Insights</title>
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --blue: #2E75B6;
+    --light-blue: #D5E8F0;
+    --green: #2E7D32;
+    --green-bg: #E8F5E9;
+    --red: #C62828;
+    --red-bg: #FFEBEE;
+    --orange: #E65100;
+    --orange-bg: #FFF3E0;
+    --yellow: #F57F17;
+    --yellow-bg: #FFFDE7;
+    --gray-100: #F5F5F5;
+    --gray-200: #EEEEEE;
+    --gray-300: #E0E0E0;
+    --gray-600: #757575;
+    --gray-800: #424242;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--gray-800);
+    background: var(--gray-100);
+    line-height: 1.6;
+  }
+
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, #2C4270 100%);
+    color: var(--white);
+    padding: 40px 0 30px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .header .subtitle {
+    font-size: 16px;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+
+  .header .meta {
+    margin-top: 14px;
+    font-size: 13px;
+    opacity: 0.65;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .nav-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-300);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 24px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .nav-bar .container {
+    display: flex;
+    gap: 0;
+  }
+
+  .nav-bar a {
+    display: inline-block;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: var(--gray-600);
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .nav-bar a:hover, .nav-bar a.active {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+  }
+
+  .executive-summary {
+    background: var(--white);
+    border-left: 4px solid var(--blue);
+    padding: 24px 28px;
+    margin: 28px 0;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .executive-summary h2 {
+    color: var(--navy);
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .executive-summary p {
+    font-size: 14px;
+    color: var(--gray-800);
+    margin-bottom: 10px;
+  }
+
+  section {
+    margin-bottom: 32px;
+  }
+
+  .section-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+
+  .section-card h2 {
+    color: var(--navy);
+    font-size: 20px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-card h2 .badge {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-critical { background: var(--red-bg); color: var(--red); }
+  .badge-opportunity { background: var(--orange-bg); color: var(--orange); }
+  .badge-insight { background: var(--light-blue); color: var(--blue); }
+  .badge-new { background: var(--green-bg); color: var(--green); }
+
+  .section-card .section-subtitle {
+    color: var(--gray-600);
+    font-size: 13px;
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+
+  .section-card h3 {
+    color: var(--blue);
+    font-size: 15px;
+    margin: 18px 0 8px;
+  }
+
+  .section-card p, .section-card li {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .section-card ul {
+    padding-left: 20px;
+  }
+
+  .section-card ul li {
+    margin-bottom: 6px;
+  }
+
+  .insight-box {
+    background: var(--gray-100);
+    border-left: 3px solid var(--blue);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+  }
+
+  .insight-box.warn {
+    border-left-color: var(--orange);
+    background: var(--orange-bg);
+  }
+
+  .insight-box.critical {
+    border-left-color: var(--red);
+    background: var(--red-bg);
+  }
+
+  .insight-box.success {
+    border-left-color: var(--green);
+    background: var(--green-bg);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+
+  .data-table th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .data-table tr:nth-child(even) { background: var(--gray-100); }
+
+  .data-table .status-pass { color: var(--green); font-weight: 600; }
+  .data-table .status-fail { color: var(--red); font-weight: 600; }
+  .data-table .status-warn { color: var(--orange); font-weight: 600; }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .kpi-card {
+    background: var(--gray-100);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .kpi-card .kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .kpi-card .kpi-label {
+    font-size: 12px;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  .kpi-card .kpi-context {
+    font-size: 11px;
+    color: var(--gray-600);
+    margin-top: 4px;
+  }
+
+  .kpi-card.red .kpi-value { color: var(--red); }
+  .kpi-card.green .kpi-value { color: var(--green); }
+  .kpi-card.orange .kpi-value { color: var(--orange); }
+
+  .action-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+
+  .action-table th {
+    background: var(--blue);
+    color: var(--white);
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .action-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+  }
+
+  .action-table tr:nth-child(even) { background: #F0F7FF; }
+
+  .collapsible {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .collapsible::after {
+    content: ' +';
+    font-weight: 700;
+    color: var(--blue);
+  }
+
+  .collapsible.open::after {
+    content: ' −';
+  }
+
+  .collapsible-content {
+    display: none;
+  }
+
+  .collapsible-content.show {
+    display: block;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 30px 24px;
+    color: var(--gray-600);
+    font-size: 12px;
+    border-top: 1px solid var(--gray-300);
+    margin-top: 40px;
+  }
+
+  @media (max-width: 640px) {
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+    .container { padding: 0 16px; }
+    .section-card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <h1>Van Scoyoc Periodontics & Implants</h1>
+    <div class="subtitle">Supplemental Marketing Plan Insights</div>
+    <div class="meta">Prepared for Jayme Monroe | Gen4 / NewCo | April 2026</div>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <div class="container">
+    <a href="#exec" class="active">Summary</a>
+    <a href="#tier1">Tier 1 Classification</a>
+    <a href="#prd-math">PRD Efficiency</a>
+    <a href="#conner-digital">Conner Digital Gap</a>
+    <a href="#competitive">Competitive Threat</a>
+    <a href="#sanford">Sanford Expansion</a>
+    <a href="#digital-storefront">Digital Storefront</a>
+    <a href="#case-acceptance">Case Acceptance</a>
+    <a href="#actions">Additional Actions</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="executive-summary" id="exec">
+    <h2>What the Current Plan Gets Right &mdash; and What It&rsquo;s Missing</h2>
+    <p>The marketing plan is well-structured and correctly identifies the four core priorities: PRD touchpoint performance, lapsed referrer re-engagement, Conner associate ramp, and the Sanford expansion. The flags are accurate, the benchmarks are solid, and the 30-day milestones are realistic.</p>
+    <p>However, cross-referencing against data from the <strong>Go Grow Referral Pipeline Analysis</strong>, the <strong>PRD Touchpoint Calculator</strong>, the <strong>YoY Perio Performance Report</strong>, and current online presence research surfaces <strong>seven additional insights</strong> that should be layered into the plan before the first meeting. These range from a critical digital gap that could silently undermine every Conner introduction visit, to PRD efficiency math that reveals the real throughput ceiling Keri is hitting.</p>
+  </div>
+
+  <!-- INSIGHT 1: TIER 1 CLASSIFICATION -->
+  <section id="tier1">
+    <div class="section-card">
+      <h2>Van Scoyoc Is Classified Tier 1 &mdash; Urgent <span class="badge badge-critical">Critical Context</span></h2>
+      <p class="section-subtitle">From the Go Grow Referral Pipeline Analysis (March 2026)</p>
+
+      <p>In the most recent enterprise-wide portfolio analysis, Van Scoyoc was classified as <strong>Tier 1 &mdash; Urgent</strong>, alongside Columbus, Lane, and PAM. These are the only four practices in the entire portfolio that show <em>both</em> declining referral volume <em>and</em> case acceptance below 69%.</p>
+
+      <div class="insight-box critical">
+        <strong>Why this matters for the plan:</strong> The marketing plan correctly treats referral decline and case acceptance as separate priorities. But the enterprise data shows these two problems are compounding &mdash; practices with both issues deteriorate faster than those with only one. This practice needs the plan to work on the <em>first pass</em>, not iterate over multiple quarters. Every action item should be pressure-tested against that urgency.
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi-card red">
+          <div class="kpi-value">-7.97%</div>
+          <div class="kpi-label">YoY Referral Decline</div>
+          <div class="kpi-context">-94 referrals lost</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-value">67.6%</div>
+          <div class="kpi-label">Case Acceptance</div>
+          <div class="kpi-context">vs. 69% benchmark</div>
+        </div>
+        <div class="kpi-card orange">
+          <div class="kpi-value">$3,406</div>
+          <div class="kpi-label">Avg $ Accepted</div>
+          <div class="kpi-context">vs. $4,800 benchmark</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-value">10.4 days</div>
+          <div class="kpi-label">Time to Consult</div>
+          <div class="kpi-context">Well within 18-day target</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHT 2: PRD EFFICIENCY MATH -->
+  <section id="prd-math">
+    <div class="section-card">
+      <h2>PRD Touchpoint Math Reveals the Real Ceiling <span class="badge badge-opportunity">Efficiency Gap</span></h2>
+      <p class="section-subtitle">From the PRD Touchpoint Calculator and Metrics Analysis sessions</p>
+
+      <p>The plan states Keri is at 8 touchpoints/week against a capacity of 10 (80% utilization). That looks acceptable at face value. But the PRD Calculator analysis revealed a deeper problem across the portfolio: <strong>inflated in-person touchpoint time estimates are eating PRD hours and capping throughput.</strong></p>
+
+      <h3>The Core Problem</h3>
+      <p>At 20 hours/week with a 75/25 in-person/virtual split, the model needs to know how long each touchpoint takes. If Keri&rsquo;s in-person visits average 2.5&ndash;3+ hours (factoring drive time in the Moore County/Sanford geography), then 8 touchpoints/week may actually be at or near <em>true</em> capacity &mdash; not 80% of it.</p>
+
+      <div class="insight-box warn">
+        <strong>Cross-portfolio insight:</strong> In the PRD Calculator analysis, we found that practices with inflated in-person time estimates (3+ hours) produced the <em>same</em> number of touchpoints as those with lean estimates (1.5 hours) &mdash; the extra PRD hours just got absorbed by windshield time. Michael Toms achieved the best NP-per-PRD-hour ratio (8.0) with only 4 PRD hours/week because their time-per-touchpoint was lean. Woodyard, with similar inflated drive times, returned only 4.1 NP per PRD hour &mdash; a 2x efficiency gap.
+      </div>
+
+      <h3>What to Add to the Plan</h3>
+      <table class="action-table">
+        <tr><th style="width:60%">Action</th><th>Owner</th><th>When</th></tr>
+        <tr>
+          <td>Audit Keri&rsquo;s actual time-per-touchpoint: log drive time separately from face time for 2 weeks. Determine if the 75/25 in-person/virtual split is optimal for a two-location geography.</td>
+          <td>Keri / Jayme</td>
+          <td>Week 1&ndash;2</td>
+        </tr>
+        <tr>
+          <td>Model a 50/50 in-person/virtual split. Portfolio analysis showed this can increase touchpoint throughput 40&ndash;60% with zero added hours. Southern Pines &rarr; Sanford drive time makes this especially relevant.</td>
+          <td>Jayme</td>
+          <td>Week 2</td>
+        </tr>
+        <tr>
+          <td>Track NP per PRD hour as the primary efficiency metric going forward. Current plan tracks touchpoint volume but not yield per hour invested.</td>
+          <td>Keri</td>
+          <td>Ongoing</td>
+        </tr>
+      </table>
+
+      <h3>Referrer Touch Frequency</h3>
+      <p>At 8 touchpoints/week across 128 referring partners, Keri is touching each referrer approximately once every <strong>16 weeks</strong>. The target from the PRD Calculator is 2&ndash;4 weeks between touches. Even with A/B/C tiering (concentrating on top 30&ndash;40 referrers), the math only works if virtual touchpoints count and are systematically deployed.</p>
+    </div>
+  </section>
+
+  <!-- INSIGHT 3: CONNER DIGITAL GAP -->
+  <section id="conner-digital">
+    <div class="section-card">
+      <h2>Dr. Conner Has a Digital Presence Problem <span class="badge badge-critical">Silent Referral Killer</span></h2>
+      <p class="section-subtitle">From web research conducted April 2026</p>
+
+      <p>The plan correctly prioritizes a Conner leave-behind and in-person introductions. But there&rsquo;s a gap it doesn&rsquo;t address: <strong>what happens after Keri leaves the office?</strong></p>
+
+      <p>When a referring office front desk Googles &ldquo;Dr. Chandler Conner periodontist,&rdquo; they find almost nothing. Dr. Conner has:</p>
+
+      <table class="data-table">
+        <tr><th>Platform</th><th>Dr. Van Scoyoc</th><th>Dr. Conner</th><th>Status</th></tr>
+        <tr><td>Healthgrades (individual)</td><td>15 reviews, listed</td><td>No individual profile found</td><td class="status-fail">MISSING</td></tr>
+        <tr><td>Yelp</td><td>Listed, 4 stars</td><td>Not listed individually</td><td class="status-fail">MISSING</td></tr>
+        <tr><td>Practice Website Bio</td><td>Full bio page</td><td>Listed on /our-doctors/</td><td class="status-pass">OK</td></tr>
+        <tr><td>Google Search Presence</td><td>Multiple directory listings</td><td>Only perionc.com results</td><td class="status-fail">WEAK</td></tr>
+        <tr><td>CareCredit Directory</td><td>Listed</td><td>Not listed individually</td><td class="status-warn">GAP</td></tr>
+      </table>
+
+      <div class="insight-box critical">
+        <strong>This is the same pattern we flagged at Beaches with Dr. Velgis.</strong> In that marketing plan review, we identified that when a PRD drops a leave-behind for a new associate and the front desk Googles them and finds nothing, it silently kills the referral. The leave-behind creates intent; the empty Google results page kills confidence. Every Conner introduction visit Keri makes is undermined until this is fixed.
+      </div>
+
+      <h3>What to Add to the Plan</h3>
+      <table class="action-table">
+        <tr><th style="width:60%">Action</th><th>Owner</th><th>When</th></tr>
+        <tr>
+          <td>Claim/create Dr. Conner&rsquo;s individual profiles on Healthgrades, WebMD, Vitals, Zocdoc, and Yelp. Use his UNC credentials, Dental Student Achievement in Periodontology Award, and board eligibility as content.</td>
+          <td>Keri / Marketing</td>
+          <td>Before first Conner intro visit</td>
+        </tr>
+        <tr>
+          <td>Ensure perionc.com/our-doctors/ has a robust, SEO-optimized Conner bio with schema markup (Physician schema), photo, specialty list, and direct scheduling link.</td>
+          <td>Web team</td>
+          <td>Week 1</td>
+        </tr>
+        <tr>
+          <td>Seed 3&ndash;5 early patient reviews that mention Dr. Conner by name on Google. This creates the social proof that referring offices look for.</td>
+          <td>Office team</td>
+          <td>Month 1</td>
+        </tr>
+      </table>
+
+      <h3>Conner&rsquo;s Credential Advantage</h3>
+      <p>Dr. Conner is a strong candidate on paper and the bio content is there to build on: he grew up in Rockingham (30 min from Southern Pines), earned his DMD at ECU, completed a 3-year surgical residency in Periodontics at UNC Chapel Hill with a Master&rsquo;s, won the Dental Student Achievement in Periodontology Award, and has a research background in bone regeneration and periodontal plastic surgery outcomes. <strong>None of this appears anywhere a referring office would find it</strong> outside perionc.com itself.</p>
+    </div>
+  </section>
+
+  <!-- INSIGHT 4: COMPETITIVE THREAT -->
+  <section id="competitive">
+    <div class="section-card">
+      <h2>The DSO/OS Competitive Threat Needs a Name <span class="badge badge-opportunity">Competitive Intel</span></h2>
+      <p class="section-subtitle">From market research and plan context</p>
+
+      <p>The plan flags that &ldquo;loss of referrals followed a local DSO adding an OS practice nearby.&rdquo; This is the single most important strategic context in the document, but it&rsquo;s mentioned once and never operationalized. The plan should identify the competitor and develop a counter-strategy.</p>
+
+      <h3>Likely Competitors in the Southern Pines/Pinehurst Market</h3>
+      <table class="data-table">
+        <tr><th>Practice</th><th>Type</th><th>Overlap</th></tr>
+        <tr><td>NC Oral Surgery + Orthodontics (NCOSO)</td><td>DSO-affiliated (Lane & Associates)</td><td>Implants, extractions &mdash; directly competes for GP referrals</td></tr>
+        <tr><td>Carolinas Center for Oral & Facial Surgery</td><td>Independent OS group, Pinehurst</td><td>Implants, bone grafting, surgical extractions</td></tr>
+        <tr><td>Pinehurst Oral Surgery (Neely/Johnson)</td><td>Independent OS, Pinehurst</td><td>Full scope OS including implants</td></tr>
+        <tr><td>Aspen Dental &mdash; Southern Pines</td><td>DSO</td><td>In-house implant workflow, captures referrals internally</td></tr>
+        <tr><td>O2 Dental Group &mdash; Southern Pines</td><td>DSO/group</td><td>General; may have in-house specialist pathway</td></tr>
+      </table>
+
+      <div class="insight-box warn">
+        <strong>The DSO threat is structural, not just competitive.</strong> When a DSO adds in-house oral surgery, the GP offices in that DSO stop referring out entirely. Those referrals don&rsquo;t go to a competitor &mdash; they disappear from the market. The 94 lost referrals may include a significant chunk that simply got redirected internally within a DSO network. Keri&rsquo;s touchpoint strategy should explicitly exclude DSO-captive offices from the active prospect list and focus on independent GPs.
+      </div>
+
+      <h3>What to Add to the Plan</h3>
+      <table class="action-table">
+        <tr><th style="width:60%">Action</th><th>Owner</th><th>When</th></tr>
+        <tr>
+          <td>Identify which of the 27 lapsed referrers are DSO-affiliated. Remove DSO-captive offices from the reactivation target list &mdash; they aren&rsquo;t coming back regardless of touchpoint quality.</td>
+          <td>Keri</td>
+          <td>Week 1</td>
+        </tr>
+        <tr>
+          <td>Build a competitive differentiation message for Keri&rsquo;s visits: LANAP (not offered by OS practices), 10.4-day consult window, continuity of care with the same periodontist, and conservative treatment philosophy vs. surgical-first OS approach.</td>
+          <td>Jayme / Keri</td>
+          <td>Week 2</td>
+        </tr>
+        <tr>
+          <td>Identify all independent GP practices within 25 miles of Southern Pines that are NOT in a DSO. These are the defensible referral base. Cross-reference against the 128 RL partners to find whitespace.</td>
+          <td>Keri</td>
+          <td>Week 2</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- INSIGHT 5: SANFORD EXPANSION -->
+  <section id="sanford">
+    <div class="section-card">
+      <h2>Sanford Needs Its Own Referral Ecosystem &mdash; Not an Extension of Southern Pines <span class="badge badge-new">New Market</span></h2>
+      <p class="section-subtitle">From plan context, web research, and PRD Calculator analysis</p>
+
+      <p>The plan correctly flags two-location complexity and says not to apply Southern Pines targets to Sanford. But it doesn&rsquo;t go far enough. Sanford isn&rsquo;t just a satellite &mdash; it&rsquo;s a new market entry that needs its own referral development strategy.</p>
+
+      <h3>What We Know About Sanford</h3>
+      <ul>
+        <li>Opened January 2026 (3 months old at time of this plan)</li>
+        <li>Located at 824 Spring Lane, Sanford, NC 27330</li>
+        <li>Listed on the Sanford Area Growth Alliance business directory</li>
+        <li>Website already reflects &ldquo;Southern Pines & Sanford NC&rdquo; in page titles</li>
+        <li>No separate Google Business Profile detected in search results</li>
+      </ul>
+
+      <div class="insight-box warn">
+        <strong>PRD capacity math for two locations:</strong> The PRD Calculator showed that drive time between locations is the hidden killer of touchpoint throughput. Southern Pines to Sanford is approximately 30&ndash;35 minutes each way. If Keri is splitting her 20 hours/week between two markets, she&rsquo;s losing 4&ndash;5 hours/week just to windshield time between locations. That reduces her effective touchpoint capacity from 10/week to approximately 7&ndash;8 &mdash; which is exactly where she&rsquo;s landing.
+      </div>
+
+      <h3>What to Add to the Plan</h3>
+      <table class="action-table">
+        <tr><th style="width:60%">Action</th><th>Owner</th><th>When</th></tr>
+        <tr>
+          <td>Confirm whether Sanford has its own Google Business Profile (separate from Southern Pines). If not, create one immediately &mdash; Sanford-area GPs searching for a local periodontist won&rsquo;t find the practice without it.</td>
+          <td>Marketing / Web</td>
+          <td>Week 1</td>
+        </tr>
+        <tr>
+          <td>Batch Sanford touchpoints on dedicated days (e.g., Tues/Thurs = Sanford, Mon/Wed/Fri = Southern Pines) to eliminate round-trip drive time waste.</td>
+          <td>Keri</td>
+          <td>Week 2</td>
+        </tr>
+        <tr>
+          <td>Build a Sanford-specific prospect list: identify all GP, general dentist, and family dentistry offices within 15 miles of 824 Spring Lane. These are net-new targets not in the current 128 RL list.</td>
+          <td>Keri / Jayme</td>
+          <td>Week 2&ndash;3</td>
+        </tr>
+        <tr>
+          <td>Position Conner as the Sanford provider. If he&rsquo;s seeing patients there, lead all Sanford prospecting with Conner &mdash; it gives him a &ldquo;home market&rdquo; to own and separates his ramp from Van Scoyoc&rsquo;s established Southern Pines base.</td>
+          <td>Practice Leadership</td>
+          <td>Strategic decision</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- INSIGHT 6: DIGITAL STOREFRONT -->
+  <section id="digital-storefront">
+    <div class="section-card">
+      <h2>Online Reputation Is Strong but Underutilized <span class="badge badge-insight">Digital Intel</span></h2>
+      <p class="section-subtitle">From web research conducted April 2026</p>
+
+      <p>Van Scoyoc&rsquo;s online reputation is a genuine asset that the plan doesn&rsquo;t leverage in the referral strategy:</p>
+
+      <div class="kpi-row">
+        <div class="kpi-card green">
+          <div class="kpi-value">4.9</div>
+          <div class="kpi-label">Google / RangeLead Rating</div>
+          <div class="kpi-context">248 reviews</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-value">4.8</div>
+          <div class="kpi-label">Birdeye Rating</div>
+          <div class="kpi-context">89 reviews</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">4.0</div>
+          <div class="kpi-label">Yelp Rating</div>
+          <div class="kpi-context">Listed under Dr. Van Scoyoc</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-value">A+</div>
+          <div class="kpi-label">BBB Rating</div>
+          <div class="kpi-context">Better Business Bureau</div>
+        </div>
+      </div>
+
+      <h3>Review Themes That Matter for Referrals</h3>
+      <p>Patients consistently mention: <strong>same assistant every visit</strong> (continuity of care), <strong>doctor calls patients at home after procedures</strong> (above-and-beyond service), <strong>works with your insurance</strong> (reduces friction), and <strong>friendly and reassuring</strong> demeanor. These are exactly the messages referring offices need to hear &mdash; they address the top concern GPs have when referring out: &ldquo;will my patient have a good experience and come back to me?&rdquo;</p>
+
+      <div class="insight-box success">
+        <strong>Untapped lever:</strong> Keri&rsquo;s leave-behinds and Conner one-pager should include a curated selection of review quotes. A printed card with 3&ndash;4 patient quotes (especially ones mentioning being called at home post-procedure, or always seeing the same assistant) does more to build referring-office confidence than any stat sheet.
+      </div>
+
+      <h3>What to Add to the Plan</h3>
+      <table class="action-table">
+        <tr><th style="width:60%">Action</th><th>Owner</th><th>When</th></tr>
+        <tr>
+          <td>Create a &ldquo;What Patients Say&rdquo; card for the Conner leave-behind package: 3&ndash;4 curated review quotes emphasizing patient experience themes that matter to referring offices.</td>
+          <td>Keri / Marketing</td>
+          <td>Week 2</td>
+        </tr>
+        <tr>
+          <td>Implement a review request workflow that asks patients to mention their referring dentist&rsquo;s name. This creates organic social proof that flows back to the referring office.</td>
+          <td>Office team</td>
+          <td>Month 1</td>
+        </tr>
+        <tr>
+          <td>Ensure the Sanford location is building its own review profile from day one. Do not rely on Southern Pines reviews to carry both markets.</td>
+          <td>Office team</td>
+          <td>Ongoing</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- INSIGHT 7: CASE ACCEPTANCE -->
+  <section id="case-acceptance">
+    <div class="section-card">
+      <h2>Case Acceptance Is a Portfolio-Wide Problem &mdash; Frame It Accordingly <span class="badge badge-insight">Strategic Framing</span></h2>
+      <p class="section-subtitle">From the YoY Perio Performance Report (14 locations)</p>
+
+      <p>The plan flags case acceptance at 67.6% vs. 69% and avg $ accepted at $3,406 vs. $4,800. These are real gaps. But the YoY Perio Performance analysis across all 14 locations revealed that <strong>Case $ Accepted % declined from 47.0% to 38.4% portfolio-wide</strong>. This means patients across the entire network are accepting less comprehensive treatment plans.</p>
+
+      <div class="insight-box">
+        <strong>Why this reframing matters:</strong> If case acceptance and avg $ accepted are presented to Van Scoyoc practice leadership as a local failure, it creates defensiveness. If it&rsquo;s presented as a portfolio-wide trend that Van Scoyoc can lead the recovery on (especially via LANAP positioning), it creates buy-in. The Beaches marketing plan review used this same reframing approach successfully.
+      </div>
+
+      <h3>LANAP as the Avg $ Accepted Lever</h3>
+      <p>The plan correctly identifies LANAP as the biggest production opportunity. LANAP cases typically command higher case values than standard perio or grafting. The fastest path to closing the $3,406 &rarr; $4,800 gap is not more referrals &mdash; it&rsquo;s more LANAP referrals from offices that currently send only extractions and basic perio. This means Keri&rsquo;s re-engagement messaging should lead with LANAP education, not just &ldquo;we have a new doctor.&rdquo;</p>
+
+      <h3>What to Add to the Plan</h3>
+      <table class="action-table">
+        <tr><th style="width:60%">Action</th><th>Owner</th><th>When</th></tr>
+        <tr>
+          <td>Develop a LANAP-specific educational piece for referring offices: what it is, which patients are candidates, how it differs from traditional surgery, and expected outcomes. This is the conversion tool for moving offices from &ldquo;extractions-only&rdquo; referrers to full-scope referrers.</td>
+          <td>Dr. Van Scoyoc / Marketing</td>
+          <td>Week 2&ndash;3</td>
+        </tr>
+        <tr>
+          <td>Tag referrals in RL by case type (LANAP vs. perio vs. grafting vs. extraction). Track whether re-engaged lapsed referrers are sending higher-value case types over time.</td>
+          <td>Keri</td>
+          <td>Ongoing</td>
+        </tr>
+        <tr>
+          <td>Frame the avg $ accepted gap as a portfolio-wide trend in the meeting with practice leadership. Position Van Scoyoc as a leader in the LANAP-driven recovery, not a laggard in the case acceptance metric.</td>
+          <td>Jayme</td>
+          <td>First meeting</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- CONSOLIDATED ADDITIONAL ACTIONS -->
+  <section id="actions">
+    <div class="section-card">
+      <h2>Consolidated: All Supplemental Actions <span class="badge badge-new">Quick Reference</span></h2>
+      <p class="section-subtitle">17 additional actions to layer into the existing plan</p>
+
+      <table class="data-table">
+        <tr><th>#</th><th>Action</th><th>Owner</th><th>Timeline</th><th>Priority</th></tr>
+        <tr><td>1</td><td>Claim/create Dr. Conner directory profiles (Healthgrades, WebMD, Vitals, Zocdoc, Yelp)</td><td>Keri / Marketing</td><td>Before first Conner visit</td><td class="status-fail">CRITICAL</td></tr>
+        <tr><td>2</td><td>Confirm/create Sanford Google Business Profile</td><td>Marketing / Web</td><td>Week 1</td><td class="status-fail">CRITICAL</td></tr>
+        <tr><td>3</td><td>Audit Keri&rsquo;s time-per-touchpoint (log drive vs. face time for 2 weeks)</td><td>Keri / Jayme</td><td>Week 1&ndash;2</td><td class="status-warn">HIGH</td></tr>
+        <tr><td>4</td><td>Identify DSO-affiliated offices among 27 lapsed referrers; remove captive offices from target list</td><td>Keri</td><td>Week 1</td><td class="status-warn">HIGH</td></tr>
+        <tr><td>5</td><td>Optimize perionc.com Conner bio with schema markup, photo, specialty list, scheduling link</td><td>Web team</td><td>Week 1</td><td class="status-warn">HIGH</td></tr>
+        <tr><td>6</td><td>Model 50/50 in-person/virtual touchpoint split for two-location PRD</td><td>Jayme</td><td>Week 2</td><td class="status-warn">HIGH</td></tr>
+        <tr><td>7</td><td>Build competitive differentiation message (LANAP, 10.4-day consult, conservative approach)</td><td>Jayme / Keri</td><td>Week 2</td><td class="status-warn">HIGH</td></tr>
+        <tr><td>8</td><td>Create &ldquo;What Patients Say&rdquo; review card for Conner leave-behind package</td><td>Keri / Marketing</td><td>Week 2</td><td>MEDIUM</td></tr>
+        <tr><td>9</td><td>Batch Sanford touchpoints on dedicated days to eliminate drive-time waste</td><td>Keri</td><td>Week 2</td><td>MEDIUM</td></tr>
+        <tr><td>10</td><td>Build Sanford-specific GP prospect list (15-mile radius, net-new targets)</td><td>Keri / Jayme</td><td>Week 2&ndash;3</td><td>MEDIUM</td></tr>
+        <tr><td>11</td><td>Develop LANAP educational piece for referring offices</td><td>Dr. Van Scoyoc / Marketing</td><td>Week 2&ndash;3</td><td>MEDIUM</td></tr>
+        <tr><td>12</td><td>Identify independent GPs within 25mi not in DSO network; find whitespace vs. 128 RL partners</td><td>Keri</td><td>Week 2</td><td>MEDIUM</td></tr>
+        <tr><td>13</td><td>Seed 3&ndash;5 patient reviews mentioning Dr. Conner by name</td><td>Office team</td><td>Month 1</td><td>MEDIUM</td></tr>
+        <tr><td>14</td><td>Implement review workflow asking patients to mention referring dentist name</td><td>Office team</td><td>Month 1</td><td>MEDIUM</td></tr>
+        <tr><td>15</td><td>Track NP per PRD hour as primary efficiency metric</td><td>Keri</td><td>Ongoing</td><td>MEDIUM</td></tr>
+        <tr><td>16</td><td>Tag referrals in RL by case type (LANAP/perio/grafting/extraction)</td><td>Keri</td><td>Ongoing</td><td>MEDIUM</td></tr>
+        <tr><td>17</td><td>Consider positioning Conner as the Sanford provider to give him a &ldquo;home market&rdquo;</td><td>Practice Leadership</td><td>Strategic</td><td>MEDIUM</td></tr>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <p>Van Scoyoc Periodontics & Implants &mdash; Supplemental Marketing Plan Insights</p>
+  <p>Prepared by Gen4 | Data sources: Go Grow Pipeline Analysis, PRD Touchpoint Calculator, YoY Perio Performance Report, Beaches Plan Review, Web Research (April 2026)</p>
+</div>
+
+<script>
+document.querySelectorAll('.collapsible').forEach(el => {
+  el.addEventListener('click', () => {
+    el.classList.toggle('open');
+    const content = el.nextElementSibling;
+    content.classList.toggle('show');
+  });
+});
+
+// Sticky nav active state
+const sections = document.querySelectorAll('section[id], .executive-summary[id]');
+const navLinks = document.querySelectorAll('.nav-bar a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= 80) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
