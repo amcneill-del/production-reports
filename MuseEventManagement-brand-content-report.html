@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Content Report — Muse Event Management</title>
+<style>
+  :root {
+    --green: #059669; --green-bg: #d1fae5; --green-border: #6ee7b7;
+    --blue: #2563eb; --blue-bg: #dbeafe;
+    --amber: #d97706; --amber-bg: #fef3c7;
+    --red: #dc2626; --red-bg: #fee2e2;
+    --gray: #6b7280; --gray-bg: #f3f4f6;
+    --brand: #065f46; --accent: #059669;
+    --ig: #e1306c; --fb: #1877f2; --li: #0a66c2; --yt: #ff0000; --web: #7c3aed;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0fdf4; color: #1e293b; line-height: 1.6; }
+
+  .report-header {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 60%, #047857 100%);
+    color: #fff; padding: 48px 32px 40px;
+    border-bottom: 4px solid #10b981;
+  }
+  .report-header .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #6ee7b7; margin-bottom: 8px; }
+  .report-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .report-header .meta { font-size: 13px; color: #a7f3d0; margin-top: 10px; line-height: 1.9; }
+  .report-header .meta strong { color: #fff; }
+  .scan-badge {
+    display: inline-block; background: #10b981; color: #fff;
+    padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    margin-top: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .container { max-width: 1050px; margin: 0 auto; padding: 32px 24px; }
+
+  /* STATS BAR */
+  .stats-bar { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .stat-card { background: #fff; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-top: 3px solid; }
+  .stat-card.green { border-color: #059669; }
+  .stat-card.blue { border-color: #2563eb; }
+  .stat-card.amber { border-color: #d97706; }
+  .stat-card.purple { border-color: #7c3aed; }
+  .stat-card.pink { border-color: #db2777; }
+  .stat-num { font-size: 28px; font-weight: 800; color: #1e293b; }
+  .stat-label { font-size: 12px; color: #64748b; margin-top: 2px; font-weight: 500; }
+
+  /* PLATFORM SECTIONS */
+  .platform-section { background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+  .platform-header { padding: 20px 28px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #f1f5f9; }
+  .platform-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .ig-icon { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+  .fb-icon { background: #1877f2; }
+  .li-icon { background: #0a66c2; }
+  .web-icon { background: #7c3aed; }
+  .platform-header h2 { font-size: 17px; font-weight: 700; }
+  .platform-stats { margin-left: auto; display: flex; gap: 20px; }
+  .pstat { text-align: right; }
+  .pstat-num { font-size: 18px; font-weight: 800; color: #1e293b; }
+  .pstat-label { font-size: 11px; color: #94a3b8; }
+  .platform-body { padding: 24px 28px; }
+
+  /* CONTENT CARDS */
+  .content-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-bottom: 12px; transition: border-color 0.2s; }
+  .content-card:hover { border-color: #a7f3d0; }
+  .content-card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .content-type-badge { padding: 3px 9px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .type-reel { background: #fce7f3; color: #9d174d; }
+  .type-carousel { background: #dbeafe; color: #1e40af; }
+  .type-post { background: #f0fdf4; color: #065f46; }
+  .type-video { background: #fef3c7; color: #92400e; }
+  .type-testimonial { background: #ede9fe; color: #4c1d95; }
+  .content-title { font-weight: 600; font-size: 14px; color: #1e293b; }
+  .content-desc { font-size: 13px; color: #64748b; margin: 6px 0; }
+  .content-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .content-meta a { font-size: 12px; color: #2563eb; text-decoration: none; }
+  .content-meta a:hover { text-decoration: underline; }
+  .content-date { font-size: 12px; color: #94a3b8; }
+  .content-theme { font-size: 11px; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 8px; }
+
+  /* CONTENT THEMES TABLE */
+  .themes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 14px; }
+  .theme-pill { background: #f0fdf4; border: 1px solid #6ee7b7; color: #065f46; border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: 500; }
+  .theme-pill .theme-name { font-weight: 700; margin-bottom: 2px; }
+  .theme-pill .theme-count { font-size: 11px; color: #059669; }
+
+  /* GAPS BOX */
+  .gaps-box { background: #fff7ed; border-left: 4px solid #f97316; border-radius: 0 10px 10px 0; padding: 16px 20px; margin-top: 20px; }
+  .gaps-box h4 { font-size: 13px; font-weight: 700; color: #9a3412; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .gaps-box ul { list-style: none; }
+  .gaps-box li { font-size: 13px; color: #7c2d12; padding: 3px 0; display: flex; gap: 8px; }
+  .gaps-box li::before { content: "→"; flex-shrink: 0; }
+
+  /* OPPORTUNITIES BOX */
+  .opps-box { background: #f0fdf4; border-left: 4px solid #059669; border-radius: 0 10px 10px 0; padding: 16px 20px; margin-top: 14px; }
+  .opps-box h4 { font-size: 13px; font-weight: 700; color: #065f46; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .opps-box ul { list-style: none; }
+  .opps-box li { font-size: 13px; color: #064e3b; padding: 3px 0; display: flex; gap: 8px; }
+  .opps-box li::before { content: "✦"; flex-shrink: 0; }
+
+  /* SUMMARY TABLE */
+  .summary-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .summary-table th { background: #065f46; color: #fff; padding: 10px 14px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .summary-table td { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; }
+  .summary-table tr:hover td { background: #f0fdf4; }
+
+  .report-footer { text-align: center; padding: 28px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; margin-top: 16px; }
+  .platform-tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #fff; margin-right: 4px; }
+  .ig-tag { background: #e1306c; }
+  .fb-tag { background: #1877f2; }
+  .li-tag { background: #0a66c2; }
+  .web-tag { background: #7c3aed; }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <div class="container" style="padding-top:0;padding-bottom:0;">
+    <div class="eyebrow">Content Scout — Brand Content Report</div>
+    <h1>Muse Event Management</h1>
+    <div class="meta">
+      <strong>Website:</strong> www.museem.com &nbsp;|&nbsp;
+      <strong>Instagram:</strong> @events_muse &nbsp;|&nbsp;
+      <strong>Facebook:</strong> Muse Event Management (Salt Lake City UT) &nbsp;|&nbsp;
+      <strong>LinkedIn:</strong> muse-events-management<br>
+      <strong>Scan Date:</strong> April 3, 2026 &nbsp;|&nbsp;
+      <strong>Scan Type:</strong> First Run — All discoverable brand content<br>
+      <strong>Generated By:</strong> Content Scout (Claude AI)
+    </div>
+    <div class="scan-badge">First Run — Baseline Scan</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-card green">
+      <div class="stat-num">115</div>
+      <div class="stat-label">Instagram Posts<br>(@events_muse)</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num">142</div>
+      <div class="stat-label">Instagram Followers</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-num">74</div>
+      <div class="stat-label">Facebook Followers</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-num">59</div>
+      <div class="stat-label">LinkedIn Followers</div>
+    </div>
+    <div class="stat-card pink">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Website Testimonials</div>
+    </div>
+  </div>
+
+  <!-- PLATFORM SUMMARY TABLE -->
+  <div class="platform-section" style="margin-bottom:28px;">
+    <div class="platform-header">
+      <div class="platform-icon web-icon">📊</div>
+      <h2>Channel Summary — All Platforms</h2>
+    </div>
+    <div class="platform-body">
+      <table class="summary-table">
+        <thead><tr><th>Platform</th><th>Handle / URL</th><th>Followers</th><th>Content Volume</th><th>Activity Level</th><th>Primary Content Type</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="platform-tag ig-tag">IG</span> Instagram</td>
+            <td><a href="https://www.instagram.com/events_muse/" target="_blank">@events_muse</a></td>
+            <td>142</td>
+            <td>115 posts</td>
+            <td>🟡 Active</td>
+            <td>Reels, Carousels, Destination clips</td>
+          </tr>
+          <tr>
+            <td><span class="platform-tag fb-tag">FB</span> Facebook</td>
+            <td><a href="https://www.facebook.com/p/Muse-Event-Management-100056213202937/" target="_blank">Muse Event Management</a></td>
+            <td>74</td>
+            <td>Limited visible posts</td>
+            <td>🔴 Low</td>
+            <td>Event BTS, brief updates</td>
+          </tr>
+          <tr>
+            <td><span class="platform-tag li-tag">LI</span> LinkedIn</td>
+            <td><a href="https://www.linkedin.com/company/muse-events-management" target="_blank">muse-events-management</a></td>
+            <td>59</td>
+            <td>Unknown (17 notifications)</td>
+            <td>🟡 Moderate</td>
+            <td>Company updates, thought leadership</td>
+          </tr>
+          <tr>
+            <td><span class="platform-tag web-tag">WEB</span> Website</td>
+            <td><a href="https://www.museem.com" target="_blank">museem.com</a></td>
+            <td>N/A</td>
+            <td>7 pages + 5 testimonials</td>
+            <td>🔴 Static (no blog)</td>
+            <td>Service pages, testimonials</td>
+          </tr>
+          <tr>
+            <td>YouTube</td>
+            <td>Not found</td>
+            <td>—</td>
+            <td>0</td>
+            <td>🔴 Not present</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>TikTok</td>
+            <td>Not found</td>
+            <td>—</td>
+            <td>0</td>
+            <td>🔴 Not present</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- INSTAGRAM SECTION -->
+  <div class="platform-section">
+    <div class="platform-header">
+      <div class="platform-icon ig-icon">📸</div>
+      <div>
+        <h2>Instagram — @events_muse</h2>
+        <div style="font-size:12px;color:#94a3b8;">instagram.com/events_muse</div>
+      </div>
+      <div class="platform-stats">
+        <div class="pstat"><div class="pstat-num">115</div><div class="pstat-label">Total Posts</div></div>
+        <div class="pstat"><div class="pstat-num">142</div><div class="pstat-label">Followers</div></div>
+        <div class="pstat"><div class="pstat-num">67</div><div class="pstat-label">Following</div></div>
+      </div>
+    </div>
+    <div class="platform-body">
+      <p style="font-size:13.5px;color:#475569;margin-bottom:16px;"><strong>Bio:</strong> 🌍 Global event designers | Corporate, incentive &amp; virtual events ✨ #MuseEvents &nbsp;|&nbsp; <strong>Hashtag:</strong> #MuseEvents</p>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-reel">📹 Reel</span>
+          <div class="content-title">Destination Showcase — Croatia</div>
+        </div>
+        <div class="content-desc">Short-form video content featuring Croatia as an incentive trip destination. Part of a destination series highlighting global event locations for corporate clients.</div>
+        <div class="content-meta">
+          <a href="https://www.instagram.com/events_muse/" target="_blank">View on Instagram →</a>
+          <span class="content-date">Date: Recent (2025–2026)</span>
+          <span class="content-theme">🏖️ Destination Inspiration</span>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-reel">📹 Reel</span>
+          <div class="content-title">Destination Showcase — Costa Rica</div>
+        </div>
+        <div class="content-desc">Reel highlighting Costa Rica as a backdrop for incentive trips and corporate retreats. Features lush scenery and adventure-oriented visuals appealing to corporate buyers.</div>
+        <div class="content-meta">
+          <a href="https://www.instagram.com/events_muse/" target="_blank">View on Instagram →</a>
+          <span class="content-date">Date: Recent (2025–2026)</span>
+          <span class="content-theme">🌿 Destination Inspiration</span>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-reel">📹 Reel</span>
+          <div class="content-title">Destination Showcase — Charleston, SC</div>
+        </div>
+        <div class="content-desc">Domestic destination reel for Charleston, appealing to US-based corporate clients looking for historical, cultured incentive trip settings.</div>
+        <div class="content-meta">
+          <a href="https://www.instagram.com/events_muse/" target="_blank">View on Instagram →</a>
+          <span class="content-date">Date: Recent (2025–2026)</span>
+          <span class="content-theme">🏛️ Domestic Destinations</span>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-reel">📹 Reel</span>
+          <div class="content-title">Destination Showcase — Phang Nga, Thailand</div>
+        </div>
+        <div class="content-desc">International destination reel featuring Phang Nga, Thailand — dramatic limestone cliffs, turquoise waters, luxury resort settings ideal for executive incentive programs.</div>
+        <div class="content-meta">
+          <a href="https://www.instagram.com/events_muse/" target="_blank">View on Instagram →</a>
+          <span class="content-date">Date: Recent (2025–2026)</span>
+          <span class="content-theme">🌏 Asia-Pacific Destinations</span>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-carousel">🖼️ Carousel</span>
+          <div class="content-title">Multi-image Event Showcase Carousel</div>
+        </div>
+        <div class="content-desc">Multi-image carousel post featuring event production highlights. Likely includes behind-the-scenes, venue setup, or event execution photos across multiple slides.</div>
+        <div class="content-meta">
+          <a href="https://www.instagram.com/events_muse/" target="_blank">View on Instagram →</a>
+          <span class="content-date">Date: Unknown</span>
+          <span class="content-theme">📸 Event Portfolio</span>
+        </div>
+      </div>
+
+      <!-- CONTENT THEMES -->
+      <h4 style="font-size:14px;font-weight:700;margin:20px 0 12px;color:#1e293b;">Identified Content Themes on @events_muse</h4>
+      <div class="themes-grid">
+        <div class="theme-pill"><div class="theme-name">🌍 Global Destinations</div><div class="theme-count">Primary theme — Croatia, Costa Rica, Thailand, Charleston</div></div>
+        <div class="theme-pill"><div class="theme-name">📹 Short-form Video (Reels)</div><div class="theme-count">Heavy Reel/Clip content strategy</div></div>
+        <div class="theme-pill"><div class="theme-name">🎯 Incentive Trips</div><div class="theme-count">Destination-as-reward messaging</div></div>
+        <div class="theme-pill"><div class="theme-name">🏢 Corporate Events</div><div class="theme-count">Conference/convention execution</div></div>
+        <div class="theme-pill"><div class="theme-name">✨ Brand Aesthetic</div><div class="theme-count">Premium, aspirational visual style</div></div>
+        <div class="theme-pill"><div class="theme-name">🌿 Sustainability</div><div class="theme-count">Eco-events messaging opportunity</div></div>
+      </div>
+
+      <div class="gaps-box">
+        <h4>Content Gaps — Instagram</h4>
+        <ul>
+          <li>Team/people content is absent — no photos of Derek, Ela, or the Muse team; prospects hire people, not logos</li>
+          <li>Client event recaps with permission — no visible "event night" recap posts showing live events</li>
+          <li>Client testimonial graphics — 5 strong testimonials on the website are not being repurposed as Instagram quote cards</li>
+          <li>Behind-the-scenes (BTS) content — no "day in the life of planning" or logistics/setup content that showcases expertise</li>
+          <li>Educational content — "How to plan an incentive trip" or "5 signs your event needs a strategy" posts are missing</li>
+          <li>Hashtag strategy appears limited to #MuseEvents — no broader industry hashtags used</li>
+          <li>Only 142 followers for a company with 115 posts suggests low engagement or non-optimized posting cadence</li>
+        </ul>
+      </div>
+
+      <div class="opps-box">
+        <h4>Opportunities — Instagram</h4>
+        <ul>
+          <li>The destination reel series is a great differentiator — expand to 20+ destinations and create a "Discovery Trips" highlight reel series</li>
+          <li>Repurpose the 5 website testimonials as branded quote card graphics — these are high-social-proof content ready to post</li>
+          <li>Add Discovery Trip teaser Reels (Hawaii Feb 2025, Bahamas Apr 2025, Lisbon Sept 2025) to drive inquiry interest</li>
+          <li>Instagram bio could include a call to action: "📩 DM for proposals" or "🔗 Book a discovery call"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACEBOOK SECTION -->
+  <div class="platform-section">
+    <div class="platform-header">
+      <div class="platform-icon fb-icon">👍</div>
+      <div>
+        <h2>Facebook — Muse Event Management</h2>
+        <div style="font-size:12px;color:#94a3b8;">facebook.com/p/Muse-Event-Management-100056213202937/</div>
+      </div>
+      <div class="platform-stats">
+        <div class="pstat"><div class="pstat-num">74</div><div class="pstat-label">Followers</div></div>
+        <div class="pstat"><div class="pstat-num">2</div><div class="pstat-label">Following</div></div>
+        <div class="pstat"><div class="pstat-num">1</div><div class="pstat-label">Review</div></div>
+      </div>
+    </div>
+    <div class="platform-body">
+      <p style="font-size:13.5px;color:#475569;margin-bottom:16px;"><strong>Page Bio:</strong> "Event planners who craft unforgettable experiences. Global events, innovative solutions, and memorable incentives. Your vision, our expertise. #MuseEvents"<br>
+      <strong>Page Category:</strong> Consulting Agency &nbsp;|&nbsp; <strong>Location:</strong> Salt Lake City, UT, United States</p>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-post">📝 Post</span>
+          <div class="content-title">March 26, 2026 — On-Site Event BTS</div>
+        </div>
+        <div class="content-desc">"Headsets on. Radios buzzing…" — A behind-the-scenes post from active event production. Short, punchy caption captures the on-the-ground energy of live event execution. Received 2 reactions (Likes).</div>
+        <div class="content-meta">
+          <a href="https://www.facebook.com/p/Muse-Event-Management-100056213202937/" target="_blank">View on Facebook →</a>
+          <span class="content-date">March 26, 2026</span>
+          <span class="content-theme">📡 BTS / Event Execution</span>
+        </div>
+      </div>
+
+      <div class="gaps-box">
+        <h4>Content Gaps — Facebook</h4>
+        <ul>
+          <li>74 followers and minimal post activity suggests Facebook is being under-utilized</li>
+          <li>Only 1 visible post captured — cadence appears to be well below the recommended 3–4 posts/week</li>
+          <li>No reviews visible (page shows "Not yet rated (1 Review)" — the review itself has no star rating displayed)</li>
+          <li>Page category is "Consulting Agency" — should be updated to "Event Planner" or "Event Production Company" for better discoverability</li>
+          <li>No Facebook Messenger CTA or quick reply automation visible</li>
+        </ul>
+      </div>
+
+      <div class="opps-box">
+        <h4>Opportunities — Facebook</h4>
+        <ul>
+          <li>The "Headsets on. Radios buzzing." style BTS posts are authentic and engaging — create a recurring BTS series around event days</li>
+          <li>Cross-post Instagram Reels to Facebook Reels for zero-effort content amplification</li>
+          <li>Update page category to "Event Planner" and add all services to the Services section to improve local search discovery</li>
+          <li>Request reviews from past clients — even 5 genuine 5-star reviews would dramatically improve the page's credibility signals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINKEDIN SECTION -->
+  <div class="platform-section">
+    <div class="platform-header">
+      <div class="platform-icon li-icon">💼</div>
+      <div>
+        <h2>LinkedIn — Muse Event Management</h2>
+        <div style="font-size:12px;color:#94a3b8;">linkedin.com/company/muse-events-management</div>
+      </div>
+      <div class="platform-stats">
+        <div class="pstat"><div class="pstat-num">59</div><div class="pstat-label">Followers</div></div>
+        <div class="pstat"><div class="pstat-num">11–50</div><div class="pstat-label">Employees</div></div>
+        <div class="pstat"><div class="pstat-num">+10%</div><div class="pstat-label">Growth</div></div>
+      </div>
+    </div>
+    <div class="platform-body">
+      <p style="font-size:13.5px;color:#475569;margin-bottom:16px;"><strong>Tagline:</strong> "Creating Events that Exceed Expectations" &nbsp;|&nbsp; <strong>Industry:</strong> Events Services &nbsp;|&nbsp; <strong>Size:</strong> 11–50 employees &nbsp;|&nbsp; <strong>HQ:</strong> Lehi, UT &nbsp;|&nbsp; <strong>Employee growth:</strong> +10% (Apr 2025 – Apr 2026)</p>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-post">💼 LinkedIn Post</span>
+          <div class="content-title">Company Updates &amp; Posts (17 notifications)</div>
+        </div>
+        <div class="content-desc">LinkedIn company page is active with recent posts. Specific post content not crawlable without authentication. The company description emphasizes bespoke experiences, global reach (Rome, Maldives, Prague, Long Beach), and decades of combined expertise. Employee count growing 10% YoY signals healthy business momentum.</div>
+        <div class="content-meta">
+          <a href="https://www.linkedin.com/company/muse-events-management" target="_blank">View on LinkedIn →</a>
+          <span class="content-date">Active (2025–2026)</span>
+          <span class="content-theme">💼 B2B Thought Leadership</span>
+        </div>
+      </div>
+
+      <div class="gaps-box">
+        <h4>Content Gaps — LinkedIn</h4>
+        <ul>
+          <li>Only 59 followers for a B2B service business — LinkedIn is the highest-ROI channel for corporate event buyers and is being under-leveraged</li>
+          <li>Individual team member profiles (Derek, Ela) should be connected to the company page and sharing thought leadership content</li>
+          <li>No case studies or event recap articles posted — LinkedIn articles are a high-trust format for B2B decision-makers</li>
+          <li>The company description ends with "...see more" suggesting the full description may not be visible or optimized</li>
+        </ul>
+      </div>
+
+      <div class="opps-box">
+        <h4>Opportunities — LinkedIn</h4>
+        <ul>
+          <li>LinkedIn is the #1 channel to reach CMOs, VPs of Sales, and HR Directors who book corporate incentive trips — invest here first</li>
+          <li>Publish 1–2 LinkedIn articles per month: "What makes an incentive trip actually motivate your team?" or "The ROI of a great corporate event" — position Muse as thought leaders</li>
+          <li>Derek's founder story and credibility should be on LinkedIn with a strong personal brand presence linked to the company page</li>
+          <li>Employee testimonials and team culture posts perform extremely well in the B2B event space on LinkedIn</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEBSITE CONTENT SECTION -->
+  <div class="platform-section">
+    <div class="platform-header">
+      <div class="platform-icon web-icon">🌐</div>
+      <div>
+        <h2>Website Content — museem.com</h2>
+        <div style="font-size:12px;color:#94a3b8;">museem.com (7 pages, no blog)</div>
+      </div>
+    </div>
+    <div class="platform-body">
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-testimonial">⭐ Testimonial</span>
+          <div class="content-title">Amy McNeil — Director of Marketing, Gen4 Dental</div>
+        </div>
+        <div class="content-desc">"Working with Muse Events for our national doctors event was a delight. Their exceptional attention to detail and creativity made the process seamless. From planning to execution, their professionalism and dedication stood out. The innovative themes and seamless integration impressed our attendees. Derek's leadership ensured a memorable and successful event. I highly recommend Muse Events for anyone wanting to create a masterpiece, not just an event."</div>
+        <div class="content-meta">
+          <a href="https://www.museem.com/" target="_blank">View on website →</a>
+          <span class="content-date">Published on homepage carousel</span>
+          <span class="content-theme">💬 Social Proof</span>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-testimonial">⭐ Testimonial</span>
+          <div class="content-title">Jina Anson — CMO</div>
+        </div>
+        <div class="content-desc">"Muse transformed our convention to a memorable and magical experience that our guests are still raving about. Thank you to the entire team for their passion, creativity, and commitment to making our event truly extraordinary. We look forward to working with Muse for all our future events!"</div>
+        <div class="content-meta">
+          <a href="https://www.museem.com/" target="_blank">View on website →</a>
+          <span class="content-date">Published on homepage carousel</span>
+          <span class="content-theme">💬 Social Proof — Convention</span>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-testimonial">⭐ Testimonial</span>
+          <div class="content-title">Josh Mckell — VP of Sales, Healthy Home</div>
+        </div>
+        <div class="content-desc">"I've enjoyed working with MUSE in various roles and companies; they feel like an integral part of our internal team, committed to showcasing our team's success both internally and externally. MUSE excels in handling last-minute changes, consistently meeting and often surpassing expectations with a seamless, can-do attitude."</div>
+        <div class="content-meta">
+          <a href="https://www.museem.com/" target="_blank">View on website →</a>
+          <span class="content-date">Published on homepage carousel</span>
+          <span class="content-theme">💬 Social Proof — Team Integration</span>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-testimonial">⭐ Testimonial</span>
+          <div class="content-title">Janne Heinomen — Director of Europe, Kannaway</div>
+        </div>
+        <div class="content-desc">"Collaborating with Muse is incredibly seamless, akin to having an extended team. Whether crafting a new events and incentives strategy, brainstorming ideas, booking venues, creating AV assets, managing the show, or preparing speakers, they're ready to step in and deliver."</div>
+        <div class="content-meta">
+          <a href="https://www.museem.com/" target="_blank">View on website →</a>
+          <span class="content-date">Published on homepage carousel</span>
+          <span class="content-theme">💬 Social Proof — Full Service</span>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card-header">
+          <span class="content-type-badge type-testimonial">⭐ Testimonial</span>
+          <div class="content-title">Sandra Cavaqueira — Marketing Director EU &amp; ME, JIFU</div>
+        </div>
+        <div class="content-desc">"Muse Events excels in orchestrating seamless events and incentives. Their meticulous attention to detail, proactive approach, and innovative ideas eliminate planning stress and add a creative touch that leaves a lasting impact on attendees."</div>
+        <div class="content-meta">
+          <a href="https://www.museem.com/" target="_blank">View on website →</a>
+          <span class="content-date">Published on homepage carousel</span>
+          <span class="content-theme">💬 Social Proof — International</span>
+        </div>
+      </div>
+
+      <div class="gaps-box">
+        <h4>Content Gaps — Website</h4>
+        <ul>
+          <li>No blog or thought leadership content — the site is entirely static with no fresh content signal for SEO</li>
+          <li>No case studies — despite 5 strong client testimonials, there are no detailed case studies with event results or measurable outcomes</li>
+          <li>No portfolio/gallery — Gallery link is broken (redirects to a 404 page)</li>
+          <li>Copyright shows © 2024 — site appears unmaintained from a content freshness perspective</li>
+          <li>Discovery Trip dates listed (Hawaii Feb 2025) are now past — content is outdated and needs refreshing</li>
+        </ul>
+      </div>
+
+      <div class="opps-box">
+        <h4>Opportunities — Website Content</h4>
+        <ul>
+          <li>The 5 testimonials are gold — expand each into a full case study: "How Muse helped Gen4 Dental create a national doctors event that left attendees raving"</li>
+          <li>Start a quarterly content series: "Event Trend Watch" or "Destination Spotlight" — 400-word posts that rank in Google and build authority</li>
+          <li>Update Discovery Trip dates to 2026 offerings to keep the page current and drive inquiries</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="report-footer">
+  <strong>Brand Content Report — Muse Event Management</strong><br>
+  Generated April 3, 2026 &nbsp;|&nbsp; Content Scout — Claude AI &nbsp;|&nbsp; First Run Baseline Scan<br>
+  Channels audited: Instagram (@events_muse), Facebook, LinkedIn, museem.com
+</div>
+</body>
+</html>

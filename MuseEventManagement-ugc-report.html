@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UGC Report — Muse Event Management</title>
+<style>
+  :root {
+    --orange: #ea580c; --orange-bg: #fff7ed; --orange-border: #fed7aa;
+    --green: #16a34a; --green-bg: #dcfce7;
+    --amber: #d97706; --amber-bg: #fef3c7;
+    --red: #dc2626; --red-bg: #fee2e2;
+    --gray: #6b7280; --gray-bg: #f3f4f6;
+    --purple: #7c3aed; --purple-bg: #ede9fe;
+    --ig: #e1306c; --fb: #1877f2; --li: #0a66c2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff7ed; color: #1e293b; line-height: 1.6; }
+
+  .report-header {
+    background: linear-gradient(135deg, #7c2d12 0%, #9a3412 60%, #c2410c 100%);
+    color: #fff; padding: 48px 32px 40px;
+    border-bottom: 4px solid #f97316;
+  }
+  .report-header .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #fed7aa; margin-bottom: 8px; }
+  .report-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .report-header .meta { font-size: 13px; color: #fed7aa; margin-top: 10px; line-height: 1.9; }
+  .report-header .meta strong { color: #fff; }
+  .scan-badge { display: inline-block; background: #f97316; color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .window-tag { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 6px 16px; border-radius: 8px; font-size: 13px; margin-top: 10px; }
+
+  .container { max-width: 1050px; margin: 0 auto; padding: 32px 24px; }
+
+  /* STATS BAR */
+  .stats-bar { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .stat-card { background: #fff; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-top: 3px solid; }
+  .stat-num { font-size: 28px; font-weight: 800; color: #1e293b; }
+  .stat-label { font-size: 12px; color: #64748b; margin-top: 2px; font-weight: 500; }
+
+  /* SECTION CARDS */
+  .section-card { background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+  .section-header { padding: 20px 28px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 14px; }
+  .section-num { width: 38px; height: 38px; border-radius: 10px; background: #ea580c; color: #fff; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-header h2 { font-size: 17px; font-weight: 700; }
+  .section-body { padding: 24px 28px; }
+
+  /* UGC CARDS */
+  .ugc-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-bottom: 14px; position: relative; }
+  .ugc-card:hover { border-color: #fed7aa; }
+  .ugc-card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+  .platform-badge { padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; }
+  .ig-badge { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743); }
+  .fb-badge { background: #1877f2; }
+  .li-badge { background: #0a66c2; }
+  .web-badge { background: #7c3aed; }
+  .yelp-badge { background: #d32323; }
+  .align-badge { background: #059669; }
+  .ugc-title { font-weight: 700; font-size: 14px; color: #1e293b; flex: 1; }
+  .reshare-badge { padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .reshare-high { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+  .reshare-med { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
+  .reshare-low { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+  .ugc-meta { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+  .ugc-quote { font-size: 13.5px; color: #475569; font-style: italic; border-left: 3px solid #fed7aa; padding-left: 12px; margin: 10px 0; line-height: 1.6; }
+  .ugc-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+  .ugc-actions a { font-size: 12px; color: #ea580c; text-decoration: none; font-weight: 500; }
+  .ugc-actions a:hover { text-decoration: underline; }
+  .action-tag { font-size: 11px; background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; padding: 2px 8px; border-radius: 8px; }
+  .date-badge { font-size: 11px; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 8px; }
+
+  /* HASHTAG SECTION */
+  .hashtag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin: 14px 0; }
+  .hashtag-pill { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; }
+  .hashtag-name { font-weight: 700; color: #ea580c; font-size: 14px; }
+  .hashtag-status { font-size: 12px; color: #64748b; margin-top: 3px; }
+
+  /* BEST PRACTICES */
+  .best-practice-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+  .bp-card { background: #f8fafc; border-radius: 10px; padding: 14px; border: 1px solid #e2e8f0; }
+  .bp-num { width: 26px; height: 26px; border-radius: 50%; background: #ea580c; color: #fff; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+  .bp-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; color: #1e293b; }
+  .bp-desc { font-size: 12px; color: #64748b; }
+
+  /* OLDER MENTIONS */
+  .older-section { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 20px; margin-top: 8px; }
+  .older-label { display: inline-block; background: #e2e8f0; color: #64748b; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 10px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* STRATEGY BOX */
+  .strategy-box { background: linear-gradient(135deg, #fff7ed, #fff3e0); border: 1px solid #fed7aa; border-radius: 12px; padding: 20px 24px; margin-top: 20px; }
+  .strategy-box h4 { font-size: 14px; font-weight: 700; color: #9a3412; margin-bottom: 12px; }
+  .strategy-box ul { list-style: none; }
+  .strategy-box li { font-size: 13px; color: #7c2d12; padding: 4px 0; display: flex; gap: 8px; }
+  .strategy-box li::before { content: "→"; color: #ea580c; flex-shrink: 0; }
+
+  .report-footer { text-align: center; padding: 28px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; margin-top: 16px; }
+
+  table.ugc-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.ugc-table th { background: #7c2d12; color: #fff; padding: 10px 14px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+  table.ugc-table td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  table.ugc-table tr:hover td { background: #fff7ed; }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <div class="container" style="padding-top:0;padding-bottom:0;">
+    <div class="eyebrow">Content Scout — User-Generated Content Report</div>
+    <h1>Muse Event Management</h1>
+    <div class="meta">
+      <strong>Website:</strong> www.museem.com &nbsp;|&nbsp; <strong>Scan Date:</strong> April 3, 2026<br>
+      <strong>Scan Type:</strong> First Run — 120-Day Baseline (Dec 4, 2025 → Apr 3, 2026)<br>
+      <strong>Generated By:</strong> Content Scout (Claude AI)
+    </div>
+    <div class="scan-badge">First Run — 120-Day Baseline</div>
+    <div class="window-tag">📅 Scan Window: Dec 4, 2025 — Apr 3, 2026 (120 days)</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- KEY FINDING ALERT -->
+  <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:12px;padding:18px 22px;margin-bottom:24px;">
+    <div style="font-weight:700;color:#dc2626;font-size:14px;margin-bottom:6px;">⚠️ Key Finding: Very Low Third-Party UGC Footprint</div>
+    <div style="font-size:13px;color:#7f1d1d;">Muse Event Management has <strong>almost no discoverable third-party content</strong> on the public web during the 120-day scan window. No Google reviews, no Yelp reviews, no blog mentions, no TripAdvisor presence, no industry directory listings with reviews. The 5 testimonials on their website are the only verified social proof available. This is the most urgent brand-building gap identified — the company's reputation exists in private channels (referrals, word of mouth) but is invisible online.</div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-card" style="border-color:#ea580c;">
+      <div class="stat-num" style="color:#ea580c;">5</div>
+      <div class="stat-label">Website Testimonials<br>(converted from UGC)</div>
+    </div>
+    <div class="stat-card" style="border-color:#dc2626;">
+      <div class="stat-num" style="color:#dc2626;">1</div>
+      <div class="stat-label">Facebook Review<br>(unrated)</div>
+    </div>
+    <div class="stat-card" style="border-color:#dc2626;">
+      <div class="stat-num" style="color:#dc2626;">1</div>
+      <div class="stat-label">Nicelocal Rating<br>(2/5 — 1 entry)</div>
+    </div>
+    <div class="stat-card" style="border-color:#d97706;">
+      <div class="stat-num" style="color:#d97706;">1</div>
+      <div class="stat-label">Alignable Listing<br>(no reviews)</div>
+    </div>
+    <div class="stat-card" style="border-color:#16a34a;">
+      <div class="stat-num" style="color:#16a34a;">0</div>
+      <div class="stat-label">Google Reviews<br>(no GBP confirmed)</div>
+    </div>
+  </div>
+
+  <!-- TOP RESHARE CANDIDATES -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-num">🏆</div>
+      <div>
+        <h2>Top Reshare Candidates</h2>
+        <div style="font-size:12px;color:#94a3b8;">Best UGC available for social repurposing — sorted by reshare potential</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="ugc-card">
+        <div class="ugc-card-top">
+          <span class="platform-badge web-badge">WEBSITE</span>
+          <span class="ugc-title">Amy McNeil — Gen4 Dental Testimonial</span>
+          <span class="reshare-badge reshare-high">⭐ High Reshare</span>
+        </div>
+        <div class="ugc-meta">Amy McNeil · Director of Marketing, Gen4 Dental · Published on museem.com homepage</div>
+        <div class="ugc-quote">"Working with Muse Events for our national doctors event was a delight. Their exceptional attention to detail and creativity made the process seamless... The innovative themes and seamless integration impressed our attendees. Derek's leadership ensured a memorable and successful event. I highly recommend Muse Events for anyone wanting to create a masterpiece, not just an event."</div>
+        <div class="ugc-actions">
+          <a href="https://www.museem.com/" target="_blank">Source: museem.com →</a>
+          <span class="action-tag">💡 Create Instagram quote card</span>
+          <span class="action-tag">💡 LinkedIn post with Amy's permission</span>
+          <span class="action-tag">💡 Facebook featured review</span>
+          <span class="date-badge">Published on website (date unknown)</span>
+        </div>
+        <div style="font-size:12px;color:#64748b;margin-top:10px;padding:8px;background:#f8fafc;border-radius:6px;"><strong>Why it's high-reshare:</strong> Named client from a recognizable brand (Gen4 Dental), specifically names Derek (humanizes the brand), contains "masterpiece" quote, and references a national event — highly credible and specific. Ideal for LinkedIn and Instagram graphics.</div>
+      </div>
+
+      <div class="ugc-card">
+        <div class="ugc-card-top">
+          <span class="platform-badge web-badge">WEBSITE</span>
+          <span class="ugc-title">Jina Anson — CMO Testimonial</span>
+          <span class="reshare-badge reshare-high">⭐ High Reshare</span>
+        </div>
+        <div class="ugc-meta">Jina Anson · Chief Marketing Officer · Published on museem.com homepage</div>
+        <div class="ugc-quote">"Muse transformed our convention to a memorable and magical experience that our guests are still raving about. Thank you to the entire team for their passion, creativity, and commitment to making our event truly extraordinary. We look forward to working with Muse for all our future events!"</div>
+        <div class="ugc-actions">
+          <a href="https://www.museem.com/" target="_blank">Source: museem.com →</a>
+          <span class="action-tag">💡 Instagram quote carousel</span>
+          <span class="action-tag">💡 "Still raving about it" pull quote for ads</span>
+          <span class="date-badge">Published on website</span>
+        </div>
+        <div style="font-size:12px;color:#64748b;margin-top:10px;padding:8px;background:#f8fafc;border-radius:6px;"><strong>Why it's high-reshare:</strong> The phrase "still raving about it" is exceptionally quotable. CMO title adds C-suite credibility. The forward-looking "We look forward to working with Muse for all our future events!" signals long-term client retention.</div>
+      </div>
+
+      <div class="ugc-card">
+        <div class="ugc-card-top">
+          <span class="platform-badge web-badge">WEBSITE</span>
+          <span class="ugc-title">Josh Mckell — VP of Sales, Healthy Home</span>
+          <span class="reshare-badge reshare-high">⭐ High Reshare</span>
+        </div>
+        <div class="ugc-meta">Josh Mckell · VP of Sales, Healthy Home · Published on museem.com homepage</div>
+        <div class="ugc-quote">"I've enjoyed working with MUSE in various roles and companies; they feel like an integral part of our internal team... MUSE excels in handling last-minute changes, consistently meeting and often surpassing expectations with a seamless, can-do attitude."</div>
+        <div class="ugc-actions">
+          <a href="https://www.museem.com/" target="_blank">Source: museem.com →</a>
+          <span class="action-tag">💡 LinkedIn post targeting VPs/Directors</span>
+          <span class="action-tag">💡 "Feels like an extended team" messaging</span>
+          <span class="date-badge">Published on website</span>
+        </div>
+        <div style="font-size:12px;color:#64748b;margin-top:10px;padding:8px;background:#f8fafc;border-radius:6px;"><strong>Why it's high-reshare:</strong> "Integral part of our internal team" is the core brand promise. "Last-minute changes" addresses a major pain point for event buyers. VP title resonates with LinkedIn's core audience.</div>
+      </div>
+
+      <div class="ugc-card">
+        <div class="ugc-card-top">
+          <span class="platform-badge web-badge">WEBSITE</span>
+          <span class="ugc-title">Janne Heinomen — Director of Europe, Kannaway</span>
+          <span class="reshare-badge reshare-med">🟡 Medium Reshare</span>
+        </div>
+        <div class="ugc-meta">Janne Heinomen · Director of Europe, Kannaway · Published on museem.com homepage</div>
+        <div class="ugc-quote">"Collaborating with Muse is incredibly seamless, akin to having an extended team. Whether crafting a new events and incentives strategy, brainstorming ideas, booking venues, creating AV assets, managing the show, or preparing speakers, they're ready to step in and deliver."</div>
+        <div class="ugc-actions">
+          <a href="https://www.museem.com/" target="_blank">Source: museem.com →</a>
+          <span class="action-tag">💡 Services page pull quote</span>
+          <span class="action-tag">💡 Full-service capabilities graphic</span>
+          <span class="date-badge">Published on website</span>
+        </div>
+      </div>
+
+      <div class="ugc-card">
+        <div class="ugc-card-top">
+          <span class="platform-badge web-badge">WEBSITE</span>
+          <span class="ugc-title">Sandra Cavaqueira — Marketing Director, JIFU</span>
+          <span class="reshare-badge reshare-med">🟡 Medium Reshare</span>
+        </div>
+        <div class="ugc-meta">Sandra Cavaqueira · Marketing Director EU &amp; ME, JIFU · Published on museem.com homepage</div>
+        <div class="ugc-quote">"Muse Events excels in orchestrating seamless events and incentives. Their meticulous attention to detail, proactive approach, and innovative ideas eliminate planning stress and add a creative touch that leaves a lasting impact on attendees."</div>
+        <div class="ugc-actions">
+          <a href="https://www.museem.com/" target="_blank">Source: museem.com →</a>
+          <span class="action-tag">💡 Quote graphic for international audience</span>
+          <span class="date-badge">Published on website</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIRECTORY & THIRD-PARTY LISTINGS -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-num">📋</div>
+      <div>
+        <h2>Third-Party Listings &amp; Directory Mentions</h2>
+        <div style="font-size:12px;color:#94a3b8;">Review platforms, directories, and aggregators found in 120-day scan window</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <table class="ugc-table">
+        <thead>
+          <tr><th>Platform</th><th>Status</th><th>Rating</th><th>Content Found</th><th>Reshare Score</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Google Business Profile</strong></td>
+            <td><span style="color:#dc2626;font-weight:600;">❌ Unconfirmed</span></td>
+            <td>Unknown</td>
+            <td>No GBP confirmed in search results. No star rating appears in Google search for brand name.</td>
+            <td><span class="reshare-badge reshare-low">N/A</span></td>
+            <td><strong>P0:</strong> Claim + verify GBP immediately</td>
+          </tr>
+          <tr>
+            <td><strong>Facebook Reviews</strong></td>
+            <td><span style="color:#d97706;font-weight:600;">⚠️ Present</span></td>
+            <td>Not yet rated (1 review)</td>
+            <td>Page shows "Not yet rated (1 Review)" — the review is unrated or the rating isn't displayed publicly.</td>
+            <td><span class="reshare-badge reshare-low">Low</span></td>
+            <td>Ask reviewer to add a star rating; request more reviews from past clients</td>
+          </tr>
+          <tr>
+            <td><strong>Alignable</strong></td>
+            <td><span style="color:#d97706;font-weight:600;">⚠️ Listed</span></td>
+            <td>No reviews</td>
+            <td>Business listed as "Muse Events Management, Lehi, UT" — no reviews or recommendations visible.</td>
+            <td><span class="reshare-badge reshare-low">Low</span></td>
+            <td>Claim and complete Alignable profile; request peer recommendations from local business network</td>
+          </tr>
+          <tr>
+            <td><strong>Nicelocal</strong></td>
+            <td><span style="color:#dc2626;font-weight:600;">⚠️ Listed</span></td>
+            <td>2/5 (1 entry)</td>
+            <td>Listed under "Entertainment centers, Utah" with a single 2/5 rating — source and legitimacy of this rating is unclear.</td>
+            <td><span class="reshare-badge reshare-low">Low</span></td>
+            <td>Investigate and dispute if inaccurate; improve overall review presence to dilute this rating</td>
+          </tr>
+          <tr>
+            <td><strong>ZoomInfo</strong></td>
+            <td><span style="color:#16a34a;font-weight:600;">✅ Listed</span></td>
+            <td>N/A</td>
+            <td>Business data card listing found: Muse Events Management, headquarters Lehi UT 84043.</td>
+            <td><span class="reshare-badge reshare-low">Low</span></td>
+            <td>Ensure ZoomInfo data is accurate (company size, employees, website)</td>
+          </tr>
+          <tr>
+            <td><strong>LinkedIn Company</strong></td>
+            <td><span style="color:#16a34a;font-weight:600;">✅ Active</span></td>
+            <td>N/A</td>
+            <td>59 followers, 11–50 employees, +10% growth. Active company page.</td>
+            <td><span class="reshare-badge reshare-med">Medium</span></td>
+            <td>Encourage client contacts to follow the company page and endorse services</td>
+          </tr>
+          <tr>
+            <td><strong>Yelp</strong></td>
+            <td><span style="color:#dc2626;font-weight:600;">❌ Not Found</span></td>
+            <td>—</td>
+            <td>No Yelp listing found for Muse Event Management in Lehi/SLC, Utah.</td>
+            <td><span class="reshare-badge reshare-low">N/A</span></td>
+            <td>Create a Yelp business listing (free) — adds a credibility signal and review channel</td>
+          </tr>
+          <tr>
+            <td><strong>Clutch.co</strong></td>
+            <td><span style="color:#dc2626;font-weight:600;">❌ Not Found</span></td>
+            <td>—</td>
+            <td>No Clutch profile found for Muse Event Management (Utah).</td>
+            <td><span class="reshare-badge reshare-low">N/A</span></td>
+            <td>Create a Clutch profile — B2B buyers frequently research vendors here; reviews boost credibility significantly</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="strategy-box" style="margin-top:18px;">
+        <h4>🚨 Online Reputation Gap Assessment</h4>
+        <ul>
+          <li>Muse has 5 glowing testimonials on their website from C-suite and director-level clients but <strong>zero publicly discoverable reviews</strong> on any major review platform</li>
+          <li>The company's online reputation is essentially invisible — a B2B buyer Googling "Muse Event Management reviews" will find almost nothing</li>
+          <li>The single Nicelocal 2/5 entry is the only star rating that appears in search, creating a false negative impression</li>
+          <li>Priority action: Convert at least 3 of the 5 website testimonial clients into public Google or Clutch reviews within 30 days</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- HASHTAG TRACKING -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-num">#</div>
+      <h2>Hashtag Tracking &amp; Strategy</h2>
+    </div>
+    <div class="section-body">
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;color:#1e293b;">Brand Hashtag Status</h4>
+      <div class="hashtag-grid">
+        <div class="hashtag-pill">
+          <div class="hashtag-name">#MuseEvents</div>
+          <div class="hashtag-status">✅ In use — appears in Instagram bio and Facebook page bio. Primary brand hashtag.</div>
+        </div>
+        <div class="hashtag-pill">
+          <div class="hashtag-name">#MuseEventManagement</div>
+          <div class="hashtag-status">⚠️ Not confirmed in active use. Longer form of brand hashtag — should be seeded into posts.</div>
+        </div>
+        <div class="hashtag-pill">
+          <div class="hashtag-name">#MadeWithMuse</div>
+          <div class="hashtag-status">❌ Not in use. Recommended UGC campaign hashtag — encourage clients to post with this tag.</div>
+        </div>
+        <div class="hashtag-pill">
+          <div class="hashtag-name">#DiscoverWithMuse</div>
+          <div class="hashtag-status">❌ Not in use. Suggested for Discovery Trips content to drive awareness of that service.</div>
+        </div>
+      </div>
+
+      <h4 style="font-size:14px;font-weight:700;margin:20px 0 12px;color:#1e293b;">Recommended Industry Hashtags to Adopt</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#CorporateEvents</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#IncentiveTravel</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#EventManagement</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#EventPlanning</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#MeetingsAndEvents</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#IncentiveTripPlanning</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#CorporateRetreat</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#SustainableEvents</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#VirtualEvents</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#DiscoveryTrips</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#UtahBusiness</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#EventProfs</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#MICE</span>
+        <span style="background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">#BespokeEvents</span>
+      </div>
+
+      <div class="strategy-box">
+        <h4>UGC Encouragement Strategy — How to Generate More UGC</h4>
+        <ul>
+          <li>At every event, set up a branded photo moment (step-and-repeat, scenic backdrop) with a CTA to post with #MuseEvents or #MadeWithMuse</li>
+          <li>After each event, email clients asking them to share a photo or post about the event — include the hashtag in the email</li>
+          <li>Send a simple "Thank you" email 3 days post-event with a request for a Google or Clutch review — include a direct link</li>
+          <li>Create an "Event Night" Instagram Story template clients can use to tag Muse when they post about events you managed</li>
+          <li>Ask the 5 existing website testimonial clients to repost or quote their testimonial on LinkedIn and tag @MuseEventManagement</li>
+          <li>Build a "Brands We've Worked With" slide into your proposal deck showing client logos — this also signals social proof to new prospects</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- UGC BEST PRACTICES -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-num">✅</div>
+      <h2>UGC Resharing Best Practices</h2>
+    </div>
+    <div class="section-body">
+      <div class="best-practice-grid">
+        <div class="bp-card">
+          <div class="bp-num">1</div>
+          <div class="bp-title">Always Credit the Creator</div>
+          <div class="bp-desc">Tag the author's name and company in every reshare. For testimonials, use their full name and title.</div>
+        </div>
+        <div class="bp-card">
+          <div class="bp-num">2</div>
+          <div class="bp-title">Ask Permission First</div>
+          <div class="bp-desc">For feed posts, send a quick DM or email asking permission before resharing. Testimonials on your own website are already permission-granted.</div>
+        </div>
+        <div class="bp-card">
+          <div class="bp-num">3</div>
+          <div class="bp-title">Don't Edit the Quote</div>
+          <div class="bp-desc">Reproduce testimonials verbatim. You may abbreviate with "..." but never change words or meaning.</div>
+        </div>
+        <div class="bp-card">
+          <div class="bp-num">4</div>
+          <div class="bp-title">Engage Before You Reshare</div>
+          <div class="bp-desc">If a client posts about your event, comment and like before resharing. Build the relationship first.</div>
+        </div>
+        <div class="bp-card">
+          <div class="bp-num">5</div>
+          <div class="bp-title">Keep a UGC Permission Log</div>
+          <div class="bp-desc">Maintain a simple spreadsheet of all UGC with: source, date, permission status, where it was used.</div>
+        </div>
+        <div class="bp-card">
+          <div class="bp-num">6</div>
+          <div class="bp-title">Thank the Creator</div>
+          <div class="bp-desc">After resharing, send a thank you message. This reinforces the relationship and encourages more UGC.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OLDER MENTIONS (OUTSIDE 120-DAY WINDOW) -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-num">📁</div>
+      <h2>Pre-Scan Window Content</h2>
+    </div>
+    <div class="section-body">
+      <div class="older-section">
+        <div class="older-label">Before Dec 4, 2025 — Not in active scan window</div>
+        <p style="font-size:13px;color:#475569;margin-bottom:12px;">The following mentions were found but fall outside the 120-day scan window. They are included for completeness and historical context.</p>
+        <table class="ugc-table">
+          <thead><tr><th>Source</th><th>Content</th><th>Date</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>museem.com (website)</td>
+              <td>5 client testimonials from Jina Anson, Josh Mckell, Janne Heinomen, Sandra Cavaqueira, Amy McNeil</td>
+              <td>Unknown (published prior to scan window)</td>
+              <td>Already documented in Top Reshare Candidates section above — these are brand-controlled, not independent UGC</td>
+            </tr>
+            <tr>
+              <td>Alignable.com</td>
+              <td>Business listing for Muse Events Management, Lehi UT — no reviews</td>
+              <td>Date unknown</td>
+              <td>Directory listing; no UGC content present</td>
+            </tr>
+            <tr>
+              <td>ZoomInfo</td>
+              <td>Company data card</td>
+              <td>Date unknown</td>
+              <td>Data aggregator entry — not reshare-worthy UGC</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="report-footer">
+  <strong>UGC Report — Muse Event Management</strong><br>
+  Scan Window: Dec 4, 2025 — Apr 3, 2026 (120-day first-run baseline) &nbsp;|&nbsp; Generated by Content Scout — Claude AI<br>
+  <em>Note: Web search indexing has gaps. Some content may exist but not be publicly indexed. This report reflects all discoverable content as of scan date.</em>
+</div>
+</body>
+</html>

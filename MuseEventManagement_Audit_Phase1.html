@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muse Event Management — Digital Storefront Audit</title>
+<style>
+  :root {
+    --pass: #16a34a; --pass-bg: #dcfce7; --pass-border: #86efac;
+    --partial: #d97706; --partial-bg: #fef3c7; --partial-border: #fcd34d;
+    --fail: #dc2626; --fail-bg: #fee2e2; --fail-border: #fca5a5;
+    --na: #6b7280; --na-bg: #f3f4f6; --na-border: #d1d5db;
+    --strong: #16a34a; --strong-bg: #dcfce7;
+    --good: #2563eb; --good-bg: #dbeafe;
+    --needs: #d97706; --needs-bg: #fef3c7;
+    --critical: #dc2626; --critical-bg: #fee2e2;
+    --brand: #1e293b; --accent: #7c3aed;
+    --accent2: #a78bfa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+
+  /* STICKY NAV */
+  #topnav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1e293b; color: #fff;
+    display: flex; align-items: center; gap: 0;
+    padding: 0 24px; overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  #topnav .brand { font-weight: 700; font-size: 14px; white-space: nowrap; padding: 14px 20px 14px 0; border-right: 1px solid #334155; margin-right: 8px; color: #a78bfa; }
+  #topnav a { color: #cbd5e1; text-decoration: none; font-size: 12px; white-space: nowrap; padding: 14px 12px; transition: color 0.2s; }
+  #topnav a:hover, #topnav a.active { color: #fff; background: #334155; }
+
+  /* HEADER */
+  .audit-header {
+    background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
+    color: #fff; padding: 48px 32px 40px;
+    border-bottom: 4px solid #7c3aed;
+  }
+  .audit-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .audit-header .meta { font-size: 13px; color: #94a3b8; line-height: 1.8; }
+  .audit-header .meta strong { color: #e2e8f0; }
+
+  /* CONTAINER */
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  /* EXEC SUMMARY */
+  .exec-summary {
+    background: #fff; border-radius: 16px; padding: 32px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: grid; grid-template-columns: 200px 1fr; gap: 32px;
+    align-items: center; margin-bottom: 24px;
+  }
+  .score-ring-wrap { text-align: center; }
+  .score-ring-wrap svg { display: block; margin: 0 auto; }
+  .score-ring-wrap .score-label { font-size: 36px; font-weight: 800; color: #dc2626; }
+  .score-ring-wrap .score-sub { font-size: 13px; color: #64748b; margin-top: 2px; }
+  .exec-text h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .exec-text p { font-size: 14px; color: #475569; margin-bottom: 10px; }
+  .exec-text .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-right: 6px; margin-bottom: 6px; }
+  .tag-crit { background: #fee2e2; color: #dc2626; }
+  .tag-warn { background: #fef3c7; color: #d97706; }
+  .tag-good { background: #dcfce7; color: #16a34a; }
+
+  /* SCORE TABLE */
+  .score-table-wrap { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 24px; }
+  .score-table-wrap h2 { font-size: 18px; font-weight: 700; margin-bottom: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; padding: 10px 14px; background: #f1f5f9; font-weight: 600; color: #475569; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafafa; }
+
+  /* GRADE BADGES */
+  .grade { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .grade-strong { background: var(--strong-bg); color: var(--strong); }
+  .grade-good { background: var(--good-bg); color: var(--good); }
+  .grade-needs { background: var(--needs-bg); color: var(--needs); }
+  .grade-critical { background: var(--critical-bg); color: var(--critical); }
+
+  /* STATUS PILLS */
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .pill-pass { background: var(--pass-bg); color: var(--pass); border: 1px solid var(--pass-border); }
+  .pill-partial { background: var(--partial-bg); color: var(--partial); border: 1px solid var(--partial-border); }
+  .pill-fail { background: var(--fail-bg); color: var(--fail); border: 1px solid var(--fail-border); }
+  .pill-na { background: var(--na-bg); color: var(--na); border: 1px solid var(--na-border); }
+
+  /* SECTION CARDS */
+  .section-card { background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px; overflow: hidden; }
+  .section-card summary {
+    padding: 20px 28px; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    user-select: none; list-style: none;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .section-card summary::-webkit-details-marker { display: none; }
+  .section-card[open] summary { background: #f8fafc; }
+  .section-title { display: flex; align-items: center; gap: 12px; }
+  .section-num { width: 32px; height: 32px; border-radius: 8px; background: #7c3aed; color: #fff; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-name { font-size: 16px; font-weight: 700; }
+  .section-score-info { display: flex; align-items: center; gap: 10px; }
+  .section-pct { font-size: 15px; font-weight: 700; }
+  .chevron { font-size: 12px; color: #94a3b8; transition: transform 0.2s; }
+  details[open] .chevron { transform: rotate(180deg); }
+  .section-body { padding: 24px 28px; }
+
+  /* PROGRESS BAR */
+  .progress-bar { height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-top: 4px; width: 100px; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+  .fill-strong { background: #16a34a; }
+  .fill-good { background: #2563eb; }
+  .fill-needs { background: #d97706; }
+  .fill-critical { background: #dc2626; }
+
+  /* CHECKLIST TABLE */
+  .checklist-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .checklist-table th { background: #f8fafc; color: #475569; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 12px; text-align: left; }
+  .checklist-table td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .checklist-table tr:last-child td { border-bottom: none; }
+  .checklist-table tr:hover td { background: #fafafa; }
+  .item-id { color: #94a3b8; font-size: 11px; font-family: monospace; white-space: nowrap; }
+  .item-name { font-weight: 600; color: #1e293b; }
+  .item-note { color: #64748b; font-size: 12.5px; margin-top: 3px; }
+
+  /* QUICK WINS */
+  .quick-wins { background: linear-gradient(135deg, #ede9fe, #ddd6fe); border-left: 4px solid #7c3aed; border-radius: 0 10px 10px 0; padding: 16px 20px; margin-top: 20px; }
+  .quick-wins h4 { font-size: 13px; font-weight: 700; color: #5b21b6; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .quick-wins ul { list-style: none; }
+  .quick-wins li { font-size: 13px; color: #4c1d95; padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
+  .quick-wins li::before { content: "⚡"; flex-shrink: 0; }
+
+  /* INFO GRIDS */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+  .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; }
+  .info-card .ic-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 6px; font-weight: 600; }
+  .info-card .ic-value { font-size: 14px; font-weight: 600; color: #1e293b; }
+  .info-card .ic-sub { font-size: 12px; color: #64748b; margin-top: 3px; }
+
+  /* ACTION PLAN TABLE */
+  .action-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .action-table th { background: #1e293b; color: #e2e8f0; padding: 10px 14px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .action-table td { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .action-table tr:hover td { background: #fafafa; }
+  .priority-badge { display: inline-block; width: 28px; height: 28px; border-radius: 50%; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .p0 { background: #fee2e2; color: #dc2626; }
+  .p1 { background: #fef3c7; color: #d97706; }
+  .p2 { background: #dbeafe; color: #2563eb; }
+  .p3 { background: #f0fdf4; color: #16a34a; }
+  .effort-low { color: #16a34a; font-weight: 600; font-size: 12px; }
+  .effort-med { color: #d97706; font-weight: 600; font-size: 12px; }
+  .effort-high { color: #dc2626; font-weight: 600; font-size: 12px; }
+  .impact-high { background: #fee2e2; color: #dc2626; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .impact-med { background: #fef3c7; color: #d97706; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+
+  /* BROKEN LINKS */
+  .broken-link-row { background: #fff5f5; }
+  .redirect-row { background: #fffbeb; }
+
+  /* FOOTER */
+  .audit-footer { text-align: center; padding: 32px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; margin-top: 16px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .exec-summary { grid-template-columns: 1fr; }
+    .score-ring-wrap { margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav id="topnav">
+  <div class="brand">Muse Event Mgmt — Audit</div>
+  <a href="#exec">Executive Summary</a>
+  <a href="#scores">Score Summary</a>
+  <a href="#s1_1">Conversion</a>
+  <a href="#s1_2">UX</a>
+  <a href="#s1_3">SEO</a>
+  <a href="#s1_4">Services</a>
+  <a href="#s1_5">Trust</a>
+  <a href="#s1_6">Location</a>
+  <a href="#s1_7">Pricing</a>
+  <a href="#s1_8">Content</a>
+  <a href="#s1_9">Technical</a>
+  <a href="#gbp">GBP</a>
+  <a href="#social">Social</a>
+  <a href="#actions">Action Plan</a>
+</nav>
+
+<!-- HEADER -->
+<div class="audit-header">
+  <div class="container" style="padding-top:0;padding-bottom:0;">
+    <h1>Digital Storefront Audit — Phase 1</h1>
+    <div class="meta">
+      <strong>Practice / Company:</strong> Muse Event Management &nbsp;|&nbsp;
+      <strong>Website:</strong> <a href="https://www.museem.com" style="color:#a78bfa;">www.museem.com</a> &nbsp;|&nbsp;
+      <strong>Audit Date:</strong> April 3, 2026 &nbsp;|&nbsp;
+      <strong>Audited By:</strong> Claude (Gen4 Digital Storefront Framework)
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- EXECUTIVE SUMMARY -->
+<section id="exec" class="exec-summary">
+  <div class="score-ring-wrap">
+    <svg width="150" height="150" viewBox="0 0 150 150">
+      <circle cx="75" cy="75" r="60" fill="none" stroke="#e2e8f0" stroke-width="14"/>
+      <circle cx="75" cy="75" r="60" fill="none" stroke="#dc2626" stroke-width="14"
+        stroke-dasharray="376.99" stroke-dashoffset="226.19"
+        stroke-linecap="round" transform="rotate(-90 75 75)"/>
+      <text x="75" y="71" text-anchor="middle" font-size="28" font-weight="800" fill="#dc2626">40%</text>
+      <text x="75" y="90" text-anchor="middle" font-size="11" fill="#94a3b8">Overall Score</text>
+    </svg>
+    <div class="score-sub">17 / 42 points</div>
+  </div>
+  <div class="exec-text">
+    <h2>Executive Summary</h2>
+    <p>Muse Event Management's website scores <strong>40% overall — a Critical rating</strong> that signals significant gaps in conversion infrastructure, trust signals, and technical SEO. The site has a strong visual brand and compelling service narrative, but it is not yet optimized to convert visitors into paying clients.</p>
+    <p>The biggest strength is <strong>clear, aspirational service messaging</strong> and a well-structured services architecture with multiple offering categories. The most urgent gaps are a <strong>missing primary CTA above the fold</strong>, broken navigation links (Gallery → 404), no Google Map on the contact page, no pricing transparency, no privacy policy, and critical SEO metadata failures (page title is just "Home").</p>
+    <p>With targeted fixes, this site can move from Critical to Good within one sprint. Three sections (Conversion, SEO, Trust) require immediate remediation.</p>
+    <div style="margin-top:14px;">
+      <span class="tag tag-crit">🔴 Conversion: Critical</span>
+      <span class="tag tag-crit">🔴 SEO: Critical</span>
+      <span class="tag tag-crit">🔴 Trust: Critical</span>
+      <span class="tag tag-warn">🟠 Technical: Needs Work</span>
+      <span class="tag tag-warn">🟠 Content: Needs Work</span>
+      <span class="tag tag-good">🟢 Services: Strong</span>
+    </div>
+  </div>
+</section>
+
+<!-- SCORE SUMMARY TABLE -->
+<section id="scores" class="score-table-wrap">
+  <h2>Score Summary</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Section</th>
+        <th>Score</th>
+        <th>% / Bar</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1.1 Conversion Strategy</strong></td>
+        <td>2.5 / 6</td>
+        <td>42%<div class="progress-bar"><div class="progress-fill fill-critical" style="width:42%"></div></div></td>
+        <td><span class="grade grade-critical">🔴 Critical</span></td>
+      </tr>
+      <tr>
+        <td><strong>1.2 User Experience</strong></td>
+        <td>2.5 / 4</td>
+        <td>63%<div class="progress-bar"><div class="progress-fill fill-good" style="width:63%"></div></div></td>
+        <td><span class="grade grade-good">🔵 Good</span></td>
+      </tr>
+      <tr>
+        <td><strong>1.3 SEO Fundamentals</strong></td>
+        <td>2.5 / 7</td>
+        <td>36%<div class="progress-bar"><div class="progress-fill fill-critical" style="width:36%"></div></div></td>
+        <td><span class="grade grade-critical">🔴 Critical</span></td>
+      </tr>
+      <tr>
+        <td><strong>1.4 Service Line Clarity</strong></td>
+        <td>2.5 / 3</td>
+        <td>83%<div class="progress-bar"><div class="progress-fill fill-strong" style="width:83%"></div></div></td>
+        <td><span class="grade grade-strong">🟢 Strong</span></td>
+      </tr>
+      <tr>
+        <td><strong>1.5 Trust-Building Elements</strong></td>
+        <td>1.5 / 6</td>
+        <td>25%<div class="progress-bar"><div class="progress-fill fill-critical" style="width:25%"></div></div></td>
+        <td><span class="grade grade-critical">🔴 Critical</span></td>
+      </tr>
+      <tr>
+        <td><strong>1.6 Location &amp; NAP</strong></td>
+        <td>1.5 / 4</td>
+        <td>38%<div class="progress-bar"><div class="progress-fill fill-critical" style="width:38%"></div></div></td>
+        <td><span class="grade grade-critical">🔴 Critical</span></td>
+      </tr>
+      <tr>
+        <td><strong>1.7 Pricing, Offers &amp; Transparency</strong></td>
+        <td>0 / 4</td>
+        <td>0%<div class="progress-bar"><div class="progress-fill fill-critical" style="width:2%"></div></div></td>
+        <td><span class="grade grade-critical">🔴 Critical</span></td>
+      </tr>
+      <tr>
+        <td><strong>1.8 Content Quality &amp; Messaging</strong></td>
+        <td>2 / 4</td>
+        <td>50%<div class="progress-bar"><div class="progress-fill fill-needs" style="width:50%"></div></div></td>
+        <td><span class="grade grade-needs">🟠 Needs Work</span></td>
+      </tr>
+      <tr>
+        <td><strong>1.9 Technical Performance</strong></td>
+        <td>2 / 4</td>
+        <td>50%<div class="progress-bar"><div class="progress-fill fill-needs" style="width:50%"></div></div></td>
+        <td><span class="grade grade-needs">🟠 Needs Work</span></td>
+      </tr>
+      <tr style="background:#f1f5f9; font-weight:700;">
+        <td><strong>OVERALL</strong></td>
+        <td><strong>17 / 42</strong></td>
+        <td><strong>40%</strong><div class="progress-bar"><div class="progress-fill fill-critical" style="width:40%"></div></div></td>
+        <td><span class="grade grade-critical">🔴 Critical</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========================= SECTION 1.1 ========================= -->
+<details class="section-card" id="s1_1" open>
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.1</div>
+      <div>
+        <div class="section-name">Conversion Strategy</div>
+        <div style="font-size:12px;color:#94a3b8;">Booking, CTAs, contact methods</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#dc2626;">42%</div>
+        <div class="progress-bar"><div class="progress-fill fill-critical" style="width:42%"></div></div>
+      </div>
+      <span class="grade grade-critical">🔴 Critical</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.1.1</td>
+          <td><div class="item-name">Primary CTA above the fold</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>The hero section displays a rotating testimonial carousel labeled "Where Inspiration Takes Center Stage" with no clear booking or inquiry CTA visible above the fold. No prominent button with action language (e.g., "Request a Proposal," "Book a Discovery Call") is present in the header or hero area.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.1.2</td>
+          <td><div class="item-name">Click-to-call phone prominent</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>Phone number (8015584499) is listed on the Contact Us page and in the footer, but there is no visible <code>tel:</code> click-to-call link on the homepage header or hero section. Mobile visitors must navigate to Contact to find the number.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.1.3</td>
+          <td><div class="item-name">Online booking/inquiry available</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>A contact form is available on the Contact Us page and footer. "Send Inquiry" buttons appear on the Discovery Trips page. However, no embedded proposal widget or calendar booking is present — prospects must fill a generic form with no confirmation of response time.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.1.4</td>
+          <td><div class="item-name">Contact form is short (≤5 fields)</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>A contact form exists on the Contact Us page with a success message confirming it works. Field count could not be verified due to rendering constraints, but the form appears concise based on page content. Marked Partial pending manual field verification.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.1.5</td>
+          <td><div class="item-name">New client offer or special visible</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No introductory offer, free consultation CTA, or lead magnet (e.g., "Free Event Planning Checklist") is present anywhere on the site. This is a major missed conversion opportunity for a B2B service company.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.1.6</td>
+          <td><div class="item-name">Multiple contact methods (phone, form, chat)</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Three contact methods available: email (inquiry@museem.com), phone (8015584499), and a contact form. Good baseline coverage, though live chat or a chatbot would elevate this further.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.1</h4>
+      <ul>
+        <li>Add a "Request a Proposal" or "Book a Discovery Call" button to the homepage hero — right now there is no above-fold CTA driving visitors toward conversion.</li>
+        <li>Make the phone number a <code>tel:</code> link in the header/nav so mobile visitors can tap-to-call instantly.</li>
+        <li>Add a free consultation or complimentary discovery call offer above the fold — this is the #1 trust-and-conversion lever for B2B service businesses.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= SECTION 1.2 ========================= -->
+<details class="section-card" id="s1_2">
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.2</div>
+      <div>
+        <div class="section-name">User Experience</div>
+        <div style="font-size:12px;color:#94a3b8;">Mobile, navigation, accessibility, 404</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#2563eb;">63%</div>
+        <div class="progress-bar"><div class="progress-fill fill-good" style="width:63%"></div></div>
+      </div>
+      <span class="grade grade-good">🔵 Good</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.2.1</td>
+          <td><div class="item-name">Fully mobile-responsive</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>Site appears to be built on a modern platform (likely Webflow or Squarespace based on structure). A viewport meta tag appears to be in place (site renders in browser). However, the hamburger menu icon is the only interactive element detected on mobile view, suggesting a menu-collapse pattern is in use. Full mobile UX verification recommended via Google Mobile Friendly Test.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.2.2</td>
+          <td><div class="item-name">Navigation clear and intuitive</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Navigation contains 7 items: About Us, Our Services, Discovery Trips, Our Clients, Our Team, Gallery, Contact Us. Well-organized, logical hierarchy. "Discovery Trips" as a standalone nav item is a smart service-level differentiator. Score would improve by adding a prominent "Get a Quote" or "Work With Us" nav CTA.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.2.3</td>
+          <td><div class="item-name">Basic accessibility (alt text, color contrast)</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>Image alt text could not be fully verified via text extraction. The site relies heavily on visual/image-based content. Accessibility audit via axe DevTools or WAVE is recommended to confirm color contrast ratios and alt attribute completeness across all gallery and team photos.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.2.4</td>
+          <td><div class="item-name">404 page branded with navigation</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>A 404 page exists with the message: "Page Not Found — The page you are looking for doesn't exist or has been moved." However, it contains no navigation links, no "Return to Homepage" CTA, no search bar, and no branding elements. Visitors who hit a dead end will simply bounce. The <strong>Gallery nav link is currently broken</strong> — it redirects to /past-events which returns a 404.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.2</h4>
+      <ul>
+        <li>Immediately fix the Gallery nav link — it currently redirects to /past-events which is a live 404. This is a visible broken link in the main navigation.</li>
+        <li>Upgrade the 404 page with navigation, a "Return Home" button, and brand styling — takes 30 minutes with most CMS platforms.</li>
+        <li>Run a Google Mobile-Friendly Test to confirm responsive behavior and document any issues.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= SECTION 1.3 ========================= -->
+<details class="section-card" id="s1_3">
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.3</div>
+      <div>
+        <div class="section-name">SEO Fundamentals</div>
+        <div style="font-size:12px;color:#94a3b8;">Titles, meta, schema, H1, sitemaps</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#dc2626;">36%</div>
+        <div class="progress-bar"><div class="progress-fill fill-critical" style="width:36%"></div></div>
+      </div>
+      <span class="grade grade-critical">🔴 Critical</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.3.1</td>
+          <td><div class="item-name">Location-specific, indexable page</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>The Contact Us page lists the address (3536 W. Haven Cove, Lehi UT 84043) but there is no dedicated location-specific landing page. No unique city/region-targeted content (e.g., "Event Management Company in Lehi, Utah" or "Utah Corporate Event Planner") exists to capture local search traffic.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.3.2</td>
+          <td><div class="item-name">Title tag includes keyword + location + brand</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>The homepage title tag reads simply: <strong>"Home"</strong>. This is a critical SEO failure — it includes no keyword, no location, and no brand name. The About Us page title is "About-us" and the Services page is "Services" — all are generic and keyword-free. Expected format: "Event Management Company in Lehi, Utah | Muse Event Management".</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.3.3</td>
+          <td><div class="item-name">Meta description unique, under 165 chars, includes CTA</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No meta description could be detected on the homepage or sub-pages. Search engines will generate their own snippets, likely pulling the hero testimonial text rather than a compelling brand statement. Every key page needs a unique, optimized meta description.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.3.4</td>
+          <td><div class="item-name">H1 is singular, keyword-rich, and descriptive</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>The homepage H1 appears to be "Where Inspiration Takes Center Stage" — aspirational and on-brand, but contains no searchable keyword (event management, corporate events, Lehi, Utah, etc.). The H1 is doing brand work but not SEO work. Recommend: "Bespoke Corporate Event Management — Muse Events, Lehi Utah".</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.3.5</td>
+          <td><div class="item-name">Individual service pages exist for key offerings</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Multiple individual service sub-pages exist: /discovery-trips, and each service on the services page has detailed content. The services architecture is solid with 8 distinct offerings: Event Strategy, Incentive Trips, Corporate, Discovery Trips, Beyond Events, Talent Acquisition, Sustainable Events, Virtual.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.3.6</td>
+          <td><div class="item-name">Local/business schema markup implemented</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No JSON-LD schema markup detected on the homepage. At minimum, an <code>Organization</code> or <code>LocalBusiness</code> schema should be implemented with full NAP, service areas, social profiles, and contact details. This directly impacts Google Knowledge Panel eligibility and local search visibility.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.3.7</td>
+          <td><div class="item-name">Google Search Console connected</div></td>
+          <td><span class="pill pill-na">➖ N/A</span></td>
+          <td>Cannot verify from website HTML. Recommend manual verification — connect GSC and submit a sitemap once one is created.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.3.8</td>
+          <td><div class="item-name">Internal linking connects service and key pages</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>"Read More" buttons link from service cards to individual service detail pages. Navigation provides global coverage. However, contextual internal links within page body copy are not present — for example, the About page doesn't link to individual service pages, and the Discovery Trips page doesn't cross-link to Incentive Trips or Event Strategy.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.3</h4>
+      <ul>
+        <li>Update every page title tag immediately — "Home" as a title is an SEO crisis. Use format: "[Service/Page] | Muse Event Management | Lehi, Utah".</li>
+        <li>Write and deploy meta descriptions for all 7 main pages this week — each under 160 characters with a keyword and CTA phrase.</li>
+        <li>Add a JSON-LD Organization schema block to the homepage with NAP, URL, social links, and service descriptions.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= SECTION 1.4 ========================= -->
+<details class="section-card" id="s1_4">
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.4</div>
+      <div>
+        <div class="section-name">Service Line Clarity</div>
+        <div style="font-size:12px;color:#94a3b8;">Services listed, dedicated pages, aspirational language</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#16a34a;">83%</div>
+        <div class="progress-bar"><div class="progress-fill fill-strong" style="width:83%"></div></div>
+      </div>
+      <span class="grade grade-strong">🟢 Strong</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.4.1</td>
+          <td><div class="item-name">Services clearly listed in client-friendly language</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Eight service categories are clearly defined with outcome-focused descriptions: Event Strategy, Incentive Trips, Corporate, Discovery Trips, Beyond Events, Talent Acquisition, Sustainable Events, Virtual. Descriptions are client-centric (e.g., "crafting bespoke experiences that motivate, inspire, and reward").</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.4.2</td>
+          <td><div class="item-name">High-value services have dedicated pages</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>Discovery Trips has a dedicated page (/discovery-trips). Other services are described in detail on the main Services page but do not have individual URLs (e.g., /corporate-events, /incentive-trips). Dedicated pages per service would enable targeted SEO and conversion-optimized landing pages.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.4.3</td>
+          <td><div class="item-name">Urgency/time-sensitive services prominent</div></td>
+          <td><span class="pill pill-na">➖ N/A</span></td>
+          <td>Not directly applicable to event management in the same way as emergency dental care. Discovery Trips page does list upcoming trip dates (Hawaii Feb 2025, Bahamas Apr 2025, Lisbon Sept 2025) which creates some urgency around specific offerings.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.4.4</td>
+          <td><div class="item-name">Services use aspirational language and show results</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Throughout the site, language is aspirational and results-focused: "leaving a lasting impression," "turn rewards into unforgettable moments," "transform moments into masterpieces." Sustainability angle is differentiated ("Track Sustainability Reports"). Strong brand voice consistency.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.4</h4>
+      <ul>
+        <li>Create individual landing pages for top 3 services (Corporate Events, Incentive Trips, Virtual Events) with dedicated URLs — these are the highest-search-volume service terms.</li>
+        <li>Add "Starting from" pricing indicators or typical engagement scopes to remove friction for prospective clients researching budget fit.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= SECTION 1.5 ========================= -->
+<details class="section-card" id="s1_5">
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.5</div>
+      <div>
+        <div class="section-name">Trust-Building Elements</div>
+        <div style="font-size:12px;color:#94a3b8;">Team bios, reviews, portfolio, certifications, privacy</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#dc2626;">25%</div>
+        <div class="progress-bar"><div class="progress-fill fill-critical" style="width:25%"></div></div>
+      </div>
+      <span class="grade grade-critical">🔴 Critical</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.5.1</td>
+          <td><div class="item-name">Team bio page with real photos and credentials</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>"Our Team" appears in the nav, but navigating to /our-team returned no content (page rendered empty). No team bios, photos, or credentials are visible on any page. For a service business selling decades of expertise, this is a critical trust gap — clients want to know who they're hiring. The About page references "over 35 years of combined experience" without naming anyone.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.5.2</td>
+          <td><div class="item-name">Client testimonials/reviews displayed on website</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>Five strong testimonials are featured in a carousel on the homepage from real clients with names and titles: Jina Anson (CMO), Josh Mckell (VP Sales), Janne Heinomen (Director of Europe), Sandra Cavaqueira (Marketing Director), Amy McNeil (Director of Marketing, Gen4 Dental). These are compelling but lack company logos, photos, or star ratings. No link to external review platform (Google, Clutch, etc.).</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.5.3</td>
+          <td><div class="item-name">Portfolio/case study gallery present</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>The Gallery nav link redirects to /past-events which is a 404 page. The "Our Clients" page shows only an Instagram embed widget (EmbedSocial) that may display no content if not loaded. "Previous Discovery Trips" on the Discovery Trips page returns empty gallery data. A visual portfolio of past events is the single most powerful trust signal for an event management company — it is effectively absent.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.5.4</td>
+          <td><div class="item-name">Awards, tools, or industry credentials featured</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>"Brands We Work With" section appears on both the Homepage and About page, showing client/partner logos. This is positive social proof. However, no industry certifications (MPI, SITE, PCMA), awards, or vendor partnerships (venue accreditations, AV vendor badges) are displayed to reinforce professional credibility.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.5.5</td>
+          <td><div class="item-name">Industry affiliations or certifications displayed</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>The site mentions "decades of combined expertise" and "35 years in event planning" in the About page body. However, no formal certifications (CMP, CMM, CSEP) or association memberships (MPI, ILEA, PCMA) are displayed with logos. These are quick credibility signals that industry buyers specifically look for.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.5.6</td>
+          <td><div class="item-name">Privacy Policy / Terms accessible in footer</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No Privacy Policy or Terms of Service link is visible in the footer. The footer contains: Home, About Us, Services, Clients, Gallery, Contact Us, and social links — but no legal pages. Given that the site collects contact form submissions and likely uses cookies, the absence of a Privacy Policy is a legal compliance issue, particularly for EU/international clients under GDPR.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.5</h4>
+      <ul>
+        <li>Fix the Gallery link immediately and populate it with 10–15 photos from past events — this is the most important trust signal for event management prospects.</li>
+        <li>Add a Privacy Policy page and link it in the footer — this is required for GDPR compliance and protects the business legally.</li>
+        <li>Build out the Our Team page with at minimum the founding team: photo, name, title, 2–3 sentences of bio, and LinkedIn link. Prospects hire people, not companies.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= SECTION 1.6 ========================= -->
+<details class="section-card" id="s1_6">
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.6</div>
+      <div>
+        <div class="section-name">Location &amp; NAP Consistency</div>
+        <div style="font-size:12px;color:#94a3b8;">Address, map, hours, unique location URL</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#dc2626;">38%</div>
+        <div class="progress-bar"><div class="progress-fill fill-critical" style="width:38%"></div></div>
+      </div>
+      <span class="grade grade-critical">🔴 Critical</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.6.1</td>
+          <td><div class="item-name">NAP consistent and visible on site</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>NAP is consistent: <strong>Muse Event Management</strong>, 3536 W. Haven Cove, Lehi UT 84043, USA | inquiry@museem.com | 8015584499. Appears identically on the homepage footer, Contact Us page, Services page, and Discovery Trips page. Good consistency across pages.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.6.2</td>
+          <td><div class="item-name">Location has unique URL</div></td>
+          <td><span class="pill pill-partial">⚠️ Partial</span></td>
+          <td>/contact-us serves as the de facto location page. A dedicated /lehi-utah-event-management or /locations/lehi-ut page would enable local SEO targeting for searches like "event management company Lehi Utah" or "Utah corporate event planner."</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.6.3</td>
+          <td><div class="item-name">Embedded Google Map on location/contact page</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>The Contact Us page lists the address as plain text with no embedded Google Map, no "Get Directions" link, and no map widget. Even for a company that operates globally, having an embedded map on the contact page reinforces legitimacy and local presence, and supports GBP signals.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.6.4</td>
+          <td><div class="item-name">Business hours accurate and prominently displayed</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No business hours are listed anywhere on the site — not on the Contact page, not in the footer, not in the header. Prospects wanting to call or expect a response window have no guidance on availability. For an event company, even "Mon–Fri, 9AM–6PM MT" would set professional expectations.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.6</h4>
+      <ul>
+        <li>Add an embedded Google Map to the Contact Us page — copy the embed code from Google Maps in under 5 minutes. This also boosts GBP proximity signals.</li>
+        <li>Add business hours to the Contact page and footer — "Monday–Friday, 9AM–6PM MT" builds trust and sets response expectations.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= SECTION 1.7 ========================= -->
+<details class="section-card" id="s1_7">
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.7</div>
+      <div>
+        <div class="section-name">Pricing, Offers &amp; Transparency</div>
+        <div style="font-size:12px;color:#94a3b8;">Pricing, packages, new client offers, membership</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#dc2626;">0%</div>
+        <div class="progress-bar"><div class="progress-fill fill-critical" style="width:2%"></div></div>
+      </div>
+      <span class="grade grade-critical">🔴 Critical</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.7.1</td>
+          <td><div class="item-name">Pricing or budget guidance visible</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No pricing, starting rates, typical engagement size, or budget guidance exists anywhere on the site. While custom pricing is standard for event management, providing even "Events typically range from $X to $X" or "Minimum engagement: $XX,XXX" helps pre-qualify leads and reduces time spent on non-fit inquiries.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.7.2</td>
+          <td><div class="item-name">Financing or payment options featured</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No payment terms, deposit structure, or financing options mentioned. For large corporate events, procurement teams often need this information before engaging a vendor. Not applicable in the same way as consumer financing, but some transparency about payment structure would be useful.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.7.3</td>
+          <td><div class="item-name">New client special or introductory offer</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No introductory offer, free consultation, complimentary site visit, or lead magnet is offered. For B2B service businesses, a "Free 30-Minute Event Strategy Session" or downloadable "Ultimate Corporate Event Planning Checklist" would dramatically increase lead capture from site visitors not yet ready to submit a full inquiry.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.7.4</td>
+          <td><div class="item-name">Membership plan, retainer, or recurring program</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No annual retainer, event management subscription, or preferred partner program is mentioned. For companies running multiple events per year, a "preferred partner" or retainer relationship would increase LTV and stickiness — this could be positioned as a strategic differentiator.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.7</h4>
+      <ul>
+        <li>Add a "Free 30-Minute Discovery Call" CTA on the homepage and services pages — this is a zero-risk offer that dramatically increases qualified lead capture.</li>
+        <li>Create a downloadable lead magnet (Event Planning Checklist or Incentive Trip Planning Guide) as a free content offer — collects emails and positions Muse as a thought leader.</li>
+        <li>Add a brief pricing FAQ section (e.g., "How do I know if Muse is the right fit for my budget?") to reduce friction for enterprise prospects in research mode.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= SECTION 1.8 ========================= -->
+<details class="section-card" id="s1_8">
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.8</div>
+      <div>
+        <div class="section-name">Content Quality &amp; Messaging</div>
+        <div style="font-size:12px;color:#94a3b8;">Copy tone, blog, FAQs, brand voice</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#d97706;">50%</div>
+        <div class="progress-bar"><div class="progress-fill fill-needs" style="width:50%"></div></div>
+      </div>
+      <span class="grade grade-needs">🟠 Needs Work</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.8.1</td>
+          <td><div class="item-name">Homepage copy is client-centric and outcome-focused</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Copy throughout the site is consistently outcome-focused and aspirational: "bring your vision to life," "leaving a lasting impression," "transforming moments into masterpieces." The About page articulates a clear Mission ("craft bespoke experiences") and Vision ("elevate the event industry"). Strong brand voice — premium, creative, strategic.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.8.2</td>
+          <td><div class="item-name">Blog or resources section active with recent content</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No blog, insights section, case studies, or resource library exists on the site. For a B2B service company, content marketing is the primary organic lead generation channel. Topics like "How to Plan a Multi-Day Corporate Incentive Trip" or "2026 Corporate Event Trends" would drive qualified organic traffic and demonstrate expertise.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.8.3</td>
+          <td><div class="item-name">FAQs present on service pages</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>No FAQ sections exist on any page. Common prospect questions ("How far in advance should we book?", "Do you handle international events?", "What is your minimum engagement size?", "How do you handle last-minute changes?") go unanswered. FAQs also enable FAQ schema markup for Google rich snippets.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.8.4</td>
+          <td><div class="item-name">Messaging consistent with brand voice</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Consistent premium, creative, and strategic brand voice across all pages. Language like "bespoke," "meticulous attention to detail," "extraordinary," and "impactful" is used consistently. Sustainability and social impact messaging ("Beyond Events") is a differentiated brand pillar. Copyright year (© 2024) should be updated to 2025/2026.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.8</h4>
+      <ul>
+        <li>Add an FAQ section to the Contact Us and Services pages covering the 5–7 most common prospect questions — this reduces friction and enables Google FAQ rich snippets.</li>
+        <li>Update the copyright year in the footer from © 2024 to © 2026 — a small detail that undermines professionalism when noticed by prospects.</li>
+        <li>Start a quarterly insights post or event recap to begin building an organic content footprint — even 2–3 posts per quarter would outperform competitors with no content.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= SECTION 1.9 ========================= -->
+<details class="section-card" id="s1_9">
+  <summary>
+    <div class="section-title">
+      <div class="section-num">1.9</div>
+      <div>
+        <div class="section-name">Technical Performance</div>
+        <div style="font-size:12px;color:#94a3b8;">HTTPS, sitemap, broken links, duplicate content</div>
+      </div>
+    </div>
+    <div class="section-score-info">
+      <div>
+        <div class="section-pct" style="color:#d97706;">50%</div>
+        <div class="progress-bar"><div class="progress-fill fill-needs" style="width:50%"></div></div>
+      </div>
+      <span class="grade grade-needs">🟠 Needs Work</span>
+      <span class="chevron">▼</span>
+    </div>
+  </summary>
+  <div class="section-body">
+    <table class="checklist-table">
+      <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-id">1.9.1</td>
+          <td><div class="item-name">Site uses HTTPS with valid SSL</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Site loads over HTTPS at www.museem.com with no SSL certificate warnings. Secure across all pages tested.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.9.2</td>
+          <td><div class="item-name">XML sitemap submitted to Google</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>/sitemap.xml returns a 404. No sitemap was found at standard locations. Without a sitemap, search engines must crawl the site by following links, which may result in important pages (like individual service sections) not being indexed. Create and submit a sitemap via Google Search Console.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.9.3</td>
+          <td><div class="item-name">No broken links on key pages</div></td>
+          <td><span class="pill pill-fail">❌ Fail</span></td>
+          <td>Critical broken link found in the main navigation: <strong>Gallery → /past-events → 404</strong>. Additionally, /our-team in the nav returned no content. The Gallery link is in the primary navigation visible on every page — every visitor who clicks it hits a dead end. See broken link summary below.</td>
+        </tr>
+        <tr>
+          <td class="item-id">1.9.4</td>
+          <td><div class="item-name">No duplicate content issues</div></td>
+          <td><span class="pill pill-pass">✅ Pass</span></td>
+          <td>Single-location site with unique content per page. Some repeating elements (contact info, footer CTA) are expected site-wide. No duplicate location pages or template-generated content duplication detected.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- BROKEN LINK SUMMARY -->
+    <div style="margin-top:24px;">
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;color:#1e293b;">🔗 Broken Link Summary</h4>
+      <p style="font-size:13px;color:#64748b;margin-bottom:12px;">Pages crawled: 8 internal URLs. Results below.</p>
+      <table class="checklist-table">
+        <thead><tr><th>URL</th><th>Status</th><th>Final URL</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>/</td><td><span class="pill pill-pass">✅ Live</span></td><td>/</td><td>Homepage — loads normally</td></tr>
+          <tr><td>/about-us</td><td><span class="pill pill-pass">✅ Live</span></td><td>/about-us</td><td>About Us — loads normally</td></tr>
+          <tr><td>/services</td><td><span class="pill pill-pass">✅ Live</span></td><td>/services</td><td>Services — loads normally</td></tr>
+          <tr><td>/discovery-trips</td><td><span class="pill pill-pass">✅ Live</span></td><td>/discovery-trips</td><td>Discovery Trips — loads normally</td></tr>
+          <tr><td>/our-clients</td><td><span class="pill pill-pass">✅ Live</span></td><td>/our-clients</td><td>Clients — loads (Instagram widget only)</td></tr>
+          <tr><td>/contact-us</td><td><span class="pill pill-pass">✅ Live</span></td><td>/contact-us</td><td>Contact — loads normally</td></tr>
+          <tr class="broken-link-row"><td>/gallery (nav link)</td><td><span class="pill pill-fail">❌ 404</span></td><td>/past-events</td><td>⚠️ <strong>CRITICAL: Gallery nav link redirects to /past-events which is a 404. Visible on every page.</strong></td></tr>
+          <tr class="broken-link-row"><td>/our-team (nav link)</td><td><span class="pill pill-fail">❌ Empty</span></td><td>/our-team</td><td>Our Team nav link returns no content — page exists but is blank.</td></tr>
+          <tr><td>/sitemap.xml</td><td><span class="pill pill-fail">❌ 404</span></td><td>/sitemap.xml</td><td>No sitemap found</td></tr>
+          <tr><td>/robots.txt</td><td><span class="pill pill-partial">⚠️ No text</span></td><td>/robots.txt</td><td>Returns no readable text content</td></tr>
+          <tr><td>/404-test-page</td><td><span class="pill pill-partial">⚠️ Partial</span></td><td>/404-test-page</td><td>404 page exists with message but no nav/CTA/branding</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quick-wins">
+      <h4>⚡ Quick Wins — Section 1.9</h4>
+      <ul>
+        <li>Fix the Gallery nav link today — update the href to a live gallery page or temporarily remove it until the gallery is built.</li>
+        <li>Generate and submit an XML sitemap — most CMS platforms (Webflow, Squarespace, WordPress) can do this in one click.</li>
+        <li>Build out the Our Team page with actual team content — the page URL exists but returns empty.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+<!-- ========================= GBP ========================= -->
+<section id="gbp" class="score-table-wrap">
+  <h2>Google Business Profile (GBP) Summary</h2>
+  <p style="font-size:14px;color:#475569;margin-bottom:16px;">Signals surfaced via web search. GBP should be verified and claimed at <a href="https://business.google.com" target="_blank" style="color:#7c3aed;">business.google.com</a>.</p>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="ic-label">Profile Found</div>
+      <div class="ic-value" style="color:#d97706;">⚠️ Partial</div>
+      <div class="ic-sub">No confirmed active GBP appears in Google Maps search for "Muse Event Management Lehi Utah." Facebook page found (Salt Lake City). GBP claim/verify status unknown.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Google Reviews</div>
+      <div class="ic-value" style="color:#dc2626;">❌ None Found</div>
+      <div class="ic-sub">No Google reviews surfaced in search results. Nicelocal shows 1 rating of 2/5. No confirmed Google review count.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Review Rating</div>
+      <div class="ic-value" style="color:#dc2626;">❌ Unknown</div>
+      <div class="ic-sub">No star rating visible in search results. Need to verify/claim GBP to enable review collection.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Photos on GBP</div>
+      <div class="ic-value" style="color:#dc2626;">❌ Unknown</div>
+      <div class="ic-sub">Cannot confirm photos on GBP. Strongly recommend uploading 20+ photos of events, team, and office after claiming.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Appointment Link</div>
+      <div class="ic-value" style="color:#dc2626;">❌ Not Set</div>
+      <div class="ic-sub">No booking link on GBP. Should link directly to contact form or discovery call scheduler.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">GBP Posts</div>
+      <div class="ic-value" style="color:#dc2626;">❌ Unknown</div>
+      <div class="ic-sub">No GBP posts detected in search results. Regular posts (1–2/week) significantly boost local search visibility.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Business Category</div>
+      <div class="ic-value" style="color:#d97706;">⚠️ Unverified</div>
+      <div class="ic-sub">Should be "Event Planning Service" or "Corporate Event Planner" as primary category. Verify after claiming profile.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Business Hours</div>
+      <div class="ic-value" style="color:#dc2626;">❌ Not Found</div>
+      <div class="ic-sub">Hours not visible in search results. Must be added to GBP and mirrored on the website Contact page.</div>
+    </div>
+  </div>
+  <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:14px 18px;border-radius:0 8px 8px 0;margin-top:18px;font-size:13px;color:#856404;">
+    <strong>P0 Action:</strong> Claim and fully optimize the Google Business Profile for Muse Event Management in Lehi, UT. An unclaimed or empty GBP means the business does not appear in "event planner near me" searches. This is the highest-leverage 30-minute investment available.
+  </div>
+</section>
+
+<!-- ========================= SOCIAL MEDIA ========================= -->
+<section id="social" class="score-table-wrap">
+  <h2>Social Media Presence Summary</h2>
+  <p style="font-size:14px;color:#475569;margin-bottom:16px;">Social profiles discovered via web search and website footer. "Connect with us" appears in the footer but social links were not captured as named text in extraction.</p>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="ic-label">Facebook</div>
+      <div class="ic-value" style="color:#d97706;">⚠️ Present</div>
+      <div class="ic-sub">Page found: "Muse Event Management | Salt Lake City UT" — page ID 100056213202937. Activity level and follower count not confirmed.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Instagram</div>
+      <div class="ic-value" style="color:#d97706;">⚠️ Present</div>
+      <div class="ic-sub">@museeventmanagement confirmed. Follower count and posting cadence not verified. "Our Clients" page uses Instagram EmbedSocial widget suggesting content is being shared.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">LinkedIn</div>
+      <div class="ic-value" style="color:#16a34a;">✅ Present</div>
+      <div class="ic-sub">linkedin.com/company/muse-events-management confirmed. LinkedIn is critical for B2B event management lead generation — should be the primary social investment.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">YouTube / TikTok</div>
+      <div class="ic-value" style="color:#dc2626;">❌ Not Found</div>
+      <div class="ic-sub">No video platform presence found. Event recap videos and destination previews are high-performing content for incentive/discovery trip marketing.</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Posting Cadence</div>
+      <div class="ic-value" style="color:#dc2626;">❌ Unknown</div>
+      <div class="ic-sub">Cadence could not be verified. Recommended: LinkedIn 3x/week (thought leadership + event recaps), Instagram 4x/week (visual event content + Reels).</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-label">Social Links on Website</div>
+      <div class="ic-value" style="color:#d97706;">⚠️ Partial</div>
+      <div class="ic-sub">Footer shows "Connect with us:" label with social link icons, but icon links were not captured in page text — links may not have accessible labels or may be broken.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ACTION PLAN ========================= -->
+<section id="actions" class="score-table-wrap">
+  <h2>Prioritized Action Plan — Top 12 Recommendations</h2>
+  <p style="font-size:13px;color:#64748b;margin-bottom:16px;">Sorted by impact tier. P0 = Do This Week | P1 = This Month | P2 = Next Quarter</p>
+  <table class="action-table">
+    <thead>
+      <tr>
+        <th>Priority</th>
+        <th>Action</th>
+        <th>Section</th>
+        <th>Effort</th>
+        <th>Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="priority-badge p0">1</div></td>
+        <td><strong>Fix Gallery nav link</strong> — Update /gallery to link to a live page or remove it. Currently redirects to /past-events (404). Visible on every page.</td>
+        <td>1.2 / 1.9</td>
+        <td class="effort-low">Low (15 min)</td>
+        <td><span class="impact-high">HIGH</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p0">2</div></td>
+        <td><strong>Update all page title tags</strong> — Homepage title is "Home." Every page needs: "[Page Topic] | Muse Event Management | Lehi, Utah"</td>
+        <td>1.3 SEO</td>
+        <td class="effort-low">Low (1 hr)</td>
+        <td><span class="impact-high">HIGH</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p0">3</div></td>
+        <td><strong>Add above-fold primary CTA</strong> — Add a "Request a Proposal" or "Book a Free Discovery Call" button in the hero section and header.</td>
+        <td>1.1 Conversion</td>
+        <td class="effort-low">Low (30 min)</td>
+        <td><span class="impact-high">HIGH</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p0">4</div></td>
+        <td><strong>Claim and optimize Google Business Profile</strong> — Verify ownership, add full NAP, hours, photos, booking link, and business description. This is the highest-ROI 30 minutes available.</td>
+        <td>GBP</td>
+        <td class="effort-low">Low (30 min)</td>
+        <td><span class="impact-high">HIGH</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p0">5</div></td>
+        <td><strong>Add Privacy Policy page and footer link</strong> — Required for GDPR compliance and form submissions. Easily generated via a privacy policy generator tool.</td>
+        <td>1.5 Trust</td>
+        <td class="effort-low">Low (20 min)</td>
+        <td><span class="impact-high">HIGH</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p1">6</div></td>
+        <td><strong>Write meta descriptions for all pages</strong> — Each under 160 chars with keywords and CTA. Pages currently have no detectable meta descriptions.</td>
+        <td>1.3 SEO</td>
+        <td class="effort-low">Low (2 hrs)</td>
+        <td><span class="impact-high">HIGH</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p1">7</div></td>
+        <td><strong>Build out Our Team page</strong> — Add bios, photos, and LinkedIn links for key team members. Currently the page exists but renders empty. People hire people.</td>
+        <td>1.5 Trust</td>
+        <td class="effort-med">Medium (1 day)</td>
+        <td><span class="impact-high">HIGH</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p1">8</div></td>
+        <td><strong>Build a visual event gallery/portfolio</strong> — Fix the Gallery page and populate with 15–20 high-quality event photos. This is the single most powerful trust signal for event prospects.</td>
+        <td>1.5 Trust</td>
+        <td class="effort-med">Medium (1–2 days)</td>
+        <td><span class="impact-high">HIGH</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p1">9</div></td>
+        <td><strong>Add click-to-call phone number in header</strong> — Make 8015584499 a <code>tel:</code> link and place it in the sticky navigation so mobile visitors can call with one tap.</td>
+        <td>1.1 Conversion</td>
+        <td class="effort-low">Low (20 min)</td>
+        <td><span class="impact-med">MED</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p1">10</div></td>
+        <td><strong>Add Google Map and business hours to Contact page</strong> — Embed a Google Map widget and list Mon–Fri hours. Both are instant credibility signals for B2B buyers.</td>
+        <td>1.6 Location</td>
+        <td class="effort-low">Low (30 min)</td>
+        <td><span class="impact-med">MED</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p2">11</div></td>
+        <td><strong>Implement JSON-LD Organization schema</strong> — Add structured data markup with full NAP, social profiles, services, and geo-coordinates to the homepage <code>&lt;head&gt;</code>.</td>
+        <td>1.3 SEO</td>
+        <td class="effort-med">Medium (2 hrs)</td>
+        <td><span class="impact-med">MED</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge p2">12</div></td>
+        <td><strong>Create FAQ sections on key pages</strong> — Add 5–7 FAQs to the Services and Contact pages. Reduces friction, answers objections, and enables Google FAQ rich snippets.</td>
+        <td>1.8 Content</td>
+        <td class="effort-med">Medium (half day)</td>
+        <td><span class="impact-med">MED</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</div><!-- /container -->
+
+<div class="audit-footer">
+  <strong>Muse Event Management — Digital Storefront Audit Phase 1</strong><br>
+  Audited April 3, 2026 · Gen4 Digital Storefront Framework · Claude AI<br>
+  Overall Score: <strong style="color:#dc2626;">40% — Critical</strong> · 17/42 points across 9 categories
+</div>
+
+<script>
+// Scroll-spy active highlighting on sticky nav
+const sections = document.querySelectorAll('section[id], details[id]');
+const navLinks = document.querySelectorAll('#topnav a');
+function updateActive() {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    if (top <= 80) current = section.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+}
+window.addEventListener('scroll', updateActive, { passive: true });
+
+// Smooth scroll for nav links
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
