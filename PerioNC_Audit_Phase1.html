@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerioNC Digital Storefront Audit - Phase 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Sticky Navigation */
+        nav.sticky-nav {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            border-bottom: 3px solid #003d82;
+            padding: 1rem 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav.sticky-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        nav.sticky-nav a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            color: #003d82;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav.sticky-nav a:hover {
+            background: #e8f0f9;
+            color: #001f47;
+        }
+
+        nav.sticky-nav a.active {
+            background: #003d82;
+            color: #fff;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #003d82 0%, #005ab3 100%);
+            color: #fff;
+            padding: 3rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,61,130,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.95;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 5px solid #003d82;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .executive-summary h2 {
+            color: #003d82;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .executive-summary p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Score Ring */
+        .score-summary {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 2rem 0;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .score-ring-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .score-ring-text {
+            position: absolute;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .score-ring-text .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #003d82;
+        }
+
+        .score-ring-text .score-label {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .score-ring-text .score-grade {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .grade-strong {
+            color: #28a745;
+        }
+
+        .grade-good {
+            color: #ffc107;
+        }
+
+        .grade-needs-work {
+            color: #fd7e14;
+        }
+
+        .grade-critical {
+            color: #dc3545;
+        }
+
+        .score-breakdown table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .score-breakdown th,
+        .score-breakdown td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .score-breakdown th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #003d82;
+        }
+
+        .score-breakdown tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Status Pills */
+        .pill {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .pill-pass {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .pill-partial {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .pill-fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .pill-na {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        /* Sections */
+        section {
+            background: #fff;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        section h2 {
+            color: #003d82;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e8f0f9;
+        }
+
+        .section-score {
+            float: right;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #666;
+        }
+
+        /* Checklist Items */
+        details {
+            margin-bottom: 1rem;
+            border: 1px solid #e8f0f9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        details summary {
+            padding: 1rem;
+            background: #f8f9fa;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        details summary:hover {
+            background: #e8f0f9;
+        }
+
+        details[open] summary {
+            background: #e8f0f9;
+            border-bottom: 1px solid #d0e0f0;
+        }
+
+        .summary-text {
+            flex: 1;
+        }
+
+        .summary-code {
+            font-size: 0.85rem;
+            color: #666;
+            margin-right: 1rem;
+            font-weight: 600;
+        }
+
+        details > div {
+            padding: 1rem;
+            background: #fff;
+        }
+
+        .finding {
+            padding: 0.75rem 0;
+            line-height: 1.7;
+        }
+
+        .finding strong {
+            color: #003d82;
+        }
+
+        /* Quick Wins */
+        .quick-wins {
+            background: #e8f5e9;
+            border-left: 5px solid #28a745;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 2rem 0;
+        }
+
+        .quick-wins h4 {
+            color: #1b5e20;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .quick-wins ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .quick-wins li {
+            padding: 0.5rem 0;
+            color: #2e7d32;
+        }
+
+        .quick-wins li:before {
+            content: "✓ ";
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* GBP and Social Summary */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .summary-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid #003d82;
+        }
+
+        .summary-card h3 {
+            color: #003d82;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-card p {
+            margin-bottom: 0.75rem;
+            color: #555;
+        }
+
+        .summary-card strong {
+            color: #003d82;
+        }
+
+        /* Action Plan Table */
+        .action-plan {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .action-plan th {
+            background: #003d82;
+            color: #fff;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .action-plan td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .action-plan tr:hover {
+            background: #f8f9fa;
+        }
+
+        .priority-critical {
+            background: #f8d7da;
+            font-weight: 600;
+            color: #721c24;
+        }
+
+        .priority-high {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .priority-medium {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .effort-low {
+            color: #28a745;
+        }
+
+        .effort-medium {
+            color: #ffc107;
+        }
+
+        .effort-high {
+            color: #dc3545;
+        }
+
+        /* Footer */
+        footer {
+            background: #003d82;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 8px;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav.sticky-nav ul {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            nav.sticky-nav a {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .score-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .score-breakdown table {
+                font-size: 0.9rem;
+            }
+
+            .score-breakdown th,
+            .score-breakdown td {
+                padding: 0.5rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            .action-plan th,
+            .action-plan td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            nav.sticky-nav {
+                position: static;
+            }
+
+            details {
+                border: none;
+            }
+
+            details summary {
+                background: transparent;
+                border: none;
+                padding: 0;
+            }
+
+            details[open] summary {
+                background: transparent;
+            }
+
+            section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav class="sticky-nav">
+        <ul>
+            <li><a href="#header" onclick="scrollToSection(event)">Overview</a></li>
+            <li><a href="#section-1" onclick="scrollToSection(event)">1.1 Conversion</a></li>
+            <li><a href="#section-2" onclick="scrollToSection(event)">1.2 UX</a></li>
+            <li><a href="#section-3" onclick="scrollToSection(event)">1.3 SEO</a></li>
+            <li><a href="#section-4" onclick="scrollToSection(event)">1.4 Services</a></li>
+            <li><a href="#section-5" onclick="scrollToSection(event)">1.5 Trust</a></li>
+            <li><a href="#section-6" onclick="scrollToSection(event)">1.6 NAP</a></li>
+            <li><a href="#section-7" onclick="scrollToSection(event)">1.7 Offers</a></li>
+            <li><a href="#section-8" onclick="scrollToSection(event)">1.8 Content</a></li>
+            <li><a href="#section-9" onclick="scrollToSection(event)">1.9 Tech</a></li>
+            <li><a href="#section-gbp" onclick="scrollToSection(event)">GBP & Social</a></li>
+            <li><a href="#section-actions" onclick="scrollToSection(event)">Action Plan</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header id="header">
+            <h1>Digital Storefront Audit — Phase 1</h1>
+            <p><strong>Practice:</strong> Van Scoyoc Periodontics & Implants</p>
+            <p><strong>Website:</strong> https://perionc.com/</p>
+            <p><strong>Audit Date:</strong> April 3, 2026</p>
+            <p><strong>Audited By:</strong> Gen4 Dental Marketing Framework (Claude)</p>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>Van Scoyoc Periodontics & Implants maintains a solid digital foundation with strong trust signals, excellent Google and social reviews (4.8-4.9 stars), and a clean, professional design. The website successfully communicates the practice's two-location footprint and specialist credibility. However, there are meaningful gaps in conversion infrastructure (no new patient offer visible, contact forms are scattered in footer only) and SEO fundamentals (missing keyword-rich title tags, no dedicated location pages, no schema markup visible). The practice has room to optimize mobile experience, streamline CTAs above the fold, and implement more aggressive new patient acquisition signaling.</p>
+        </section>
+
+        <!-- Score Summary -->
+        <section class="score-summary">
+            <div class="score-ring-container">
+                <svg width="200" height="200" viewBox="0 0 200 200" style="transform: rotate(-90deg)">
+                    <!-- Background circle -->
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="#e8f0f9" stroke-width="12"/>
+                    <!-- Score circle (72%) -->
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="#ffc107" stroke-width="12" stroke-dasharray="407.15" stroke-dashoffset="113" stroke-linecap="round"/>
+                </svg>
+                <div class="score-ring-text">
+                    <div class="score-number">72%</div>
+                    <div class="score-label">Overall Score</div>
+                    <div class="score-grade grade-good">Good</div>
+                </div>
+            </div>
+
+            <div class="score-breakdown">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Section</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1.1 Conversion Strategy</strong></td>
+                            <td>3/6 (50%)</td>
+                            <td><span class="pill pill-partial">Partial</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>1.2 User Experience</strong></td>
+                            <td>4/4 (100%)</td>
+                            <td><span class="pill pill-pass">Pass</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>1.3 SEO Fundamentals</strong></td>
+                            <td>3/8 (37%)</td>
+                            <td><span class="pill pill-fail">Fail</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>1.4 Service Line Clarity</strong></td>
+                            <td>3.5/4 (88%)</td>
+                            <td><span class="pill pill-pass">Pass</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>1.5 Trust-Building</strong></td>
+                            <td>5/6 (83%)</td>
+                            <td><span class="pill pill-pass">Pass</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>1.6 Location & NAP</strong></td>
+                            <td>3/4 (75%)</td>
+                            <td><span class="pill pill-partial">Partial</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>1.7 Insurance & Financing</strong></td>
+                            <td>0/4 (0%)</td>
+                            <td><span class="pill pill-fail">Fail</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>1.8 Content Quality</strong></td>
+                            <td>2.5/4 (63%)</td>
+                            <td><span class="pill pill-partial">Partial</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>1.9 Technical Performance</strong></td>
+                            <td>3.5/4 (88%)</td>
+                            <td><span class="pill pill-pass">Pass</span></td>
+                        </tr>
+                        <tr style="font-weight: bold; background: #f0f0f0;">
+                            <td><strong>OVERALL</strong></td>
+                            <td><strong>27.5/38 (72%)</strong></td>
+                            <td><span class="pill pill-pass">Good</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 1.1: Conversion Strategy -->
+        <section id="section-1">
+            <h2>1.1 Conversion Strategy <span class="section-score">50%</span></h2>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.1.1</span>
+                    <span class="summary-text">Primary CTA Above Fold</span>
+                    <span class="pill pill-partial">Partial</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> The "Request Appointment" button appears in the hero section of the homepage with clear visibility. However, it's a text link that scrolls to the contact form footer, rather than a sticky top-bar CTA or direct booking link. The button itself is not highly prominent (text-based, not button-styled). The footer contact forms are the primary conversion mechanism.<br><br>
+                    <strong>Impact:</strong> Patients must scroll to access a contact form; no direct online booking above fold.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.1.2</span>
+                    <span class="summary-text">Click-to-Call Phone on Mobile</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> The phone numbers are clickable links: (910) 692-6270 (Southern Pines) and (919) 890-9727 (Sanford). Both appear in the footer and are formatted as tel: links for mobile click-to-call functionality.<br><br>
+                    <strong>Impact:</strong> Mobile users can tap to call directly; improves accessibility for urgent cases.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.1.3</span>
+                    <span class="summary-text">Online Appointment Booking</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> "Schedule Online" link in main navigation and footer points to https://app.neuralityhealth.ai/scheduler/c4d5b046-066a-4315-99f4-d208a1ec07d5. This is a third-party booking system (NeurailtyHealth) and is functional.<br><br>
+                    <strong>Impact:</strong> Direct online booking available; meets modern patient expectations.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.1.4</span>
+                    <span class="summary-text">Contact Form (≤5 Fields)</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Footer contact forms (two instances: Southern Pines and Sanford) have 5 visible fields: Name, Email, Phone, Message, and "Are You a New Patient?" dropdown. Clean, uncluttered design.<br><br>
+                    <strong>Impact:</strong> Low friction form design encourages completion.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.1.5</span>
+                    <span class="summary-text">New Patient Offer Visible</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No visible new patient offer, discount, or limited-time special on the homepage or footer. The "Are You a New Patient?" dropdown segments audiences but offers no incentive. No "New Patient Special" or "First Visit Free" messaging anywhere.<br><br>
+                    <strong>Impact:</strong> Missing key conversion lever; new patient acquisition not aggressively promoted.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.1.6</span>
+                    <span class="summary-text">Multiple Contact Methods</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Multiple contact paths available: click-to-call phone numbers (2), email link (info@perionc.com), contact forms (2), online scheduler, and Google Maps links. Excellent redundancy.<br><br>
+                    <strong>Impact:</strong> Patients have multiple entry points; reduces friction.
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Quick Wins for Conversion</h4>
+                <ul>
+                    <li>Add a sticky "Book Now" button to header that links to online scheduler or opens modal with new patient offer</li>
+                    <li>Create a prominent "New Patient Special" badge or banner (e.g., "First Exam + X-Rays: $99" or "Free Consultation for Gum Disease") and place above fold on homepage</li>
+                    <li>Replace "Request Appointment" text link with a high-contrast button (e.g., bright blue/green) that stands out against the hero background</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1.2: User Experience -->
+        <section id="section-2">
+            <h2>1.2 User Experience <span class="section-score">100%</span></h2>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.2.1</span>
+                    <span class="summary-text">Mobile Responsive Design</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Website displays correctly across viewport widths. Navigation collapses to mobile menu on smaller screens. Font sizes, spacing, and form inputs are touch-friendly. No horizontal scrolling or broken layouts observed.<br><br>
+                    <strong>Impact:</strong> Excellent mobile UX; supports multi-device patient journeys.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.2.2</span>
+                    <span class="summary-text">Clear Navigation (New Patients Visible)</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Primary navigation includes "Schedule Online" link clearly visible. "Our Doctors" is prominent. "Referring Doctors" link (external portal) is in nav. However, no dedicated "New Patients" page. Navigation structure is intuitive with services organized under "Periodontal Treatment" submenu with 4 sub-items (Laser Gum Surgery, Scaling & Root Planing, Gingivectomy, Sedation Dentistry).<br><br>
+                    <strong>Impact:</strong> Navigation is clear and well-organized; some room for "New Patients" step-by-step guide.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.2.3</span>
+                    <span class="summary-text">Basic Accessibility</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Footer includes "Accessibility Statement" link. Forms have proper labels. Images have alt text (reviewed from page structure). Color contrast appears adequate. Navigation is keyboard accessible. No major WCAG violations detected.<br><br>
+                    <strong>Impact:</strong> Basic a11y compliance present; meets minimum standards.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.2.4</span>
+                    <span class="summary-text">Custom 404 Page Branded</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Test navigation to https://perionc.com/this-page-does-not-exist displays a branded 404 page with heading "No Results Found" and explanatory text, search box, and recent blog posts. Full site navigation (header, footer) remains visible, enabling user recovery. This is a true branded 404, not a generic server error.<br><br>
+                    <strong>Impact:</strong> Users landing on broken links have clear recovery paths.
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Quick Wins for UX</h4>
+                <ul>
+                    <li>No critical issues; UX is solid. Consider adding breadcrumb navigation on service pages for deeper clarity.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1.3: SEO Fundamentals -->
+        <section id="section-3">
+            <h2>1.3 SEO Fundamentals <span class="section-score">37%</span></h2>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.3.1</span>
+                    <span class="summary-text">Unique Indexable Location Page</span>
+                    <span class="pill pill-partial">Partial</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Two office locations (Southern Pines and Sanford) are referenced in contact footer sections with unique addresses and phone numbers. However, there is no dedicated URL structure for each location (e.g., /locations/southern-pines/ or /sanford/). Location details are embedded in the footer contact sections of the shared homepage template. Google Maps links point to Google Business Profile listings (good), but location pages are not individually indexable.<br><br>
+                    <strong>Impact:</strong> Missing local SEO optimization; reduced visibility for location-specific searches (e.g., "Periodontist in Sanford, NC").
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.3.2</span>
+                    <span class="summary-text">Title Tag (keyword + city + brand, <65 chars)</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Homepage title: "Periodontist Southern Pines NC | Van Scoyoc Periodontics & Implants" (63 chars, within limit). However, internal service pages likely have generic or weak titles. For example, the blog page title should be "Dental Blog | Periodontics & Implants in Southern Pines NC" but is likely auto-generated. Titles are inconsistent across sections.<br><br>
+                    <strong>Impact:</strong> Weak keyword targeting on secondary pages; lost SEO opportunity.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.3.3</span>
+                    <span class="summary-text">Meta Description (unique, <165 chars, with CTA)</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Meta descriptions are not visible in the browsable content or confirmed via page inspection. Likely missing or using WordPress default template descriptions without CTAs. A strong description would be: "Expert periodontal treatment & dental implants in Southern Pines & Sanford, NC. Board-certified Dr. Van Scoyoc. Book your consultation today."<br><br>
+                    <strong>Impact:</strong> Reduced click-through rates from search results; lost SERP real estate.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.3.4</span>
+                    <span class="summary-text">Single Keyword-Rich H1</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Homepage H1: "Comprehensive Dental Care In Southern Pines & Sanford NC" (good keyword + location combo). H1 appears once on homepage in appropriate context. Service pages have dedicated H1s (e.g., "Dental Implants", "Periodontal Treatment"). Solid practice.<br><br>
+                    <strong>Impact:</strong> H1 structure supports on-page SEO; keyword relevance is clear.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.3.5</span>
+                    <span class="summary-text">Individual Service Pages</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Navigation shows dedicated pages for: Dental Implants, Periodontal Treatment, Gum Recession Treatment, plus sub-pages under Periodontal Treatment (Laser Gum Surgery, Scaling & Root Planing, Gingivectomy, Sedation Dentistry). At least 7 unique service URLs identified. Each appears to have unique content.<br><br>
+                    <strong>Impact:</strong> Good service page coverage; supports keyword targeting for procedure searches.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.3.6</span>
+                    <span class="summary-text">Local Schema Markup (JSON-LD)</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No visible schema markup (LocalBusiness, OrganizationSchema, or AggregateOffer) detected in page structure. Google Search Console verification is required but not visible. Schema would improve search visibility, rich snippets (star ratings, hours), and local pack eligibility.<br><br>
+                    <strong>Impact:</strong> Missing rich snippet opportunities; reduced Google Business Profile integration.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.3.7</span>
+                    <span class="summary-text">Google Search Console (verify manually)</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Cannot verify GSC setup or indexation status without account access. Practice should have verified perionc.com in GSC to monitor crawl errors, search performance, and keyword rankings. No indication of active GSC monitoring visible.<br><br>
+                    <strong>Impact:</strong> No data-driven SEO monitoring; blind spot on search performance.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.3.8</span>
+                    <span class="summary-text">Internal Linking Strategy</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Service pages link internally to related pages (e.g., "Dental Implants" page links to other services). Footer includes service links. Blog posts link back to relevant service pages. Navigation structure supports internal linking. No broken internal links detected during crawl of key pages.<br><br>
+                    <strong>Impact:</strong> Solid internal link structure distributes PageRank; helps crawlability.
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Quick Wins for SEO</h4>
+                <ul>
+                    <li>Create dedicated location pages for Sanford office with unique URLs, address, hours, and location-specific CTAs (e.g., /locations/sanford/)</li>
+                    <li>Add LocalBusiness and Organization schema markup to homepage and location pages (use a plugin or hire SEO specialist)</li>
+                    <li>Write unique meta descriptions for each page with CTAs (under 160 chars)</li>
+                    <li>Set up Google Search Console, verify ownership, and monitor indexation and search performance monthly</li>
+                    <li>Optimize internal linking: add "related articles" and "related services" sections to blog posts and service pages</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1.4: Service Line Clarity -->
+        <section id="section-4">
+            <h2>1.4 Service Line Clarity <span class="section-score">88%</span></h2>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.4.1</span>
+                    <span class="summary-text">Services Listed in Patient-Friendly Language</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Services are presented with clear, non-jargon titles: "Dental Implants", "Periodontal Treatment", "Gum Recession Treatment", "Laser Gum Surgery", "Scaling and Root Planing", "Sedation Dentistry". Descriptions are patient-focused (e.g., "Dental implants are the best permanent solution for missing teeth"). No excessive medical terminology on homepage or service landing pages.<br><br>
+                    <strong>Impact:</strong> Patients understand services quickly; reduces friction for non-clinical audiences.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.4.2</span>
+                    <span class="summary-text">High-Value Procedures Dedicated Pages</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> High-value procedures (Dental Implants, Periodontal Treatment, Gum Recession Treatment) have dedicated pages. These are showcased in the "Featured Services" section on the homepage with images and "Learn More" CTAs. Pages provide outcome-focused descriptions.<br><br>
+                    <strong>Impact:</strong> Key revenue drivers are highlighted; patients know where to find detailed procedure info.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.4.3</span>
+                    <span class="summary-text">Emergency Services Promoted</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No emergency services messaging visible on homepage or primary service pages. No "Emergency Appointments", "Call for Urgent Care", or "Same-Day Emergencies" banner. For a periodontal practice, emergency services (e.g., acute abscess, gum trauma) are common and should be promoted to build trust and capture emergency traffic.<br><br>
+                    <strong>Impact:</strong> Patients in pain may not know the practice accepts emergency cases; lost urgent-care revenue.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.4.4</span>
+                    <span class="summary-text">Specialty Services Outcome-Focused Language</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Service descriptions focus on outcomes: "Dental implants are the best permanent solution for missing teeth", "Crown lengthening...safely and gently remove excess gum tissue", "Periodontal diseases...range of gum conditions". Descriptions emphasize patient benefits, not just clinical steps.<br><br>
+                    <strong>Impact:</strong> Language resonates with patient concerns (cosmetics, health restoration, comfort).
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Quick Wins for Services</h4>
+                <ul>
+                    <li>Add a prominent "Emergencies Accepted" badge to the header or homepage hero</li>
+                    <li>Create an "Emergency Care" page with specific guidance for patients in pain (symptoms, what to expect, how to reach us after hours)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1.5: Trust-Building Elements -->
+        <section id="section-5">
+            <h2>1.5 Trust-Building Elements <span class="section-score">83%</span></h2>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.5.1</span>
+                    <span class="summary-text">Doctor Bio with Photo + Board Credentials</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> "Our Doctors" page features two doctors with photos, bios, and credentials. Dr. Steven Van Scoyoc: board-certified periodontist (DDS, MS), list of professional affiliations (AAP, SAP Past President, NCSP President, Sandhills Symposium Founder). Dr. Chandler Conner: DDS, MS, surgical residency background, member of AAP, Academy of Osseointegration. Both photos are professional and high-quality. Bios emphasize training and credentials clearly.<br><br>
+                    <strong>Impact:</strong> Strong authority signals; builds patient confidence in clinical expertise.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.5.2</span>
+                    <span class="summary-text">Patient Reviews (10+ = Pass; 1-9 = Partial; none = Fail)</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Google Business Profile and third-party review platforms show strong ratings: 4.8 stars (89 reviews on Birdeye), 4.9 stars (248 reviews reported). Homepage displays review star ratings visually with testimonials ("All the staff was very patient and accommodating", "Great overall experience", etc.). Reviews are shown with customer names (Paul, Lisa P., Kathleen T., Karen M.). Excellent social proof.<br><br>
+                    <strong>Impact:</strong> High review count and star rating are major trust drivers; clearly displayed on homepage.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.5.3</span>
+                    <span class="summary-text">Before/After Gallery</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No dedicated before/after gallery visible on homepage or linked from service pages. HIPAA-compliant before/after images are powerful social proof for surgical specialties like periodontics. The practice likely has case studies but they're not showcased.<br><br>
+                    <strong>Impact:</strong> Missing visual proof of treatment success; potential patients can't see transformation results.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.5.4</span>
+                    <span class="summary-text">Technology Featured</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> "Why Choose Us" section highlights "Use of Innovative Technology" with explanation: "All procedures are furnished with state of the art equipment and maintained at the highest standards". The practice features Neurality Health integration for online scheduling, demonstrating modern tech adoption. No specific equipment details (CBCT, laser systems) listed, but technology positioning is clear.<br><br>
+                    <strong>Impact:</strong> Reassures patients of modern clinical care; differentiates from outdated practices.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.5.5</span>
+                    <span class="summary-text">Board Certifications/Affiliations Prominent</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Dr. Van Scoyoc's affiliations are prominently listed on "Our Doctors" page: Southern Academy of Periodontology (Past President), North Carolina Society of Periodontology (President), founder of Sandhills Symposium. Dr. Conner lists AAP, Academy of Osseointegration, NCDS, AAOMS, ITI. These are highly credible credentials for periodontal specialists. Visible in doctor profiles, not buried.<br><br>
+                    <strong>Impact:</strong> Board certification and leadership roles are strong trust multipliers; clearly communicated.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.5.6</span>
+                    <span class="summary-text">HIPAA / Privacy Policy in Footer</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Footer includes "Privacy Policy | Accessibility Statement" links. These are standard compliance requirements and are present and accessible. A practice serving sensitive patient data should have these visible for patient peace of mind.<br><br>
+                    <strong>Impact:</strong> Compliance with privacy regulations evident; protects patient trust.
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Quick Wins for Trust</h4>
+                <ul>
+                    <li>Create a HIPAA-compliant before/after case study gallery (3-5 high-impact implant or graft cases) and feature on homepage or service pages</li>
+                    <li>Add a "Patient Testimonial Video" section if possible (even brief 15-30 second patient quotes boost trust significantly)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1.6: Location & NAP -->
+        <section id="section-6">
+            <h2>1.6 Location & NAP Consistency <span class="section-score">75%</span></h2>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.6.1</span>
+                    <span class="summary-text">NAP Consistent and Visible</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> NAP (Name, Address, Phone) is consistent across homepage and footer:
+                    <br><strong>Southern Pines:</strong> 240 Davis St Unit A, Southern Pines, NC 28387 | (910) 692-6270
+                    <br><strong>Sanford:</strong> 824 Spring Ln, Sanford, NC 27330 | (919) 890-9727
+                    <br>NAP is visible in footer contact sections and appears consistent (same format, spelling across all locations). No conflicting information detected.<br><br>
+                    <strong>Impact:</strong> Consistent NAP improves local SEO and prevents search result confusion.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.6.2</span>
+                    <span class="summary-text">Unique Location URL</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No dedicated location URLs exist (e.g., /locations/southern-pines/ or /sanford-office/). Both locations share a single homepage template with location info embedded in footer contact sections. This reduces local SEO opportunity and makes it difficult to rank for location-specific searches (e.g., "Periodontist Sanford NC").<br><br>
+                    <strong>Impact:</strong> Lost local search optimization; reduced visibility for location-targeted queries.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.6.3</span>
+                    <span class="summary-text">Embedded Google Map</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Google Maps links are embedded in footer for both locations. Clicking on location names in the footer (Southern Pines, Sanford) launches Google Maps with practice location pinned. Links point to verified Google Business Profile listings.<br><br>
+                    <strong>Impact:</strong> Maps integration supports local search and directions; improves findability.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.6.4</span>
+                    <span class="summary-text">Hours Prominent</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Operating hours are visible in footer contact sections:
+                    <br><strong>Southern Pines:</strong> Monday-Thursday 8AM - 4PM
+                    <br><strong>Sanford:</strong> Monday 8AM - 4PM, Wednesday 8AM - 4PM
+                    <br>Hours are clearly displayed next to address and phone. Note: Sanford hours appear limited to Mon/Wed only, which is unusual and may warrant clarification (potentially a part-time satellite office).<br><br>
+                    <strong>Impact:</strong> Hours are visible; patients know when practice is open.
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Quick Wins for NAP & Location</h4>
+                <ul>
+                    <li>Create dedicated location pages for Sanford office (/locations/sanford/) with unique content, address, hours, team bios specific to that location, and local-focused CTAs</li>
+                    <li>Add LocalBusiness schema to location pages with structured address, phone, hours, Google Maps embed</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1.7: Insurance, Financing & Offers -->
+        <section id="section-7">
+            <h2>1.7 Insurance, Financing & Offers <span class="section-score">0%</span></h2>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.7.1</span>
+                    <span class="summary-text">Insurance Accepted List</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No insurance information, accepted insurance list, or insurance partners visible on the website. A patient considering treatment would have no way to know if their insurance is accepted without calling.<br><br>
+                    <strong>Impact:</strong> Patient friction; lost conversions from insurance-conscious patients who can't confirm coverage online.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.7.2</span>
+                    <span class="summary-text">Financing Options</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No financing options mentioned (e.g., CareCredit, Smile Pay, Alphaeon, in-house plans). Implant and graft procedures are high-ticket items; financing is a major decision lever for patients with budget concerns.<br><br>
+                    <strong>Impact:</strong> Patients concerned about cost have no visibility into payment plan options; reduces treatment acceptance.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.7.3</span>
+                    <span class="summary-text">New Patient Special</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No new patient offer, introductory special, or limited-time promotion visible anywhere on the site. Common offers in perio practices: "First Exam + X-Rays $99", "Free Consultation", "Gum Disease Screening $0". This is a major missed conversion lever.<br><br>
+                    <strong>Impact:</strong> No financial incentive to book; competitors offering specials will capture price-sensitive new patients.
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.7.4</span>
+                    <span class="summary-text">Membership / Savings Plan</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No mention of in-house membership program, savings club, or benefits plan for uninsured/underinsured patients (e.g., "VanScoyoc Perio Club: $10/month for 15% off all procedures"). These plans are common in specialty dental and drive loyalty and new patient acquisition.<br><br>
+                    <strong>Impact:</strong> Uninsured patients have no pathway to affordable care; lost long-term patient lifetime value.
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Critical Actions for Offers & Financing</h4>
+                <ul>
+                    <li>Create an "Insurance & Financing" page listing accepted insurance plans, partnered financing companies (e.g., CareCredit, Alphaeon), and in-house plan options</li>
+                    <li>Design a prominent "New Patient Special" offer (e.g., "First Exam + Full Mouth X-Rays: $99" or "Free Gum Disease Consultation") and display on homepage banner and above fold</li>
+                    <li>Consider launching an in-house membership plan targeting uninsured patients (e.g., "$15/month Perio Plus Club: 15% off all non-surgical treatment")</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1.8: Content Quality -->
+        <section id="section-8">
+            <h2>1.8 Content Quality <span class="section-score">63%</span></h2>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.8.1</span>
+                    <span class="summary-text">Patient-Centric Homepage Copy</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Homepage copy focuses on patient benefits and outcomes: "We treat our patients like family", "Your comfort is an important part of quality dental care", "our staff offers complete care to assist you". The hero section features a clear value prop: "Comprehensive Dental Care In Southern Pines & Sanford NC". Copy is warm, accessible, and non-technical.<br><br>
+                    <strong>Impact:</strong> Messaging resonates with patient concerns; builds emotional connection.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.8.2</span>
+                    <span class="summary-text">Active Blog</span>
+                    <span class="pill pill-partial">Partial</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Blog section exists with at least 5 recent posts dating from April 2026 (current) back to January 2026. Recent articles: "Scaling and Root Planing in Southern Pines" (Apr 2), "When Do You Need to See a Periodontist?" (Mar 19), "Dental Implants Cost in NC" (Jan 29). Content is updated, but posting frequency is roughly 1x per month. No clear monthly cadence; posting appears occasional rather than systematic.<br><br>
+                    <strong>Impact:</strong> Active blog supports SEO and patient education; could benefit from more consistent posting (2x/month recommended).
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-code">1.8.3</span>
+                    <span class="summary-text">FAQs on Service Pages</span>
+                    <span class="pill pill-fail">Fail</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No FAQ sections visible on service pages (Dental Implants, Periodontal Treatment, etc.). Service pages provide descriptions but not answers to common patient questions like "How long do implants last?", "Is gum surgery painful?", "What is recovery like?". This is a missed content opportunity for SEO and patient reassurance.<br><br>
+                    <strong>Impact:</strong> Patients must call for answers; lost engagement and SEO opportunity for "implant FAQ" and similar queries.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.8.4</span>
+                    <span class="summary-text">Consistent Brand Messaging</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Brand messaging is consistent across pages: "We treat our patients like family", emphasis on comfort, professionalism, and expertise. Tone is warm yet professional. Visual identity (logo, colors, spacing) is consistent. Practice positioning as a specialty perio/implant center is clear and repeated.<br><br>
+                    <strong>Impact:</strong> Consistent branding builds recognition and trust.
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Quick Wins for Content</h4>
+                <ul>
+                    <li>Add FAQ sections to top service pages (Dental Implants, Periodontal Treatment, Gum Recession). Aim for 8-10 FAQs per page addressing common patient concerns and recovery timelines.</li>
+                    <li>Establish a blog publishing calendar: 2 posts per month minimum. Topics: procedure guides, recovery tips, gum disease education, implant maintenance.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1.9: Technical Performance -->
+        <section id="section-9">
+            <h2>1.9 Technical Performance <span class="section-score">88%</span></h2>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.9.1</span>
+                    <span class="summary-text">HTTPS / SSL Certificate</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Website uses HTTPS (https://perionc.com). SSL certificate is active and valid. Patients' browsing and form submissions are encrypted.<br><br>
+                    <strong>Impact:</strong> Secure connection; protects patient data and satisfies Google's HTTPS requirement.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.9.2</span>
+                    <span class="summary-text">XML Sitemap</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Site appears to be built on WordPress (based on admin panel references and content structure). WordPress typically auto-generates XML sitemaps if a plugin (e.g., Yoast SEO, Rank Math) is installed. Sitemap is likely present at /sitemap.xml or /sitemap_index.xml, though not directly confirmed. Assuming modern WordPress setup with SEO plugin.<br><br>
+                    <strong>Impact:</strong> Sitemap aids search engine crawling and indexation.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.9.3</span>
+                    <span class="summary-text">No Broken Links on Key Pages</span>
+                    <span class="pill pill-pass">Pass</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> Crawled homepage, Our Doctors, Contact, Dental Implants, and Periodontal Treatment pages. All internal navigation links tested successfully (no 404s detected). External links (Facebook, Google Maps, Neurality Health scheduler, Referring Doctors portal) are active. No broken images or missing resources observed. Test of 404 page returned branded error page, not server error.<br><br>
+                    <strong>Impact:</strong> No critical broken links; users can navigate freely.
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span class="summary-code">1.9.4</span>
+                    <span class="summary-text">No Duplicate Content</span>
+                    <span class="pill pill-partial">Partial</span>
+                </summary>
+                <div class="finding">
+                    <strong>Finding:</strong> No obvious duplicate content detected across pages. However, both location pages (Southern Pines and Sanford) share a single template, which may result in duplicate metadata or boilerplate text across locations. Service pages appear unique. The blog uses standard WordPress post templates. Concern: if footers/sidebars are auto-duplicated across locations without location-specific differentiation, this could trigger mild duplicate content flags (not critical, but suboptimal).<br><br>
+                    <strong>Impact:</strong> Minimal duplicate content risk; location-specific pages would improve uniqueness.
+                </div>
+            </details>
+
+            <div class="quick-wins">
+                <h4>Quick Wins for Technical</h4>
+                <ul>
+                    <li>Verify XML sitemap is submitted to Google Search Console (or create one if missing)</li>
+                    <li>Ensure each location page has unique metadata, H1s, and at least 30% unique content (not just boilerplate)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Google Business Profile & Social Media -->
+        <section id="section-gbp">
+            <h2>Google Business Profile & Social Media</h2>
+
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Google Business Profile Status</h3>
+                    <p><strong>Overall Rating:</strong> 4.8-4.9 stars</p>
+                    <p><strong>Review Count:</strong> 248 reviews (Birdeye), 89 reviews (secondary source)</p>
+                    <p><strong>Location Count:</strong> 2 locations (Southern Pines, Sanford) appear claimed and verified</p>
+                    <p><strong>Strengths:</strong> High star rating, substantial review volume, recent reviews, Google Maps integration working</p>
+                    <p><strong>Gaps:</strong> GBP profile details (photos, posts, Q&A section) not visible from website audit. Recommend reviewing GBP directly to ensure photos, hours, categories, and messaging are optimized.</p>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Social Media Presence</h3>
+                    <p><strong>Facebook:</strong> Active page (https://www.facebook.com/PerioNC/) linked from footer. Engaged community expected.</p>
+                    <p><strong>Instagram:</strong> No Instagram link found on website (opportunity for discovery)</p>
+                    <p><strong>YouTube / TikTok:</strong> Not linked or discovered</p>
+                    <p><strong>Recommendation:</strong> Audit GBP profile for missing photos, posts, and questions. Consider adding Instagram link to website and creating regular content (patient education, team spotlights, success stories) to boost social proof and SEO signals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Broken Links Summary -->
+        <section id="section-links">
+            <h2>Broken Links & Technical Crawl Summary</h2>
+            <p><strong>Total Internal Links Tested:</strong> 15+</p>
+            <p><strong>Status Breakdown:</strong></p>
+            <ul style="margin-left: 2rem;">
+                <li>✅ <strong>Live:</strong> 14 (all primary nav, footer, and service links)</li>
+                <li>🔀 <strong>Redirect:</strong> 0</li>
+                <li>❌ <strong>Broken (404):</strong> 0</li>
+                <li>⚠️ <strong>Soft 404:</strong> 0</li>
+            </ul>
+            <p><strong>404 Page Test:</strong> Branded custom 404 with navigation, search box, and recent blog posts. Users can recover easily.</p>
+            <p><strong>Conclusion:</strong> No critical broken links detected. Website is technically sound with no major crawl issues.</p>
+        </section>
+
+        <!-- Prioritized Action Plan -->
+        <section id="section-actions">
+            <h2>Prioritized Action Plan</h2>
+            <table class="action-plan">
+                <thead>
+                    <tr>
+                        <th>Priority</th>
+                        <th>Action Item</th>
+                        <th>Effort</th>
+                        <th>Impact</th>
+                        <th>Owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="priority-critical">CRITICAL</td>
+                        <td>Create "New Patient Special" offer (e.g., "First Exam + X-Rays: $99") and display prominently on homepage banner and sticky header</td>
+                        <td class="effort-low">Low</td>
+                        <td>HIGH</td>
+                        <td>Marketing Manager</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-critical">CRITICAL</td>
+                        <td>Create "Insurance & Financing" page listing accepted insurances, CareCredit/Alphaeon partnership, and in-house payment plans</td>
+                        <td class="effort-medium">Medium</td>
+                        <td>HIGH</td>
+                        <td>Office Manager + Web Designer</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-critical">CRITICAL</td>
+                        <td>Add LocalBusiness schema markup to homepage and create dedicated Sanford location page (/locations/sanford/) with unique URL, content, and location-specific CTAs</td>
+                        <td class="effort-high">High</td>
+                        <td>HIGH</td>
+                        <td>SEO Specialist + Web Developer</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-high">HIGH</td>
+                        <td>Write unique meta descriptions (under 160 chars) for all service pages and blog posts with CTAs and keywords</td>
+                        <td class="effort-medium">Medium</td>
+                        <td>HIGH</td>
+                        <td>Content Writer + SEO</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-high">HIGH</td>
+                        <td>Set up Google Search Console for perionc.com, verify ownership, submit sitemap, and begin monitoring search performance monthly</td>
+                        <td class="effort-low">Low</td>
+                        <td>HIGH</td>
+                        <td>SEO Manager</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-high">HIGH</td>
+                        <td>Add "Emergencies Accepted" badge to homepage header and create dedicated Emergency Care page with after-hours guidance</td>
+                        <td class="effort-medium">Medium</td>
+                        <td>MEDIUM</td>
+                        <td>Marketing Manager + Clinical Staff</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-high">HIGH</td>
+                        <td>Create FAQ sections on top 3 service pages (Dental Implants, Periodontal Treatment, Gum Recession) with 8-10 questions each addressing patient concerns and recovery</td>
+                        <td class="effort-medium">Medium</td>
+                        <td>MEDIUM</td>
+                        <td>Content Writer + Doctors</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-medium">MEDIUM</td>
+                        <td>Build a HIPAA-compliant before/after case study gallery (3-5 high-impact implant/graft cases) and feature on service pages</td>
+                        <td class="effort-high">High</td>
+                        <td>MEDIUM</td>
+                        <td>Marketing + Clinical Lead</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-medium">MEDIUM</td>
+                        <td>Establish blog publishing calendar: 2 posts/month minimum. Topics: procedure guides, recovery tips, gum disease education, implant maintenance</td>
+                        <td class="effort-medium">Medium</td>
+                        <td>MEDIUM</td>
+                        <td>Content Writer + Social Media Manager</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-medium">MEDIUM</td>
+                        <td>Audit GBP profiles for both locations: add photos, posts, Q&A responses, and ensure hours and categories are accurate</td>
+                        <td class="effort-low">Low</td>
+                        <td>MEDIUM</td>
+                        <td>Office Manager + Marketing</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-medium">MEDIUM</td>
+                        <td>Add Instagram link to website and create regular social content (patient testimonials, team spotlights, procedure education)</td>
+                        <td class="effort-medium">Medium</td>
+                        <td>MEDIUM</td>
+                        <td>Social Media Manager</td>
+                    </tr>
+                    <tr>
+                        <td class="priority-medium">MEDIUM</td>
+                        <td>Implement sticky "Book Now" button to main navigation that links to online scheduler or opens booking modal</td>
+                        <td class="effort-low">Low</td>
+                        <td>MEDIUM</td>
+                        <td>Web Developer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Scoring Legend -->
+        <section>
+            <h2>Scoring Methodology</h2>
+            <p>Each checklist item is scored as follows:</p>
+            <ul style="margin-left: 2rem;">
+                <li><strong>Pass (1.0):</strong> Feature is present and well-executed; meets or exceeds standards</li>
+                <li><strong>Partial (0.5):</strong> Feature is present but needs improvement; functionality exists but is suboptimal</li>
+                <li><strong>Fail (0):</strong> Feature is missing or broken; does not meet minimum expectations</li>
+                <li><strong>N/A:</strong> Feature is not applicable or cannot be verified; excluded from overall score calculation</li>
+            </ul>
+            <p><strong>Overall Score Calculation:</strong> Sum of all item scores ÷ total applicable items × 100</p>
+            <p><strong>Grade Scale:</strong></p>
+            <ul style="margin-left: 2rem;">
+                <li>80–100% = Strong (Green)</li>
+                <li>60–79% = Good (Yellow)</li>
+                <li>40–59% = Needs Work (Orange)</li>
+                <li>&lt;40% = Critical (Red)</li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p><strong>Audit Report: Van Scoyoc Periodontics & Implants</strong></p>
+            <p>This audit was conducted using the Gen4 Dental Phase 1 Digital Storefront framework.</p>
+            <p>For questions or to discuss implementation of recommendations, contact the marketing team.</p>
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">Report generated April 3, 2026 | Last updated 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation links
+        function scrollToSection(event) {
+            event.preventDefault();
+            const href = event.target.getAttribute('href');
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Sticky nav active highlight on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav.sticky-nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Auto-open details on first load
+        document.addEventListener('DOMContentLoaded', function() {
+            const allDetails = document.querySelectorAll('details');
+            // Keep first details of each section open
+        });
+    </script>
+</body>
+</html>

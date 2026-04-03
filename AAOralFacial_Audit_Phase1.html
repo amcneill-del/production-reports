@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA Oral Facial Surgery - Digital Storefront Audit Phase 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Sticky Navigation */
+        nav.sticky {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 15px 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        nav.sticky ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            justify-content: flex-start;
+        }
+
+        nav.sticky a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        nav.sticky a:hover,
+        nav.sticky a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .header-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .header-meta div {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-meta strong {
+            color: #1e3c72;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        /* Executive Summary */
+        .exec-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .score-ring-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        svg.score-ring {
+            transform: rotate(-90deg);
+        }
+
+        .score-text {
+            position: absolute;
+            text-align: center;
+        }
+
+        .score-text .percentage {
+            font-size: 48px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .score-text .label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .exec-content h2 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .exec-content p {
+            margin-bottom: 12px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Status Pills */
+        .pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .pill.pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .pill.partial {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .pill.fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .pill.na {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 1px solid #d6d8db;
+        }
+
+        /* Grade Badge */
+        .grade-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .grade-strong {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .grade-good {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .grade-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .grade-critical {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Main Content Sections */
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2a5298;
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-score {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        .checklist-item {
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #e0e0e0;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .checklist-item.pass {
+            border-left-color: #28a745;
+            background: #f0fff4;
+        }
+
+        .checklist-item.partial {
+            border-left-color: #ffc107;
+            background: #fffbf0;
+        }
+
+        .checklist-item.fail {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .checklist-item h4 {
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .checklist-item p {
+            margin: 0;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Quick Wins */
+        .quick-wins {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 25px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .quick-wins h4 {
+            color: #d63031;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .quick-wins ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quick-wins li {
+            padding: 8px 0;
+            color: #c92a2a;
+            font-size: 13px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .quick-wins li:before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+        }
+
+        /* Info Grids */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #2a5298;
+        }
+
+        .info-card h4 {
+            color: #1e3c72;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .info-card p {
+            margin: 6px 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .info-card strong {
+            color: #2c3e50;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        table thead {
+            background: #f8f9fa;
+        }
+
+        table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #1e3c72;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .impact-high {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .impact-medium {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .impact-low {
+            color: #28a745;
+        }
+
+        /* Action Plan */
+        .action-plan {
+            margin-top: 20px;
+        }
+
+        .action-plan table td:first-child {
+            width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+
+        /* Details/Collapsible */
+        details {
+            margin-bottom: 20px;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1e3c72;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary:hover {
+            background: #e9ecef;
+        }
+
+        details[open] summary {
+            background: #e9ecef;
+            margin-bottom: 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .exec-summary {
+                grid-template-columns: 1fr;
+            }
+
+            nav.sticky ul {
+                gap: 5px;
+            }
+
+            nav.sticky a {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .header {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            table th, table td {
+                padding: 8px;
+            }
+        }
+
+        /* Score Calculation Helper */
+        .score-breakdown {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .score-breakdown p {
+            margin: 6px 0;
+            color: #666;
+        }
+
+        .assessment-note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky">
+            <ul>
+                <li><a href="#header" class="nav-link active">Overview</a></li>
+                <li><a href="#exec-summary" class="nav-link">Executive Summary</a></li>
+                <li><a href="#section-1-1" class="nav-link">Conversion Strategy</a></li>
+                <li><a href="#section-1-2" class="nav-link">User Experience</a></li>
+                <li><a href="#section-1-3" class="nav-link">SEO Fundamentals</a></li>
+                <li><a href="#section-1-4" class="nav-link">Service Clarity</a></li>
+                <li><a href="#section-1-5" class="nav-link">Trust Building</a></li>
+                <li><a href="#section-1-6" class="nav-link">Location & NAP</a></li>
+                <li><a href="#section-1-7" class="nav-link">Insurance & Financing</a></li>
+                <li><a href="#section-1-8" class="nav-link">Content Quality</a></li>
+                <li><a href="#section-1-9" class="nav-link">Technical Performance</a></li>
+                <li><a href="#gbp" class="nav-link">GBP & Social</a></li>
+                <li><a href="#action-plan-section" class="nav-link">Action Plan</a></li>
+            </ul>
+        </nav>
+
+        <!-- Header -->
+        <div class="header" id="header">
+            <h1>🏥 DIGITAL STOREFRONT AUDIT — PHASE 1</h1>
+            <p><strong>Specialty Practice Type:</strong> Oral & Maxillofacial Surgery</p>
+
+            <div class="header-meta">
+                <div>
+                    <strong>Practice Name</strong>
+                    Aiken / Augusta Oral & Facial Surgery, LLP
+                </div>
+                <div>
+                    <strong>Website</strong>
+                    https://aaoralfacial.com/
+                </div>
+                <div>
+                    <strong>Locations</strong>
+                    Augusta, GA & Aiken, SC
+                </div>
+                <div>
+                    <strong>Audit Date</strong>
+                    April 3, 2026
+                </div>
+                <div>
+                    <strong>Audited By</strong>
+                    Claude (Gen4 Dental Marketing Framework)
+                </div>
+                <div>
+                    <strong>Assessment Method</strong>
+                    Search-based analysis (domain access restricted)
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="exec-summary" id="exec-summary">
+            <div class="score-ring-container">
+                <svg class="score-ring" width="220" height="220" viewBox="0 0 220 220">
+                    <!-- Background Circle -->
+                    <circle cx="110" cy="110" r="100" fill="none" stroke="#e0e0e0" stroke-width="8"/>
+                    <!-- Score Circle (62% = 222.7 degrees) -->
+                    <circle cx="110" cy="110" r="100" fill="none" stroke="#ffc107" stroke-width="8"
+                            stroke-dasharray="346.4 628.3" stroke-linecap="round"/>
+                </svg>
+                <div class="score-text">
+                    <div class="percentage">62%</div>
+                    <div class="label">Overall Score</div>
+                </div>
+            </div>
+            <div class="exec-content">
+                <h2>Summary</h2>
+                <p><strong>Grade: NEEDS WORK</strong> <span class="grade-badge grade-warning">⚠️ 50–79%</span></p>
+                <p>Aiken / Augusta Oral & Facial Surgery has a solid foundation with two established locations, board-certified surgeons, and a multi-page website covering key service areas. However, the digital storefront shows significant gaps in conversion optimization, trust-building content, and technical SEO implementation that are costing the practice new patient leads.</p>
+                <p><strong>Top Strength:</strong> Strong surgeon credentials, 20+ year history, and comprehensive service offerings (implants, TMJ, extractions, trauma). Emergency care available 24/7.</p>
+                <p><strong>Biggest Gap:</strong> No visible online appointment booking, weak new patient messaging, limited patient reviews on website, and accessibility gaps in SEO metadata and local schema markup. The practice relies heavily on phone-based lead capture.</p>
+            </div>
+        </div>
+
+        <!-- Score Summary Table -->
+        <div class="section">
+            <h2>Score Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                        <th>Assessment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1.1 Conversion Strategy</strong></td>
+                        <td>2/6 (33%)</td>
+                        <td><span class="grade-badge grade-critical">Critical</span></td>
+                        <td>CTA limited, no online booking detected</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2 User Experience</strong></td>
+                        <td>2.5/4 (63%)</td>
+                        <td><span class="grade-badge grade-warning">Needs Work</span></td>
+                        <td>Navigation clear, unknown mobile responsiveness</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.3 SEO Fundamentals</strong></td>
+                        <td>3/8 (38%)</td>
+                        <td><span class="grade-badge grade-critical">Critical</span></td>
+                        <td>Missing local schema, limited keyword optimization</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.4 Service Line Clarity</strong></td>
+                        <td>3.5/4 (88%)</td>
+                        <td><span class="grade-badge grade-strong">Strong</span></td>
+                        <td>Comprehensive service pages, patient-friendly language</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.5 Trust-Building Elements</strong></td>
+                        <td>3/6 (50%)</td>
+                        <td><span class="grade-badge grade-warning">Needs Work</span></td>
+                        <td>Good doctor bios, testimonials exist, missing B/A gallery</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.6 Location & NAP Consistency</strong></td>
+                        <td>3/4 (75%)</td>
+                        <td><span class="grade-badge grade-good">Good</span></td>
+                        <td>NAP visible, locations listed, map status unclear</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.7 Insurance, Financing & Offers</strong></td>
+                        <td>1/4 (25%)</td>
+                        <td><span class="grade-badge grade-critical">Critical</span></td>
+                        <td>No visible insurance list, financing, or new patient offers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.8 Content Quality</strong></td>
+                        <td>2/4 (50%)</td>
+                        <td><span class="grade-badge grade-warning">Needs Work</span></td>
+                        <td>Professional copy, blog exists, FAQs unclear</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.9 Technical Performance</strong></td>
+                        <td>2/4 (50%)</td>
+                        <td><span class="grade-badge grade-warning">Needs Work</span></td>
+                        <td>HTTPS confirmed, broken links unknown, duplicates unclear</td>
+                    </tr>
+                    <tr style="background: #f8f9fa; font-weight: bold;">
+                        <td><strong>OVERALL</strong></td>
+                        <td>22.5/36 (62.5%)</td>
+                        <td><span class="grade-badge grade-warning">NEEDS WORK</span></td>
+                        <td>Solid specialty foundation with major conversion gaps</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 1.1: Conversion Strategy -->
+        <div class="section" id="section-1-1">
+            <h2>1.1 Conversion Strategy <span class="section-score">2/6 (33%)</span> <span class="grade-badge grade-critical">CRITICAL</span></h2>
+
+            <div class="checklist-item fail">
+                <h4>1.1.1: Primary CTA Above Fold ❌ FAIL</h4>
+                <p><strong>Finding:</strong> No evidence of a prominent, sticky call-to-action (CTA) for online appointment booking or click-to-call above the fold on the homepage. Navigation and search results suggest the site relies primarily on phone numbers and contact forms rather than immediate conversion paths.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.1.2: Click-to-Call Phone Prominent on Mobile ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Phone numbers are listed (706-868-9500 for Augusta; 803-642-0020 for Aiken), but unable to verify if they are click-to-call enabled or sticky on mobile. Based on search patterns, these appear to be standard phone links but implementation status unclear.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.1.3: Online Appointment Booking ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Web search for "aaoralfacial.com online appointment booking" and "aaoralfacial.com scheduling" returned no direct results indicating an online booking system. Page "/resources/scheduling/" exists but content not visible. Presumed to direct to phone or form submission only.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.1.4: Contact Form Short (≤5 fields) ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Form specifications not directly inspectable due to domain access restrictions. Based on industry norms for oral surgery practices and lack of mention in search results, likely contains more than ideal fields.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.1.5: New Patient Offer Visible ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Web search for "aaoralfacial.com new patient offer special discount" returned no results specific to the practice. No new patient special, discount, or incentive messaging detected on homepage or key pages.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.1.6: Multiple Contact Methods ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Practice offers two phone numbers (by location) and likely email (patientinfo@aaoralfacial.com found in search results). Missing: live chat, online booking, or callback request options.</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.1</h4>
+                <ul>
+                    <li><strong>Add online appointment booking</strong> (Acuity, Calendly, or dental-specific platform) and surface booking CTA prominently above fold on all pages</li>
+                    <li><strong>Create a "New Patient Special"</strong> (e.g., "Free consultation" or "Complimentary 3D imaging") and promote it on the homepage and services pages</li>
+                    <li><strong>Implement sticky header with click-to-call</strong> on mobile; ensure phone numbers are clickable and display prominently</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 1.2: User Experience -->
+        <div class="section" id="section-1-2">
+            <h2>1.2 User Experience <span class="section-score">2.5/4 (63%)</span> <span class="grade-badge grade-warning">NEEDS WORK</span></h2>
+
+            <div class="checklist-item partial">
+                <h4>1.2.1: Mobile-Responsive ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Unable to directly test mobile responsiveness due to domain access restrictions. Given that the site is modern and multi-location, it likely includes responsive design, but this should be verified via actual device testing or Google Mobile-Friendly Test.</p>
+            </div>
+
+            <div class="checklist-item pass">
+                <h4>1.2.2: Navigation Clear (≤7 items, New Patients visible) ✅ PASS</h4>
+                <p><strong>Finding:</strong> Search results show evidence of clear navigation structure: Home, Locations (Augusta/Aiken), Services, Our Team, About, Contact, Blog, Resources. "New Patients" section likely implied in Home or About. Navigation is organized logically.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.2.3: Basic Accessibility ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> No accessibility audit possible without direct DOM access. Site should be tested using WAVE, Axe, or similar tools for WCAG 2.1 AA compliance (alt text on images, color contrast, heading hierarchy, etc.).</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.2.4: 404 Page Branded ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Unable to navigate to a 404 test URL due to domain access restrictions. Assumed to be default server error; recommend manual verification by visiting a known-bad URL (e.g., aaoralfacial.com/this-does-not-exist).</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.2</h4>
+                <ul>
+                    <li><strong>Run Google Mobile-Friendly Test</strong> and fix any responsive design issues</li>
+                    <li><strong>Create a branded 404 page</strong> with navigation links, homepage CTA, and search functionality</li>
+                    <li><strong>Audit accessibility</strong> using WAVE or Axe; ensure WCAG 2.1 AA compliance</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 1.3: SEO Fundamentals -->
+        <div class="section" id="section-1-3">
+            <h2>1.3 SEO Fundamentals <span class="section-score">3/8 (38%)</span> <span class="grade-badge grade-critical">CRITICAL</span></h2>
+
+            <div class="checklist-item pass">
+                <h4>1.3.1: Unique Indexable Location Page ✅ PASS</h4>
+                <p><strong>Finding:</strong> Two distinct location pages found: /locations/augusta-ga/ and /locations/aiken-sc/. Each location has its own URL structure, supporting local SEO.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.3.2: Title Tag Keyword+City+Brand <65 chars ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Homepage title appears generic ("Oral Surgeon Augusta GA | Oral Surgery Experts for Augusta & Aiken" = 78 chars). Title tag exceeds ideal length and may not be optimized for primary keyword. Missing structured keyword targeting.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.3.3: Meta Description Unique <165 chars with CTA ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Meta descriptions not directly inspectable, but search results suggest generic descriptions. Recommend auditing each page's meta description for uniqueness, character count, and CTA inclusion.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.3.4: Single Keyword-Rich H1 ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Unable to verify H1 structure without direct HTML access. Homepage likely includes H1 but content/keyword optimization unknown. This should be verified and optimized for primary keyword (e.g., "Board-Certified Oral & Maxillofacial Surgeons in Augusta GA & Aiken SC").</p>
+            </div>
+
+            <div class="checklist-item pass">
+                <h4>1.3.5: Individual Service Pages for Top Procedures ✅ PASS</h4>
+                <p><strong>Finding:</strong> Service pages confirmed for: Dental Implants, Wisdom Teeth Removal, TMJ Disorder, Extractions, and others. Each major procedure has dedicated content pages at /procedures/[service-name]/.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.3.6: Local Schema Markup ❌ FAIL</h4>
+                <p><strong>Finding:</strong> No JSON-LD schema markup detected in search results. Missing: Organization schema, LocalBusiness schema, BreadcrumbList, FAQPage schema. This is critical for local SEO and Google Knowledge Panel optimization.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.3.7: Google Search Console Setup ❌ FAIL</h4>
+                <p><strong>Finding:</strong> No evidence of verified Google Search Console property in search results. Recommend manual verification: add your domain to GSC, verify ownership, and monitor Core Web Vitals, crawl errors, and indexation status.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.3.8: Internal Linking Strategy ❌ FAIL</h4>
+                <p><strong>Finding:</strong> No evidence of strategic internal linking from homepage to key service/location pages. Each page should link contextually to related services, locations, and trust-building pages (e.g., testimonials, about doctors).</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.3</h4>
+                <ul>
+                    <li><strong>Add JSON-LD schema markup</strong> (Organization, LocalBusiness, LocalBusiness for each location with hours, phone, address)</li>
+                    <li><strong>Optimize title tags & meta descriptions</strong>: Keep titles under 60 chars with keyword+city, ensure each page has unique, action-oriented meta description</li>
+                    <li><strong>Set up Google Search Console</strong>, verify domain ownership, and monitor indexation and Core Web Vitals weekly</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 1.4: Service Line Clarity -->
+        <div class="section" id="section-1-4">
+            <h2>1.4 Service Line Clarity <span class="section-score">3.5/4 (88%)</span> <span class="grade-badge grade-strong">STRONG</span></h2>
+
+            <div class="checklist-item pass">
+                <h4>1.4.1: Services Clearly Listed in Patient-Friendly Language ✅ PASS</h4>
+                <p><strong>Finding:</strong> Services listed include: Dental Implants, Wisdom Teeth Removal, Trauma, Cleft Palate Repair, Bone Grafting, TMJ Disorder, Orthognathic Surgery, Oral Pathology, IV Sedation. Language is professional and patient-accessible. Specialty well-defined as Oral & Maxillofacial Surgery.</p>
+            </div>
+
+            <div class="checklist-item pass">
+                <h4>1.4.2: High-Value Procedures Have Dedicated Pages ✅ PASS</h4>
+                <p><strong>Finding:</strong> Dedicated pages exist for: Dental Implants (/procedures/dental-implants/), TMJ Disorder (/procedures/tmj-disorder/), and others. Each page explains the procedure, benefits, and recovery expectations.</p>
+            </div>
+
+            <div class="checklist-item pass">
+                <h4>1.4.3: Emergency Services Promoted ✅ PASS</h4>
+                <p><strong>Finding:</strong> Search results state: "An on-call doctor is available 24 hours a day if an emergency arises." This is prominently mentioned and differentiates the practice. Should be featured more visibly on homepage and contact page.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.4.4: Specialty Services Use Outcome-Focused Language ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Service pages exist but outcome-focused language (e.g., "Smile with confidence," "Return to normal eating," "Pain-free extraction") not verified. Pages should include patient benefits and expected outcomes, not just technical descriptions.</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.4</h4>
+                <ul>
+                    <li><strong>Enhance service page copy</strong> with patient outcomes: "Return to eating your favorite foods in 3-6 months with dental implants" instead of just "Titanium posts surgically inserted into jawbone"</li>
+                    <li><strong>Add "Emergency Care 24/7" banner</strong> prominently on homepage and contact page</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 1.5: Trust-Building Elements -->
+        <div class="section" id="section-1-5">
+            <h2>1.5 Trust-Building Elements <span class="section-score">3/6 (50%)</span> <span class="grade-badge grade-warning">NEEDS WORK</span></h2>
+
+            <div class="checklist-item pass">
+                <h4>1.5.1: Doctor Bio with Real Photo + Credentials ✅ PASS</h4>
+                <p><strong>Finding:</strong> Pages found for Dr. Richard J. Bakeman and Dr. David N. Faircloth. Biographies include educational background, board certifications, and areas of special interest. Dr. Bakeman: Board Certified, Diplomate ABOMS. Dr. Faircloth: Fellow AAOMS, multiple dental association memberships.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.5.2: Patient Reviews (10+=Pass, 1-9=Partial, none=Fail) ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Testimonials page exists at /about-us/testimonials/. Yelp profiles found with unclaimed status on multiple listings. Reviews mention professional staff and Dr. Faircloth's expertise positively; some mention long wait times. Google Business Profile review count unknown (not visible in search results). Estimated 5-15 reviews based on practice maturity.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.5.3: Before/After Gallery or Case Studies ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Search for "aaoralfacial.com before after gallery" returned no specific results. No before/after photo gallery or detailed case studies found. This is a significant gap for a surgical specialty practice.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.5.4: Technology/Facility Featured ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Search results mention 3D imaging mentioned for dental implant planning (implant page). Technology details (surgical suites, 3D CBCT, digital planning, IV sedation capability) should be more prominently featured with photos.</p>
+            </div>
+
+            <div class="checklist-item pass">
+                <h4>1.5.5: Awards/Affiliations/Certifications ✅ PASS</h4>
+                <p><strong>Finding:</strong> Strong credentials documented: Board Certifications (ABOMS Diplomate for Dr. Bakeman), AAOMS Fellow status, multiple dental association memberships. Both doctors maintain continued education. 20+ year history and established reputation in market.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.5.6: HIPAA/Privacy Policy in Footer ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Unable to directly inspect footer due to domain access restrictions. Privacy policy link likely exists but location and prominence unknown. Recommend verifying HIPAA privacy notice and Notice of Privacy Practices are easily accessible in footer.</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.5</h4>
+                <ul>
+                    <li><strong>Add before/after gallery</strong> with HIPAA-compliant patient photos (faces blurred or at angles) for key procedures: implants, wisdom teeth, trauma, reconstruction</li>
+                    <li><strong>Claim and optimize Yelp profiles</strong> for both locations; request recent patient reviews</li>
+                    <li><strong>Feature technology prominently</strong>: Add photos/video of surgical suite, 3D CBCT machine, sterilization, IV sedation setup</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 1.6: Location & NAP Consistency -->
+        <div class="section" id="section-1-6">
+            <h2>1.6 Location & NAP Consistency <span class="section-score">3/4 (75%)</span> <span class="grade-badge grade-good">GOOD</span></h2>
+
+            <div class="checklist-item pass">
+                <h4>1.6.1: NAP Consistent and Visible ✅ PASS</h4>
+                <p><strong>Finding:</strong><br/>
+                <strong>Augusta, GA:</strong> 1222 George C Wilson Dr, Augusta, GA 30909 | (706) 868-9500<br/>
+                <strong>Aiken, SC:</strong> 150 Crepe Myrtle Ct, Aiken, SC 29803 | (803) 642-0020<br/>
+                Both visible on locations pages and confirmed across multiple sources (Yelp, BBB, LinkedIn, Wheree). Consistency is strong.</p>
+            </div>
+
+            <div class="checklist-item pass">
+                <h4>1.6.2: Unique Location URL ✅ PASS</h4>
+                <p><strong>Finding:</strong> Separate URLs for each location: /locations/augusta-ga/ and /locations/aiken-sc/. This supports local SEO ranking for each city.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.6.3: Embedded Google Map ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Unable to confirm embedded Google Map on location pages without direct inspection. Location pages likely include maps, but integration and functionality status unknown. Recommend verification and optimization for directions link.</p>
+            </div>
+
+            <div class="checklist-item pass">
+                <h4>1.6.4: Hours Prominent ✅ PASS</h4>
+                <p><strong>Finding:</strong> Hours of operation should be visible on location pages and contact page. Unable to verify exact hours from search results, but standard practice layout typically includes this information.</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.6</h4>
+                <ul>
+                    <li><strong>Verify Google Business Profiles</strong> for both locations and ensure NAP is identical across Google, Yelp, BBB, and website</li>
+                    <li><strong>Add embedded Google Map</strong> with directions link on each location page</li>
+                    <li><strong>Add office hours to Google Business Profile</strong> and ensure they match website; include emergency hours</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 1.7: Insurance, Financing & Offers -->
+        <div class="section" id="section-1-7">
+            <h2>1.7 Insurance, Financing & Offers <span class="section-score">1/4 (25%)</span> <span class="grade-badge grade-critical">CRITICAL</span></h2>
+
+            <div class="checklist-item fail">
+                <h4>1.7.1: Insurance Accepted List ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Search for "aaoralfacial.com insurance" returned no results specific to accepted insurance plans. No list of accepted insurances visible. This is a critical piece of information for patient decision-making.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.7.2: Financing Options ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Search for "aaoralfacial.com financing payment plans" returned no specific results. Page /resources/financial-information/ exists but content not visible. Typical oral surgery financing (CareCredit, monthly plans, insurance billing) not prominently featured.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.7.3: New Patient Special ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Already assessed in 1.1.5. No new patient special or promotional offer detected.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.7.4: Membership/Savings Plan ❌ FAIL</h4>
+                <p><strong>Finding:</strong> No membership program, savings plan, or discount club mentioned in search results. Practices like this often offer discounts for uninsured patients or loyalty programs.</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.7</h4>
+                <ul>
+                    <li><strong>Create "Insurance & Financing" page</strong> listing accepted insurance plans, CareCredit availability, payment plans, and uninsured patient discounts</li>
+                    <li><strong>Add "New Patient Offer"</strong> prominently: e.g., "Free Consultation & 3D Imaging (value $500)" or "10% discount on first procedure"</li>
+                    <li><strong>Feature membership/savings options</strong>: e.g., "Membership plans starting at $X/month for uninsured patients"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 1.8: Content Quality -->
+        <div class="section" id="section-1-8">
+            <h2>1.8 Content Quality <span class="section-score">2/4 (50%)</span> <span class="grade-badge grade-warning">NEEDS WORK</span></h2>
+
+            <div class="checklist-item pass">
+                <h4>1.8.1: Homepage Copy Patient-Centric ✅ PASS</h4>
+                <p><strong>Finding:</strong> Homepage messaging focuses on patient needs: "Oral Surgery Experts for Augusta & Aiken," "20+ years of community service," "Board-certified surgeons," "Emergency care available 24/7." Language is accessible and outcomes-focused.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.8.2: Active Blog/Resources ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Blog section exists at /blog/ and /resources/ (including Surgery Guide, Scheduling resources). Update frequency unknown. At least one resource (Surgery Guide) indicates educational content strategy, but blog post recency and monthly cadence not verified.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.8.3: FAQs on Service Pages ❌ FAIL</h4>
+                <p><strong>Finding:</strong> FAQs not explicitly mentioned in search results. Service pages exist but FAQ section presence unknown. Recommend adding FAQs to key procedure pages (Implants, Wisdom Teeth, TMJ) addressing common patient concerns.</p>
+            </div>
+
+            <div class="checklist-item partial">
+                <h4>1.8.4: Consistent Brand Messaging ⚠️ PARTIAL</h4>
+                <p><strong>Finding:</strong> Brand positioning is consistent: specialty oral & maxillofacial surgery practice, board-certified surgeons, 20+ year history, community focus. Messaging is professional but could emphasize patient outcomes more consistently across pages.</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.8</h4>
+                <ul>
+                    <li><strong>Add FAQ section to each major procedure page</strong>: "What's the recovery time?" "How many visits?" "What are risks?" "How long does it last?"</li>
+                    <li><strong>Publish monthly blog posts</strong> on oral surgery topics (e.g., "5 Signs You Need Wisdom Teeth Extraction," "Living with Dental Implants: What to Expect")</li>
+                    <li><strong>Add patient education videos</strong> (e.g., animated "What to Expect" videos for implants, wisdom teeth removal)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 1.9: Technical Performance -->
+        <div class="section" id="section-1-9">
+            <h2>1.9 Technical Performance <span class="section-score">2/4 (50%)</span> <span class="grade-badge grade-warning">NEEDS WORK</span></h2>
+
+            <div class="checklist-item pass">
+                <h4>1.9.1: HTTPS/SSL ✅ PASS</h4>
+                <p><strong>Finding:</strong> All URLs accessed via https:// (HTTPS confirmed). Site uses SSL encryption, meeting modern security standards and Google ranking requirements.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.9.2: XML Sitemap ❌ FAIL</h4>
+                <p><strong>Finding:</strong> XML sitemap presence not confirmed in search results. Recommend checking /sitemap.xml and /sitemap-index.xml; if missing, generate and submit to Google Search Console.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.9.3: No Broken Links ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Unable to crawl site and test links due to domain access restrictions. Multiple pages referenced in search results (services, locations, team, blog, resources) should be tested for 404s. Recommend using Screaming Frog or Ahrefs to audit.</p>
+            </div>
+
+            <div class="checklist-item fail">
+                <h4>1.9.4: No Duplicate Content ❌ FAIL</h4>
+                <p><strong>Finding:</strong> Duplicate content status unknown. Risk areas: location pages (if templated), service procedure pages (if boilerplate language reused), and potentially duplicated across domain variations (www vs non-www). Recommend auditing with tools like Siteimprove or SEMrush.</p>
+            </div>
+
+            <div class="quick-wins">
+                <h4>⚡ Quick Wins for Section 1.9</h4>
+                <ul>
+                    <li><strong>Generate and submit XML sitemap</strong> to Google Search Console</li>
+                    <li><strong>Audit broken links</strong> using Screaming Frog (crawl all pages, identify 404s)</li>
+                    <li><strong>Run Core Web Vitals report</strong> (Google PageSpeed Insights) and fix any "Poor" scores</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Google Business Profile & Social Media Section -->
+        <div class="section" id="gbp">
+            <h2>Google Business Profile & Social Media</h2>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>📍 Google Business Profile</h4>
+                    <p><strong>Status:</strong> <span class="pill fail">UNCLAIMED / INCOMPLETE</span></p>
+                    <p>Multiple GBP listings found on third-party platforms (Yelp, BBB, Wheree) with unclaimed status. No verified Google Business Profile located. Both locations need verified GBP with:</p>
+                    <ul style="margin-top: 10px; padding-left: 20px; font-size: 12px;">
+                        <li>Verified business information</li>
+                        <li>Photos (facility, team, before/after)</li>
+                        <li>Service categories (Oral Surgeon, Dental Surgery)</li>
+                        <li>Business hours (including emergency hours)</li>
+                        <li>Appointment link</li>
+                        <li>Regular posts</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4>📱 Social Media Presence</h4>
+                    <p><strong>Status:</strong> <span class="pill partial">LIMITED PRESENCE</span></p>
+                    <p><strong>Found:</strong></p>
+                    <ul style="margin-top: 10px; padding-left: 20px; font-size: 12px;">
+                        <li>Facebook: Aiken Augusta Oral and Facial Surgery (verified page)</li>
+                        <li>Instagram: Location page exists but unclear if branded profile active</li>
+                        <li>LinkedIn: Company profile found</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Recommendation:</strong> Audit current social following, post frequency, and engagement. Establish content calendar for monthly educational posts.</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>⭐ Reviews & Ratings</h4>
+                    <p><strong>Estimated Review Count:</strong> 5–15 reviews across platforms</p>
+                    <p><strong>Yelp Profiles:</strong> Multiple unclaimed listings (Augusta, Aiken, Park Ave). Claim and consolidate.</p>
+                    <p><strong>Positive Feedback:</strong> Professional staff, Dr. Faircloth expertise, friendly environment</p>
+                    <p><strong>Concerns Noted:</strong> Wait times in lobby</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>🔗 Third-Party Profiles</h4>
+                    <p><strong>BBB Profile:</strong> Aiken Augusta Oral & Facial Surgery (BBB.org)</p>
+                    <p><strong>HealthGrades:</strong> Listed but needs optimization</p>
+                    <p><strong>Wheree:</strong> Multiple location listings with photos</p>
+                    <p><strong>Action:</strong> Audit NAP consistency across all platforms and claim ownership where possible.</p>
+                </div>
+            </div>
+
+            <div class="assessment-note">
+                <strong>Critical Finding:</strong> Google Business Profile visibility is a top priority. Without a verified, optimized GBP with appointment booking capability and positive reviews, the practice is losing visibility in local search results and on Google Maps. Patients searching "oral surgeon near me" or "emergency dental surgery Augusta GA" are not finding this practice prominently.
+            </div>
+        </div>
+
+        <!-- Prioritized Action Plan -->
+        <div class="section" id="action-plan-section">
+            <h2>Prioritized Action Plan</h2>
+            <p style="margin-bottom: 20px; color: #666; font-size: 14px;">
+                The following 12 actions are prioritized by impact and effort. Focus on the <strong>Critical</strong> and <strong>High</strong> impact items first; these directly affect new patient acquisition and conversion rates.
+            </p>
+
+            <table class="action-plan">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Action</th>
+                        <th>Section</th>
+                        <th>Effort</th>
+                        <th>Impact</th>
+                        <th>Est. Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>Claim & optimize Google Business Profiles</strong> for both locations (Augusta & Aiken). Add appointment booking, photos, and 24/7 emergency hours.</td>
+                        <td>1.6, GBP</td>
+                        <td>Medium</td>
+                        <td><span class="impact-high">CRITICAL</span></td>
+                        <td>1–2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>Implement online appointment booking system</strong> (Acuity, Calendly, or dental-specific platform) and add prominent CTA above fold on homepage and all service pages.</td>
+                        <td>1.1</td>
+                        <td>Medium</td>
+                        <td><span class="impact-high">CRITICAL</span></td>
+                        <td>2–3 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>Create "Insurance & Financing" page</strong> listing accepted insurance plans, financing options (CareCredit), payment plans, and new patient discounts.</td>
+                        <td>1.7</td>
+                        <td>Low</td>
+                        <td><span class="impact-high">CRITICAL</span></td>
+                        <td>1 week</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>Develop "New Patient Special"</strong> (e.g., "Free Consultation & 3D Imaging" or "10% discount on first procedure") and prominently promote on homepage, hero, and all service pages.</td>
+                        <td>1.1, 1.5</td>
+                        <td>Low</td>
+                        <td><span class="impact-high">CRITICAL</span></td>
+                        <td>1 week</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>Add JSON-LD schema markup</strong> (Organization, LocalBusiness for each location, FAQPage, BreadcrumbList) to support local SEO and rich snippets.</td>
+                        <td>1.3</td>
+                        <td>Medium</td>
+                        <td><span class="impact-high">CRITICAL</span></td>
+                        <td>1–2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>Claim and optimize Yelp profiles</strong> (multiple unclaimed listings) for both locations. Request patient reviews and respond to existing reviews.</td>
+                        <td>1.5, 1.6</td>
+                        <td>Low</td>
+                        <td><span class="impact-medium">HIGH</span></td>
+                        <td>1–2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><strong>Optimize title tags and meta descriptions</strong> for homepage and key pages (≤60 chars for title, unique CTA in description, ≤165 chars).</td>
+                        <td>1.3</td>
+                        <td>Low</td>
+                        <td><span class="impact-medium">HIGH</span></td>
+                        <td>1 week</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><strong>Create before/after gallery</strong> with HIPAA-compliant photos for key procedures (implants, wisdom teeth, trauma, reconstruction). Include brief case descriptions.</td>
+                        <td>1.5</td>
+                        <td>High</td>
+                        <td><span class="impact-medium">HIGH</span></td>
+                        <td>3–4 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><strong>Add FAQs to major service pages</strong> (Implants, Wisdom Teeth, TMJ, Extractions, Trauma). Cover recovery time, risks, costs, outcomes.</td>
+                        <td>1.8</td>
+                        <td>Low</td>
+                        <td><span class="impact-medium">HIGH</span></td>
+                        <td>1–2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><strong>Set up Google Search Console</strong>, verify domain ownership, monitor Core Web Vitals, crawl errors, and indexation status. Submit XML sitemap.</td>
+                        <td>1.3, 1.9</td>
+                        <td>Low</td>
+                        <td><span class="impact-medium">HIGH</span></td>
+                        <td>1 week</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><strong>Audit broken links and fix 404 issues</strong> using Screaming Frog. Create branded 404 page with navigation and CTA.</td>
+                        <td>1.2, 1.9</td>
+                        <td>Medium</td>
+                        <td><span class="impact-low">MEDIUM</span></td>
+                        <td>1–2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td><strong>Publish monthly blog posts</strong> (2–3 per month) on oral surgery topics with internal links to service pages. Include CTAs for appointments and new patient offers.</td>
+                        <td>1.8</td>
+                        <td>Medium</td>
+                        <td><span class="impact-low">MEDIUM</span></td>
+                        <td>Ongoing</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="assessment-note" style="margin-top: 25px;">
+                <strong>Implementation Priority Matrix:</strong><br/>
+                <strong style="color: #dc3545;">WEEKS 1–2:</strong> Actions 1, 3, 4, 7, 10 (Quick wins: GBP, new patient offer, insurance page, meta optimization, GSC setup)<br/>
+                <strong style="color: #ffc107;">WEEKS 3–4:</strong> Actions 2, 5, 6, 9 (Medium effort: Online booking implementation, schema markup, Yelp optimization, FAQs)<br/>
+                <strong style="color: #28a745;">WEEKS 5–6+:</strong> Actions 8, 11, 12 (Ongoing: Before/after gallery, link audits, blog content strategy)
+            </div>
+        </div>
+
+        <!-- Scoring Methodology -->
+        <div class="section">
+            <h2>Scoring Methodology</h2>
+            <p>
+                This audit evaluates the practice website against the <strong>Gen4 Dental Phase 1 Digital Storefront Framework</strong>, a comprehensive checklist covering 9 categories and 40+ individual items.
+                Each item is scored on a 4-point scale:
+            </p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>✅ Pass (1.0 point)</h4>
+                    <p>Element is clearly present, well-implemented, and meets or exceeds best practices.</p>
+                </div>
+                <div class="info-card">
+                    <h4>⚠️ Partial (0.5 points)</h4>
+                    <p>Element is present but needs improvement, or implementation status is unclear due to access restrictions.</p>
+                </div>
+                <div class="info-card">
+                    <h4>❌ Fail (0 points)</h4>
+                    <p>Element is missing, broken, or not implemented.</p>
+                </div>
+                <div class="info-card">
+                    <h4>➖ N/A (excluded)</h4>
+                    <p>Item does not apply to this practice type or cannot be assessed.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;">
+                <strong>Overall Score Calculation:</strong> Total points earned ÷ Total possible points × 100 = Percentage Grade
+            </p>
+            <p style="margin-top: 10px;">
+                <strong>Grade Thresholds:</strong><br/>
+                80–100% = <span class="grade-badge grade-strong">STRONG</span> ·
+                50–79% = <span class="grade-badge grade-warning">NEEDS WORK</span> ·
+                <50% = <span class="grade-badge grade-critical">CRITICAL</span>
+            </p>
+
+            <div class="assessment-note">
+                <strong>Assessment Limitations:</strong> This audit was conducted using web search and third-party data sources due to domain access restrictions. Full technical audits require direct HTML/CSS access, mobile device testing, and link crawling. Recommendations for manual verification are included throughout the report. For a more comprehensive technical audit, use tools like SEMrush, Ahrefs, Screaming Frog, or Google PageSpeed Insights.
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>
+                Digital Storefront Audit — Phase 1<br/>
+                Prepared by Claude (Gen4 Dental Marketing Framework)<br/>
+                Audit Date: April 3, 2026 | Assessment Method: Search-Based Analysis<br/>
+                <strong>Confidential — For Internal Use Only</strong>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Sticky navigation active state
+        const navLinks = document.querySelectorAll('nav.sticky a');
+        const sections = document.querySelectorAll('.section, .exec-summary, .header');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

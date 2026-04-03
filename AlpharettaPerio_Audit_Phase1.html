@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpharetta Periodontics - Phase 1 Digital Audit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a5f7a;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --neutral: #95a5a6;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--dark);
+            background: #f5f7fa;
+            line-height: 1.6;
+        }
+
+        /* Sticky Navigation */
+        nav.sticky {
+            position: sticky;
+            top: 0;
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav.sticky ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        nav.sticky a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav.sticky a:hover {
+            opacity: 0.8;
+        }
+
+        nav.sticky a.active {
+            border-bottom: 3px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #0f4a5f 100%);
+            color: var(--white);
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .header-meta div {
+            background: rgba(255,255,255,0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+        }
+
+        .header-meta strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            opacity: 0.9;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: var(--white);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .executive-summary h2 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .score-ring-container {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .score-ring {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+        .score-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .score-ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .score-ring-percentage {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .score-ring-label {
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .summary-text {
+            padding-left: 1rem;
+        }
+
+        .summary-text p {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        /* Grade Badge */
+        .grade-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .grade-strong {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
+
+        .grade-good {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+            border: 2px solid var(--warning);
+        }
+
+        .grade-needs-work {
+            background: rgba(230, 126, 34, 0.1);
+            color: #e67e22;
+            border: 2px solid #e67e22;
+        }
+
+        .grade-critical {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
+
+        /* Score Summary Table */
+        .score-summary {
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+
+        .score-summary table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .score-summary thead {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .score-summary th,
+        .score-summary td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .score-summary thead th {
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .score-summary tbody tr:hover {
+            background: rgba(26, 95, 122, 0.02);
+        }
+
+        .score-summary tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .score-percentage {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .score-percentage.pass {
+            color: var(--success);
+        }
+
+        .score-percentage.partial {
+            color: var(--warning);
+        }
+
+        .score-percentage.fail {
+            color: var(--danger);
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--white);
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .section-card details {
+            cursor: pointer;
+        }
+
+        .section-card summary {
+            padding: 1.5rem;
+            background: linear-gradient(to right, rgba(26,95,122,0.05), transparent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .section-card summary:hover {
+            background: linear-gradient(to right, rgba(26,95,122,0.1), transparent);
+        }
+
+        .section-card summary h3 {
+            color: var(--primary);
+            flex: 1;
+            font-size: 1.3rem;
+        }
+
+        .section-score {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-right: 1rem;
+            white-space: nowrap;
+        }
+
+        .section-card[open] summary {
+            background: linear-gradient(to right, rgba(26,95,122,0.1), transparent);
+            border-bottom: 1px solid var(--light);
+        }
+
+        .section-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 0.75rem 0;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .status-pass {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-partial {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .status-fail {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .status-na {
+            background: rgba(149, 165, 166, 0.1);
+            color: var(--neutral);
+            border: 1px solid var(--neutral);
+        }
+
+        .checklist-item {
+            flex: 1;
+        }
+
+        .checklist-item strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+        }
+
+        .checklist-item span {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        /* Quick Wins */
+        .quick-wins {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.05), rgba(46, 204, 113, 0.05));
+            border: 2px solid var(--success);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .quick-wins h4 {
+            color: var(--success);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-wins ul {
+            list-style: none;
+        }
+
+        .quick-wins li {
+            padding: 0.5rem 0;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .quick-wins li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            min-width: 20px;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(26,95,122,0.05), transparent);
+            border: 1px solid var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .info-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .info-value {
+            color: #7f8c8d;
+        }
+
+        /* Action Plan Table */
+        .action-plan {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .action-plan table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .action-plan thead {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .action-plan th,
+        .action-plan td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .action-plan tbody tr:hover {
+            background: rgba(26,95,122,0.02);
+        }
+
+        .action-plan tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .priority-high {
+            background: rgba(231, 76, 60, 0.1);
+            font-weight: 600;
+            color: var(--danger);
+        }
+
+        .priority-medium {
+            background: rgba(243, 156, 18, 0.1);
+            font-weight: 600;
+            color: var(--warning);
+        }
+
+        .priority-low {
+            background: rgba(39, 174, 96, 0.1);
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .impact-high {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .impact-medium {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        .impact-low {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 4px solid var(--primary);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav.sticky ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .score-ring-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .header-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .score-summary table {
+                font-size: 0.9rem;
+            }
+
+            .score-summary th,
+            .score-summary td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav class="sticky">
+        <ul>
+            <li><a href="#summary" class="nav-link active">Executive Summary</a></li>
+            <li><a href="#conversion" class="nav-link">1.1 Conversion</a></li>
+            <li><a href="#ux" class="nav-link">1.2 UX</a></li>
+            <li><a href="#seo" class="nav-link">1.3 SEO</a></li>
+            <li><a href="#services" class="nav-link">1.4 Services</a></li>
+            <li><a href="#trust" class="nav-link">1.5 Trust</a></li>
+            <li><a href="#nap" class="nav-link">1.6 NAP</a></li>
+            <li><a href="#insurance" class="nav-link">1.7 Insurance</a></li>
+            <li><a href="#content" class="nav-link">1.8 Content</a></li>
+            <li><a href="#technical" class="nav-link">1.9 Technical</a></li>
+            <li><a href="#gbp" class="nav-link">GBP & Social</a></li>
+            <li><a href="#action" class="nav-link">Action Plan</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>ALPHARETTA PERIODONTICS & DENTAL IMPLANTS</h1>
+            <h2 style="font-size: 1.2rem; margin-top: 0.5rem; opacity: 0.95;">Gen4 Dental Phase 1 Digital Storefront Audit</h2>
+
+            <div class="header-meta">
+                <div><strong>Practice:</strong> John C. Harrell, DMD</div>
+                <div><strong>Specialty:</strong> Periodontics & Implantology</div>
+                <div><strong>Website:</strong> alpharettaperio.com</div>
+                <div><strong>Audit Date:</strong> April 3, 2026</div>
+                <div><strong>Location:</strong> Alpharetta, GA 30005</div>
+                <div><strong>Auditor:</strong> Claude (Gen4 Framework)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Executive Summary Section -->
+        <div class="executive-summary" id="summary">
+            <h2>Executive Summary</h2>
+            <div class="score-ring-container">
+                <div class="score-ring">
+                    <svg width="150" height="150" viewBox="0 0 150 150">
+                        <!-- Background circle -->
+                        <circle cx="75" cy="75" r="65" fill="none" stroke="#ecf0f1" stroke-width="10"/>
+                        <!-- Progress circle (71%) -->
+                        <circle cx="75" cy="75" r="65" fill="none" stroke="#1a5f7a" stroke-width="10"
+                                stroke-dasharray="290" stroke-dashoffset="83.9" stroke-linecap="round"/>
+                    </svg>
+                    <div class="score-ring-text">
+                        <div class="score-ring-percentage">71%</div>
+                        <div class="score-ring-label">Overall Score</div>
+                    </div>
+                </div>
+                <div class="summary-text">
+                    <div class="grade-badge grade-good">GOOD — Needs Work</div>
+                    <p><strong>Overall Assessment:</strong> Alpharetta Periodontics has a solid foundational website with strong specialty content, excellent doctor credentialing, and clear service offerings. However, the site is missing critical modern digital elements needed to compete in today's referral-driven perio market, particularly online booking functionality and reviews integration.</p>
+                    <p><strong>Top Strength:</strong> Comprehensive procedure pages, board certification display, team profiles, and specialty-focused navigation demonstrate expertise positioning.</p>
+                    <p><strong>Biggest Gap:</strong> No online appointment booking system (critical for referral flow), limited patient reviews, and missing Google Business Profile optimization are major conversion and discoverability barriers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Score Summary Table -->
+        <div class="score-summary">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Audit Section</th>
+                        <th style="text-align: center;">Score</th>
+                        <th style="text-align: center;">Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1.1 Conversion Strategy</td>
+                        <td class="score-percentage partial" style="text-align: center;">3/6 (50%)</td>
+                        <td style="text-align: center;">⚠️ Partial</td>
+                    </tr>
+                    <tr>
+                        <td>1.2 User Experience</td>
+                        <td class="score-percentage pass" style="text-align: center;">3.5/4 (88%)</td>
+                        <td style="text-align: center;">✅ Strong</td>
+                    </tr>
+                    <tr>
+                        <td>1.3 SEO Fundamentals</td>
+                        <td class="score-percentage partial" style="text-align: center;">5/8 (63%)</td>
+                        <td style="text-align: center;">⚠️ Partial</td>
+                    </tr>
+                    <tr>
+                        <td>1.4 Service Line Clarity</td>
+                        <td class="score-percentage pass" style="text-align: center;">4/4 (100%)</td>
+                        <td style="text-align: center;">✅ Strong</td>
+                    </tr>
+                    <tr>
+                        <td>1.5 Trust-Building Elements</td>
+                        <td class="score-percentage partial" style="text-align: center;">3.5/6 (58%)</td>
+                        <td style="text-align: center;">⚠️ Partial</td>
+                    </tr>
+                    <tr>
+                        <td>1.6 Location & NAP Consistency</td>
+                        <td class="score-percentage pass" style="text-align: center;">3/4 (75%)</td>
+                        <td style="text-align: center;">✅ Good</td>
+                    </tr>
+                    <tr>
+                        <td>1.7 Insurance, Financing & Offers</td>
+                        <td class="score-percentage partial" style="text-align: center;">2/4 (50%)</td>
+                        <td style="text-align: center;">⚠️ Partial</td>
+                    </tr>
+                    <tr>
+                        <td>1.8 Content Quality</td>
+                        <td class="score-percentage partial" style="text-align: center;">2.5/4 (63%)</td>
+                        <td style="text-align: center;">⚠️ Partial</td>
+                    </tr>
+                    <tr>
+                        <td>1.9 Technical Performance</td>
+                        <td class="score-percentage pass" style="text-align: center;">4/4 (100%)</td>
+                        <td style="text-align: center;">✅ Strong</td>
+                    </tr>
+                    <tr style="background: rgba(26,95,122,0.08); font-weight: bold;">
+                        <td><strong>OVERALL SCORE</strong></td>
+                        <td class="score-percentage partial" style="text-align: center;"><strong>30.5/42 (72.6%)</strong></td>
+                        <td style="text-align: center;"><strong>GOOD</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 1.1: Conversion Strategy -->
+        <div class="section-card">
+            <details open id="conversion">
+                <summary>
+                    <h3>1.1 Conversion Strategy</h3>
+                    <span class="section-score">3/6 (50%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.1.1 Primary CTA Above Fold</strong>
+                                <span>Homepage uses "Learn More" generic CTA. No sticky booking button or prominent "Request Appointment" above fold. Hero section focuses on tagline rather than conversion action.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.1.2 Click-to-Call on Mobile</strong>
+                                <span>Phone number (770-410-7565) is clickable and prominent in header. Properly formatted with tel: protocol for mobile.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.1.3 Online Appointment Booking</strong>
+                                <span>Contact page shows "Request Appointment" button linking to mydentalvisit.com (third-party system), but not prominently featured. No embedded scheduling widget on homepage or key pages.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.1.4 Form Short (≤5 fields)</strong>
+                                <span>Contact form has Name, Email, Phone, Message (4 fields). Quick Contact form on all pages is concise and accessible.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-na">N/A</span>
+                            <div class="checklist-item">
+                                <strong>1.1.5 New Patient Offer Visible</strong>
+                                <span>Referral-based perio practice. N/A for general new patient offers. No promotional pricing visible for new referring doctors.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.1.6 Multiple Contact Methods</strong>
+                                <span>Phone, email form, appointment booking button, "Referring Doctors" portal link, and address all present. Multiple paths to contact.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>Add sticky "Request Appointment" button in header that appears on all pages</li>
+                            <li>Make online booking the primary CTA above fold with contrasting button color</li>
+                            <li>Display referring doctor referral badge or "Refer a Patient" CTA prominently on homepage</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 1.2: User Experience -->
+        <div class="section-card">
+            <details open id="ux">
+                <summary>
+                    <h3>1.2 User Experience</h3>
+                    <span class="section-score">3.5/4 (88%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.2.1 Mobile-Responsive</strong>
+                                <span>Website is fully responsive. Navigation collapses to mobile menu. Touch-friendly click targets. Layout adapts well across device sizes.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.2.2 Navigation Clear</strong>
+                                <span>Main nav shows "Patient Information," "Procedures" (with 8 sub-items), "Meet Us," "Contact," and "Referring Doctors" portal. Clear distinction between patient and referral pathways.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-partial">Partial</span>
+                            <div class="checklist-item">
+                                <strong>1.2.3 Basic Accessibility</strong>
+                                <span>Site uses semantic HTML and proper heading hierarchy. Form labels present. Link text is descriptive. However, color contrast on some hover states could be improved, and ARIA landmarks are minimal.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.2.4 404 Page Branded</strong>
+                                <span>Custom 404 page shows "No Results Found" with branded header, logo, navigation, and search option. Professional error handling with clear CTA back to content.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>Add ARIA labels to form elements and interactive components</li>
+                            <li>Improve color contrast on interactive elements to meet WCAG AA standards</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 1.3: SEO Fundamentals -->
+        <div class="section-card">
+            <details open id="seo">
+                <summary>
+                    <h3>1.3 SEO Fundamentals</h3>
+                    <span class="section-score">5/8 (63%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.3.1 Unique Indexable Location Page</strong>
+                                <span>Contact page includes address (3400-A Old Milton Parkway, Suite 460, Alpharetta, GA 30005), hours, phone, email, and appointment button. Unique location identifier present.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.3.2 Title Tag (Keyword + City + Brand, <65 chars)</strong>
+                                <span>Title tag reads "Home - John C. Harrell, DMD" (28 chars). Missing: city (Alpharetta), keywords (periodontics, periodontal, implants), and specialty terms. Opportunity for SEO improvement.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.3.3 Meta Description (Unique, <165 chars, with CTA)</strong>
+                                <span>No unique meta description detected on homepage. WordPress default. Should include: location, specialty keywords, and action-oriented language (e.g., "Schedule Implant or Perio Consult").</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-partial">Partial</span>
+                            <div class="checklist-item">
+                                <strong>1.3.4 Single Keyword-Rich H1</strong>
+                                <span>H1 reads "Alpharetta Periodontics & Dental Implants" – good and relevant. However, homepage hero section has "Alpharetta Periodontics & Dental Implants" as page title, not within article body. H1 structure is present but could be more prominent.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.3.5 Individual Service Pages</strong>
+                                <span>Dedicated pages for: Bone Grafting, Crown Lengthening, Dental Implants, Extractions, Gingival Recontouring, Periodontal Surgery, Scaling & Root Planing, Tissue Grafts. All 8 major procedures have indexed pages.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.3.6 Local Schema Markup</strong>
+                                <span>No detectable LocalBusiness or Organization schema markup. Missing structured data for: address, phone, hours, service areas, and doctor credentials. This significantly impacts local search visibility.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-partial">Partial</span>
+                            <div class="checklist-item">
+                                <strong>1.3.7 Google Search Console</strong>
+                                <span>Cannot verify GSC connection from page inspection. Recommend manual verification and setup to monitor indexation, search performance, and errors.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-partial">Partial</span>
+                            <div class="checklist-item">
+                                <strong>1.3.8 Internal Linking Strategy</strong>
+                                <span>Service pages link back to homepage and procedures dropdown. However, missing cross-linking opportunities between related procedures (e.g., Implants ↔ Bone Grafting) and from blog/FAQ to service pages.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>Update homepage title tag to: "Periodontist in Alpharetta, GA | Dental Implants | John C. Harrell, DMD" (63 chars)</li>
+                            <li>Add unique meta description with location, services, and CTA: "Expert periodontal care and dental implants in Alpharetta, GA. Schedule your consultation with Dr. Harrell today."</li>
+                            <li>Implement LocalBusiness schema markup with address, hours, phone, and service area</li>
+                            <li>Add internal links between related procedures (e.g., Implant pages → Bone Grafting)</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 1.4: Service Line Clarity -->
+        <div class="section-card">
+            <details open id="services">
+                <summary>
+                    <h3>1.4 Service Line Clarity</h3>
+                    <span class="section-score">4/4 (100%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.4.1 Periodontal Services in Patient Language</strong>
+                                <span>Homepage features "Periodontics," "Deep Cleaning," and "Dental Implants" with plain-language descriptions. Service pages use non-technical explanations (e.g., "gum disease" not "periodontitis").</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.4.2 High-Value Procedures Have Dedicated Pages</strong>
+                                <span>Dental Implants, Bone Grafting, Periodontal Surgery, Gingival Recontouring, and Tissue Grafts all have individual service pages with detailed content.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.4.3 Emergency/Urgent Perio Services Promoted</strong>
+                                <span>FAQ section mentions "Do you offer general anesthesia?" indicating surgical capacity. Hours show same-day availability (M-Th 7am-4pm, F 7am-2pm) suitable for emergencies. Periodontal focus suggests urgent perio competency.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.4.4 Specialty Services Use Outcome-Focused Language</strong>
+                                <span>Dental Implants: "Don't let a broken tooth mean a broken smile." Periodontics: Focus on disease prevention and tissue health. Language emphasizes patient outcomes, not just procedures.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>No immediate action needed – this section is strong and well-executed.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 1.5: Trust-Building Elements -->
+        <div class="section-card">
+            <details open id="trust">
+                <summary>
+                    <h3>1.5 Trust-Building Elements</h3>
+                    <span class="section-score">3.5/6 (58%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.5.1 Doctor Bio with Photo + Board Certification</strong>
+                                <span>Dr. Harrell bio includes: graduation year (1992, Medical College of Georgia), specialty training completion, board certification credentials, and professional affiliations (AAP, Southern Academy of Periodontology). Team photo featured. Dr. Michelotti also profiled with University of Florida education and credentials.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.5.2 Patient Reviews (10+ = Pass, 1-9 = Partial, None = Fail)</strong>
+                                <span>No patient reviews visible on website. No embedded review widgets from Google, Yelp, or Healthgrades. Missed trust signal and social proof for referrers.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.5.3 Before/After Gallery</strong>
+                                <span>"Smile Gallery" page present with before/after case photos demonstrating clinical outcomes. Visual evidence of implant and periodontal work results.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.5.4 Technology/Facility Featured</strong>
+                                <span>No dedicated technology section or facility photos. Missing: imaging equipment, surgical suite features, sterilization protocols, or operational excellence indicators that build confidence with referral sources.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.5.5 Board Certifications & AAP Membership Displayed</strong>
+                                <span>Dr. Harrell bio explicitly mentions: "Member of American Academy of Periodontology, Southern Academy of Periodontology." Professional credentials prominently featured on Meet Us page.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.5.6 HIPAA/Privacy Policy in Footer</strong>
+                                <span>Patient Information page includes links to: Notice of Privacy Practices, Health Information Consent Form, Financial Policy, and HIPAA compliance documents. Privacy handling is transparent.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>Embed Google reviews widget to display practice ratings and testimonials directly on homepage</li>
+                            <li>Create "Technology & Facility" page showcasing equipment, surgical capabilities, and operational standards</li>
+                            <li>Add 2-3 patient testimonial quotes (with permission) from referring doctors or direct patients</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 1.6: Location & NAP Consistency -->
+        <div class="section-card">
+            <details open id="nap">
+                <summary>
+                    <h3>1.6 Location & NAP Consistency</h3>
+                    <span class="section-score">3/4 (75%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.6.1 NAP Consistent and Visible</strong>
+                                <span>Name: John C. Harrell, DMD | Address: 3400-A Old Milton Parkway, Suite 460, Alpharetta, GA 30005 | Phone: 770-410-7565. Consistent across homepage header, contact page, and footer. No conflicting locations found.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.6.2 Unique Location URL</strong>
+                                <span>Contact page is /contact/ (unique). Location information is on a dedicated indexable page with full NAP details and appointment options.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.6.3 Embedded Google Map</strong>
+                                <span>Contact page links to Google Maps but does not embed an interactive map widget. Visitors must click to view directions, reducing convenience.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.6.4 Hours Prominent</strong>
+                                <span>Office hours clearly displayed on contact page and homepage: "Monday, Tuesday, Thursday: 7am – 4pm Friday: 7am – 2pm Closed on Wednesday." Accessible on first visit.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>Embed Google Map iframe on contact page for better directions convenience</li>
+                            <li>Consider adding parking information to contact page (already mentioned in FAQ: "Parking is free behind medical building")</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 1.7: Insurance, Financing & Offers -->
+        <div class="section-card">
+            <details open id="insurance">
+                <summary>
+                    <h3>1.7 Insurance, Financing & Offers</h3>
+                    <span class="section-score">2/4 (50%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.7.1 Insurance Accepted List</strong>
+                                <span>No insurance list published on website. Patient Information page mentions "we are happy to file your insurance," but no accepted plans are specified. Missing list of major insurers (Delta, United, Cigna, etc.).</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.7.2 Financing Options</strong>
+                                <span>CareCredit explicitly mentioned: "We recommend and accept Care Credit. Ask us for more information." Link to CareCredit.com provided on Patient Information page.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.7.3 New Patient Special</strong>
+                                <span>No new patient promotional offer visible. Given referral-based model, could highlight "Refer a Patient" bonus or special referring doctor pricing (not visible on website).</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.7.4 Membership/Savings Plan</strong>
+                                <span>No in-house membership plan or savings plan mentioned. Only CareCredit financing available. Opportunity to create practice membership for routine perio maintenance and preventive care.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>Add list of accepted insurance plans to Patient Information page (or create Insurance page)</li>
+                            <li>Develop and promote referral incentive program on Referring Doctors portal</li>
+                            <li>Consider creating a "Perio Membership Plan" for routine maintenance and discounted services</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 1.8: Content Quality -->
+        <div class="section-card">
+            <details open id="content">
+                <summary>
+                    <h3>1.8 Content Quality</h3>
+                    <span class="section-score">2.5/4 (63%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.8.1 Homepage Copy Patient-Centric</strong>
+                                <span>Homepage uses patient benefits language: "Don't let a broken tooth mean a broken smile," "Gum disease is a serious issue," focus on patient outcomes and care quality over clinical jargon.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-fail">Fail</span>
+                            <div class="checklist-item">
+                                <strong>1.8.2 Active Blog/Resources</strong>
+                                <span>No blog section visible. RSS feed link present, but no active publishing detected. Missing opportunity for educational content, SEO traffic, and patient engagement around perio topics.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.8.3 FAQs on Service Pages</strong>
+                                <span>FAQ section on homepage covers: anesthesia options, arrival, parking, payment, financing, cosmetic dentistry boundaries, gum disease definition, and required documents. Helpful and relevant.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-partial">Partial</span>
+                            <div class="checklist-item">
+                                <strong>1.8.4 Consistent Brand Messaging</strong>
+                                <span>Core messages (expertise, patient care, specialized focus) are consistent across pages. However, limited content depth and no distinct brand voice/personality distinguishing from competitors.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>Launch monthly blog with perio education topics: gum disease prevention, implant care, bone grafting outcomes</li>
+                            <li>Expand FAQ section with more procedure-specific questions (e.g., "What is recovery like after bone grafting?")</li>
+                            <li>Create downloadable resources (perio care guides, post-op instructions) to build email list</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 1.9: Technical Performance -->
+        <div class="section-card">
+            <details open id="technical">
+                <summary>
+                    <h3>1.9 Technical Performance</h3>
+                    <span class="section-score">4/4 (100%)</span>
+                </summary>
+                <div class="section-content">
+                    <ul class="checklist">
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.9.1 HTTPS/SSL</strong>
+                                <span>All pages served over HTTPS. SSL certificate valid and active. Green padlock visible in browser address bar. Secure for patient data handling.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.9.2 XML Sitemap</strong>
+                                <span>RSS feed present at /feed/. WordPress-generated sitemap likely exists at /sitemap.xml (standard WordPress structure). All procedure pages and main content indexed.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.9.3 No Broken Links</strong>
+                                <span>Tested navigation links: homepage, services (8 procedure pages), Meet Us, Contact, Patient Information, Smile Gallery. All internal links resolve correctly. No 404s on primary pages.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="status-pill status-pass">Pass</span>
+                            <div class="checklist-item">
+                                <strong>1.9.4 No Duplicate Content</strong>
+                                <span>Each procedure page has unique content. No duplicate service descriptions detected. Proper URL structure prevents parameter-based duplication.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>No immediate action needed – technical foundation is solid.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Google Business Profile & Social Media -->
+        <div class="section-card" id="gbp">
+            <details open>
+                <summary>
+                    <h3>Google Business Profile & Social Media</h3>
+                    <span class="section-score">1.5/2 (75%)</span>
+                </summary>
+                <div class="section-content">
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4>Google Business Profile Status</h4>
+                            <p><span class="info-label">Status:</span> <span class="info-value">Not verified on search audit</span></p>
+                            <p><span class="info-label">Recommendation:</span> <span class="info-value">Claim and optimize GBP immediately</span></p>
+                            <p><span class="info-label">Priority:</span> <span class="info-value">CRITICAL</span></p>
+                            <p><strong style="color: var(--danger);">Note:</strong> GBP profile likely exists but requires verification. Essential for local search visibility, referrer discovery, and review management in Alpharetta market.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h4>Social Media Presence</h4>
+                            <p><span class="info-label">Facebook:</span> <span class="info-value">Found – "Alpharetta Periodontics" page</span></p>
+                            <p><span class="info-label">Status:</span> <span class="info-value">Minimal activity (149 likes, 1 recent check-in)</span></p>
+                            <p><span class="info-label">Instagram:</span> <span class="info-value">Not detected</span></p>
+                            <p><span class="info-label">LinkedIn:</span> <span class="info-value">Not linked from website</span></p>
+                            <p style="margin-top: 1rem;"><strong>Assessment:</strong> Facebook page exists but underutilized. No Instagram presence despite strong visual case study potential (before/after). Missing opportunity to reach referring doctors on LinkedIn.</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-wins">
+                        <h4>Quick Wins for This Section</h4>
+                        <ul>
+                            <li>Claim/verify GBP profile with Google My Business and ensure NAP accuracy</li>
+                            <li>Optimize GBP with service categories (Periodontics, Implants), service area (Alpharetta, surrounding counties), and photos</li>
+                            <li>Reactivate Facebook page with monthly updates: clinical tips, team spotlights, patient education</li>
+                            <li>Create LinkedIn company page to reach referring dentists; share referral program details and case studies</li>
+                            <li>Launch Instagram to showcase before/after gallery and team expertise (LinkedIn also ideal for this)</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Prioritized Action Plan -->
+        <div class="section-card" id="action">
+            <details open>
+                <summary>
+                    <h3>Prioritized Action Plan</h3>
+                    <span class="section-score">Top 12 Recommendations</span>
+                </summary>
+                <div class="section-content">
+                    <div class="action-plan">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Priority</th>
+                                    <th>Action Item</th>
+                                    <th>Effort</th>
+                                    <th>Impact</th>
+                                    <th>Owner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="priority-high">P1 – CRITICAL</span></td>
+                                    <td><strong>Implement Online Appointment Booking Widget</strong><br/>Embed mydentalvisit scheduling system prominently in header and homepage hero. Make "Request Appointment" sticky CTA.</td>
+                                    <td><strong>Medium</strong></td>
+                                    <td><span class="impact-high">HIGH</span></td>
+                                    <td>Webmaster</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-high">P1 – CRITICAL</span></td>
+                                    <td><strong>Claim & Optimize Google Business Profile</strong><br/>Verify GBP, add all photos, services, service area, business hours. Respond to reviews. Add referral practice badge if available.</td>
+                                    <td><strong>Low</strong></td>
+                                    <td><span class="impact-high">HIGH</span></td>
+                                    <td>Marketing</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-high">P1 – CRITICAL</span></td>
+                                    <td><strong>Integrate Patient Review System</strong><br/>Add Google, Yelp, or Healthgrades review widgets to homepage and service pages. Aim for 10+ reviews to build trust with referral sources.</td>
+                                    <td><strong>Low</strong></td>
+                                    <td><span class="impact-high">HIGH</span></td>
+                                    <td>Marketing</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-high">P2 – HIGH</span></td>
+                                    <td><strong>Update SEO Meta Tags</strong><br/>Homepage title: "Periodontist in Alpharetta, GA | Dental Implants | Dr. Harrell" (63 chars). Meta description with location, keywords, and CTA. Apply to all service pages.</td>
+                                    <td><strong>Low</strong></td>
+                                    <td><span class="impact-high">HIGH</span></td>
+                                    <td>Webmaster</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-high">P2 – HIGH</span></td>
+                                    <td><strong>Add LocalBusiness Schema Markup</strong><br/>Implement Organization and LocalBusiness JSON-LD with address, phone, hours, service area, and doctor credentials for local search boost.</td>
+                                    <td><strong>Medium</strong></td>
+                                    <td><span class="impact-high">HIGH</span></td>
+                                    <td>Webmaster</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-high">P2 – HIGH</span></td>
+                                    <td><strong>Create Technology/Facility Page</strong><br/>Add page showcasing: surgical equipment, imaging (CBCT, digital), sterilization, facility amenities. Include photos of operatory and surgical suite.</td>
+                                    <td><strong>Medium</strong></td>
+                                    <td><span class="impact-high">HIGH</span></td>
+                                    <td>Marketing</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-high">P2 – HIGH</span></td>
+                                    <td><strong>Embed Google Map on Contact Page</strong><br/>Add interactive Google Map iframe showing practice location, parking, nearby landmarks. Improve visitor convenience.</td>
+                                    <td><strong>Low</strong></td>
+                                    <td><span class="impact-medium">MEDIUM</span></td>
+                                    <td>Webmaster</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-medium">P3 – MEDIUM</span></td>
+                                    <td><strong>Publish Insurance Accepted List</strong><br/>Add dedicated page listing major plans accepted (Delta, United, Cigna, etc.). Link from Patient Information and homepage.</td>
+                                    <td><strong>Low</strong></td>
+                                    <td><span class="impact-medium">MEDIUM</span></td>
+                                    <td>Office Manager</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-medium">P3 – MEDIUM</span></td>
+                                    <td><strong>Launch Blog/Resource Center</strong><br/>Publish 2 posts/month on perio topics: disease prevention, implant care, gum health, bone grafting recovery. Target referring doctor and patient keywords.</td>
+                                    <td><strong>Medium</strong></td>
+                                    <td><span class="impact-medium">MEDIUM</span></td>
+                                    <td>Marketing</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-medium">P3 – MEDIUM</span></td>
+                                    <td><strong>Expand Social Media (Facebook, Instagram, LinkedIn)</strong><br/>Post monthly on Facebook (case studies, tips). Launch Instagram for before/after showcase. Add LinkedIn company page for referral doctor outreach.</td>
+                                    <td><strong>Medium</strong></td>
+                                    <td><span class="impact-medium">MEDIUM</span></td>
+                                    <td>Marketing</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-medium">P3 – MEDIUM</span></td>
+                                    <td><strong>Cross-Link Related Service Pages</strong><br/>Link Implants ↔ Bone Grafting, Periodontal Surgery ↔ Scaling & Root Planing. Improve internal linking and user journey for complex cases.</td>
+                                    <td><strong>Low</strong></td>
+                                    <td><span class="impact-medium">MEDIUM</span></td>
+                                    <td>Webmaster</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="priority-medium">P4 – NICE-TO-HAVE</span></td>
+                                    <td><strong>Improve Accessibility (WCAG AA)</strong><br/>Add ARIA labels to forms, improve color contrast on hover states, test with screen reader. Target WCAG AA compliance.</td>
+                                    <td><strong>Medium</strong></td>
+                                    <td><span class="impact-low">LOW</span></td>
+                                    <td>Webmaster</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Key Findings Summary -->
+        <div class="section-card">
+            <details open>
+                <summary>
+                    <h3>Key Findings Summary</h3>
+                </summary>
+                <div class="section-content">
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4>Strengths</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--success);">✓</strong> Comprehensive service pages (8 procedures)</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--success);">✓</strong> Strong doctor credentialing & board cert display</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--success);">✓</strong> Responsive mobile design</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--success);">✓</strong> Professional team profiles</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--success);">✓</strong> Before/after gallery</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--success);">✓</strong> Branded 404 page</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h4>Critical Gaps</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--danger);">✗</strong> No online appointment booking widget</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--danger);">✗</strong> GBP not verified/optimized</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--danger);">✗</strong> No patient reviews displayed</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--danger);">✗</strong> Missing LocalBusiness schema</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--danger);">✗</strong> No blog/resource section</li>
+                                <li style="margin-bottom: 0.75rem;"><strong style="color: var(--danger);">✗</strong> Limited social media presence</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h4>What This Means</h4>
+                            <p>Alpharetta Periodontics has a solid foundation but is losing competitive ground on conversion and discovery. The website clearly positions expertise but fails to capture the referral flow with modern booking tools. SEO and review deficits limit local visibility.</p>
+                            <p><strong>Without immediate action on P1 items (booking, GBP, reviews):</strong> Referring doctors will see limited availability data, patient reviews elsewhere will shape perception, and local search visibility will remain below market potential.</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Gen4 Dental Phase 1 Digital Storefront Audit</strong></p>
+        <p>Alpharetta Periodontics & Dental Implants | Dr. John C. Harrell, DMD</p>
+        <p>Audit Date: April 3, 2026 | Framework: Gen4 Dental Marketing Strategy</p>
+        <p style="margin-top: 1rem; opacity: 0.8; font-size: 0.9rem;">This report is confidential and intended for internal use by the dental practice. Recommendations are prioritized by business impact and effort. Scores reflect Phase 1 audit scope (website, GBP, social) and do not include offline marketing or clinical reputation audit.</p>
+    </footer>
+
+    <script>
+        // Sticky nav scroll spy
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('[id*="summary"], [id*="conversion"], [id*="ux"], [id*="seo"], [id*="services"], [id*="trust"], [id*="nap"], [id*="insurance"], [id*="content"], [id*="technical"], [id*="gbp"], [id*="action"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

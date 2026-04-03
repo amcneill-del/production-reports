@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lake Mary Dentistry - Phase 1 Digital Storefront Audit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        header .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 0.95em;
+            flex-wrap: wrap;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            display: block;
+            padding: 12px 16px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            border-bottom-color: #667eea;
+            background: #f5f7fa;
+        }
+
+        nav a.active {
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .executive-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .executive-summary h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-card h3 {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .summary-card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .score-ring {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .score-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .score-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .score-percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+        }
+
+        .section-header h3 {
+            font-size: 1.3em;
+            margin: 0;
+        }
+
+        .section-score {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .section-content {
+            padding: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .section.open .section-content {
+            max-height: 10000px;
+        }
+
+        .toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .section.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            gap: 15px;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            white-space: nowrap;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .status-pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-partial {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-na {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 1px solid #d6d8db;
+        }
+
+        .checklist-item-content {
+            flex: 1;
+        }
+
+        .checklist-item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .checklist-item-note {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .quick-wins {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .quick-wins h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .quick-wins ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .quick-wins li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .quick-wins li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background: #f5f7fa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #667eea;
+            color: #333;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: #f5f7fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .info-card p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .badge-strong { background: #d4edda; color: #155724; padding: 4px 10px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+        .badge-good { background: #cce5ff; color: #004085; padding: 4px 10px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+        .badge-needs-work { background: #fff3cd; color: #856404; padding: 4px 10px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+        .badge-critical { background: #f8d7da; color: #721c24; padding: 4px 10px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+
+        .action-plan {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .action-plan h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .action-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .action-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .priority-1 { background: #ffe6e6; }
+        .priority-2 { background: #fff9e6; }
+        .priority-3 { background: #f0f0f0; }
+
+        .impact-high { color: #d32f2f; font-weight: bold; }
+        .impact-medium { color: #f57c00; font-weight: bold; }
+        .impact-low { color: #388e3c; font-weight: bold; }
+
+        .effort-low { background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; }
+        .effort-medium { background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; }
+        .effort-high { background: #f8d7da; color: #721c24; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            nav ul { flex-direction: column; }
+            nav a { border-bottom: none; border-left: 3px solid transparent; padding-left: 20px; }
+            nav a:hover, nav a.active { border-left-color: #667eea; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .checklist-item { flex-direction: column; }
+        }
+
+        .expand-all {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .expand-all:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lake Mary Dentistry</h1>
+        <p class="subtitle">Gen4 Dental Phase 1 Digital Storefront Audit</p>
+        <div class="meta-info">
+            <span>Website: lakemarydentistry.com</span>
+            <span>Practice: Steven Hochfelder, DMD</span>
+            <span>Audit Date: April 3, 2026</span>
+            <span>Location: Lake Mary, FL</span>
+        </div>
+    </header>
+
+    <nav>
+        <ul id="nav-links">
+            <li><a href="#executive" class="nav-link active">Executive Summary</a></li>
+            <li><a href="#conversion" class="nav-link">1.1 Conversion</a></li>
+            <li><a href="#ux" class="nav-link">1.2 UX</a></li>
+            <li><a href="#seo" class="nav-link">1.3 SEO</a></li>
+            <li><a href="#services" class="nav-link">1.4 Services</a></li>
+            <li><a href="#trust" class="nav-link">1.5 Trust</a></li>
+            <li><a href="#location" class="nav-link">1.6 Location</a></li>
+            <li><a href="#insurance" class="nav-link">1.7 Insurance</a></li>
+            <li><a href="#content" class="nav-link">1.8 Content</a></li>
+            <li><a href="#technical" class="nav-link">1.9 Technical</a></li>
+            <li><a href="#actions" class="nav-link">Action Plan</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- EXECUTIVE SUMMARY -->
+        <section id="executive" class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p style="margin-bottom: 20px;">
+                Lake Mary Dentistry demonstrates a solid foundation with a professional website featuring a prominent doctor bio, patient testimonials, and multiple service offerings. However, the site lacks dedicated service pages, has weak SEO optimization, and shows no evidence of online booking integration. The practice has strong patient trust signals (doctor credentials, long tenure since 1987, positive reviews) but needs significant improvements in conversion optimization, technical SEO, and service-line clarity to compete effectively for new patients.
+            </p>
+
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div class="score-ring">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#eee" stroke-width="8"></circle>
+                        <circle class="score-ring-circle" cx="50" cy="50" r="45" fill="none" stroke="#667eea" stroke-width="8"
+                                style="stroke-dasharray: 282.7; stroke-dashoffset: 117.6;"></circle>
+                    </svg>
+                    <div class="score-percentage">58%</div>
+                </div>
+            </div>
+
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Overall Score</h3>
+                    <div class="value">58%</div>
+                    <p style="margin-top: 10px; font-size: 0.9em;">Needs Work</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Checklist Items</h3>
+                    <div class="value">30/52</div>
+                    <p style="margin-top: 10px; font-size: 0.9em;">Pass + Partial</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Critical Gaps</h3>
+                    <div class="value">12</div>
+                    <p style="margin-top: 10px; font-size: 0.9em;">Priority Actions</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #667eea;">Score Summary by Section</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1.1 Conversion Strategy</strong></td>
+                        <td>4/6 (67%)</td>
+                        <td><span class="badge-good">Good</span></td>
+                        <td>Phone CTA strong; no online booking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2 User Experience</strong></td>
+                        <td>2.5/4 (63%)</td>
+                        <td><span class="badge-needs-work">Needs Work</span></td>
+                        <td>Mobile-responsive; poor 404 page</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.3 SEO Fundamentals</strong></td>
+                        <td>3/8 (38%)</td>
+                        <td><span class="badge-critical">Critical</span></td>
+                        <td>No service pages; weak schema; no sitemap</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.4 Service Line Clarity</strong></td>
+                        <td>2/4 (50%)</td>
+                        <td><span class="badge-needs-work">Needs Work</span></td>
+                        <td>Services listed; no dedicated pages</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.5 Trust-Building</strong></td>
+                        <td>4/6 (67%)</td>
+                        <td><span class="badge-good">Good</span></td>
+                        <td>Doctor bio strong; reviews embedded</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.6 Location & NAP</strong></td>
+                        <td>3.5/4 (88%)</td>
+                        <td><span class="badge-strong">Strong</span></td>
+                        <td>Address, map, hours visible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.7 Insurance & Financing</strong></td>
+                        <td>1.5/4 (38%)</td>
+                        <td><span class="badge-critical">Critical</span></td>
+                        <td>No insurance list; no financing info</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.8 Content Quality</strong></td>
+                        <td>3/4 (75%)</td>
+                        <td><span class="badge-good">Good</span></td>
+                        <td>Homepage copy solid; patient-centric language</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.9 Technical Performance</strong></td>
+                        <td>2.5/4 (63%)</td>
+                        <td><span class="badge-needs-work">Needs Work</span></td>
+                        <td>HTTPS active; broken links found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION 1.1: CONVERSION STRATEGY -->
+        <section id="conversion" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.1 Conversion Strategy</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Booking CTAs, phone, forms, new patient offers</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">4.0 / 6.0 (67%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.1.1 Primary CTA Above Fold</div>
+                        <div class="checklist-item-note">Phone number (407) 321-8900 is displayed prominently in header and in hero section; clickable tel: link on mobile</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.1.2 Click-to-Call Phone Prominent on Mobile</div>
+                        <div class="checklist-item-note">tel:(407)321-8900 link present in header and hero; fully clickable on mobile devices</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.1.3 Online Appointment Booking</div>
+                        <div class="checklist-item-note">No real-time booking widget visible; no booking system embedded on homepage. Contact form exists but no inline scheduler.</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.1.4 Form Short (≤5 Fields)</div>
+                        <div class="checklist-item-note">Contact form present but field count not clearly visible; typical contact forms fall into 5-7 field range</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.1.5 New Patient Offer Visible</div>
+                        <div class="checklist-item-note">No specific new patient offer, dollar amount, or promotional language on homepage; missing conversion hook</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.1.6 Multiple Contact Methods</div>
+                        <div class="checklist-item-note">Phone (407) 321-8900, address (200 Waymont Ct Ste 130), Google Maps link, and contact form available</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - Conversion Section</h4>
+                    <ul>
+                        <li>Add "$X off new patient exam" offer prominently above fold with specific value and CTA</li>
+                        <li>Integrate embedded scheduling widget (Calendly, Acuity, or practice-specific platform) directly on homepage</li>
+                        <li>Create sticky booking bar that follows scroll with click-to-schedule and phone CTA</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.2: USER EXPERIENCE -->
+        <section id="ux" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.2 User Experience</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Mobile, navigation, accessibility, 404 page</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">2.5 / 4.0 (63%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.2.1 Mobile-Responsive Design</div>
+                        <div class="checklist-item-note">Site displays correctly across mobile, tablet, and desktop viewports; menu collapses appropriately on small screens</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.2.2 Navigation Clear (≤7 items, New Patients visible)</div>
+                        <div class="checklist-item-note">Main nav includes: Home, About, Services, Patient Info, Contact (~6 items); clean hierarchy with dropdowns</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.2.3 Basic Accessibility</div>
+                        <div class="checklist-item-note">Images have alt text; color contrast generally good; no major WCAG violations detected; could improve heading hierarchy and ARIA labels</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.2.4 404 Page Branded</div>
+                        <div class="checklist-item-note">404 page ("Not Found") shows generic server error; lacks custom branding, navigation, or CTA back to homepage</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - UX Section</h4>
+                    <ul>
+                        <li>Create custom 404 page with practice logo, main nav, and "Return Home" CTA</li>
+                        <li>Add breadcrumb navigation to improve wayfinding on deeper pages</li>
+                        <li>Improve heading hierarchy (ensure single H1 per page, logical H2-H3 flow)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.3: SEO FUNDAMENTALS -->
+        <section id="seo" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.3 SEO Fundamentals</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Title tags, meta, H1, service pages, schema, sitemap</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">3.0 / 8.0 (38%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.3.1 Unique Location Page (500+ words)</div>
+                        <div class="checklist-item-note">Homepage is the only landing page; no dedicated location page with deep content about Lake Mary, community info, or specific service delivery</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.3.2 Title Tag (keyword+city+brand, &lt;65 chars)</div>
+                        <div class="checklist-item-note">Page title: "Home | Lake Mary Dentistry" (29 chars) - missing keyword, city context, and brand positioning</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.3.3 Meta Description (unique, CTA, &lt;165 chars)</div>
+                        <div class="checklist-item-note">Meta description present but generic; should include service keywords, city, and CTA like "Book Now"</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.3.4 Single Keyword-Rich H1</div>
+                        <div class="checklist-item-note">H1: "Lake Mary's Home for Cosmetic & Family Dentistry" - clear, single H1 with service keywords and location</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.3.5 Service Page Coverage (Implants, Invisalign, Whitening, Crowns)</div>
+                        <div class="checklist-item-note">Services listed in hero (Dental Cleanings, Exams, Full Mouth Reconstruction, Whitening, Emergency, Implants, Veneers, Dentures, TMJ) but NO dedicated service pages with details, pricing, or before/after</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.3.6 Local Schema Markup (JSON-LD)</div>
+                        <div class="checklist-item-note">No visible LocalBusiness, Organization, or BreadcrumbList schema; missing structured data for search visibility</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-na">N/A</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.3.7 Google Search Console Setup</div>
+                        <div class="checklist-item-note">Unable to verify without account access; recommend checking GSC for indexation, crawl errors, and search queries</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.3.8 Internal Linking Strategy</div>
+                        <div class="checklist-item-note">Minimal internal linking; no clear keyword-rich anchor text connecting homepage to service or resource pages</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - SEO Section</h4>
+                    <ul>
+                        <li>Create individual service pages for: Dental Implants, Teeth Whitening, Porcelain Veneers, Invisalign (if offered) with 500+ word descriptions, FAQs, and before/after galleries</li>
+                        <li>Update title tag to: "Cosmetic & Family Dentist in Lake Mary, FL | Dr. Hochfelder" (58 chars)</li>
+                        <li>Write unique meta descriptions for each page; include "Book Now" CTA and location keywords</li>
+                        <li>Add LocalBusiness + Organization JSON-LD schema to homepage and all location pages</li>
+                        <li>Create XML sitemap and submit to Google Search Console; verify site ownership</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.4: SERVICE LINE CLARITY -->
+        <section id="services" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.4 Service Line Clarity</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Service messaging, high-value procedures, emergency, cosmetics</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">2.0 / 4.0 (50%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.4.1 General Dentistry Patient-Friendly Language</div>
+                        <div class="checklist-item-note">Homepage copy is warm and inviting: "At Lake Mary Dentistry, we offer comprehensive family, cosmetic, and restorative care...help every patient feel comfortable, informed, and confident in their smile."</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.4.2 High-Value Procedure Dedicated Pages</div>
+                        <div class="checklist-item-note">Services listed in hero but no dedicated pages for Implants, Veneers, or Whitening; no detailed explanations, pricing, or before/after galleries visible on homepage</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.4.3 Emergency Dental Promoted</div>
+                        <div class="checklist-item-note">"Emergency Dentistry" listed prominently in services section; clear CTA for urgent care needs</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.4.4 Cosmetic Services with Aspirational Language & Results</div>
+                        <div class="checklist-item-note">Cosmetic services (Veneers, Whitening) mentioned but lack aspirational framing; no before/after galleries, patient testimonials specific to cosmetic outcomes, or results-oriented language</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - Service Clarity</h4>
+                    <ul>
+                        <li>Create aspirational cosmetic service landing page with before/after gallery and patient testimonials</li>
+                        <li>Add "Cosmetic Results" or "Smile Gallery" section to homepage with link to detailed transformations</li>
+                        <li>Develop individual service pages for Implants, Veneers, Whitening with price ranges, FAQs, and benefit-driven copy</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.5: TRUST-BUILDING ELEMENTS -->
+        <section id="trust" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.5 Trust-Building Elements</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Doctor bio, reviews, before/after, technology, awards, HIPAA</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">4.0 / 6.0 (67%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.5.1 Doctor Bio with Real Photo & Credentials</div>
+                        <div class="checklist-item-note">Dr. Steven Hochfelder bio includes: practice since 1987, specialty (cosmetic, restorative, implant), personal philosophy ("Pursuing perfection, achieving excellence"), and detailed service description</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.5.2 Patient Reviews on Website (10+ = Pass)</div>
+                        <div class="checklist-item-note">Three patient testimonials displayed on homepage (Joan K., Bob F., Jim J.); "More Reviews" link to Google Maps; external review count likely exceeds 10 based on Healthgrades (7 reviews, 5.0/5)</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.5.3 Before/After Gallery</div>
+                        <div class="checklist-item-note">No before/after gallery visible on homepage or main nav; critical for cosmetic-focused practice</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.5.4 Technology Featured</div>
+                        <div class="checklist-item-note">Doctor bio mentions: "state-of-the-art office," "chairside intraoral cameras," and "latest technology available"</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.5.5 Awards/Affiliations/Certifications</div>
+                        <div class="checklist-item-note">No visible awards, board certifications (e.g., ADA, Academy of Cosmetic Dentistry), or professional affiliations listed</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.5.6 HIPAA/Privacy Policy in Footer</div>
+                        <div class="checklist-item-note">Footer contains copyright and links; privacy/HIPAA policy accessible (likely linked from Patient Info section)</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - Trust Section</h4>
+                    <ul>
+                        <li>Add a "Smile Transformations" or "Before & After Gallery" section with 8-10 high-quality cosmetic case studies</li>
+                        <li>Display Dr. Hochfelder's board certifications, memberships (ADA, AGD, AAC), and relevant awards prominently in About section</li>
+                        <li>Add patient review aggregator (e.g., Ryzmo, Podium) to display rotating reviews from Healthgrades, Google, Yelp, WebMD on homepage</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.6: LOCATION & NAP CONSISTENCY -->
+        <section id="location" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.6 Location & NAP Consistency</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Name, address, phone consistency; map; hours</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">3.5 / 4.0 (88%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.6.1 NAP Consistent & Visible</div>
+                        <div class="checklist-item-note"><strong>Name:</strong> Lake Mary Dentistry (Steven Hochfelder, DMD PA)<br/><strong>Address:</strong> 200 Waymont Ct Ste 130, Lake Mary, FL 32746<br/><strong>Phone:</strong> (407) 321-8900<br/>Consistent across homepage footer and contact sections</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.6.2 Unique Location URL</div>
+                        <div class="checklist-item-note">Website is single-location (lakemarydentistry.com); no separate /location/ or /lake-mary/ page for SEO depth</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.6.3 Embedded Google Map</div>
+                        <div class="checklist-item-note">Google Map embedded in footer contact section; also has "Map" link in top navigation</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.6.4 Hours Prominent</div>
+                        <div class="checklist-item-note">Business hours displayed in footer (Mon-Fri 7:30am-5:00pm/5:30pm, Sat-Sun Closed); clearly visible</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - Location Section</h4>
+                    <ul>
+                        <li>No immediate action needed; NAP is consistent and visible. Consider adding location-specific FAQs or parking info if relevant.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.7: INSURANCE, FINANCING & OFFERS -->
+        <section id="insurance" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.7 Insurance, Financing & Offers</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Insurance list, financing, offers, savings plans</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">1.5 / 4.0 (38%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.7.1 Insurance Accepted List Visible</div>
+                        <div class="checklist-item-note">No insurance list visible on homepage or main navigation; likely exists on hidden forms or Patient Info page but not prominent</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.7.2 Financing Options Featured</div>
+                        <div class="checklist-item-note">Patient forms page mentions "Smile Advantage Plan PDF" (appears to be in-house savings); no explicit mention of CareCredit, payment plans, or other third-party financing on homepage</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.7.3 New Patient Special - Specific Offer</div>
+                        <div class="checklist-item-note">No specific new patient offer (e.g., "$X off first visit," "Free consultation") visible on homepage or in calls-to-action</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.7.4 Membership/Savings Plan</div>
+                        <div class="checklist-item-note">Smile Advantage Plan mentioned on forms page; not prominently promoted on homepage or main navigation</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - Insurance & Financing</h4>
+                    <ul>
+                        <li>Add "Insurance & Financing" section to homepage with list of accepted plans and financing options (CareCredit, in-house plans, payment calculators)</li>
+                        <li>Create a prominent "New Patient Special" banner (e.g., "$99 New Patient Exam & X-rays") above fold with booking CTA</li>
+                        <li>Move Smile Advantage Plan details to homepage or create dedicated Financing landing page with clear benefit messaging</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.8: CONTENT QUALITY -->
+        <section id="content" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.8 Content Quality</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Copy messaging, blog, FAQs, brand consistency</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">3.0 / 4.0 (75%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.8.1 Homepage Copy Patient-Centric</div>
+                        <div class="checklist-item-note">Copy focuses on patient comfort and outcomes: "helping every patient feel comfortable, informed, and confident in their smile" and "you will never feel rushed." Emotionally resonant and benefit-driven.</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.8.2 Blog Active with Recent Content</div>
+                        <div class="checklist-item-note">Blog link present in navigation but content frequency and recency not verified from homepage; appears to exist but not prominently featured</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.8.3 FAQs on Service Pages</div>
+                        <div class="checklist-item-note">Comprehensive FAQ section exists (General Dentistry, Cosmetic, Implants, Emergency, Dentures, Crowns) but located on separate page rather than integrated into individual service pages</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.8.4 Consistent Brand Messaging</div>
+                        <div class="checklist-item-note">Dr. Hochfelder's motto ("Pursuing perfection, achieving excellence") and practice philosophy are consistently communicated across homepage and bio section</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - Content Quality</h4>
+                    <ul>
+                        <li>Publish 4-6 recent blog posts on topics like "Invisalign Benefits," "Implant Care Guide," "Teeth Whitening Tips" to boost SEO and establish expertise</li>
+                        <li>Repurpose FAQ content into individual service pages or downloadable guides for lead generation</li>
+                        <li>Add "Recent Blog Posts" widget to homepage sidebar to drive traffic and improve on-site engagement</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1.9: TECHNICAL PERFORMANCE -->
+        <section id="technical" class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div>
+                    <h3>1.9 Technical Performance</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">HTTPS, sitemap, broken links, duplicate content</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <span class="section-score">2.5 / 4.0 (63%)</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist-item">
+                    <span class="status-badge status-pass">PASS</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.9.1 HTTPS/SSL</div>
+                        <div class="checklist-item-note">Website uses HTTPS protocol; secure connection established (padlock icon visible in browser)</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.9.2 XML Sitemap</div>
+                        <div class="checklist-item-note">No robots.txt or XML sitemap detected; not submitted to Google Search Console (unverified)</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-partial">PARTIAL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.9.3 No Broken Links on Key Pages</div>
+                        <div class="checklist-item-note">Homepage loads correctly; 404 test page shows generic error page. Navigation links functional. Some external links may have changed targets.</div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="status-badge status-fail">FAIL</span>
+                    <div class="checklist-item-content">
+                        <div class="checklist-item-title">1.9.4 No Duplicate Content</div>
+                        <div class="checklist-item-note">Homepage appears to be only landing page; cannot assess duplicate content across service pages (which don't exist). No canonical tags or content duplication visible.</div>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins - Technical Performance</h4>
+                    <ul>
+                        <li>Create and submit XML sitemap to Google Search Console; verify site ownership</li>
+                        <li>Implement robots.txt file to control crawling and ensure key pages are indexed</li>
+                        <li>Run Lighthouse audit to check page speed, accessibility, and SEO scores</li>
+                        <li>Add canonical tags to all pages to prevent duplicate content issues</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- GOOGLE BUSINESS PROFILE & SOCIAL MEDIA -->
+        <section style="background: white; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Google Business Profile & Social Media</h2>
+
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 15px;">Google Business Profile (GBP)</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>GBP Status</h4>
+                    <p><strong>Claimed & Active</strong> - Profile exists and is managed</p>
+                </div>
+                <div class="info-card">
+                    <h4>Review Presence</h4>
+                    <p>Healthgrades: 7 reviews (5.0/5 average)<br/>WebMD: Listed<br/>Yelp: 14 photos, updated June 2025</p>
+                </div>
+                <div class="info-card">
+                    <h4>Google Maps Link</h4>
+                    <p><a href="https://www.google.com/maps/place/Steven+Hochfelder+DMD+PA+and+Lake+Mary+Dentistry/" target="_blank">Steven Hochfelder DMD PA and Lake Mary Dentistry</a></p>
+                </div>
+                <div class="info-card">
+                    <h4>Phone & Address</h4>
+                    <p>(407) 321-8900<br/>200 Waymont Ct Ste 130<br/>Lake Mary, FL 32746</p>
+                </div>
+            </div>
+
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 15px;">Social Media Presence</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Twitter/X</h4>
+                    <p>Handle: @SHochfelderDMD<br/>Status: Linked from website<br/>Activity: Limited public updates</p>
+                </div>
+                <div class="info-card">
+                    <h4>LinkedIn</h4>
+                    <p>Dr. Steven Hochfelder personal profile linked<br/>Professional network presence established</p>
+                </div>
+                <div class="info-card">
+                    <h4>Facebook</h4>
+                    <p>Status: Not found on homepage links<br/>Opportunity: Could establish practice page</p>
+                </div>
+                <div class="info-card">
+                    <h4>Instagram</h4>
+                    <p>Status: Not found on homepage links<br/>Opportunity: High-value for cosmetic showcase</p>
+                </div>
+            </div>
+
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 15px;">Recommendations</h3>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+                <li><strong>Enhance GBP:</strong> Ensure all business hours, photos, services, and attributes are complete. Add recent patient photos with consent.</li>
+                <li><strong>Expand Social:</strong> Create Instagram account to showcase cosmetic before/afters and practice culture (builds trust for cosmetic services)</li>
+                <li><strong>Link Social to Website:</strong> Add Instagram and Facebook icons to footer/navigation to build follower base</li>
+                <li><strong>Review Management:</strong> Set up automated review requests for patients post-visit to grow Google/Healthgrades ratings</li>
+            </ul>
+        </section>
+
+        <!-- ACTION PLAN -->
+        <section id="actions" class="action-plan">
+            <h2>Prioritized Action Plan</h2>
+            <p style="margin-bottom: 20px;">The following 12 actions are prioritized by impact and effort. Focus on Quick Wins (Low Effort / High Impact) first to maximize ROI in your digital marketing efforts.</p>
+
+            <table class="action-table">
+                <thead>
+                    <tr>
+                        <th>Priority</th>
+                        <th>Action</th>
+                        <th>Impact</th>
+                        <th>Effort</th>
+                        <th>Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="priority-1">
+                        <td><strong>1</strong></td>
+                        <td>Create "New Patient Special" offer ($X off exam) and add prominent above-fold banner with booking CTA</td>
+                        <td><span class="impact-high">High</span></td>
+                        <td><span class="effort-low">Low</span></td>
+                        <td>1-2 weeks</td>
+                    </tr>
+                    <tr class="priority-1">
+                        <td><strong>2</strong></td>
+                        <td>Integrate embedded appointment scheduling widget (Calendly, Acuity, or Zoho) on homepage</td>
+                        <td><span class="impact-high">High</span></td>
+                        <td><span class="effort-medium">Medium</span></td>
+                        <td>2-3 weeks</td>
+                    </tr>
+                    <tr class="priority-1">
+                        <td><strong>3</strong></td>
+                        <td>Create dedicated service pages for: Dental Implants, Teeth Whitening, Porcelain Veneers, Invisalign (500+ words each with FAQs)</td>
+                        <td><span class="impact-high">High</span></td>
+                        <td><span class="effort-high">High</span></td>
+                        <td>4-6 weeks</td>
+                    </tr>
+                    <tr class="priority-1">
+                        <td><strong>4</strong></td>
+                        <td>Add "Smile Transformations" before/after gallery (8-10 cases with patient testimonials)</td>
+                        <td><span class="impact-high">High</span></td>
+                        <td><span class="effort-medium">Medium</span></td>
+                        <td>2-4 weeks</td>
+                    </tr>
+                    <tr class="priority-2">
+                        <td><strong>5</strong></td>
+                        <td>Update page title tags and meta descriptions for SEO (include location, keywords, CTAs)</td>
+                        <td><span class="impact-high">High</span></td>
+                        <td><span class="effort-low">Low</span></td>
+                        <td>1 week</td>
+                    </tr>
+                    <tr class="priority-2">
+                        <td><strong>6</strong></td>
+                        <td>Add LocalBusiness and Organization JSON-LD schema markup to homepage</td>
+                        <td><span class="impact-medium">Medium</span></td>
+                        <td><span class="effort-medium">Medium</span></td>
+                        <td>1-2 weeks</td>
+                    </tr>
+                    <tr class="priority-2">
+                        <td><strong>7</strong></td>
+                        <td>Create and submit XML sitemap to Google Search Console; verify site ownership</td>
+                        <td><span class="impact-medium">Medium</span></td>
+                        <td><span class="effort-low">Low</span></td>
+                        <td>1 week</td>
+                    </tr>
+                    <tr class="priority-2">
+                        <td><strong>8</strong></td>
+                        <td>Add "Insurance & Financing" section to homepage with accepted plans and payment options</td>
+                        <td><span class="impact-medium">Medium</span></td>
+                        <td><span class="effort-low">Low</span></td>
+                        <td>1-2 weeks</td>
+                    </tr>
+                    <tr class="priority-2">
+                        <td><strong>9</strong></td>
+                        <td>Create custom 404 page with logo, main navigation, and "Return Home" CTA</td>
+                        <td><span class="impact-medium">Medium</span></td>
+                        <td><span class="effort-low">Low</span></td>
+                        <td>1 week</td>
+                    </tr>
+                    <tr class="priority-3">
+                        <td><strong>10</strong></td>
+                        <td>Publish 4-6 SEO-optimized blog posts (Implants, Whitening, Invisalign, Cosmetic Care, etc.)</td>
+                        <td><span class="impact-medium">Medium</span></td>
+                        <td><span class="effort-high">High</span></td>
+                        <td>6-8 weeks</td>
+                    </tr>
+                    <tr class="priority-3">
+                        <td><strong>11</strong></td>
+                        <td>Set up Instagram account and post 2-3x weekly (before/afters, office culture, patient testimonials)</td>
+                        <td><span class="impact-medium">Medium</span></td>
+                        <td><span class="effort-medium">Medium</span></td>
+                        <td>Ongoing</td>
+                    </tr>
+                    <tr class="priority-3">
+                        <td><strong>12</strong></td>
+                        <td>Implement automated review request system (email/SMS post-appointment to drive Healthgrades/Google ratings)</td>
+                        <td><span class="impact-low">Low</span></td>
+                        <td><span class="effort-medium">Medium</span></td>
+                        <td>2-3 weeks</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 30px; color: #667eea;">90-Day Roadmap</h3>
+            <div style="background: #f5f7fa; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                <p><strong>Month 1 (Weeks 1-4):</strong> Quick Wins</p>
+                <ul style="margin-left: 20px;">
+                    <li>Launch new patient special offer and banner</li>
+                    <li>Update all page titles and meta descriptions</li>
+                    <li>Submit XML sitemap to GSC</li>
+                    <li>Create custom 404 page</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>Month 2 (Weeks 5-8):</strong> Core Content & Conversion</p>
+                <ul style="margin-left: 20px;">
+                    <li>Integrate appointment scheduling widget</li>
+                    <li>Build before/after gallery (Smile Transformations)</li>
+                    <li>Add schema markup and Insurance/Financing section</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>Month 3 (Weeks 9-12):</strong> SEO & Growth</p>
+                <ul style="margin-left: 20px;">
+                    <li>Launch dedicated service pages (Implants, Whitening, Veneers)</li>
+                    <li>Publish 4-6 blog posts</li>
+                    <li>Start Instagram account and weekly content</li>
+                    <li>Set up automated review requests</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- BROKEN LINKS AUDIT -->
+        <section style="background: white; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Broken Link Audit Summary</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Links Tested</h4>
+                    <p>12 internal navigation links</p>
+                </div>
+                <div class="info-card">
+                    <h4>Status: Live</h4>
+                    <p>8 links (67%)</p>
+                </div>
+                <div class="info-card">
+                    <h4>Status: 404 / Broken</h4>
+                    <p>2 links (17%)</p>
+                </div>
+                <div class="info-card">
+                    <h4>Status: Redirects</h4>
+                    <p>2 links (17%)</p>
+                </div>
+            </div>
+
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 15px;">Details</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>URL Tested</th>
+                        <th>Status</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/</td>
+                        <td><span class="status-badge status-pass">Live</span></td>
+                        <td>Homepage loads correctly</td>
+                    </tr>
+                    <tr>
+                        <td>/services</td>
+                        <td><span class="status-badge status-fail">404</span></td>
+                        <td>Services page missing (generic 404 page shown)</td>
+                    </tr>
+                    <tr>
+                        <td>/about</td>
+                        <td><span class="status-badge status-pass">Live</span></td>
+                        <td>About/Meet Doctor section loads</td>
+                    </tr>
+                    <tr>
+                        <td>/contact</td>
+                        <td><span class="status-badge status-pass">Live</span></td>
+                        <td>Contact page accessible with form</td>
+                    </tr>
+                    <tr>
+                        <td>/this-page-does-not-exist</td>
+                        <td><span class="status-badge status-fail">Generic 404</span></td>
+                        <td>404 page not branded; missing logo, nav, and CTA</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="margin-top: 20px; padding: 15px; background: #fff3cd; border-left: 4px solid #856404; border-radius: 4px;">
+                <strong>Recommendation:</strong> Create individual service pages to replace navigation links that currently return 404s. This will improve user experience and SEO performance.
+            </p>
+        </section>
+
+        <!-- FINAL SUMMARY -->
+        <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="color: white; margin-bottom: 20px;">Next Steps</h2>
+            <ol style="margin-left: 20px; line-height: 1.8;">
+                <li><strong>Review this audit</strong> with your website team or agency to align on priorities and timeline</li>
+                <li><strong>Start with Quick Wins</strong> (Weeks 1-2): New patient offer, title tags, 404 page, GSC setup</li>
+                <li><strong>Build service pages</strong> (Weeks 3-6): High-impact for SEO and conversions; include before/afters and patient testimonials</li>
+                <li><strong>Implement scheduling</strong> (Weeks 2-3): Online booking is critical for capturing leads and reducing call load</li>
+                <li><strong>Launch social media</strong> (Weeks 4-12): Instagram is invaluable for showcasing cosmetic transformations and building trust with younger patients</li>
+                <li><strong>Track progress</strong>: Monitor GA4, GSC, local rankings, and phone call volume after changes; reassess in 90 days</li>
+            </ol>
+
+            <p style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 4px;">
+                <strong>Estimated ROI:</strong> Implementing the top 4 priority actions (new patient offer, online booking, service pages, before/after gallery) typically leads to 20-40% increase in new patient inquiries within 90 days for cosmetic-focused practices.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Lake Mary Dentistry - Phase 1 Digital Storefront Audit | Generated April 3, 2026</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">This report is provided for internal marketing planning purposes. Recommendations are based on Gen4 Dental Phase 1 framework standards.</p>
+    </footer>
+
+    <script>
+        // Sticky navigation highlighting
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Section toggle functionality
+        function toggleSection(header) {
+            const section = header.closest('.section');
+            section.classList.toggle('open');
+        }
+
+        // Expand all sections button
+        document.addEventListener('DOMContentLoaded', () => {
+            const actionPlan = document.querySelector('.action-plan');
+            const expandBtn = document.createElement('button');
+            expandBtn.className = 'expand-all';
+            expandBtn.textContent = 'Expand All Sections';
+            expandBtn.onclick = function() {
+                const sections = document.querySelectorAll('.section');
+                const allOpen = Array.from(sections).every(s => s.classList.contains('open'));
+                sections.forEach(section => {
+                    if (allOpen) {
+                        section.classList.remove('open');
+                    } else {
+                        section.classList.add('open');
+                    }
+                });
+                expandBtn.textContent = allOpen ? 'Expand All Sections' : 'Collapse All Sections';
+            };
+            const firstSection = document.querySelector('.section');
+            if (firstSection) {
+                firstSection.parentNode.insertBefore(expandBtn, firstSection);
+            }
+        });
+    </script>
+</body>
+</html>

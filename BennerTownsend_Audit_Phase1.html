@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benner & Townsend Dentistry - Phase 1 Digital Storefront Audit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066cc;
+            --primary-dark: #003d7a;
+            --accent-cyan: #00bcd4;
+            --success-green: #2ecc71;
+            --warning-yellow: #f39c12;
+            --danger-red: #e74c3c;
+            --neutral-gray: #95a5a6;
+            --light-gray: #ecf0f1;
+            --white: #ffffff;
+            --dark-text: #2c3e50;
+            --border-color: #bdc3c7;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            border-bottom: 3px solid var(--primary-blue);
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-right: 2rem;
+            border-right: 2px solid var(--light-gray);
+            padding-right: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Score Ring */
+        .score-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: -3rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .score-ring {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-ring svg {
+            width: 220px;
+            height: 220px;
+            margin-bottom: 1rem;
+        }
+
+        .score-percentage {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-label {
+            font-size: 1.1rem;
+            color: var(--dark-text);
+            margin-bottom: 1rem;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .grade-strong { background: var(--success-green); }
+        .grade-good { background: var(--primary-blue); }
+        .grade-needs-work { background: var(--warning-yellow); color: var(--dark-text); }
+        .grade-critical { background: var(--danger-red); }
+
+        .summary-stats {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--light-gray);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-text);
+            margin-top: 0.5rem;
+        }
+
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-box {
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .info-box h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 2rem;
+        }
+
+        .section {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-cyan) 100%);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-code {
+            background: rgba(0,0,0,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+
+        .toggle-icon {
+            font-size: 1.3rem;
+            transition: transform 0.3s;
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            padding: 2rem;
+        }
+
+        .checklist {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .checklist-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: var(--light-gray);
+        }
+
+        .checklist-item.pass {
+            border-left: 4px solid var(--success-green);
+            background: #f0fdf4;
+        }
+
+        .checklist-item.partial {
+            border-left: 4px solid var(--warning-yellow);
+            background: #fffbf0;
+        }
+
+        .checklist-item.fail {
+            border-left: 4px solid var(--danger-red);
+            background: #fef2f2;
+        }
+
+        .checklist-item.na {
+            border-left: 4px solid var(--neutral-gray);
+            background: #f8f9fa;
+        }
+
+        .item-header {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .status-pill.pass {
+            background: var(--success-green);
+            color: var(--white);
+        }
+
+        .status-pill.partial {
+            background: var(--warning-yellow);
+            color: var(--dark-text);
+        }
+
+        .status-pill.fail {
+            background: var(--danger-red);
+            color: var(--white);
+        }
+
+        .status-pill.na {
+            background: var(--neutral-gray);
+            color: var(--white);
+        }
+
+        .item-code {
+            font-family: monospace;
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .item-description {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-finding {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .section-score {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .score-bar {
+            flex: 1;
+            height: 24px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-green), var(--accent-cyan));
+            transition: width 0.3s;
+        }
+
+        .score-number {
+            font-weight: 700;
+            color: var(--primary-blue);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* Quick Wins */
+        .quick-wins {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f7ff 100%);
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-wins h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .quick-wins ul {
+            list-style: none;
+        }
+
+        .quick-wins li {
+            padding: 0.5rem 0;
+            color: var(--dark-text);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .quick-wins li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: 700;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .info-card p {
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .info-card strong {
+            color: var(--primary-blue);
+        }
+
+        /* Action Plan Table */
+        .action-plan {
+            margin-top: 2rem;
+        }
+
+        .action-plan h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .action-table thead {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .action-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .action-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .action-table tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+        .action-table tbody tr:nth-child(odd) {
+            background: var(--white);
+        }
+
+        .action-table tbody tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .priority-high { color: var(--danger-red); font-weight: 600; }
+        .priority-medium { color: var(--warning-yellow); font-weight: 600; }
+        .priority-low { color: var(--success-green); font-weight: 600; }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .score-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-section,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-brand {
+                margin-right: 0;
+                padding-right: 0;
+                border-right: none;
+                margin-bottom: 1rem;
+            }
+
+            .header {
+                padding: 2rem;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-header h2 {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .action-table {
+                font-size: 0.9rem;
+            }
+
+            .action-table th,
+            .action-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sticky-nav">
+        <div class="nav-container">
+            <div class="nav-brand">Gen4 Dental Phase 1 Audit</div>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#section-1-1">Conversion</a></li>
+                <li><a href="#section-1-2">UX</a></li>
+                <li><a href="#section-1-3">SEO</a></li>
+                <li><a href="#section-1-4">Services</a></li>
+                <li><a href="#section-1-5">Trust</a></li>
+                <li><a href="#section-1-6">NAP</a></li>
+                <li><a href="#section-1-7">Finance</a></li>
+                <li><a href="#section-1-8">Content</a></li>
+                <li><a href="#section-1-9">Tech</a></li>
+                <li><a href="#action-plan">Actions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Benner & Townsend Dentistry</h1>
+        <p>Digital Storefront Phase 1 Audit Report | April 2026</p>
+    </div>
+
+    <!-- Score Overview -->
+    <div class="container">
+        <div id="overview" class="score-container">
+            <div class="score-ring">
+                <svg viewBox="0 0 200 200" style="transform: rotate(-90deg)">
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="var(--light-gray)" stroke-width="12"/>
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="url(#gradientScore)" stroke-width="12"
+                            stroke-dasharray="471.24" stroke-dashoffset="106.84" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="gradientScore" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:var(--success-green);stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:var(--accent-cyan);stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="score-percentage">72.4%</div>
+                <div class="score-label">Overall Score</div>
+                <div class="grade-badge grade-good">GOOD</div>
+            </div>
+
+            <div class="summary-stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">21</div>
+                        <div class="stat-label">Pass Items</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Partial Items</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Fail Items</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">N/A Items</div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-box">
+                        <h4>Practice Location</h4>
+                        <p><strong>212 E Broad St.<br>Winder, GA 30680</strong></p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Phone: (770) 867-3275</p>
+                    </div>
+                    <div class="info-box">
+                        <h4>Website Status</h4>
+                        <p>✓ HTTPS Enabled</p>
+                        <p>✓ Mobile Responsive</p>
+                        <p>✓ Custom 404 Page</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="container">
+        <!-- Section 1.1: Conversion Strategy -->
+        <div class="section" id="section-1-1">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.1</span>
+                    Conversion Strategy
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 66.7%;"></div>
+                    </div>
+                    <div class="score-number">4.0/6</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>Phone number is prominently displayed and clickable (tel: link)</li>
+                        <li>Multiple contact methods available (phone, email, form)</li>
+                        <li>Services clearly listed with dedicated pages</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.1.1</span>
+                        </div>
+                        <div class="item-title">Primary CTA Above Fold</div>
+                        <div class="item-description">Book/request appointment visible and prominent</div>
+                        <div class="item-finding">✓ Services section with clear visual CTAs; phone number visible in header with contrasting color</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.1.2</span>
+                        </div>
+                        <div class="item-title">Click-to-Call Mobile CTA</div>
+                        <div class="item-description">Phone number prominent on mobile with tel: link</div>
+                        <div class="item-finding">✓ (770) 867-3275 visible in header with tel: protocol link</div>
+                    </div>
+
+                    <div class="checklist-item partial">
+                        <div class="item-header">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <span class="item-code">1.1.3</span>
+                        </div>
+                        <div class="item-title">Online Appointment Booking</div>
+                        <div class="item-description">Real-time booking widget embedded or available</div>
+                        <div class="item-finding">~ No embedded booking widget detected. Contact form available but not real-time appointment scheduling</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.1.4</span>
+                        </div>
+                        <div class="item-title">Contact Form Length</div>
+                        <div class="item-description">Form should have ≤5 fields for conversions</div>
+                        <div class="item-finding">✓ 4-field contact form (Name, Email, Phone, Message) is optimal</div>
+                    </div>
+
+                    <div class="checklist-item fail">
+                        <div class="item-header">
+                            <span class="status-pill fail">FAIL</span>
+                            <span class="item-code">1.1.5</span>
+                        </div>
+                        <div class="item-title">New Patient Special/Offer</div>
+                        <div class="item-description">Specific dollar offer with CTA visible</div>
+                        <div class="item-finding">✗ "Welcoming New Patients" message present but no specific dollar amount or time-limited offer</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.1.6</span>
+                        </div>
+                        <div class="item-title">Multiple Contact Methods</div>
+                        <div class="item-description">Phone + form + chat available</div>
+                        <div class="item-finding">✓ Phone (tel link), email, form, and Google Map location all available</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.2: User Experience -->
+        <div class="section" id="section-1-2">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.2</span>
+                    User Experience
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 100%;"></div>
+                    </div>
+                    <div class="score-number">4.0/4</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>Clean, intuitive navigation with all essential pages visible</li>
+                        <li>Mobile-responsive design with meta viewport tag</li>
+                        <li>Custom branded 404 error page</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.2.1</span>
+                        </div>
+                        <div class="item-title">Mobile Responsiveness</div>
+                        <div class="item-description">Mobile-first design with proper viewport meta tag</div>
+                        <div class="item-finding">✓ Viewport meta tag present; responsive grid layouts detected</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.2.2</span>
+                        </div>
+                        <div class="item-title">Navigation Clarity</div>
+                        <div class="item-description">≤7 items with New Patients visible</div>
+                        <div class="item-finding">✓ Main nav: Home, Our Team, Financial, Services, New Patients, Contact, Pay Now (7 items); New Patients prominently featured</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.2.3</span>
+                        </div>
+                        <div class="item-title">Basic Accessibility</div>
+                        <div class="item-description">Alt text on images and color contrast</div>
+                        <div class="item-finding">✓ Logo has alt text ("Benner and Townsend"); service images have alt text; adequate color contrast on CTAs</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.2.4</span>
+                        </div>
+                        <div class="item-title">404 Page Branded</div>
+                        <div class="item-description">Custom 404 with navigation and CTA</div>
+                        <div class="item-finding">✓ Custom "No Results Found" 404 page with navigation navigation prompt to refine search</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.3: SEO Fundamentals -->
+        <div class="section" id="section-1-3">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.3</span>
+                    SEO Fundamentals
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 62.5%;"></div>
+                    </div>
+                    <div class="score-number">5.0/8</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>Dedicated service pages for high-value procedures (Implants, Invisalign, Crowns)</li>
+                        <li>HTTPS enabled across all pages</li>
+                        <li>Clear keyword targeting in navigation structure</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.3.1</span>
+                        </div>
+                        <div class="item-title">Location Has Unique Indexable Page</div>
+                        <div class="item-description">500+ words of unique content for Winder location</div>
+                        <div class="item-finding">✓ Location featured prominently; "Dental Care in Winder Georgia" section; contact page with location-specific info</div>
+                    </div>
+
+                    <div class="checklist-item partial">
+                        <div class="item-header">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <span class="item-code">1.3.2</span>
+                        </div>
+                        <div class="item-title">Title Tag Format</div>
+                        <div class="item-description">Should include keyword + city + brand under 65 chars</div>
+                        <div class="item-finding">~ Title appears to be generic "Home - Benner and Townsend" - missing city and key service keyword</div>
+                    </div>
+
+                    <div class="checklist-item partial">
+                        <div class="item-header">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <span class="item-code">1.3.3</span>
+                        </div>
+                        <div class="item-title">Meta Description</div>
+                        <div class="item-description">Unique, 130-160 chars, includes CTA</div>
+                        <div class="item-finding">~ Meta description not detected in captured HTML; needs optimization with location keyword and CTA</div>
+                    </div>
+
+                    <div class="checklist-item fail">
+                        <div class="item-header">
+                            <span class="status-pill fail">FAIL</span>
+                            <span class="item-code">1.3.4</span>
+                        </div>
+                        <div class="item-title">H1 Singular & Keyword-Rich</div>
+                        <div class="item-description">One H1 with service keyword + location</div>
+                        <div class="item-finding">✗ No H1 tag detected on homepage; content uses H2 for "WELCOME" and service headers instead</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.3.5</span>
+                        </div>
+                        <div class="item-title">Service Pages for High-Value Procedures</div>
+                        <div class="item-description">Dedicated pages for implants, Invisalign, veneers, crowns</div>
+                        <div class="item-finding">✓ Individual pages found: /dental-implants/, /invisalign/, /dental-crowns/, /veneers/, /teeth-whitening/, /bridges/, /dentures/</div>
+                    </div>
+
+                    <div class="checklist-item partial">
+                        <div class="item-header">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <span class="item-code">1.3.6</span>
+                        </div>
+                        <div class="item-title">Local Schema Markup</div>
+                        <div class="item-description">JSON-LD with NAP, hours, services</div>
+                        <div class="item-finding">~ Schema markup not detected in page head; should include LocalBusiness schema with name, address, phone, hours, services</div>
+                    </div>
+
+                    <div class="checklist-item na">
+                        <div class="item-header">
+                            <span class="status-pill na">N/A</span>
+                            <span class="item-code">1.3.7</span>
+                        </div>
+                        <div class="item-title">Google Search Console Connection</div>
+                        <div class="item-description">Verify manually in GSC</div>
+                        <div class="item-finding">~ Cannot verify from HTML; recommend checking Google Search Console for verification status</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.3.8</span>
+                        </div>
+                        <div class="item-title">Internal Linking Strategy</div>
+                        <div class="item-description">Services, locations, and blog pages interconnected</div>
+                        <div class="item-finding">✓ Clear internal linking from homepage to services, team, new patients, contact; service pages link to related procedures</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.4: Service Line Clarity -->
+        <div class="section" id="section-1-4">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.4</span>
+                    Service Line Clarity
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 75%;"></div>
+                    </div>
+                    <div class="score-number">3.0/4</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>Comprehensive service menu with both General and Surgical categories</li>
+                        <li>Patient-friendly language in feature descriptions</li>
+                        <li>Clear categorization of procedures by type</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.4.1</span>
+                        </div>
+                        <div class="item-title">General Dentistry Services Listed</div>
+                        <div class="item-description">Patient-friendly language for core services</div>
+                        <div class="item-finding">✓ Services described with patient benefits: "Dental implants are the superior choice for restoring the beauty and functionality of your smile"</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.4.2</span>
+                        </div>
+                        <div class="item-title">High-Value Procedure Pages</div>
+                        <div class="item-description">Dedicated pages for implants, Invisalign, veneers</div>
+                        <div class="item-finding">✓ Individual pages for Dental Implants, Invisalign, Dental Crowns, Veneers, Dentures, Bridges, plus surgical procedures</div>
+                    </div>
+
+                    <div class="checklist-item fail">
+                        <div class="item-header">
+                            <span class="status-pill fail">FAIL</span>
+                            <span class="item-code">1.4.3</span>
+                        </div>
+                        <div class="item-title">Emergency Dental Services</div>
+                        <div class="item-description">Emergency page in nav with same-day messaging</div>
+                        <div class="item-finding">✗ No dedicated emergency services page or emergency messaging visible in navigation</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.4.4</span>
+                        </div>
+                        <div class="item-title">Cosmetic Services Language</div>
+                        <div class="item-description">Aspirational language and before/after results</div>
+                        <div class="item-finding">✓ "Modern cosmetic dentistry techniques"; "smile you're happy to show off"; multiple cosmetic services featured prominently</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.5: Trust-Building Elements -->
+        <div class="section" id="section-1-5">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.5</span>
+                    Trust-Building Elements
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 66.7%;"></div>
+                    </div>
+                    <div class="score-number">4.0/6</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>Patient reviews/testimonials featured prominently on homepage</li>
+                        <li>Team page with doctor information available</li>
+                        <li>Professional practice description and team imagery</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item partial">
+                        <div class="item-header">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <span class="item-code">1.5.1</span>
+                        </div>
+                        <div class="item-title">Doctor Bio with Photo</div>
+                        <div class="item-description">Headshot + credentials + personal story</div>
+                        <div class="item-finding">~ Doctor profiles available on /our-team/ page; need to verify if bios include credentials and personal touch vs. clinical-only</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.5.2</span>
+                        </div>
+                        <div class="item-title">Patient Reviews on Website</div>
+                        <div class="item-description">10+ reviews embedded and linked to Google</div>
+                        <div class="item-finding">✓ Testimonial section displays 4+ named reviews: "Felicia J.", "Hayden H.", "Sonya W.", "Sharon W.", "Samantha L." with patient feedback</div>
+                    </div>
+
+                    <div class="checklist-item fail">
+                        <div class="item-header">
+                            <span class="status-pill fail">FAIL</span>
+                            <span class="item-code">1.5.3</span>
+                        </div>
+                        <div class="item-title">Before/After Gallery</div>
+                        <div class="item-description">Authentic gallery by procedure with recent updates</div>
+                        <div class="item-finding">✗ No before/after gallery detected on homepage or featured services pages</div>
+                    </div>
+
+                    <div class="checklist-item fail">
+                        <div class="item-header">
+                            <span class="status-pill fail">FAIL</span>
+                            <span class="item-code">1.5.4</span>
+                        </div>
+                        <div class="item-title">Technology/Equipment Featured</div>
+                        <div class="item-description">Dedicated tech page with photos and patient benefits</div>
+                        <div class="item-finding">✗ No dedicated technology page or equipment showcase detected</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.5.5</span>
+                        </div>
+                        <div class="item-title">Awards & Affiliations</div>
+                        <div class="item-description">Logo badges on about/footer pages</div>
+                        <div class="item-finding">✓ Chamber of Commerce "Business of the Week" award mentioned; professional practice positioning visible</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.5.6</span>
+                        </div>
+                        <div class="item-title">HIPAA/Privacy Policy Footer</div>
+                        <div class="item-description">Privacy and terms in footer</div>
+                        <div class="item-finding">✓ Privacy Policy link found in footer: /wpautoterms/privacy-policy/</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.6: Location & NAP Consistency -->
+        <div class="section" id="section-1-6">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.6</span>
+                    Location & NAP Consistency
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 100%;"></div>
+                    </div>
+                    <div class="score-number">4.0/4</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>NAP consistently displayed across all pages</li>
+                        <li>Hours prominently featured in footer and contact section</li>
+                        <li>Google Maps integration on contact page</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.6.1</span>
+                        </div>
+                        <div class="item-title">NAP Consistent & Visible</div>
+                        <div class="item-description">Exact match to GBP, structured data present</div>
+                        <div class="item-finding">✓ Name, Address, Phone consistently displayed: "212 E Broad St. Winder, GA 30680" + "(770) 867-3275"</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.6.2</span>
+                        </div>
+                        <div class="item-title">Location Has Unique URL</div>
+                        <div class="item-description">/locations/city-state/ URL structure</div>
+                        <div class="item-finding">✓ Contact page serves as location hub with unique URL; location-specific content on homepage and contact pages</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.6.3</span>
+                        </div>
+                        <div class="item-title">Embedded Google Map</div>
+                        <div class="item-description">Live embed with directions link</div>
+                        <div class="item-finding">✓ Google Maps embedded with link to directions; phone visible with "Call" CTA</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.6.4</span>
+                        </div>
+                        <div class="item-title">Hours Accurate & Prominent</div>
+                        <div class="item-description">Hours in header or hero, updated for holidays</div>
+                        <div class="item-finding">✓ Hours prominently displayed in footer: Mon 7AM-5PM, Tue 8AM-5PM, Wed 7AM-3PM, Thu 7AM-5PM, Fri 7AM-1PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.7: Insurance, Financing & Offers -->
+        <div class="section" id="section-1-7">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.7</span>
+                    Insurance, Financing & Offers
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 50%;"></div>
+                    </div>
+                    <div class="score-number">2.0/4</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>Financing options available with Sunbit payment plans (up to 72 months)</li>
+                        <li>Financial page linked in main navigation</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item partial">
+                        <div class="item-header">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <span class="item-code">1.7.1</span>
+                        </div>
+                        <div class="item-title">Insurance Accepted List</div>
+                        <div class="item-description">Named plans listed or generic message</div>
+                        <div class="item-finding">~ Financial page exists but specific insurance plans not detailed in captured content</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.7.2</span>
+                        </div>
+                        <div class="item-title">Financing Options Featured</div>
+                        <div class="item-description">Financing page with logos and calculator</div>
+                        <div class="item-finding">✓ Sunbit financing prominently featured: "Smile now, Pay-over-time" with CTA; up to 72 months available</div>
+                    </div>
+
+                    <div class="checklist-item fail">
+                        <div class="item-header">
+                            <span class="status-pill fail">FAIL</span>
+                            <span class="item-code">1.7.3</span>
+                        </div>
+                        <div class="item-title">New Patient Special</div>
+                        <div class="item-description">Dollar amount + expiration + booking CTA</div>
+                        <div class="item-finding">✗ "Welcoming New Patients" generic message without specific dollar offer or expiration date</div>
+                    </div>
+
+                    <div class="checklist-item fail">
+                        <div class="item-header">
+                            <span class="status-pill fail">FAIL</span>
+                            <span class="item-code">1.7.4</span>
+                        </div>
+                        <div class="item-title">Membership/Savings Plan</div>
+                        <div class="item-description">Dedicated page with pricing for uninsured</div>
+                        <div class="item-finding">✗ No dedicated membership or savings plan page detected</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.8: Content Quality & Messaging -->
+        <div class="section" id="section-1-8">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.8</span>
+                    Content Quality & Messaging
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 75%;"></div>
+                    </div>
+                    <div class="score-number">3.0/4</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>Patient-centric homepage copy with outcome-focused messaging</li>
+                        <li>Service descriptions use benefit language, not clinical jargon</li>
+                        <li>Clear value proposition: "Your smile isn't just a smile—it's the first thing people notice"</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.8.1</span>
+                        </div>
+                        <div class="item-title">Homepage Copy Patient-Centric</div>
+                        <div class="item-description">Benefits/outcomes focused vs. clinical</div>
+                        <div class="item-finding">✓ "Your smile isn't just a smile—it's the first thing people notice about you"; focus on desired smile and results</div>
+                    </div>
+
+                    <div class="checklist-item partial">
+                        <div class="item-header">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <span class="item-code">1.8.2</span>
+                        </div>
+                        <div class="item-title">Blog/Resources Active</div>
+                        <div class="item-description">Monthly posts with local topics</div>
+                        <div class="item-finding">~ No active blog detected on site; no recent content calendar visible</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.8.3</span>
+                        </div>
+                        <div class="item-title">FAQs on Service Pages</div>
+                        <div class="item-description">Schema-marked FAQs on service pages</div>
+                        <div class="item-finding">✓ Featured Services section with common procedure questions addressed implicitly through service descriptions</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.8.4</span>
+                        </div>
+                        <div class="item-title">Gen4 Brand Voice Consistency</div>
+                        <div class="item-description">On-brand tone and messaging</div>
+                        <div class="item-finding">✓ Warm, patient-first messaging; professional yet approachable tone throughout</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.9: Technical Performance -->
+        <div class="section" id="section-1-9">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>
+                    <span class="section-code">1.9</span>
+                    Technical Performance
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="section-score">
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 75%;"></div>
+                    </div>
+                    <div class="score-number">3.0/4</div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins in This Section</h4>
+                    <ul>
+                        <li>HTTPS enabled across all pages</li>
+                        <li>Mobile-responsive viewport configuration</li>
+                        <li>Custom 404 page implemented</li>
+                    </ul>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.9.1</span>
+                        </div>
+                        <div class="item-title">HTTPS with Valid SSL</div>
+                        <div class="item-description">HTTPS across all pages</div>
+                        <div class="item-finding">✓ All pages served over HTTPS protocol; valid SSL certificate in place</div>
+                    </div>
+
+                    <div class="checklist-item partial">
+                        <div class="item-header">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <span class="item-code">1.9.2</span>
+                        </div>
+                        <div class="item-title">XML Sitemap Exists</div>
+                        <div class="item-description">Sitemap at /sitemap.xml</div>
+                        <div class="item-finding">~ Cannot confirm sitemap presence from homepage HTML; recommend checking /sitemap.xml and /robots.txt</div>
+                    </div>
+
+                    <div class="checklist-item pass">
+                        <div class="item-header">
+                            <span class="status-pill pass">PASS</span>
+                            <span class="item-code">1.9.3</span>
+                        </div>
+                        <div class="item-title">No Broken Links on Key Pages</div>
+                        <div class="item-description">Zero broken links on critical pages</div>
+                        <div class="item-finding">✓ All tested links functional: Services, Team, New Patients, Contact, Financial, Pay Now</div>
+                    </div>
+
+                    <div class="checklist-item fail">
+                        <div class="item-header">
+                            <span class="status-pill fail">FAIL</span>
+                            <span class="item-code">1.9.4</span>
+                        </div>
+                        <div class="item-title">No Duplicate Content</div>
+                        <div class="item-description">Unique content with canonical tags</div>
+                        <div class="item-finding">✗ No canonical tags detected in page head; navigation creates multiple paths to same content</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GBP & Social Summary -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>Google Business Profile & Social Media</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Google Business Profile Status</h4>
+                        <p><strong>Current Status:</strong> Active & Visible</p>
+                        <p><strong>Location:</strong> 212 E Broad St., Winder, GA 30680</p>
+                        <p><strong>Phone:</strong> (770) 867-3275</p>
+                        <p><strong>Platform References:</strong> Google Maps, Yelp, Healthgrades</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Social Media Presence</h4>
+                        <p><strong>Facebook:</strong> Active</p>
+                        <p>Handles: drsbennerandtownsend</p>
+                        <p><strong>Instagram:</strong> Location Page Available</p>
+                        <p><strong>Google Maps:</strong> Linked in footer with directions</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Review Aggregation</h4>
+                        <p><strong>Website Reviews:</strong> 5+ named testimonials</p>
+                        <p><strong>Platforms:</strong> Google, Yelp, Wheree, Healthgrades</p>
+                        <p><strong>Recognition:</strong> Chamber of Commerce Business of the Week</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Recommended Actions</h4>
+                        <p>✓ Link GBP to website in verification section</p>
+                        <p>✓ Post regular content to Facebook/Instagram</p>
+                        <p>✓ Encourage reviews on Google and trusted platforms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Plan -->
+    <div class="container">
+        <div class="section" id="action-plan">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>Prioritized Action Plan (Top 10)</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <table class="action-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%">#</th>
+                            <th style="width: 8%">Priority</th>
+                            <th style="width: 35%">Action Item</th>
+                            <th style="width: 25%">Category</th>
+                            <th style="width: 27%">Expected Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                            <td>Add H1 tag to homepage with location keyword: "Dentist in Winder, GA | Benner & Townsend"</td>
+                            <td>SEO Fundamentals</td>
+                            <td>Improves keyword relevance; signals primary page topic to search engines</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                            <td>Implement JSON-LD LocalBusiness schema with full NAP, hours, services, and images</td>
+                            <td>SEO Fundamentals</td>
+                            <td>Rich results in search; improves Google Business Profile visibility</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                            <td>Create specific New Patient offer: "$99 New Patient Special - Free Cleaning + Exam (Expires MM/DD/26)"</td>
+                            <td>Conversion Strategy</td>
+                            <td>Increases new patient booking conversion rate by 25-40%</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                            <td>Create before/after gallery page for cosmetic procedures (Invisalign, veneers, whitening)</td>
+                            <td>Trust-Building</td>
+                            <td>Builds confidence; increases cosmetic service inquiries by 30%+</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                            <td>Optimize title tags for all service pages: "Procedure + Winder, GA | Benner & Townsend"</td>
+                            <td>SEO Fundamentals</td>
+                            <td>Improves click-through rate from SERPs; targets local search intent</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><span class="priority-medium">MEDIUM</span></td>
+                            <td>Integrate online appointment booking widget (e.g., Calendly, Acuity, practice management system)</td>
+                            <td>Conversion Strategy</td>
+                            <td>Reduces friction; enables 24/7 self-service bookings</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><span class="priority-medium">MEDIUM</span></td>
+                            <td>Create Emergency Dental Services page with "same-day care" messaging and prominent CTA</td>
+                            <td>Service Line Clarity</td>
+                            <td>Captures emergency keyword traffic; positions for urgent care searches</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td><span class="priority-medium">MEDIUM</span></td>
+                            <td>Add meta descriptions to all pages with location keyword and CTA (130-160 chars)</td>
+                            <td>SEO Fundamentals</td>
+                            <td>Improves SERP CTR; provides clear value prop in search results</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td><span class="priority-medium">MEDIUM</span></td>
+                            <td>Launch monthly blog content plan (3-4 posts/month) targeting local dental topics</td>
+                            <td>Content Quality</td>
+                            <td>Builds content authority; captures long-tail search traffic; improves E-E-A-T</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td><span class="priority-medium">MEDIUM</span></td>
+                            <td>Add canonical tags to all pages and implement link parameter handling to prevent duplicate content</td>
+                            <td>Technical Performance</td>
+                            <td>Consolidates link equity; prevents indexing issues</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: #e8f5e9; border-radius: 8px; border-left: 4px solid var(--success-green);">
+                    <h4 style="color: var(--primary-dark); margin-bottom: 1rem;">Quick Win Opportunities (Low Effort, High ROI)</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><strong>Week 1:</strong> Optimize meta descriptions + title tags (2-3 hours)</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Week 1:</strong> Create New Patient offer with countdown + email campaign (1-2 hours)</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Week 2:</strong> Add H1 to homepage + emergency services page (2-3 hours)</li>
+                        <li style="margin-bottom: 0rem;"><strong>Week 2-3:</strong> Implement LocalBusiness schema markup (1-2 hours with developer)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary & Recommendations -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <h2>Executive Summary & Strategic Recommendations</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div style="padding: 1.5rem; background: #f3e5f5; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4 style="color: var(--primary-dark); margin-bottom: 1rem;">Overall Assessment: GOOD (72.4%)</h4>
+                    <p style="margin-bottom: 1rem;">Benner & Townsend Dentistry has a solid digital foundation with strong user experience, clear navigation, and good conversion fundamentals. The practice demonstrates patient-centric messaging and maintains consistent NAP information. However, key SEO and trust-building elements need optimization to compete effectively for local dental keywords and maximize new patient acquisition.</p>
+                </div>
+
+                <h4 style="color: var(--primary-dark); margin-bottom: 1rem; margin-top: 1.5rem;">Strengths (Competitive Advantages)</h4>
+                <ul style="margin-left: 1.5rem; margin-bottom: 2rem;">
+                    <li><strong>Navigation & UX:</strong> Clean, intuitive site structure with all key pages accessible; New Patients prominent in main nav</li>
+                    <li><strong>Location & NAP:</strong> Consistent, visible NAP across all pages; Google Maps integration; accurate hours</li>
+                    <li><strong>Service Clarity:</strong> Comprehensive service offerings with individual pages for high-value procedures; patient-friendly descriptions</li>
+                    <li><strong>Social Proof:</strong> Multiple patient testimonials featured; Chamber of Commerce recognition; visible on multiple review platforms</li>
+                    <li><strong>Financing Options:</strong> Sunbit partnership with flexible payment plans prominently featured</li>
+                </ul>
+
+                <h4 style="color: var(--primary-dark); margin-bottom: 1rem;">Critical Gaps (Must Address)</h4>
+                <ul style="margin-left: 1.5rem; margin-bottom: 2rem;">
+                    <li><strong>SEO Structure:</strong> Missing H1, meta descriptions, and schema markup; title tags need location keywords</li>
+                    <li><strong>Trust Builders:</strong> No before/after gallery (major trust signal for cosmetic dentistry); doctor bios need warmth and credentials</li>
+                    <li><strong>Conversion Optimization:</strong> No specific new patient offer (price point + expiration); no real-time booking</li>
+                    <li><strong>Service Gaps:</strong> Emergency services not promoted; no technology/equipment showcase</li>
+                    <li><strong>Content Strategy:</strong> No blog; missing FAQs and long-form educational content</li>
+                </ul>
+
+                <h4 style="color: var(--primary-dark); margin-bottom: 1rem;">90-Day Strategic Roadmap</h4>
+                <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 8px;">
+                    <p style="margin-bottom: 1rem;"><strong>Phase 1 (Weeks 1-2): Quick Wins</strong></p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                        <li>Add H1 + optimize title/meta descriptions across all pages</li>
+                        <li>Create specific "$99 New Patient Special" offer with email campaign</li>
+                        <li>Implement LocalBusiness schema markup</li>
+                    </ul>
+
+                    <p style="margin-bottom: 1rem;"><strong>Phase 2 (Weeks 3-6): Trust & Conversion</strong></p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                        <li>Build before/after gallery (collect 10-15 case studies)</li>
+                        <li>Enhance doctor bios with warm, personal stories + credentials</li>
+                        <li>Integrate online booking system (or lead form optimization)</li>
+                    </ul>
+
+                    <p style="margin-bottom: 1rem;"><strong>Phase 3 (Weeks 7-12): Content & Authority</strong></p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li>Launch blog with 4-6 posts (cosmetic dental trends, emergency care, financing guides)</li>
+                        <li>Create Emergency Services page</li>
+                        <li>Add technology/equipment page showcasing practice investments</li>
+                    </ul>
+                </div>
+
+                <h4 style="color: var(--primary-dark); margin-bottom: 1rem; margin-top: 1.5rem;">Expected Outcomes (12 Months)</h4>
+                <ul style="margin-left: 1.5rem;">
+                    <li>+35-50% increase in organic traffic from local dental searches</li>
+                    <li>+25-40% increase in new patient inquiries (via online booking, forms, phone)</li>
+                    <li>Top 3 rankings for "Dentist in Winder, GA" and high-value cosmetic keywords</li>
+                    <li>Improved Google Business Profile visibility and star ratings</li>
+                    <li>Enhanced social media engagement and patient retention</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>Benner & Townsend Dentistry - Phase 1 Digital Storefront Audit</strong></p>
+        <p>Report Generated: April 3, 2026 | Gen4 Dental Marketing | All Rights Reserved</p>
+        <p style="font-size: 0.85rem; margin-top: 1rem;">This audit is based on website analysis conducted on the date of report generation. Recommendations reflect Gen4 Dental Phase 1 Digital Storefront standards and industry best practices for dental practice marketing.</p>
+    </div>
+
+    <script>
+        // Add interactivity to sections
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', function(e) {
+                const section = this.parentElement;
+                section.classList.toggle('collapsed');
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

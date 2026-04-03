@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smile Center of Orlando - Phase 1 Digital Audit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header .subtitle { font-size: 1.1em; opacity: 0.95; margin-bottom: 20px; }
+        header .meta { font-size: 0.95em; opacity: 0.85; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+
+        nav.sticky {
+            position: sticky;
+            top: 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 15px 20px;
+            overflow-x: auto;
+        }
+        nav.sticky ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        nav.sticky a {
+            text-decoration: none;
+            color: #1a73e8;
+            font-weight: 500;
+            font-size: 0.95em;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        nav.sticky a:hover { background: #f0f4ff; }
+        nav.sticky a.active { background: #1a73e8; color: white; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .score-ring-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 40px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .score-ring {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        .score-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        .score-ring-bg {
+            fill: none;
+            stroke: #e0e0e0;
+            stroke-width: 15;
+        }
+        .score-ring-progress {
+            fill: none;
+            stroke-width: 15;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+        .score-ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .score-ring-text .percentage {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+        .score-ring-text .label {
+            font-size: 0.85em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 10px 0;
+            color: white;
+        }
+        .grade-strong { background: #2e7d32; }
+        .grade-good { background: #f57c00; }
+        .grade-needs-work { background: #d32f2f; }
+        .grade-critical { background: #6a1b9a; }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid #1a73e8;
+        }
+        .summary-card h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .summary-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+
+        section {
+            background: white;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        section > details {
+            border: none;
+        }
+        section > details > summary {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            font-weight: 600;
+            user-select: none;
+        }
+        section > details > summary:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #dfe3e8 100%);
+        }
+        section > details[open] > summary {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+        }
+        section > details > summary .score {
+            display: inline-block;
+            background: white;
+            color: #1a73e8;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        section > details[open] > summary .score {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .content {
+            padding: 30px;
+        }
+        .checklist {
+            list-style: none;
+        }
+        .checklist li {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid #ddd;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        .checklist li.pass { border-left-color: #2e7d32; background: #f1f8f4; }
+        .checklist li.partial { border-left-color: #f57c00; background: #fff8f0; }
+        .checklist li.fail { border-left-color: #d32f2f; background: #fdf5f5; }
+
+        .status-pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8em;
+            white-space: nowrap;
+            min-width: 70px;
+            text-align: center;
+        }
+        .status-pass { background: #2e7d32; color: white; }
+        .status-partial { background: #f57c00; color: white; }
+        .status-fail { background: #d32f2f; color: white; }
+
+        .item-id {
+            font-weight: 600;
+            color: #666;
+            min-width: 100px;
+            font-size: 0.9em;
+        }
+        .item-content {
+            flex: 1;
+        }
+        .item-content h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .item-content p {
+            font-size: 0.95em;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .quick-win {
+            background: linear-gradient(135deg, #fff9e6 0%, #fffde7 100%);
+            border-left: 5px solid #fbc02d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        .quick-win h4 {
+            color: #f57f17;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .quick-win ul {
+            margin-left: 20px;
+            color: #333;
+        }
+        .quick-win li {
+            margin: 8px 0;
+        }
+
+        .action-plan {
+            margin: 30px 0;
+        }
+        .action-plan table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .action-plan th {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .action-plan td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .action-plan tr:hover {
+            background: #f9f9f9;
+        }
+        .priority-p0 { color: #d32f2f; font-weight: bold; }
+        .priority-p1 { color: #f57c00; font-weight: bold; }
+        .priority-p2 { color: #1976d2; font-weight: bold; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .info-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #1a73e8;
+        }
+        .info-box h3 {
+            color: #1a73e8;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: #666; font-weight: 500; }
+        .info-value { color: #333; font-weight: 600; }
+
+        .section-score-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .score-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .score-item .section-name {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .score-item .score-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1a73e8;
+            margin-bottom: 5px;
+        }
+        .score-item .score-pct {
+            font-size: 1.2em;
+            color: #f57c00;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+        footer p { margin: 10px 0; font-size: 0.9em; }
+        footer .timestamp { opacity: 0.7; }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            nav.sticky ul { flex-wrap: wrap; }
+            .score-ring-container { flex-direction: column; }
+            .action-plan table { font-size: 0.9em; }
+            .checklist li { flex-direction: column; }
+        }
+
+        .no-decoration { text-decoration: none; color: inherit; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SMILE CENTER OF ORLANDO</h1>
+    <p class="subtitle">Phase 1 Digital Storefront Audit Report</p>
+    <div class="meta">
+        <span><strong>Location:</strong> Winter Park, FL</span>
+        <span><strong>Website:</strong> smilecenteroforlando.com</span>
+        <span><strong>Audit Date:</strong> April 3, 2026</span>
+        <span><strong>Framework:</strong> Gen4 Dental Phase 1</span>
+    </div>
+</header>
+
+<nav class="sticky">
+    <ul>
+        <li><a href="#executive" class="nav-link">Executive Summary</a></li>
+        <li><a href="#conversion" class="nav-link">Conversion Strategy</a></li>
+        <li><a href="#ux" class="nav-link">User Experience</a></li>
+        <li><a href="#seo" class="nav-link">SEO Fundamentals</a></li>
+        <li><a href="#services" class="nav-link">Service Clarity</a></li>
+        <li><a href="#trust" class="nav-link">Trust Building</a></li>
+        <li><a href="#location" class="nav-link">Location & NAP</a></li>
+        <li><a href="#insurance" class="nav-link">Insurance & Financing</a></li>
+        <li><a href="#content" class="nav-link">Content Quality</a></li>
+        <li><a href="#technical" class="nav-link">Technical</a></li>
+        <li><a href="#gbp" class="nav-link">GBP & Social</a></li>
+        <li><a href="#actionplan" class="nav-link">Action Plan</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+<!-- EXECUTIVE SUMMARY -->
+<section id="executive">
+    <details open>
+        <summary>
+            <div>
+                <h2>Executive Summary</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Overall Health & Key Findings</p>
+            </div>
+            <span class="score">Overall: 53.4%</span>
+        </summary>
+        <div class="content">
+            <p style="font-size: 1.1em; margin-bottom: 20px; color: #333;">
+                <strong>Smile Center of Orlando has a solid digital foundation with excellent review presence and location optimization, but faces critical gaps in SEO, content strategy, and patient financing visibility.</strong>
+            </p>
+
+            <div class="score-ring-container">
+                <div class="score-ring">
+                    <svg viewBox="0 0 100 100">
+                        <circle class="score-ring-bg" cx="50" cy="50" r="45"></circle>
+                        <circle class="score-ring-progress" cx="50" cy="50" r="45"
+                            style="stroke: #f57c00; stroke-dasharray: 283; stroke-dashoffset: 132;"></circle>
+                    </svg>
+                    <div class="score-ring-text">
+                        <div class="percentage">53.4%</div>
+                        <div class="label">Overall Score</div>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <div class="grade-badge grade-needs-work">Needs Work (40-59%)</div>
+                    <p style="margin-top: 20px; line-height: 1.8; color: #333;">
+                        The practice demonstrates <strong>strong local authority</strong> with 181 Google reviews (5-star rating)
+                        and excellent NAP consistency. Conversion mechanisms are in place but lack specific offers.
+                        However, critical SEO and content gaps—including missing meta descriptions, local schema, and
+                        insurance/financing visibility—are limiting organic search potential and new patient sign-ups.
+                    </p>
+                    <p style="margin-top: 15px; line-height: 1.8; color: #333;">
+                        <strong>Key Strengths:</strong> Excellent reviews, mobile responsiveness, clear navigation, strong service pages,
+                        perfect location/NAP consistency.
+                    </p>
+                    <p style="margin-top: 15px; line-height: 1.8; color: #333;">
+                        <strong>Critical Gaps:</strong> Missing meta descriptions, local schema, new patient offer, insurance/financing
+                        visibility, before/after galleries, emergency dentistry page, blog content.
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 style="color: #1a73e8; margin-bottom: 20px;">Section Scores</h3>
+                <div class="section-score-summary">
+                    <div class="score-item">
+                        <div class="section-name">1.1 Conversion</div>
+                        <div class="score-value">4.5/6</div>
+                        <div class="score-pct">75%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="section-name">1.2 User Experience</div>
+                        <div class="score-value">2.5/4</div>
+                        <div class="score-pct">62.5%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="section-name">1.3 SEO Fundamentals</div>
+                        <div class="score-value">3.5/8</div>
+                        <div class="score-pct">43.75%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="section-name">1.4 Service Clarity</div>
+                        <div class="score-value">2.0/4</div>
+                        <div class="score-pct">50%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="section-name">1.5 Trust Building</div>
+                        <div class="score-value">3.0/6</div>
+                        <div class="score-pct">50%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="section-name">1.6 Location & NAP</div>
+                        <div class="score-value">4.0/4</div>
+                        <div class="score-pct">100%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="section-name">1.7 Insurance</div>
+                        <div class="score-value">1.0/4</div>
+                        <div class="score-pct">25%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="section-name">1.8 Content</div>
+                        <div class="score-value">1.0/4</div>
+                        <div class="score-pct">25%</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="section-name">1.9 Technical</div>
+                        <div class="score-value">2.0/4</div>
+                        <div class="score-pct">50%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.1 CONVERSION STRATEGY -->
+<section id="conversion">
+    <details>
+        <summary>
+            <div>
+                <h2>1.1 Conversion Strategy</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Booking, CTAs, Forms & New Patient Offers</p>
+            </div>
+            <span class="score">4.5/6 (75%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.1.1 Primary CTA Above Fold</h4>
+                        <p><strong>Finding:</strong> Prominent "Request Appointment" button visible above fold with strong action language. Phone CTA also sticky.</p>
+                        <p><strong>Evidence:</strong> Button present with contrasting color, clickable tel: link (407) 678-8848 in header.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.1.2 Click-to-Call on Mobile</h4>
+                        <p><strong>Finding:</strong> Phone number fully clickable with tel: href link; visible without scrolling on mobile.</p>
+                        <p><strong>Evidence:</strong> Tel: link to (407) 678-8848 in navigation and prominently displayed.</p>
+                    </div>
+                </li>
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.1.3 Online Appointment Booking</h4>
+                        <p><strong>Finding:</strong> Contact form available for appointment requests, but no real-time embedded booking widget detected.</p>
+                        <p><strong>Evidence:</strong> "Request Appointment" links to contact form. No NexHealth, Lighthouse360, or similar widget found.</p>
+                        <p><strong>Recommendation:</strong> Consider adding embedded scheduling (NexHealth, PatientPop) for instant booking without form friction.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.1.4 Form Is Short (≤5 Fields)</h4>
+                        <p><strong>Finding:</strong> Contact form contains 5 fields: Name, Email, Phone, Message, New Patient dropdown.</p>
+                        <p><strong>Evidence:</strong> Minimal friction form design; fast completion time.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.1.5 New Patient Offer Visible</h4>
+                        <p><strong>Finding:</strong> No specific new patient offer or special detected on homepage or New Patients page.</p>
+                        <p><strong>Evidence:</strong> No mention of "$99 Exam", "Free Whitening", or similar dollar-amount offer.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 QUICK WIN: Add specific offer like "$99 Comprehensive Exam & X-Rays" or "Free Whitening with First Cleaning" with expiration date.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.1.6 Multiple Contact Methods</h4>
+                        <p><strong>Finding:</strong> Phone (clickable), contact form, Google Maps, email (smilecenter3710@gmail.com), and online bill payment link all visible.</p>
+                        <p><strong>Evidence:</strong> Multiple pathways for patient contact across header, footer, and content areas.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quick-win">
+                <h4>⚡ Quick Wins for Conversion Section</h4>
+                <ul>
+                    <li><strong>Add New Patient Offer:</strong> Create a compelling offer (e.g., "$99 New Patient Special: Exam, X-rays & Cleaning") with clear expiration date. Place prominently above fold and link from New Patients page.</li>
+                    <li><strong>Upgrade to Embedded Booking:</strong> Integrate NexHealth or similar real-time scheduler for instant appointments without form submission friction.</li>
+                    <li><strong>Create Emergency CTA:</strong> Add "Same-Day Emergency Care Available" messaging with direct call button in header or sidebar.</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.2 USER EXPERIENCE -->
+<section id="ux">
+    <details>
+        <summary>
+            <div>
+                <h2>1.2 User Experience</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Mobile, Navigation, Accessibility & 404</p>
+            </div>
+            <span class="score">2.5/4 (62.5%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.2.1 Mobile-Responsive</h4>
+                        <p><strong>Finding:</strong> Site uses proper viewport meta tag and responsive design visible in structure.</p>
+                        <p><strong>Evidence:</strong> Mobile-first layout; no horizontal scroll detected.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.2.2 Navigation Clear (≤7 items, New Patients visible)</h4>
+                        <p><strong>Finding:</strong> Clean navigation with 8 primary items; "New Patients" clearly visible in main nav.</p>
+                        <p><strong>Evidence:</strong> Services submenu with 7 items, good hierarchy and organization.</p>
+                    </div>
+                </li>
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.2.3 Basic Accessibility (Alt Text, Contrast)</h4>
+                        <p><strong>Finding:</strong> Accessibility Statement present in footer; alt text detected on some images but comprehensive audit needed.</p>
+                        <p><strong>Evidence:</strong> WCAG compliance page linked, but full accessibility review recommended.</p>
+                        <p><strong>Recommendation:</strong> Run WAVE or Axe accessibility scan to identify and fix alt text gaps.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.2.4 Custom 404 Page</h4>
+                        <p><strong>Finding:</strong> Unable to fully test, but likely using default WordPress 404 page.</p>
+                        <p><strong>Evidence:</strong> No evidence of branded 404 with custom CTA or navigation.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 QUICK WIN: Create branded 404 page with practice logo, "Page Not Found" message, search box, and CTA to homepage or contact.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quick-win">
+                <h4>⚡ Quick Wins for UX Section</h4>
+                <ul>
+                    <li><strong>Implement Branded 404:</strong> Create custom WordPress 404 template with logo, friendly message, search box, and "Contact Us" CTA.</li>
+                    <li><strong>Accessibility Audit:</strong> Run automated scan (WAVE, Axe, or Lighthouse) to identify and fix missing alt text and contrast issues.</li>
+                    <li><strong>Test on Mobile:</strong> Verify all buttons, forms, and CTAs are thumb-friendly on actual mobile devices.</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.3 SEO FUNDAMENTALS -->
+<section id="seo">
+    <details>
+        <summary>
+            <div>
+                <h2>1.3 SEO Fundamentals</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Title, Meta Description, Schema, Sitemap & Internal Linking</p>
+            </div>
+            <span class="score">3.5/8 (43.75%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.3.1 Location Page Unique & Indexable</h4>
+                        <p><strong>Finding:</strong> Single Winter Park location with dedicated contact/location area, but unique content depth needs verification.</p>
+                        <p><strong>Evidence:</strong> Location info present (3710 Aloma Ave, Winter Park, FL 32792, hours, map) but may be template-heavy.</p>
+                        <p><strong>Recommendation:</strong> Expand location page with unique content: neighborhood highlights, local patient testimonials, area-specific services.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.3.2 Title Tag (Keyword + City + Brand, &lt;65 chars)</h4>
+                        <p><strong>Finding:</strong> Title: "Dentist Winter Park FL | Smile Center of Orlando" (55 chars) - excellent optimization.</p>
+                        <p><strong>Evidence:</strong> Includes keyword (Dentist), city (Winter Park FL), and brand (Smile Center of Orlando).</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.3.3 Meta Description (Unique, &lt;165 chars, with CTA)</h4>
+                        <p><strong>Finding:</strong> No meta description detected on homepage HTML.</p>
+                        <p><strong>Evidence:</strong> Missing &lt;meta name="description"&gt; tag entirely.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 PRIORITY: Add meta description immediately. Example: "Expert dental care in Winter Park, FL. Invisalign, implants, cosmetic dentistry. Call (407) 678-8848 or book online today."</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.3.4 Single, Keyword-Rich H1</h4>
+                        <p><strong>Finding:</strong> Single H1: "Comprehensive Dental Care In Winter Park FL" - keyword + location + singular.</p>
+                        <p><strong>Evidence:</strong> Proper semantic structure; no multiple H1s detected.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.3.5 Individual Service Pages for High-Value Procedures</h4>
+                        <p><strong>Finding:</strong> Dedicated pages for Invisalign, Dental Implants, Dental Crowns, Teeth Whitening, Bridges, Dentures, and Veneers.</p>
+                        <p><strong>Evidence:</strong> Service URLs visible in navigation submenu and homepage links.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.3.6 Local Schema Markup (Dentist/LocalBusiness)</h4>
+                        <p><strong>Finding:</strong> No JSON-LD schema markup detected for LocalBusiness or Dentist type.</p>
+                        <p><strong>Evidence:</strong> Missing &lt;script type="application/ld+json"&gt; blocks with schema.org types.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 PRIORITY: Add LocalBusiness + Dentist schema with full NAP, hours, services, reviews, and images. This improves GBP visibility and rich snippets.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL (Verify Manually)</span>
+                    <div class="item-content">
+                        <h4>1.3.7 Google Search Console Connected</h4>
+                        <p><strong>Finding:</strong> Cannot detect from HTML alone; must verify in Google Search Console account.</p>
+                        <p><strong>Recommendation:</strong> Verify at <a href="https://search.google.com/search-console" target="_blank" class="no-decoration" style="color: #1a73e8;">search.google.com/search-console</a> that domain is verified and sitemap is submitted.</p>
+                    </div>
+                </li>
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.3.8 Internal Linking Strategy</h4>
+                        <p><strong>Finding:</strong> Navigation links present and main service pages are linked; but internal linking between service pages and to location/contact needs verification.</p>
+                        <p><strong>Evidence:</strong> Homepage links to services and New Patients, but orphaned page risk exists.</p>
+                        <p><strong>Recommendation:</strong> Ensure each service page links to related services, location page, and contact CTA.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quick-win">
+                <h4>⚡ Quick Wins for SEO Section (HIGH PRIORITY)</h4>
+                <ul>
+                    <li><strong>Add Meta Descriptions NOW:</strong> Add to homepage and all major pages. Template: "[Service/Location] in Winter Park, FL. [Brief benefit]. Call (407) 678-8848 or book online."</li>
+                    <li><strong>Implement LocalBusiness Schema:</strong> Add JSON-LD schema with NAP, hours, services, ratings, photos. Use Google's Schema Markup Helper.</li>
+                    <li><strong>Verify/Submit XML Sitemap:</strong> Check that /sitemap.xml exists and is submitted in Google Search Console. If missing, generate with Yoast or Rankmath.</li>
+                    <li><strong>Expand Location Page:</strong> Add 500+ words of unique content: neighborhood info, patient stories, service specialties, parking/access details.</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.4 SERVICE CLARITY -->
+<section id="services">
+    <details>
+        <summary>
+            <div>
+                <h2>1.4 Service Line Clarity</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Patient-Friendly Language, High-Value Pages & Emergency Care</p>
+            </div>
+            <span class="score">2.0/4 (50%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.4.1 General Dentistry in Patient-Friendly Language</h4>
+                        <p><strong>Finding:</strong> Services mentioned, but language is a mix of patient-friendly ("comfortable") and clinical.</p>
+                        <p><strong>Evidence:</strong> Homepage mentions "care", "comfort", but service descriptions need more emotional/benefit framing.</p>
+                        <p><strong>Recommendation:</strong> Rewrite service descriptions to lead with patient outcomes: "Gentle Cleanings" instead of "Prophylaxis", "Comfortable Fillings" instead of "Composite Restorations".</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.4.2 High-Value Procedures Have Dedicated Pages</h4>
+                        <p><strong>Finding:</strong> Dedicated pages for Implants, Invisalign, Crowns, Veneers, Whitening, Bridges, Dentures all present.</p>
+                        <p><strong>Evidence:</strong> Service submenu and site structure confirm individual service URLs.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.4.3 Emergency Dental Services Promoted</h4>
+                        <p><strong>Finding:</strong> No emergency dental content detected on homepage, nav, or visible pages.</p>
+                        <p><strong>Evidence:</strong> No "Emergency" or "Same-Day" messaging found.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 QUICK WIN: Create "Emergency Dental Care" page in navigation with messaging like "Same-Day Appointments Available - Call (407) 678-8848" and highlight emergency hours.</p>
+                    </div>
+                </li>
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.4.4 Cosmetic Services with Aspirational Language & Results</h4>
+                        <p><strong>Finding:</strong> Cosmetic services (Whitening, Veneers) listed but aspirational language and before/after gallery need verification.</p>
+                        <p><strong>Evidence:</strong> Services mentioned but no "Transform Your Smile" language or case photos visible on homepage.</p>
+                        <p><strong>Recommendation:</strong> Create cosmetic gallery section with before/after photos, patient testimonials for smile transformations, and "Dream Smile" copywriting.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quick-win">
+                <h4>⚡ Quick Wins for Service Clarity</h4>
+                <ul>
+                    <li><strong>Launch Emergency Dentistry Page:</strong> Create nav item "Emergency Care" with messaging, after-hours contact, same-day claim, and direct call button.</li>
+                    <li><strong>Build Cosmetic Before/After Gallery:</strong> Add visual case studies for Invisalign, Whitening, Veneers, Implants with patient outcomes. Use Birdeye or custom gallery.</li>
+                    <li><strong>Rewrite Service Pages:</strong> Use patient-benefit language: "Gentle Cleanings That Keep Your Smile Healthy" instead of "Preventive Care".</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.5 TRUST-BUILDING -->
+<section id="trust">
+    <details>
+        <summary>
+            <div>
+                <h2>1.5 Trust-Building Elements</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Doctor Bios, Reviews, Before/After, Technology, Credentials</p>
+            </div>
+            <span class="score">3.0/6 (50%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.5.1 Doctor Bio with Photo, Credentials & Personal Story</h4>
+                        <p><strong>Finding:</strong> Two doctors shown (Dr. Altomare, Dr. Rezkalla) with photos on homepage, but full bio page/credentials not fully verified.</p>
+                        <p><strong>Evidence:</strong> Dr. Altomare mentioned as "20-year practitioner" and "Your Hometown Winter Park Dentist"; Dr. Rezkalla shown but bio depth unclear.</p>
+                        <p><strong>Recommendation:</strong> Create dedicated "Meet Our Doctors" page with: education (DMD/DDS), residencies, awards, years of experience, personal interests, and philosophy.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.5.2 Patient Reviews on Website (10+ visible)</h4>
+                        <p><strong>Finding:</strong> 181 Google reviews (5-star rating) confirmed via search; 4 testimonials visible on homepage with attribution.</p>
+                        <p><strong>Evidence:</strong> Google review count verified through Birdeye and Google Maps. Testimonials show names (Danielle N., Keith C., Tara C., Tracy M.).</p>
+                        <p><strong>Recommendation:</strong> Embed Google review widget to dynamically display latest reviews and keep content fresh.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.5.3 Before/After Gallery</h4>
+                        <p><strong>Finding:</strong> No before/after gallery detected on homepage or visible service pages.</p>
+                        <p><strong>Evidence:</strong> No cosmetic case photos, smile transformation images, or gallery widget found.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 QUICK WIN: Build cosmetic before/after gallery showcasing Invisalign, Whitening, Veneers, and Smile Makeovers. Use Birdeye, Smile Snap, or custom gallery.</p>
+                    </div>
+                </li>
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.5.4 Technology Featured (CEREC, iTero, etc.)</h4>
+                        <p><strong>Finding:</strong> Technology mentioned in "Why Choose Us" section as "state of the art equipment" but specific equipment not listed.</p>
+                        <p><strong>Evidence:</strong> Generic language present; no CEREC, iTero, digital X-ray, laser, or other specific technology mentioned.</p>
+                        <p><strong>Recommendation:</strong> Create "Technology" page featuring: CEREC, iTero aligners, digital X-rays, laser dentistry, intraoral cameras. Explain patient benefits.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.5.5 Awards, Affiliations & Certifications</h4>
+                        <p><strong>Finding:</strong> No awards, ADA membership, Invisalign provider status, or other credentials/badges visible.</p>
+                        <p><strong>Evidence:</strong> No logo badges in footer or About section.</p>
+                        <p><strong>Recommendation:</strong> Display: ADA Membership, Invisalign Preferred Provider, cosmetic certification, community involvement, any awards or recognition.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.5.6 HIPAA/Privacy Policy in Footer</h4>
+                        <p><strong>Finding:</strong> Privacy Policy and Accessibility Statement links present in footer.</p>
+                        <p><strong>Evidence:</strong> Legal compliance links visible and accessible.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quick-win">
+                <h4>⚡ Quick Wins for Trust Section</h4>
+                <ul>
+                    <li><strong>Create Full Doctor Bios:</strong> Dedicated page with education, credentials, specialties, years of practice, philosophy, and personal interests for each dentist.</li>
+                    <li><strong>Add Before/After Gallery:</strong> Showcase 20-30 real patient cases organized by procedure (Invisalign, Whitening, Veneers, Full Smile Makeovers).</li>
+                    <li><strong>Display Credentials & Badges:</strong> Add footer badges for ADA membership, Invisalign Provider status, cosmetic certifications, and community awards.</li>
+                    <li><strong>Embed Google Review Widget:</strong> Add live Google review feed on homepage that auto-updates with new 5-star reviews.</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.6 LOCATION & NAP -->
+<section id="location">
+    <details>
+        <summary>
+            <div>
+                <h2>1.6 Location & NAP Consistency</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Address, Phone, Hours, Map & Local SEO</p>
+            </div>
+            <span class="score">4.0/4 (100%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.6.1 NAP Consistent & Visible</h4>
+                        <p><strong>Finding:</strong> Name, Address, Phone consistent across site and visible in multiple locations.</p>
+                        <p><strong>Evidence:</strong>
+                            <br/>• <strong>Name:</strong> Smile Center of Orlando
+                            <br/>• <strong>Address:</strong> 3710 Aloma Ave, Winter Park, FL 32792
+                            <br/>• <strong>Phone:</strong> (407) 678-8848 (clickable tel: link)
+                            <br/>Visible in header, footer, contact section, and Google Maps link.
+                        </p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.6.2 Unique Location URL</h4>
+                        <p><strong>Finding:</strong> Single Winter Park location with unique domain structure and location-specific content.</p>
+                        <p><strong>Evidence:</strong> Domain is location-specific; no shared multi-location contact page.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.6.3 Embedded Google Map</h4>
+                        <p><strong>Finding:</strong> Live, interactive Google Map embed present on location section.</p>
+                        <p><strong>Evidence:</strong> Map with "Open on Google Maps" link; iframe embed detected.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.6.4 Hours Prominently Displayed</h4>
+                        <p><strong>Finding:</strong> Hours clearly displayed in location section and visible without excessive scrolling.</p>
+                        <p><strong>Evidence:</strong>
+                            <br/>• <strong>Monday-Tuesday, Thursday-Friday:</strong> 7am-2:30pm
+                            <br/>• <strong>Wednesday:</strong> 7am-4pm
+                            <br/>• <strong>Saturday-Sunday:</strong> Closed
+                        </p>
+                    </div>
+                </li>
+            </ul>
+
+            <div style="background: #f1f8f4; padding: 20px; border-radius: 6px; border-left: 4px solid #2e7d32; margin: 20px 0;">
+                <p style="color: #2e7d32; font-weight: 600;">✓ Perfect Score: This section is a model of local SEO best practice. Continue maintaining NAP consistency across all directories.</p>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.7 INSURANCE & FINANCING -->
+<section id="insurance">
+    <details>
+        <summary>
+            <div>
+                <h2>1.7 Insurance, Financing & Offers</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Payment Options, Insurance Plans, Specials & Membership</p>
+            </div>
+            <span class="score">1.0/4 (25%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.7.1 Insurance Accepted List</h4>
+                        <p><strong>Finding:</strong> No insurance plan list detected on homepage or visible pages.</p>
+                        <p><strong>Evidence:</strong> No mention of Delta Dental, Cigna, Aetna, MetLife, United Healthcare, BlueCross, Humana, or generic "We accept most insurance" language.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 QUICK WIN: Create "Insurance Accepted" page listing specific plans: Delta Dental, Cigna, Aetna, MetLife, UnitedHealthcare, BlueCross, Humana, Guardian. Add "We accept most major insurance plans" messaging.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.7.2 Financing Options (CareCredit, Sunbit, etc.)</h4>
+                        <p><strong>Finding:</strong> No financing options or payment plan information detected on homepage.</p>
+                        <p><strong>Evidence:</strong> No mention of CareCredit, Sunbit, Cherry, or payment plan options.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 PRIORITY: Create "Financing Options" page featuring: CareCredit, Sunbit, Cherry, or other 0% financing plans. Add logos and easy application links.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.7.3 New Patient Special with Dollar Amount & Expiration</h4>
+                        <p><strong>Finding:</strong> No specific new patient offer with dollar amount or expiration date detected.</p>
+                        <p><strong>Evidence:</strong> No mention of "$99 Exam", "Free Whitening", "50% Off First Cleaning", or similar limited-time offer.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 QUICK WIN: Create a specific new patient offer: "$99 New Patient Special: Comprehensive Exam, X-Rays & Professional Cleaning" with expiration date. Promote prominently on New Patients page and homepage.</p>
+                    </div>
+                </li>
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.7.4 Membership/Savings Plan</h4>
+                        <p><strong>Finding:</strong> Membership Plan page linked in main navigation and visible on homepage.</p>
+                        <p><strong>Evidence:</strong> "Membership Plan" nav item and footer reference confirm presence for uninsured patients.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quick-win">
+                <h4>⚡ Quick Wins for Insurance & Financing (CRITICAL)</h4>
+                <ul>
+                    <li><strong>Create Insurance Accepted Page:</strong> List all accepted plans by name (Delta, Cigna, etc.). Add "we accept most major insurance" and claim submission info.</li>
+                    <li><strong>Add Financing Page:</strong> Feature CareCredit, Sunbit, Cherry with logos. Include monthly payment calculator and easy application link.</li>
+                    <li><strong>Launch New Patient Special:</strong> Create specific, time-limited offer ($99 Exam + X-rays + Cleaning) with "New Patient" badge and booking CTA.</li>
+                    <li><strong>Display Membership Plan Details:</strong> Show pricing, benefits, cancellation terms for uninsured patients on dedicated page.</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.8 CONTENT QUALITY -->
+<section id="content">
+    <details>
+        <summary>
+            <div>
+                <h2>1.8 Content Quality & Messaging</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Copy, Blog, FAQs & Brand Consistency</p>
+            </div>
+            <span class="score">1.0/4 (25%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.8.1 Patient-Centric Homepage Copy</h4>
+                        <p><strong>Finding:</strong> Homepage uses patient-benefit language ("care", "comfort", "family") but mixes some clinical terms.</p>
+                        <p><strong>Evidence:</strong> Copy emphasizes comfort and relationship, but could strengthen emotional framing and outcome-focused messaging.</p>
+                        <p><strong>Recommendation:</strong> Rewrite hero section to lead with outcomes: "Achieve Your Best Smile in a Comfortable, Modern Practice" instead of service lists.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.8.2 Active Blog with Recent Content</h4>
+                        <p><strong>Finding:</strong> No blog section detected on homepage or in navigation.</p>
+                        <p><strong>Evidence:</strong> No blog link, no resource section, no recent articles visible.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 QUICK WIN: Launch blog with monthly content: "Invisalign vs. Braces", "Teeth Whitening FAQ", "Implant Recovery Tips", "Winter Park Smile Trends". SEO goldmine for local keywords.</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL</span>
+                    <div class="item-content">
+                        <h4>1.8.3 FAQs on Service Pages</h4>
+                        <p><strong>Finding:</strong> No FAQ sections detected on homepage or high-value service pages.</p>
+                        <p><strong>Evidence:</strong> No structured FAQ content, schema-marked or otherwise.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 QUICK WIN: Add FAQ schema to each service page: "How much do implants cost?", "Does Invisalign hurt?", "How long until results?", "What insurance do you accept?"</p>
+                    </div>
+                </li>
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.8.4 Consistent Brand Messaging</h4>
+                        <p><strong>Finding:</strong> Branding appears consistent in visual identity but needs verification across all pages.</p>
+                        <p><strong>Evidence:</strong> Logo, colors, and tone consistent on homepage, but full site audit needed.</p>
+                        <p><strong>Recommendation:</strong> Verify consistent use of brand colors, fonts, and voice across all service pages and blog.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quick-win">
+                <h4>⚡ Quick Wins for Content Section</h4>
+                <ul>
+                    <li><strong>Launch Monthly Blog:</strong> Start with 4 posts: "Invisalign vs. Braces", "Cosmetic Dentistry Options", "Dental Health Tips", "Meet Dr. Altomare". Aim for 500+ words, local keywords.</li>
+                    <li><strong>Add Service FAQs:</strong> Use Schema.org FAQ-Page format on each service page. Examples: "How long do implants last?", "Is Invisalign covered by insurance?", "What's the cost?"</li>
+                    <li><strong>Strengthen Homepage Copy:</strong> Lead with outcomes and emotions, not features. Use "Transform", "Confident", "Beautiful Smile" language.</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- 1.9 TECHNICAL PERFORMANCE -->
+<section id="technical">
+    <details>
+        <summary>
+            <div>
+                <h2>1.9 Technical Performance</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">HTTPS, Sitemap, Broken Links & Duplicate Content</p>
+            </div>
+            <span class="score">2.0/4 (50%)</span>
+        </summary>
+        <div class="content">
+            <ul class="checklist">
+                <li class="pass">
+                    <span class="status-pill status-pass">PASS</span>
+                    <div class="item-content">
+                        <h4>1.9.1 HTTPS/SSL Certificate Valid</h4>
+                        <p><strong>Finding:</strong> Site served over HTTPS; SSL certificate valid.</p>
+                        <p><strong>Evidence:</strong> https://smilecenteroforlando.com/ loads with secure connection (no mixed content warnings).</p>
+                    </div>
+                </li>
+                <li class="fail">
+                    <span class="status-pill status-fail">FAIL (Verify)</span>
+                    <div class="item-content">
+                        <h4>1.9.2 XML Sitemap Submitted to Google</h4>
+                        <p><strong>Finding:</strong> Cannot verify from HTML; must check directly and in Google Search Console.</p>
+                        <p><strong>Evidence:</strong> Need to verify /sitemap.xml exists and is submitted in GSC.</p>
+                        <p style="margin-top: 10px; color: #d32f2f; font-weight: 600;">🎯 ACTION: Check <a href="https://smilecenteroforlando.com/sitemap.xml" target="_blank" class="no-decoration" style="color: #1a73e8;">smilecenteroforlando.com/sitemap.xml</a>. If missing, generate with Yoast SEO or Rankmath plugin. Submit to Google Search Console.</p>
+                    </div>
+                </li>
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.9.3 No Broken Links on Key Pages</h4>
+                        <p><strong>Finding:</strong> Navigation links appear live; full site crawl not performed but no obvious 404s detected on main pages.</p>
+                        <p><strong>Evidence:</strong> Service links, New Patients link, Contact link all navigable.</p>
+                        <p><strong>Recommendation:</strong> Run full crawl with Screaming Frog or Google Search Console to identify all 404s and broken redirects.</p>
+                    </div>
+                </li>
+                <li class="partial">
+                    <span class="status-pill status-partial">PARTIAL</span>
+                    <div class="item-content">
+                        <h4>1.9.4 No Duplicate Content Issues</h4>
+                        <p><strong>Finding:</strong> Service pages appear unique; canonical tags likely in place, but full audit needed.</p>
+                        <p><strong>Evidence:</strong> No obvious duplicate content detected on visible pages.</p>
+                        <p><strong>Recommendation:</strong> Verify canonical tags present on all pages and check for duplicate title/meta across location pages if multi-location in future.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quick-win">
+                <h4>⚡ Quick Wins for Technical Section</h4>
+                <ul>
+                    <li><strong>Verify/Generate Sitemap:</strong> Check if /sitemap.xml exists. If missing, install Yoast SEO or Rankmath and generate. Submit to Google Search Console.</li>
+                    <li><strong>Run Full Site Crawl:</strong> Use Screaming Frog (free tier) or Google Search Console to identify all broken links, redirect chains, and 404s.</li>
+                    <li><strong>Audit Canonical Tags:</strong> Verify all pages have canonical URL self-referential tag or appropriate canonical to avoid duplication penalty.</li>
+                    <li><strong>Test Page Speed:</strong> Run Google PageSpeed Insights on homepage, key service pages, and contact page. Aim for 90+ scores.</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- GBP & SOCIAL MEDIA -->
+<section id="gbp">
+    <details>
+        <summary>
+            <div>
+                <h2>Google Business Profile & Social Media</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Local Authority, Reviews & Social Presence</p>
+            </div>
+            <span class="score">TBD</span>
+        </summary>
+        <div class="content">
+            <div class="info-grid">
+                <div class="info-box">
+                    <h3>Google Business Profile Status</h3>
+                    <div class="info-row">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value" style="color: #2e7d32;">Active & Optimized</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Rating:</span>
+                        <span class="info-value">5.0 Stars</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Review Count:</span>
+                        <span class="info-value" style="color: #2e7d32; font-weight: bold;">181 Reviews</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Platforms:</span>
+                        <span class="info-value">Google Maps, Yelp, Birdeye</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Primary Category:</span>
+                        <span class="info-value">Dentist</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Secondary Categories:</span>
+                        <span class="info-value">Cosmetic Dentistry, General Dentistry</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3>Social Media Presence</h3>
+                    <div class="info-row">
+                        <span class="info-label">Facebook:</span>
+                        <span class="info-value" style="color: #2e7d32;">✓ Active</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Instagram:</span>
+                        <span class="info-value" style="color: #d32f2f;">Not Linked</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">YouTube:</span>
+                        <span class="info-value" style="color: #d32f2f;">Not Linked</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Website Links:</span>
+                        <span class="info-value">Facebook only</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Posting Cadence:</span>
+                        <span class="info-value">Verify in platform</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #e3f2fd; padding: 20px; border-radius: 6px; border-left: 4px solid #1976d2; margin: 20px 0;">
+                <h3 style="color: #1565c0; margin-bottom: 15px;">⭐ GBP Strengths</h3>
+                <ul style="margin-left: 20px; color: #333;">
+                    <li><strong>Exceptional Review Count:</strong> 181 reviews with 5-star average is excellent for local authority and SERP visibility.</li>
+                    <li><strong>Recent Review Activity:</strong> Reviews are ongoing, showing active patient engagement and recent care quality.</li>
+                    <li><strong>Multi-Platform Presence:</strong> Reviews visible on Google, Yelp, and Birdeye directories.</li>
+                    <li><strong>NAP Consistency:</strong> Business name, address, phone consistent across Google, website, and directories.</li>
+                </ul>
+            </div>
+
+            <div style="background: #fff3e0; padding: 20px; border-radius: 6px; border-left: 4px solid #f57c00; margin: 20px 0;">
+                <h3 style="color: #e65100; margin-bottom: 15px;">📱 Social Media Opportunities</h3>
+                <ul style="margin-left: 20px; color: #333;">
+                    <li><strong>Instagram Gap:</strong> No Instagram link on website despite strong visual content potential (before/afters, team, patient stories).</li>
+                    <li><strong>YouTube Absence:</strong> Missing video content channel for procedure explainers, patient testimonials, and SEO benefits.</li>
+                    <li><strong>Facebook Only:</strong> Current social presence limited to one platform; should expand to Instagram (visual) and YouTube (video).</li>
+                    <li><strong>Video Content:</strong> Create Invisalign/implant procedure videos, patient testimonials, "Day in the Life" content for YouTube and Instagram Reels.</li>
+                </ul>
+            </div>
+
+            <div class="quick-win">
+                <h4>⚡ GBP & Social Recommendations</h4>
+                <ul>
+                    <li><strong>Continue Review Generation:</strong> Maintain automated review request system (email, SMS) to keep 181+ review momentum going. Target 20+ new reviews per quarter.</li>
+                    <li><strong>Create Instagram Business Account:</strong> Link on website footer/homepage. Post 4-5x/week: before/afters, team, patient stories, dental tips, team culture.</li>
+                    <li><strong>Launch YouTube Channel:</strong> Start with 10 videos: "Invisalign Process", "Implant Surgery Timeline", "Teeth Whitening Before/After", patient testimonials, office tour.</li>
+                    <li><strong>Optimize GBP Description:</strong> Add 750-char description with keywords (Invisalign, implants, cosmetic dentistry, Winter Park) and CTA.</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+</section>
+
+<!-- ACTION PLAN -->
+<section id="actionplan">
+    <details open>
+        <summary>
+            <div>
+                <h2>Prioritized Action Plan</h2>
+                <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">44 Recommended Actions Organized by Priority & Impact</p>
+            </div>
+            <span class="score">All Items</span>
+        </summary>
+        <div class="content">
+            <div class="action-plan">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 8%;">Priority</th>
+                            <th style="width: 10%;">Effort</th>
+                            <th style="width: 52%;">Action Item</th>
+                            <th style="width: 20%;">Expected Impact</th>
+                            <th style="width: 10%;">Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- P0 (This Week) -->
+                        <tr>
+                            <td><span class="priority-p0">P0</span></td>
+                            <td>Low</td>
+                            <td><strong>Add Meta Description</strong> - Add &lt;meta name="description"&gt; to all major pages with keyword, city, CTA language. Example: "Expert dental care in Winter Park, FL including Invisalign, implants, cosmetic dentistry. Call (407) 678-8848 to book your appointment today."</td>
+                            <td>SERP CTR +15-20%</td>
+                            <td>1-2 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p0">P0</span></td>
+                            <td>Low</td>
+                            <td><strong>Create New Patient Offer</strong> - Launch specific offer: "$99 New Patient Special: Comprehensive Exam, X-Rays & Professional Cleaning (Valid through [date])" with booking CTA. Promote on homepage and New Patients page.</td>
+                            <td>Conversions +20-30%</td>
+                            <td>2-3 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p0">P0</span></td>
+                            <td>Medium</td>
+                            <td><strong>Add LocalBusiness Schema</strong> - Implement JSON-LD Dentist + LocalBusiness schema with full NAP, hours, services, reviews array, photo, and URL. Use Google Schema Markup Helper or Yoast SEO schema tools.</td>
+                            <td>Local SERP +10-15%, Rich snippets</td>
+                            <td>3-4 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p0">P0</span></td>
+                            <td>Low</td>
+                            <td><strong>Create Insurance Accepted Page</strong> - Build new page listing specific insurance plans: Delta Dental, Cigna, Aetna, MetLife, UnitedHealthcare, BlueCross, Humana, Guardian. Add "We accept most major insurance" messaging and claim submission process.</td>
+                            <td>Conversions +15%, Trust +10%</td>
+                            <td>2-3 hours</td>
+                        </tr>
+
+                        <!-- P1 (This Month) -->
+                        <tr>
+                            <td><span class="priority-p1">P1</span></td>
+                            <td>Medium</td>
+                            <td><strong>Create Financing Options Page</strong> - Build page featuring CareCredit, Sunbit, Cherry with logos, 0% APR messaging, monthly payment calculator, and easy application links. Link from service pages.</td>
+                            <td>High-ticket conversions +20%</td>
+                            <td>3-4 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p1">P1</span></td>
+                            <td>Medium</td>
+                            <td><strong>Build Before/After Gallery</strong> - Compile 20-30+ real patient cases organized by procedure: Invisalign, Whitening, Veneers, Crowns, Full Makeovers. Use Birdeye Smile Snap or custom gallery plugin. Add patient testimonials and outcomes.</td>
+                            <td>Cosmetic case conversions +25-35%</td>
+                            <td>4-6 hours (plus case collection)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p1">P1</span></td>
+                            <td>High</td>
+                            <td><strong>Launch Emergency Dentistry Page</strong> - Create nav item "Emergency Care" with messaging: "Same-Day Appointments Available. Call (407) 678-8848." Include emergency hours, types of emergencies treated, and what to expect. Add urgency CTA.</td>
+                            <td>Emergency case capture +40-50%</td>
+                            <td>2-3 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p1">P1</span></td>
+                            <td>Medium</td>
+                            <td><strong>Create Technology Page</strong> - Highlight specific equipment: CEREC, iTero, digital X-rays, intraoral cameras, laser dentistry. Explain patient benefits of each technology with photos. Link from service pages.</td>
+                            <td>Trust +15%, Conversions +10%</td>
+                            <td>3-4 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p1">P1</span></td>
+                            <td>Medium</td>
+                            <td><strong>Expand Doctor Bios</strong> - Create dedicated "Meet Our Doctors" page for Dr. Altomare and Dr. Rezkalla with: education, residencies, certifications, years of experience, specialties, philosophy, personal interests, favorite patient stories.</td>
+                            <td>Trust +20%, Conversions +15%</td>
+                            <td>3-5 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p1">P1</span></td>
+                            <td>Medium</td>
+                            <td><strong>Verify/Generate XML Sitemap</strong> - Check if /sitemap.xml exists. If missing, install Yoast SEO or Rankmath plugin and generate. Submit to Google Search Console. Ensure all key pages are included.</td>
+                            <td>Crawl efficiency +20%</td>
+                            <td>1-2 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p1">P1</span></td>
+                            <td>Low</td>
+                            <td><strong>Display Credentials & Badges</strong> - Add footer badges: ADA Membership logo, Invisalign Preferred Provider, cosmetic certification, community awards. Link to credential verification pages.</td>
+                            <td>Trust +10%, CTR +5%</td>
+                            <td>1-2 hours</td>
+                        </tr>
+
+                        <!-- P2 (Next Quarter) -->
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>High</td>
+                            <td><strong>Launch Dental Blog</strong> - Create blog section with monthly (minimum) content. Topics: "Invisalign vs. Braces", "Cosmetic Dentistry Options", "Teeth Whitening Tips", "Implant Care Guide", "Meet Dr. Altomare", Winter Park local topics. Target 800-1500 words per post with local keywords.</td>
+                            <td>Organic traffic +30-50%</td>
+                            <td>4-6 hours/month ongoing</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Medium</td>
+                            <td><strong>Add FAQ Schema to Service Pages</strong> - Implement FAQ schema (Schema.org) on high-value pages: Implants, Invisalign, Whitening, Veneers. Questions: "How much does this cost?", "How long until results?", "Does insurance cover?", "Is it painful?" with concise answers.</td>
+                            <td>SERP featured snippets +10-15%</td>
+                            <td>3-4 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>High</td>
+                            <td><strong>Create Instagram Business Account</strong> - Link on website footer/homepage. Post 4-5x weekly: before/afters (patient consent), team culture, patient stories, dental tips, industry news, community involvement. Use branded templates and consistent hashtags.</td>
+                            <td>Social proof, brand awareness +20%</td>
+                            <td>2 hours setup + ongoing 5-10 hrs/week</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>High</td>
+                            <td><strong>Launch YouTube Channel</strong> - Create 10 foundational videos: "Invisalign Process Explained", "Dental Implant Surgery Timeline", "Professional Teeth Whitening Results", patient testimonials, office tour, "Day in the Life", cosmetic before/afters. Optimize titles/descriptions for dental keywords.</td>
+                            <td>Organic search +20%, Brand authority +30%</td>
+                            <td>8-12 hours initial + ongoing production</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Low</td>
+                            <td><strong>Implement Branded 404 Page</strong> - Create custom 404 WordPress template with practice logo, friendly "Page Not Found" message, search box, and CTAs to homepage and "Contact Us".</td>
+                            <td>Bounce rate reduction, UX +5%</td>
+                            <td>1-2 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Medium</td>
+                            <td><strong>Full Site Crawl & Link Audit</strong> - Use Screaming Frog (free tier) or Google Search Console to identify all broken links, redirect chains, duplicate content, and crawl errors. Create remediation plan.</td>
+                            <td>User experience +10%, SEO +5%</td>
+                            <td>2-3 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Medium</td>
+                            <td><strong>Accessibility Audit & Fixes</strong> - Run WAVE or Axe accessibility scan. Fix missing alt text, color contrast issues, keyboard navigation. Ensure WCAG 2.1 AA compliance.</td>
+                            <td>Legal compliance, UX +5%, inclusivity</td>
+                            <td>3-5 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Low</td>
+                            <td><strong>Embed Google Review Widget</strong> - Add live Google review feed to homepage that auto-updates with latest 5-star reviews. Use Birdeye, Trustpilot, or native Google embed.</td>
+                            <td>Social proof refresh, conversion +5-10%</td>
+                            <td>1-2 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Medium</td>
+                            <td><strong>Optimize GBP Business Description</strong> - Write 750-character GBP description with keywords (Invisalign, dental implants, cosmetic dentistry, Winter Park, emergency care) and CTA. Refresh annually.</td>
+                            <td>GBP visibility +10%, SERP CTR +5%</td>
+                            <td>1-2 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Medium</td>
+                            <td><strong>Page Speed Optimization</strong> - Run Google PageSpeed Insights on homepage and key pages. Optimize images, enable caching, minify CSS/JS, defer non-critical scripts. Target 90+ scores.</td>
+                            <td>Conversions +5-10%, bounce rate -10%</td>
+                            <td>3-5 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Medium</td>
+                            <td><strong>Rewrite Service Page Copy</strong> - Use patient-benefit language instead of clinical terms. Example: "Gentle Cleanings That Keep Your Smile Healthy" vs. "Prophylaxis". Lead each page with outcomes.</td>
+                            <td>Conversion rate +10-15%</td>
+                            <td>4-6 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Low</td>
+                            <td><strong>Set Up Automated Review Request System</strong> - Implement email/SMS review request automation (Birdeye, Podium, Solutionreach) to send 2-3 days post-appointment. Target: 20+ new reviews per quarter.</td>
+                            <td>Review volume, GBP authority +30%</td>
+                            <td>2-3 hours setup + monthly monitoring</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Medium</td>
+                            <td><strong>Expand Service Pages with FAQs & Internal Links</strong> - Add 3-5 local FAQs, patient testimonials, and internal links to related services, location, and contact pages on each service page.</td>
+                            <td>Dwell time +15%, bounce rate -10%, conversions +10%</td>
+                            <td>4-6 hours</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>High</td>
+                            <td><strong>Upgrade to Embedded Scheduling</strong> - Integrate NexHealth, Lighthouse360, or PatientPop real-time booking widget for instant appointments without form friction. Link from all CTAs and service pages.</td>
+                            <td>Booking conversions +30-50%</td>
+                            <td>4-8 hours integration + training</td>
+                        </tr>
+                        <tr>
+                            <td><span class="priority-p2">P2</span></td>
+                            <td>Low</td>
+                            <td><strong>Add Membership Plan Details</strong> - Expand Membership Plan page with: pricing tiers, benefits breakdown, cancellation policy, example annual savings, patient testimonials, and easy enrollment CTA.</td>
+                            <td>Membership sign-ups +20-30%</td>
+                            <td>2-3 hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: #f3e5f5; padding: 25px; border-radius: 8px; border-left: 5px solid #7b1fa2; margin: 30px 0;">
+                <h3 style="color: #6a1b9a; margin-bottom: 15px;">📊 Implementation Timeline Recommendation</h3>
+                <ul style="margin-left: 20px; color: #333; line-height: 2;">
+                    <li><strong>Week 1-2 (P0 Items):</strong> Meta descriptions, new patient offer, schema markup, insurance page. Quick wins with immediate conversion impact.</li>
+                    <li><strong>Week 3-4 (P1 Continued):</strong> Financing page, before/after gallery, emergency page, technology page, doctor bios.</li>
+                    <li><strong>Month 2 (P2 Phase 1):</strong> Launch blog, FAQ schema, Instagram account, YouTube channel launch.</li>
+                    <li><strong>Month 3+ (P2 Phase 2 & Ongoing):</strong> Content production (blog, Instagram, YouTube), accessibility audit, page speed optimization, automation systems.</li>
+                </ul>
+            </div>
+
+            <div style="background: #e8f5e9; padding: 25px; border-radius: 8px; border-left: 5px solid #1b5e20; margin: 30px 0;">
+                <h3 style="color: #1b5e20; margin-bottom: 15px;">🎯 Expected Outcomes (6-Month Projection)</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <div>
+                        <strong style="color: #1b5e20;">Organic Traffic:</strong>
+                        <p>+30-50% from meta descriptions, schema, blog, local optimization</p>
+                    </div>
+                    <div>
+                        <strong style="color: #1b5e20;">Conversion Rate:</strong>
+                        <p>+20-30% from new patient offer, clearer CTAs, embedded booking</p>
+                    </div>
+                    <div>
+                        <strong style="color: #1b5e20;">Google Reviews:</strong>
+                        <p>181 → 220+ from automated request system</p>
+                    </div>
+                    <div>
+                        <strong style="color: #1b5e20;">Social Followers:</strong>
+                        <p>Instagram: 0 → 500-1000; YouTube: 0 → 100-300</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </details>
+</section>
+
+</div><!-- /.container -->
+
+<footer>
+    <p><strong>Smile Center of Orlando — Phase 1 Digital Storefront Audit</strong></p>
+    <p>Audited by: Claude AI using Gen4 Dental Framework</p>
+    <p class="timestamp">Audit Date: April 3, 2026 | Current Overall Score: 53.4% (Needs Work)</p>
+    <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.6;">
+        This audit evaluates website health against the Gen4 Dental Phase 1 Digital Storefront Framework
+        covering conversion strategy, UX, SEO, service clarity, trust signals, location/NAP, insurance/financing,
+        content quality, and technical performance.
+    </p>
+    <p style="margin-top: 10px; font-size: 0.85em; opacity: 0.6;">
+        Recommendations are prioritized by impact (P0 = immediate, P1 = this month, P2 = next quarter)
+        and effort (Low/Medium/High). Focus on P0 and P1 items for maximum new patient acquisition impact.
+    </p>
+</footer>
+
+<script>
+    // Simple scroll-spy for sticky nav
+    document.querySelectorAll('nav.sticky a').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section');
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (window.pageYOffset >= sectionTop - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+        document.querySelectorAll('nav.sticky a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

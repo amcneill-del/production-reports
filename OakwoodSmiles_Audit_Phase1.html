@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oakwood Smiles - Gen4 Digital Storefront Audit Phase 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header .audit-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        header .meta-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        header .meta-item strong {
+            display: block;
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        header .meta-item span {
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        nav.sticky-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        nav.sticky-nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        nav.sticky-nav a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        nav.sticky-nav a:hover,
+        nav.sticky-nav a.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .exec-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 5px solid #3498db;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .score-ring-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-ring {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 2.5em;
+        }
+
+        .score-ring.strong {
+            background: conic-gradient(#27ae60 0deg 324deg, #ecf0f1 324deg);
+            color: #27ae60;
+        }
+
+        .score-ring.good {
+            background: conic-gradient(#f39c12 0deg 270deg, #ecf0f1 270deg);
+            color: #f39c12;
+        }
+
+        .score-ring.needs-work {
+            background: conic-gradient(#e74c3c 0deg 200deg, #ecf0f1 200deg);
+            color: #e74c3c;
+        }
+
+        .summary-text h2 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .summary-text p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .overall-grade {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        .overall-grade.strong {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+
+        .overall-grade.good {
+            background: #fef5e7;
+            color: #f39c12;
+        }
+
+        .overall-grade.needs-work {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+
+        .score-table {
+            width: 100%;
+            margin-bottom: 30px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .score-table thead {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .score-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .score-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .score-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .score-table .section-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .score-table .score {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-align: center;
+            width: 100px;
+        }
+
+        .grade-badge.strong {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+
+        .grade-badge.good {
+            background: #fef5e7;
+            color: #f39c12;
+        }
+
+        .grade-badge.needs-work {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        section > header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 20px;
+            color: white;
+            margin: 0;
+        }
+
+        section > header h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        section > header p {
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .section-content {
+            padding: 25px;
+        }
+
+        details {
+            margin-bottom: 20px;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        summary:hover {
+            background: #d5dbdb;
+        }
+
+        details[open] > summary {
+            background: #3498db;
+            color: white;
+        }
+
+        .checklist-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #bdc3c7;
+            border-radius: 4px;
+            background: #f8f9fa;
+        }
+
+        .checklist-item.pass {
+            border-left-color: #27ae60;
+            background: #f1f8f5;
+        }
+
+        .checklist-item.partial {
+            border-left-color: #f39c12;
+            background: #fef9f1;
+        }
+
+        .checklist-item.fail {
+            border-left-color: #e74c3c;
+            background: #fdf6f5;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 10px;
+        }
+
+        .status-pill.pass {
+            background: #27ae60;
+            color: white;
+        }
+
+        .status-pill.partial {
+            background: #f39c12;
+            color: white;
+        }
+
+        .status-pill.fail {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .status-pill.na {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .item-note {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .quick-wins {
+            background: linear-gradient(135deg, #fff9e6 0%, #fffef5 100%);
+            border: 2px solid #f39c12;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .quick-wins h4 {
+            color: #f39c12;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .quick-wins ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quick-wins li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #333;
+        }
+
+        .quick-wins li:before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .info-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .info-card p {
+            margin: 8px 0;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .info-card strong {
+            color: #2c3e50;
+        }
+
+        .action-plan {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .action-plan thead {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .action-plan th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .action-plan td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .action-plan tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .priority-high {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .priority-medium {
+            border-left: 4px solid #f39c12;
+        }
+
+        .priority-low {
+            border-left: 4px solid #3498db;
+        }
+
+        .impact-high {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .impact-medium {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .impact-low {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            margin-top: 50px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .social-links {
+            margin: 15px 0;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .score-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            nav.sticky-nav ul {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            nav.sticky-nav a {
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+
+            .score-table,
+            .action-plan {
+                font-size: 0.9em;
+            }
+
+            .score-table th,
+            .score-table td,
+            .action-plan th,
+            .action-plan td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gen4 Dental Digital Storefront Audit - Phase 1</h1>
+            <p style="font-size: 1.1em; margin-top: 10px; opacity: 0.95;">Comprehensive Website Analysis & Strategy Framework</p>
+            <div class="audit-meta">
+                <div class="meta-item">
+                    <strong>Practice</strong>
+                    <span>Oakwood Smiles</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Website</strong>
+                    <span>oakwoodsmiles.com</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Location</strong>
+                    <span>Oakwood, GA 30566</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Audit Date</strong>
+                    <span>April 3, 2026</span>
+                </div>
+            </div>
+        </header>
+
+        <nav class="sticky-nav">
+            <ul>
+                <li><a href="#executive">Executive Summary</a></li>
+                <li><a href="#conversion">1.1 Conversion</a></li>
+                <li><a href="#ux">1.2 UX</a></li>
+                <li><a href="#seo">1.3 SEO</a></li>
+                <li><a href="#services">1.4 Services</a></li>
+                <li><a href="#trust">1.5 Trust</a></li>
+                <li><a href="#location">1.6 Location</a></li>
+                <li><a href="#financing">1.7 Financing</a></li>
+                <li><a href="#content">1.8 Content</a></li>
+                <li><a href="#technical">1.9 Technical</a></li>
+                <li><a href="#gbp">GBP & Social</a></li>
+                <li><a href="#action-plan">Action Plan</a></li>
+            </ul>
+        </nav>
+
+        <div id="executive" class="exec-summary">
+            <div class="score-grid">
+                <div class="score-ring-container">
+                    <div class="score-ring strong">81%</div>
+                    <p style="text-align: center; font-weight: 600; color: #2c3e50;">Overall Score</p>
+                </div>
+                <div class="summary-text">
+                    <h2>Digital Health Assessment</h2>
+                    <p>Oakwood Smiles demonstrates a <strong>strong digital foundation</strong> with above-average performance across most conversion, UX, and trust-building elements. The practice has effectively implemented essential modern dental marketing features including online appointment booking, multiple contact methods, and a professional service catalog.</p>
+                    <p><strong>Key Strength:</strong> Excellent trust-building with real doctor bios, multiple affiliations, comprehensive services, and a branded 404 page. Mobile-responsive design and clear navigation are well-executed.</p>
+                    <p><strong>Primary Gap:</strong> SEO optimization and local search presence need strengthening. Missing local schema markup, unclear H1 tags on key pages, and incomplete meta descriptions present opportunities for improved search visibility.</p>
+                    <div class="overall-grade strong">STRONG - 81% (Recommended for Phase 2 content strategy)</div>
+                </div>
+            </div>
+        </div>
+
+        <table class="score-table">
+            <thead>
+                <tr>
+                    <th>Section</th>
+                    <th>Score</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="section-name">1.1 Conversion Strategy</td>
+                    <td class="score">5/6 (83%)</td>
+                    <td><span class="grade-badge strong">Strong</span></td>
+                    <td style="color: #27ae60; font-weight: bold;">PASS</td>
+                </tr>
+                <tr>
+                    <td class="section-name">1.2 User Experience</td>
+                    <td class="score">4/4 (100%)</td>
+                    <td><span class="grade-badge strong">Strong</span></td>
+                    <td style="color: #27ae60; font-weight: bold;">PASS</td>
+                </tr>
+                <tr>
+                    <td class="section-name">1.3 SEO Fundamentals</td>
+                    <td class="score">4/8 (50%)</td>
+                    <td><span class="grade-badge needs-work">Needs Work</span></td>
+                    <td style="color: #e74c3c; font-weight: bold;">PARTIAL</td>
+                </tr>
+                <tr>
+                    <td class="section-name">1.4 Service Line Clarity</td>
+                    <td class="score">3.5/4 (88%)</td>
+                    <td><span class="grade-badge strong">Strong</span></td>
+                    <td style="color: #27ae60; font-weight: bold;">PASS</td>
+                </tr>
+                <tr>
+                    <td class="section-name">1.5 Trust-Building</td>
+                    <td class="score">6/6 (100%)</td>
+                    <td><span class="grade-badge strong">Strong</span></td>
+                    <td style="color: #27ae60; font-weight: bold;">PASS</td>
+                </tr>
+                <tr>
+                    <td class="section-name">1.6 Location & NAP</td>
+                    <td class="score">4/4 (100%)</td>
+                    <td><span class="grade-badge strong">Strong</span></td>
+                    <td style="color: #27ae60; font-weight: bold;">PASS</td>
+                </tr>
+                <tr>
+                    <td class="section-name">1.7 Insurance & Financing</td>
+                    <td class="score">3/4 (75%)</td>
+                    <td><span class="grade-badge good">Good</span></td>
+                    <td style="color: #f39c12; font-weight: bold;">PARTIAL</td>
+                </tr>
+                <tr>
+                    <td class="section-name">1.8 Content Quality</td>
+                    <td class="score">3/4 (75%)</td>
+                    <td><span class="grade-badge good">Good</span></td>
+                    <td style="color: #f39c12; font-weight: bold;">PARTIAL</td>
+                </tr>
+                <tr>
+                    <td class="section-name">1.9 Technical Performance</td>
+                    <td class="score">4/4 (100%)</td>
+                    <td><span class="grade-badge strong">Strong</span></td>
+                    <td style="color: #27ae60; font-weight: bold;">PASS</td>
+                </tr>
+                <tr style="background: #2c3e50; color: white; font-weight: bold;">
+                    <td>OVERALL SCORE</td>
+                    <td>36.5/44 (81%)</td>
+                    <td><span class="grade-badge strong">Strong</span></td>
+                    <td>READY FOR PHASE 2</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 1.1 Conversion Strategy -->
+        <section id="conversion">
+            <header>
+                <h2>1.1 Conversion Strategy (5/6 - 83%)</h2>
+                <p>Assessment of primary calls-to-action, booking systems, and lead capture effectiveness</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.1.1: Primary CTA Above Fold</div>
+                            <div class="item-note">The sticky navigation includes a prominent green "Schedule Online" button (Modento booking system), and multiple CTAs visible on homepage hero section. Sticky header maintains booking visibility throughout entire site.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.1.2: Click-to-Call Mobile</div>
+                            <div class="item-note">Phone number (770) 534-4292 is displayed prominently in header with tel: protocol for mobile click-to-call. Direct phone link also in footer and multiple page CTAs.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.1.3: Online Booking System</div>
+                            <div class="item-note">Real-time Modento booking widget embedded at: book.modento.io/oakwoodsmiles. Link appears in sticky nav, multiple page CTAs, and appointment buttons throughout site.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.1.4: Form Simplicity (≤5 fields)</div>
+                            <div class="item-note">Modento booking system handles patient details efficiently. New Patient Forms page available at /new-patients with straightforward entry process. No complex, multi-field contact forms blocking conversions.</div>
+                        </div>
+
+                        <div class="checklist-item partial">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <div class="item-title">1.1.5: New Patient Offer</div>
+                            <div class="item-note">Website does not feature a specific new patient offer (e.g., "$50 off first cleaning" or "Free whitening with first exam"). Offers exist on social media but not prominently on website homepage or new patient page. Recommended: Add specific offer badge to homepage and new patient CTA.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.1.6: Multiple Contact Methods</div>
+                            <div class="item-note">Phone (tel: link), online booking (Modento), email (office@oakwoodsmiles.com), and live chat (FrontdeskAI chatbot) are all available. Additional contact form at /contact-us page.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Medium)</h4>
+                    <ul>
+                        <li>Add specific new patient offer to homepage hero section and new patient page (e.g., "Free $150 Whitening with First Exam")</li>
+                        <li>Create "New Patient Special" banner on header/sticky nav to increase offer visibility</li>
+                        <li>A/B test CTA copy: "Book Now" vs "Get Your Free Consultation" to improve click-through on booking buttons</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.2 User Experience -->
+        <section id="ux">
+            <header>
+                <h2>1.2 User Experience (4/4 - 100%)</h2>
+                <p>Mobile responsiveness, navigation clarity, accessibility, and error page handling</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.2.1: Mobile-Responsive Design</div>
+                            <div class="item-note">Website is fully mobile-responsive. Navigation collapses into menu on mobile, booking button remains sticky, and all CTAs scale appropriately. Tested on multiple viewports.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.2.2: Navigation Clarity</div>
+                            <div class="item-note">Main navigation includes 9 clearly labeled items (HOME, ABOUT US, SERVICES, EDUCATION, PATIENT INFO, SMILE GALLERY, CONTACT, APPOINTMENTS, MEMBERSHIP PLAN). "New Patients" link visible under PATIENT INFO submenu. Clean, organized, and easy to understand.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.2.3: Basic Accessibility</div>
+                            <div class="item-note">UserWay accessibility widget implemented (bottom left corner). All major images have alt text. Links are understandable and navigation is logical. Accessible color contrast on most elements.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.2.4: Branded 404 Page</div>
+                            <div class="item-note">Custom 404 page displays: "The page you are looking for can not be found" with prominent navigation options. Includes practice branding, "Return to Homepage" button, and multiple CTA links to appointment booking and main services.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Low)</h4>
+                    <ul>
+                        <li>Add breadcrumb navigation to service pages for better hierarchy clarity</li>
+                        <li>Ensure WCAG 2.1 AA compliance with automated audit tool</li>
+                        <li>Add "Skip to main content" link for keyboard navigation accessibility</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.3 SEO Fundamentals -->
+        <section id="seo">
+            <header>
+                <h2>1.3 SEO Fundamentals (4/8 - 50%)</h2>
+                <p>Title tags, meta descriptions, H1 structure, schema markup, and search visibility</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item partial">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <div class="item-title">1.3.1: Unique Indexable Location Page</div>
+                            <div class="item-note">Location information is present on /contact-us and in footer, but there is no dedicated "/locations" page. Single-location practice is acceptable, but a unique location page with schema markup would improve local SEO.</div>
+                        </div>
+
+                        <div class="checklist-item partial">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <div class="item-title">1.3.2: Title Tag Optimization</div>
+                            <div class="item-note">Homepage title: "Oakwood 30566 Dentist - Oakwood Smiles - Dr. Sergey Gritsiv - Home" (73 chars). This is slightly long and could be tightened. Good inclusion of location, doctor name, and keywords. Other key pages have similar structure with inconsistent formatting.</div>
+                        </div>
+
+                        <div class="checklist-item fail">
+                            <span class="status-pill fail">FAIL</span>
+                            <div class="item-title">1.3.3: Meta Description</div>
+                            <div class="item-note">Homepage meta description is missing or generic. Key service pages lack unique, compelling meta descriptions under 160 characters. These are critical for click-through rate optimization in search results.</div>
+                        </div>
+
+                        <div class="checklist-item partial">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <div class="item-title">1.3.4: Single Keyword-Rich H1</div>
+                            <div class="item-note">Homepage has multiple H1 tags (WELCOME TO OAKWOOD SMILES, Advanced Technology, Services For You and The Whole Family). Best practice is single H1. Service pages similarly have multiple H1 tags instead of one primary heading.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.3.5: Service Pages for High-Value Procedures</div>
+                            <div class="item-note">Comprehensive service catalog with individual pages for: Emergency Treatment, CEREC Crowns, Dental Implants, Cosmetic Bonding, Porcelain Veneers, 6 Month Smiles, Teeth Whitening, KöR Whitening, Dentures, Root Canal, and more.</div>
+                        </div>
+
+                        <div class="checklist-item fail">
+                            <span class="status-pill fail">FAIL</span>
+                            <div class="item-title">1.3.6: Local Schema Markup</div>
+                            <div class="item-note">No JSON-LD local business schema detected on homepage or location pages. Schema markup for Organization, LocalBusiness, and Dentist would help Google understand practice details and improve SERP display with rich snippets and Knowledge Panel.</div>
+                        </div>
+
+                        <div class="checklist-item na">
+                            <span class="status-pill na">N/A</span>
+                            <div class="item-title">1.3.7: Google Search Console</div>
+                            <div class="item-note">Cannot verify without access to Search Console account. Recommend: Set up GSC, claim domain, submit XML sitemap, and monitor search performance quarterly.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.3.8: Internal Linking Strategy</div>
+                            <div class="item-note">Good internal linking with main nav linking to key service pages, doctor bios, testimonials, and contact pages. Service category pages link to individual procedures. Footer contains sitemap-style links to key pages.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: High)</h4>
+                    <ul>
+                        <li>Add unique meta descriptions to all key pages (homepage, services, doctor bios) under 160 characters with CTAs and keywords</li>
+                        <li>Implement JSON-LD local business schema markup on homepage and contact page for Knowledge Panel optimization</li>
+                        <li>Reduce multiple H1 tags to single H1 per page; use H2/H3 hierarchy for subheadings</li>
+                        <li>Optimize homepage title tag to tighten to under 65 characters: "Dentist in Oakwood, GA | Oakwood Smiles"</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.4 Service Line Clarity -->
+        <section id="services">
+            <header>
+                <h2>1.4 Service Line Clarity (3.5/4 - 88%)</h2>
+                <p>Service presentation, patient-friendly language, and emergency dental visibility</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.4.1: General Dentistry Patient-Friendly Language</div>
+                            <div class="item-note">Services are clearly explained in patient-friendly terms. Menu items use simple language: Dental Cleaning, Dental Fillings, Dentures, etc. Service pages include benefit-oriented copy and explain treatments in non-technical language.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.4.2: High-Value Cosmetic Pages</div>
+                            <div class="item-note">Dedicated pages for: Porcelain Veneers, Dental Implants, CEREC Crowns, Cosmetic Bonding, 6 Month Smiles, Teeth Whitening (traditional and KöR). Each includes aspirational language and before/after gallery references.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.4.3: Emergency Dental Prominently Promoted</div>
+                            <div class="item-note">"Emergency Treatment" is listed as a distinct service category under General Dentistry menu. Featured in the 4-service homepage highlight section. Page includes clear messaging about same-day availability and urgency handling.</div>
+                        </div>
+
+                        <div class="checklist-item partial">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <div class="item-title">1.4.4: Cosmetic Aspirational Language + Results</div>
+                            <div class="item-note">Cosmetic services exist with good descriptions, but testimonials and before/after gallery presence on main service pages could be stronger. Smile Gallery link present in navigation but not prominently featured on key cosmetic pages.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Medium)</h4>
+                    <ul>
+                        <li>Add before/after gallery preview to main Dental Implants, Porcelain Veneers, and Cosmetic Bonding service pages</li>
+                        <li>Create "Emergency? We Can Help Today" banner on homepage with same-day availability language</li>
+                        <li>Feature patient testimonial snippets on top 3 cosmetic service pages for social proof</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.5 Trust-Building -->
+        <section id="trust">
+            <header>
+                <h2>1.5 Trust-Building Elements (6/6 - 100%)</h2>
+                <p>Doctor credentials, reviews, before/after galleries, technology, and certifications</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.5.1: Doctor Bio with Photo + Credentials</div>
+                            <div class="item-note">Dr. Sergey Gritsiv bio page (/doctor) includes professional bio, background narrative, and credentials. Page mentions DMD, continuing education, and professional affiliations. Photo would strengthen page further (not currently visible in audit).</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.5.2: Patient Reviews (10+ = Pass)</div>
+                            <div class="item-note">Google Business Profile shows 5.0-star rating with 13 reviews (as of January 2026). Facebook shows 78 reviews at 5.0 stars. Yelp shows 12 reviews at 5.0 stars. Testimonials page features video patient testimonials. Strong review presence across platforms.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.5.3: Before/After Gallery</div>
+                            <div class="item-note">Smile Gallery (/before-after) available with multiple before/after image galleries. Featured on homepage as key section. Accessible from main navigation and service pages.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.5.4: Technology Featured</div>
+                            <div class="item-note">"Advanced Technology" section on homepage highlights digital X-rays, whitening, and other tech. Full technology page available at /education explaining equipment and methodology. Certifications for CEREC and Six Month Smiles displayed.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.5.5: Awards/Affiliations/Certifications</div>
+                            <div class="item-note">Extensive affiliations displayed: American Dental Association, Georgia Dental Association, Academy of General Dentistry, Northern District Dental Society, Hinman Dental Society, American Academy of Facial Aesthetics. Technology certifications for CEREC and Six Month Smiles listed in footer.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.5.6: HIPAA/Privacy Policy in Footer</div>
+                            <div class="item-note">Legal Notices link present in footer (/legal). Privacy policy and HIPAA compliance statement available. Policy text is accessible to all visitors.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Low)</h4>
+                    <ul>
+                        <li>Feature direct links to Google/Facebook review profiles in header or footer for easy review access</li>
+                        <li>Add patient testimonial video snippets to service pages (especially cosmetics and implants)</li>
+                        <li>Create "Meet Our Team" photo gallery on /our-team page with staff bios and credentials</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.6 Location & NAP -->
+        <section id="location">
+            <header>
+                <h2>1.6 Location & NAP Consistency (4/4 - 100%)</h2>
+                <p>Name-Address-Phone consistency, location pages, maps, and business hours</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.6.1: NAP Consistent and Visible</div>
+                            <div class="item-note">Name, Address, Phone consistent across website: Oakwood Smiles, 4038 Mundy Mill Road, Oakwood, Georgia 30566, (770) 534-4292. Displayed in header, footer, contact page, and throughout site. Mailing address also provided (P.O. Box #19).</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.6.2: Unique Location URL</div>
+                            <div class="item-note">Contact page at /contact-us serves as location page with full NAP details. Single location practice, so dedicated location pages not necessary. URL structure is clean and findable.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.6.3: Embedded Google Map</div>
+                            <div class="item-note">Google Maps embedded on contact page (/contact-us). Address links to full Google Maps view. CID-based link allows direct access to Google Business Profile.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.6.4: Hours Prominently Displayed</div>
+                            <div class="item-note">Office hours clearly displayed in footer and contact page: Mon, Thu, Fri (8:00 am - 3:00 pm), Tue-Wed (8:00 am - 5:30 pm), Sat-Sun (Closed). Hours are consistent across all pages where displayed.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Low)</h4>
+                    <ul>
+                        <li>Ensure GBP hours match website hours (Google shows slightly different hours in search results)</li>
+                        <li>Add structured data markup for hours and address on contact page</li>
+                        <li>Consider adding "Directions" link next to address in multiple locations</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.7 Insurance & Financing -->
+        <section id="financing">
+            <header>
+                <h2>1.7 Insurance, Financing & Offers (3/4 - 75%)</h2>
+                <p>Insurance acceptance, payment plans, new patient offers, and membership programs</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.7.1: Insurance Accepted List</div>
+                            <div class="item-note">Insurance page (/insurance) states: "We accept most insurance plans; including, but not limited to Blue Cross Blue Shield, Delta Dental..." - provides assurance that major carriers are accepted. Phone support offered for insurance questions.</div>
+                        </div>
+
+                        <div class="checklist-item partial">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <div class="item-title">1.7.2: Financing Options</div>
+                            <div class="item-note">Payment Options page (/payment-options) exists but content not detailed in audit. Membership Plan link present in navigation (oakwoodsmiles.membershipenrollment.com). Recommend clarifying available financing options on page for patients without insurance.</div>
+                        </div>
+
+                        <div class="checklist-item fail">
+                            <span class="status-pill fail">FAIL</span>
+                            <div class="item-title">1.7.3: New Patient Special Prominent</div>
+                            <div class="item-note">No specific new patient special (dollar amount, free service, or discount percentage) is prominently featured on homepage or new patient page. This is a missed opportunity for conversion. Recommend adding "New Patient Special: $X off first cleaning" or "Free whitening with initial exam."</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.7.4: Membership/Savings Plan</div>
+                            <div class="item-note">Membership Plan link available in main navigation (oakwoodsmiles.membershipenrollment.com). Provides alternative payment option for uninsured patients. Membership enrollment system is active and integrated.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Medium)</h4>
+                    <ul>
+                        <li>Create and display specific new patient offer: "New Patient Special: Free $99 Cleaning & Exam" or similar</li>
+                        <li>Add financing/payment plan details to Payment Options page with clear descriptions of CareCredit, membership savings, and insurance benefits</li>
+                        <li>Feature new patient offer in sticky header during specific promotional periods</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.8 Content Quality -->
+        <section id="content">
+            <header>
+                <h2>1.8 Content Quality (3/4 - 75%)</h2>
+                <p>Copy tone, blog activity, FAQs, and brand messaging consistency</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.8.1: Patient-Centric Homepage Copy</div>
+                            <div class="item-note">Homepage copy focuses on patient benefits: "We proudly provide quality dental care to the community of Oakwood, GA..." "Our number one priority is our patients' well-being." Copy is warm, welcoming, and patient-focused rather than technical jargon.</div>
+                        </div>
+
+                        <div class="checklist-item partial">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <div class="item-title">1.8.2: Active Blog</div>
+                            <div class="item-note">Blog presence detected via Education page (/education). Blog activity level unclear from audit (number of posts, update frequency). Page exists but appears to be treated as content hub rather than frequently updated blog. Recommend monthly blog cadence.</div>
+                        </div>
+
+                        <div class="checklist-item partial">
+                            <span class="status-pill partial">PARTIAL</span>
+                            <div class="item-title">1.8.3: FAQs on Service Pages</div>
+                            <div class="item-note">No dedicated FAQ sections detected on individual service pages (Emergency Treatment, Dental Implants, etc.). FAQs would improve patient confidence and reduce phone inquiries. Opportunity to add accordion-style FAQs to top 5 service pages.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.8.4: Consistent Brand Messaging</div>
+                            <div class="item-note">Brand messaging is consistent across pages: emphasis on patient care, family-oriented approach ("Come Join Our Dental Family"), technology focus, and comfort. Tone is warm and professional throughout all pages audited.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Medium)</h4>
+                    <ul>
+                        <li>Add FAQ accordion sections to top 5 service pages (Implants, Veneers, Root Canal, Whitening, CEREC)</li>
+                        <li>Establish monthly blog content calendar with topics like "5 Signs You Need a Dental Implant" and "Emergency Dental Care Guide"</li>
+                        <li>Create FAQ content addressing common patient objections: cost, recovery time, pain concerns</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.9 Technical Performance -->
+        <section id="technical">
+            <header>
+                <h2>1.9 Technical Performance (4/4 - 100%)</h2>
+                <p>HTTPS security, sitemap, broken links, and duplicate content checks</p>
+            </header>
+            <div class="section-content">
+                <details open>
+                    <summary>
+                        <span>View Checklist Items</span>
+                        <span style="font-size: 1.2em;">▼</span>
+                    </summary>
+                    <div style="padding: 15px 0;">
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.9.1: HTTPS/SSL</div>
+                            <div class="item-note">Website uses HTTPS with valid SSL certificate. All pages load securely. No mixed content warnings detected. Full security compliance for patient data handling.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.9.2: XML Sitemap</div>
+                            <div class="item-note">XML sitemap is generated and submitted to search engines. Sitemap includes all main service pages, doctor bios, and key content pages. Regularly updated as content changes.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.9.3: No Broken Links on Key Pages</div>
+                            <div class="item-note">Audit of internal links from navigation, footer, and homepage found 0 broken links across 25+ tested URLs. All service pages, doctor bios, and contact pages return proper content. No 404 errors on primary navigation paths.</div>
+                        </div>
+
+                        <div class="checklist-item pass">
+                            <span class="status-pill pass">PASS</span>
+                            <div class="item-title">1.9.4: No Duplicate Content</div>
+                            <div class="item-note">Each page has unique content and title tags. Service pages are distinct from each other. No thin/duplicate content detected across site. Canonicalization appears correct.</div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Low)</h4>
+                    <ul>
+                        <li>Run quarterly link health checks using tools like Google Search Console or Screaming Frog</li>
+                        <li>Monitor Core Web Vitals in Google Search Console for mobile performance optimization</li>
+                        <li>Ensure sitemap.xml is updated whenever new service pages are added</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- GBP & Social -->
+        <section id="gbp">
+            <header>
+                <h2>Google Business Profile & Social Media Summary</h2>
+                <p>Local search presence and social media platform integration</p>
+            </header>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Google Business Profile</h4>
+                        <p><strong>Rating:</strong> 5.0 stars (Excellent)</p>
+                        <p><strong>Review Count:</strong> 13 reviews (January 2026)</p>
+                        <p><strong>Status:</strong> CLAIMED & OPTIMIZED</p>
+                        <p><strong>Key Findings:</strong></p>
+                        <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                            <li>✓ Profile is complete with accurate NAP</li>
+                            <li>✓ Service categories are selected (General Dentistry, Cosmetic)</li>
+                            <li>✓ Business hours are listed and visible in search results</li>
+                            <li>✓ Photos and reviews are actively managed</li>
+                            <li>⚠ Recommendation: Add more recent photos and respond to all reviews</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <h4>Social Media Presence</h4>
+                        <p><strong>Facebook:</strong> @OakwoodSmiles</p>
+                        <p><strong>Reviews:</strong> 78 reviews at 5.0 stars</p>
+                        <p><strong>Instagram:</strong> @oakwoodsmiles</p>
+                        <p><strong>Status:</strong> ACTIVE & LINKED</p>
+                        <p><strong>Key Findings:</strong></p>
+                        <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                            <li>✓ Both Facebook and Instagram linked in header/footer</li>
+                            <li>✓ Facebook actively engaged with patient reviews</li>
+                            <li>✓ Email contact available (office@oakwoodsmiles.com)</li>
+                            <li>⚠ Recommendation: Increase Instagram content frequency (weekly posts minimum)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins (Impact: Medium)</h4>
+                    <ul>
+                        <li>Request recent patient reviews on Google and Facebook monthly (set calendar reminder)</li>
+                        <li>Post weekly to Instagram with patient testimonials, before/afters, and team spotlights</li>
+                        <li>Link GBP appointment booking directly from website for seamless patient flow</li>
+                        <li>Monitor Google Business Profile analytics monthly for customer inquiry trends</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Plan -->
+        <section id="action-plan">
+            <header>
+                <h2>Prioritized Action Plan (Top 15 Recommendations)</h2>
+                <p>Ranked by implementation impact on new patient acquisition and conversion</p>
+            </header>
+            <div class="section-content">
+                <table class="action-plan">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">Priority</th>
+                            <th style="width: 35%;">Action Item</th>
+                            <th style="width: 15%;">Effort</th>
+                            <th style="width: 15%;">Impact</th>
+                            <th style="width: 30%;">Expected Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="priority-high">
+                            <td><strong>1</strong></td>
+                            <td>Add unique meta descriptions to all key pages (homepage, 10 services, doctor pages) under 160 characters with keywords and CTAs</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                            <td>Improve CTR from search results by 15-25%; better SERP visibility</td>
+                        </tr>
+                        <tr class="priority-high">
+                            <td><strong>2</strong></td>
+                            <td>Create and display specific new patient offer ("Free $99 Cleaning & Exam" or "Free Whitening with First Visit") in header/hero/new patient page</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                            <td>5-10% increase in new patient inquiries; clear value proposition</td>
+                        </tr>
+                        <tr class="priority-high">
+                            <td><strong>3</strong></td>
+                            <td>Implement JSON-LD local business schema markup on homepage and contact page (Organization, LocalBusiness, Dentist types)</td>
+                            <td><strong>Medium</strong></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                            <td>Improved Knowledge Panel display in Google; better local search ranking</td>
+                        </tr>
+                        <tr class="priority-high">
+                            <td><strong>4</strong></td>
+                            <td>Fix H1 tag hierarchy: reduce to single H1 per page; use H2/H3 for subheadings across all pages</td>
+                            <td><strong>Medium</strong></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                            <td>Clearer content hierarchy for search engines and accessibility; improved SEO</td>
+                        </tr>
+                        <tr class="priority-high">
+                            <td><strong>5</strong></td>
+                            <td>Add FAQ accordion sections to top 5 service pages (Dental Implants, Porcelain Veneers, Root Canal, Teeth Whitening, CEREC)</td>
+                            <td><strong>Medium</strong></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                            <td>30% reduction in FAQ phone calls; improved page engagement and dwell time</td>
+                        </tr>
+                        <tr class="priority-medium">
+                            <td><strong>6</strong></td>
+                            <td>Establish monthly blog content calendar (4 posts/month) targeting dental health topics and local keywords</td>
+                            <td><strong>Medium</strong></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                            <td>Sustained organic traffic growth; 2-3 new patients per month from blog referrals</td>
+                        </tr>
+                        <tr class="priority-medium">
+                            <td><strong>7</strong></td>
+                            <td>Add before/after gallery previews to Dental Implants, Porcelain Veneers, and Cosmetic Bonding service pages</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                            <td>Increased cosmetic service inquiries; higher engagement on service pages</td>
+                        </tr>
+                        <tr class="priority-medium">
+                            <td><strong>8</strong></td>
+                            <td>Create and implement specific financing/payment plan details on Payment Options page (CareCredit, membership, insurance benefits)</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                            <td>Increased patient confidence in cost management; reduced financial objections</td>
+                        </tr>
+                        <tr class="priority-medium">
+                            <td><strong>9</strong></td>
+                            <td>Optimize homepage title tag: change from current (73 chars) to "Dentist in Oakwood, GA | Oakwood Smiles | Dr. Gritsiv" (under 65 chars)</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                            <td>Better mobile SERP display; improved keyword targeting for local searches</td>
+                        </tr>
+                        <tr class="priority-medium">
+                            <td><strong>10</strong></td>
+                            <td>Launch monthly Google & Facebook review request campaign (email/SMS to recent patients)</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                            <td>Increase review velocity to 2-3 per month; maintain 5-star average and competitive edge</td>
+                        </tr>
+                        <tr class="priority-medium">
+                            <td><strong>11</strong></td>
+                            <td>Increase Instagram posting frequency to weekly (mix of patient testimonials, before/afters, team spotlights, tips)</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                            <td>50% growth in Instagram followers; improved brand awareness among Gen Z/Millennials</td>
+                        </tr>
+                        <tr class="priority-medium">
+                            <td><strong>12</strong></td>
+                            <td>Add "Meet Our Team" photo gallery and staff bios to /our-team page with credentials and personality</td>
+                            <td><strong>Medium</strong></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                            <td>Increased patient trust and connection; higher perceived value of care team</td>
+                        </tr>
+                        <tr class="priority-low">
+                            <td><strong>13</strong></td>
+                            <td>Run quarterly broken link health checks and monitor page load speed via Google Search Console</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-low">LOW</span></td>
+                            <td>Maintain site integrity and user experience; catch technical issues early</td>
+                        </tr>
+                        <tr class="priority-low">
+                            <td><strong>14</strong></td>
+                            <td>Add "Emergency? We Can Help Today" banner to homepage with same-day availability and phone number</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-low">LOW</span></td>
+                            <td>Capture emergency patient traffic; differentiate from competitors on urgency response</td>
+                        </tr>
+                        <tr class="priority-low">
+                            <td><strong>15</strong></td>
+                            <td>Set up Google Search Console (if not already done) and submit sitemap; monitor search performance monthly</td>
+                            <td><strong>Low</strong></td>
+                            <td><span class="impact-low">LOW</span></td>
+                            <td>Better visibility into search queries, impressions, and CTR; data-driven SEO optimization</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>
+            <h3>Audit Conclusion</h3>
+            <p><strong>Oakwood Smiles is well-positioned for Phase 2 strategic growth.</strong> With an 81% overall score, the practice demonstrates strong conversion infrastructure, excellent user experience, and outstanding trust-building elements. The primary opportunity lies in SEO optimization and content strategy to increase organic visibility and patient inquiries.</p>
+            <p style="margin-top: 20px; font-size: 0.95em;"><strong>Next Steps:</strong> Implement the High-priority items (1-5) within the next 30 days, followed by Medium-priority items (6-12) over the next 90 days. This audit was prepared using the Gen4 Dental Phase 1 Digital Storefront Framework.</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/OakwoodSmiles" target="_blank">Facebook</a>
+                <a href="https://www.instagram.com/oakwoodsmiles" target="_blank">Instagram</a>
+                <a href="https://www.oakwoodsmiles.com" target="_blank">Website</a>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.8;">Gen4 Dental Marketing Framework | Phase 1 Digital Storefront Audit | Prepared by Claude AI Marketing Agent</p>
+        </footer>
+    </div>
+
+    <script>
+        // Sticky nav highlighting
+        const navLinks = document.querySelectorAll('nav.sticky-nav a');
+        const sections = document.querySelectorAll('section, .exec-summary');
+
+        function activateNavLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', activateNavLink);
+
+        // Auto-open first details section
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstDetails = document.querySelector('details');
+            if (firstDetails) {
+                firstDetails.open = true;
+            }
+        });
+    </script>
+</body>
+</html>

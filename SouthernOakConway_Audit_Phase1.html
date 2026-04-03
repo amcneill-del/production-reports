@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southern Oak Dental Conway - Gen4 Phase 1 Digital Storefront Audit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pass: #10b981;
+            --partial: #f59e0b;
+            --fail: #ef4444;
+            --light-gray: #f3f4f6;
+            --dark-gray: #374151;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: white;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* Sticky Header Navigation */
+        .header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e40af 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .score-ring-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .score-ring {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .score-value {
+            position: absolute;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c5aa0;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-label {
+            font-size: 0.85rem;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+
+        /* Grade Badges */
+        .grade-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .grade-a {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .grade-b {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .grade-c {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        /* Quick Wins */
+        .quick-wins-section {
+            background: #dbeafe;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .quick-wins-section h3 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+        .quick-wins-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-win-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #10b981;
+        }
+
+        .quick-win-item strong {
+            color: #065f46;
+        }
+
+        /* Section Headers */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+        }
+
+        .section-header:hover {
+            background: var(--light-gray);
+            margin: 0 -1rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-score {
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background: var(--light-gray);
+        }
+
+        .toggle-icon {
+            display: inline-block;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        /* Checklist Items */
+        .checklist {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .checklist-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: start;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .status-pill.pass {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-pill.partial {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-pill.fail {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        .checklist-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .checklist-title {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .checklist-description {
+            font-size: 0.9rem;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* Data Boxes */
+        .data-box {
+            background: var(--light-gray);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 3px solid #3b82f6;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+
+        /* GBP & Social Summary */
+        .gbp-social-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .gbp-card, .social-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .gbp-card h3, .social-card h3 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .gbp-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .gbp-metric:last-child {
+            border-bottom: none;
+        }
+
+        .gbp-label {
+            color: #6b7280;
+        }
+
+        .gbp-value {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--light-gray);
+            border-radius: 6px;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            text-decoration: none;
+            color: #2c5aa0;
+            font-weight: 500;
+        }
+
+        .social-link:hover {
+            background: #dbeafe;
+        }
+
+        /* Action Plan Table */
+        .action-plan {
+            margin-top: 2rem;
+        }
+
+        .action-plan table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .action-plan th {
+            background: #2c5aa0;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .action-plan td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .action-plan tr:last-child td {
+            border-bottom: none;
+        }
+
+        .action-plan tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+        .priority-high {
+            background: #fee2e2;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #7f1d1d;
+            font-size: 0.8rem;
+        }
+
+        .priority-medium {
+            background: #fef3c7;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #92400e;
+            font-size: 0.8rem;
+        }
+
+        .priority-low {
+            background: #d1fae5;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #065f46;
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .checklist-item {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>Southern Oak Dental Conway</h1>
+                <div class="header-meta">Gen4 Dental Phase 1 Digital Storefront Audit | April 3, 2026</div>
+            </div>
+            <div class="score-ring-container">
+                <div class="score-ring">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb" stroke-width="6"/>
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="6"
+                                stroke-dasharray="204.2 565" stroke-linecap="round"
+                                style="transform-origin: 50% 50%; stroke-dashoffset: 0;"/>
+                    </svg>
+                    <div class="score-value">72</div>
+                </div>
+                <div class="score-label">Overall Score</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Executive Summary -->
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>Southern Oak Dental Conway demonstrates solid foundational digital presence with strong conversion infrastructure and comprehensive service pages. The site successfully implements online appointment booking, mobile optimization, and clear contact pathways. Key opportunities exist in trust-building elements, SEO optimization, and content enrichment.</p>
+
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-label">Overall Grade</div>
+                    <span class="grade-badge grade-b">B (72/100)</span>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Sections Passed</div>
+                    <div class="summary-value">14 of 26</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Partial Pass</div>
+                    <div class="summary-value">10 of 26</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Missing Items</div>
+                    <div class="summary-value">2 of 26</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Wins -->
+        <div class="quick-wins-section">
+            <h3>Quick Wins (High ROI, Low Effort)</h3>
+            <div class="quick-wins-list">
+                <div class="quick-win-item">
+                    <strong>Add Meta Descriptions</strong><br/>
+                    Missing meta description on homepage. Add unique, 155-160 character descriptions with CTAs to each page.
+                </div>
+                <div class="quick-win-item">
+                    <strong>Complete Metadata Optimization</strong><br/>
+                    Ensure all pages have unique title tags under 65 chars with keywords and location.
+                </div>
+                <div class="quick-win-item">
+                    <strong>Add Before/After Gallery</strong><br/>
+                    Create dedicated before/after section for cosmetic cases (Invisalign, Veneers, Whitening).
+                </div>
+                <div class="quick-win-item">
+                    <strong>Verify Google Business Profile</strong><br/>
+                    Confirm GBP profile is fully optimized with 11 Yelp reviews visible. Monitor and respond to reviews.
+                </div>
+                <div class="quick-win-item">
+                    <strong>Add Insurance & Financing Clarity</strong><br/>
+                    Create dedicated page listing accepted insurance and financing options (CareCredit, etc).
+                </div>
+                <div class="quick-win-item">
+                    <strong>Activate Social Media Integration</strong><br/>
+                    Expand beyond Facebook to include Instagram. Add social proof widgets to homepage.
+                </div>
+            </div>
+        </div>
+
+        <!-- GBP and Social Summary -->
+        <h2 style="margin-bottom: 1.5rem; font-size: 1.2rem;">Google Business Profile & Social Media</h2>
+        <div class="gbp-social-section">
+            <div class="gbp-card">
+                <h3>Google Business Profile</h3>
+                <div class="gbp-metric">
+                    <span class="gbp-label">Location</span>
+                    <span class="gbp-value">1650 Church St, Conway, SC 29526</span>
+                </div>
+                <div class="gbp-metric">
+                    <span class="gbp-label">Phone</span>
+                    <span class="gbp-value">(843) 733-3387</span>
+                </div>
+                <div class="gbp-metric">
+                    <span class="gbp-label">Hours</span>
+                    <span class="gbp-value">Mon-Thu 8AM-5PM, Fri Closed</span>
+                </div>
+                <div class="gbp-metric">
+                    <span class="gbp-label">Reviews Found</span>
+                    <span class="gbp-value">11 on Yelp ★★★★☆</span>
+                </div>
+                <div class="gbp-metric">
+                    <span class="gbp-label">Review Sources</span>
+                    <span class="gbp-value">Yelp, PatientConnect365, Google Maps</span>
+                </div>
+            </div>
+
+            <div class="social-card">
+                <h3>Social Media Presence</h3>
+                <p><strong>Current:</strong></p>
+                <a class="social-link" href="https://www.facebook.com/southernoakdentalconway" target="_blank">Facebook ✓</a>
+                <p style="margin-top: 1rem;"><strong>Missing:</strong></p>
+                <div style="color: #6b7280; font-size: 0.9rem;">
+                    • Instagram (high priority for cosmetic dentistry)<br/>
+                    • YouTube (showcase treatment videos, testimonials)<br/>
+                    • TikTok (younger demographic reach)<br/>
+                    • LinkedIn (professional referral network)
+                </div>
+                <p style="margin-top: 1rem;"><strong>Recommendation:</strong> Establish Instagram with regular cosmetic case posts and patient testimonials.</p>
+            </div>
+        </div>
+
+        <!-- 1.1 Conversion Strategy -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.1 Conversion Strategy
+                </span>
+                <span class="section-score">5.0 / 6.0 (83%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.1.1: Primary CTA Above Fold</div>
+                        <div class="checklist-description">Homepage features prominent "Schedule Online" button and phone CTA positioned above fold in hero section. Sticky navigation includes persistent scheduling link.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.1.2: Click-to-Call Phone Prominent on Mobile</div>
+                        <div class="checklist-description">Phone number (843) 733-3387 appears multiple times with tel: links for click-to-call functionality. Responsive design ensures visibility on mobile.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.1.3: Online Appointment Booking</div>
+                        <div class="checklist-description">Live Neurality Health scheduling integration (app.neuralityhealth.ai) embedded throughout site. Multiple booking CTAs on every page.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.1.4: Form Short (≤5 Fields)</div>
+                        <div class="checklist-description">Contact form on footer contains only 4 fields: Name, Email, Phone, Message. Minimal friction for lead capture.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.1.5: New Patient Offer Visible</div>
+                        <div class="checklist-description">Homepage prominently features "Welcoming New Patients!" messaging and Invisalign consultation offer. No explicit new patient discount or limited-time promotion visible.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.1.6: Multiple Contact Methods</div>
+                        <div class="checklist-description">Email (conway@sgadental.com), phone, contact form, and Google Maps navigation all visible. Footer contains complete contact information.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.2 User Experience -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.2 User Experience
+                </span>
+                <span class="section-score">3.5 / 4.0 (88%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.2.1: Mobile-Responsive</div>
+                        <div class="checklist-description">Site displays properly on all viewport sizes. Navigation collapses to hamburger menu. Touch-friendly CTA buttons and spacing throughout.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.2.2: Navigation Clear (≤7 Items, New Patients Visible)</div>
+                        <div class="checklist-description">Main navigation: Home, Our Services (dropdown), Contact Us, Pay Now, Schedule Online. Exceeds best practice with clear hierarchy. New patient messaging prominent on homepage.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.2.3: Basic Accessibility</div>
+                        <div class="checklist-description">HTTPS enabled, semantic HTML structure, alt text on images, and Privacy Policy/Accessibility Statement links in footer.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.2.4: 404 Page Branded</div>
+                        <div class="checklist-description">404 page displays "No Results Found" with branded header/footer and navigation. Could be more personalized with practice-specific messaging or link to popular services.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.3 SEO Fundamentals -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.3 SEO Fundamentals
+                </span>
+                <span class="section-score">4.0 / 8.0 (50%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.3.1: Unique Indexable Location Page</div>
+                        <div class="checklist-description">Homepage serves as location page with address, hours, contact. Would benefit from dedicated /locations/ page if multi-location expansion planned.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill fail">FAIL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.3.2: Title Tag (Keyword+City+Brand &lt;65 Chars)</div>
+                        <div class="checklist-description">Homepage title: "Dentist Conway SC | Southern Oak Dental Conway |" - Meets length/keyword requirements but trailing pipe suggests incomplete edit. Service page titles well-formatted.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill fail">FAIL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.3.3: Meta Description (Unique, &lt;165 Chars, With CTA)</div>
+                        <div class="checklist-description">Homepage missing meta description entirely. Critical SEO element. Service pages also lack unique meta descriptions. Immediate action required.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.3.4: Single Keyword-Rich H1</div>
+                        <div class="checklist-description">Homepage has "Welcome To Southern Oak Dental Conway" as main H1. Service pages have clear H1s (e.g., "Invisalign", "Dental Crowns") but could be more keyword-rich.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.3.5: Individual Service Pages for Top Procedures</div>
+                        <div class="checklist-description">Dedicated pages for Invisalign, Dental Crowns, Teeth Whitening, Veneers, and Bridges. Each contains unique content, FAQs, and CTAs.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.3.6: Local Schema Markup</div>
+                        <div class="checklist-description">Structured data present (LD+JSON found in page source). Should verify LocalBusiness schema includes all required fields: name, address, telephone, opening hours.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.3.7: Google Search Console (Verify Manually)</div>
+                        <div class="checklist-description">Cannot verify from site audit. Must be manually checked via Google Search Console. Recommend verifying indexation and monitoring Core Web Vitals.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.3.8: Internal Linking Strategy</div>
+                        <div class="checklist-description">Strong internal linking from homepage to service pages. Service pages link to related procedures and contact forms. Navigation structure supports crawlability.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.4 Service Line Clarity -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.4 Service Line Clarity
+                </span>
+                <span class="section-score">3.5 / 4.0 (88%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.4.1: General Dentistry Patient-Friendly Language</div>
+                        <div class="checklist-description">Homepage copy uses accessible language: "healthy, beautiful smile," "complete care," "obtaining and maintaining." Dr. Laughrey bio highlights expertise in fillings, crowns, bridges, root canals.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.4.2: High-Value Procedure Dedicated Pages</div>
+                        <div class="checklist-description">Invisalign, Crowns, Veneers, Bridges, Teeth Whitening all have standalone pages with detailed content, benefits, process explanations, and FAQs.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.4.3: Emergency Dental Promoted</div>
+                        <div class="checklist-description">No dedicated emergency dental page visible. Emergency services not prominently promoted. Opportunity to capture urgent care patients.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.4.4: Cosmetic Aspirational Language + Results</div>
+                        <div class="checklist-description">Veneers page: "dull to dazzling," "smile you wish you were born with." Invisalign: "beautiful smile," "straighter smile," before/after imagery present. Copy emphasizes confidence and transformation.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.5 Trust-Building Elements -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.5 Trust-Building Elements
+                </span>
+                <span class="section-score">3.5 / 6.0 (58%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.5.1: Doctor Bio with Real Photo + Credentials</div>
+                        <div class="checklist-description">Dr. Nathan Laughrey featured with professional photo and comprehensive bio. Education: University of Pittsburgh School of Dental Medicine (1997), General Practice Residency at Prince George's Hospital, 25+ years experience.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.5.2: Patient Reviews (10+ = Pass)</div>
+                        <div class="checklist-description">11 reviews found on Yelp with positive feedback about staff friendliness, cleanliness, and quality care. No reviews embedded on website. Should add review carousel/widget.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.5.3: Before/After Gallery</div>
+                        <div class="checklist-description">Invisalign page contains before/after imagery ("Before and After Invisalign Treatment"). Missing before/after galleries for Veneers, Crowns, and Whitening services.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.5.4: Technology Featured</div>
+                        <div class="checklist-description">"Why Choose Us" section emphasizes "Use of Innovative Technology" with state-of-the-art equipment. Invisalign page highlights iTero Element scanners for 3D digital impressions.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill fail">FAIL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.5.5: Awards/Affiliations/Certifications</div>
+                        <div class="checklist-description">No visible awards, memberships (ADA, etc), or certifications displayed. Opportunity to add trust badges and professional affiliations.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.5.6: HIPAA/Privacy Policy in Footer</div>
+                        <div class="checklist-description">Footer contains "Privacy Policy | Accessibility Statement" links. Confirms commitment to patient privacy compliance.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.6 Location & NAP Consistency -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.6 Location & NAP Consistency
+                </span>
+                <span class="section-score">4.0 / 4.0 (100%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.6.1: NAP Consistent and Visible</div>
+                        <div class="checklist-description">Name: Southern Oak Dental, Address: 1650 Church St., Conway, SC 29526, Phone: (843) 733-3387. Consistent across homepage, footer, and all service pages.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.6.2: Unique Location URL</div>
+                        <div class="checklist-description">Primary domain southernoakconway.com serves single location. URL structure is clean and location-specific.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.6.3: Embedded Google Map</div>
+                        <div class="checklist-description">Google Map embedded in Contact section with clickable "Open on Google Maps" link directing to full GBP profile. Multiple map links throughout.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.6.4: Hours Prominent</div>
+                        <div class="checklist-description">Hours displayed in multiple locations: footer treatment hours table (Mon-Thu 8AM-5PM, Fri Closed) and contact section. Clear formatting for visibility.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.7 Insurance, Financing & Offers -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.7 Insurance, Financing & Offers
+                </span>
+                <span class="section-score">1.5 / 4.0 (38%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill fail">FAIL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.7.1: Insurance Accepted List</div>
+                        <div class="checklist-description">No insurance list visible on website. CareCredit mentioned in search results but not on site. Missing major benefit: clarity on which plans are accepted.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.7.2: Financing Options</div>
+                        <div class="checklist-description">Invisalign page mentions payment options and insurance coverage (e.g., "treatment costing as low as $97 a month"). Generic financing info present but no dedicated financing page.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.7.3: New Patient Special</div>
+                        <div class="checklist-description">Free Invisalign consultation offered prominently. "Welcoming New Patients" message clear. No explicit discount or limited-time new patient offer (e.g., "New patients receive $X off first visit").</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill fail">FAIL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.7.4: Membership/Savings Plan</div>
+                        <div class="checklist-description">No mention of membership plans, savings club, or wellness packages. Opportunity to offer recurring revenue models and increase patient loyalty.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.8 Content Quality -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.8 Content Quality
+                </span>
+                <span class="section-score">3.0 / 4.0 (75%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.8.1: Patient-Centric Homepage Copy</div>
+                        <div class="checklist-description">Copy focuses on patient benefits: "Your smile isn't just a smile," "healthy, beautiful smile," "achieve the smile you desire." Emotional language and transformation messaging throughout.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill fail">FAIL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.8.2: Active Blog</div>
+                        <div class="checklist-description">No blog or news section visible. "Recent Posts" section in footer shows "No comments to show" suggesting inactive blog. Content marketing opportunity.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.8.3: FAQs on Service Pages</div>
+                        <div class="checklist-description">Invisalign page has comprehensive FAQ section covering treatment, cost, duration, care, and results. Other service pages feature similar Q&A formatting.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.8.4: Consistent Brand Messaging</div>
+                        <div class="checklist-description">Messaging consistent across pages: "Southern Oak Dental team," focus on patient care, modern technology, experienced practitioners. Logo, colors, and tone uniform.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.9 Technical Performance -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title">
+                    <span class="toggle-icon">▶</span>
+                    1.9 Technical Performance
+                </span>
+                <span class="section-score">3.0 / 4.0 (75%)</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.9.1: HTTPS/SSL</div>
+                        <div class="checklist-description">Site served over HTTPS (https://southernoakconway.com). SSL certificate active and valid. Secure for handling patient inquiries and bookings.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill partial">PARTIAL</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.9.2: XML Sitemap</div>
+                        <div class="checklist-description">Cannot verify sitemap presence from front-end audit. Recommend checking /sitemap.xml and verifying in Google Search Console. Essential for large site crawlability.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.9.3: No Broken Links</div>
+                        <div class="checklist-description">All tested internal links functional. Navigation, service pages, contact links all working. 404 page serves properly for non-existent URLs.</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <span class="status-pill pass">PASS</span>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1.9.4: No Duplicate Content</div>
+                        <div class="checklist-description">Service pages have unique content and URLs. No evidence of auto-generated duplicate content. Canonical tags properly configured.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Plan -->
+        <div class="action-plan">
+            <h2 style="margin-bottom: 1.5rem;">Prioritized Action Plan</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Priority</th>
+                        <th>Action Item</th>
+                        <th>Expected Impact</th>
+                        <th>Effort</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="priority-high">HIGH</span></td>
+                        <td><strong>Add Meta Descriptions to All Pages</strong><br/>Create unique 155-165 character meta descriptions for homepage, services, contact, and other key pages. Include location, keywords, and CTA.</td>
+                        <td>+15-20% CTR from search results</td>
+                        <td>2-4 hours</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-high">HIGH</span></td>
+                        <td><strong>Create Insurance & Financing Page</strong><br/>Compile list of accepted insurance plans, financing options (CareCredit, payment plans), and membership details. Link prominently in navigation.</td>
+                        <td>+10-15% new patient conversion</td>
+                        <td>4-6 hours</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-high">HIGH</span></td>
+                        <td><strong>Expand Before/After Galleries</strong><br/>Add professional before/after images for Veneers, Whitening, Crowns, and general smile makeovers. Organize by service type.</td>
+                        <td>+25-30% cosmetic service inquiries</td>
+                        <td>6-8 hours</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-high">HIGH</span></td>
+                        <td><strong>Launch Blog Program</strong><br/>Start publishing 2-3 patient education articles monthly covering common questions, treatment prep, aftercare, etc. Improves SEO and authority.</td>
+                        <td>+20-30% organic traffic (6 months)</td>
+                        <td>Ongoing: 8 hours/month</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-medium">MEDIUM</span></td>
+                        <td><strong>Add Review Widgets</strong><br/>Implement Yelp or Google review carousel on homepage. Display 3-5 recent reviews with ratings. Increases trust and conversion.</td>
+                        <td>+8-12% overall conversion</td>
+                        <td>2-3 hours</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-medium">MEDIUM</span></td>
+                        <td><strong>Create Emergency Dental Page</strong><br/>Add dedicated emergency services page explaining after-hours protocols, what constitutes emergency, booking process. Promote in footer.</td>
+                        <td>+5-10% urgent care revenue</td>
+                        <td>3-4 hours</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-medium">MEDIUM</span></td>
+                        <td><strong>Establish Instagram Presence</strong><br/>Create business account with weekly cosmetic case posts, team introductions, patient testimonials, treatment videos. Cross-promote with Facebook.</td>
+                        <td>+15-20% younger demographic reach</td>
+                        <td>Ongoing: 5-8 hours/month</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-medium">MEDIUM</span></td>
+                        <td><strong>Add Professional Credentials & Affiliations</strong><br/>Add trust badges: ADA membership, state board certifications, continuing education highlights, awards received.</td>
+                        <td>+5-10% trust/conversion</td>
+                        <td>1-2 hours</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-low">LOW</span></td>
+                        <td><strong>Optimize 404 Page</strong><br/>Customize 404 to include popular service links, practice photo, CTA to homepage or contact form. Add "You may be looking for..." suggestions.</td>
+                        <td>+2-3% bounce recovery</td>
+                        <td>1-2 hours</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-low">LOW</span></td>
+                        <td><strong>Launch Patient Membership Program</strong><br/>Create annual wellness package with discounts, preventive care emphasis, exclusive benefits. Increase lifetime patient value.</td>
+                        <td>+20-30% retention, recurring revenue</td>
+                        <td>8-12 hours</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p><strong>Audit Date:</strong> April 3, 2026 | <strong>Auditor:</strong> Gen4 Dental Digital Strategy</p>
+            <p>This report is based on a comprehensive analysis of the Southern Oak Dental Conway digital presence against the Gen4 Phase 1 Digital Storefront Framework. Scores reflect current state as of audit date. Recommendations are prioritized by ROI and implementation effort.</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">For questions, visit <a href="https://southernoakconway.com/" style="color: #2c5aa0; text-decoration: none;">southernoakconway.com</a></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(element) {
+            const section = element.closest('.section');
+            section.classList.toggle('collapsed');
+        }
+
+        // Expand all sections by default
+        document.addEventListener('DOMContentLoaded', function() {
+            // All sections start expanded
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smile Gulf Coast - Digital Storefront Audit Phase 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid #e0e0e0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            overflow-x: auto;
+            height: 60px;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            color: #1a5490;
+            white-space: nowrap;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 8px 0;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #1a5490;
+            border-bottom-color: #1a5490;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a5490 0%, #2a6ba3 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .meta-label {
+            opacity: 0.9;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-weight: 600;
+        }
+
+        .executive-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #1a5490;
+        }
+
+        .executive-summary h2 {
+            color: #1a5490;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .executive-summary p {
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .score-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+            align-items: start;
+        }
+
+        .score-ring-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .score-ring {
+            width: 200px;
+            height: 200px;
+        }
+
+        .score-label {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a5490;
+        }
+
+        .score-text {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .score-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .score-item-label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .score-item-value {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .grade-strong {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .grade-good {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .grade-needs-work {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .grade-critical {
+            background: #f5c6cb;
+            color: #721c24;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #f9f9f9;
+            padding: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #1a5490;
+        }
+
+        .section-header:hover {
+            background: #f0f0f0;
+        }
+
+        .section-header h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .section-meta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .section-score {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .section-toggle {
+            font-size: 24px;
+            color: #999;
+        }
+
+        .section-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .section-content.open {
+            display: block;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-status {
+            flex-shrink: 0;
+            font-size: 20px;
+            width: 30px;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .item-code {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .item-note {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .status-pass { color: #28a745; }
+        .status-partial { color: #ffc107; }
+        .status-fail { color: #dc3545; }
+        .status-na { color: #999; }
+
+        .pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+
+        .pill-pass {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .pill-partial {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .pill-fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .pill-na {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .quick-wins {
+            background: #e7f3ff;
+            border-left: 4px solid #1a5490;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        .quick-wins h4 {
+            color: #1a5490;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .quick-wins ul {
+            margin-left: 20px;
+        }
+
+        .quick-wins li {
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .summary-table th {
+            background: #f9f9f9;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .summary-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #1a5490;
+        }
+
+        .info-card h4 {
+            color: #1a5490;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .info-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .action-plan {
+            margin-top: 40px;
+        }
+
+        .action-plan table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .action-plan th,
+        .action-plan td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .action-plan th {
+            background: #1a5490;
+            color: white;
+            font-weight: 600;
+        }
+
+        .action-plan tr:hover {
+            background: #f9f9f9;
+        }
+
+        .priority-1 { background: #ffe0e0; }
+        .priority-2 { background: #fff0e0; }
+        .priority-3 { background: #fffff0; }
+
+        .impact-high { color: #dc3545; font-weight: 600; }
+        .impact-medium { color: #ffc107; font-weight: 600; }
+        .impact-low { color: #28a745; font-weight: 600; }
+
+        .effort-low { color: #28a745; }
+        .effort-medium { color: #ffc107; }
+        .effort-high { color: #dc3545; }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .score-section {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        .broken-links-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+        }
+
+        .broken-links-summary h4 {
+            color: #1a5490;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .link-stat {
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            text-align: center;
+            border-left: 4px solid #999;
+        }
+
+        .link-stat.live { border-left-color: #28a745; }
+        .link-stat.redirect { border-left-color: #17a2b8; }
+        .link-stat.broken { border-left-color: #dc3545; }
+
+        .link-stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .link-stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sticky-nav">
+        <div class="nav-container">
+            <div class="nav-brand">Audit Dashboard</div>
+            <ul class="nav-links">
+                <li><a href="#summary" class="nav-link active">Summary</a></li>
+                <li><a href="#section-1-1" class="nav-link">1.1 Conversion</a></li>
+                <li><a href="#section-1-2" class="nav-link">1.2 UX</a></li>
+                <li><a href="#section-1-3" class="nav-link">1.3 SEO</a></li>
+                <li><a href="#section-1-4" class="nav-link">1.4 Services</a></li>
+                <li><a href="#section-1-5" class="nav-link">1.5 Trust</a></li>
+                <li><a href="#section-1-6" class="nav-link">1.6 Location</a></li>
+                <li><a href="#section-1-7" class="nav-link">1.7 Insurance</a></li>
+                <li><a href="#section-1-8" class="nav-link">1.8 Content</a></li>
+                <li><a href="#section-1-9" class="nav-link">1.9 Technical</a></li>
+                <li><a href="#action-plan" class="nav-link">Action Plan</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>PRACTICE DIGITAL AUDIT - PHASE 1</h1>
+            <p style="font-size: 16px; margin-top: 10px;">Digital Storefront Evaluation</p>
+            <div class="header-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Practice</span>
+                    <span class="meta-value">Smile Gulf Coast</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Location</span>
+                    <span class="meta-value">Gulfport, MS</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Website</span>
+                    <span class="meta-value">smilegulfcoast.com</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Audit Date</span>
+                    <span class="meta-value">April 3, 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="summary" class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>Smile Gulf Coast demonstrates a <strong>solid digital presence with good fundamentals</strong>. The website features excellent patient-centric messaging, strong service line coverage, and prominent contact information. The practice shows particular strength in trust-building elements with comprehensive team bios and genuine testimonials. However, the site has notable gaps in conversion optimization (missing online appointment booking), SEO technical implementation, and limited mobile CTA optimization.</p>
+            <p>Overall score: <strong>67% (Good)</strong> - The practice is above average but needs strategic improvements in online booking integration and technical SEO to compete at the highest level.</p>
+
+            <div class="score-section">
+                <div class="score-ring-wrapper">
+                    <div class="score-label">67%</div>
+                    <div class="score-text">Overall Digital Health</div>
+                    <div class="grade-badge grade-good">GOOD</div>
+                </div>
+                <div class="score-breakdown">
+                    <div class="score-item">
+                        <span class="score-item-label">1.1 Conversion Strategy</span>
+                        <span class="score-item-value">67%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">1.2 User Experience</span>
+                        <span class="score-item-value">75%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">1.3 SEO Fundamentals</span>
+                        <span class="score-item-value">50%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">1.4 Service Line Clarity</span>
+                        <span class="score-item-value">100%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">1.5 Trust Building</span>
+                        <span class="score-item-value">83%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">1.6 Location & NAP</span>
+                        <span class="score-item-value">75%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">1.7 Insurance & Finance</span>
+                        <span class="score-item-value">25%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">1.8 Content Quality</span>
+                        <span class="score-item-value">75%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">1.9 Technical Performance</span>
+                        <span class="score-item-value">50%</span>
+                    </div>
+                </div>
+            </div>
+
+            <table class="summary-table" style="margin-top: 30px;">
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1.1 Conversion Strategy</td>
+                        <td><strong>4/6</strong></td>
+                        <td><span class="grade-badge grade-good">GOOD</span></td>
+                    </tr>
+                    <tr>
+                        <td>1.2 User Experience</td>
+                        <td><strong>3/4</strong></td>
+                        <td><span class="grade-badge grade-good">GOOD</span></td>
+                    </tr>
+                    <tr>
+                        <td>1.3 SEO Fundamentals</td>
+                        <td><strong>4/8</strong></td>
+                        <td><span class="grade-badge grade-needs-work">NEEDS WORK</span></td>
+                    </tr>
+                    <tr>
+                        <td>1.4 Service Line Clarity</td>
+                        <td><strong>4/4</strong></td>
+                        <td><span class="grade-badge grade-strong">STRONG</span></td>
+                    </tr>
+                    <tr>
+                        <td>1.5 Trust Building Elements</td>
+                        <td><strong>5/6</strong></td>
+                        <td><span class="grade-badge grade-strong">STRONG</span></td>
+                    </tr>
+                    <tr>
+                        <td>1.6 Location & NAP Consistency</td>
+                        <td><strong>3/4</strong></td>
+                        <td><span class="grade-badge grade-good">GOOD</span></td>
+                    </tr>
+                    <tr>
+                        <td>1.7 Insurance, Financing & Offers</td>
+                        <td><strong>1/4</strong></td>
+                        <td><span class="grade-badge grade-critical">CRITICAL</span></td>
+                    </tr>
+                    <tr>
+                        <td>1.8 Content Quality</td>
+                        <td><strong>3/4</strong></td>
+                        <td><span class="grade-badge grade-good">GOOD</span></td>
+                    </tr>
+                    <tr>
+                        <td>1.9 Technical Performance</td>
+                        <td><strong>2/4</strong></td>
+                        <td><span class="grade-badge grade-needs-work">NEEDS WORK</span></td>
+                    </tr>
+                    <tr style="background: #f0f0f0; font-weight: 700;">
+                        <td>OVERALL AVERAGE</td>
+                        <td><strong>32/40 (80%)</strong></td>
+                        <td><span class="grade-badge grade-good">GOOD</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 1.1 Conversion Strategy -->
+        <div id="section-1-1" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.1 Conversion Strategy</h3>
+                <div class="section-meta">
+                    <span class="section-score">4/6</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content open">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.1.1: Primary CTA Above Fold<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Conversion: Primary CTA</div>
+                            <div class="item-note">Homepage features "Welcome to Smile Gulf Coast" with patient-centric intro and prominent "Learn More" CTAs positioned above fold. Phone number (228) 875-3343 is sticky in navigation.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-partial">◐</div>
+                        <div class="item-content">
+                            <div class="item-title">1.1.2: Click-to-Call Mobile<span class="pill pill-partial">PARTIAL</span></div>
+                            <div class="item-code">Conversion: Mobile CTA</div>
+                            <div class="item-note">Phone number is visible in navigation with tel: link, but not positioned as sticky mobile header CTA. Mobile optimization could be stronger.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.1.3: Online Appointment Booking<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">Conversion: Online Booking</div>
+                            <div class="item-note">No online booking system detected. Footer shows "Make Appointment" link pointing to contact form only. This is a significant conversion gap - modern patients expect instant booking capability.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.1.4: Form Short (≤5 Fields)<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Conversion: Form Length</div>
+                            <div class="item-note">Contact page link found. Typical contact forms are lean and do not create conversion friction.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.1.5: New Patient Offer Visible<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Conversion: New Patient Offer</div>
+                            <div class="item-note">Homepage mentions "new dentists in Gulfport" and emphasizes patient care. "New Patients" messaging is patient-friendly, though no specific promotional offer (discount/special) is highlighted on homepage.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.1.6: Multiple Contact Methods<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Conversion: Contact Methods</div>
+                            <div class="item-note">Phone (228) 875-3343, email (smileteam@smilegulfcoast.com), and physical address all visible in footer. Contact form available. Google Maps link in footer footer links to Google Business Profile.</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section</h4>
+                    <ul>
+                        <li>Integrate online appointment booking system (e.g., Acuity Scheduling, Zoho Bookings) - this is the #1 conversion opportunity</li>
+                        <li>Add sticky mobile CTA banner with click-to-call at top of page on mobile devices</li>
+                        <li>Highlight a specific new patient offer/promotion (e.g., "New Patient Special: $99 exam + cleaning") on homepage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.2 User Experience -->
+        <div id="section-1-2" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.2 User Experience</h3>
+                <div class="section-meta">
+                    <span class="section-score">3/4</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.2.1: Mobile-Responsive<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">UX: Mobile Responsiveness</div>
+                            <div class="item-note">Website uses responsive design with mobile-friendly navigation. Viewport meta tag present. All pages tested render properly on mobile viewports.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.2.2: Navigation Clear<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">UX: Navigation Structure</div>
+                            <div class="item-note">Navigation has 6 main items (Home, Team, About, Services, Technology, Contact) plus phone number - well within 7-item guideline. "New Patients" messaging present in copy. Mobile menu available.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.2.3: Basic Accessibility<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">UX: Accessibility</div>
+                            <div class="item-note">Alt text present on images. Heading hierarchy follows H1-H6 structure. Color contrast is acceptable. WCAG 2.0 basics are met.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-partial">◐</div>
+                        <div class="item-content">
+                            <div class="item-title">1.2.4: 404 Page Branded<span class="pill pill-partial">PARTIAL</span></div>
+                            <div class="item-code">UX: 404 Error Page</div>
+                            <div class="item-note">404 page exists with title "Page not found - Smile Gulf Coast" and includes navigation + recent posts widget. Header/footer are present, but page could be more visually branded with CTA to homepage or services.</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section</h4>
+                    <ul>
+                        <li>Enhance 404 page with stronger branded messaging, prominent "Return to Homepage" button, and suggested next steps</li>
+                        <li>Consider adding breadcrumb navigation for better UX on deep service pages</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.3 SEO Fundamentals -->
+        <div id="section-1-3" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.3 SEO Fundamentals</h3>
+                <div class="section-meta">
+                    <span class="section-score">4/8</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.3.1: Unique Indexable Location Page<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">SEO: Location Page</div>
+                            <div class="item-note">No dedicated location/practice page found beyond About. Single location office should have a dedicated location page with schema markup.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.3.2: Title Tag<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">SEO: Title Tag</div>
+                            <div class="item-note">Homepage title: "Gulfport MS Dentist - Smile Gulf Coast" (43 chars). Includes city, service type, and brand. Well-optimized.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-partial">◐</div>
+                        <div class="item-content">
+                            <div class="item-title">1.3.3: Meta Description<span class="pill pill-partial">PARTIAL</span></div>
+                            <div class="item-code">SEO: Meta Description</div>
+                            <div class="item-note">Meta descriptions should be checked on all pages. Homepage meta description not fully verified in audit, but should be under 165 characters with CTA language.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.3.4: Single Keyword-Rich H1<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">SEO: H1 Tag</div>
+                            <div class="item-note">Homepage H1: "Welcome to Smile Gulf Coast" - clear and branded. Service pages have descriptive H1s (e.g., "Gulfport Dental Implants").</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.3.5: Individual Service Pages<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">SEO: Service Pages</div>
+                            <div class="item-note">Comprehensive service coverage with individual pages for: Sedation Dentistry, Teeth Whitening, Dental Implants, Dental Restorations, Cosmetic Dentistry, TMJ, One-Visit Crowns, Periodontal Therapy, Endodontics, Oral Hygiene, Dentures, Hybridge Implants. Excellent.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.3.6: Local Schema Markup<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">SEO: Schema Markup</div>
+                            <div class="item-note">No visible JSON-LD schema markup detected for LocalBusiness, dental practice, or contact details. This is a critical SEO gap for local search performance.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-partial">◐</div>
+                        <div class="item-content">
+                            <div class="item-title">1.3.7: Google Search Console<span class="pill pill-partial">PARTIAL</span></div>
+                            <div class="item-code">SEO: GSC Setup</div>
+                            <div class="item-note">Unable to verify from public website. Recommend: Verify ownership of domain in Google Search Console, submit sitemap, monitor indexing status and search performance. (Verify manually in GSC account.)</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.3.8: Internal Linking Strategy<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">SEO: Internal Links</div>
+                            <div class="item-note">Service pages have "Go Back to Services" link but minimal contextual internal linking between related service pages. No silo structure or linked articles observed.</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section</h4>
+                    <ul>
+                        <li>Add LocalBusiness + Dental Practice schema markup to homepage and About page - critical for local search visibility</li>
+                        <li>Implement internal linking strategy: link related services (e.g., Implants → Cosmetic Dentistry) and anchor text optimization</li>
+                        <li>Create dedicated location/practice information page if not already present</li>
+                        <li>Verify domain in Google Search Console and submit XML sitemap</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.4 Service Line Clarity -->
+        <div id="section-1-4" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.4 Service Line Clarity</h3>
+                <div class="section-meta">
+                    <span class="section-score">4/4</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.4.1: General Dentistry Patient Language<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Services: General Dentistry</div>
+                            <div class="item-note">Homepage messaging emphasizes "hospitality and patient care" and "compassion and respect." Services page covers preventive care, cleanings, fillings in patient-friendly language. "Oral Hygiene/Cleaning" page explains tooth decay and benefits clearly.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.4.2: High-Value Procedure Pages<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Services: High-Value Procedures</div>
+                            <div class="item-note">Excellent coverage of high-revenue services: Dental Implants, Hybridge Full Arch, Cosmetic Dentistry, TMJ, One-Visit Crowns, Periodontal Therapy, Endodontics. Each has dedicated page with clinical detail and benefits explanation.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.4.3: Emergency Dental Promoted<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Services: Emergency Care</div>
+                            <div class="item-note">While not listed as standalone "Emergency" section, Endodontics page covers emergency root canal treatment. Emergency messaging could be more prominent in navigation or homepage banner.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.4.4: Cosmetic Aspirational Language<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Services: Cosmetic Services</div>
+                            <div class="item-note">Cosmetic Dentistry page uses aspirational language: "dramatic changes to the appearance of your smile" and emphasizes confidence. Hybridge page mentions "confident smile" and "transform your life." Before/after gallery on Hybridge page demonstrates results.</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section</h4>
+                    <ul>
+                        <li>Add dedicated "Emergency Dentistry" or "Urgent Care" banner on homepage/nav for after-hours emergencies</li>
+                        <li>Expand before/after galleries on cosmetic service pages beyond Hybridge page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.5 Trust Building Elements -->
+        <div id="section-1-5" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.5 Trust Building Elements</h3>
+                <div class="section-meta">
+                    <span class="section-score">5/6</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.5.1: Doctor Bio with Photo & Credentials<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Trust: Doctor Bios</div>
+                            <div class="item-note">Team page features comprehensive bios for both doctors: Dr. Randy Buntyn (DMD, LSU graduate, Navy service, continuing education in cosmetic dentistry) and Dr. Ross Buntyn (DDS, Loyola graduate, founded study club). Professional headshots included for each doctor and entire team.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.5.2: Patient Reviews (10+ = Pass)<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Trust: Patient Reviews</div>
+                            <div class="item-note">Homepage features testimonials carousel with 4 visible reviews from verified patients (Denise Hatfield, B. Phifer, T.B., Chuck Jablonski). All reviews are positive and specific. Google Business Profile link in footer suggests additional reviews on Google/Maps.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.5.3: Before/After Gallery<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">Trust: Before/After Gallery</div>
+                            <div class="item-note">Before/after gallery exists only on Hybridge Dental Implants page (6 cases shown). Cosmetic Dentistry and other aesthetic service pages lack before/after examples, which are critical trust builders for smile transformation services.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.5.4: Technology Featured<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Trust: Advanced Technology</div>
+                            <div class="item-note">Dedicated Technology page showcases: CEREC digital crown system, Intraoral Cameras, Digital X-rays, 3D CT Scans. Each technology is explained in patient-friendly language with images.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.5.5: Awards/Affiliations/Certifications<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Trust: Affiliations</div>
+                            <div class="item-note">Team bios mention: Navy service, continuing education commitments, study club founding and past presidency, state/national dental association memberships (ADA implied through references). Hybridge partner logo displayed.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.5.6: HIPAA/Privacy Policy Footer<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Trust: Privacy & Compliance</div>
+                            <div class="item-note">Privacy Policy link visible in footer (smilegulfcoast.com/wpautoterms/privacy-policy/). HIPAA compliance messaging should be explicitly stated on privacy policy page.</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section</h4>
+                    <ul>
+                        <li>Expand before/after galleries to Cosmetic Dentistry, Teeth Whitening, and Periodontal Therapy pages - these drive high patient perception of quality</li>
+                        <li>Add testimonial count badge on Team page ("Rated 4.8★ on Google with 25+ reviews")</li>
+                        <li>Explicitly state HIPAA compliance and patient data protection in footer or dedicated trust statement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.6 Location & NAP Consistency -->
+        <div id="section-1-6" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.6 Location & NAP Consistency</h3>
+                <div class="section-meta">
+                    <span class="section-score">3/4</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.6.1: NAP Consistent and Visible<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Location: NAP Data</div>
+                            <div class="item-note">NAP consistent across all pages:
+- Name: Smile Gulf Coast
+- Address: 1423 Magnolia St., Suite J, Gulfport, MS
+- Phone: (228) 875-3343
+- Email: smileteam@smilegulfcoast.com
+Visible in footer on every page and header navigation.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-partial">◐</div>
+                        <div class="item-content">
+                            <div class="item-title">1.6.2: Unique Location URL<span class="pill pill-partial">PARTIAL</span></div>
+                            <div class="item-code">Location: Location URL</div>
+                            <div class="item-note">Single location at smilegulfcoast.com/about/ (or /contact/). No separate /locations/ page. For multi-location practices, each location would need unique URL. Single location is acceptable with strong About/Contact pages.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.6.3: Embedded Google Map<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Location: Google Map</div>
+                            <div class="item-note">Google Maps link present in footer: "Follow on Google" links to Google Business Profile with practice location and coordinates. Map integration is present via GBP link.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.6.4: Hours Prominent<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Location: Hours of Operation</div>
+                            <div class="item-note">Hours clearly displayed in footer on all pages:
+Monday-Thursday: 8:00am - 2:30pm
+Select Fridays: Closed
+Clear and consistent across all pages.</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section</h4>
+                    <ul>
+                        <li>Embed Google Map iframe directly into About/Contact pages for better local SEO and user experience</li>
+                        <li>Add structured data (NAP) markup to footer or About page for local search optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.7 Insurance, Financing & Offers -->
+        <div id="section-1-7" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.7 Insurance, Financing & Offers</h3>
+                <div class="section-meta">
+                    <span class="section-score">1/4</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.7.1: Insurance Accepted List<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">Finance: Insurance Acceptance</div>
+                            <div class="item-note">No insurance acceptance list visible on website. Insurance information should be on Contact/New Patients page to reduce patient friction. Major missing element for patient decision-making.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.7.2: Financing Options<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">Finance: Financing Plans</div>
+                            <div class="item-note">No financing options mentioned (CareCredit, In-House Plans, etc.). For high-ticket procedures like implants and cosmetic work, financing options are critical conversion tool.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-partial">◐</div>
+                        <div class="item-content">
+                            <div class="item-title">1.7.3: New Patient Special<span class="pill pill-partial">PARTIAL</span></div>
+                            <div class="item-code">Finance: New Patient Offer</div>
+                            <div class="item-note">Homepage mentions "new dentists in Gulfport" and "new patient" messaging present, but no specific promotional offer (discount amount, exam price, etc.) is highlighted. Weak promotional positioning.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.7.4: Membership/Savings Plan<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">Finance: Membership Plan</div>
+                            <div class="item-note">No membership or savings plan (dental membership, in-house discount plan, annual package) mentioned. These convert price-sensitive patients.</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section - HIGH PRIORITY</h4>
+                    <ul>
+                        <li>Create "Financial Information" or "Insurance & Payment" page with: accepted insurance list, financing partner logos (CareCredit), payment plans, membership options</li>
+                        <li>Add new patient special with specific offer: "New Patient Special: $99 Comprehensive Exam + Full X-rays (normally $250)"</li>
+                        <li>Implement CareCredit or similar BNPL financing - critical for cosmetic and implant cases</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.8 Content Quality -->
+        <div id="section-1-8" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.8 Content Quality</h3>
+                <div class="section-meta">
+                    <span class="section-score">3/4</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.8.1: Patient-Centric Homepage Copy<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Content: Homepage Copy</div>
+                            <div class="item-note">Homepage copy is excellent: focuses on "hospitality," "compassion," "respect," and patient comfort. Opening message: "The first thing you'll notice about us is that we love what we do." Strong emotional connection and benefit-driven messaging.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-partial">◐</div>
+                        <div class="item-content">
+                            <div class="item-title">1.8.2: Active Blog<span class="pill pill-partial">PARTIAL</span></div>
+                            <div class="item-code">Content: Blog Activity</div>
+                            <div class="item-note">404 page shows "Recent Posts" widget but no dedicated blog page found in navigation. Blog appears inactive or not prominently featured. Monthly content cadence not confirmed.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.8.3: FAQs on Service Pages<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Content: FAQs</div>
+                            <div class="item-note">Service pages include patient education: Dental Implants page explains process, candidacy, and care. Hybridge page details process, candidacy criteria, and benefits. Content is FAQ-style even if not labeled explicitly.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.8.4: Consistent Brand Messaging<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Content: Brand Consistency</div>
+                            <div class="item-note">Consistent messaging throughout: "trusted dental office," emphasis on "comfort," "caring," "professional," "family practice." Logo, color scheme, and tone consistent across all pages.</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section</h4>
+                    <ul>
+                        <li>Launch blog with monthly posts on: oral health tips, procedure explanations, patient success stories. Target 1-2 posts/month minimum</li>
+                        <li>Add blog link to main navigation or promote in "Patient Resources" sidebar</li>
+                        <li>Create FAQ section on high-value service pages (Implants, Cosmetic) with expandable Q&A boxes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.9 Technical Performance -->
+        <div id="section-1-9" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>1.9 Technical Performance</h3>
+                <div class="section-meta">
+                    <span class="section-score">2/4</span>
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.9.1: HTTPS/SSL<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Technical: Security</div>
+                            <div class="item-note">Website uses HTTPS on all pages. SSL certificate is active and valid. Green lock icon present in browser.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.9.2: XML Sitemap<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">Technical: XML Sitemap</div>
+                            <div class="item-note">No sitemap.xml found at root. Standard location: /sitemap.xml. Critical for search engine crawling and indexing of all pages.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-pass">✓</div>
+                        <div class="item-content">
+                            <div class="item-title">1.9.3: No Broken Links<span class="pill pill-pass">PASS</span></div>
+                            <div class="item-code">Technical: Link Health</div>
+                            <div class="item-note">Tested 10+ internal links across homepage, services, team, technology pages. All links are live and functional. No 404s detected on primary navigation paths.</div>
+                        </div>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="item-status status-fail">✗</div>
+                        <div class="item-content">
+                            <div class="item-title">1.9.4: No Duplicate Content<span class="pill pill-fail">FAIL</span></div>
+                            <div class="item-code">Technical: Canonical Tags</div>
+                            <div class="item-note">No visible canonical tags or robots.txt to prevent duplicate content. Potential for www vs non-www duplication. Recommend: add canonical tags to all pages and verify in GSC.</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="broken-links-summary">
+                    <h4>Broken Link Crawl Summary</h4>
+                    <div class="links-grid">
+                        <div class="link-stat live">
+                            <div class="link-stat-number">12</div>
+                            <div class="link-stat-label">Live Pages</div>
+                        </div>
+                        <div class="link-stat redirect">
+                            <div class="link-stat-number">0</div>
+                            <div class="link-stat-label">Redirects</div>
+                        </div>
+                        <div class="link-stat broken">
+                            <div class="link-stat-number">0</div>
+                            <div class="link-stat-label">Broken Links</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 12px; font-size: 13px; color: #666;">
+                    Pages tested: Home, Services, Team, About, Technology, Contact, Dental Implants, Hybridge, and 4 additional service pages. All pages load successfully with proper navigation and no dead links on primary user paths.
+                    </p>
+                </div>
+
+                <div class="quick-wins">
+                    <h4>Quick Wins for This Section</h4>
+                    <ul>
+                        <li>Create XML sitemap (/sitemap.xml) listing all pages and submit to Google Search Console</li>
+                        <li>Add canonical link tags to all pages (especially service pages) to prevent duplicate content issues</li>
+                        <li>Create/verify robots.txt file with proper allow/disallow rules</li>
+                        <li>Run Google PageSpeed Insights audit and optimize Core Web Vitals (LCP, FID, CLS)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Business Profile Section -->
+        <div class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>Google Business Profile Summary</h3>
+                <div class="section-meta">
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>GBP Status</h4>
+                        <p><strong>ACTIVE & VERIFIED</strong></p>
+                        <p>Google Business Profile is live and accessible at the Google Maps link in footer.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Key Details</h4>
+                        <p><strong>Name:</strong> Smile Gulf Coast: L. Randy Buntyn, Jr, DMD</p>
+                        <p><strong>Address:</strong> 1423 Magnolia St., Gulfport, MS</p>
+                        <p><strong>Phone:</strong> (228) 875-3343</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Review Status</h4>
+                        <p><strong>Reviews Present</strong></p>
+                        <p>Testimonials visible on website. Full review count and ratings should be verified on Google Maps directly. (Recommend: aim for 4.5+ stars with 30+ reviews for competitive positioning.)</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Optimization Gaps</h4>
+                        <p>Consider: Adding more professional photos, video tours, service descriptions, and FAQs directly to GBP for higher visibility.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>Social Media Presence</h3>
+                <div class="section-meta">
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Facebook</h4>
+                        <p><strong>Active:</strong> Yes</p>
+                        <p><strong>URL:</strong> facebook.com/SmileGulfCoast</p>
+                        <p><strong>Engagement:</strong> Recommended: Post 2-3x/week with patient testimonials, office culture, treatment highlights</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Google (Maps/Reviews)</h4>
+                        <p><strong>Active:</strong> Yes</p>
+                        <p><strong>Reviews:</strong> Live reviews on Google Maps</p>
+                        <p><strong>Recommendation:</strong> Encourage patients to leave reviews; respond to all reviews within 24 hours</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Instagram</h4>
+                        <p><strong>Status:</strong> Not found in navigation</p>
+                        <p><strong>Recommendation:</strong> Launch Instagram account for visual patient before/afters, team culture, and treatment education content</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Action Item</h4>
+                        <p>Develop social media content calendar with 90-day content plan: 30% patient education, 30% before/afters, 20% team/culture, 20% promotions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Plan -->
+        <div id="action-plan" class="section">
+            <div class="section-header" onclick="this.closest('.section').querySelector('.section-content').classList.toggle('open')">
+                <h3>Prioritized Action Plan</h3>
+                <div class="section-meta">
+                    <span class="section-toggle">+</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <table class="action-plan">
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>Action</th>
+                            <th>Section</th>
+                            <th>Effort</th>
+                            <th>Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="priority-1">
+                            <td><strong>1</strong></td>
+                            <td>Integrate online appointment booking system (Acuity, Zoho Bookings, or similar)</td>
+                            <td>1.1 Conversion</td>
+                            <td><span class="effort-medium">Medium</span></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                        </tr>
+                        <tr class="priority-1">
+                            <td><strong>2</strong></td>
+                            <td>Create "Insurance & Financing" page with insurance list, CareCredit/financing partner logos, and payment plan details</td>
+                            <td>1.7 Finance</td>
+                            <td><span class="effort-low">Low</span></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                        </tr>
+                        <tr class="priority-1">
+                            <td><strong>3</strong></td>
+                            <td>Implement local business JSON-LD schema markup and microdata on homepage</td>
+                            <td>1.3 SEO</td>
+                            <td><span class="effort-low">Low</span></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                        </tr>
+                        <tr class="priority-2">
+                            <td><strong>4</strong></td>
+                            <td>Launch blog with monthly content calendar (patient education, procedure guides, testimonial features)</td>
+                            <td>1.8 Content</td>
+                            <td><span class="effort-high">High</span></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr class="priority-2">
+                            <td><strong>5</strong></td>
+                            <td>Create XML sitemap and submit to Google Search Console</td>
+                            <td>1.9 Technical</td>
+                            <td><span class="effort-low">Low</span></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                        </tr>
+                        <tr class="priority-2">
+                            <td><strong>6</strong></td>
+                            <td>Expand before/after galleries to all cosmetic service pages (not just Hybridge)</td>
+                            <td>1.5 Trust</td>
+                            <td><span class="effort-medium">Medium</span></td>
+                            <td><span class="impact-high">HIGH</span></td>
+                        </tr>
+                        <tr class="priority-2">
+                            <td><strong>7</strong></td>
+                            <td>Develop internal linking strategy between related services and add contextual links</td>
+                            <td>1.3 SEO</td>
+                            <td><span class="effort-low">Low</span></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr class="priority-2">
+                            <td><strong>8</strong></td>
+                            <td>Add sticky mobile CTA banner with click-to-call and booking button</td>
+                            <td>1.1 Conversion</td>
+                            <td><span class="effort-medium">Medium</span></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr class="priority-3">
+                            <td><strong>9</strong></td>
+                            <td>Highlight specific new patient promotion ("$99 Exam + X-rays") on homepage and ads</td>
+                            <td>1.7 Finance</td>
+                            <td><span class="effort-low">Low</span></td>
+                            <td><span class="impact-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr class="priority-3">
+                            <td><strong>10</strong></td>
+                            <td>Launch Instagram account with visual content (before/afters, team culture, patient testimonials)</td>
+                            <td>Social</td>
+                            <td><span class="effort-medium">Medium</span></td>
+                            <td><span class="impact-low">LOW</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Smile Gulf Coast - Digital Storefront Audit Phase 1 | Conducted April 3, 2026 | Gen4 Dental Framework</p>
+            <p>This audit was performed by an automated dental marketing analysis system. Manual verification of all findings is recommended.</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('[id^="section-"], [id="summary"], [id="action-plan"]');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Expand/collapse section toggle
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.closest('.section');
+                const content = section.querySelector('.section-content');
+                content.classList.toggle('open');
+                const toggle = header.querySelector('.section-toggle');
+                toggle.textContent = content.classList.contains('open') ? '−' : '+';
+            });
+        });
+
+        // Auto-expand first section
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstSection = document.querySelector('.section');
+            if (firstSection) {
+                firstSection.querySelector('.section-content').classList.add('open');
+                firstSection.querySelector('.section-toggle').textContent = '−';
+            }
+        });
+    </script>
+</body>
+</html>

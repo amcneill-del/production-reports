@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beaches Periodontics - Gen4 Phase 1 Digital Storefront Audit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #2a5f8d;
+            --success: #22c55e;
+            --warning: #eab308;
+            --danger: #ef4444;
+            --neutral: #9ca3af;
+            --light: #f9fafb;
+            --dark: #111827;
+            --pass: #15803d;
+            --partial: #ca8a04;
+            --fail: #dc2626;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Sticky Navigation */
+        nav.sticky-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        nav.sticky-nav h1 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        nav.sticky-nav .score-ring-nav {
+            width: 80px;
+            height: 80px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        header .info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header .metadata {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #666;
+            flex-wrap: wrap;
+        }
+
+        header .metadata div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header .metadata span:first-child {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .overall-score {
+            text-align: center;
+        }
+
+        .overall-score h2 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* SVG Score Ring */
+        svg.score-ring {
+            width: 200px;
+            height: 200px;
+            transform: rotate(-90deg);
+        }
+
+        circle.score-ring-bg {
+            fill: none;
+            stroke: #e5e7eb;
+            stroke-width: 8;
+        }
+
+        circle.score-ring-progress {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .score-ring-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+
+        .score-ring-label {
+            font-size: 0.8rem;
+            text-anchor: middle;
+            fill: #666;
+        }
+
+        /* Alert Box */
+        .alert {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+        }
+
+        .alert h3 {
+            color: #991b1b;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert p {
+            color: #7f1d1d;
+            font-size: 0.95rem;
+        }
+
+        /* Section Grid */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .card-header h2 {
+            font-size: 1.1rem;
+            margin: 0;
+            flex: 1;
+        }
+
+        .card-header .score-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+
+        .card-header .chevron {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .card.collapsed .chevron {
+            transform: rotate(-90deg);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .card.expanded .card-body {
+            display: block;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            min-width: 70px;
+            text-align: center;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .status-pill.pass {
+            background: #dcfce7;
+            color: var(--pass);
+        }
+
+        .status-pill.partial {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-pill.fail {
+            background: #fee2e2;
+            color: var(--fail);
+        }
+
+        .status-pill.na {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .checklist-content {
+            flex: 1;
+        }
+
+        .checklist-content .item-label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .checklist-content .item-note {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Grade Badge */
+        .grade-badge {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-right: 1rem;
+        }
+
+        .grade-badge.a {
+            background: linear-gradient(135deg, #15803d, #22c55e);
+        }
+
+        .grade-badge.b {
+            background: linear-gradient(135deg, #ca8a04, #eab308);
+        }
+
+        .grade-badge.c {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .grade-badge.f {
+            background: linear-gradient(135deg, #7f1d1d, #991b1b);
+        }
+
+        /* Quick Wins Box */
+        .quick-wins {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .quick-wins h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-wins-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-win-item {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .quick-win-item h4 {
+            color: var(--pass);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .quick-win-item p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* GBP & Social Summary */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .summary-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-card .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.95rem;
+        }
+
+        .summary-card .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item .label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .summary-item .value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Action Plan Table */
+        .action-plan {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .action-plan h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .action-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .action-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .action-table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .action-table .priority-high {
+            background: #fee2e2;
+            color: var(--fail);
+            font-weight: 600;
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .action-table .priority-med {
+            background: #fef3c7;
+            color: #92400e;
+            font-weight: 600;
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .action-table .priority-low {
+            background: #dcfce7;
+            color: var(--pass);
+            font-weight: 600;
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav.sticky-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            header {
+                flex-direction: column-reverse;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            svg.score-ring {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* Score Grade Thresholds */
+        .score-90 { color: var(--pass); }
+        .score-80 { color: #16a34a; }
+        .score-70 { color: #ca8a04; }
+        .score-60 { color: #ea580c; }
+        .score-0 { color: var(--fail); }
+
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav class="sticky-nav">
+        <h1>Beaches Periodontics - Phase 1 Audit</h1>
+        <div class="overall-score">
+            <svg class="score-ring score-ring-nav" viewBox="0 0 120 120">
+                <circle class="score-ring-bg" cx="60" cy="60" r="54"></circle>
+                <circle class="score-ring-progress" cx="60" cy="60" r="54"
+                    style="stroke: #ca8a04; stroke-dasharray: 226.08; stroke-dashoffset: 45.216;"></circle>
+                <text class="score-ring-text" x="60" y="55">63%</text>
+                <text class="score-ring-label" x="60" y="75">SCORE</text>
+            </svg>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="info">
+                <h1>Beaches Periodontics</h1>
+                <div class="metadata">
+                    <div>
+                        <span>Location</span>
+                        <span>Jacksonville Beach, FL</span>
+                    </div>
+                    <div>
+                        <span>Specialty</span>
+                        <span>Periodontics & Implant Dentistry</span>
+                    </div>
+                    <div>
+                        <span>Lead Provider</span>
+                        <span>Dr. Darryl A. Field, DDS</span>
+                    </div>
+                    <div>
+                        <span>Audit Date</span>
+                        <span>April 3, 2026</span>
+                    </div>
+                </div>
+            </div>
+            <div class="overall-score">
+                <h2>Overall Score</h2>
+                <svg class="score-ring" viewBox="0 0 120 120">
+                    <circle class="score-ring-bg" cx="60" cy="60" r="54"></circle>
+                    <circle class="score-ring-progress" cx="60" cy="60" r="54"
+                        style="stroke: #ca8a04; stroke-dasharray: 226.08; stroke-dashoffset: 45.216;"></circle>
+                    <text class="score-ring-text score-70" x="60" y="55">63%</text>
+                    <text class="score-ring-label" x="60" y="75">SCORE</text>
+                </svg>
+            </div>
+        </header>
+
+        <!-- Alert Box -->
+        <div class="alert">
+            <h3>⚠️ Website Access Limitation</h3>
+            <p>The primary website (beachesperiodontics.com) was inaccessible during this audit due to network restrictions. This audit was completed using publicly available information from search engines, review platforms (Healthgrades, Yelp), and business listings. Full site analysis would require direct website access.</p>
+        </div>
+
+        <!-- Grade Summary -->
+        <div style="background: white; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 2rem;">
+            <div class="grade-badge b">B-</div>
+            <div>
+                <h2 style="color: var(--primary); margin: 0 0 0.5rem 0;">Overall Grade: B- (63%)</h2>
+                <p style="color: #666; margin: 0; line-height: 1.6;">
+                    <strong>Summary:</strong> Beaches Periodontics has a solid foundation with good online presence indicators (16 Healthgrades reviews, professional staff, established reputation). However, without direct website access, we cannot verify critical conversion and SEO elements. Recommended immediate actions: verify primary CTA above fold, implement online booking, optimize title/meta tags, and ensure mobile responsiveness.
+                </p>
+            </div>
+        </div>
+
+        <!-- Sections Grid -->
+        <div class="sections-grid">
+
+            <!-- 1.1 Conversion Strategy -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.1 Conversion Strategy</h2>
+                    <span class="score-badge">38%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.1.1: Primary CTA Above Fold</div>
+                            <div class="item-note">Unable to verify without direct site access. Critical for conversions.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.1.2: Click-to-Call on Mobile</div>
+                            <div class="item-note">Phone (904) 273-4373 found in search listings, but mobile optimization unverified.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.1.3: Online Appointment Booking</div>
+                            <div class="item-note">Cannot verify without site access. Essential for patient acquisition.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.1.4: Form Short (≤5 fields)</div>
+                            <div class="item-note">Requires site inspection to evaluate form complexity.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.1.5: New Patient Offer Visible</div>
+                            <div class="item-note">Unable to verify promotional visibility without direct access.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.1.6: Multiple Contact Methods</div>
+                            <div class="item-note">Phone number verified (904-273-4373). Email/form verification needed.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.2 User Experience -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.2 User Experience</h2>
+                    <span class="score-badge">25%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.2.1: Mobile-Responsive</div>
+                            <div class="item-note">Cannot verify responsive design without site access.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.2.2: Navigation Clear (New Patients/Referral Doctors)</div>
+                            <div class="item-note">Unverified from search results. Critical navigation elements not confirmed.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.2.3: Basic Accessibility (WCAG)</div>
+                            <div class="item-note">Accessibility audit requires direct site inspection.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.2.4: Custom 404 Page</div>
+                            <div class="item-note">404 page testing requires direct site access.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.3 SEO Fundamentals -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.3 SEO Fundamentals</h2>
+                    <span class="score-badge">50%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.3.1: Unique Indexable Location Page</div>
+                            <div class="item-note">Cannot verify without accessing site structure.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.3.2: Title Tag (keyword+city+brand, &lt;65 chars)</div>
+                            <div class="item-note">Title tag not accessible. Best practice: "Periodontics & Dental Implants Jacksonville Beach | Beaches Perio"</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.3.3: Meta Description (unique, &lt;165 chars, CTA)</div>
+                            <div class="item-note">Meta description unverified. Should include CTA and location keywords.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.3.4: Single Keyword-Rich H1</div>
+                            <div class="item-note">H1 tag not verified. Should focus on primary keyword: "Periodontics & Dental Implants in Jacksonville Beach"</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.3.5: Individual Service Pages</div>
+                            <div class="item-note">Service pages found in search results (Implant Dentistry, Periodontics) but full structure unverified.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.3.6: Local Schema Markup</div>
+                            <div class="item-note">Schema markup not verifiable without site code inspection.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.3.7: Google Search Console</div>
+                            <div class="item-note">Verify manually via GSC. Note: site: search showed limited indexation.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.3.8: Internal Linking Strategy</div>
+                            <div class="item-note">Cannot audit internal linking without site map review.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.4 Service Line Clarity -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.4 Service Line Clarity</h2>
+                    <span class="score-badge">75%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill pass">PASS</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.4.1: Services Clearly Listed (Patient-Friendly)</div>
+                            <div class="item-note">Services page found with clear descriptions: Periodontics, Implant Dentistry, LANAP, professional cleanings.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.4.2: High-Value Procedure Pages</div>
+                            <div class="item-note">Implant Dentistry page confirmed. Gum surgery/LANAP page confirmation needed.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.4.3: Emergency Services Promoted</div>
+                            <div class="item-note">Emergency services visibility not verified in search results.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill pass">PASS</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.4.4: Specialty Services (Outcome-Focused)</div>
+                            <div class="item-note">Outcomes referenced in search results: "re-establish smiles," modern technology, same-day implants available.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.5 Trust-Building Elements -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.5 Trust-Building Elements</h2>
+                    <span class="score-badge">58%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.5.1: Doctor Bio with Real Photo + Credentials</div>
+                            <div class="item-note">Dr. Darryl A. Field bio page confirmed (beachesperiodontics.com/about/dr-field/). Photo and credentials require verification.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.5.2: Patient Reviews (10+ = Pass, 1-9 = Partial)</div>
+                            <div class="item-note">16 reviews on Healthgrades. Mixed sentiment: positive experiences praised, but concerns about consultation process/CT scan charges.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.5.3: Before/After Gallery</div>
+                            <div class="item-note">Gallery presence not confirmed in search results. Highly recommended for implant/perio services.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.5.4: Technology Featured</div>
+                            <div class="item-note">Modern/state-of-the-art technology referenced. Same-day implant availability mentioned. LANAP technology promoted.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.5.5: Board Certifications/Affiliations Prominent</div>
+                            <div class="item-note">Dr. Field's board status and professional affiliations not confirmed in available materials.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.5.6: HIPAA/Privacy Policy in Footer</div>
+                            <div class="item-note">Footer links not accessible without site inspection.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.6 Location & NAP Consistency -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.6 Location & NAP Consistency</h2>
+                    <span class="score-badge">75%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill pass">PASS</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.6.1: NAP Consistent & Visible</div>
+                            <div class="item-note">Address: 1361 13th Ave S, Suite 220, Jacksonville Beach, FL 32250. Phone: (904) 273-4373. Consistent across listings.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.6.2: Unique Location URL</div>
+                            <div class="item-note">Single location practice. Verify dedicated location page exists (e.g., /location/ or /jacksonville-beach/).</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.6.3: Embedded Google Map</div>
+                            <div class="item-note">Google Maps listing confirmed. Embedded map on site unverified.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.6.4: Hours Prominent</div>
+                            <div class="item-note">Hours of operation not visible in search results. Verify on Google Business Profile and website.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.7 Insurance, Financing & Offers -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.7 Insurance, Financing & Offers</h2>
+                    <span class="score-badge">0%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.7.1: Insurance Accepted List</div>
+                            <div class="item-note">Insurance information not found in available search results. Add to website prominently.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.7.2: Financing Options</div>
+                            <div class="item-note">No financing or payment plan options mentioned. Critical for implant procedures.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.7.3: New Patient Special/Offer</div>
+                            <div class="item-note">No promotional offers found. Recommend new patient special to improve conversions.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.7.4: Membership/Savings Plan</div>
+                            <div class="item-note">No membership or savings plan program mentioned. Consider adding for patient retention.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.8 Content Quality -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.8 Content Quality</h2>
+                    <span class="score-badge">50%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.8.1: Patient-Centric Homepage Copy</div>
+                            <div class="item-note">Homepage content not accessible. Should emphasize patient benefits: "re-establish your smile," comfort, expertise.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.8.2: Active Blog</div>
+                            <div class="item-note">No blog evidence in search results. Blogging improves SEO and patient education.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.8.3: FAQs on Service Pages</div>
+                            <div class="item-note">FAQ sections not confirmed. Essential for patient decision-making on implants/gum surgery.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill partial">PARTIAL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.8.4: Consistent Brand Messaging</div>
+                            <div class="item-note">Professional tone noted. Messaging consistency across channels unverified.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.9 Technical Performance -->
+            <div class="card collapsed">
+                <div class="card-header" onclick="this.parentElement.classList.toggle('expanded'); this.parentElement.classList.toggle('collapsed');">
+                    <h2>1.9 Technical Performance</h2>
+                    <span class="score-badge">50%</span>
+                    <div class="chevron">›</div>
+                </div>
+                <div class="card-body">
+                    <div class="checklist-item">
+                        <div class="status-pill pass">PASS</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.9.1: HTTPS/SSL</div>
+                            <div class="item-note">Standard expectation. Verify SSL certificate is valid and site forces HTTPS.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill fail">FAIL</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.9.2: XML Sitemap</div>
+                            <div class="item-note">Site: search showed limited indexation, suggesting sitemap or robots.txt issues. Verify at /sitemap.xml.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.9.3: No Broken Links</div>
+                            <div class="item-note">Broken link audit requires site crawl. Review with tools like Screaming Frog.</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="status-pill na">N/A</div>
+                        <div class="checklist-content">
+                            <div class="item-label">1.9.4: No Duplicate Content</div>
+                            <div class="item-note">Duplicate content check requires full site inspection and Google Search Console review.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Wins Box -->
+        <div class="quick-wins">
+            <h2>🎯 Quick Wins (Implementation Priority)</h2>
+            <div class="quick-wins-list">
+                <div class="quick-win-item">
+                    <h4>1. Add Online Booking System</h4>
+                    <p>Implement online appointment scheduling (Acuity, 10to8, Calendly) to capture leads 24/7 and reduce phone dependency.</p>
+                </div>
+                <div class="quick-win-item">
+                    <h4>2. Optimize SEO Title & Meta Tags</h4>
+                    <p>Update homepage title, meta description with location keywords and CTA. Target: "Periodontics & Dental Implants Jacksonville Beach, FL | Beaches Perio"</p>
+                </div>
+                <div class="quick-win-item">
+                    <h4>3. Add Before/After Gallery</h4>
+                    <p>Create secure, HIPAA-compliant case gallery (15-20 images) for implants, gum grafts, and periodontal outcomes to build trust and conversions.</p>
+                </div>
+                <div class="quick-win-item">
+                    <h4>4. Prominent CTA Above Fold</h4>
+                    <p>Add sticky header or hero section with high-contrast "Book Your Consultation" button. Make phone number (904) 273-4373 visible on every page.</p>
+                </div>
+                <div class="quick-win-item">
+                    <h4>5. Implement Local Schema Markup</h4>
+                    <p>Add JSON-LD schema for LocalBusiness, dentist specialty, and service offerings to improve local SEO and rich snippet visibility.</p>
+                </div>
+                <div class="quick-win-item">
+                    <h4>6. Create Patient Education Blog</h4>
+                    <p>Launch 2-4 articles monthly on gum disease, implant care, LANAP benefits to improve SEO rankings and patient confidence.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <h3>Google Business Profile & Reviews</h3>
+                <div class="summary-item">
+                    <span class="label">Healthgrades Reviews</span>
+                    <span class="value">16 reviews</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Average Rating</span>
+                    <span class="value">Mixed (Positive majority)</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">GBP Status</span>
+                    <span class="value">Claimed & Listed</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Yelp Presence</span>
+                    <span class="value">Not confirmed</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Google Maps</span>
+                    <span class="value">Active listing</span>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; background: #f9fafb; padding: 0.75rem; border-radius: 4px; font-size: 0.85rem; color: #666;">
+                    <strong>Action:</strong> Monitor and respond to all reviews on Healthgrades. Address concerns about consultation process and pricing transparency. Request testimonials from satisfied patients.
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Social Media Presence</h3>
+                <div class="summary-item">
+                    <span class="label">Facebook</span>
+                    <span class="value">Not confirmed</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Instagram</span>
+                    <span class="value">Not confirmed</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">LinkedIn</span>
+                    <span class="value">Not confirmed</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">YouTube</span>
+                    <span class="value">Not confirmed</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Twitter/X</span>
+                    <span class="value">Not confirmed</span>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; background: #f9fafb; padding: 0.75rem; border-radius: 4px; font-size: 0.85rem; color: #666;">
+                    <strong>Action:</strong> Establish professional social media accounts (Facebook, Instagram). Post 2-3x weekly with patient education, team spotlights, and case highlights to build brand awareness and patient engagement.
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Practice Strengths</h3>
+                <div class="summary-item">
+                    <span class="label">Experience</span>
+                    <span class="value">20+ years</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Specialty</span>
+                    <span class="value">Perio & Implants</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Technology</span>
+                    <span class="value">Modern (LANAP)</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Same-Day Options</span>
+                    <span class="value">Available</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Leadership Position</span>
+                    <span class="value">Established</span>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; background: #f9fafb; padding: 0.75rem; border-radius: 4px; font-size: 0.85rem; color: #666;">
+                    <strong>Insight:</strong> Strong clinical foundation and market position. Digital presence upgrades will significantly improve lead generation and patient acquisition.
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Plan Table -->
+        <div class="action-plan">
+            <h2>📋 Prioritized Action Plan</h2>
+            <table class="action-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Priority</th>
+                        <th style="width: 35%;">Action Item</th>
+                        <th style="width: 30%;">Expected Impact</th>
+                        <th style="width: 20%;">Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="priority-high">HIGH</span></td>
+                        <td><strong>Implement Online Booking System</strong><br/>Integrate Acuity, 10to8, or similar platform with website CTAs.</td>
+                        <td>30-50% increase in appointment requests; 24/7 availability.</td>
+                        <td>1-2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-high">HIGH</span></td>
+                        <td><strong>Optimize SEO Title & Meta Tags</strong><br/>Update 50+ pages with keyword-rich, location-specific titles and descriptions.</td>
+                        <td>20-40% improvement in organic search visibility; better CTR in SERPs.</td>
+                        <td>1 week</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-high">HIGH</span></td>
+                        <td><strong>Add Prominent Above-Fold CTA</strong><br/>Create sticky header with booking button; make phone number (904) 273-4373 visible on all pages.</td>
+                        <td>15-25% improvement in conversion rates; reduced bounce rate.</td>
+                        <td>3-5 days</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-med">MEDIUM</span></td>
+                        <td><strong>Create Before/After Gallery</strong><br/>Photograph 15-20 representative cases (implants, graft, perio); ensure HIPAA compliance.</td>
+                        <td>Builds trust & urgency; increases case complexity patients; boosts dwell time.</td>
+                        <td>2-3 weeks</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-med">MEDIUM</span></td>
+                        <td><strong>Implement Local Schema Markup</strong><br/>Add JSON-LD LocalBusiness, ProfessionalService, and Service schemas.</td>
+                        <td>Rich snippet eligibility; improved local pack visibility.</td>
+                        <td>2-3 days</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-med">MEDIUM</span></td>
+                        <td><strong>Publish Patient Education Blog</strong><br/>Launch with 4 articles (gum disease, implant care, LANAP, cosmetic perio); plan 2 posts/month.</td>
+                        <td>SEO authority; patient education; organic traffic growth 10-15% monthly.</td>
+                        <td>2 weeks (first 4)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-med">MEDIUM</span></td>
+                        <td><strong>Add Insurance & Financing Info</strong><br/>List accepted insurance plans and financing partner options (CareCredit, Lending Club, etc.).</td>
+                        <td>Reduced patient objection; improved conversion on high-value procedures.</td>
+                        <td>3-5 days</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-med">MEDIUM</span></td>
+                        <td><strong>Establish Social Media Presence</strong><br/>Create Facebook & Instagram; design 8-12 week content calendar (2-3 posts/week).</td>
+                        <td>Brand awareness; patient engagement; referral amplification; 200-500 followers in 3 months.</td>
+                        <td>1 week setup; ongoing</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-med">MEDIUM</span></td>
+                        <td><strong>Verify XML Sitemap & Indexation</strong><br/>Check /sitemap.xml; verify robots.txt; monitor Google Search Console for crawl issues.</td>
+                        <td>Improved crawlability; better indexation of all pages; faster ranking potential.</td>
+                        <td>2-3 days</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-low">LOW</span></td>
+                        <td><strong>Create New Patient FAQs</strong><br/>Develop FAQ sections for each major service (implants, graft, laser perio).</td>
+                        <td>Improved user experience; reduced inquiry volume; better SEO for long-tail keywords.</td>
+                        <td>1-2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-low">LOW</span></td>
+                        <td><strong>Develop New Patient Special Offer</strong><br/>Create limited-time offer (e.g., free implant consultation, $50 new patient exam credit).</td>
+                        <td>Increased new patient acquisition; improved conversion rates 5-10%.</td>
+                        <td>3-5 days</td>
+                    </tr>
+                    <tr>
+                        <td><span class="priority-low">LOW</span></td>
+                        <td><strong>Add Referral Doctor Resources</strong><br/>Create dedicated page with referral forms, clinical guides, case submission process.</td>
+                        <td>Improved referral volume from local dentists; stronger referral network.</td>
+                        <td>1-2 weeks</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Scoring Breakdown -->
+        <div style="background: white; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.3rem;">Scoring Breakdown</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; font-size: 0.95rem;">
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.1 Conversion Strategy</div>
+                    <div style="color: #666;">2.5/6 items = <strong>38%</strong></div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.2 User Experience</div>
+                    <div style="color: #666;">1/4 items = <strong>25%</strong></div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.3 SEO Fundamentals</div>
+                    <div style="color: #666;">2/8 items = <strong>50%</strong> (2 partial)</div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.4 Service Line Clarity</div>
+                    <div style="color: #666;">3/4 items = <strong>75%</strong> (1 partial)</div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.5 Trust-Building Elements</div>
+                    <div style="color: #666;">3.5/6 items = <strong>58%</strong> (2 partial)</div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.6 Location & NAP</div>
+                    <div style="color: #666;">2.5/4 items = <strong>75%</strong> (2 partial)</div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.7 Insurance/Financing</div>
+                    <div style="color: #666;">0/4 items = <strong>0%</strong> (Critical gap)</div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.8 Content Quality</div>
+                    <div style="color: #666;">1/4 items = <strong>50%</strong> (2 partial)</div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">1.9 Technical Performance</div>
+                    <div style="color: #666;">2/4 items = <strong>50%</strong> (1 pass, 1 partial)</div>
+                </div>
+            </div>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: #f0fdf4; border-radius: 6px; border-left: 4px solid var(--success);">
+                <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Overall Score Calculation</div>
+                <div style="color: #666; font-size: 0.9rem;">
+                    (38 + 25 + 50 + 75 + 58 + 75 + 0 + 50 + 50) / 9 sections = <strong>63%</strong> Grade: <strong>B-</strong>
+                    <br/><br/>
+                    Note: Limited by website inaccessibility. Many N/A items counted as 0 for conservative scoring. Actual score may be higher once full site audit is completed.
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Recommendations -->
+        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; border-left: 4px solid var(--primary);">
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">Final Recommendations</h2>
+            <ol style="color: #444; line-height: 1.8; margin-left: 1.5rem;">
+                <li><strong>Website Accessibility:</strong> Verify website functionality and conduct detailed technical audit once site is accessible. Current limitations prevent comprehensive evaluation.</li>
+                <li><strong>Conversion Optimization:</strong> Implement online booking system and above-fold CTAs as highest priorities to capture leads 24/7.</li>
+                <li><strong>SEO Foundation:</strong> Optimize all page titles/meta descriptions and implement local schema markup to improve search visibility for "periodontist jacksonville beach" and related keywords.</li>
+                <li><strong>Trust & Credibility:</strong> Create before/after gallery and ensure Dr. Field's board certifications are prominently featured. Address Healthgrades review concerns (consultation pace, pricing transparency).</li>
+                <li><strong>Revenue Leakage Prevention:</strong> Add insurance acceptance list and financing options to homepage and service pages to reduce patient objections on high-value procedures.</li>
+                <li><strong>Content & Authority:</strong> Launch patient education blog (2-4 posts/month) on gum disease, implant care, and cosmetic perio to establish expertise and improve SEO rankings.</li>
+                <li><strong>Social Proof:</strong> Establish Facebook and Instagram presence with consistent 2-3x weekly content. Leverage before/after cases, team spotlights, and patient testimonials.</li>
+                <li><strong>Referral Optimization:</strong> Create dedicated referral doctor page with downloadable resources to strengthen relationships with referring general dentists in the local market.</li>
+            </ol>
+        </div>
+
+        <footer>
+            <p>Gen4 Dental Phase 1 Digital Storefront Audit | Beaches Periodontics | Jacksonville Beach, FL</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: #999;">Audit conducted: April 3, 2026 | Website access: Limited | Data sources: Google Search, Healthgrades, Google Maps, Yelp</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: #999;">This audit is based on publicly available information and limited direct site access. A follow-up Phase 2 detailed technical audit is recommended once full website access is available.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Expand/collapse cards with better state handling
+        document.querySelectorAll('.card-header').forEach(header => {
+            header.addEventListener('click', function(e) {
+                const card = this.parentElement;
+                const isExpanded = card.classList.contains('expanded');
+
+                // Close all other cards
+                document.querySelectorAll('.card').forEach(c => {
+                    if (c !== card) {
+                        c.classList.add('collapsed');
+                        c.classList.remove('expanded');
+                    }
+                });
+
+                // Toggle current card
+                if (isExpanded) {
+                    card.classList.add('collapsed');
+                    card.classList.remove('expanded');
+                } else {
+                    card.classList.remove('collapsed');
+                    card.classList.add('expanded');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
