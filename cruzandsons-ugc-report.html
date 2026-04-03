@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UGC Report — Cruz & Sons Fence Co.</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; }
+
+  .header { background: linear-gradient(135deg, #5d4037 0%, #a0522d 60%, #d4854a 100%); color: white; padding: 36px 40px 28px; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+  .header .sub { font-size: 14px; opacity: 0.88; margin-bottom: 18px; }
+  .header-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .meta-chip { background: rgba(255,255,255,0.18); border-radius: 20px; padding: 6px 14px; font-size: 13px; }
+  .scan-badge { background: #fff3; border: 1px solid rgba(255,255,255,0.5); border-radius: 6px; padding: 8px 16px; font-size: 13px; font-weight: 600; margin-bottom: 14px; display: inline-block; }
+
+  .stats-bar { display: flex; gap: 16px; padding: 20px 40px; background: white; border-bottom: 1px solid #e0e0e0; flex-wrap: wrap; }
+  .stat { text-align: center; min-width: 100px; }
+  .stat .num { font-size: 28px; font-weight: 700; color: #a0522d; }
+  .stat .label { font-size: 12px; color: #666; margin-top: 2px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+
+  .section { background: white; border-radius: 8px; margin-bottom: 24px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .section-header { padding: 16px 24px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; }
+  .section-body { padding: 20px 24px; }
+
+  .platform-badge { border-radius: 12px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: white; }
+  .badge-yelp { background: #d32323; }
+  .badge-nextdoor { background: #00b259; }
+  .badge-bbb { background: #003087; }
+  .badge-directory { background: #555; }
+  .badge-general { background: #607d8b; }
+  .badge-search { background: #4285f4; }
+
+  .ugc-card { border: 1px solid #e8e0d8; border-radius: 8px; padding: 16px; margin-bottom: 14px; background: #fffdf9; }
+  .ugc-card-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .ugc-card-meta { font-size: 13px; color: #777; }
+  .reshare-badge { padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .reshare-high { background: #e8f5e9; color: #2e7d32; }
+  .reshare-medium { background: #fff8e1; color: #f57f17; }
+  .reshare-low { background: #f5f5f5; color: #757575; }
+
+  .ugc-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .ugc-card p { font-size: 13px; color: #555; line-height: 1.55; }
+  .ugc-card .action { font-size: 12px; color: #a0522d; font-style: italic; margin-top: 8px; }
+  .ugc-card a { color: #a0522d; text-decoration: none; }
+  .ugc-card a:hover { text-decoration: underline; }
+
+  .insight-box { background: #fef9f0; border-left: 4px solid #a0522d; padding: 14px 18px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 14px; line-height: 1.6; }
+  .insight-box strong { display: block; margin-bottom: 4px; color: #a0522d; }
+  .gap-box { background: #fff8e1; border-left: 4px solid #f5a623; padding: 14px 18px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 14px; line-height: 1.6; }
+  .gap-box strong { display: block; margin-bottom: 4px; color: #b07000; }
+  .warning-box { background: #fff3e0; border-left: 4px solid #e65100; padding: 14px 18px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 14px; line-height: 1.6; }
+  .warning-box strong { display: block; margin-bottom: 4px; color: #e65100; }
+
+  .hashtag-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .hashtag { background: #fde8d8; color: #8b3a1a; border-radius: 14px; padding: 5px 12px; font-size: 13px; font-weight: 600; }
+  .hashtag-suggested { background: #e8f5e9; color: #1b5e20; }
+
+  .best-practice { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f0ece8; font-size: 14px; }
+  .best-practice:last-child { border-bottom: none; }
+  .bp-num { width: 26px; height: 26px; background: #a0522d; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+
+  .top-reshare { border: 2px solid #a0522d; border-radius: 8px; padding: 16px; margin-bottom: 14px; background: #fffdf9; }
+  .top-reshare h3 { color: #a0522d; font-size: 15px; margin-bottom: 6px; }
+
+  .content-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content-table th { background: #f5ede5; color: #333; font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid #ddd; }
+  .content-table td { padding: 10px 12px; border-bottom: 1px solid #f5f0ec; vertical-align: top; }
+  .content-table a { color: #a0522d; text-decoration: none; }
+  .content-table a:hover { text-decoration: underline; }
+
+  .footer { text-align: center; font-size: 12px; color: #999; padding: 30px 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="scan-badge">🔍 FIRST RUN — 120-Day Baseline</div>
+  <h1>User-Generated Content Report — Cruz &amp; Sons Fence Co.</h1>
+  <div class="sub">Third-party mentions, reviews, and community content from across the web</div>
+  <div class="header-meta">
+    <div class="meta-chip">📅 Scan Window: Dec 4, 2025 — Apr 3, 2026 (120 days)</div>
+    <div class="meta-chip">📍 West Jordan, UT</div>
+    <div class="meta-chip">🌐 cruzandsonsfence.com</div>
+    <div class="meta-chip">📱 @cruzandsonsfence</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="num">6</div><div class="label">UGC Sources Found</div></div>
+  <div class="stat"><div class="num">1</div><div class="label">Nextdoor Recommendations</div></div>
+  <div class="stat"><div class="num">3+</div><div class="label">Directory Listings w/ Reviews</div></div>
+  <div class="stat"><div class="num">0</div><div class="label">Social Media Tags Found</div></div>
+  <div class="stat"><div class="num">⚠️</div><div class="label">Low Overall UGC Volume</div></div>
+</div>
+
+<div class="container">
+
+  <div class="insight-box" style="margin-bottom:24px; border-radius:8px;">
+    <strong>📋 Report Overview</strong>
+    This is the first Content Scout run for Cruz &amp; Sons Fence Co. The 120-day scan window (Dec 4, 2025 – Apr 3, 2026) found a low volume of discoverable UGC. Most review platforms (Yelp, BBB) are blocked from direct scraping, but directional signals from search snippets confirm active listings. The primary UGC opportunity is dramatically underdeveloped — no customer social media posts, no project photos tagged by homeowners, and no YouTube content were found. This is a significant growth opportunity.
+  </div>
+
+  <!-- YELP UGC -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-yelp">YELP</span>
+      <h2>Yelp Reviews &amp; Signals</h2>
+    </div>
+    <div class="section-body">
+      <div class="insight-box">
+        <strong>✅ Active Listing — Reviews Exist</strong>
+        Cruz &amp; Sons Fence Company has an active Yelp listing updated as recently as July 2025. Yelp content could not be directly extracted due to scraping restrictions, but the listing is confirmed active at: <a href="https://www.yelp.com/biz/cruz-and-sons-fence-company-west-jordan" target="_blank">yelp.com/biz/cruz-and-sons-fence-company-west-jordan</a>
+      </div>
+      <div class="ugc-card">
+        <div class="ugc-card-top">
+          <div>
+            <span class="platform-badge badge-yelp" style="margin-right:8px;">YELP</span>
+            <strong>Cruz &amp; Sons Fence Company Listing</strong>
+          </div>
+          <span class="reshare-badge reshare-medium">Reshare: Medium</span>
+        </div>
+        <div class="ugc-card-meta">Platform: Yelp &bull; Last Updated: July 2025 &bull; Location: West Jordan, UT</div>
+        <p style="margin-top:8px;">Active Yelp presence. Business listed under Fences &amp; Gates category. Listing details include hours (Mon–Sat 8AM–6:30PM), services (vinyl, wood, wrought iron, ornamental, chain link, gates, repairs), and business attributes (free estimates, Spanish spoken, licensed &amp; insured).</p>
+        <div class="action">→ Action: Claim and fully optimize the Yelp profile. Respond to all existing reviews. Add project photos. Request reviews from recent satisfied customers with a direct Yelp link.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXTDOOR UGC -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-nextdoor">NEXTDOOR</span>
+      <h2>Nextdoor Community Presence</h2>
+    </div>
+    <div class="section-body">
+      <div class="ugc-card">
+        <div class="ugc-card-top">
+          <div>
+            <span class="platform-badge badge-nextdoor" style="margin-right:8px;">NEXTDOOR</span>
+            <strong>Cruz and Sons Fence — 1 Recommendation</strong>
+          </div>
+          <span class="reshare-badge reshare-high">Reshare: High</span>
+        </div>
+        <div class="ugc-card-meta">Platform: Nextdoor &bull; Location: West Jordan, UT &bull; Date: Unknown</div>
+        <p style="margin-top:8px;">The business has 1 neighbor recommendation on Nextdoor. This is the highest-trust form of local UGC for service businesses — a Nextdoor recommendation reaches an entire neighborhood of homeowners.</p>
+        <div class="action">→ Action: After completing jobs in West Jordan and surrounding neighborhoods, ask satisfied customers: "Would you mind recommending us on Nextdoor? It really helps local neighbors find us." Each new recommendation is worth many Google reviews in local trust.</div>
+        <p style="margin-top:8px;"><a href="https://nextdoor.com/pages/cruz-sons-fence-company-west-jordan-ut/" target="_blank">View Nextdoor Listing ↗</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BBB -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-bbb">BBB</span>
+      <h2>Better Business Bureau — Reputation Signal</h2>
+    </div>
+    <div class="section-body">
+      <div class="warning-box">
+        <strong>⚠️ BBB "May Be Out of Business" Flag</strong>
+        Search snippets from the BBB profile contain language suggesting the business may no longer be operating. This language is indexed by Google and can actively deter potential customers who find the BBB listing during their research. This should be corrected immediately — contact the BBB at bbb.org to update the business status and confirm active operations.
+      </div>
+      <div class="ugc-card">
+        <div class="ugc-card-top">
+          <div>
+            <span class="platform-badge badge-bbb" style="margin-right:8px;">BBB</span>
+            <strong>Cruz &amp; Sons Fence Company BBB Profile</strong>
+          </div>
+          <span class="reshare-badge reshare-low">Action Required</span>
+        </div>
+        <div class="ugc-card-meta">Platform: BBB &bull; Location: 8400 S 2200 W, West Jordan, UT 84088</div>
+        <p style="margin-top:8px;">Listed under Fence Sales. The status flag indicating possible closure appears to be outdated information, as the business is clearly active across other platforms. However, this flag affects Google search snippets for the BBB listing URL.</p>
+        <div class="action">→ Action: Call BBB at 1-888-508-5537 or submit an update at bbb.org. Confirm active business status, update address if changed, add current hours, and request that any closure language be removed from the profile.</div>
+        <p style="margin-top:8px;"><a href="https://www.bbb.org/us/ut/west-jordan/profile/fence-sales/cruz-sons-fence-company-1166-90015442" target="_blank">View BBB Profile ↗</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTHER DIRECTORIES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-directory">DIRECTORIES</span>
+      <h2>Directory &amp; Third-Party Listings</h2>
+    </div>
+    <div class="section-body">
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>URL</th>
+            <th>Type</th>
+            <th>UGC Potential</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Yellow Pages</td>
+            <td><a href="https://www.yellowpages.com/west-jordan-ut/mip/cruz-sons-fence-co-527898587" target="_blank">View ↗</a></td>
+            <td>Business directory</td>
+            <td>Low — verify NAP data is accurate</td>
+          </tr>
+          <tr>
+            <td>Washington Bids</td>
+            <td><a href="https://www.washingtonbids.com/directory/893327-cruz_and_sons_fence.html" target="_blank">View ↗</a></td>
+            <td>Contractor directory</td>
+            <td>Low — commercial lead source</td>
+          </tr>
+          <tr>
+            <td>Manta</td>
+            <td><a href="https://www.manta.com/c/mw2m6y8/cruz-and-sons-fence-co-llc" target="_blank">View ↗</a></td>
+            <td>Small business directory</td>
+            <td>Low — basic citation</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- HASHTAG TRACKING -->
+  <div class="section">
+    <div class="section-header">
+      <h2>#️⃣ Hashtag Tracking &amp; Strategy</h2>
+    </div>
+    <div class="section-body">
+      <div class="gap-box">
+        <strong>⚠️ No Monitored Hashtags Were Provided</strong>
+        No branded hashtags were submitted for tracking. Because Instagram posts from @cruzandsonsfence are not indexed by Google, it was not possible to identify which hashtags the account currently uses.
+      </div>
+
+      <h3 style="margin-bottom:10px; font-size:15px;">Recommended Hashtags to Start Using</h3>
+      <p style="font-size:13px; color:#555; margin-bottom:10px;">These hashtags are recommended based on industry research for fence contractors serving the Salt Lake Valley / West Jordan, Utah market:</p>
+
+      <p style="font-size:13px; font-weight:600; color:#a0522d; margin-bottom:6px;">Branded (Create These):</p>
+      <div class="hashtag-grid">
+        <span class="hashtag">#CruzAndSonsFence</span>
+        <span class="hashtag">#CruzFence</span>
+        <span class="hashtag">#CruzFenceUT</span>
+      </div>
+
+      <p style="font-size:13px; font-weight:600; color:#2e7d32; margin: 14px 0 6px;">Local / Geographic:</p>
+      <div class="hashtag-grid">
+        <span class="hashtag hashtag-suggested">#WestJordanUT</span>
+        <span class="hashtag hashtag-suggested">#SaltLakeValley</span>
+        <span class="hashtag hashtag-suggested">#UtahFence</span>
+        <span class="hashtag hashtag-suggested">#WestJordanFence</span>
+        <span class="hashtag hashtag-suggested">#SLCContractor</span>
+        <span class="hashtag hashtag-suggested">#UtahHome</span>
+      </div>
+
+      <p style="font-size:13px; font-weight:600; color:#2e7d32; margin: 14px 0 6px;">Service / Industry:</p>
+      <div class="hashtag-grid">
+        <span class="hashtag hashtag-suggested">#FenceContractor</span>
+        <span class="hashtag hashtag-suggested">#VinylFence</span>
+        <span class="hashtag hashtag-suggested">#WoodFence</span>
+        <span class="hashtag hashtag-suggested">#WroughtIronFence</span>
+        <span class="hashtag hashtag-suggested">#ChainLinkFence</span>
+        <span class="hashtag hashtag-suggested">#FenceInstallation</span>
+        <span class="hashtag hashtag-suggested">#BackyardFence</span>
+        <span class="hashtag hashtag-suggested">#FenceGate</span>
+        <span class="hashtag hashtag-suggested">#BeforeAndAfterFence</span>
+      </div>
+
+      <p style="font-size:13px; color:#555; margin-top:14px;">
+        <strong>Pro tip:</strong> Use 5–10 hashtags per post. Mix 2–3 branded, 2–3 local, and 3–4 service hashtags. Post project photos consistently — "before and after" fence reveals perform extremely well on Instagram and can generate organic UGC when satisfied customers share your posts to their stories.
+      </p>
+    </div>
+  </div>
+
+  <!-- TOP RESHARE CANDIDATES -->
+  <div class="section">
+    <div class="section-header">
+      <h2>⭐ Top Reshare Candidates &amp; UGC Opportunities</h2>
+    </div>
+    <div class="section-body">
+      <div class="gap-box">
+        <strong>⚠️ Limited Reshare-Ready UGC Found</strong>
+        The 120-day scan uncovered very few pieces of third-party content that are immediately reshare-ready. This is the most critical finding of this report — the business has near-zero organic customer content visible on the public web. The strategy recommendations below address how to actively generate this content.
+      </div>
+
+      <div class="top-reshare">
+        <h3>🥇 #1 — Nextdoor Recommendation</h3>
+        <p style="font-size:13px; color:#555; margin:6px 0;">A neighbor recommendation on Nextdoor is the most trusted UGC available. Screenshot this recommendation and share it as a testimonial card on Instagram and Facebook.</p>
+        <p style="font-size:12px; color:#a0522d; font-style:italic;">Action: Screenshot, add brand colors/logo overlay in Canva, post as a "Thank You" post with the homeowner's permission.</p>
+      </div>
+
+      <div class="top-reshare">
+        <h3>🥈 #2 — Yelp Review Content</h3>
+        <p style="font-size:13px; color:#555; margin:6px 0;">Any positive Yelp reviews (accessible by visiting the page directly) are highly reshare-worthy as quote cards. Even a 4–5 star rating screenshot can be shared.</p>
+        <p style="font-size:12px; color:#a0522d; font-style:italic;">Action: Visit yelp.com/biz/cruz-and-sons-fence-company-west-jordan, identify 3–5 star reviews with specific positive language, create quote card graphics.</p>
+      </div>
+
+      <div class="top-reshare">
+        <h3>🥉 #3 — Customer Project Photos (Untapped)</h3>
+        <p style="font-size:13px; color:#555; margin:6px 0;">Ask every customer at project completion to take a photo and tag @cruzandsonsfence on Instagram. Even one tagged photo per month builds a UGC library rapidly.</p>
+        <p style="font-size:12px; color:#a0522d; font-style:italic;">Action: Add a door hanger or business card insert at job completion: "Love your new fence? Tag us @cruzandsonsfence for a chance to be featured!"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER ENCOURAGEMENT STRATEGY -->
+  <div class="section">
+    <div class="section-header">
+      <h2>📣 Customer UGC Generation Strategy</h2>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14px; color:#555; margin-bottom:16px;">Since discoverable UGC is near zero, here is a systematic approach to generating it over the next 60–90 days:</p>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Tactic</th>
+            <th>Platform</th>
+            <th>Effort</th>
+            <th>Expected Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ask for Instagram tag at job completion</td>
+            <td>Instagram</td>
+            <td>Low</td>
+            <td>High — each tag reaches the customer's followers</td>
+          </tr>
+          <tr>
+            <td>Ask for Yelp review (send direct link via text)</td>
+            <td>Yelp</td>
+            <td>Low</td>
+            <td>High — builds review count and search visibility</td>
+          </tr>
+          <tr>
+            <td>Ask for Nextdoor recommendation</td>
+            <td>Nextdoor</td>
+            <td>Low</td>
+            <td>Very High — neighbors trust Nextdoor more than Google</td>
+          </tr>
+          <tr>
+            <td>Ask for Google review (once GBP is set up)</td>
+            <td>Google</td>
+            <td>Low</td>
+            <td>Very High — #1 driver of local search rankings</td>
+          </tr>
+          <tr>
+            <td>Create before/after Instagram series</td>
+            <td>Instagram</td>
+            <td>Medium</td>
+            <td>High — extremely shareable content format</td>
+          </tr>
+          <tr>
+            <td>Offer small incentive for reviews (e.g., discount on future repair)</td>
+            <td>All platforms</td>
+            <td>Medium</td>
+            <td>Medium — use carefully per each platform's guidelines</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BEST PRACTICES -->
+  <div class="section">
+    <div class="section-header">
+      <h2>📋 UGC Resharing Best Practices</h2>
+    </div>
+    <div class="section-body">
+      <div class="best-practice"><div class="bp-num">1</div><div><strong>Always credit the creator</strong> — Tag the original poster when resharing their photo or review on social media.</div></div>
+      <div class="best-practice"><div class="bp-num">2</div><div><strong>Ask permission before feed posts</strong> — A quick DM ("Can we repost your photo?") protects the brand and builds relationship.</div></div>
+      <div class="best-practice"><div class="bp-num">3</div><div><strong>Don't edit beyond basic cropping</strong> — Keep UGC authentic. Heavy filters or edits reduce trust.</div></div>
+      <div class="best-practice"><div class="bp-num">4</div><div><strong>Engage before you reshare</strong> — Like and comment on the original post first. This builds the relationship and increases visibility.</div></div>
+      <div class="best-practice"><div class="bp-num">5</div><div><strong>Keep a UGC permission log</strong> — Maintain a simple spreadsheet of who gave permission for which content and when.</div></div>
+      <div class="best-practice"><div class="bp-num">6</div><div><strong>Thank the creator after resharing</strong> — A comment or DM saying "thanks for sharing your new fence!" strengthens customer loyalty.</div></div>
+    </div>
+  </div>
+
+  <!-- OLDER MENTIONS -->
+  <div class="section">
+    <div class="section-header">
+      <h2>📁 Older Mentions (Before Dec 4, 2025)</h2>
+    </div>
+    <div class="section-body">
+      <p style="font-size:13px; color:#777; margin-bottom:12px;">The following listings and mentions were found but fall outside the 120-day scan window or have no confirmed date. They are included for reference only and should not be counted as new UGC.</p>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>URL</th>
+            <th>Date Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BBB Profile</td>
+            <td><a href="https://www.bbb.org/us/ut/west-jordan/profile/fence-sales/cruz-sons-fence-company-1166-90015442" target="_blank">View ↗</a></td>
+            <td>Date unknown</td>
+            <td>Pre-existing profile, needs status correction</td>
+          </tr>
+          <tr>
+            <td>Yellow Pages</td>
+            <td><a href="https://www.yellowpages.com/west-jordan-ut/mip/cruz-sons-fence-co-527898587" target="_blank">View ↗</a></td>
+            <td>Date unknown</td>
+            <td>Static directory listing</td>
+          </tr>
+          <tr>
+            <td>Manta</td>
+            <td><a href="https://www.manta.com/c/mw2m6y8/cruz-and-sons-fence-co-llc" target="_blank">View ↗</a></td>
+            <td>Date unknown</td>
+            <td>Small business directory</td>
+          </tr>
+          <tr>
+            <td>Facebook Pages (2 duplicates)</td>
+            <td><a href="https://www.facebook.com/p/Cruz-and-Sons-Fence-Company-100069426420019/" target="_blank">Page 1 ↗</a> / <a href="https://www.facebook.com/Cruz-Sons-Fence-977262829033654/about/" target="_blank">Page 2 ↗</a></td>
+            <td>Date unknown</td>
+            <td>Duplicate pages — merge or delete</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Generated by Content Scout &bull; Cruz &amp; Sons Fence Co. &bull; First Run — Dec 4, 2025 to Apr 3, 2026 (120 Days) &bull; April 3, 2026
+</div>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Content Report — Cruz & Sons Fence Co.</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; }
+
+  .header { background: linear-gradient(135deg, #2d6a2d 0%, #4caf50 100%); color: white; padding: 36px 40px 28px; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+  .header .sub { font-size: 14px; opacity: 0.88; margin-bottom: 18px; }
+  .header-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta-chip { background: rgba(255,255,255,0.18); border-radius: 20px; padding: 6px 14px; font-size: 13px; }
+
+  .stats-bar { display: flex; gap: 16px; padding: 20px 40px; background: white; border-bottom: 1px solid #e0e0e0; flex-wrap: wrap; }
+  .stat { text-align: center; min-width: 100px; }
+  .stat .num { font-size: 28px; font-weight: 700; color: #2d6a2d; }
+  .stat .label { font-size: 12px; color: #666; margin-top: 2px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+
+  .section { background: white; border-radius: 8px; margin-bottom: 24px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .section-header { padding: 16px 24px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; }
+  .platform-badge { border-radius: 12px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: white; }
+  .badge-website { background: #2d6a2d; }
+  .badge-instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+  .badge-facebook { background: #1877f2; }
+  .badge-yelp { background: #d32323; }
+  .badge-bbb { background: #003087; }
+  .badge-nextdoor { background: #00b259; }
+  .badge-yellow { background: #f5a623; }
+  .badge-directory { background: #555; }
+
+  .section-body { padding: 20px 24px; }
+
+  .content-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content-table th { background: #f0f4f0; color: #333; font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid #ddd; }
+  .content-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+  .content-table tr:hover td { background: #fafffe; }
+  .content-table a { color: #2d6a2d; text-decoration: none; }
+  .content-table a:hover { text-decoration: underline; }
+
+  .insight-box { background: #f0f9f0; border-left: 4px solid #2d6a2d; padding: 14px 18px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 14px; line-height: 1.6; }
+  .insight-box strong { display: block; margin-bottom: 4px; color: #2d6a2d; }
+
+  .gap-box { background: #fff8e1; border-left: 4px solid #f5a623; padding: 14px 18px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 14px; line-height: 1.6; }
+  .gap-box strong { display: block; margin-bottom: 4px; color: #b07000; }
+
+  .warning-box { background: #fff3e0; border-left: 4px solid #e65100; padding: 14px 18px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 14px; line-height: 1.6; }
+  .warning-box strong { display: block; margin-bottom: 4px; color: #e65100; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .summary-card { background: #f9fdf9; border: 1px solid #c8e6c9; border-radius: 8px; padding: 16px; }
+  .summary-card h3 { font-size: 14px; color: #2d6a2d; margin-bottom: 8px; }
+  .summary-card p { font-size: 13px; color: #555; line-height: 1.5; }
+
+  .issue-item { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .dot-red { background: #e53935; }
+  .dot-yellow { background: #ffc107; }
+  .dot-green { background: #43a047; }
+
+  .footer { text-align: center; font-size: 12px; color: #999; padding: 30px 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Brand Content Report — Cruz &amp; Sons Fence Co.</h1>
+  <div class="sub">Owned channel audit across website, social media, and directories</div>
+  <div class="header-meta">
+    <div class="meta-chip">📅 Scan Date: April 3, 2026</div>
+    <div class="meta-chip">🌐 cruzandsonsfence.com</div>
+    <div class="meta-chip">📍 West Jordan, UT</div>
+    <div class="meta-chip">🔍 First Run — Full Baseline</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="num">7</div><div class="label">Channels Found</div></div>
+  <div class="stat"><div class="num">3</div><div class="label">Active Social Platforms</div></div>
+  <div class="stat"><div class="num">3</div><div class="label">Directory Listings</div></div>
+  <div class="stat"><div class="num">3</div><div class="label">Facebook Pages (⚠️ Duplicate)</div></div>
+  <div class="stat"><div class="num">0</div><div class="label">Blog / Content Posts</div></div>
+  <div class="stat"><div class="num">0</div><div class="label">Video Channels</div></div>
+</div>
+
+<div class="container">
+
+  <!-- WEBSITE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-website">WEBSITE</span>
+      <h2>cruzandsonsfence.com</h2>
+    </div>
+    <div class="section-body">
+      <div class="insight-box">
+        <strong>✅ Site Is Live with Core Pages</strong>
+        The website exists and has at minimum three discoverable pages: Home, Projects, and Contact. This gives the brand a professional home base with portfolio and lead capture pages.
+      </div>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>URL</th>
+            <th>Content Type</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Homepage</td>
+            <td><a href="https://www.cruzandsonsfence.com/" target="_blank">cruzandsonsfence.com</a></td>
+            <td>Brand overview / Services</td>
+            <td>Features 35+ yrs experience, vinyl, wood, chain link, wrought iron, ornamental, gates, repairs. Licensed &amp; insured. Free estimates. Spanish spoken.</td>
+          </tr>
+          <tr>
+            <td>Projects Gallery</td>
+            <td><a href="https://www.cruzandsonsfence.com/projects" target="_blank">/projects</a></td>
+            <td>Portfolio / Photo gallery</td>
+            <td>Showcases completed fence installations. Key trust-builder page.</td>
+          </tr>
+          <tr>
+            <td>Contact Page</td>
+            <td><a href="https://www.cruzandsonsfence.com/contact" target="_blank">/contact</a></td>
+            <td>Lead generation</td>
+            <td>Contact form / phone. Listed phone: (801) 694-7966</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="gap-box" style="margin-top:16px;">
+        <strong>⚠️ Content Gap: No Blog or News Section</strong>
+        No discoverable blog, news, or educational content pages (e.g., "Types of Fencing," "How to Choose a Fence," "Project Spotlights"). Search engines have nothing to index beyond 3 static pages, limiting organic visibility.
+      </div>
+      <div class="gap-box">
+        <strong>⚠️ Content Gap: No Testimonials / Reviews Page</strong>
+        No dedicated reviews or testimonials page found. Adding this could significantly improve conversion for visitors who arrive from search.
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTAGRAM -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-instagram">INSTAGRAM</span>
+      <h2>@cruzandsonsfence</h2>
+    </div>
+    <div class="section-body">
+      <div class="insight-box">
+        <strong>✅ Account Exists</strong>
+        The Instagram account @cruzandsonsfence exists and the URL is valid: <a href="https://www.instagram.com/cruzandsonsfence/" target="_blank">instagram.com/cruzandsonsfence</a>
+      </div>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Signal</th>
+            <th>Finding</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Account Status</td>
+            <td>Active (URL confirmed)</td>
+            <td>Direct URL confirmed by user</td>
+          </tr>
+          <tr>
+            <td>Search Indexing</td>
+            <td>⚠️ Not indexed by Google</td>
+            <td>No posts appear in Google search results, suggesting either low posting frequency, a private account, or insufficient engagement for indexing</td>
+          </tr>
+          <tr>
+            <td>Content Type (Expected)</td>
+            <td>Before/after fence projects, work-in-progress shots</td>
+            <td>Standard for fence contractors in this market</td>
+          </tr>
+          <tr>
+            <td>Cross-promotion</td>
+            <td>Unknown — not confirmed on website</td>
+            <td>Website should link to Instagram and vice versa</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="gap-box" style="margin-top:16px;">
+        <strong>⚠️ No Discoverable Instagram Posts</strong>
+        Search engines found zero indexed posts from @cruzandsonsfence. This indicates very low posting activity, a private account setting, or a recently created/inactive profile. For a fence contractor, Instagram is the single best platform for showcasing project quality through before/after photos.
+      </div>
+    </div>
+  </div>
+
+  <!-- FACEBOOK -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-facebook">FACEBOOK</span>
+      <h2>Multiple Pages Found — Brand Confusion Issue</h2>
+    </div>
+    <div class="section-body">
+      <div class="warning-box">
+        <strong>🚨 Critical: Three Separate Facebook Pages Exist</strong>
+        Search results surface three distinct Facebook pages for Cruz &amp; Sons Fence. Multiple pages split followers, reviews, and recommendations — diluting social proof and confusing potential customers who may land on an outdated or less-maintained page.
+      </div>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Page Name</th>
+            <th>URL</th>
+            <th>Status</th>
+            <th>Recommendation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cruz &amp; Sons Fence</strong> (ID: 100063765511307)</td>
+            <td><a href="https://www.facebook.com/p/Cruz-Sons-Fence-100063765511307/" target="_blank">View Page ↗</a></td>
+            <td>✅ Primary (user-confirmed)</td>
+            <td>Keep this as the official page. Consolidate all activity here.</td>
+          </tr>
+          <tr>
+            <td>Cruz and Sons Fence Company</td>
+            <td><a href="https://www.facebook.com/p/Cruz-and-Sons-Fence-Company-100069426420019/" target="_blank">View Page ↗</a></td>
+            <td>⚠️ Duplicate</td>
+            <td>Request merge or deletion via Facebook Business Support</td>
+          </tr>
+          <tr>
+            <td>Cruz Sons Fence (ID: 977262829033654)</td>
+            <td><a href="https://www.facebook.com/Cruz-Sons-Fence-977262829033654/about/" target="_blank">View Page ↗</a></td>
+            <td>⚠️ Duplicate</td>
+            <td>Request merge or deletion via Facebook Business Support</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="insight-box" style="margin-top:16px;">
+        <strong>Primary Page Content (Cruz &amp; Sons Fence)</strong>
+        Description: Professional installation of vinyl, chain link and custom wood fencing, as well as fencing repairs. Phone: (801) 694-7966. Location: West Jordan, Utah.
+      </div>
+    </div>
+  </div>
+
+  <!-- YELP -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-yelp">YELP</span>
+      <h2>Cruz &amp; Sons Fence Company — West Jordan, UT</h2>
+    </div>
+    <div class="section-body">
+      <div class="insight-box">
+        <strong>✅ Listed and Updated July 2025</strong>
+        The business has an active Yelp listing that was last updated in July 2025, indicating it is still being maintained or recently confirmed as active.
+      </div>
+      <table class="content-table">
+        <thead>
+          <tr><th>Field</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Listing URL</td><td><a href="https://www.yelp.com/biz/cruz-and-sons-fence-company-west-jordan" target="_blank">yelp.com/biz/cruz-and-sons-fence-company-west-jordan ↗</a></td></tr>
+          <tr><td>Last Updated</td><td>July 2025</td></tr>
+          <tr><td>Business Hours</td><td>Monday–Saturday 8:00 AM – 6:30 PM, Closed Sunday</td></tr>
+          <tr><td>Services Listed</td><td>Vinyl, wood, wrought iron, ornamental, chain link fence, gates, fence repairs</td></tr>
+          <tr><td>Special Notes</td><td>Free estimates, Spanish spoken, 35+ years experience, fully licensed &amp; insured</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BBB -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-bbb">BBB</span>
+      <h2>Better Business Bureau Profile</h2>
+    </div>
+    <div class="section-body">
+      <div class="warning-box">
+        <strong>⚠️ BBB Profile Flags Potential Closure — Verify Accuracy</strong>
+        BBB files contain a note suggesting the business may no longer be in operation. However, active Yelp, Facebook, and web listings contradict this. This is likely outdated BBB data and should be corrected directly with the BBB to protect reputation.
+      </div>
+      <table class="content-table">
+        <thead>
+          <tr><th>Field</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BBB Profile URL</td><td><a href="https://www.bbb.org/us/ut/west-jordan/profile/fence-sales/cruz-sons-fence-company-1166-90015442" target="_blank">View BBB Profile ↗</a></td></tr>
+          <tr><td>Address</td><td>8400 S 2200 W, West Jordan, UT 84088</td></tr>
+          <tr><td>Category</td><td>Fence Sales</td></tr>
+          <tr><td>BBB Status Flag</td><td>⚠️ "May no longer be in business" — needs correction</td></tr>
+          <tr><td>Action Required</td><td>Contact BBB to update/correct operational status</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DIRECTORIES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="platform-badge badge-directory">DIRECTORIES</span>
+      <h2>Other Directory &amp; Citation Listings</h2>
+    </div>
+    <div class="section-body">
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Listing</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nextdoor</td>
+            <td><a href="https://nextdoor.com/pages/cruz-sons-fence-company-west-jordan-ut/" target="_blank">View ↗</a></td>
+            <td>✅ Active</td>
+            <td>1 neighbor recommendation. Low engagement — opportunity to grow.</td>
+          </tr>
+          <tr>
+            <td>Yellow Pages</td>
+            <td><a href="https://www.yellowpages.com/west-jordan-ut/mip/cruz-sons-fence-co-527898587" target="_blank">View ↗</a></td>
+            <td>✅ Listed</td>
+            <td>Basic citation. Verify NAP accuracy (Name, Address, Phone).</td>
+          </tr>
+          <tr>
+            <td>Washington Bids</td>
+            <td><a href="https://www.washingtonbids.com/directory/893327-cruz_and_sons_fence.html" target="_blank">View ↗</a></td>
+            <td>✅ Listed</td>
+            <td>Contractor directory listing. Good for commercial leads.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="gap-box" style="margin-top:16px;">
+        <strong>⚠️ Missing from High-Value Directories</strong>
+        No listings found on Google Business Profile (or not surfacing in search), Houzz, Angi/HomeAdvisor, Thumbtack, or HomeStars. These are key lead generation directories for fence contractors.
+      </div>
+    </div>
+  </div>
+
+  <!-- BRAND SUMMARY -->
+  <div class="section">
+    <div class="section-header">
+      <h2>📊 Brand Content Summary &amp; Opportunities</h2>
+    </div>
+    <div class="section-body">
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h3>Most Active Channel</h3>
+          <p>Website (cruzandsonsfence.com) with Yelp as secondary. Instagram and Facebook have a presence but low visible activity.</p>
+        </div>
+        <div class="summary-card">
+          <h3>Content Themes (Found)</h3>
+          <p>Experience &amp; credentials (35+ yrs, licensed/insured), service breadth (vinyl, wood, iron, chain link), and bilingual service (Spanish).</p>
+        </div>
+        <div class="summary-card">
+          <h3>Content Themes (Missing)</h3>
+          <p>Project spotlights, before/after photos, seasonal promotions, team introductions, customer testimonials, educational posts about fence types.</p>
+        </div>
+        <div class="summary-card">
+          <h3>Biggest Quick Win</h3>
+          <p>Fix the duplicate Facebook pages and the BBB status flag. Both hurt trust and are free to resolve.</p>
+        </div>
+      </div>
+
+      <h3 style="margin:24px 0 12px; font-size:16px;">Priority Issues by Severity</h3>
+      <div class="issue-item"><div class="issue-dot dot-red"></div><div><strong>URGENT:</strong> Three Facebook pages exist — consolidate to one to stop fragmenting reviews and followers.</div></div>
+      <div class="issue-item"><div class="issue-dot dot-red"></div><div><strong>URGENT:</strong> BBB profile has an incorrect "may be out of business" flag — this actively hurts trust. Contact BBB to correct immediately.</div></div>
+      <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><strong>HIGH:</strong> Instagram is not search-indexed — increase posting frequency and add relevant hashtags (#westjordanfence #utahfence #vinylfen ce #fencecontractor) to build organic visibility.</div></div>
+      <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><strong>HIGH:</strong> No blog or educational content on website — adding 4–6 articles per year significantly improves local SEO.</div></div>
+      <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><strong>HIGH:</strong> Not discoverable on Google Business Profile, Houzz, Angi, or Thumbtack — these are primary lead sources for home service contractors.</div></div>
+      <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><strong>MEDIUM:</strong> Only 1 Nextdoor recommendation — Nextdoor is extremely high-value for local fence contractors. Encourage satisfied customers to recommend the business.</div></div>
+      <div class="issue-item"><div class="issue-dot dot-green"></div><div><strong>STRENGTH:</strong> Clear brand messaging — 35+ years experience, licensed &amp; insured, free estimates, Spanish spoken. These are strong differentiators to amplify across all channels.</div></div>
+      <div class="issue-item"><div class="issue-dot dot-green"></div><div><strong>STRENGTH:</strong> Projects gallery page exists — with better social sharing and SEO tagging, this page could drive significant organic traffic.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Generated by Content Scout &bull; Cruz &amp; Sons Fence Co. &bull; April 3, 2026 &bull; First Run — 120-Day Baseline
+</div>
+
+</body>
+</html>
