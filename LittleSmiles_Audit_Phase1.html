@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Smiles Pediatric Dentistry — Phase 1 Digital Storefront Audit</title>
+<style>
+  :root {
+    --pass: #16a34a; --pass-bg: #dcfce7; --pass-border: #86efac;
+    --partial: #d97706; --partial-bg: #fef3c7; --partial-border: #fcd34d;
+    --fail: #dc2626; --fail-bg: #fee2e2; --fail-border: #fca5a5;
+    --na: #6b7280; --na-bg: #f3f4f6; --na-border: #d1d5db;
+    --strong: #16a34a; --strong-bg: #dcfce7;
+    --good: #2563eb; --good-bg: #dbeafe;
+    --needs: #d97706; --needs-bg: #fef3c7;
+    --critical: #dc2626; --critical-bg: #fee2e2;
+    --brand: #1d4ed8; --brand-dark: #1e3a8a;
+    --accent: #0ea5e9;
+    --surface: #ffffff; --bg: #f8fafc; --border: #e2e8f0;
+    --text: #1e293b; --muted: #64748b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* STICKY NAV */
+  #sticky-nav {
+    position: sticky; top: 0; z-index: 100; background: var(--brand-dark);
+    padding: 0 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  }
+  #sticky-nav ul { display: flex; list-style: none; gap: 0; overflow-x: auto; white-space: nowrap; }
+  #sticky-nav ul li a {
+    display: block; padding: .7rem .85rem; color: rgba(255,255,255,.75);
+    font-size: .78rem; font-weight: 600; text-decoration: none; letter-spacing: .02em;
+    border-bottom: 3px solid transparent; transition: all .2s;
+  }
+  #sticky-nav ul li a:hover, #sticky-nav ul li a.active { color: #fff; border-bottom-color: var(--accent); }
+
+  /* HEADER */
+  .page-header {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 50%, var(--accent) 100%);
+    color: white; padding: 2.5rem 2rem;
+  }
+  .page-header .label { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .75; margin-bottom: .5rem; }
+  .page-header h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: .5rem; }
+  .page-header .meta { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem; font-size: .85rem; opacity: .85; }
+  .page-header .meta span { display: flex; align-items: center; gap: .4rem; }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .section { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 1.5rem; overflow: hidden; }
+  .section-header { padding: 1.25rem 1.5rem; background: #f8fafc; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; cursor: pointer; }
+  .section-header h2 { font-size: 1rem; font-weight: 700; color: var(--text); flex: 1; }
+  .section-header .score-badge { font-size: .8rem; font-weight: 700; padding: .25rem .75rem; border-radius: 999px; }
+  .section-body { padding: 1.5rem; }
+
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .chevron { transform: rotate(180deg); }
+  .chevron { transition: transform .2s; width: 18px; height: 18px; color: var(--muted); }
+
+  /* SCORE RING */
+  .exec-grid { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; align-items: start; }
+  .ring-wrap { display: flex; flex-direction: column; align-items: center; gap: .5rem; }
+  .ring-label { font-size: .8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  svg.ring { filter: drop-shadow(0 4px 12px rgba(0,0,0,.1)); }
+  .ring-pct { font-size: 2.2rem; font-weight: 900; fill: var(--text); }
+  .ring-sub { font-size: .75rem; fill: var(--muted); }
+
+  /* SCORE TABLE */
+  .score-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+  .score-table th { background: #f1f5f9; padding: .65rem 1rem; text-align: left; font-weight: 700; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
+  .score-table td { padding: .65rem 1rem; border-top: 1px solid var(--border); }
+  .score-table tr:hover td { background: #f8fafc; }
+  .score-table .total-row td { font-weight: 800; background: #f1f5f9; font-size: .95rem; }
+
+  /* PROGRESS BAR */
+  .prog-wrap { display: flex; align-items: center; gap: .75rem; }
+  .prog-bar { flex: 1; height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; max-width: 120px; }
+  .prog-fill { height: 100%; border-radius: 999px; }
+  .prog-num { font-weight: 700; font-size: .8rem; min-width: 38px; }
+
+  /* STATUS PILLS */
+  .pill { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .6rem; border-radius: 999px; font-size: .75rem; font-weight: 700; white-space: nowrap; }
+  .pill-pass { background: var(--pass-bg); color: var(--pass); border: 1px solid var(--pass-border); }
+  .pill-partial { background: var(--partial-bg); color: var(--partial); border: 1px solid var(--partial-border); }
+  .pill-fail { background: var(--fail-bg); color: var(--fail); border: 1px solid var(--fail-border); }
+  .pill-na { background: var(--na-bg); color: var(--na); border: 1px solid var(--na-border); }
+
+  /* GRADE BADGES */
+  .grade { display: inline-block; padding: .2rem .7rem; border-radius: 6px; font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+  .grade-strong { background: var(--strong-bg); color: var(--strong); }
+  .grade-good { background: var(--good-bg); color: var(--good); }
+  .grade-needs { background: var(--needs-bg); color: var(--needs); }
+  .grade-critical { background: var(--critical-bg); color: var(--critical); }
+
+  /* CHECKLIST TABLE */
+  .check-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  .check-table th { background: #f8fafc; padding: .6rem .9rem; text-align: left; font-weight: 700; color: var(--muted); font-size: .73rem; text-transform: uppercase; letter-spacing: .04em; border-bottom: 2px solid var(--border); }
+  .check-table td { padding: .65rem .9rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .check-table tr:last-child td { border-bottom: none; }
+  .check-table .id-col { color: var(--muted); font-size: .75rem; font-weight: 600; white-space: nowrap; }
+  .check-table .note { color: var(--muted); font-size: .8rem; line-height: 1.5; }
+  .check-table .item-name { font-weight: 600; font-size: .85rem; line-height: 1.4; }
+
+  /* QUICK WINS */
+  .quick-wins { margin-top: 1.25rem; background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; border-radius: 10px; padding: 1rem 1.25rem; }
+  .quick-wins h4 { color: #1d4ed8; font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .6rem; display: flex; align-items: center; gap: .4rem; }
+  .quick-wins ul { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+  .quick-wins ul li { font-size: .85rem; color: #1e40af; padding-left: 1.2rem; position: relative; }
+  .quick-wins ul li::before { content: "⚡"; position: absolute; left: 0; }
+
+  /* INFO GRID */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: .75rem; }
+  .info-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: .85rem 1rem; }
+  .info-card .label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .3rem; }
+  .info-card .value { font-size: .9rem; font-weight: 600; color: var(--text); }
+
+  /* ACTION PLAN */
+  .action-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  .action-table th { background: #1e3a8a; color: white; padding: .7rem 1rem; text-align: left; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+  .action-table td { padding: .75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .action-table tr:last-child td { border-bottom: none; }
+  .action-table tr:hover td { background: #f8fafc; }
+  .priority-p0 { background: #fee2e2; color: #dc2626; font-weight: 800; font-size: .75rem; padding: .2rem .5rem; border-radius: 4px; }
+  .priority-p1 { background: #fef3c7; color: #d97706; font-weight: 800; font-size: .75rem; padding: .2rem .5rem; border-radius: 4px; }
+  .priority-p2 { background: #dbeafe; color: #2563eb; font-weight: 800; font-size: .75rem; padding: .2rem .5rem; border-radius: 4px; }
+  .priority-p3 { background: #f3f4f6; color: #6b7280; font-weight: 800; font-size: .75rem; padding: .2rem .5rem; border-radius: 4px; }
+  .impact-high { color: var(--fail); font-weight: 700; }
+  .impact-med { color: var(--partial); font-weight: 700; }
+  .effort-low { color: var(--pass); font-weight: 600; }
+  .effort-med { color: var(--partial); font-weight: 600; }
+  .effort-high { color: var(--fail); font-weight: 600; }
+
+  /* BROKEN LINK TABLE */
+  .link-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  .link-table th { background: #f1f5f9; padding: .5rem .75rem; text-align: left; font-weight: 700; color: var(--muted); font-size: .72rem; text-transform: uppercase; }
+  .link-table td { padding: .55rem .75rem; border-top: 1px solid var(--border); }
+
+  /* SECTION COLOR BARS */
+  .bar-conversion { border-top: 4px solid #8b5cf6; }
+  .bar-ux { border-top: 4px solid #0ea5e9; }
+  .bar-seo { border-top: 4px solid #f59e0b; }
+  .bar-services { border-top: 4px solid #10b981; }
+  .bar-trust { border-top: 4px solid #ec4899; }
+  .bar-nap { border-top: 4px solid #dc2626; }
+  .bar-insurance { border-top: 4px solid #6366f1; }
+  .bar-content { border-top: 4px solid #14b8a6; }
+  .bar-tech { border-top: 4px solid #64748b; }
+  .bar-gbp { border-top: 4px solid #16a34a; }
+  .bar-social { border-top: 4px solid #f97316; }
+
+  /* EXEC SUMMARY CARDS */
+  .exec-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.25rem; }
+  .exec-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+  .exec-card .ec-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .4rem; }
+  .exec-card .ec-val { font-size: .9rem; font-weight: 600; line-height: 1.4; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+  /* SECTION SCORE LINE */
+  .sec-score-line { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .sec-pct { font-size: 1.5rem; font-weight: 800; }
+
+  /* RESPONSIVE */
+  @media (max-width: 680px) {
+    .exec-grid { grid-template-columns: 1fr; }
+    .exec-cards { grid-template-columns: 1fr 1fr; }
+    .page-header h1 { font-size: 1.4rem; }
+  }
+
+  .tag { display: inline-block; font-size: .7rem; font-weight: 700; padding: .15rem .5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: .04em; background: #f1f5f9; color: var(--muted); }
+  .tag-high { background: #fee2e2; color: #dc2626; }
+  .tag-medium { background: #fef3c7; color: #d97706; }
+
+  .alert-box { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: .85rem 1rem; margin-bottom: 1rem; font-size: .875rem; color: #991b1b; }
+  .alert-box strong { display: block; margin-bottom: .3rem; }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav id="sticky-nav">
+  <ul>
+    <li><a href="#exec">Summary</a></li>
+    <li><a href="#s11">Conversion</a></li>
+    <li><a href="#s12">UX</a></li>
+    <li><a href="#s13">SEO</a></li>
+    <li><a href="#s14">Services</a></li>
+    <li><a href="#s15">Trust</a></li>
+    <li><a href="#s16">NAP</a></li>
+    <li><a href="#s17">Insurance</a></li>
+    <li><a href="#s18">Content</a></li>
+    <li><a href="#s19">Technical</a></li>
+    <li><a href="#gbp">GBP</a></li>
+    <li><a href="#social">Social</a></li>
+    <li><a href="#actions">Action Plan</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="label">Gen4 Dental · Phase 1 Digital Storefront Audit</div>
+  <h1>Little Smiles Pediatric Dentistry</h1>
+  <div class="meta">
+    <span>🌐 www.drjennysmiles.com</span>
+    <span>📍 Cedar Park, TX</span>
+    <span>📅 Audit Date: April 2, 2026</span>
+    <span>👤 Audited by: Claude (Gen4 Framework)</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ===== EXECUTIVE SUMMARY ===== -->
+<section class="section" id="exec">
+  <div class="section-header" style="cursor:default;">
+    <h2>Executive Summary</h2>
+    <span class="grade grade-needs">Needs Work — 56%</span>
+  </div>
+  <div class="section-body">
+    <div class="exec-grid">
+      <!-- SCORE RING -->
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 140 140" width="180" height="180">
+          <circle cx="70" cy="70" r="58" fill="none" stroke="#e2e8f0" stroke-width="14"/>
+          <circle cx="70" cy="70" r="58" fill="none" stroke="#d97706" stroke-width="14"
+            stroke-dasharray="364" stroke-dashoffset="160"
+            stroke-linecap="round" transform="rotate(-90 70 70)"/>
+          <text x="70" y="65" text-anchor="middle" class="ring-pct" font-family="Segoe UI, sans-serif" font-weight="900" font-size="28" fill="#1e293b">56%</text>
+          <text x="70" y="84" text-anchor="middle" class="ring-sub" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748b">OVERALL SCORE</text>
+          <text x="70" y="98" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="10" fill="#d97706" font-weight="700">NEEDS WORK</text>
+        </svg>
+        <div class="ring-label">Website Score</div>
+      </div>
+
+      <!-- SUMMARY TEXT -->
+      <div>
+        <p style="font-size:.95rem; line-height:1.7; margin-bottom:1rem;">
+          Little Smiles Pediatric Dentistry scores <strong>56% overall</strong> — a solid foundation with several meaningful gaps that are limiting new patient acquisition. The site's standout strengths are its warm, kid-friendly brand voice, an excellent Dr. Jenny bio, a live online booking system via Modento, and a well-organized emergency page with same-day messaging. However, the practice is being held back by a <strong>critical NAP phone number inconsistency</strong> (two different numbers displayed site-wide), a completely missing blog, no privacy policy in the footer, and weak SEO fundamentals — including a duplicated title tag, a non-keyword-rich H1, and no individual service page URLs. These are high-impact fixes that a market manager and web developer can address in a single sprint.
+        </p>
+
+        <div class="alert-box">
+          <strong>🚨 P0 Alert: Phone Number Inconsistency</strong>
+          The header displays <strong>(512) 218-1500</strong> while the footer and contact page display <strong>(512) 650-3538</strong> — and the footer's tel: link still points to the old number. This causes patient confusion and NAP inconsistency that hurts local SEO. Fix immediately.
+        </div>
+
+        <!-- SCORE SUMMARY TABLE -->
+        <table class="score-table">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Score</th>
+              <th>Pct</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1.1 Conversion Strategy</td>
+              <td>3.5 / 6</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:58%;background:#d97706;"></div></div>
+                  <span class="prog-num" style="color:#d97706;">58%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-needs">Needs Work</span></td>
+            </tr>
+            <tr>
+              <td>1.2 User Experience</td>
+              <td>3.5 / 4</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:88%;background:#16a34a;"></div></div>
+                  <span class="prog-num" style="color:#16a34a;">88%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-strong">Strong</span></td>
+            </tr>
+            <tr>
+              <td>1.3 SEO Fundamentals</td>
+              <td>2.0 / 6</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:33%;background:#dc2626;"></div></div>
+                  <span class="prog-num" style="color:#dc2626;">33%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-critical">Critical</span></td>
+            </tr>
+            <tr>
+              <td>1.4 Service Line Clarity</td>
+              <td>2.5 / 4</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:63%;background:#d97706;"></div></div>
+                  <span class="prog-num" style="color:#d97706;">63%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-good">Good</span></td>
+            </tr>
+            <tr>
+              <td>1.5 Trust-Building Elements</td>
+              <td>2.5 / 6</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:42%;background:#dc2626;"></div></div>
+                  <span class="prog-num" style="color:#dc2626;">42%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-critical">Critical</span></td>
+            </tr>
+            <tr>
+              <td>1.6 Location &amp; NAP</td>
+              <td>2.0 / 4</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:50%;background:#d97706;"></div></div>
+                  <span class="prog-num" style="color:#d97706;">50%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-needs">Needs Work</span></td>
+            </tr>
+            <tr>
+              <td>1.7 Insurance, Financing &amp; Offers</td>
+              <td>2.0 / 4</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:50%;background:#d97706;"></div></div>
+                  <span class="prog-num" style="color:#d97706;">50%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-needs">Needs Work</span></td>
+            </tr>
+            <tr>
+              <td>1.8 Content Quality &amp; Messaging</td>
+              <td>2.0 / 4</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:50%;background:#d97706;"></div></div>
+                  <span class="prog-num" style="color:#d97706;">50%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-needs">Needs Work</span></td>
+            </tr>
+            <tr>
+              <td>1.9 Technical Performance</td>
+              <td>3.5 / 4</td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:88%;background:#16a34a;"></div></div>
+                  <span class="prog-num" style="color:#16a34a;">88%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-strong">Strong</span></td>
+            </tr>
+            <tr class="total-row">
+              <td><strong>OVERALL WEBSITE SCORE</strong></td>
+              <td><strong>23.5 / 42</strong></td>
+              <td>
+                <div class="prog-wrap">
+                  <div class="prog-bar"><div class="prog-fill" style="width:56%;background:#d97706;"></div></div>
+                  <span class="prog-num" style="color:#d97706;">56%</span>
+                </div>
+              </td>
+              <td><span class="grade grade-needs">Needs Work</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EXEC CARDS -->
+    <div class="exec-cards" style="margin-top:1.5rem;">
+      <div class="exec-card">
+        <div class="ec-label">🏆 Top Strength</div>
+        <div class="ec-val">Excellent Dr. Jenny bio, kid-friendly brand voice, live Modento online booking, and a strong emergency page with FAQs.</div>
+      </div>
+      <div class="ec-card">
+        <div class="ec-label">⚠️ Biggest Gap</div>
+        <div class="ec-val">SEO fundamentals are critical: duplicated title tag, no keyword H1, all services bundled on one page, and no blog.</div>
+      </div>
+      <div class="ec-card">
+        <div class="ec-label">🔥 Highest Priority Fix</div>
+        <div class="ec-val">Fix the phone number NAP inconsistency site-wide immediately — two different numbers are being displayed and linked.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== SECTION 1.1 CONVERSION ===== -->
+<section class="section bar-conversion" id="s11">
+  <details open>
+    <summary>
+      <div class="section-header">
+        <h2>1.1 &nbsp; Conversion Strategy</h2>
+        <span class="grade grade-needs">Needs Work</span>
+        <span class="score-badge" style="background:#f5f3ff;color:#7c3aed;">3.5 / 6 &nbsp;·&nbsp; 58%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.1.1</td>
+            <td class="item-name">Primary CTA above the fold</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">"Book Online" button appears in the hero section, and a "Schedule Appointment" button is persistent in the sticky navigation bar — excellent CTA visibility.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.1.2</td>
+            <td class="item-name">Click-to-call phone number prominent on mobile</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">A tel: link exists in the header for <strong>(512) 218-1500</strong>, but the footer and contact page display a <em>different</em> number <strong>(512) 650-3538</strong>, and the footer's tel: href still points to the old number. Two numbers = patient confusion. Fix the inconsistency and ensure one number is used site-wide.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.1.3</td>
+            <td class="item-name">Online appointment booking available</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">Modento online booking is available via an external link (book.modento.io/little-smiles-pediatric-dentistry) — real-time booking exists, but it's not an embedded widget on the site. Patients must navigate away from drjennysmiles.com to book, which adds friction and increases drop-off.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.1.4</td>
+            <td class="item-name">Contact/booking form is short (≤5 fields)</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">The Contact page features a "Schedule Appointment" button linking to Modento rather than an on-site form. No short contact/inquiry form embedded on the contact page or homepage. Patients who prefer a quick message form have no option — only the external booking flow or phone.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.1.5</td>
+            <td class="item-name">New patient offer visible and compelling</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">A specific offer exists on the Financial Info page: <em>"$150 for children under 6, $250 for over 6 — includes comprehensive exam, all necessary X-rays, cleaning with fluoride."</em> This is a solid offer with real dollar amounts, but it is <strong>buried on an interior page</strong> and not visible on the homepage or in the hero. Move this offer to the homepage above the fold.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.1.6</td>
+            <td class="item-name">Multiple contact methods (phone, form, chat)</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">Phone (two numbers — see 1.1.2) and external booking link are present. No on-site contact/inquiry form or live chat widget found. Adding a chat widget (e.g., Podium or Birdeye) would meaningfully increase conversion for after-hours visitors.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-wins">
+        <h4>⚡ Quick Wins — Conversion</h4>
+        <ul>
+          <li>Move the "$150/$250 New Patient Special" callout to the homepage hero section — this can be a simple banner or headline addition, zero dev required.</li>
+          <li>Fix the phone number NAP inconsistency immediately: pick one canonical number and update all instances in the header, footer, and all tel: links.</li>
+          <li>Request a Modento embedded widget (or use an iframe) so booking stays on-site and reduces drop-off from the booking funnel.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SECTION 1.2 UX ===== -->
+<section class="section bar-ux" id="s12">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>1.2 &nbsp; User Experience</h2>
+        <span class="grade grade-strong">Strong</span>
+        <span class="score-badge" style="background:#ecfdf5;color:#16a34a;">3.5 / 4 &nbsp;·&nbsp; 88%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.2.1</td>
+            <td class="item-name">Fully mobile-responsive</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">WordPress site with a responsive Beaver Builder layout. Viewport meta is present. Navigation collapses to a hamburger menu on mobile. Images use srcset for responsive loading. Mobile experience appears solid.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.2.2</td>
+            <td class="item-name">Navigation clear and intuitive</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Clean top nav: <em>About Us / Our Patients / Our Services / Emergencies / Contact Us / Schedule Appointment.</em> Key sections are easy to find. The "New Patient Paperwork" is accessible under "Our Patients." Good structure for a pediatric practice.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.2.3</td>
+            <td class="item-name">Basic accessibility (alt text, color contrast)</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">Several images use generic alt text like <em>"LS_Individual Assets-65"</em>, <em>"dr-jenny-photo-1-min"</em>, and <em>"our-team-photo-min"</em> — these are file names, not descriptive alt text. Key images like hero sliders and the doctor photo should have meaningful alt text (e.g., <em>"Dr. Jenny Kiening, pediatric dentist in Cedar Park TX"</em>).</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.2.4</td>
+            <td class="item-name">404 page is branded and redirects users</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Custom branded 404 page exists with the title "Page Not Found — Little Smiles Pediatric Dentistry" and includes a site search form. The message reads: <em>"This page doesn't seem to exist. It looks like the link pointing here was faulty."</em> Good — would be stronger with a "Return to Homepage" CTA button and phone number.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-wins">
+        <h4>⚡ Quick Wins — UX</h4>
+        <ul>
+          <li>Update image alt text on the homepage hero images, Dr. Jenny photo, and team photo to include descriptive, keyword-rich text (e.g., "Dr. Jenny Kiening pediatric dentist Cedar Park Texas").</li>
+          <li>Add a "Return to Homepage" button and a phone number to the 404 page so lost visitors can still convert.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SECTION 1.3 SEO ===== -->
+<section class="section bar-seo" id="s13">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>1.3 &nbsp; SEO Fundamentals</h2>
+        <span class="grade grade-critical">Critical</span>
+        <span class="score-badge" style="background:#fef2f2;color:#dc2626;">2.0 / 6 &nbsp;·&nbsp; 33%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <p style="font-size:.85rem;color:#991b1b;background:#fef2f2;padding:.75rem 1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #fca5a5;">
+        🚨 <strong>SEO is the site's most critical weakness.</strong> The title tag is duplicated, the H1 has zero keywords, there are no individual service page URLs, and the blog is absent. These issues directly limit organic discovery of new patients searching for pediatric dentistry in Cedar Park.
+      </p>
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.3.1</td>
+            <td class="item-name">Location has unique, indexable page</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Single-location practice; the homepage serves as the location page and contains Cedar Park references throughout. The contact page at /contact-us/ has the full address and embedded map. Acceptable for a single location.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.3.2</td>
+            <td class="item-name">Title tag includes keyword + city + brand (under 65 chars)</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">Current title: <em>"Little Smiles Pediatric Dentistry- Pediatric Dentist in Cedar Park Pediatric Dentist in Cedar Park"</em> — <strong>the phrase "Pediatric Dentist in Cedar Park" is duplicated</strong>, and the tag is 96+ characters (far over the 65-char limit). Google will truncate this in search results. Recommended: <em>"Pediatric Dentist in Cedar Park, TX | Little Smiles"</em> (53 chars).</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.3.3</td>
+            <td class="item-name">Meta description under 165 chars with CTA</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">A meta description appears to be in place (could not render JS to extract), but given the duplicated title tag, it likely needs review. Recommended: <em>"Little Smiles Pediatric Dentistry offers gentle, expert care for kids in Cedar Park, TX. Same-day appointments available. Book online today!"</em> (147 chars). Verify and update via Yoast/RankMath.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.3.4</td>
+            <td class="item-name">H1 is singular, keyword-rich, and descriptive</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">Current H1: <strong>"SMILES ARE JUST WHAT WE DO!"</strong> — This is a brand slogan, not a keyword-optimized heading. It contains zero location or service keywords. Google uses H1 as a primary content signal. Recommended H1: <em>"Pediatric Dentist in Cedar Park, TX"</em> or <em>"Cedar Park's Trusted Pediatric Dentist for Infants &amp; Teens."</em></td>
+          </tr>
+          <tr>
+            <td class="id-col">1.3.5</td>
+            <td class="item-name">Individual service pages for top procedures</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">All services (exams, sealants, crowns, sedation, whitening, mouthguards, frenectomy, etc.) live on a single /our-services/ page. Only Curodont Enamel Regeneration has its own URL. This means there are no rankable pages for high-volume searches like "dental sealants Cedar Park" or "pediatric sedation dentistry Cedar Park TX." This is a significant missed SEO opportunity.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.3.6</td>
+            <td class="item-name">Local schema markup (Dentist/LocalBusiness)</td>
+            <td><span class="pill pill-na">➖ N/A</span></td>
+            <td class="note">Could not execute JavaScript to inspect JSON-LD schema. Verify manually: open DevTools on the homepage, go to Elements, and search for &lt;script type="application/ld+json"&gt;. Yoast SEO (if installed) typically generates basic LocalBusiness schema. Ensure it includes practice name, address, phone, hours, and @type: "Dentist".</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.3.7</td>
+            <td class="item-name">Google Search Console connected</td>
+            <td><span class="pill pill-na">➖ N/A</span></td>
+            <td class="note">Cannot verify from the front end. Confirm that drjennysmiles.com is verified in Google Search Console, the sitemap_index.xml has been submitted, and there are no critical crawl errors. This is a foundational SEO task.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.3.8</td>
+            <td class="item-name">Internal linking connects service, location, and blog pages</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">The homepage links to the services overview, about, and patient pages via image links. However, because all services are on one page and there is no blog, internal link strategy is limited. Adding individual service pages and blog content would naturally create a stronger internal link network.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-wins">
+        <h4>⚡ Quick Wins — SEO</h4>
+        <ul>
+          <li>Fix the title tag immediately — change to <em>"Pediatric Dentist in Cedar Park, TX | Little Smiles"</em> in Yoast/RankMath. This takes 2 minutes and will improve click-through from Google.</li>
+          <li>Update the homepage H1 to include "Pediatric Dentist in Cedar Park" — a keyword-rich H1 is one of Google's strongest on-page ranking signals.</li>
+          <li>Create at least 3 individual service pages (suggested: Dental Sealants, Pediatric Sedation Dentistry, and Pediatric Emergency Dental Care) with unique 500+ word content and local references.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SECTION 1.4 SERVICES ===== -->
+<section class="section bar-services" id="s14">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>1.4 &nbsp; Service Line Clarity</h2>
+        <span class="grade grade-good">Good</span>
+        <span class="score-badge" style="background:#f0fdf4;color:#16a34a;">2.5 / 4 &nbsp;·&nbsp; 63%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.4.1</td>
+            <td class="item-name">General dentistry listed in patient-friendly language</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Comprehensive service list on /our-services/: exams, cleanings, fluoride, sealants, crowns, mouthguards, sedation, teeth whitening, extractions, frenectomy, space maintainers, enamel microabrasion, and Curodont. Language is clear and patient-friendly with strong explanations of each service's benefits.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.4.2</td>
+            <td class="item-name">High-value procedures have dedicated pages</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">Only Curodont Enamel Regeneration has its own page (/our-services/curodont-enamel-regeneration/). High-value procedures like <strong>pediatric sedation dentistry, dental crowns for kids, sealants, and frenectomy</strong> are all sections on the single /our-services/ page with no individual URLs. These can't rank independently in Google.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.4.3</td>
+            <td class="item-name">Emergency dental services promoted and easy to find</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Excellent — a dedicated /emergencies/ page is in the main navigation, contains same-day appointment messaging, FAQs, and a clear CTA to call. Updated recently (image uploaded March 2026). This is a strong conversion asset for emergency-search traffic.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.4.4</td>
+            <td class="item-name">Cosmetic services use aspirational language and show results</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">Teeth whitening and enamel microabrasion are listed with solid clinical descriptions on the services page. However, there is no before/after photo gallery for cosmetic results, and the language is informational rather than aspirational. For a pediatric practice, adding teen/teen smile transformations would strengthen this section.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-wins">
+        <h4>⚡ Quick Wins — Services</h4>
+        <ul>
+          <li>Create a dedicated "Pediatric Sedation Dentistry Cedar Park" page — sedation is a high-anxiety, high-search-volume topic and parents actively search for it before choosing a practice.</li>
+          <li>Add a before/after teen smile gallery section to the teeth whitening and cosmetic treatment content.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SECTION 1.5 TRUST ===== -->
+<section class="section bar-trust" id="s15">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>1.5 &nbsp; Trust-Building Elements</h2>
+        <span class="grade grade-critical">Critical</span>
+        <span class="score-badge" style="background:#fef2f2;color:#dc2626;">2.5 / 6 &nbsp;·&nbsp; 42%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.5.1</td>
+            <td class="item-name">Doctor bio with real photo, credentials, personal story</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Excellent. The /our-difference/meet-dr-jenny/ page features Dr. Jennifer Kiening (Dr. Jenny) with her education (UT San Antonio, DDS 2000, Pediatric specialty 2005), Board Certified Diplomate status, ADA membership, and a warm personal section about being a mother of 5 children. Real photo linked from the homepage. This is a standout trust asset.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.5.2</td>
+            <td class="item-name">Patient reviews displayed on website</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">Three patient testimonials are displayed on the homepage (Nathan, Chaleigh, Elizabeth — all from Cedar Park). A full /our-difference/testimonials/ page exists. However, there is no Google review widget showing the practice's star rating, review count, or linked Google profile. Parents heavily rely on Google reviews for pediatric providers — a Google review widget would significantly boost trust.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.5.3</td>
+            <td class="item-name">Before/after gallery for cosmetic/restorative procedures</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">No before/after photo gallery found anywhere on the site. For a pediatric practice, showcasing successful smile corrections, space maintainer results, or cosmetic whitening can be powerful social proof — especially for parents considering elective procedures for teens.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.5.4</td>
+            <td class="item-name">Technology and equipment featured</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">Digital X-rays (90% radiation reduction) and sterilization technology are mentioned on the "Our Patients" page. The practice also recently added Curodont (2025/2026). However, there is no dedicated Technology page, and the mentions are brief. Highlighting advanced tech is especially persuasive to new pediatric parents who are comparison-shopping practices.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.5.5</td>
+            <td class="item-name">Awards, affiliations, certifications displayed</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">Dr. Jenny's credentials (ADA, Texas Dental Association, American Academy of Pediatric Dentistry, Board Certified Diplomate) are mentioned in her bio text, but there are no credential logo badges displayed on the About page, homepage, or footer. Adding ADA and ABPD badge imagery would provide instant visual trust signals to scanning visitors.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.5.6</td>
+            <td class="item-name">HIPAA/Privacy Policy accessible in footer</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">The footer displays <em>"©2026 Little Smiles Pediatric Dentistry"</em> with links to the address, Careers, and phone number — but <strong>no Privacy Policy, Terms of Service, or HIPAA Notice link is visible.</strong> This is a compliance and trust gap. A dental practice handling patient health information is required to post a HIPAA Notice of Privacy Practices. Add these links to the footer immediately.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-wins">
+        <h4>⚡ Quick Wins — Trust</h4>
+        <ul>
+          <li>Add a Google Reviews widget (Podium, Birdeye, or a free Google Places API widget) to the homepage showing the live star rating and recent reviews.</li>
+          <li>Add Privacy Policy and HIPAA Notice links to the footer — this is required for HIPAA compliance and takes 30 minutes with a standard dental privacy policy template.</li>
+          <li>Add ADA, ABPD, and AAPD logo badges to the footer or homepage — these are available from each organization and add instant credibility.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SECTION 1.6 NAP ===== -->
+<section class="section bar-nap" id="s16">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>1.6 &nbsp; Location &amp; NAP Consistency</h2>
+        <span class="grade grade-needs">Needs Work</span>
+        <span class="score-badge" style="background:#fef2f2;color:#dc2626;">2.0 / 4 &nbsp;·&nbsp; 50%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <div class="alert-box">
+        <strong>🚨 Critical NAP Issue: Two Different Phone Numbers</strong>
+        Header displays <strong>(512) 218-1500</strong> with tel:5122181500 link. Footer and Contact page display <strong>(512) 650-3538</strong> — but the footer's tel: href still points to 5122181500. The display text and the actual phone link do not match. This creates patient confusion and signals inconsistency to Google's local ranking algorithm.
+      </div>
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.6.1</td>
+            <td class="item-name">NAP consistent and visible site-wide</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">Two phone numbers are in conflict across the site. Header: <strong>(512) 218-1500</strong>. Footer/Contact/Our Patients: <strong>(512) 650-3538</strong>. Additionally, the footer's &lt;a href="tel:5122181500"&gt; links to the old number while displaying the new one. Determine the canonical number, update all instances in the CMS theme settings, and ensure the GBP matches.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.6.2</td>
+            <td class="item-name">Location has unique URL</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Single-location practice. The contact page at /contact-us/ serves as the location page with the full address and embedded Google Map. A /location/ page was also found in search results — confirm which is canonical and add a redirect if needed.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.6.3</td>
+            <td class="item-name">Embedded Google Map on location page</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">A live Google Maps iframe is embedded on the /contact-us/ page showing the Cedar Park location at 205 Denali Pass Dr, Suite A. Directions link included via maps.app.goo.gl. Good execution.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.6.4</td>
+            <td class="item-name">Hours accurate and prominently displayed</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">No business hours were found on the homepage, in the header, footer, or on the contact page. Hours (reportedly Mon–Thu 8am–5pm, Fri–Sun closed) should be visible in at least the footer or contact page. Patients who arrive at the site after hours need to know when to call back — missing hours is a lost contact opportunity.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-wins">
+        <h4>⚡ Quick Wins — NAP</h4>
+        <ul>
+          <li>Audit all phone instances in the WordPress theme, header, footer, and all page content — standardize to one canonical phone number everywhere within a single session.</li>
+          <li>Add business hours (Mon–Thu 8am–5pm, Fri–Sun closed) to the footer and contact page — this is a 10-minute change with significant UX and SEO impact.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SECTION 1.7 INSURANCE ===== -->
+<section class="section bar-insurance" id="s17">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>1.7 &nbsp; Insurance, Financing &amp; Offers</h2>
+        <span class="grade grade-needs">Needs Work</span>
+        <span class="score-badge" style="background:#f5f3ff;color:#7c3aed;">2.0 / 4 &nbsp;·&nbsp; 50%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.7.1</td>
+            <td class="item-name">Insurance accepted list current and visible</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">The Financial Info page states <em>"Our Practice Accepts Most Insurance Plans"</em> and mentions the office can help with claims, but <strong>no specific insurance plan names are listed</strong> (e.g., Aetna, BCBS, MetLife, Delta Dental, CHIP/Medicaid). For pediatric practices in Texas, CHIP enrollment is a major patient driver — listing accepted plans would directly increase new patient calls.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.7.2</td>
+            <td class="item-name">Financing options featured (CareCredit, etc.)</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">iCreditWorks financing is featured on the Financial Info page with a link to check options without affecting credit. Payment methods (Cash, Check, Visa, MC, Amex, Discover, HSA, FSA) are clearly listed. The 3% credit card convenience fee is transparently disclosed. Good financial transparency.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.7.3</td>
+            <td class="item-name">New patient special with specific offer and expiration</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">Offer exists: <em>"$150 for children under 6, $250 for over 6 — includes comprehensive exam, X-rays, cleaning with fluoride."</em> This is a specific, well-defined offer. However, it has <strong>no expiration date</strong> (reducing urgency) and is only visible on the Financial Info page — not on the homepage, hero, or navigation. Promote this prominently and add an expiration or "limited time" qualifier.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.7.4</td>
+            <td class="item-name">Membership/savings plan for uninsured patients</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">No in-house membership or savings plan was found. Given that a significant portion of Cedar Park families may be uninsured or on high-deductible plans, an in-house plan (e.g., $25/month for cleanings + discount on services) would be a strong conversion tool and recurring revenue driver. Consider Kleer, Membersy, or a custom plan.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-wins">
+        <h4>⚡ Quick Wins — Insurance &amp; Offers</h4>
+        <ul>
+          <li>Add a list of accepted insurance providers to the Financial Info page — even a general list of 8–10 major carriers increases trust and answers a top patient question before they call.</li>
+          <li>Move the new patient special ($150/$250) to the homepage — add a colorful callout box or hero banner section. This is free and can drive immediate appointments.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SECTION 1.8 CONTENT ===== -->
+<section class="section bar-content" id="s18">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>1.8 &nbsp; Content Quality &amp; Messaging</h2>
+        <span class="grade grade-needs">Needs Work</span>
+        <span class="score-badge" style="background:#f0fdfa;color:#0d9488;">2.0 / 4 &nbsp;·&nbsp; 50%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.8.1</td>
+            <td class="item-name">Homepage copy is patient-centric</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">The homepage messaging — <em>"Encouraging, Educating, Empowering"</em> — is warm, benefit-driven, and parent-focused. Testimonials from real Cedar Park families add credibility. The overall tone is playful and reassuring, which is exactly right for a pediatric practice trying to reduce anxiety in both kids and parents.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.8.2</td>
+            <td class="item-name">Blog/resources active with recent content</td>
+            <td><span class="pill pill-fail">❌ Fail</span></td>
+            <td class="note">No blog or resources section found on the site. The site:drjennysmiles.com search showed no blog posts in Google's index. A pediatric dental blog covering topics like <em>"When should my child first visit the dentist?"</em>, <em>"Cedar Park school-year dental checkup guide"</em>, or <em>"Signs your child may need a frenectomy"</em> would drive significant organic search traffic and position Dr. Jenny as a trusted community resource.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.8.3</td>
+            <td class="item-name">FAQs on service pages answering cost/procedure questions</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">A strong FAQ section exists on the /emergencies/ page (covers insurance, timing, and comfort during procedures). However, no FAQs were found on the main services page or on the homepage. Adding FAQs to key service sections (especially sedation and crowns) would address common parent concerns and can qualify for FAQ rich snippets in Google.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.8.4</td>
+            <td class="item-name">Messaging consistent with Gen4 brand voice</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">The Little Smiles brand is strong and consistent throughout — the "Smiles Are Just What We Do" tagline is carried well. The Gen4 parent brand appears in the footer via the Careers link (Gen4Dental SmartRecruiters). The practice has a distinct local identity which is appropriate, but market managers should confirm digital assets are aligned with Gen4 framework expectations.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-wins">
+        <h4>⚡ Quick Wins — Content</h4>
+        <ul>
+          <li>Launch a blog with a minimum of 2 locally-relevant posts per month — even 4 foundational articles in the first month would open up significant SEO surface area.</li>
+          <li>Add a 5-question FAQ section to the main /our-services/ page covering cost, what to expect, and how to prepare kids — reduces pre-appointment anxiety and increases bookings.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SECTION 1.9 TECHNICAL ===== -->
+<section class="section bar-tech" id="s19">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>1.9 &nbsp; Technical Performance</h2>
+        <span class="grade grade-strong">Strong</span>
+        <span class="score-badge" style="background:#f8fafc;color:#64748b;">3.5 / 4 &nbsp;·&nbsp; 88%</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <table class="check-table">
+        <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id-col">1.9.1</td>
+            <td class="item-name">Site uses HTTPS with valid SSL certificate</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Site loads securely over HTTPS. SSL certificate is valid. All internal navigation remained on HTTPS throughout the audit with no mixed content warnings observed.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.9.2</td>
+            <td class="item-name">XML sitemap submitted to Google</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">Sitemap exists at /sitemap.xml, which automatically redirects to /sitemap_index.xml — confirming a proper WordPress sitemap index structure. Verify in Google Search Console that this sitemap is submitted and returning no errors.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.9.3</td>
+            <td class="item-name">No broken links (404s) on key pages</td>
+            <td><span class="pill pill-pass">✅ Pass</span></td>
+            <td class="note">All primary navigation links tested successfully: /our-services/, /contact-us/, /our-patients/, /our-difference/, /our-difference/meet-dr-jenny/, /emergencies/, /financial-info/ — all returned live pages. The 404 test page confirmed a branded error page is in place. No broken navigation links found during the audit crawl.</td>
+          </tr>
+          <tr>
+            <td class="id-col">1.9.4</td>
+            <td class="item-name">No duplicate content issues</td>
+            <td><span class="pill pill-partial">⚠️ Partial</span></td>
+            <td class="note">All services are consolidated on a single /our-services/ page. While this isn't technically "duplicate content," it creates a large undifferentiated page with no individual canonical service URLs. As individual service pages are added, ensure canonical tags are set correctly to avoid thin-content issues. Also note: the /location/ URL found in search results may overlap with /contact-us/ — verify one is canonical.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- BROKEN LINK SUMMARY -->
+      <div class="divider"></div>
+      <h4 style="font-size:.85rem;font-weight:700;margin-bottom:.75rem;">🔗 Broken Link Crawl Summary</h4>
+      <div class="info-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1rem;">
+        <div class="info-card"><div class="label">Links Tested</div><div class="value">11</div></div>
+        <div class="info-card"><div class="label">✅ Live</div><div class="value" style="color:#16a34a;">10</div></div>
+        <div class="info-card"><div class="label">❌ 404 / Broken</div><div class="value" style="color:#dc2626;">0</div></div>
+        <div class="info-card"><div class="label">404 Page Branded</div><div class="value" style="color:#16a34a;">Yes ✅</div></div>
+      </div>
+      <table class="link-table">
+        <thead><tr><th>URL</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>/our-services/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Services overview page, live</td></tr>
+          <tr><td>/contact-us/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Contact page with map, live</td></tr>
+          <tr><td>/our-patients/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Patient info page, live</td></tr>
+          <tr><td>/our-difference/</td><td><span class="pill pill-pass">✅ Live</span></td><td>About page, live</td></tr>
+          <tr><td>/our-difference/meet-dr-jenny/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Dr. Jenny bio, live</td></tr>
+          <tr><td>/emergencies/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Emergency page, live</td></tr>
+          <tr><td>/financial-info/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Insurance/financing page, live</td></tr>
+          <tr><td>/our-services/curodont-enamel-regeneration/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Dedicated service page, live</td></tr>
+          <tr><td>/our-difference/meet-our-staff/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Team page, live</td></tr>
+          <tr><td>/our-difference/testimonials/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Testimonials page, live</td></tr>
+          <tr><td>/this-page-does-not-exist-test-404-xyz</td><td><span class="pill pill-pass">✅ Branded 404</span></td><td>Returns custom "Page Not Found" — practice name in title, search form included</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== GBP SUMMARY ===== -->
+<section class="section bar-gbp" id="gbp">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>2. &nbsp; Google Business Profile (GBP)</h2>
+        <span class="grade grade-needs">Needs Verification</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:1rem;">GBP data is surfaced from web search signals. A dedicated GBP audit is recommended for full scoring.</p>
+      <div class="info-grid">
+        <div class="info-card"><div class="label">Business Name</div><div class="value">Little Smiles Pediatric Dentistry</div></div>
+        <div class="info-card"><div class="label">Address</div><div class="value">205 Denali Pass Dr, Suite A<br>Cedar Park, TX 78613</div></div>
+        <div class="info-card"><div class="label">Phone (GBP)</div><div class="value">⚠️ Verify — site shows two numbers; confirm GBP matches</div></div>
+        <div class="info-card"><div class="label">Yelp Reviews</div><div class="value">122 reviews (as of Dec 2025)</div></div>
+        <div class="info-card"><div class="label">Google Reviews</div><div class="value">Could not verify — run dedicated GBP audit</div></div>
+        <div class="info-card"><div class="label">Profile Claimed</div><div class="value">Appears claimed (Google Maps embed works)</div></div>
+        <div class="info-card"><div class="label">Appointment Link</div><div class="value">Verify Modento link is set in GBP</div></div>
+        <div class="info-card"><div class="label">GBP Posts</div><div class="value">Could not verify — check posting cadence</div></div>
+      </div>
+
+      <div style="margin-top:1.25rem;">
+        <h4 style="font-size:.85rem;font-weight:700;margin-bottom:.6rem;">GBP Action Items</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.85rem;">
+          <li>⚠️ <strong>NAP Sync:</strong> Ensure the GBP phone number matches the canonical number you standardize on the website — inconsistency between GBP and website hurts local ranking.</li>
+          <li>⚠️ <strong>Review Velocity:</strong> With 122 Yelp reviews, the practice clearly has happy patients. Set up an automated Google review request via Modento or a review management platform — Google reviews are more valuable for local SEO than Yelp.</li>
+          <li>⚠️ <strong>GBP Posts:</strong> Publish 1–2 posts per week via the GBP dashboard — promote the new patient special, seasonal reminders (back-to-school checkups), and practice news.</li>
+          <li>⚠️ <strong>Q&amp;A Seeding:</strong> Pre-populate the GBP Q&amp;A section with 10+ common parent questions (insurance accepted, sedation options, first visit age, etc.).</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== SOCIAL MEDIA SUMMARY ===== -->
+<section class="section bar-social" id="social">
+  <details>
+    <summary>
+      <div class="section-header">
+        <h2>3. &nbsp; Social Media</h2>
+        <span class="grade grade-needs">Needs Verification</span>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </summary>
+    <div class="section-body">
+      <div class="info-grid">
+        <div class="info-card"><div class="label">Facebook</div><div class="value">✅ @LittleSmilesCedarPark<br><span style="font-size:.75rem;color:var(--muted);">Linked in footer</span></div></div>
+        <div class="info-card"><div class="label">Instagram</div><div class="value">⚠️ @littlesmilescedarpark<br><span style="font-size:.75rem;color:var(--muted);">Footer links to location tag — not profile</span></div></div>
+        <div class="info-card"><div class="label">YouTube</div><div class="value">✅ YouTube link on homepage<br><span style="font-size:.75rem;color:var(--muted);">One video linked (youtube.com/watch?v=Kecloma5-Gs)</span></div></div>
+        <div class="info-card"><div class="label">Yelp</div><div class="value">✅ Linked in footer<br>122 reviews</div></div>
+        <div class="info-card"><div class="label">TikTok / Twitter</div><div class="value">➖ Not found<br><span style="font-size:.75rem;color:var(--muted);">Not linked on website</span></div></div>
+        <div class="info-card"><div class="label">Nextdoor</div><div class="value">✅ Listed on Nextdoor<br><span style="font-size:.75rem;color:var(--muted);">Neighborhood Favorite — 2017</span></div></div>
+      </div>
+
+      <div style="margin-top:1.25rem;">
+        <h4 style="font-size:.85rem;font-weight:700;margin-bottom:.6rem;">Social Media Action Items</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.85rem;">
+          <li>❌ <strong>Fix Instagram link:</strong> The footer's Instagram link points to a location tag (<em>/explore/locations/245618416/</em>) rather than the practice's profile (@littlesmilescedarpark). Update the footer to link directly to <em>instagram.com/littlesmilescedarpark</em>.</li>
+          <li>⚠️ <strong>Content Cadence:</strong> Verify posting frequency — for a pediatric practice, Instagram Reels featuring kid-friendly content (fun chair reveals, team moments, patient milestone posts) perform exceptionally well with parents in the 25–40 age range.</li>
+          <li>⚠️ <strong>Facebook Engagement:</strong> Verify Messenger is enabled for Facebook — many parents prefer to DM before calling for a first appointment.</li>
+          <li>⚠️ <strong>Leverage Nextdoor:</strong> The practice was recognized as a 2017 Neighborhood Favorite. Refresh this presence — Nextdoor is a high-trust channel in the Cedar Park suburb market.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+<!-- ===== PRIORITIZED ACTION PLAN ===== -->
+<section class="section" id="actions">
+  <div class="section-header" style="cursor:default;">
+    <h2>🎯 Prioritized Action Plan — Top 15 Recommendations</h2>
+  </div>
+  <div class="section-body" style="padding:0;">
+    <table class="action-table">
+      <thead>
+        <tr>
+          <th style="width:70px;">Priority</th>
+          <th>Action</th>
+          <th style="width:80px;">Effort</th>
+          <th style="width:80px;">Impact</th>
+          <th style="width:60px;">Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="priority-p0">P0</span></td>
+          <td><strong>Fix phone number NAP inconsistency.</strong> Standardize to one canonical number across header, footer, contact page, and all tel: links. Update GBP and any directory listings to match.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Web Dev</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p0">P0</span></td>
+          <td><strong>Add Privacy Policy &amp; HIPAA Notice to footer.</strong> Required for HIPAA compliance. Use a standard dental privacy policy template and add two footer links. 30-minute fix.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Mktg / Legal</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p0">P0</span></td>
+          <td><strong>Fix homepage title tag.</strong> Change to <em>"Pediatric Dentist in Cedar Park, TX | Little Smiles"</em> (53 chars) via Yoast/RankMath. The current tag duplicates "Pediatric Dentist in Cedar Park" and exceeds 96 characters.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Web Dev / Mktg</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p1">P1</span></td>
+          <td><strong>Update homepage H1 to include keyword + location.</strong> Change <em>"SMILES ARE JUST WHAT WE DO!"</em> to <em>"Pediatric Dentist in Cedar Park, TX"</em> or similar. The slogan can remain as an H2 or subheading below.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Web Dev</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p1">P1</span></td>
+          <td><strong>Add new patient offer ($150/$250 special) to the homepage hero.</strong> Add a callout banner or hero tile with the offer details and a direct booking CTA. This offer already exists — it just needs to be visible above the fold.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Web Dev / Mktg</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p1">P1</span></td>
+          <td><strong>Add business hours to footer and contact page.</strong> Mon–Thu 8am–5pm is the reported schedule. Add to the footer widget and contact page alongside the address and phone.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Web Dev</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p1">P1</span></td>
+          <td><strong>Add a Google Reviews widget to the homepage.</strong> Use a Podium, Birdeye, or free Google Places API widget to display the live star rating and 3–5 recent reviews. Parents choosing a pediatric dentist heavily rely on Google reviews.</td>
+          <td><span class="effort-med">Medium</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Mktg</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p1">P1</span></td>
+          <td><strong>Create 3 individual service pages.</strong> Start with: (1) Pediatric Sedation Dentistry, (2) Dental Sealants for Kids, (3) Pediatric Emergency Dental Care. Each should be 500+ words with local keywords, FAQs, and a booking CTA.</td>
+          <td><span class="effort-med">Medium</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Mktg / Writer</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p1">P1</span></td>
+          <td><strong>Fix the Instagram footer link.</strong> Update from the location tag URL to <em>https://www.instagram.com/littlesmilescedarpark/</em>. This is a 2-minute fix in the WordPress theme footer settings.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-med">Medium</span></td>
+          <td>Web Dev</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p1">P1</span></td>
+          <td><strong>Fix image alt text on hero and key photos.</strong> Update alt attributes on the Dr. Jenny photo, team photo, and hero slider images to include descriptive, keyword-rich text (e.g., <em>"Dr. Jenny Kiening pediatric dentist Cedar Park Texas"</em>).</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-med">Medium</span></td>
+          <td>Web Dev</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p2">P2</span></td>
+          <td><strong>Launch a blog with monthly local content.</strong> Start with 2–4 foundational posts: "When should my child's first dental visit be?", "Back-to-school dental checkup guide for Cedar Park families", "What is Curodont and why is it a game-changer for kids?" Post at least 2x/month going forward.</td>
+          <td><span class="effort-med">Medium</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Mktg / Writer</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p2">P2</span></td>
+          <td><strong>Add credential badge logos to the footer and About page.</strong> Display ADA, AAPD, ABPD, and Texas Dental Association logos — these are available from each organization as downloadable badge files.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-med">Medium</span></td>
+          <td>Web Dev / Mktg</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p2">P2</span></td>
+          <td><strong>Add specific insurance plan names to the Financial Info page.</strong> List 8–10 accepted carriers (Delta Dental, BCBS, Aetna, MetLife, CHIP/Medicaid, etc.). This directly answers a top phone-call question and can reduce staff time on insurance inquiries.</td>
+          <td><span class="effort-low">Low</span></td>
+          <td><span class="impact-med">Medium</span></td>
+          <td>Office Manager</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p2">P2</span></td>
+          <td><strong>Add a before/after smile gallery for teen cosmetic procedures.</strong> Even 6–8 genuine before/after photos (with patient consent) for teeth whitening or smile correction would strengthen the cosmetic service offering and increase teen-parent conversions.</td>
+          <td><span class="effort-med">Medium</span></td>
+          <td><span class="impact-med">Medium</span></td>
+          <td>Clinical / Mktg</td>
+        </tr>
+        <tr>
+          <td><span class="priority-p3">P3</span></td>
+          <td><strong>Explore in-house membership plan for uninsured families.</strong> Consider a simple plan: $X/month per child for 2 cleanings + discount on services. Platforms like Kleer or Membersy make this easy to launch. This creates recurring revenue and new patient stickiness.</td>
+          <td><span class="effort-high">High</span></td>
+          <td><span class="impact-high">High</span></td>
+          <td>Leadership / Mktg</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:2rem 1rem;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:.5rem;">
+  Gen4 Dental · Phase 1 Digital Storefront Audit · drjennysmiles.com · Audit Date: April 2, 2026 · Audited by Claude (Gen4 Marketing Framework)
+</div>
+
+</div><!-- /container -->
+
+<script>
+// Scroll-spy for sticky nav
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('#sticky-nav a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -75% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Toggle chevron on details open/close
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', () => {
+    const chevron = d.querySelector('.chevron');
+    if (chevron) chevron.style.transform = d.open ? 'rotate(180deg)' : '';
+  });
+});
+</script>
+</body>
+</html>
