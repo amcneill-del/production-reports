@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cruz And Sons Fence Co. — Digital Storefront Audit Phase 1</title>
+<style>
+  :root {
+    --pass: #16a34a; --pass-bg: #dcfce7; --pass-border: #86efac;
+    --partial: #d97706; --partial-bg: #fef3c7; --partial-border: #fcd34d;
+    --fail: #dc2626; --fail-bg: #fee2e2; --fail-border: #fca5a5;
+    --na: #6b7280; --na-bg: #f3f4f6; --na-border: #d1d5db;
+    --strong: #16a34a; --strong-bg: #dcfce7;
+    --good: #2563eb; --good-bg: #dbeafe;
+    --needs: #d97706; --needs-bg: #fef3c7;
+    --critical: #dc2626; --critical-bg: #fee2e2;
+    --brand: #1e3a5f;
+    --accent: #e85d26;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+
+  /* STICKY NAV */
+  #sticky-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--brand); color: white;
+    display: flex; align-items: center; gap: 0;
+    padding: 0 16px; overflow-x: auto; white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  #sticky-nav .nav-brand { font-weight: 700; font-size: 14px; padding: 12px 16px 12px 0; border-right: 1px solid rgba(255,255,255,0.2); margin-right: 8px; flex-shrink: 0; }
+  #sticky-nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 12px; padding: 12px 12px; transition: all .2s; border-radius: 4px; flex-shrink: 0; }
+  #sticky-nav a:hover, #sticky-nav a.active { color: white; background: rgba(255,255,255,0.15); }
+
+  /* HEADER */
+  .audit-header {
+    background: linear-gradient(135deg, var(--brand) 0%, #2d5a8e 100%);
+    color: white; padding: 48px 32px 40px;
+  }
+  .audit-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+  .audit-header .subtitle { opacity: 0.8; font-size: 15px; margin-bottom: 16px; }
+  .meta-grid { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 16px; }
+  .meta-item { font-size: 13px; opacity: 0.85; }
+  .meta-item strong { opacity: 1; color: white; }
+
+  /* MAIN CONTENT */
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+  section { margin-bottom: 40px; }
+
+  /* EXECUTIVE SUMMARY */
+  .exec-summary { background: white; border-radius: 16px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); padding: 32px; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
+  @media(max-width:640px){ .exec-summary { grid-template-columns: 1fr; } }
+  .score-ring-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .score-ring { position: relative; width: 140px; height: 140px; }
+  .score-ring svg { transform: rotate(-90deg); }
+  .score-ring .ring-bg { fill: none; stroke: #e2e8f0; stroke-width: 12; }
+  .score-ring .ring-fill { fill: none; stroke-width: 12; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+  .score-ring .ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .score-ring .ring-pct { font-size: 30px; font-weight: 800; }
+  .score-ring .ring-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+  .grade-badge { padding: 6px 18px; border-radius: 20px; font-weight: 700; font-size: 14px; }
+  .exec-text h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: var(--brand); }
+  .exec-text p { color: #475569; font-size: 15px; margin-bottom: 10px; }
+  .exec-text p:last-child { margin-bottom: 0; }
+
+  /* SCORE TABLE */
+  .score-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+  .score-table thead tr { background: var(--brand); color: white; }
+  .score-table th { padding: 12px 16px; text-align: left; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .score-table td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid #f1f5f9; }
+  .score-table tr:last-child td { border-bottom: none; font-weight: 700; background: #f8fafc; }
+  .score-table tr:hover td { background: #f8fafc; }
+  .pct-bar { display: flex; align-items: center; gap: 8px; }
+  .bar-bg { flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  /* SECTION CARDS */
+  .section-card { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden; margin-bottom: 20px; }
+  .section-card summary { list-style: none; cursor: pointer; padding: 20px 24px; display: flex; align-items: center; gap: 16px; }
+  .section-card summary::-webkit-details-marker { display: none; }
+  .section-card[open] summary { border-bottom: 1px solid #e2e8f0; }
+  .section-header-info { flex: 1; }
+  .section-header-info h3 { font-size: 17px; font-weight: 700; color: var(--brand); }
+  .section-header-info .section-subtitle { font-size: 13px; color: #64748b; margin-top: 2px; }
+  .section-score-badge { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .section-score-badge .pct { font-size: 20px; font-weight: 800; }
+  .chevron { color: #94a3b8; font-size: 18px; transition: transform .3s; }
+  details[open] .chevron { transform: rotate(90deg); }
+  .section-body { padding: 24px; }
+
+  /* STATUS PILLS */
+  .pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .pill-pass { background: var(--pass-bg); color: var(--pass); border: 1px solid var(--pass-border); }
+  .pill-partial { background: var(--partial-bg); color: var(--partial); border: 1px solid var(--partial-border); }
+  .pill-fail { background: var(--fail-bg); color: var(--fail); border: 1px solid var(--fail-border); }
+  .pill-na { background: var(--na-bg); color: var(--na); border: 1px solid var(--na-border); }
+
+  /* GRADE BADGES */
+  .badge-strong { background: var(--strong-bg); color: var(--strong); }
+  .badge-good { background: var(--good-bg); color: var(--good); }
+  .badge-needs { background: var(--needs-bg); color: var(--needs); }
+  .badge-critical { background: var(--critical-bg); color: var(--critical); }
+
+  /* CHECKLIST TABLE */
+  .checklist-table { width: 100%; border-collapse: collapse; }
+  .checklist-table th { text-align: left; font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 12px; border-bottom: 2px solid #e2e8f0; }
+  .checklist-table td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: top; }
+  .checklist-table tr:last-child td { border-bottom: none; }
+  .checklist-table .item-id { color: #94a3b8; font-size: 12px; font-family: monospace; }
+  .checklist-table .item-name { font-weight: 600; color: #1e293b; margin-bottom: 2px; }
+  .checklist-table .item-note { font-size: 13px; color: #64748b; }
+
+  /* QUICK WINS */
+  .quick-wins { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 1px solid #fcd34d; border-radius: 12px; padding: 16px 20px; margin-top: 20px; }
+  .quick-wins h4 { color: #92400e; font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .quick-wins ul { list-style: none; }
+  .quick-wins li { font-size: 13px; color: #78350f; padding: 4px 0; display: flex; gap: 8px; }
+  .quick-wins li::before { content: "⚡"; flex-shrink: 0; }
+
+  /* INFO GRIDS */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; }
+  .info-card h5 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 6px; }
+  .info-card p { font-size: 14px; color: #1e293b; font-weight: 500; }
+
+  /* ACTION PLAN */
+  .action-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+  .action-table thead tr { background: var(--brand); color: white; }
+  .action-table th { padding: 12px 16px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .action-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .action-table tr:last-child td { border-bottom: none; }
+  .action-table tr:hover td { background: #f8fafc; }
+  .priority-p0 { background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .priority-p1 { background: #fef3c7; color: #92400e; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .priority-p2 { background: #dbeafe; color: #1e40af; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .priority-p3 { background: #f3f4f6; color: #374151; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .impact-high { color: var(--fail); font-weight: 700; }
+  .impact-med { color: var(--partial); font-weight: 700; }
+  .impact-low { color: var(--na); font-weight: 600; }
+
+  /* BROKEN LINK TABLE */
+  .link-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .link-table th { text-align: left; padding: 8px 12px; background: #f1f5f9; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: #64748b; }
+  .link-table td { padding: 8px 12px; border-bottom: 1px solid #f1f5f9; }
+
+  /* GBP / SOCIAL */
+  .gbp-card { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 24px; }
+  .gbp-card h3 { font-size: 18px; font-weight: 700; color: var(--brand); margin-bottom: 16px; }
+  .flag-note { background: #fef9c3; border-left: 4px solid #eab308; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #713f12; margin-bottom: 16px; }
+  .flag-note strong { color: #713f12; }
+
+  h2.section-title { font-size: 22px; font-weight: 800; color: var(--brand); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid var(--accent); display: flex; align-items: center; gap: 10px; }
+
+  footer.audit-footer { background: var(--brand); color: rgba(255,255,255,0.7); text-align: center; padding: 24px; font-size: 12px; margin-top: 40px; }
+  footer.audit-footer strong { color: white; }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav id="sticky-nav">
+  <div class="nav-brand">📋 Phase 1 Audit</div>
+  <a href="#executive-summary">Summary</a>
+  <a href="#score-table">Scores</a>
+  <a href="#sec-1-1">Conversion</a>
+  <a href="#sec-1-2">UX</a>
+  <a href="#sec-1-3">SEO</a>
+  <a href="#sec-1-4">Services</a>
+  <a href="#sec-1-5">Trust</a>
+  <a href="#sec-1-6">NAP</a>
+  <a href="#sec-1-7">Offers</a>
+  <a href="#sec-1-8">Content</a>
+  <a href="#sec-1-9">Technical</a>
+  <a href="#gbp">GBP</a>
+  <a href="#social">Social</a>
+  <a href="#action-plan">Action Plan</a>
+</nav>
+
+<!-- HEADER -->
+<div class="audit-header">
+  <h1>Cruz And Sons Fence Co. — Digital Storefront Audit</h1>
+  <div class="subtitle">Phase 1: Digital Storefront Review</div>
+  <div class="meta-grid">
+    <div class="meta-item"><strong>Website:</strong> cruzandsonsfence.com</div>
+    <div class="meta-item"><strong>Location:</strong> West Jordan, Utah</div>
+    <div class="meta-item"><strong>Audit Date:</strong> April 3, 2026</div>
+    <div class="meta-item"><strong>Audited By:</strong> Claude (Gen4 Digital Storefront Framework)</div>
+    <div class="meta-item"><strong>Platform:</strong> Squarespace</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="executive-summary">
+    <h2 class="section-title">🏁 Executive Summary</h2>
+    <div class="exec-summary">
+      <div class="score-ring-wrap">
+        <div class="score-ring">
+          <svg viewBox="0 0 140 140" width="140" height="140">
+            <circle class="ring-bg" cx="70" cy="70" r="58"/>
+            <circle class="ring-fill" cx="70" cy="70" r="58"
+              stroke="#dc2626"
+              stroke-dasharray="364.4"
+              stroke-dashoffset="240"/>
+          </svg>
+          <div class="ring-text">
+            <span class="ring-pct" style="color:#dc2626">34%</span>
+            <span class="ring-label">Overall</span>
+          </div>
+        </div>
+        <span class="grade-badge badge-critical">🔴 Critical</span>
+      </div>
+      <div class="exec-text">
+        <h2>Digital Presence Needs Major Work</h2>
+        <p>Cruz And Sons Fence Co. scores <strong>34% overall</strong> — placing them in the Critical range. The site has a functional foundation on Squarespace with HTTPS, a clean mobile-responsive design, an impressive project photo gallery, and a clear "Get a Free Bid" CTA on the homepage. These are real strengths to build from.</p>
+        <p>The biggest gaps are in <strong>SEO and local discoverability</strong>: the site has no title tags with keywords or city, no meta descriptions, no schema markup, no local service pages, and no Google Business Profile activity that could be confirmed. Together, these issues make it nearly invisible in local search for "fence company West Jordan" or similar queries.</p>
+        <p>Secondary gaps include <strong>missing trust signals</strong> (no reviews on site, no team photos, no privacy policy), <strong>missing conversion elements</strong> (no click-to-call in the header, no business hours, no map on the contact page), and no blog or FAQ content. The highest-priority actions can be completed quickly and at low cost — especially fixing the title tags, adding click-to-call, and claiming/optimizing the Google Business Profile.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCORE TABLE -->
+  <section id="score-table">
+    <h2 class="section-title">📊 Score Summary</h2>
+    <table class="score-table">
+      <thead>
+        <tr><th>Section</th><th>Score</th><th>%</th><th>Grade</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1.1 Conversion Strategy</td>
+          <td>3.5 / 6</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:58%;background:#d97706"></div></div><span>58%</span></div>
+          </td>
+          <td><span class="grade-badge badge-needs" style="padding:3px 12px;border-radius:12px;font-size:13px">🟠 Needs Work</span></td>
+        </tr>
+        <tr>
+          <td>1.2 User Experience</td>
+          <td>2.5 / 4</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:63%;background:#2563eb"></div></div><span>63%</span></div>
+          </td>
+          <td><span class="grade-badge badge-good" style="padding:3px 12px;border-radius:12px;font-size:13px">🔵 Good</span></td>
+        </tr>
+        <tr>
+          <td>1.3 SEO Fundamentals</td>
+          <td>0 / 7</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:0%;background:#dc2626"></div></div><span>0%</span></div>
+          </td>
+          <td><span class="grade-badge badge-critical" style="padding:3px 12px;border-radius:12px;font-size:13px">🔴 Critical</span></td>
+        </tr>
+        <tr>
+          <td>1.4 Service Line Clarity</td>
+          <td>1 / 4</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:25%;background:#dc2626"></div></div><span>25%</span></div>
+          </td>
+          <td><span class="grade-badge badge-critical" style="padding:3px 12px;border-radius:12px;font-size:13px">🔴 Critical</span></td>
+        </tr>
+        <tr>
+          <td>1.5 Trust-Building Elements</td>
+          <td>2 / 5</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#dc2626"></div></div><span>40%</span></div>
+          </td>
+          <td><span class="grade-badge badge-critical" style="padding:3px 12px;border-radius:12px;font-size:13px">🔴 Critical</span></td>
+        </tr>
+        <tr>
+          <td>1.6 Location &amp; NAP Consistency</td>
+          <td>0.5 / 4</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:13%;background:#dc2626"></div></div><span>13%</span></div>
+          </td>
+          <td><span class="grade-badge badge-critical" style="padding:3px 12px;border-radius:12px;font-size:13px">🔴 Critical</span></td>
+        </tr>
+        <tr>
+          <td>1.7 Financing &amp; Offers</td>
+          <td>0.5 / 3</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:17%;background:#dc2626"></div></div><span>17%</span></div>
+          </td>
+          <td><span class="grade-badge badge-critical" style="padding:3px 12px;border-radius:12px;font-size:13px">🔴 Critical</span></td>
+        </tr>
+        <tr>
+          <td>1.8 Content Quality &amp; Messaging</td>
+          <td>1 / 4</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:25%;background:#dc2626"></div></div><span>25%</span></div>
+          </td>
+          <td><span class="grade-badge badge-critical" style="padding:3px 12px;border-radius:12px;font-size:13px">🔴 Critical</span></td>
+        </tr>
+        <tr>
+          <td>1.9 Technical Performance</td>
+          <td>3.5 / 4</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:88%;background:#16a34a"></div></div><span>88%</span></div>
+          </td>
+          <td><span class="grade-badge badge-strong" style="padding:3px 12px;border-radius:12px;font-size:13px">🟢 Strong</span></td>
+        </tr>
+        <tr style="font-weight:800">
+          <td>OVERALL WEBSITE SCORE</td>
+          <td>14 / 41</td>
+          <td>
+            <div class="pct-bar"><div class="bar-bg"><div class="bar-fill" style="width:34%;background:#dc2626"></div></div><span style="color:#dc2626;font-weight:800">34%</span></div>
+          </td>
+          <td><span class="grade-badge badge-critical" style="padding:3px 12px;border-radius:12px;font-size:13px">🔴 CRITICAL</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SECTION 1.1 -->
+  <section>
+    <h2 class="section-title" id="sec-1-1">📱 Section 1.1 — Conversion Strategy</h2>
+    <details class="section-card" open>
+      <summary>
+        <div class="section-header-info">
+          <h3>1.1 Conversion Strategy</h3>
+          <div class="section-subtitle">CTAs, click-to-call, booking, offers — the engine that turns visitors into leads</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#d97706">58%</span>
+          <span class="grade-badge badge-needs" style="padding:2px 10px;border-radius:10px;font-size:12px">🟠 Needs Work</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.1.1</td>
+              <td><div class="item-name">Primary CTA above the fold</div></td>
+              <td><span class="pill pill-pass">✅ Pass</span></td>
+              <td class="item-note">"GET A FREE BID" button appears in the hero section, links to /contact. Clear, action-oriented language.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.1.2</td>
+              <td><div class="item-name">Click-to-call phone number prominent</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">Phone number (801)694-7966 appears only in the footer as plain text — not a tel: link and not visible without scrolling. No phone in the header at all. On mobile, this is a critical conversion miss.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.1.3</td>
+              <td><div class="item-name">Online booking / scheduling available</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">Contact form exists at /contact. No real-time scheduling widget. For a fencing company, a form is acceptable, but it should be prominent on every page, not just the contact page.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.1.4</td>
+              <td><div class="item-name">Contact form is short (≤5 fields)</div></td>
+              <td><span class="pill pill-pass">✅ Pass</span></td>
+              <td class="item-note">Form has exactly 5 fields: Name, Phone, Email, Subject, Message. Clean and not overwhelming.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.1.5</td>
+              <td><div class="item-name">New customer offer/special visible</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">"Free Estimates — Schedule your free bid today" is present on the homepage. However, there is no dollar-value offer, no expiration, and no dedicated landing page for the offer. It reads as standard industry practice, not a differentiating special.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.1.6</td>
+              <td><div class="item-name">Multiple contact methods (phone, form, chat)</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">Phone and contact form are both present, but neither is easy to find without digging. No live chat or chatbot. Email (cruzandsonsfenceco@aol.com) in footer is a trust-negative signal (AOL address).</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quick-wins">
+          <h4>⚡ Quick Wins — Section 1.1</h4>
+          <ul>
+            <li>Add a click-to-call tel: link in the site header (e.g., <strong>(801) 694-7966</strong>). Takes 5 minutes in Squarespace, massive mobile conversion impact.</li>
+            <li>Embed the contact form on the homepage below the hero so visitors can request a bid without navigating to a separate page.</li>
+            <li>Upgrade the email to a domain address (e.g., info@cruzandsonsfence.com) — the AOL address erodes trust and looks outdated.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 1.2 -->
+  <section>
+    <h2 class="section-title" id="sec-1-2">🖥️ Section 1.2 — User Experience</h2>
+    <details class="section-card">
+      <summary>
+        <div class="section-header-info">
+          <h3>1.2 User Experience</h3>
+          <div class="section-subtitle">Mobile responsiveness, navigation, accessibility, 404 pages</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#2563eb">63%</span>
+          <span class="grade-badge badge-good" style="padding:2px 10px;border-radius:10px;font-size:12px">🔵 Good</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.2.1</td>
+              <td><div class="item-name">Fully mobile-responsive</div></td>
+              <td><span class="pill pill-pass">✅ Pass</span></td>
+              <td class="item-note">Built on Squarespace, which enforces mobile-responsive design. Viewport meta tag confirmed. Grid-based layout adapts to mobile breakpoint at 768px.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.2.2</td>
+              <td><div class="item-name">Navigation clear and intuitive</div></td>
+              <td><span class="pill pill-pass">✅ Pass</span></td>
+              <td class="item-note">Only 3 nav items (Contact, Projects, About) + "GET A FREE BID" CTA. Clean and uncluttered. One note: the About page has an internal title of "General 3" — a Squarespace default that needs to be renamed.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.2.3</td>
+              <td><div class="item-name">Basic accessibility (alt text, color contrast)</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">All site images are named with UUID strings (e.g., "4818D5D9-40C3-44FD-A779.png", "IMG-1832.JPG") — these are device-generated filenames with no descriptive alt text. Screen readers cannot interpret these images. This also hurts Google Image search visibility.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.2.4</td>
+              <td><div class="item-name">404 page is branded and helpful</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">A 404 error returns a Squarespace default page with brand name in the title. Message reads "We couldn't find the page you were looking for" with links back to homepage. Not a custom-branded experience, but functional. No search bar or CTA to request a bid.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quick-wins">
+          <h4>⚡ Quick Wins — Section 1.2</h4>
+          <ul>
+            <li>Rename the About page from "General 3" to "About Us" in Squarespace — this affects the browser tab title and SEO.</li>
+            <li>Add descriptive alt text to all project gallery photos (e.g., "vinyl fence installation West Jordan Utah" or "wood privacy fence backyard"). 15 minutes of work, meaningful SEO value.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 1.3 -->
+  <section>
+    <h2 class="section-title" id="sec-1-3">🔍 Section 1.3 — SEO Fundamentals</h2>
+    <details class="section-card">
+      <summary>
+        <div class="section-header-info">
+          <h3>1.3 SEO Fundamentals</h3>
+          <div class="section-subtitle">Title tags, meta descriptions, H1s, schema, internal linking</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#dc2626">0%</span>
+          <span class="grade-badge badge-critical" style="padding:2px 10px;border-radius:10px;font-size:12px">🔴 Critical</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <div class="flag-note">⚠️ <strong>Critical Gap:</strong> This section is the primary reason the site is invisible in local Google search. Every item below is failing. A contractor with a better-optimized site will outrank Cruz &amp; Sons for every relevant search query in West Jordan.</div>
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.3.1</td>
+              <td><div class="item-name">Location-specific page with unique content</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No dedicated location page exists. The only geographic reference to "West Jordan, Utah" is in the footer. There is no page targeting "fence company West Jordan UT" or any local keyword.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.3.2</td>
+              <td><div class="item-name">Title tag includes keyword + city + brand</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">Homepage title reads: <strong>"Cruz And Sons Fence Co."</strong> — no service keyword, no city, not optimized. About page title reads "General 3 — Cruz And Sons Fence Co." — a Squarespace default that was never updated. Should be: "Fence Company in West Jordan, UT | Cruz &amp; Sons Fence Co."</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.3.3</td>
+              <td><div class="item-name">Meta description unique and includes CTA</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No meta description found on the homepage. Google will auto-generate one from page content, which will likely pull irrelevant CSS text. This kills click-through rates from search results.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.3.4</td>
+              <td><div class="item-name">H1 is singular, keyword-rich, and descriptive</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No H1 tag found on the homepage. The visual headline "Start Your New Project Today" appears to be styled text (likely a paragraph or heading block), not a proper H1. This misses the most important on-page SEO signal.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.3.5</td>
+              <td><div class="item-name">Individual service pages for key offerings</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No individual service pages. Services (vinyl, wood, chain link, wrought iron, commercial) are mentioned only in brief homepage copy. No dedicated URLs for searchers looking for "vinyl fence installer West Jordan" or "chain link fence company Utah."</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.3.6</td>
+              <td><div class="item-name">Local schema markup (LocalBusiness/Contractor)</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No JSON-LD schema markup found on any page. No LocalBusiness, Contractor, or Service schema. Google cannot confirm the business type, location, or hours from the website code.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.3.7</td>
+              <td><div class="item-name">Google Search Console connected</div></td>
+              <td><span class="pill pill-na">➖ N/A</span></td>
+              <td class="item-note">Cannot verify from front-end. Should be confirmed manually. Sitemap exists and should be submitted to GSC immediately if not already done.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.3.8</td>
+              <td><div class="item-name">Internal linking between pages</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">Minimal internal linking — only through the navigation menu. Homepage sections do not link to a services page (none exists). No contextual links between content areas. Sitemap also lists a /take-action page that is not linked from navigation.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quick-wins">
+          <h4>⚡ Quick Wins — Section 1.3</h4>
+          <ul>
+            <li>Update the homepage SEO title in Squarespace to: <strong>"Fence Company in West Jordan, UT | Cruz &amp; Sons Fence Co."</strong> — 2 minutes, high impact.</li>
+            <li>Write a 150-character meta description for the homepage: e.g., <em>"Licensed &amp; insured fence company serving West Jordan, UT since 2012. Vinyl, wood, chain link &amp; more. Get a free bid today!"</em></li>
+            <li>Add a proper H1 heading to the homepage with keyword and city (e.g., "West Jordan's Trusted Fence Company").</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 1.4 -->
+  <section>
+    <h2 class="section-title" id="sec-1-4">🔧 Section 1.4 — Service Line Clarity</h2>
+    <details class="section-card">
+      <summary>
+        <div class="section-header-info">
+          <h3>1.4 Service Line Clarity</h3>
+          <div class="section-subtitle">Service descriptions, dedicated pages, emergency/urgent services, visual outcomes</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#dc2626">25%</span>
+          <span class="grade-badge badge-critical" style="padding:2px 10px;border-radius:10px;font-size:12px">🔴 Critical</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.4.1</td>
+              <td><div class="item-name">Services clearly listed in customer-friendly language</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">Services are mentioned in homepage sections: "vinyl, wood, chain link and all repairs" (commercial &amp; residential). Friendly language ("fast and efficient installation," "no job too big or too small") is present but descriptions are very brief — a single line each. No pricing ballparks, timelines, or outcome language.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.4.2</td>
+              <td><div class="item-name">High-value services have dedicated pages</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No dedicated pages for high-value services: vinyl fence installation, wood privacy fencing, ornamental/wrought iron, custom gates, commercial fencing. Every service is a potential SEO landing page that is currently missing.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.4.3</td>
+              <td><div class="item-name">Urgent/quick-turnaround service promoted</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No mention of emergency fence repair, storm damage repair, or fast-turnaround installation. This is a missed opportunity — many fence customers need urgent service (storm damage, broken fence panels, security needs).</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.4.4</td>
+              <td><div class="item-name">Services use aspirational/outcome language and show results</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">The Projects page contains a substantial gallery of real completed work — this is a strong visual trust signal. However, the gallery has no captions, labels, or outcome-focused copy. Photos are unnamed and uncategorized. Adding captions like "Vinyl privacy fence — Daybreak, South Jordan" would transform it.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quick-wins">
+          <h4>⚡ Quick Wins — Section 1.4</h4>
+          <ul>
+            <li>Add captions to the Projects gallery photos identifying fence type, material, and city — turns a generic gallery into a trust-building portfolio and SEO asset.</li>
+            <li>Add a "Fence Repair" service mention with urgency language ("Fast turnaround — same-week repairs available") on the homepage.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 1.5 -->
+  <section>
+    <h2 class="section-title" id="sec-1-5">🛡️ Section 1.5 — Trust-Building Elements</h2>
+    <details class="section-card">
+      <summary>
+        <div class="section-header-info">
+          <h3>1.5 Trust-Building Elements</h3>
+          <div class="section-subtitle">Reviews, bios, gallery, credentials, privacy policy</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#dc2626">40%</span>
+          <span class="grade-badge badge-critical" style="padding:2px 10px;border-radius:10px;font-size:12px">🔴 Critical</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.5.1</td>
+              <td><div class="item-name">Team bio with real photo and personal story</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">About page exists at /about with the tagline "Integrity, Innovation, Craft" and a brief family business description. However, no individual names (beyond contact page phone labels "Cruz Jr" and "Emilio"), no headshots, no credentials, no personal story. The About page title is the Squarespace default "General 3."</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.5.2</td>
+              <td><div class="item-name">Customer reviews displayed on website</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No reviews or testimonials anywhere on the website. No Google review widget, no star rating, no quoted testimonials. This is a significant trust gap — fencing is a high-consideration purchase and customers heavily rely on social proof.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.5.3</td>
+              <td><div class="item-name">Project gallery / portfolio present</div></td>
+              <td><span class="pill pill-pass">✅ Pass</span></td>
+              <td class="item-note">Strong point: the Projects page contains 50+ photos of completed fence installations across multiple fence types and styles. Real project photography (not stock images) is evident. This gallery is an underutilized asset that needs captions and organization.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.5.4</td>
+              <td><div class="item-name">Equipment / tools / materials featured</div></td>
+              <td><span class="pill pill-na">➖ N/A</span></td>
+              <td class="item-note">Not directly applicable for a fencing contractor. Mentions of materials (vinyl, wood, chain link, wrought iron) are present but brief.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.5.5</td>
+              <td><div class="item-name">Credentials, licenses, and affiliations displayed</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">"Licensed &amp; Insured" is mentioned in homepage text. "35+ years experience" and "since 2012" are referenced across various listings. However, no license number is shown, no badge/logo, no specific certifications or manufacturer certifications (e.g., Certainteed, Jerith). Text-only claims are less persuasive than visual badges.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.5.6</td>
+              <td><div class="item-name">Privacy Policy accessible in footer</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No privacy policy link found in the footer. The contact form collects personal data (name, phone, email) without a privacy statement. This creates a legal compliance gap, especially if the site collects email subscribers (there is a newsletter sign-up block on the homepage).</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quick-wins">
+          <h4>⚡ Quick Wins — Section 1.5</h4>
+          <ul>
+            <li>Add a Squarespace privacy policy page and link it in the footer — Squarespace has built-in tools for this. Required for legal compliance given the contact form and email subscription.</li>
+            <li>Embed a Google Reviews widget on the homepage (Squarespace supports third-party review widgets). Even 3–5 displayed reviews significantly increase conversion rates.</li>
+            <li>Add a one-paragraph "Meet the Cruz Family" section to the About page with a real team photo — hugely differentiating for a family-owned business.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 1.6 -->
+  <section>
+    <h2 class="section-title" id="sec-1-6">📍 Section 1.6 — Location &amp; NAP Consistency</h2>
+    <details class="section-card">
+      <summary>
+        <div class="section-header-info">
+          <h3>1.6 Location &amp; NAP Consistency</h3>
+          <div class="section-subtitle">Name, Address, Phone accuracy; map embed; hours</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#dc2626">13%</span>
+          <span class="grade-badge badge-critical" style="padding:2px 10px;border-radius:10px;font-size:12px">🔴 Critical</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <div class="flag-note">🚨 <strong>NAP Inconsistency Detected:</strong> The website footer shows phone number <strong>(801) 694-7966</strong>, while the Yelp business listing shows <strong>(385) 900-5260</strong>. Inconsistent NAP data across the web hurts local search rankings. All listings must match exactly.</div>
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.6.1</td>
+              <td><div class="item-name">NAP visible and consistent on site</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">Footer shows "West Jordan, Utah | (801)694-7966 | cruzandsonsfenceco@aol.com" — city and phone are present but no full street address. Contact page shows two phone numbers (Cruz Jr: 801-244-8478, Emilio: 801-694-7966). Yelp lists a different phone (385-900-5260) and address (6274 W Cedar Hill Rd, West Jordan, UT 84081) not found on the website.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.6.2</td>
+              <td><div class="item-name">Location has unique URL</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No dedicated location page (e.g., /west-jordan-utah-fence-company). The contact page doubles as the only location reference.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.6.3</td>
+              <td><div class="item-name">Embedded Google Map on contact/location page</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No map embed found on the contact page. No directions link. Customers cannot easily find the business location from the website.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.6.4</td>
+              <td><div class="item-name">Business hours accurate and prominently displayed</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No hours listed anywhere on the website. Yelp shows Mon–Sat 8:00 AM–6:30 PM, but this is not confirmed on the site itself. Customers cannot know if the business is open before calling.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quick-wins">
+          <h4>⚡ Quick Wins — Section 1.6</h4>
+          <ul>
+            <li>Add business hours to the contact page and footer — takes 5 minutes in Squarespace and answers a top customer question before they even call.</li>
+            <li>Embed a Google Maps iframe on the contact page — Squarespace makes this easy with the Map block. Greatly improves trust and helps with local SEO signals.</li>
+            <li>Standardize NAP across all online listings: pick one phone number, use the full street address everywhere, and match it exactly between the website, GBP, Yelp, Facebook, and BBB.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 1.7 -->
+  <section>
+    <h2 class="section-title" id="sec-1-7">💰 Section 1.7 — Financing &amp; Offers</h2>
+    <details class="section-card">
+      <summary>
+        <div class="section-header-info">
+          <h3>1.7 Financing &amp; Offers</h3>
+          <div class="section-subtitle">Payment options, financing, special offers, membership plans</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#dc2626">17%</span>
+          <span class="grade-badge badge-critical" style="padding:2px 10px;border-radius:10px;font-size:12px">🔴 Critical</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.7.1</td>
+              <td><div class="item-name">Payment methods and options visible</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No information about accepted payment methods (cash, check, credit card, Venmo, Zelle, etc.). Fence projects are often $2,000–$10,000+ — customers want to know how they can pay before committing.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.7.2</td>
+              <td><div class="item-name">Financing options featured</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No financing information. Competitors offering Greensky, Service Finance, or even simple payment plans will win larger jobs. Fencing is a considered purchase where "starting at $X/month" messaging can move fence-sitters to act.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.7.3</td>
+              <td><div class="item-name">New customer special with specifics</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">"Free Estimates" is present as an offer. This is table stakes in the fencing industry — every competitor offers free estimates. There is no unique offer, no seasonal promotion, no first-time customer discount, and no expiration to create urgency.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.7.4</td>
+              <td><div class="item-name">Membership/maintenance plan</div></td>
+              <td><span class="pill pill-na">➖ N/A</span></td>
+              <td class="item-note">Not standard for fencing contractors. N/A.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quick-wins">
+          <h4>⚡ Quick Wins — Section 1.7</h4>
+          <ul>
+            <li>Add a line on the contact/homepage about accepted payment methods — even simple text ("We accept cash, check, and all major credit cards") reduces friction.</li>
+            <li>Create a seasonal offer with urgency: e.g., "Spring Install Special — Book by May 31st and save $100 on materials."</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 1.8 -->
+  <section>
+    <h2 class="section-title" id="sec-1-8">✍️ Section 1.8 — Content Quality &amp; Messaging</h2>
+    <details class="section-card">
+      <summary>
+        <div class="section-header-info">
+          <h3>1.8 Content Quality &amp; Messaging</h3>
+          <div class="section-subtitle">Homepage copy, blog, FAQs, brand voice consistency</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#dc2626">25%</span>
+          <span class="grade-badge badge-critical" style="padding:2px 10px;border-radius:10px;font-size:12px">🔴 Critical</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.8.1</td>
+              <td><div class="item-name">Homepage copy is customer-centric</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">Some customer-focused language: "quality and affordable fencing," "fast and efficient installation," "no job too big or too small." However, copy is heavily focused on company attributes ("we offer," "we have") rather than customer outcomes ("you get a fence that..."). The About page mission statement ("Integrity, Innovation, Craft") is generic and not differentiated.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.8.2</td>
+              <td><div class="item-name">Blog/resources active with recent content</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No blog, resource section, or FAQ page exists. The sitemap shows content last modified in February–April 2023 — three years without new content. A blog covering topics like "How to Choose the Right Fence for Your Utah Home" or "Wood vs. Vinyl Fencing: Which Is Better?" would generate significant organic search traffic.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.8.3</td>
+              <td><div class="item-name">FAQs present on service pages</div></td>
+              <td><span class="pill pill-fail">❌ Fail</span></td>
+              <td class="item-note">No FAQs anywhere on the site. Common questions customers have ("How long does installation take?" "Do you pull permits?" "What's the lifespan of a vinyl fence?") go unanswered, pushing customers to call competitors for information.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.8.4</td>
+              <td><div class="item-name">Messaging consistent and professional</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">The brand voice is warm and family-oriented, which is appropriate. Tone is consistent across pages. However, the AOL email address, the unedited page title "General 3," and the lack of any brand color or logo differentiation weaken the overall brand impression. The company presents as competent but not polished.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quick-wins">
+          <h4>⚡ Quick Wins — Section 1.8</h4>
+          <ul>
+            <li>Add a simple FAQ section to the homepage (5–7 questions) — can be written in under an hour and will directly reduce pre-sales calls while improving SEO.</li>
+            <li>Rewrite key homepage headlines to be outcome-focused: change "Commercial &amp; Residential" (a category) to "Beautiful Fences Built to Last — For Your Home or Business."</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 1.9 -->
+  <section>
+    <h2 class="section-title" id="sec-1-9">⚙️ Section 1.9 — Technical Performance</h2>
+    <details class="section-card">
+      <summary>
+        <div class="section-header-info">
+          <h3>1.9 Technical Performance</h3>
+          <div class="section-subtitle">HTTPS, sitemap, broken links, duplicate content</div>
+        </div>
+        <div class="section-score-badge">
+          <span class="pct" style="color:#16a34a">88%</span>
+          <span class="grade-badge badge-strong" style="padding:2px 10px;border-radius:10px;font-size:12px">🟢 Strong</span>
+        </div>
+        <span class="chevron">›</span>
+      </summary>
+      <div class="section-body">
+        <table class="checklist-table">
+          <thead><tr><th>ID</th><th>Checkpoint</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="item-id">1.9.1</td>
+              <td><div class="item-name">Site uses HTTPS with valid SSL</div></td>
+              <td><span class="pill pill-pass">✅ Pass</span></td>
+              <td class="item-note">HTTPS confirmed on all pages. Squarespace provides SSL by default. No mixed content warnings detected.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.9.2</td>
+              <td><div class="item-name">XML sitemap exists and is accessible</div></td>
+              <td><span class="pill pill-pass">✅ Pass</span></td>
+              <td class="item-note">Sitemap confirmed at /sitemap.xml. Includes all 5 pages: /home, /projects, /contact, /about, /take-action. Last modified timestamps are from 2023 — should be submitted to Google Search Console. Note: /take-action is in the sitemap but not in the nav; verify this page is intentional.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.9.3</td>
+              <td><div class="item-name">No broken links on key pages</div></td>
+              <td><span class="pill pill-partial">⚠️ Partial</span></td>
+              <td class="item-note">All primary navigation links (/, /contact, /projects, /about) confirmed working. One page (/take-action) appears in the sitemap but is not linked in the navigation — status unclear. The 404 page functions correctly with a return path to homepage.</td>
+            </tr>
+            <tr>
+              <td class="item-id">1.9.4</td>
+              <td><div class="item-name">No duplicate content issues</div></td>
+              <td><span class="pill pill-pass">✅ Pass</span></td>
+              <td class="item-note">Single-location site with minimal content, so duplicate content risk is low. Squarespace handles canonical tags automatically.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:20px">
+          <h4 style="font-size:15px;font-weight:700;color:#1e293b;margin-bottom:12px">🔗 Broken Link Crawl Summary</h4>
+          <p style="font-size:13px;color:#64748b;margin-bottom:12px">5 unique internal URLs tested from sitemap and navigation:</p>
+          <table class="link-table">
+            <thead><tr><th>URL</th><th>Status</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>/</td><td><span class="pill pill-pass">✅ Live</span></td><td>Homepage loads correctly</td></tr>
+              <tr><td>/contact</td><td><span class="pill pill-pass">✅ Live</span></td><td>Contact page loads correctly</td></tr>
+              <tr><td>/projects</td><td><span class="pill pill-pass">✅ Live</span></td><td>Projects gallery loads correctly</td></tr>
+              <tr><td>/about</td><td><span class="pill pill-pass">✅ Live</span></td><td>About page loads correctly</td></tr>
+              <tr><td>/take-action</td><td><span class="pill pill-partial">⚠️ Unverified</span></td><td>In sitemap, not in nav — verify manually</td></tr>
+              <tr><td>/sitemap.xml</td><td><span class="pill pill-pass">✅ Live</span></td><td>Valid XML sitemap confirmed</td></tr>
+              <tr><td>/[fake-404-test]</td><td><span class="pill pill-partial">⚠️ Partial</span></td><td>Squarespace default 404 — functional but not custom-branded</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- GBP -->
+  <section id="gbp">
+    <h2 class="section-title">📍 Google Business Profile Summary</h2>
+    <div class="gbp-card">
+      <div class="flag-note">⚠️ <strong>No confirmed active GBP found.</strong> The BBB notes the business may be listed as inactive. Search results did not surface a prominent Google Knowledge Panel or Maps listing for "Cruz and Sons Fence West Jordan." This is a critical visibility gap — without an active, verified GBP, the business is invisible in "near me" searches.</div>
+      <div class="info-grid">
+        <div class="info-card">
+          <h5>GBP Status</h5>
+          <p>❌ Not confirmed active</p>
+        </div>
+        <div class="info-card">
+          <h5>Google Reviews</h5>
+          <p>❌ Not found / unverified</p>
+        </div>
+        <div class="info-card">
+          <h5>Yelp Listing</h5>
+          <p>✅ Active listing found</p>
+        </div>
+        <div class="info-card">
+          <h5>Yelp Hours (from listing)</h5>
+          <p>Mon–Sat 8:00 AM – 6:30 PM</p>
+        </div>
+        <div class="info-card">
+          <h5>Yelp Address</h5>
+          <p>6274 W Cedar Hill Rd, West Jordan, UT 84081</p>
+        </div>
+        <div class="info-card">
+          <h5>NAP Conflict</h5>
+          <p>⚠️ Website: (801)694-7966 — Yelp: (385)900-5260</p>
+        </div>
+        <div class="info-card">
+          <h5>Facebook Pages</h5>
+          <p>⚠️ 2 pages found (possible duplicate)</p>
+        </div>
+        <div class="info-card">
+          <h5>BBB Status</h5>
+          <p>⚠️ Listed as possibly inactive</p>
+        </div>
+        <div class="info-card">
+          <h5>Nextdoor</h5>
+          <p>✅ Listed — 1 recommendation</p>
+        </div>
+        <div class="info-card">
+          <h5>Appointment Link on GBP</h5>
+          <p>❌ Not applicable (GBP not confirmed)</p>
+        </div>
+      </div>
+      <div style="margin-top:20px;background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:16px">
+        <h4 style="color:#991b1b;font-size:14px;font-weight:700;margin-bottom:8px">🚨 P0 Action Required: Claim &amp; Verify Google Business Profile</h4>
+        <p style="font-size:13px;color:#7f1d1d">Claiming and optimizing a Google Business Profile is the single highest-ROI action this business can take. It costs nothing, takes 1–2 hours to set up, and directly enables the business to appear in Google Maps results for "fence company near me" searches. Without it, every local competitor with an active GBP will consistently outrank Cruz &amp; Sons in the most valuable local search real estate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL MEDIA -->
+  <section id="social">
+    <h2 class="section-title">📱 Social Media Summary</h2>
+    <div class="gbp-card">
+      <div class="info-grid">
+        <div class="info-card">
+          <h5>Facebook Page 1</h5>
+          <p>✅ "Cruz &amp; Sons Fence" — facebook.com/p/Cruz-Sons-Fence</p>
+        </div>
+        <div class="info-card">
+          <h5>Facebook Page 2</h5>
+          <p>⚠️ "Cruz and Sons Fence Company" — Possibly a duplicate page</p>
+        </div>
+        <div class="info-card">
+          <h5>Instagram</h5>
+          <p>❌ Not found / not linked from website</p>
+        </div>
+        <div class="info-card">
+          <h5>Social Links on Website</h5>
+          <p>❌ No social media icons or links found anywhere on the website</p>
+        </div>
+        <div class="info-card">
+          <h5>TikTok / YouTube</h5>
+          <p>❌ Not found</p>
+        </div>
+        <div class="info-card">
+          <h5>Posting Cadence</h5>
+          <p>⚠️ Unable to verify from website</p>
+        </div>
+      </div>
+      <div style="margin-top:16px;background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:16px">
+        <h4 style="color:#92400e;font-size:14px;font-weight:700;margin-bottom:8px">Key Social Media Recommendations</h4>
+        <ul style="font-size:13px;color:#78350f;list-style:none;">
+          <li style="padding:3px 0;display:flex;gap:8px"><span>⚡</span><span>Consolidate the two Facebook pages into one to avoid splitting followers and confusing customers.</span></li>
+          <li style="padding:3px 0;display:flex;gap:8px"><span>⚡</span><span>Add Facebook and any other social media links to the website footer — this builds credibility and drives followers.</span></li>
+          <li style="padding:3px 0;display:flex;gap:8px"><span>⚡</span><span>Create an Instagram account — fencing is highly visual and Instagram/Facebook Reels of before/after installs perform extremely well for local contractors.</span></li>
+          <li style="padding:3px 0;display:flex;gap:8px"><span>📌</span><span>Post project photos regularly to Facebook. Every completed fence is a content opportunity: photo of finished install + neighborhood tag + "Tap to get a free bid" CTA.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTION PLAN -->
+  <section id="action-plan">
+    <h2 class="section-title">🎯 Prioritized Action Plan</h2>
+    <table class="action-table">
+      <thead>
+        <tr><th>#</th><th>Priority</th><th>Action</th><th>Effort</th><th>Impact</th><th>Section</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td><span class="priority-p0">P0 — This Week</span></td>
+          <td><strong>Claim &amp; verify Google Business Profile.</strong> Search Google Maps for the business, claim ownership, add full NAP, photos, services, hours, and booking link pointing to the website contact form.</td>
+          <td>Medium (2–3 hrs)</td>
+          <td><span class="impact-high">🔴 Critical</span></td>
+          <td>GBP</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td><span class="priority-p0">P0 — This Week</span></td>
+          <td><strong>Fix homepage title tag and meta description.</strong> In Squarespace: Pages → Homepage → SEO. Set title to "Fence Company in West Jordan, UT | Cruz &amp; Sons Fence Co." and write a 155-char meta description with CTA.</td>
+          <td>Low (15 mins)</td>
+          <td><span class="impact-high">🔴 High</span></td>
+          <td>1.3</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td><span class="priority-p0">P0 — This Week</span></td>
+          <td><strong>Add click-to-call phone number to the site header.</strong> Add (801) 694-7966 as a tel: link in the Squarespace header. Make it visible on all pages without scrolling.</td>
+          <td>Low (15 mins)</td>
+          <td><span class="impact-high">🔴 High</span></td>
+          <td>1.1</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td><span class="priority-p1">P1 — This Month</span></td>
+          <td><strong>Standardize NAP across all listings.</strong> Decide on one phone number and one address format. Update website footer, GBP, Yelp, Facebook, BBB, and Yellow Pages to match exactly.</td>
+          <td>Medium (2 hrs)</td>
+          <td><span class="impact-high">🔴 High</span></td>
+          <td>1.6</td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td><span class="priority-p1">P1 — This Month</span></td>
+          <td><strong>Add business hours and Google Map to the contact page.</strong> Hours should also appear in the footer. Embed a Google Map using Squarespace's Map block.</td>
+          <td>Low (30 mins)</td>
+          <td><span class="impact-high">🔴 High</span></td>
+          <td>1.6</td>
+        </tr>
+        <tr>
+          <td><strong>6</strong></td>
+          <td><span class="priority-p1">P1 — This Month</span></td>
+          <td><strong>Add a Google Reviews widget to the homepage.</strong> Use a third-party Squarespace-compatible review widget (Elfsight, Trustmary, etc.) to display star rating and top reviews. Even 3 reviews increases conversions measurably.</td>
+          <td>Low (1 hr)</td>
+          <td><span class="impact-high">🔴 High</span></td>
+          <td>1.5</td>
+        </tr>
+        <tr>
+          <td><strong>7</strong></td>
+          <td><span class="priority-p1">P1 — This Month</span></td>
+          <td><strong>Add privacy policy page and link in footer.</strong> Squarespace has a built-in Privacy Policy generator. This is legally required when collecting contact form data and email addresses.</td>
+          <td>Low (20 mins)</td>
+          <td><span class="impact-med">🟠 Med</span></td>
+          <td>1.5</td>
+        </tr>
+        <tr>
+          <td><strong>8</strong></td>
+          <td><span class="priority-p1">P1 — This Month</span></td>
+          <td><strong>Fix the About page title from "General 3" to "About Us."</strong> Also add the owner's names, a photo, and 2–3 sentences about the family and why they started the business.</td>
+          <td>Low (30 mins)</td>
+          <td><span class="impact-med">🟠 Med</span></td>
+          <td>1.5 / 1.3</td>
+        </tr>
+        <tr>
+          <td><strong>9</strong></td>
+          <td><span class="priority-p2">P2 — Next Quarter</span></td>
+          <td><strong>Create individual service pages for top 4 fence types.</strong> Build pages for: Vinyl Fencing, Wood Privacy Fencing, Chain Link, and Ornamental/Wrought Iron. Each page should have 300+ words, photos from the gallery, and a "Get a Free Bid" CTA.</td>
+          <td>High (4–6 hrs)</td>
+          <td><span class="impact-high">🔴 High</span></td>
+          <td>1.3 / 1.4</td>
+        </tr>
+        <tr>
+          <td><strong>10</strong></td>
+          <td><span class="priority-p2">P2 — Next Quarter</span></td>
+          <td><strong>Add descriptive alt text and captions to all project gallery photos.</strong> Name each photo by fence type + location (e.g., "vinyl-privacy-fence-west-jordan-utah.jpg"). Organize gallery by fence type category.</td>
+          <td>Medium (2–3 hrs)</td>
+          <td><span class="impact-med">🟠 Med</span></td>
+          <td>1.2 / 1.3 / 1.4</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<footer class="audit-footer">
+  <strong>Cruz And Sons Fence Co. — Digital Storefront Audit Phase 1</strong><br/>
+  Audit Date: April 3, 2026 &nbsp;|&nbsp; Framework: Gen4 Digital Storefront v1 &nbsp;|&nbsp; Audited by Claude<br/>
+  <span style="opacity:0.5;font-size:11px">For internal use. Scores reflect point-in-time website and public listing data only.</span>
+</footer>
+
+<script>
+// Scroll-spy for nav
+const navLinks = document.querySelectorAll('#sticky-nav a');
+const sections = [];
+navLinks.forEach(link => {
+  const id = link.getAttribute('href').replace('#','');
+  const el = document.getElementById(id);
+  if(el) sections.push({id, el, link});
+});
+function onScroll() {
+  const scrollY = window.scrollY + 80;
+  let active = null;
+  sections.forEach(s => {
+    if(s.el.offsetTop <= scrollY) active = s;
+  });
+  navLinks.forEach(l => l.classList.remove('active'));
+  if(active) active.link.classList.add('active');
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+</script>
+</body>
+</html>
