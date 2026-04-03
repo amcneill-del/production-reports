@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SGA Priority Practice Digital Storefront Audit</title>
+<style>
+  :root {
+    --navy:   #1A2B4A;
+    --blue:   #2E5FA3;
+    --lblue:  #D6E4F7;
+    --pale:   #EEF4FB;
+    --green:  #1B7E3B;
+    --greenl: #D4EDDA;
+    --gold:   #C8860A;
+    --goldl:  #FEF3CD;
+    --orange: #D4750A;
+    --orangel:#FDE8C8;
+    --red:    #C0392B;
+    --redl:   #FADBD8;
+    --grey:   #F5F7FA;
+    --border: #BFCFE7;
+    --text:   #1a1a2e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f0f4f8; color: var(--text); }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy); display: flex; align-items: center;
+    gap: 4px; padding: 0 20px; box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    overflow-x: auto;
+  }
+  nav a {
+    color: #cde; text-decoration: none; font-size: 12px; font-weight: 600;
+    padding: 14px 12px; white-space: nowrap; border-bottom: 3px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  nav a:hover, nav a.active { color: #fff; border-color: #6ab0ff; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    color: #fff; padding: 48px 40px 40px; text-align: center;
+  }
+  .hero h1 { font-size: 28px; letter-spacing: .5px; }
+  .hero .sub { font-size: 14px; color: #a8c8ff; margin-top: 6px; }
+
+  /* KPI strip */
+  .kpi-strip {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .kpi {
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
+    border-radius: 12px; padding: 18px 28px; text-align: center; min-width: 130px;
+  }
+  .kpi .num { font-size: 32px; font-weight: 700; }
+  .kpi .lbl { font-size: 11px; color: #b0d0ff; margin-top: 4px; }
+
+  /* ── MAIN ── */
+  main { max-width: 1440px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  section { margin-bottom: 48px; }
+  h2 {
+    font-size: 18px; color: var(--navy); border-left: 5px solid var(--blue);
+    padding-left: 14px; margin-bottom: 20px;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 18px; }
+  .card {
+    background: #fff; border-radius: 12px; border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,.06); overflow: hidden;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.12); transform: translateY(-2px); }
+
+  .card-header {
+    padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .card-header .name { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .card-header .url  { font-size: 11px; color: #6b7a99; margin-top: 2px; }
+  .card-header .type-badge {
+    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px;
+    background: var(--lblue); color: var(--blue); white-space: nowrap;
+  }
+  .type-badge.specialty { background: #e0d4f7; color: #5b21b6; }
+
+  .score-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 18px; border-top: 1px solid var(--border);
+  }
+  .score-ring { position: relative; flex-shrink: 0; }
+  .score-ring svg { display: block; }
+  .score-ring .pct {
+    position: absolute; inset: 0; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; font-weight: 700; color: var(--navy);
+  }
+
+  .grade-pill {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .grade-Strong     { background: var(--greenl); color: var(--green); }
+  .grade-Good       { background: var(--goldl);  color: var(--gold); }
+  .grade-NeedsWork  { background: var(--orangel);color: var(--orange); }
+  .grade-Critical   { background: var(--redl);   color: var(--red); }
+
+  /* section bars */
+  .section-bars { padding: 10px 18px 14px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .bar-lbl { font-size: 10px; color: #5a6a8a; width: 82px; flex-shrink: 0; }
+  .bar-track {
+    flex: 1; height: 7px; background: var(--border); border-radius: 4px; overflow: hidden;
+  }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-pct { font-size: 10px; font-weight: 600; width: 30px; text-align: right; flex-shrink: 0; }
+
+  .gap-box {
+    margin: 0 18px 14px; background: var(--pale); border-radius: 8px;
+    padding: 9px 12px; font-size: 11px; color: #3a4a6a;
+    border-left: 3px solid var(--orange);
+  }
+  .gap-box strong { display: block; color: var(--navy); margin-bottom: 3px; font-size: 11px; }
+
+  /* ── HEATMAP ── */
+  .heat-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+  table.heatmap {
+    width: 100%; border-collapse: collapse; font-size: 12px; background: #fff;
+    min-width: 900px;
+  }
+  table.heatmap th {
+    background: var(--blue); color: #fff; padding: 10px 8px; text-align: center;
+    font-size: 11px; font-weight: 700; white-space: nowrap;
+  }
+  table.heatmap th:first-child { text-align: left; min-width: 200px; }
+  table.heatmap td {
+    padding: 8px; border-bottom: 1px solid var(--border); text-align: center;
+  }
+  table.heatmap td:first-child { text-align: left; font-weight: 600; padding-left: 14px; }
+  table.heatmap tr:hover td { filter: brightness(.96); }
+
+  .cell-strong  { background: var(--greenl); color: var(--green);  font-weight: 700; }
+  .cell-good    { background: var(--goldl);  color: var(--gold);   font-weight: 700; }
+  .cell-needs   { background: var(--orangel);color: var(--orange); font-weight: 700; }
+  .cell-crit    { background: var(--redl);   color: var(--red);    font-weight: 700; }
+
+  /* ── PATTERNS ── */
+  .pattern-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .pattern-card {
+    background: #fff; border-radius: 10px; border: 1px solid var(--border);
+    padding: 18px; display: flex; gap: 14px;
+  }
+  .pattern-num {
+    font-size: 22px; font-weight: 700; color: var(--blue);
+    width: 36px; flex-shrink: 0; padding-top: 2px;
+  }
+  .pattern-card h4 { font-size: 13px; color: var(--navy); margin-bottom: 4px; }
+  .pattern-card .prev { font-size: 11px; color: var(--red); font-weight: 700; margin-bottom: 6px; }
+  .pattern-card .fix { font-size: 11px; color: #3a4a6a; }
+
+  /* ── CHART (CSS bars) ── */
+  .rank-list { display: flex; flex-direction: column; gap: 6px; }
+  .rank-row {
+    display: flex; align-items: center; gap: 10px; background: #fff;
+    border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px;
+  }
+  .rank-name { font-size: 12px; font-weight: 600; color: var(--navy); width: 220px; flex-shrink: 0; }
+  .rank-track { flex: 1; height: 14px; background: var(--border); border-radius: 7px; overflow: hidden; }
+  .rank-bar { height: 100%; border-radius: 7px; }
+  .rank-score { font-size: 12px; font-weight: 700; width: 42px; text-align: right; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 28px; font-size: 11px; color: #8898bb;
+    border-top: 1px solid var(--border); margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<nav id="topnav">
+  <a href="#overview"  class="active">Overview</a>
+  <a href="#scorecards">Practice Scorecards</a>
+  <a href="#heatmap">Score Heatmap</a>
+  <a href="#ranking">Rankings</a>
+  <a href="#patterns">Portfolio Patterns</a>
+  <a href="#priorities">Priority Matrix</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>SGA PRIORITY PRACTICE DIGITAL STOREFRONT AUDIT</h1>
+  <p class="sub">Phase 1 Framework &nbsp;|&nbsp; 18 Practices &nbsp;|&nbsp; Audit Date: April 3, 2026 &nbsp;|&nbsp; Audited by Claude (Gen4 Marketing Framework)</p>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="num">18</div><div class="lbl">Practices Audited</div></div>
+    <div class="kpi"><div class="num">71%</div><div class="lbl">Portfolio Avg Score</div></div>
+    <div class="kpi"><div class="num">2</div><div class="lbl">🟢 Strong (80%+)</div></div>
+    <div class="kpi"><div class="num">12</div><div class="lbl">🟡 Good (60–79%)</div></div>
+    <div class="kpi"><div class="num">4</div><div class="lbl">🟠 Needs Work (&lt;60%)</div></div>
+    <div class="kpi"><div class="num">81%</div><div class="lbl">Highest Score</div></div>
+    <div class="kpi"><div class="num">53%</div><div class="lbl">Lowest Score</div></div>
+  </div>
+</div>
+
+<main>
+
+<!-- ══ SECTION: PRACTICE SCORECARDS ═══════════════════════════════════════ -->
+<section id="scorecards">
+<h2>Practice Scorecards</h2>
+<div class="cards" id="card-container"></div>
+</section>
+
+<!-- ══ SECTION: HEATMAP ═══════════════════════════════════════════════════ -->
+<section id="heatmap">
+<h2>Section-by-Section Score Heatmap</h2>
+<div class="heat-wrap">
+<table class="heatmap" id="heat-table">
+<thead>
+<tr>
+  <th>Practice</th>
+  <th>Type</th>
+  <th>Conv<br>1.1</th>
+  <th>UX<br>1.2</th>
+  <th>SEO<br>1.3</th>
+  <th>Services<br>1.4</th>
+  <th>Trust<br>1.5</th>
+  <th>NAP<br>1.6</th>
+  <th>Insurance<br>1.7</th>
+  <th>Content<br>1.8</th>
+  <th>Technical<br>1.9</th>
+  <th>Overall</th>
+  <th>Grade</th>
+</tr>
+</thead>
+<tbody id="heat-body"></tbody>
+<tfoot>
+<tr id="avg-row" style="background:#f0f4f8; font-weight:700; font-size:11px;">
+  <td style="padding-left:14px;">Portfolio Average</td>
+  <td>—</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div style="display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;font-size:11px;">
+  <span style="background:var(--greenl);color:var(--green);padding:4px 10px;border-radius:20px;font-weight:700;">🟢 Strong 80%+</span>
+  <span style="background:var(--goldl);color:var(--gold);padding:4px 10px;border-radius:20px;font-weight:700;">🟡 Good 60–79%</span>
+  <span style="background:var(--orangel);color:var(--orange);padding:4px 10px;border-radius:20px;font-weight:700;">🟠 Needs Work 40–59%</span>
+  <span style="background:var(--redl);color:var(--red);padding:4px 10px;border-radius:20px;font-weight:700;">🔴 Critical &lt;40%</span>
+</div>
+</section>
+
+<!-- ══ SECTION: RANKING ═══════════════════════════════════════════════════ -->
+<section id="ranking">
+<h2>Practice Rankings — Overall Score</h2>
+<div class="rank-list" id="rank-list"></div>
+</section>
+
+<!-- ══ SECTION: PATTERNS ══════════════════════════════════════════════════ -->
+<section id="patterns">
+<h2>Cross-Portfolio Patterns — Issues Affecting 65%+ of Practices</h2>
+<div class="pattern-grid" id="patterns-grid"></div>
+</section>
+
+<!-- ══ SECTION: PRIORITY MATRIX ══════════════════════════════════════════ -->
+<section id="priorities">
+<h2>Priority Action Matrix</h2>
+<div class="heat-wrap">
+<table class="heatmap" id="priority-table">
+<thead>
+<tr>
+  <th style="text-align:left;">Practice</th>
+  <th>Type</th>
+  <th>Grade</th>
+  <th style="text-align:left;min-width:220px;">#1 Priority Action</th>
+  <th style="text-align:left;min-width:220px;">#2 Priority Action</th>
+  <th style="text-align:left;min-width:220px;">#3 Priority Action</th>
+</tr>
+</thead>
+<tbody id="priority-body"></tbody>
+</table>
+</div>
+</section>
+
+</main>
+
+<footer>
+  Gen4 Dental — Phase 1 Digital Storefront Audit &nbsp;|&nbsp; Generated April 3, 2026 &nbsp;|&nbsp; Confidential
+</footer>
+
+<script>
+const practices = [
+  { name:"Benner & Townsend Dentistry",  url:"bennerandtownsenddentistry.com",  type:"General",  overall:72, conv:67, ux:100, seo:63, svc:75, trust:67, nap:100, ins:50, cont:75, tech:75, grade:"Good",      gap:"Missing H1 tag; no before/after gallery; no local schema markup",
+    p1:"Add H1 with keyword + city", p2:"Install JSON-LD schema markup", p3:"Create before/after gallery" },
+  { name:"Peach Family Dental Group",    url:"peachfamilydentalgroup.com",      type:"General",  overall:76, conv:67, ux:75,  seo:63, svc:75, trust:83, nap:100, ins:50, cont:50, tech:75, grade:"Good",      gap:"No new patient offer; no insurance/financing page",
+    p1:"Create new patient offer ($X exam)", p2:"Build Insurance & Financing page", p3:"Add sticky booking CTA above fold" },
+  { name:"Lake Mary Dentistry",          url:"lakemarydentistry.com",           type:"General",  overall:58, conv:67, ux:63,  seo:38, svc:50, trust:67, nap:88,  ins:38, cont:75, tech:63, grade:"Needs Work", gap:"No online booking; no individual service pages; SEO critical",
+    p1:"Embed real-time online booking", p2:"Create 5+ individual service pages", p3:"Implement schema + local SEO" },
+  { name:"Lake Shore Dental",            url:"mylakeshoredental.com",           type:"General",  overall:73, conv:67, ux:100, seo:62, svc:100,trust:92, nap:100, ins:75, cont:87, tech:75, grade:"Good",      gap:"No embedded booking widget; dead Instagram link",
+    p1:"Embed real-time online booking widget", p2:"Fix/replace dead Instagram link", p3:"Submit sitemap to Google Search Console" },
+  { name:"Eric Moskowitz DDS",           url:"ericmoskowitzdds.com",            type:"General",  overall:79, conv:83, ux:88,  seo:69, svc:100,trust:83, nap:75,  ins:75, cont:50, tech:100,grade:"Strong",    gap:"No GBP claim detected; no blog or FAQs on service pages",
+    p1:"Claim & optimize Google Business Profile", p2:"Launch monthly blog", p3:"Add FAQs to all major service pages" },
+  { name:"Oakwood Smiles",               url:"oakwoodsmiles.com",               type:"General",  overall:81, conv:83, ux:100, seo:50, svc:88, trust:100,nap:100, ins:75, cont:75, tech:100,grade:"Strong",    gap:"Missing meta descriptions; no new patient offer",
+    p1:"Add meta descriptions to all pages", p2:"Create new patient offer ($99 exam)", p3:"Implement JSON-LD schema markup" },
+  { name:"Pryor Family Dentistry",       url:"pryorfamilydentistry.com",        type:"General",  overall:71, conv:83, ux:75,  seo:50, svc:75, trust:75, nap:88,  ins:100,cont:50, tech:50, grade:"Good",      gap:"Broken service page 404s; no before/after gallery",
+    p1:"Fix broken 404 service page links", p2:"Create before/after cosmetic gallery", p3:"Add schema markup + fix GSC" },
+  { name:"Ressler Dental",               url:"resslerdental.com",               type:"General",  overall:70, conv:67, ux:75,  seo:69, svc:88, trust:92, nap:100, ins:63, cont:88, tech:88, grade:"Good",      gap:"Nav too large; needs branded 404; weak financing promotion",
+    p1:"Slim nav to 5–7 items max", p2:"Create branded custom 404 page", p3:"Add dedicated financing/membership page" },
+  { name:"Riverside Dental",             url:"riverside-dental.com",            type:"General",  overall:76, conv:92, ux:88,  seo:63, svc:88, trust:83, nap:75,  ins:25, cont:63, tech:75, grade:"Good",      gap:"No schema; no new patient offer; no embedded map",
+    p1:"Implement JSON-LD schema markup", p2:"Create new patient offer above fold", p3:"Embed Google Map + show hours prominently" },
+  { name:"Smile Center of Orlando",      url:"smilecenteroforlando.com",        type:"General",  overall:53, conv:75, ux:63,  seo:44, svc:50, trust:50, nap:100, ins:25, cont:25, tech:50, grade:"Needs Work", gap:"No insurance/financing; no blog; no before/after gallery",
+    p1:"Add Insurance & Financing page", p2:"Launch blog (2x/month)", p3:"Create before/after cosmetic gallery" },
+  { name:"Smile Gulf Coast",             url:"smilegulfcoast.com",              type:"General",  overall:67, conv:67, ux:75,  seo:50, svc:100,trust:83, nap:75,  ins:25, cont:63, tech:50, grade:"Good",      gap:"No online booking; no insurance/financing page",
+    p1:"Embed real-time online booking", p2:"Build Insurance & Financing page", p3:"Add JSON-LD schema markup" },
+  { name:"Southern Oak Conway",          url:"southernoakconway.com",           type:"General",  overall:72, conv:83, ux:75,  seo:50, svc:75, trust:58, nap:100, ins:38, cont:25, tech:75, grade:"Good",      gap:"Weak SEO; no insurance list; inactive blog",
+    p1:"Add meta descriptions to all pages", p2:"Create Insurance & Financing page", p3:"Launch monthly blog program" },
+  { name:"AA Oral Facial Surgery",       url:"aaoralfacial.com",                type:"Specialty",overall:62, conv:50, ux:63,  seo:50, svc:75, trust:67, nap:75,  ins:25, cont:50, tech:75, grade:"Needs Work", gap:"No online booking; unclaimed GBP; no before/after gallery",
+    p1:"Claim & optimize Google Business Profiles", p2:"Implement online booking", p3:"Create Insurance & Financing page" },
+  { name:"Alpharetta Periodontics",      url:"alpharettaperio.com",             type:"Specialty",overall:71, conv:50, ux:88,  seo:63, svc:100,trust:58, nap:75,  ins:50, cont:63, tech:100,grade:"Good",      gap:"No booking widget; no reviews displayed; no schema",
+    p1:"Embed booking widget in header/hero", p2:"Claim & optimize Google Business Profile", p3:"Add patient review system to site" },
+  { name:"Beaches Periodontics",         url:"beachesperiodontics.com",         type:"Specialty",overall:63, conv:38, ux:25,  seo:50, svc:75, trust:58, nap:75,  ins:0,  cont:50, tech:50, grade:"Needs Work", gap:"Site partially inaccessible during audit; no insurance/financing info",
+    p1:"Fix/verify website accessibility issues", p2:"Create Insurance & Financing page", p3:"Implement online appointment booking" },
+  { name:"Parkway Periodontics",         url:"parkway-perio.com",               type:"Specialty",overall:75, conv:50, ux:75,  seo:63, svc:88, trust:75, nap:75,  ins:25, cont:50, tech:75, grade:"Good",      gap:"No online booking; no reviews; no before/after gallery",
+    p1:"Implement real-time online booking", p2:"Launch patient review campaign", p3:"Build before/after case gallery" },
+  { name:"Sandhills Dental Rehab",       url:"sandhillsdentalrehab.com",        type:"Specialty",overall:72, conv:58, ux:100, seo:75, svc:88, trust:75, nap:100, ins:25, cont:50, tech:75, grade:"Good",      gap:"No online booking; placeholder testimonials; no insurance page",
+    p1:"Embed online booking widget", p2:"Replace placeholder testimonials with real reviews", p3:"Add Insurance & Financing page" },
+  { name:"Perio NC",                     url:"perionc.com",                     type:"Specialty",overall:72, conv:50, ux:100, seo:37, svc:88, trust:83, nap:75,  ins:0,  cont:63, tech:88, grade:"Good",      gap:"SEO critical (no schema / location pages); zero insurance/financing info",
+    p1:"Create new patient offer (first exam promo)", p2:"Build Insurance & Financing page", p3:"Implement location pages + schema markup" },
+];
+
+const sections = [
+  {key:"conv",  label:"Conv 1.1"},
+  {key:"ux",    label:"UX 1.2"},
+  {key:"seo",   label:"SEO 1.3"},
+  {key:"svc",   label:"Services 1.4"},
+  {key:"trust", label:"Trust 1.5"},
+  {key:"nap",   label:"NAP 1.6"},
+  {key:"ins",   label:"Insurance 1.7"},
+  {key:"cont",  label:"Content 1.8"},
+  {key:"tech",  label:"Technical 1.9"},
+];
+
+function scoreClass(v) {
+  if (v >= 80) return "cell-strong";
+  if (v >= 60) return "cell-good";
+  if (v >= 40) return "cell-needs";
+  return "cell-crit";
+}
+function scoreColor(v) {
+  if (v >= 80) return "var(--green)";
+  if (v >= 60) return "var(--gold)";
+  if (v >= 40) return "var(--orange)";
+  return "var(--red)";
+}
+function gradeCls(g) {
+  return "grade-" + g.replace(/\s+/g,"");
+}
+function scoreRing(pct, size=56) {
+  const r = (size-8)/2, c = size/2;
+  const circ = 2*Math.PI*r;
+  const dash = (pct/100)*circ;
+  const color = scoreColor(pct);
+  return `<svg width="${size}" height="${size}">
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="#e5eaf3" stroke-width="5"/>
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${color}" stroke-width="5"
+      stroke-dasharray="${dash} ${circ-dash}"
+      stroke-dashoffset="${circ/4}" stroke-linecap="round"/>
+  </svg>`;
+}
+
+// ── Build cards ──────────────────────────────────────────────────────────────
+const container = document.getElementById("card-container");
+practices.forEach(p => {
+  const card = document.createElement("div");
+  card.className = "card";
+  const bars = sections.map(s => {
+    const v = p[s.key];
+    return `<div class="bar-row">
+      <span class="bar-lbl">${s.label}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${v}%;background:${scoreColor(v)};"></div></div>
+      <span class="bar-pct" style="color:${scoreColor(v)}">${v}%</span>
+    </div>`;
+  }).join("");
+
+  card.innerHTML = `
+    <div class="card-header" style="background:${p.type==='Specialty'?'#f0ebfd':'var(--pale)'}">
+      <div>
+        <div class="name">${p.name}</div>
+        <div class="url">${p.url}</div>
+      </div>
+      <span class="type-badge${p.type==='Specialty'?' specialty':''}">${p.type}</span>
+    </div>
+    <div class="score-row">
+      <div class="score-ring">
+        ${scoreRing(p.overall)}
+        <div class="pct" style="font-size:13px;color:${scoreColor(p.overall)}">${p.overall}%</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:#8898bb;margin-bottom:4px;">Overall Score</div>
+        <span class="grade-pill ${gradeCls(p.grade)}">${p.grade}</span>
+      </div>
+    </div>
+    <div class="section-bars">${bars}</div>
+    <div class="gap-box"><strong>⚡ Top Priorities</strong>${p.gap}</div>
+  `;
+  container.appendChild(card);
+});
+
+// ── Build heatmap ────────────────────────────────────────────────────────────
+const hbody = document.getElementById("heat-body");
+const sums = {conv:0,ux:0,seo:0,svc:0,trust:0,nap:0,ins:0,cont:0,tech:0,overall:0};
+practices.forEach(p => {
+  Object.keys(sums).forEach(k => sums[k] += p[k]);
+  const tr = document.createElement("tr");
+  const gCls = gradeCls(p.grade);
+  tr.innerHTML = `
+    <td>${p.name}</td>
+    <td style="font-size:10px;${p.type==='Specialty'?'background:#f0ebfd;color:#5b21b6;font-weight:700;':'color:#6b7a99;'}">${p.type}</td>
+    ${sections.map(s=>`<td class="${scoreClass(p[s.key])}">${p[s.key]}%</td>`).join("")}
+    <td class="${scoreClass(p.overall)}" style="font-weight:700">${p.overall}%</td>
+    <td><span class="grade-pill ${gCls}" style="font-size:10px">${p.grade}</span></td>
+  `;
+  hbody.appendChild(tr);
+});
+
+// avg row
+const avgRow = document.getElementById("avg-row");
+const n = practices.length;
+[...sections.map(s=>sums[s.key]), sums.overall].forEach((sum, i) => {
+  const avg = Math.round(sum/n);
+  const td = document.createElement("td");
+  td.className = scoreClass(avg);
+  td.style.fontWeight = "700";
+  td.textContent = avg + "%";
+  avgRow.appendChild(td);
+});
+const grTd = document.createElement("td");
+grTd.textContent = "—";
+avgRow.appendChild(grTd);
+
+// ── Rankings ─────────────────────────────────────────────────────────────────
+const ranked = [...practices].sort((a,b)=>b.overall-a.overall);
+const rankList = document.getElementById("rank-list");
+ranked.forEach((p, i) => {
+  const div = document.createElement("div");
+  div.className = "rank-row";
+  const color = scoreColor(p.overall);
+  div.innerHTML = `
+    <span style="font-size:12px;font-weight:700;color:#8898bb;width:22px;text-align:right;">${i+1}</span>
+    <div class="rank-name">${p.name} <span style="font-size:10px;color:#8898bb;">(${p.type})</span></div>
+    <div class="rank-track"><div class="rank-bar" style="width:${p.overall}%;background:${color};"></div></div>
+    <span class="rank-score" style="color:${color}">${p.overall}%</span>
+    <span class="grade-pill ${gradeCls(p.grade)}" style="font-size:10px;">${p.grade}</span>
+  `;
+  rankList.appendChild(div);
+});
+
+// ── Patterns ──────────────────────────────────────────────────────────────────
+const patterns = [
+  { num:"01", title:"Online Booking Missing",         prev:"16 / 18 practices — 89%", fix:"Embed a real-time booking widget (Zocdoc, NexHealth, or platform-native) in the header and hero of every site." },
+  { num:"02", title:"Insurance & Financing Page",     prev:"15 / 18 practices — 83%", fix:"Create a dedicated Insurance & Financing page. Name specific accepted plans. Feature CareCredit/Sunbit with logos and apply link." },
+  { num:"03", title:"Local Schema Markup (JSON-LD)",  prev:"15 / 18 practices — 83%", fix:"Implement LocalBusiness / Dentist JSON-LD on all location pages with full NAP, hours, and service list." },
+  { num:"04", title:"No New Patient Offer",           prev:"14 / 18 practices — 78%", fix:"Display a specific dollar offer (e.g. '$99 Exam + X-Rays') with a booking CTA above the fold on the homepage." },
+  { num:"05", title:"No Before/After Gallery",        prev:"12 / 18 practices — 67%", fix:"Publish an authentic case gallery organized by procedure. Minimum 8–10 cases. Critical for cosmetic and specialty practices." },
+  { num:"06", title:"Inactive Blog / Content Gap",    prev:"13 / 18 practices — 72%", fix:"Commit to 2x/month publishing. Prioritize local SEO topics. Add FAQ schema to all major service pages." },
+];
+const pg = document.getElementById("patterns-grid");
+patterns.forEach(pat => {
+  const d = document.createElement("div");
+  d.className = "pattern-card";
+  d.innerHTML = `<div class="pattern-num">${pat.num}</div>
+  <div>
+    <h4>${pat.title}</h4>
+    <div class="prev">${pat.prev}</div>
+    <div class="fix"><strong>Fix:</strong> ${pat.fix}</div>
+  </div>`;
+  pg.appendChild(d);
+});
+
+// ── Priority table ────────────────────────────────────────────────────────────
+const pbody = document.getElementById("priority-body");
+practices.forEach(p => {
+  const tr = document.createElement("tr");
+  const gCls = gradeCls(p.grade);
+  tr.innerHTML = `
+    <td style="font-weight:600;">${p.name}</td>
+    <td style="font-size:10px;${p.type==='Specialty'?'background:#f0ebfd;color:#5b21b6;font-weight:700;':'color:#6b7a99;'}">${p.type}</td>
+    <td><span class="grade-pill ${gCls}" style="font-size:10px">${p.grade}</span></td>
+    <td style="text-align:left;color:var(--red);font-weight:600;font-size:11px;">${p.p1}</td>
+    <td style="text-align:left;color:var(--orange);font-weight:600;font-size:11px;">${p.p2}</td>
+    <td style="text-align:left;color:var(--gold);font-weight:600;font-size:11px;">${p.p3}</td>
+  `;
+  pbody.appendChild(tr);
+});
+
+// ── Scroll-spy nav ────────────────────────────────────────────────────────────
+const navLinks = document.querySelectorAll("nav a");
+const sections2 = [...navLinks].map(a => document.querySelector(a.getAttribute("href")));
+window.addEventListener("scroll", () => {
+  const y = window.scrollY + 80;
+  let active = 0;
+  sections2.forEach((s,i) => { if (s && s.offsetTop <= y) active = i; });
+  navLinks.forEach((a,i) => a.classList.toggle("active", i === active));
+}, {passive:true});
+</script>
+</body>
+</html>
